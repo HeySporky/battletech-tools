@@ -20,8 +20,8 @@ export default class PilotHitTrackSVG extends React.Component<IPilotHitTrackSVGP
             this.strokeColor = this.props.strokeColor;
         }
 
-        let baseWidth = 744.09448819;
-        let baseHeight = 1052.3622047;
+        const baseWidth = 744.09448819;
+        const baseHeight = 1052.3622047;
         if( this.props.width ) {
             this.theWidth = this.props.width;
             this.theHeight = Math.round( this.props.width / baseWidth * baseHeight );
@@ -40,9 +40,9 @@ export default class PilotHitTrackSVG extends React.Component<IPilotHitTrackSVGP
 
     render = (): JSX.Element => {
 
-        let damageTrack: JSX.Element[] = [];
+        const damageTrack: JSX.Element[] = [];
 
-        let boxWidth = 60;
+        const boxWidth = 60;
         let lWidthBuffer = 0;
         for( let hits = 1; hits < 7; hits++ ) {
             let concRoll: string = "";

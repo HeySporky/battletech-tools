@@ -2,6 +2,7 @@ import React, { type JSX } from 'react';
 import { IAppGlobals } from '../../../app-router';
 import PrintablePage from '../../../components/printable-page';
 import AlphaStrikeUnitSVG from '../../../components/svg/alpha-strike-unit-svg';
+import { mechRulesLevel } from '../../../components/design-lock';
 
 export default class MechCreatorPrintAS extends React.Component<IPrintASProps, IPrintASState> {
     constructor(props: IPrintASProps) {
@@ -20,6 +21,7 @@ export default class MechCreatorPrintAS extends React.Component<IPrintASProps, I
         <>
           <PrintablePage backTo={`${process.env.PUBLIC_URL}/classic-battletech/mech-creator/summary`} appGlobals={this.props.appGlobals}
             requiredRulesLevel={this.props.appGlobals.currentBattleMech.getRequiredRulesLevel()}
+            rulesLevel={mechRulesLevel(this.props.appGlobals)}
             provisionalNote={this.props.appGlobals.currentBattleMech.isPointValueProvisional() ? "provisional BV/PV" : undefined}
           >
             <div className="print-page">

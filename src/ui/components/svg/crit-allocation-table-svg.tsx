@@ -1,5 +1,6 @@
 import React, { type JSX } from 'react';
 import { BattleMech } from '../../../classes/battlemech';
+import { getCriticalTables } from '../../../utils/critical-tables';
 
 export default class CritAllocationTableSVG extends React.Component<ICritAllocationTableSVGProps, ICritAllocationTableSVGState> {
 
@@ -15,18 +16,24 @@ export default class CritAllocationTableSVG extends React.Component<ICritAllocat
     render = (): JSX.Element => {
 
         // let bgColor = "rgb(255,255,255)";
-        let strokeColor = "rgb(0,0,0)";
+        const strokeColor = "rgb(0,0,0)";
         // let landscape: boolean = false;
         // let inPlay: boolean = false;
-        let colorMediumGray = "rgb(150, 150, 150)";
-        let colorVeryLightGray = "rgb(200, 200, 200)";
+        const colorMediumGray = "rgb(150, 150, 150)";
+        const colorVeryLightGray = "rgb(200, 200, 200)";
         // let colorTan = "#fdfde3";
-        let fontSize = 25;
-        let boxWidth = 275;
-        let lineBuffer = 6;
+        // A location's slots print in tables of six with a blank line between them (TW p.124's two tables; ours past
+        // 12 slots under Clell Flint's construction rules, #172). `scale` shrinks the type to fit a long location.
+        const scale = this.props.scale ?? 1;
+        const fontSize = 25 * scale;
+        const boxWidth = 275;
+        const lineBuffer = 6 * scale;
+        const tables = getCriticalTables( this.props.critData.length );
+        const isTableStart = (index: number) => index > 0 && tables.some( table => table.start === index );
+        const tableEnd = (index: number) => tables.find( table => table.start + table.length - 1 === index );
 
-        let critTable: JSX.Element[] = [];
-        let critBackgrounds: JSX.Element[] = [];
+        const critTable: JSX.Element[] = [];
+        const critBackgrounds: JSX.Element[] = [];
 
         let lineCount = 0;
         let dieNumber = 1;
@@ -67,7 +74,7 @@ export default class CritAllocationTableSVG extends React.Component<ICritAllocat
 
                         boxHeight = (this.props.yLoc + lineCount * (fontSize + lineBuffer) - yStartBox - lineBuffer );
 
-                        if( critC === 6 ) {
+                        if( isTableStart( critC ) ) {
                             boxHeight = (this.props.yLoc + (lineCount - 1 ) * (fontSize + lineBuffer) - yStartBox - lineBuffer );
                         }
                         critBackgrounds.push( <rect key={critC.toString() + "e"} x={this.props.xLoc - 10} rx={15} ry={15} y={yStartBox - fontSize + 2} width={boxWidth} height={ boxHeight } stroke={strokeColor} strokeWidth={2} fill={colorVeryLightGray} /> );
@@ -107,7 +114,7 @@ export default class CritAllocationTableSVG extends React.Component<ICritAllocat
                     ) {
                         boxHeight = (this.props.yLoc + lineCount * (fontSize + lineBuffer) - yStartBox - lineBuffer );
 
-                        if( critC === 6 ) {
+                        if( isTableStart( critC ) ) {
                             boxHeight = (this.props.yLoc + (lineCount - 1 ) * (fontSize + lineBuffer) - yStartBox - lineBuffer );
                     }
                     critBackgrounds.push( <rect  key={critC.toString() + "g"} x={ this.props.xLoc - 10} rx={15} ry={15} y={yStartBox - fontSize + 2} width={boxWidth} height={boxHeight} stroke={strokeColor} strokeWidth={2} fill={colorVeryLightGray} /> );
@@ -119,13 +126,19 @@ export default class CritAllocationTableSVG extends React.Component<ICritAllocat
 
             }
 
-            critTable.push( <text key={critC.toString() + "h"}  x={this.props.xLoc - 40} y={this.props.yLoc + lineCount * (fontSize + lineBuffer)} textAnchor="start" fontFamily="sans-serif" fill={strokeColor} style={{fontWeight: 500}} fontSize={fontSize}>{dieNumber}.</text> );
+            critTable.push( <text key={critC.toString() + "h"} data-testid="crit-line-die" x={this.props.xLoc - 40} y={this.props.yLoc + lineCount * (fontSize + lineBuffer)} textAnchor="start" fontFamily="sans-serif" fill={strokeColor} style={{fontWeight: 500}} fontSize={fontSize}>{dieNumber}.</text> );
+            // An armored component's slot numbers are circled (TO:AUE p.95).
+            if( this.props.mechData.isCriticalSlotArmored( this.props.location, critC ) ) {
+                critTable.push( <circle key={critC.toString() + "armored"} data-testid="armored-slot" cx={this.props.xLoc - 30} cy={this.props.yLoc + lineCount * (fontSize + lineBuffer) - fontSize / 2.8} r={fontSize * 0.62} stroke={strokeColor} strokeWidth={2} fill="none" /> );
+            }
 
             lineCount++;
             dieNumber++;
-            if( critC === 5 ) {
-                lineCount++;
+            const endedTable = tableEnd( critC );
+            if( endedTable ) {
                 dieNumber = 1;
+                // A blank line before the next table.
+                if( endedTable !== tables[tables.length - 1] ) lineCount++;
             }
 
             if( critC === this.props.critData.length - 1 ) {
@@ -133,11 +146,7 @@ export default class CritAllocationTableSVG extends React.Component<ICritAllocat
                      ( yStartBox > -1 && lastRollAgain === false)
                 ) {
 
-                    let boxHeight = (this.props.yLoc + lineCount * (fontSize + lineBuffer) - yStartBox - lineBuffer );
-
-                    if( critC === 5 ) {
-                        boxHeight = (this.props.yLoc + (lineCount - 1 ) * (fontSize + lineBuffer) - yStartBox - lineBuffer);
-                    }
+                    const boxHeight = (this.props.yLoc + lineCount * (fontSize + lineBuffer) - yStartBox - lineBuffer );
 
                     critBackgrounds.push( <rect  key={critC.toString() + "i"} x={this.props.xLoc - 10} rx={15} ry={15} y={yStartBox - fontSize + 2} width={boxWidth} height={boxHeight} stroke={strokeColor} strokeWidth={2} fill={colorVeryLightGray} /> );
 
@@ -145,16 +154,19 @@ export default class CritAllocationTableSVG extends React.Component<ICritAllocat
             }
         }
 
-        if( this.props.critData.length > 6 ) {
-            critTable.push(<text key={"enda"}  x={this.props.xLoc - 80} y={this.props.yLoc + 2.75 * (fontSize + lineBuffer)} textAnchor="middle" fontFamily="sans-serif" fill={strokeColor} style={{fontWeight: 700}} fontSize={fontSize * 1.25}>1-3</text> );
-            critTable.push(<text key={"endb"}  x={this.props.xLoc - 80} y={this.props.yLoc + 9.75 * (fontSize + lineBuffer)} textAnchor="middle" fontFamily="sans-serif" fill={strokeColor} style={{fontWeight: 700}} fontSize={fontSize * 1.25}>4-6</text> );
-
+        if( tables.length > 1 ) {
+            tables.forEach( (table, tableIndex) => {
+                // Beside the middle of the table: lines 0-5 of the first, after a blank line the next.
+                const middleLine = tableIndex * 7 + (table.length - 1) / 2 + 0.25;
+                critTable.push(<text key={"end" + tableIndex} data-testid="crit-table-dice" x={this.props.xLoc - 80} y={this.props.yLoc + middleLine * (fontSize + lineBuffer)} textAnchor="middle" fontFamily="sans-serif" fill={strokeColor} style={{fontWeight: 700}} fontSize={fontSize * 1.25}>{table.label}</text> );
+            });
         }
 
         return (
         <g
             x={this.props.yLoc}
             y={this.props.xLoc}
+            data-crit-location={this.props.location}
         >
             {critBackgrounds}
             {critTable}
@@ -171,6 +183,8 @@ interface ICritAllocationTableSVGProps {
     inPlay?: boolean;
     xLoc: number;
     yLoc: number;
+    /** Type size against the standard sheet's (1); a long location is printed smaller to fit (#172). */
+    scale?: number;
 }
 
 interface ICritAllocationTableSVGState {

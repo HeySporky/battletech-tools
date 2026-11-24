@@ -1,0 +1,134 @@
+<?xml version="1.0" encoding ="UTF-8"?>
+<mech name="Phoenix Hawk" model="PXH-4L (Sante)" tons="45" omnimech="FALSE" solaris7id="0" solaris7imageid="0" sswimage="">
+    <ssw_savefile_version>3</ssw_savefile_version>
+    <battle_value>1442</battle_value>
+    <cost>7829340.0</cost>
+    <rules_level>3</rules_level>
+    <era>2</era>
+    <productionera>6</productionera>
+    <mech_type>BattleMech</mech_type>
+    <techbase manufacturer="Unknown" location="Unknown">Mixed</techbase>
+    <year restricted="FALSE">3068</year>
+    <motive_type>Biped</motive_type>
+    <structure manufacturer="Unknown" techbase="0">
+        <type>Endo-Steel</type>
+        <location index="5">RT</location>
+        <location index="6">LT</location>
+        <location index="6">RT</location>
+        <location index="6">LA</location>
+        <location index="7">LT</location>
+        <location index="7">RT</location>
+        <location index="7">LA</location>
+        <location index="7">RA</location>
+        <location index="8">LT</location>
+        <location index="8">RT</location>
+        <location index="8">LA</location>
+        <location index="8">RA</location>
+        <location index="9">LT</location>
+        <location index="9">RT</location>
+    </structure>
+    <engine rating="270" manufacturer="Unknown" lsstart="-1" rsstart="-1" techbase="2">Fusion Engine</engine>
+    <gyro techbase="2">Standard Gyro</gyro>
+    <cockpit>
+        <type ejectionseat="FALSE" commandconsole="FALSE" fhes="TRUE">Standard Cockpit</type>
+    </cockpit>
+    <armor manufacturer="Unknown" techbase="0">
+        <type>Stealth Armor</type>
+        <hd>6</hd>
+        <ct>23</ct>
+        <ctr>5</ctr>
+        <lt>18</lt>
+        <ltr>4</ltr>
+        <rt>18</rt>
+        <rtr>4</rtr>
+        <la>10</la>
+        <ra>10</ra>
+        <ll>15</ll>
+        <rl>15</rl>
+        <location index="4">LL</location>
+        <location index="4">RL</location>
+        <location index="5">LL</location>
+        <location index="5">RL</location>
+        <location index="9">LA</location>
+        <location index="9">RA</location>
+        <location index="10">LT</location>
+        <location index="10">RT</location>
+        <location index="10">LA</location>
+        <location index="10">RA</location>
+        <location index="11">LT</location>
+        <location index="11">RT</location>
+    </armor>
+    <baseloadout fcsa4="FALSE" fcsa5="FALSE" fcsapollo="FALSE">
+        <source>BD:BH</source>
+        <info>Phoenix Hawk PXH-4L (Sante) 45t, 6/9/6, Std FE, ES; 8.0T/84% Stlth Armor; 11 DHS; 1 ECM, 1 ERLL, 2 ERML, 2 MG, 1 TAG</info>
+        <battleforce pv="14" wt="2" mv="6j" s="2" m="2" l="1" e="0" ov="0" armor="4" internal="4" abilities="ECM, STL, TAG, SRCH, ES, SEAL, SOA" />
+        <actuators lla="TRUE" lh="TRUE" rla="TRUE" rh="TRUE"/>
+        <clancase>FALSE</clancase>
+        <jumpjets number="6">
+            <type>Standard Jump Jet</type>
+            <location index="5">LT</location>
+            <location index="3">LT</location>
+            <location index="4">LT</location>
+            <location index="1">RT</location>
+            <location index="2">RT</location>
+            <location index="0">RT</location>
+        </jumpjets>
+        <heatsinks number="11" techbase="0">
+            <type>Double Heat Sink</type>
+
+            <location index="0">LT</location>
+        </heatsinks>
+        <equipment>
+            <name manufacturer="">TAG</name>
+            <type>equipment</type>
+            <location index="11">CT</location>
+        </equipment>
+        <equipment>
+            <name manufacturer="">Guardian ECM Suite</name>
+            <type>equipment</type>
+            <location index="3">RT</location>
+        </equipment>
+        <equipment>
+            <name manufacturer="">(IS) ER Medium Laser</name>
+            <type>energy</type>
+            <location index="5">RA</location>
+        </equipment>
+        <equipment>
+            <name manufacturer="">(IS) ER Medium Laser</name>
+            <type>energy</type>
+            <location index="4">LA</location>
+        </equipment>
+        <equipment>
+            <name manufacturer="">(CL) ER Large Laser</name>
+            <type>energy</type>
+            <location index="4">RA</location>
+        </equipment>
+        <equipment>
+            <name manufacturer="">(IS) Machine Gun</name>
+            <type>ballistic</type>
+            <location index="6">RA</location>
+        </equipment>
+        <equipment>
+            <name manufacturer="">(IS) Machine Gun</name>
+            <type>ballistic</type>
+            <location index="5">LA</location>
+        </equipment>
+        <equipment>
+            <name manufacturer="Unknown">@ Machine Gun (1/2)</name>
+            <type>ammunition</type>
+            <location index="10">CT</location>
+        </equipment>
+    </baseloadout>
+    <fluff>
+        <overview></overview>
+        <capabilities></capabilities>
+        <battlehistory></battlehistory>
+        <deployment></deployment>
+        <variants></variants>
+        <notables></notables>
+        <additional>Sante’s Phoenix Hawk has the following Vehicle Quirk: Easy to Pilot (see p. 193, SO).</additional>
+        <jumpjet_model>Unknown</jumpjet_model>
+        <commsystem>Unknown</commsystem>
+        <tandtsystem>Unknown</tandtsystem>
+    </fluff>
+</mech>

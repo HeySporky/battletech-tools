@@ -1,0 +1,127 @@
+<?xml version="1.0" encoding ="UTF-8"?>
+<mech name="Bloodhound" model="B3-HND" tons="45" omnimech="FALSE" solaris7id="0" solaris7imageid="0" sswimage="">
+    <ssw_savefile_version>3</ssw_savefile_version>
+    <battle_value>1006</battle_value>
+    <cost>8857165.0</cost>
+    <rules_level>2</rules_level>
+    <era>2</era>
+    <productionera>6</productionera>
+    <mech_type>BattleMech</mech_type>
+    <techbase manufacturer="Earthwerks Ltd." location="Keystone">Inner Sphere</techbase>
+    <year restricted="FALSE">3081</year>
+    <motive_type>Biped</motive_type>
+    <structure manufacturer="Earthwerks PXH IV" techbase="0">
+        <type>Endo-Steel</type>
+        <location index="4">LL</location>
+        <location index="4">RL</location>
+        <location index="5">LT</location>
+        <location index="5">RT</location>
+        <location index="5">LL</location>
+        <location index="5">RL</location>
+        <location index="6">LT</location>
+        <location index="6">RT</location>
+        <location index="7">LT</location>
+        <location index="7">RT</location>
+        <location index="7">LA</location>
+        <location index="8">LA</location>
+        <location index="9">RA</location>
+        <location index="10">RA</location>
+    </structure>
+    <engine rating="315" manufacturer="Hermes" lsstart="0" rsstart="0" techbase="0">XL Engine</engine>
+    <gyro techbase="2">Standard Gyro</gyro>
+    <cockpit>
+        <type ejectionseat="FALSE" commandconsole="FALSE" fhes="FALSE">Standard Cockpit</type>
+    </cockpit>
+    <armor manufacturer="Durallex Light" techbase="2">
+        <type>Standard Armor</type>
+        <hd>9</hd>
+        <ct>20</ct>
+        <ctr>7</ctr>
+        <lt>16</lt>
+        <ltr>6</ltr>
+        <rt>16</rt>
+        <rtr>6</rtr>
+        <la>14</la>
+        <ra>14</ra>
+        <ll>18</ll>
+        <rl>18</rl>
+    </armor>
+    <baseloadout fcsa4="FALSE" fcsa5="FALSE" fcsapollo="FALSE">
+        <source>RS3067u</source>
+        <info>Bloodhound B3-HND 45t, 7/11/0, XLFE, ES; 9.0T/94% Armor; 11 DHS; 1 FldGn, 4 ERFlmr, 1 BAP, 2 MPL, 1 BPod</info>
+        <battleforce pv="10" wt="2" mv="7" s="3" m="3" l="0" e="0" ov="0" armor="5" internal="2" abilities="PRB, RCN, HT1, SRCH, ES, SEAL, SOA" />
+        <actuators lla="TRUE" lh="TRUE" rla="TRUE" rh="TRUE"/>
+        <clancase>FALSE</clancase>
+        <heatsinks number="11" techbase="0">
+            <type>Double Heat Sink</type>
+
+        </heatsinks>
+        <equipment>
+            <name manufacturer="">Beagle Active Probe</name>
+            <type>equipment</type>
+            <location index="3">LT</location>
+        </equipment>
+        <equipment>
+            <name manufacturer="">B-Pod</name>
+            <type>equipment</type>
+            <location index="10">CT</location>
+        </equipment>
+        <equipment>
+            <name manufacturer="">(IS) Medium Pulse Laser</name>
+            <type>energy</type>
+            <location index="4">RA</location>
+        </equipment>
+        <equipment>
+            <name manufacturer="">(IS) Medium Pulse Laser</name>
+            <type>energy</type>
+            <location index="4">LA</location>
+        </equipment>
+        <equipment>
+            <name manufacturer="">ER Flamer</name>
+            <type>energy</type>
+            <location index="6">LA</location>
+        </equipment>
+        <equipment>
+            <name manufacturer="">ER Flamer</name>
+            <type>energy</type>
+            <location index="5">LA</location>
+        </equipment>
+        <equipment>
+            <name manufacturer="">ER Flamer</name>
+            <type>energy</type>
+            <location index="5">RA</location>
+        </equipment>
+        <equipment>
+            <name manufacturer="">ER Flamer</name>
+            <type>energy</type>
+            <location index="6">RA</location>
+        </equipment>
+        <equipment>
+            <name manufacturer="">(IS) Fluid Gun</name>
+            <type>ballistic</type>
+            <location index="7">RA</location>
+        </equipment>
+        <equipment>
+            <name manufacturer="Unknown">@ Fluid Gun (Water)</name>
+            <type>ammunition</type>
+            <location index="4">RT</location>
+        </equipment>
+        <equipment>
+            <name manufacturer="Unknown">@ Fluid Gun (Water)</name>
+            <type>ammunition</type>
+            <location index="3">RT</location>
+        </equipment>
+    </baseloadout>
+    <fluff>
+        <overview></overview>
+        <capabilities></capabilities>
+        <battlehistory></battlehistory>
+        <deployment></deployment>
+        <variants></variants>
+        <notables></notables>
+        <additional></additional>
+        <jumpjet_model>None</jumpjet_model>
+        <commsystem>Neil 7000</commsystem>
+        <tandtsystem>Octagon Tartrac System E</tandtsystem>
+    </fluff>
+</mech>

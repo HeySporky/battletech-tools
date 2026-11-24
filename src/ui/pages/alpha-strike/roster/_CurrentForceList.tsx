@@ -126,6 +126,7 @@ export default class CurrentForceList extends React.Component<ICurrentForceListP
       if(!this.props.appGlobals.currentASForce) {
         return <></>
       }
+        const forceLevel = this.props.appGlobals.currentASForce.rulesLevel;
         let addUnitButton: JSX.Element = <></>;
 
         if( this.props.openAddingUnits ) {
@@ -202,7 +203,7 @@ export default class CurrentForceList extends React.Component<ICurrentForceListP
                     <table className="table">
                       <thead>
                         <tr>
-                          <th>&nbsp;</th>
+                          <th><span className="visually-hidden">Actions</span></th>
                           <th>Name</th>
                           <th className="min-width no-wrap">Points</th>
 
@@ -279,6 +280,9 @@ export default class CurrentForceList extends React.Component<ICurrentForceListP
                                   <></>
                                 )}
                                 {asUnit.name}
+                                {forceLevel !== undefined && ((forceLevel <= 1 && asUnit.type.trim().toUpperCase() !== "BM") || (asUnit.rulesLevel !== undefined && asUnit.rulesLevel > forceLevel)) ? (
+                                  <> <span className="badge bg-warning text-dark" title="This unit is above the force rules level; it stays in the force" data-testid="as-not-at-level">not at this level</span></>
+                                ) : null}
 
                               </td>
                               <td className="min-width no-wrap">{asUnit.currentPoints}</td>
@@ -362,6 +366,7 @@ export default class CurrentForceList extends React.Component<ICurrentForceListP
                           <td colSpan={2}>
                             <strong>Available Bonuses</strong>:({asGroup.availableFormationBonuses.length-1})
                             <select
+                              aria-label="Formation bonus"
                               value={asGroup.formationBonus? asGroup.formationBonus.Name:"" }
                               onChange={(event:React.FormEvent<HTMLSelectElement>)=>this.updateFormationBonus(event, asGroupIndex)}
                             >

@@ -3,9 +3,11 @@ import { Link } from 'react-router';
 import { FaArrowCircleRight, FaFile, FaFolderOpen, FaSave, FaTrash } from "react-icons/fa";
 import Vehicle, { IVehicleExport } from '../../../../classes/vehicle';
 import { IAppGlobals } from '../../../app-router';
-import VehicleCreatorSideMenu from '../../../components/vehicle-creator-side-menu';
+import { VehicleCreatorSideMenu } from '../../../components/creator-side-menus';
 import TextSection from '../../../components/text-section';
+import BlkImportSection from '../../../components/blk-import-section';
 import UIPage from '../../../components/ui-page';
+import { confirmReplaceDesign, designWouldBeLost } from '../../../components/confirm-replace-design';
 const ArrowCircleRight = FaArrowCircleRight as any;
 const File = FaFile as any;
 const FolderOpen = FaFolderOpen as any;
@@ -19,9 +21,19 @@ export default class VehicleCreatorHome extends React.Component<IHomeProps, IHom
         this.props.appGlobals.makeDocumentTitle("Vehicle Creator");
     }
 
+    // Before the design is replaced, offer to save it first.
+    replaceDesign = (replace: () => void): void => {
+        confirmReplaceDesign(this.props.appGlobals, {
+            what: "vehicle",
+            lost: designWouldBeLost(this.props.appGlobals.currentVehicle, () => new Vehicle(), this.props.appGlobals.vehicleSaves || []),
+            save: () => this.saveAsNew({ preventDefault: () => {} } as React.FormEvent<HTMLButtonElement>),
+            replace,
+        });
+    }
+
     startNew = (e: React.FormEvent<HTMLButtonElement>): void => {
         e.preventDefault();
-        this.props.appGlobals.saveCurrentVehicle(new Vehicle());
+        this.replaceDesign(() => this.props.appGlobals.saveCurrentVehicle(new Vehicle()));
     }
 
     saveAsNew = (e: React.FormEvent<HTMLButtonElement>): void => {
@@ -38,7 +50,7 @@ export default class VehicleCreatorHome extends React.Component<IHomeProps, IHom
         if (this.props.appGlobals.vehicleSaves.length > saveIndex) {
             const vehicle = new Vehicle();
             vehicle.importJSON(JSON.stringify(this.props.appGlobals.vehicleSaves[saveIndex]));
-            this.props.appGlobals.saveCurrentVehicle(vehicle);
+            this.replaceDesign(() => this.props.appGlobals.saveCurrentVehicle(vehicle));
         }
     }
 
@@ -78,6 +90,13 @@ export default class VehicleCreatorHome extends React.Component<IHomeProps, IHom
         }
     }
 
+    // A MegaMek Combat or Support Vehicle file.
+    loadBlk = (unit: unknown): string[] => {
+        const vehicle = unit as Vehicle;
+        this.replaceDesign(() => this.props.appGlobals.saveCurrentVehicle(vehicle));
+        return vehicle.isSupportVehicle() ? vehicle.getSupportVehicleIssues() : vehicle.getChassisModificationIssues();
+    }
+
     render = (): JSX.Element => {
         if (!this.props.appGlobals.currentVehicle) return <></>;
 
@@ -109,6 +128,8 @@ export default class VehicleCreatorHome extends React.Component<IHomeProps, IHom
                             </div>
                         </TextSection>
 
+                        <BlkImportSection accept={["vehicles", "support-vehicles"]} testId="sv" onLoad={this.loadBlk} />
+
                         <TextSection
                             label="Your Saved Vehicles"
                             labelButton={
@@ -123,7 +144,7 @@ export default class VehicleCreatorHome extends React.Component<IHomeProps, IHom
                                         <th>Name</th>
                                         <th>Motive Type</th>
                                         <th>Tons</th>
-                                        <th></th>
+                                        <th><span className="visually-hidden">Actions</span></th>
                                     </tr>
                                 </thead>
                                 {this.props.appGlobals.vehicleSaves && this.props.appGlobals.vehicleSaves.length > 0 ? (

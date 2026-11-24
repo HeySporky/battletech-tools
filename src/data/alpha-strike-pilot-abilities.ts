@@ -564,3 +564,58 @@ export interface IASPilotAbility {
     summary: string[];
     source: IAbilitySource;
 }
+
+/*
+ * The Alpha Strike Companion (2014, a supplement to the 2013 book) is where the 2013 edition finds its special pilot
+ * abilities (#646). Compared with the Companion's own entries (extract Alpha-Strike-Companion.txt, "SPA Cost" lines, errata
+ * v1.1-v1.6 change Iron Will from 2 to 1) and ASCE pp.92-101 with errata v7.0.2: costs agree except Animal Mimicry (2 in ASC,
+ * 3 in ASCE) and Terrain Master Drag Racer (3 in ASC, 1 in ASCE v7.0.2). The four infantry abilities have one cost in both
+ * books (Light Horseman 2, Heavy Horse 2, Foot Cavalry 1, Urban Guerrilla 1). A missing cost means the same cost as the ASCE
+ * record. Pages are the ones the errata headers give where they name one, else the first page of the spread.
+ */
+export const ASC_PILOT_ABILITIES: Record<string, { cost?: number; page: number }> = {
+    "Animal Mimicry": { cost: 2, page: 51 }, "Antagonizer": { page: 51 },
+    "Blood Stalker": { page: 52 }, "Demoralizer": { page: 52 }, "Cluster Hitter": { page: 52 }, "Dodge": { page: 52 },
+    "Combat Intuition": { page: 52 }, "Dust-Off": { page: 52 }, "Eagle's Eyes": { page: 52 }, "Cross-Country": { page: 52 },
+    "Environmental Specialist": { page: 52 }, "Ground-Hugger": { page: 52 }, "Fist Fire": { page: 52 }, "Heavy Lifter": { page: 52 },
+    "Forward Observer": { page: 53 }, "Golden Goose": { page: 52 },
+    "Hopper": { page: 54 }, "Lucky": { page: 54 }, "Hot Dog": { page: 54 }, "Maneuvering Ace": { page: 54 }, "Human TRO": { page: 54 },
+    "Marksman": { page: 54 }, "Iron Will": { page: 54 }, "Melee Master": { page: 54 }, "Melee Specialist": { page: 54 },
+    "Jumping Jack": { page: 54 }, "Multi-Tasker": { page: 55 }, "Oblique Attacker": { page: 55 }, "Range Master": { page: 55 },
+    "Natural Grace": { page: 54 }, "Ride the Wash": { page: 54 }, "Oblique Artilleryman": { page: 55 }, "Sandblaster": { page: 54 },
+    "Shaky Stick": { page: 56 }, "Stand-Aside": { page: 56 }, "Sharpshooter": { page: 56 }, "Street Fighter": { page: 56 },
+    "Slugger": { page: 56 }, "Sniper": { page: 56 }, "Speed Demon": { page: 56 }, "Swordsman": { page: 56 }, "Tactical Genius": { page: 57 },
+    "(Forest Ranger)": { page: 56 }, "(Frogman)": { page: 56 }, "(Mountaineer)": { page: 56 }, "(Nightwalker)": { page: 56 },
+    "(Drag Racer)": { cost: 3, page: 57 }, "(Swamp Beast)": { page: 56 },
+    "Weapon Specialist": { page: 58 }, "Wind Walker": { page: 58 }, "Zweihander": { page: 58 },
+    "Light Horseman": { cost: 2, page: 58 }, "Heavy Horse": { cost: 2, page: 58 }, "Foot Cavalry": { cost: 1, page: 58 }, "Urban Guerrilla": { cost: 1, page: 58 },
+};
+
+/** The infantry abilities the Companion prints at one fixed cost: only the first record of each is offered under 2013. */
+const ASC_SINGLE_COST_PILOT_ABILITIES = ["Light Horseman", "Heavy Horse", "Foot Cavalry", "Urban Guerrilla"];
+
+/** Abilities the Commander's Edition adds that the Companion does not print: not offered under the 2013 edition. */
+export const ASCE_ONLY_PILOT_ABILITIES: string[] = [
+    "Float Like a Butterfly", "Headhunter", "Sure-Footed", "Goshen Grad", "(Desert Fox)", "(Tundra Wolf)", "(Spacefarer)", "(Sea Monster)",
+];
+
+/**
+ * An ability as an Alpha Strike edition offers it: the cost and source that edition prints. Under the Commander's
+ * Edition that is the record itself. Under 2013 it is the Companion's, and an ability the Companion lacks is not offered
+ * (a pilot who already holds it keeps it, and its points count at the record's cost). The Companion drops nothing the
+ * Commander's Edition prints, so nothing is carried forward as apocryphal today; `apocryphal` is where that would show.
+ */
+export function getPilotAbilityForEdition(
+    ability: IASPilotAbility, editionTag: string,
+): { cost: number; source: IAbilitySource; offered: boolean; apocryphal: boolean } {
+    if (editionTag !== "alpha-strike") {
+        return { cost: ability.cost, source: ability.source, offered: true, apocryphal: false };
+    }
+    const asc = ASC_PILOT_ABILITIES[ability.ability];
+    if (!asc) {
+        return { cost: ability.cost, source: ability.source, offered: false, apocryphal: false };
+    }
+    const duplicate = ASC_SINGLE_COST_PILOT_ABILITIES.includes(ability.ability)
+        && CONST_AS_PILOT_ABILITIES.find(other => other.ability === ability.ability)!.id !== ability.id;
+    return { cost: asc.cost ?? ability.cost, source: { book: "ASC", page: asc.page }, offered: !duplicate, apocryphal: false };
+}

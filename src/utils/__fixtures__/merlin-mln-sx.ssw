@@ -1,0 +1,104 @@
+<?xml version="1.0" encoding ="UTF-8"?>
+<mech name="Merlin" model="MLN-SX" tons="60" omnimech="FALSE" solaris7id="0" solaris7imageid="0" sswimage="">
+    <ssw_savefile_version>3</ssw_savefile_version>
+    <battle_value>1181</battle_value>
+    <cost>1.12272E7</cost>
+    <rules_level>3</rules_level>
+    <era>4</era>
+    <productionera>6</productionera>
+    <mech_type>BattleMech</mech_type>
+    <techbase manufacturer="Unknown" location="Unknown">Inner Sphere</techbase>
+    <year restricted="FALSE">3075</year>
+    <motive_type>Biped</motive_type>
+    <structure manufacturer="Unknown" techbase="0">
+        <type>Endo-Composite</type>
+        <location index="6">LA</location>
+        <location index="6">RA</location>
+        <location index="7">LA</location>
+        <location index="7">RA</location>
+        <location index="8">LA</location>
+        <location index="8">RA</location>
+        <location index="11">LT</location>
+    </structure>
+    <engine rating="240" manufacturer="Unknown" lsstart="0" rsstart="0" techbase="0">Light Fusion Engine</engine>
+    <gyro techbase="2">Standard Gyro</gyro>
+    <cockpit>
+        <type ejectionseat="FALSE" commandconsole="FALSE" fhes="FALSE">Standard Cockpit</type>
+    </cockpit>
+    <armor manufacturer="Unknown" techbase="2">
+        <type>Standard Armor</type>
+        <hd>9</hd>
+        <ct>31</ct>
+        <ctr>8</ctr>
+        <lt>22</lt>
+        <ltr>6</ltr>
+        <rt>22</rt>
+        <rtr>6</rtr>
+        <la>18</la>
+        <ra>18</ra>
+        <ll>18</ll>
+        <rl>18</rl>
+    </armor>
+    <baseloadout fcsa4="FALSE" fcsa5="FALSE" fcsapollo="FALSE">
+        <source>XTRBoon</source>
+        <info>Merlin MLN-SX 60t, 4/6/4, LFE, E-Comp; 11.0T/88% Armor; 14 DHS; 1 BmbstLsr, 2 MVSPL</info>
+        <battleforce pv="12" wt="3" mv="4j" s="4" m="3" l="0" e="0" ov="0" armor="6" internal="1" abilities="ENE, SRCH, ES, SEAL, SOA" />
+        <actuators lla="TRUE" lh="FALSE" rla="TRUE" rh="FALSE"/>
+        <clancase>FALSE</clancase>
+        <jumpjets number="4">
+            <type>Standard Jump Jet</type>
+            <location index="5">RL</location>
+            <location index="4">RL</location>
+            <location index="4">LL</location>
+            <location index="5">LL</location>
+        </jumpjets>
+        <heatsinks number="14" techbase="0">
+            <type>Double Heat Sink</type>
+
+            <location index="5">LT</location>
+            <location index="2">LT</location>
+            <location index="5">RT</location>
+            <location index="8">LT</location>
+            <location index="2">RT</location>
+        </heatsinks>
+        <equipment>
+            <name manufacturer="">(IS) Bombast Laser (Insulated)</name>
+            <type>energy</type>
+            <location index="8">RT</location>
+        </equipment>
+        <equipment>
+            <name manufacturer="">(IS) Medium Variable Speed Pulse Laser (Insulated)</name>
+            <type>energy</type>
+            <location index="3">LA</location>
+        </equipment>
+        <equipment>
+            <name manufacturer="">(IS) Medium Variable Speed Pulse Laser (Insulated)</name>
+            <type>energy</type>
+            <location index="3">RA</location>
+        </equipment>
+        <armored_locations>
+            <location index="0">CT</location>
+            <location index="1">CT</location>
+            <location index="2">CT</location>
+            <location index="7">CT</location>
+            <location index="8">CT</location>
+            <location index="9">CT</location>
+            <location index="0">LT</location>
+            <location index="1">LT</location>
+            <location index="0">RT</location>
+            <location index="1">RT</location>
+        </armored_locations>
+    </baseloadout>
+    <fluff>
+        <overview></overview>
+        <capabilities></capabilities>
+        <battlehistory></battlehistory>
+        <deployment></deployment>
+        <variants></variants>
+        <notables></notables>
+        <additional></additional>
+        <jumpjet_model>Unknown</jumpjet_model>
+        <commsystem>Unknown</commsystem>
+        <tandtsystem>Unknown</tandtsystem>
+    </fluff>
+</mech>

@@ -14,7 +14,7 @@ export default class RangeInput extends React.Component<IRangeInputProps, IRange
         if( e && e.preventDefault ) {
             e.preventDefault();
         }
-        let item = this.props.editingItem;
+        const item = this.props.editingItem;
 
         if( !item.isMelee ) {
             item.isMelee = true;
@@ -31,7 +31,7 @@ export default class RangeInput extends React.Component<IRangeInputProps, IRange
         if( e && e.preventDefault ) {
             e.preventDefault();
         }
-        let item = this.props.editingItem;
+        const item = this.props.editingItem;
 
         item.range.min = +e.currentTarget.value;
 
@@ -44,7 +44,7 @@ export default class RangeInput extends React.Component<IRangeInputProps, IRange
         if( e && e.preventDefault ) {
             e.preventDefault();
         }
-        let item = this.props.editingItem;
+        const item = this.props.editingItem;
 
         item.range.short = +e.currentTarget.value;
 
@@ -57,7 +57,7 @@ export default class RangeInput extends React.Component<IRangeInputProps, IRange
         if( e && e.preventDefault ) {
             e.preventDefault();
         }
-        let item = this.props.editingItem;
+        const item = this.props.editingItem;
 
         item.range.medium = +e.currentTarget.value;
 
@@ -70,7 +70,7 @@ export default class RangeInput extends React.Component<IRangeInputProps, IRange
         if( e && e.preventDefault ) {
             e.preventDefault();
         }
-        let item = this.props.editingItem;
+        const item = this.props.editingItem;
 
         item.range.long = +e.currentTarget.value;
 
@@ -83,7 +83,7 @@ export default class RangeInput extends React.Component<IRangeInputProps, IRange
         if( e && e.preventDefault ) {
             e.preventDefault();
         }
-        let item = this.props.editingItem;
+        const item = this.props.editingItem;
 
         item.range.extreme = +e.currentTarget.value;
 
@@ -96,7 +96,7 @@ export default class RangeInput extends React.Component<IRangeInputProps, IRange
         if( e && e.preventDefault ) {
             e.preventDefault();
         }
-        let item = this.props.editingItem;
+        const item = this.props.editingItem;
 
         item.range.maxMapSheets = +e.currentTarget.value;
 
@@ -109,7 +109,7 @@ export default class RangeInput extends React.Component<IRangeInputProps, IRange
         if( e && e.preventDefault ) {
             e.preventDefault();
         }
-        let item = this.props.editingItem;
+        const item = this.props.editingItem;
 
         item.rangeAero = e.currentTarget.value;
 

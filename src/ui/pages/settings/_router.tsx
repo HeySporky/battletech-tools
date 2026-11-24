@@ -7,6 +7,10 @@ import SettingsHome from './home';
 
 import type { JSX } from "react";
 
+// The back-end editors (#97): loaded only when opened (the app router wraps every route in Suspense).
+const EquipmentEditor = React.lazy(() => import("../equipment-editor"));
+const CustomMULEditor = React.lazy(() => import("../custom-mul-editor"));
+
 export default class SettingsRouter extends React.Component<ISettingsRouterProps, ISettingsRouterState> {
 
     render = (): JSX.Element => {
@@ -21,6 +25,18 @@ export default class SettingsRouter extends React.Component<ISettingsRouterProps
 
                 <Route path={`backup-and-restore`} element={
                     <SettingsBackupAndRestore
+                        appGlobals={this.props.appGlobals}
+                    />
+                }/>
+
+                <Route path={`equipment-editor`} element={
+                    <EquipmentEditor
+                        appGlobals={this.props.appGlobals}
+                    />
+                }/>
+
+                <Route path={`custom-mul-editor`} element={
+                    <CustomMULEditor
                         appGlobals={this.props.appGlobals}
                     />
                 }/>

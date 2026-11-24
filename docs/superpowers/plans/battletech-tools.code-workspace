@@ -1,0 +1,44 @@
+{
+	"folders": [
+		{
+			"path": "../../.."
+		},
+		{
+			"path": "../../../../mordel-units"
+		},
+		{
+			"path": "../../../../mm-data"
+		},
+		{
+			"path": "../../../../mekhq"
+		},
+		{
+			"path": "../../../../mekbay"
+		},
+		{
+			"path": "../../../../megameklab"
+		},
+		{
+			"path": "../../../../megamek_fixed_copy"
+		},
+		{
+			"path": "../../../../megamek.worktrees"
+		},
+		{
+			"path": "../../../../megamek"
+		},
+		{
+			"path": "../../../../battletech-tools-master"
+		},
+		{
+			"path": "../../../../ic-worktrees"
+		},
+		{
+			"path": "../../../../JBTIICRework"
+		},
+		{
+			"path": "../../../../JBTToolsSupportFiles"
+		}
+	],
+	"settings": {}
+}

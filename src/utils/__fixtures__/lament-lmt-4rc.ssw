@@ -1,0 +1,103 @@
+<?xml version="1.0" encoding ="UTF-8"?>
+<mech name="Lament" model="LMT-4RC" tons="65" omnimech="FALSE" solaris7id="0" solaris7imageid="0" sswimage="">
+    <ssw_savefile_version>3</ssw_savefile_version>
+    <battle_value>2474</battle_value>
+    <cost>1.6872624999999996E7</cost>
+    <rules_level>3</rules_level>
+    <era>3</era>
+    <productionera>8</productionera>
+    <mech_type>BattleMech</mech_type>
+    <techbase manufacturer="Unknown" location="Unknown">Mixed</techbase>
+    <year restricted="FALSE">3137</year>
+    <motive_type>Biped</motive_type>
+    <structure manufacturer="Unknown" techbase="0">
+        <type>Composite Structure</type>
+    </structure>
+    <engine rating="325" manufacturer="Unknown" lsstart="0" rsstart="0" techbase="0">XL Engine</engine>
+    <gyro techbase="0">Extra-Light Gyro</gyro>
+    <cockpit>
+        <type ejectionseat="FALSE" commandconsole="FALSE" fhes="FALSE">Standard Cockpit</type>
+    </cockpit>
+    <armor manufacturer="Unknown" techbase="0">
+        <type>Light Ferro-Fibrous</type>
+        <hd>9</hd>
+        <ct>33</ct>
+        <ctr>9</ctr>
+        <lt>22</lt>
+        <ltr>8</ltr>
+        <rt>22</rt>
+        <rtr>8</rtr>
+        <la>20</la>
+        <ra>20</ra>
+        <ll>30</ll>
+        <rl>30</rl>
+        <location index="8">LT</location>
+        <location index="9">LT</location>
+        <location index="10">LT</location>
+        <location index="10">LA</location>
+        <location index="10">RA</location>
+        <location index="11">LT</location>
+        <location index="11">RT</location>
+    </armor>
+    <baseloadout fcsa4="FALSE" fcsa5="FALSE" fcsapollo="FALSE">
+        <source>RS3145u</source>
+        <info>Lament LMT-4RC 65t, 5/8/0, XLFE, Comp, XL Gyro; 12.5T/100% LFF Armor; 21 DHS; 4 iHLL, 1 C3S, 1 RHS</info>
+        <battleforce pv="25" wt="3" mv="5" s="5" m="5" l="0" e="0" ov="2" armor="7" internal="1" abilities="C3S, ENE, MHQ1, SRCH, ES, SEAL, SOA" />
+        <actuators lla="TRUE" lh="FALSE" rla="TRUE" rh="FALSE"/>
+        <clancase>FALSE</clancase>
+        <heatsinks number="21" techbase="1">
+            <type>Double Heat Sink</type>
+
+            <location index="3">RT</location>
+            <location index="3">LT</location>
+            <location index="3">LA</location>
+            <location index="5">LA</location>
+            <location index="3">RA</location>
+            <location index="5">RA</location>
+            <location index="4">LL</location>
+            <location index="4">RL</location>
+        </heatsinks>
+        <equipment>
+            <name manufacturer="">Radical Heat Sink</name>
+            <type>equipment</type>
+            <location index="8">RT</location>
+        </equipment>
+        <equipment>
+            <name manufacturer="">(CL) Improved Heavy Large Laser</name>
+            <type>energy</type>
+            <location index="7">RA</location>
+        </equipment>
+        <equipment>
+            <name manufacturer="">(CL) Improved Heavy Large Laser</name>
+            <type>energy</type>
+            <location index="7">LA</location>
+        </equipment>
+        <equipment>
+            <name manufacturer="">(CL) Improved Heavy Large Laser</name>
+            <type>energy</type>
+            <location index="5">RT</location>
+        </equipment>
+        <equipment>
+            <name manufacturer="">(CL) Improved Heavy Large Laser</name>
+            <type>energy</type>
+            <location index="5">LT</location>
+        </equipment>
+        <equipment>
+            <name manufacturer="">C3 Computer (Slave)</name>
+            <type>equipment</type>
+            <location index="3">HD</location>
+        </equipment>
+    </baseloadout>
+    <fluff>
+        <overview></overview>
+        <capabilities></capabilities>
+        <battlehistory></battlehistory>
+        <deployment></deployment>
+        <variants></variants>
+        <notables></notables>
+        <additional></additional>
+        <jumpjet_model>None</jumpjet_model>
+        <commsystem>Unknown</commsystem>
+        <tandtsystem>Unknown</tandtsystem>
+    </fluff>
+</mech>

@@ -2,15 +2,20 @@ import React, { type JSX } from 'react';
 import './home.scss';
 import {IAppGlobals} from '../../../app-router';
 import SanitizedHTML from '../../../components/sanitized-html';
-import MechCreatorSideMenu from '../../../components/mech-creator-side-menu';
+import { MechCreatorSideMenu } from '../../../components/creator-side-menus';
 import { Link } from 'react-router';
 import { FaArrowCircleLeft, FaArrowCircleRight } from "react-icons/fa";
 import MechCreatorStatusbar from '../../../components/mech-creator-status-bar';
 import UIPage from '../../../components/ui-page';
 import AlphaStrikeUnitSVG from '../../../components/svg/alpha-strike-unit-svg';
 import BattleMechSVG from '../../../components/svg/battlemech-svg';
+import QuirkPicker from '../../../components/quirk-picker';
+import CanonQuirksButton from '../../../components/canon-quirks-button';
 import TextSection from '../../../components/text-section';
+import { MechCalcBreakdown } from '../../../components/calc-breakdown';
 import InputField from '../../../components/form_elements/input_field';
+import { getMULGroundRoles } from '../../../../utils/mulUtilities';
+import { mechRulesLevel } from '../../../components/design-lock';
 const ArrowCircleLeft = FaArrowCircleLeft as any;
 const ArrowCircleRight = FaArrowCircleRight as any;
 
@@ -24,7 +29,7 @@ export default class MechCreatorSummary extends React.Component<IHomeProps, IHom
         this.props.appGlobals.makeDocumentTitle("Summary | 'Mech Creator");
     }
 
-    setASRole = ( event: React.FormEvent<HTMLInputElement>): void => {
+    setASRole = ( event: React.FormEvent<HTMLSelectElement>): void => {
       if( this.props.appGlobals.currentBattleMech ) {
         this.props.appGlobals.currentBattleMech.setASRole( event.currentTarget.value );
         this.props.appGlobals.saveCurrentBattleMech( this.props.appGlobals.currentBattleMech );
@@ -63,6 +68,20 @@ export default class MechCreatorSummary extends React.Component<IHomeProps, IHom
     setPilotGunnery = ( event: React.FormEvent<HTMLSelectElement>): void => {
       if( this.props.appGlobals.currentBattleMech ) {
         this.props.appGlobals.currentBattleMech.setPilotGunnery( +event.currentTarget.value );
+        this.props.appGlobals.saveCurrentBattleMech( this.props.appGlobals.currentBattleMech );
+      }
+    }
+
+    setPilotAeroPiloting = ( event: React.FormEvent<HTMLSelectElement>): void => {
+      if( this.props.appGlobals.currentBattleMech ) {
+        this.props.appGlobals.currentBattleMech.setPilotAeroPiloting( event.currentTarget.value === "" ? undefined : +event.currentTarget.value );
+        this.props.appGlobals.saveCurrentBattleMech( this.props.appGlobals.currentBattleMech );
+      }
+    }
+
+    setPilotAeroGunnery = ( event: React.FormEvent<HTMLSelectElement>): void => {
+      if( this.props.appGlobals.currentBattleMech ) {
+        this.props.appGlobals.currentBattleMech.setPilotAeroGunnery( event.currentTarget.value === "" ? undefined : +event.currentTarget.value );
         this.props.appGlobals.saveCurrentBattleMech( this.props.appGlobals.currentBattleMech );
       }
     }
@@ -147,6 +166,37 @@ export default class MechCreatorSummary extends React.Component<IHomeProps, IHom
                                     </label>
                                   </div>
                                 </div>
+                                {this.props.appGlobals.currentBattleMech.usesAerospaceSkills() ? (
+                                  <div className="row">
+                                    <div className="col-sm-6">
+                                      <label>
+                                        Aerospace Piloting:<br />
+                                        <select
+                                          value={this.props.appGlobals.currentBattleMech.getPilot().aeroPiloting ?? ""}
+                                          onChange={this.setPilotAeroPiloting}
+                                        >
+                                          <option value="">Same as Piloting</option>
+                                          {[0, 1, 2, 3, 4, 5, 6, 7, 8].map((skill) => <option key={skill} value={skill}>{skill}</option>)}
+                                        </select>
+                                      </label>
+                                    </div>
+                                    <div className="col-sm-6">
+                                      <label>
+                                        Aerospace Gunnery:<br />
+                                        <select
+                                          value={this.props.appGlobals.currentBattleMech.getPilot().aeroGunnery ?? ""}
+                                          onChange={this.setPilotAeroGunnery}
+                                        >
+                                          <option value="">Same as Gunnery</option>
+                                          {[0, 1, 2, 3, 4, 5, 6, 7, 8].map((skill) => <option key={skill} value={skill}>{skill}</option>)}
+                                        </select>
+                                      </label>
+                                    </div>
+                                    <div className="col-sm-12 smaller-text">
+                                      A LAM or PAM pilot has two skill pairs (IO:AE p.100). Battle Value uses the average of each pair, rounded normally (IO:AE p.186). Alpha Strike uses the BattleMech pair.
+                                    </div>
+                                  </div>
+                                ) : null}
                               </fieldset>
                             </div>
                             <div className="col-md-6">
@@ -159,11 +209,21 @@ export default class MechCreatorSummary extends React.Component<IHomeProps, IHom
                                       onChange={this.setASCustomName}
                                     />
 
-                                  <InputField
-                                      label="Alpha Strike Role"
+                                  <label>
+                                    Alpha Strike Role:<br />
+                                    {/* The roles published for ground units (issue 15); a role saved before the drop-down stays listed. */}
+                                    <select
+                                      aria-label="Alpha Strike Role"
                                       value={this.props.appGlobals.currentBattleMech.getASRole()}
                                       onChange={this.setASRole}
-                                    />
+                                    >
+                                      <option value="">None</option>
+                                      {getMULGroundRoles().map(role => <option key={role} value={role}>{role}</option>)}
+                                      {this.props.appGlobals.currentBattleMech.getASRole() && !getMULGroundRoles().includes(this.props.appGlobals.currentBattleMech.getASRole()) ? (
+                                        <option value={this.props.appGlobals.currentBattleMech.getASRole()}>{this.props.appGlobals.currentBattleMech.getASRole()}</option>
+                                      ) : null}
+                                    </select>
+                                  </label>
 
                                   {this.props.appGlobals.currentBattleMech.getAlphaStrikeSpecialAmmoOptions().length > 0 ? (
                                     <label>
@@ -183,6 +243,23 @@ export default class MechCreatorSummary extends React.Component<IHomeProps, IHom
                             </div>
                           </div>
 
+                          <CanonQuirksButton
+                            unit={this.props.appGlobals.currentBattleMech}
+                            onApplied={() => {
+                              this.props.appGlobals.saveCurrentBattleMech(this.props.appGlobals.currentBattleMech);
+                              this.setState({ updated: !this.state.updated });
+                            }}
+                          />
+
+                          <QuirkPicker
+                            quirks={this.props.appGlobals.currentBattleMech.quirks}
+                            unitType={this.props.appGlobals.currentBattleMech.getQuirkUnitType()}
+                            editionTag={this.props.appGlobals.currentBattleMech.getRulesEdition()}
+                            rulesLevel={mechRulesLevel(this.props.appGlobals)}
+                            {...this.props.appGlobals.currentBattleMech.getQuirkTargets()}
+                            onChange={() => this.props.appGlobals.saveCurrentBattleMech(this.props.appGlobals.currentBattleMech)}
+                          />
+
                           <div className="row">
                             <div className="col-lg-6">
                               <h3 className="text-center">Technical Read Out</h3>
@@ -192,13 +269,15 @@ export default class MechCreatorSummary extends React.Component<IHomeProps, IHom
                             </div>
                             <div className="col-lg-6">
                               <h3 className="text-center">Record Sheets</h3>
-                              <Link to={`${process.env.PUBLIC_URL}/classic-battletech/mech-creator/print-rs`}>
+                              <Link to={`${process.env.PUBLIC_URL}/classic-battletech/mech-creator/print-rs`} aria-label="Print the record sheet">
                                 <BattleMechSVG
                                   mechData={this.props.appGlobals.currentBattleMech}
                                 />
                               </Link>
                               <br />
-                              <Link to={`${process.env.PUBLIC_URL}/classic-battletech/mech-creator/print-as`}>
+                              <Link to={`${process.env.PUBLIC_URL}/classic-battletech/mech-creator/print-tro`} className="btn btn-sm btn-primary">Print the TRO sheet</Link>
+                              <br />
+                              <Link to={`${process.env.PUBLIC_URL}/classic-battletech/mech-creator/print-as`} aria-label="Print the Alpha Strike card">
                                 <AlphaStrikeUnitSVG
                                   appGlobals={this.props.appGlobals}
                                   asUnit={this.props.appGlobals.currentBattleMech.getAlphaStrikeForceStats()}
@@ -209,32 +288,18 @@ export default class MechCreatorSummary extends React.Component<IHomeProps, IHom
                           </div>
                           <br />
                           <h3 className="text-center">Calculations</h3>
-                          <div className="row">
-                            <div className="col-lg-4">
-                              <h4 className="text-center">Battle Value</h4>
-                              <div className="mech-tro some-padding">
-                                <SanitizedHTML html={this.props.appGlobals.currentBattleMech.calcLogBV} raw={true} />
-                              </div>
-                            </div>
-                            <div className="col-lg-4">
-                              <h4 className="text-center">Alpha Strike</h4>
-                              <div className="mech-tro some-padding">
-                                <SanitizedHTML html={this.props.appGlobals.currentBattleMech.calcLogAS} raw={true} />
-                                </div>
-                            </div>
-                            <div className="col-lg-4">
-                              <h4 className="text-center">CBill Cost</h4>
-                              <div className="mech-tro some-padding">
-                                <SanitizedHTML html={this.props.appGlobals.currentBattleMech.calcLogCBill} raw={true} />
-                              </div>
-                            </div>
+                          <MechCalcBreakdown mech={this.props.appGlobals.currentBattleMech} />
+                          <br />
+                          <h4 className="text-center">Alpha Strike</h4>
+                          <div className="mech-tro some-padding">
+                            <SanitizedHTML html={this.props.appGlobals.currentBattleMech.calcLogAS} raw={true} />
                           </div>
 
                           <div className="clear-both overflow-hidden">
                             <hr />
                           <Link to={`${process.env.PUBLIC_URL}/classic-battletech/mech-creator/exports`} className="btn btn-sm btn-primary pull-right">Exports <ArrowCircleRight /></Link>
                             <div className="inline-block text-left">
-                              <Link to={`${process.env.PUBLIC_URL}/classic-battletech/mech-creator/step6`} className="btn btn-sm btn-primary"><ArrowCircleLeft /> Previous Step</Link>
+                              <Link to={`${process.env.PUBLIC_URL}/classic-battletech/mech-creator/step7`} className="btn btn-sm btn-primary"><ArrowCircleLeft /> Previous Step</Link>
                             </div>
                           </div>
                         </TextSection>

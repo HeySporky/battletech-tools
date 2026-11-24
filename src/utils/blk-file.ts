@@ -1,0 +1,49 @@
+// Reads the block layout of a MegaMek ".blk" unit file: "<tag>", its lines, "</tag>". Lines starting with "#" are
+// comments. Only the layout is read here; what the blocks mean is up to the unit type's own importer.
+import { BLK_DESIGN_CORRECTIONS } from "../data/blk-design-corrections";
+
+/** Largest file read, in characters; unit files run to a few tens of kilobytes. */
+export const MAX_BLK_FILE_LENGTH = 400000;
+const MAX_BLOCK_LINES = 400;
+/** Text markup MegaMek writes inside fluff blocks: a line holding only one of these is text, not a block tag. */
+const TEXT_MARKUP = /^<\s*\/?\s*(p|br|b|i|u|em|strong|ul|ol|li|div|span|h[1-6])(\s[^<>]*)?\/?\s*>$/i;
+
+export interface IBlkFile {
+    /** The lines of each block, by its tag in lower case; a tag that appears again adds to the same block. */
+    blocks: Record<string, string[]>;
+}
+
+export const parseBlkFile = (text: string): IBlkFile | null => {
+    if (typeof text !== "string" || text.length === 0 || text.length > MAX_BLK_FILE_LENGTH) return null;
+    const blocks: Record<string, string[]> = Object.create(null);
+    let current: string | null = null;
+    for (const rawLine of text.split(/\r?\n/)) {
+        const line = rawLine.trim();
+        if (!line || line.startsWith("#")) continue;
+        if (TEXT_MARKUP.test(line)) {
+            if (current !== null && blocks[current].length < MAX_BLOCK_LINES) blocks[current].push(line);
+            continue;
+        }
+        const close = /^<\/([^<>]{1,80})>$/.exec(line);
+        if (close) {
+            current = null;
+            continue;
+        }
+        const open = /^<([^<>/][^<>]{0,79})>$/.exec(line);
+        if (open) {
+            current = open[1].trim().toLowerCase();
+            if (!blocks[current]) blocks[current] = [];
+            continue;
+        }
+        if (current !== null && blocks[current].length < MAX_BLOCK_LINES) blocks[current].push(line);
+    }
+    if (Object.keys(blocks).length === 0) return null;
+    // A file that differs from the book takes the book's blocks (blk-design-corrections).
+    const correction = BLK_DESIGN_CORRECTIONS[`${blocks.name?.[0] ?? ""} ${blocks.model?.[0] ?? ""}`.trim()];
+    if (correction) Object.assign(blocks, structuredClone(correction.blocks));
+    return { blocks };
+};
+
+/** The first line of a block, or an empty string. */
+export const blkValue = (file: IBlkFile, tag: string): string => file.blocks[tag.toLowerCase()]?.[0] ?? "";
+export const blkLines = (file: IBlkFile, tag: string): string[] => file.blocks[tag.toLowerCase()] ?? [];

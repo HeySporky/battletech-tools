@@ -21,6 +21,19 @@ export interface IFormationBonus {
     IsValid(group:AlphaStrikeGroup, allGroups:AlphaStrikeGroup[]): boolean;
     BonusDescription: string
     RequirementsDescription: string
+    /** Alpha Strike edition tags that do not offer this formation (#646). Unset: offered under every edition. */
+    notInEditions?: string[]
+}
+
+/*
+ * Compared with the Alpha Strike Companion's Formation Types chapter (Alpha-Strike-Companion.txt, Battle Lance through
+ * Mechanized and Nova): every formation the Companion prints is also in ASCE and the other way round for this list, so
+ * the 2013 edition (which draws on the Companion) offers all of them. The ones the Companion and ASCE both lack (Light Fire,
+ * Rifle, Hunter, Phalanx, Rogue, Strategic Command, Order, Horde, Berserker, Anti-Mech) come from other books and are
+ * offered under both. `notInEditions` is where an edition's gap would be recorded.
+ */
+export function isFormationOffered(formation: IFormationBonus, editionTag: string): boolean {
+    return !(formation.notInEditions ?? []).includes(editionTag);
 }
 
 class FormationBonusBase {
@@ -62,7 +75,7 @@ class BattleLance extends FormationBonusBase implements IFormationBonus {
         }
         let result =true;
         result = result && (Math.ceil(group.members.length*.50)<=group.members.filter(x=>x.size>=3).length);
-        let brawlerSniperSkirmisherCount = this.RoleCount(group, "Brawler") + this.RoleCount(group, "Sniper")+this.RoleCount(group, "Skirmisher");
+        const brawlerSniperSkirmisherCount = this.RoleCount(group, "Brawler") + this.RoleCount(group, "Sniper")+this.RoleCount(group, "Skirmisher");
         result = result && (brawlerSniperSkirmisherCount >=3)
         return result;
     }
@@ -145,7 +158,7 @@ class AssaultLance extends FormationBonusBase implements IFormationBonus {
         let result =true;
         result = result && (group.members.filter(x=>x.size>=3).length>=3);
         result = result && (group.members.filter(x=>x.armor<5).length===0);
-        let medRange3OrGreaterCount = group.members.filter(x=>+x.damage.medium>=3).length;
+        const medRange3OrGreaterCount = group.members.filter(x=>+x.damage.medium>=3).length;
         result = result && (Math.ceil(group.members.length*.75)<=medRange3OrGreaterCount);
         result = result && (this.RoleCount(group, "Juggernaut")>=1||this.RoleCount(group, "Sniper")>=2)
 
@@ -169,8 +182,10 @@ class FastAssaultLance extends FormationBonusBase implements IFormationBonus {
         let result =true;
         result = result && (group.members.filter(x=>x.size>=3).length>=3);
         result = result && (group.members.filter(x=>x.armor<5).length===0);
-        let medRange3OrGreaterCount = group.members.filter(x=>+x.damage.medium>=3).length;
+        const medRange3OrGreaterCount = group.members.filter(x=>+x.damage.medium>=3).length;
         result = result && (Math.ceil(group.members.length*.75)<=medRange3OrGreaterCount);
+        // As the Assault Lance: a Juggernaut, or two Snipers.
+        result = result && (this.RoleCount(group, "Juggernaut")>=1||this.RoleCount(group, "Sniper")>=2)
         // faster than 10 or Jump capable
 
         result = result && (group.members.filter(x=>(x.move.filter(y=>y.type==="j").length>0)||(x.move.filter(y=>y.move>=10).length>0)).length===group.members.length);
@@ -218,7 +233,7 @@ class StrikerCavalryLance extends FormationBonusBase implements IFormationBonus 
                         &&
                             y.type!=="j").length > 0
                         )
-                ).length > 0
+                ).length === group.members.length
             );
 
 
@@ -319,7 +334,7 @@ class FireSupportLance extends FormationBonusBase implements IFormationBonus {
 
         // 3 IF mechs
         //console.log(group);
-        var regex = /IF\d+/;
+        const regex = /IF\d+/;
         result = result && (group.members.filter(x=>x.abilities.some(y=>regex.test(y))).length>=3);
         return result;
     }
@@ -338,7 +353,7 @@ class ArtilleryFireLance extends FormationBonusBase implements IFormationBonus {
         let result =true;
 
         // 2 Art mechs
-        var regex = /ART.+\d+/;
+        const regex = /ART.+\d+/;
         result = result && (group.members.filter(x=>x.abilities.some(y=>regex.test(y))).length>=2);
         return result;
     }
@@ -382,9 +397,9 @@ class AntiAirLance extends FormationBonusBase implements IFormationBonus {
 
         // 75% sniper or missileboat
         result = result && (Math.ceil(group.members.length*.75)<=(this.RoleCount(group, "Missile Boat")+this.RoleCount(group, "Sniper")));
-        var artRegex = /ART\d+/;
-        var acRegex = /AC\d+/;
-        result = result && ((group.members.filter(x=>x.abilities.includes('FLK')).length + group.members.filter(x=>x.abilities.some(y=>artRegex.test(y))).length + group.members.filter(x=>x.abilities.some(y=>acRegex.test(y))).length)>=2);
+        // FLK#/#/#, AC#/#/# or ARTX-#, each unit counted once. The codes are anchored so "AC" is not found inside another.
+        const antiAirRegex = /^\s*(FLK|AC)\s*\d|^\s*ART.+\d/;
+        result = result && (group.members.filter(x=>x.abilities.some(y=>antiAirRegex.test(y))).length>=2);
         return result;
     }
 
@@ -471,7 +486,7 @@ class PursuitLance extends FormationBonusBase implements IFormationBonus {
 
         result = result && (group.members.filter(x=>x.size<=2).length===group.members.length);
         result = result && (Math.ceil(group.members.length*.75)<=(group.members.filter(x=>(x.move.filter(y=>y.move>=12).length>0)).length));
-        result = result && (group.members.filter(x=>+x.damage.medium<=1).length>=1);
+        result = result && (group.members.filter(x=>+x.damage.medium>1).length>=1);
         return result;
     }
 
@@ -566,9 +581,9 @@ class RifleLance extends FormationBonusBase implements IFormationBonus {
         let result = true;
         result = result && (group.members.filter(x=>x.size===1).length===0);
         result = result && (Math.ceil(group.members.length*.75)<=(group.members.filter(x=>x.size===2||x.size===3).length));
-        var acRegex = /AC\d+/;
+        const acRegex = /AC\d+/;
         result = result && (Math.ceil(group.members.length*.5)<=group.members.filter(x=>(x.abilities.filter(y=>acRegex.test(y)||y.includes('FLK')).length>0)).length);
-        result = result && (group.members.filter(x=>x.move.filter(y=>y.move>=8)).length===group.members.length);
+        result = result && (group.members.filter(x=>x.move.filter(y=>y.move>=8).length>0).length===group.members.length);
         return result;
     }
 
@@ -604,7 +619,7 @@ class PhalanxStar extends FormationBonusBase implements IFormationBonus {
         if(group.members.length === 0){
             return result;
         }
-        let aType = group.members.map(x => x.type);
+        const aType = group.members.map(x => x.type);
 
         //TODO: Are we going to run into other formations that care about type? If so, make TypeCount function.
         result = result && (aType.filter(x => x === 'BM').length >= 2 || aType.filter(x => x === 'CV').length >= 2);
@@ -626,7 +641,7 @@ class RogueStar extends FormationBonusBase implements IFormationBonus {
         }
 
         let result = true;
-        let aName = group.members.map(x => x.name);
+        const aName = group.members.map(x => x.name);
         //At least two of the same named model. Duplicated model will not have the same index as the first model, so that's what we're looking for.
         result = result && (aName.filter((x, index, arr) => arr.indexOf(x) !== index).length >= 1);
         return result;
@@ -648,7 +663,7 @@ class StrategicCommandStar extends FormationBonusBase implements IFormationBonus
             return result;
         }
         //Exactly 1 Aerospace Fighter
-        result = result && (group.members.filter(x => x.type === 'CF').length === 1);
+        result = result && (group.members.filter(x => x.type === 'AF' || x.type === 'CF').length === 1);
         //Either 4 Mechs or 4 Elementals
         result = result && (group.members.filter(x => x.type ==='BM').length === 4 || group.members.filter(x => x.type === 'BA').length === 4);
         //If Mechs, check they're not little baby mechs.
@@ -685,11 +700,11 @@ class OrderLance extends FormationBonusBase implements IFormationBonus {
             return false;
         }
 
-        var result = true;
+        let result = true;
         if (group.members.length < 2) {
             return false;
         }
-        let firstClass = group.members[0].class;
+        const firstClass = group.members[0].class;
         result = result && (group.members.filter(x=>x.class !== firstClass).length === 0);
         return result;
     }
@@ -704,7 +719,7 @@ class Horde extends FormationBonusBase implements IFormationBonus {
         if(this.HasMinimumMembers(group)===false){
             return false;
         }
-        var result = true;
+        let result = true;
         if (group.members.length < 5 || group.members.length > 10) {
             return false;
         }
@@ -733,7 +748,7 @@ class BerserkerLance extends FormationBonusBase implements IFormationBonus {
         }
         let result =true;
         result = result && (Math.ceil(group.members.length*.50)<=group.members.filter(x=>x.size>=3).length);
-        let brawlerSniperSkirmisherCount = this.RoleCount(group, "Brawler") + this.RoleCount(group, "Sniper")+this.RoleCount(group, "Skirmisher");
+        const brawlerSniperSkirmisherCount = this.RoleCount(group, "Brawler") + this.RoleCount(group, "Sniper")+this.RoleCount(group, "Skirmisher");
         result = result && (brawlerSniperSkirmisherCount >=3)
         return result;
     }
@@ -759,7 +774,7 @@ class InfantryFormationBase extends FormationBonusBase {
       "The non-infantry units in the Mechanized or Nova formation must be capable of transporting all the infantry units in the formation simultaneously. This can be from battle armor using the MEC special ability to mount units with the OMNI special ability, battle armor with XMEC mounting ‘Mech units, any infantry mounting units with enough IT# special ability, or a combination of those.";
 
     IsValid(group: AlphaStrikeGroup, allGroups: AlphaStrikeGroup[]): boolean {
-      const isAllInfantry = (group.members.filter(x => x.isInfantry).length === group.members.length);
+      const isAllInfantry = group.members.length > 0 && (group.members.filter(x => x.isInfantry).length === group.members.length);
       if(!isAllInfantry){
         return false;
       }
@@ -818,21 +833,22 @@ class InfantryFormationBase extends FormationBonusBase {
         return backtrack(0);
       };
 
-      const sortedInfantry = group.members.sort((a, b) => getRequiredTransportSize(b) - getRequiredTransportSize(a));
+      // A copy: sorting the group's own list here would reorder the roster each time the bonuses are checked.
+      const sortedInfantry = [...group.members].sort((a, b) => getRequiredTransportSize(b) - getRequiredTransportSize(a));
       //need atleast 3 units in the group
       allGroups = allGroups.filter(x => x.members.length >= 3);
       //Don't include all infantry groups
       allGroups = allGroups.filter(x => x.members.filter(y => y.isInfantry).length !== x.members.length);
-      for(let transportGroup of allGroups){
-        let occupiedCarriers: AlphaStrikeUnit[] = []
+      for(const transportGroup of allGroups){
+        const occupiedCarriers: AlphaStrikeUnit[] = []
         let remainingInfantry: AlphaStrikeUnit[] = [...sortedInfantry]
 
         // Check MEC + OMNI
         const mecUnits = group.members.filter(unit => unit.abilities.includes("MEC"));
         const omniUnits = transportGroup.members.filter(unit => unit.abilities.includes("OMNI"));
 
-        for(let mecUnit of mecUnits){
-          for(let unit of omniUnits.filter(x =>  occupiedCarriers.includes(x) === false)){
+        for(const mecUnit of mecUnits){
+          for(const unit of omniUnits.filter(x =>  occupiedCarriers.includes(x) === false)){
               occupiedCarriers.push(unit);
               remainingInfantry = remainingInfantry.filter(x => x.uuid !== mecUnit.uuid);
               break;
@@ -842,8 +858,8 @@ class InfantryFormationBase extends FormationBonusBase {
         // Check XMEC
         const xmecUnits = group.members.filter(unit => unit.abilities.includes("XMEC"));
         let availableCarriers = transportGroup.members.filter(unit => !occupiedCarriers.includes(unit) && unit.isGroundUnit() && !unit.isInfantry);
-        for(let xmecUnit of xmecUnits){
-          for(let unit of availableCarriers){
+        for(const xmecUnit of xmecUnits){
+          for(const unit of availableCarriers){
               occupiedCarriers.push(unit);
               remainingInfantry = remainingInfantry.filter(x => x.uuid !== xmecUnit.uuid);
               availableCarriers = availableCarriers.filter(x => x.uuid !== unit.uuid);

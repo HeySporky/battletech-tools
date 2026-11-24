@@ -4,6 +4,7 @@ import { IAppGlobals } from '../../app-router';
 import Error404 from "../error404";
 import GameManagementHome from './home';
 import MatchPlayRouter from './match-play/_router';
+import CampaignsRouter from './campaigns/_router';
 
 import type { JSX } from "react";
 
@@ -23,7 +24,12 @@ export default class GameManagementRouter extends React.Component<IGameManagemen
                         appGlobals={this.props.appGlobals}
                     />
                 }/>
-               
+                <Route path={`campaigns/*`} element={
+                    <CampaignsRouter
+                        appGlobals={this.props.appGlobals}
+                    />
+                }/>
+
                 <Route path="*" element={
                     <Error404
                         appGlobals={this.props.appGlobals}

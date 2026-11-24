@@ -77,7 +77,7 @@ export const ASMULRoles: ASMULRole[] = [
     },
     {
         Id: 114,
-        Name:"Fast Dogfighte",
+        Name:"Fast Dogfighter",
         Image:"",
         SortOrder: 114
     },

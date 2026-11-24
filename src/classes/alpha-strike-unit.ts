@@ -1,7 +1,13 @@
-import { CONST_AS_PILOT_ABILITIES, IASPilotAbility } from "../data/alpha-strike-pilot-abilities";
+import { CONST_AS_PILOT_ABILITIES, getPilotAbilityForEdition, IASPilotAbility } from "../data/alpha-strike-pilot-abilities";
 import { CONST_AS_SPECIAL_ABILITIES, IASSpecialAbility } from "../data/alpha-strike-special-abilities";
+import { IASEWarPlayState } from "../utils/alpha-strike-ewar-play";
+import { APOCRYPHAL_RULES_LEVEL } from "../data/rules-level-options";
+import { DEFAULT_ALPHA_STRIKE_EDITION, getAlphaStrikeEdition } from "../data/rules-editions";
+import { calculateGroundPointValue, splitSpecialAbilities } from "../utils/alphaStrikeGroundPointValue";
 import { IAlphaStrikeExport } from "../utils/calculateAlphaStrikeValue";
 import { generateUUID } from "../utils/generateUUID";
+import type { UnitStanding } from "../utils/unit-standing";
+import { getAlphaStrikeQuirksInYear, getAlphaStrikeQuirkToHit, IAlphaStrikeQuirk } from "../utils/quirk-effects";
 import Pilot, { IPilot } from "./pilot";
 
 export interface IAlphaStrikeDamage {
@@ -20,6 +26,39 @@ export interface IMoveNumber {
     currentMove: number;
     type: string;
 };
+
+/** A large craft's firing arcs: DropShips and Small Craft call front and rear "Nose" and "Aft". */
+export type ASArcName = "front" | "rear" | "left" | "right";
+export const AS_ARC_NAMES: ASArcName[] = ["front", "rear", "left", "right"];
+/** An arc's attack classes (standard, capital, sub-capital, capital missile), S/M/L/E as printed ("4", "0*", ""). */
+export type ASArcAttackClass = "std" | "cap" | "scap" | "msl";
+export const AS_ARC_ATTACK_CLASSES: ASArcAttackClass[] = ["std", "cap", "scap", "msl"];
+export type IASArcDamage = Partial<Record<ASArcAttackClass, string[]>> & { spe?: string };
+export type IASArcs = Partial<Record<ASArcName, IASArcDamage>>;
+
+const ARC_VALUE = /^[0-9]{0,4}\*?$|^-$/;
+const ARC_ABILITIES = /^[A-Za-z0-9 ,/*().+-]{1,160}$/;
+
+/** The arcs in saved or MUL data, keeping only well-formed values; null when there are none. */
+export function sanitizeASArcs(raw: unknown): IASArcs | null {
+    if (!raw || typeof raw !== "object") return null;
+    const arcs: IASArcs = {};
+    for (const arcName of AS_ARC_NAMES) {
+        const arc = (raw as Record<string, unknown>)[arcName];
+        if (!arc || typeof arc !== "object") continue;
+        const kept: IASArcDamage = {};
+        for (const attackClass of AS_ARC_ATTACK_CLASSES) {
+            const values = (arc as Record<string, unknown>)[attackClass];
+            if (Array.isArray(values) && values.length === 4 && values.every((value) => typeof value === "string" && ARC_VALUE.test(value))) {
+                kept[attackClass] = [...values];
+            }
+        }
+        const spe = (arc as Record<string, unknown>).spe;
+        if (typeof spe === "string" && ARC_ABILITIES.test(spe)) kept.spe = spe;
+        if (Object.keys(kept).length > 0) arcs[arcName] = kept;
+    }
+    return Object.keys(arcs).length > 0 ? arcs : null;
+}
 
 export interface ASMULType {
     Id: number;
@@ -57,6 +96,8 @@ export interface IASMULUnit {
     BFTMM: number;
     BFThreshold: number;
     BFType: string | null;
+    /** Large craft only: damage by firing arc, read off the MUL card back. */
+    BFArcs?: IASArcs;
     BattleValue: number;
     Class: string;
 
@@ -83,22 +124,25 @@ export interface IASMULUnit {
     Type: ASMULType;
     Variant: string | null;
 
+    // Opaque public_uid from masterunitlist.battletech.com — the only stable join key the live site exposes.
+    MulUnitKey?: string;
+
+    // Per-era faction availability from the live site (the loader maps FactionIds to the getMULFactionLabels() ids).
+    Availability?: { EraId: number; FactionIds: number[] }[];
+
     BFDamageShortMin?: boolean;
     BFDamageMediumMin?: boolean;
     BFDamageLongMin?: boolean;
     BFDamageExtremeMin?: boolean;
 
-    // Opaque public_uid from masterunitlist.battletech.com — the only stable join key the live site exposes.
-    MulUnitKey?: string;
-
-    // Per-era faction availability from the live site (FactionIds use the same taxonomy as getMULFactionLabels()).
-    Availability?: { EraId: number; FactionIds: number[] }[];
-
     // Which bundled list served this record; set by the MUL chunk loader, not stored in the data files.
     MulSource?: MULSource;
+
+    // Present only on non-canonical custom entries (shared list or this browser's local entries).
+    CustomInfo?: ICustomMULInfo;
 }
 
-// MUL 2.0 records keep the model in Variant ("Black Knight" + "BL-7-KNT"); MUL 1.0 records
+// MUL 2.0 and custom records keep the model in Variant ("Black Knight" + "BL-7-KNT"); MUL 1.0 records
 // already carry the full designation in Name.
 export function getMULDisplayName(unit: Pick<IASMULUnit, "Name" | "Variant" | "MulUnitKey">): string {
     const name = (unit.Name ?? "").trim();
@@ -110,12 +154,39 @@ export function getMULDisplayName(unit: Pick<IASMULUnit, "Name" | "Variant" | "M
 }
 
 // mul2: masterunitlist.battletech.com (current). mul1: legacy numeric-id MUL records the live site no longer lists.
-export type MULSource = "mul2" | "mul1";
+// custom: non-canonical units, from the shared curated list or saved locally in this browser.
+// mordel: a mordel.net unit, pulled with the user's own API key.
+export type MULSource = MULListSource | "mordel";
+/** The sources the shipped MUL lists come from (mordel.net units have their own list). */
+export type MULListSource = "mul2" | "mul1" | "custom";
+
+export interface ICustomMULInfo {
+    author: string;
+    source: string;
+    notes: string;
+    /** Custom unless set: a custom entry may be apocryphal (licensed, not canon) or munchkin. */
+    standing?: UnitStanding;
+    createdAt: string;
+    updatedAt: string;
+    // Only on entries saved in this browser; the shared list never stores these.
+    local?: boolean;
+    pullRequestUrl?: string;
+}
 
 export interface IAlphaStrikeUnitExport {
     mechCreatorUUID: string;
+    /** E-War play state (ECM mode, Narc beacons, jams...); left out when empty or in a fresh export. */
+    ewarPlay?: IASEWarPlayState;
+    /** The Alpha Strike Alternate Munition the selected special ammunition plays as (alpha-strike-munitions.ts, #647). */
+    munition?: string;
     /** Rules level id (rules-level-options): from the MUL "Rules" field or the unit's creator. */
     rulesLevel?: number;
+    /** Special Rulesets (#324) a hand-built card is made under; left out when none. */
+    rulesets?: string[];
+    /** The design's Alpha Strike Companion quirks; none for a MUL unit or an older save. */
+    quirks?: IAlphaStrikeQuirk[];
+    /** The start of the design's era: the year its quirks are checked against when the game sets none. */
+    quirkEraStart?: number;
 
 
     customName?: string;
@@ -147,6 +218,8 @@ export interface IAlphaStrikeUnitExport {
     class: string;
     costCR: number;
     mulID: number;
+    /** The unit list the stats came from: mul2, mul1 or custom; empty for the creators and older saves. */
+    mulSource?: string;
     currentHeat: number;
     damage: IAlphaStrikeDamage;
     variant: string;
@@ -158,6 +231,7 @@ export interface IAlphaStrikeUnitExport {
     threshold: number;
     pilot: IPilot;
     imageURL: string;
+    arcs?: IASArcs | null;
 
     move: IMoveNumber[];
     jumpMove: number;
@@ -181,6 +255,12 @@ export class AlphaStrikeUnit {
 
     public mechCreatorUUID: string = "";
 
+    /** In-play E-War state (#642 Phase 5): ECM mode, stood still, Narc beacons, jams, TSEMP and chaff. */
+    public ewarPlay: IASEWarPlayState = {};
+
+    /** The ASCE Alternate Munition the unit's selected special ammunition plays as (#647); empty for standard rounds. */
+    public munition: string = "";
+
     public classification: string = "";
     public costCR: number = 0;
 
@@ -198,6 +278,19 @@ export class AlphaStrikeUnit {
 
     /** Rules level id (rules-level-options); undefined when unknown. */
     public rulesLevel: number | undefined = undefined;
+    /** Special Rulesets (#324) the unit creator built the card under. */
+    public rulesets: string[] = [];
+
+    /** The Companion quirks of the design this unit was made from (ASC pp.59-67); the MUL has no quirk data. */
+    public quirks: IAlphaStrikeQuirk[] = [];
+    /** The force's "Use design quirks" switch, set by `AlphaStrikeForce.syncQuirksInPlay`; not saved with the unit. */
+    public quirksInPlay: boolean = false;
+    /** The Alpha Strike rules edition this unit plays by; the force sets it (#646). Not saved on the unit. */
+    public playEdition: string = DEFAULT_ALPHA_STRIKE_EDITION;
+    /** The start of the design's era, saved with the unit; quirks are checked against it when the game sets no year. */
+    public quirkEraStart: number | undefined = undefined;
+    /** The force's "Game year", set by `AlphaStrikeForce.syncQuirksInPlay`; not saved with the unit. */
+    public quirkPlayYear: number | null = null;
 
     public showDetails: boolean = false;
 
@@ -221,6 +314,8 @@ export class AlphaStrikeUnit {
     public structure: number = 1;
 
     public threshold: number = 0;
+    /** Large craft from the MUL: damage by firing arc. */
+    public arcs: IASArcs | null = null;
 
     public currentToHitShort: number = 0;
     public currentToHitMedium: number = 0;
@@ -242,6 +337,8 @@ export class AlphaStrikeUnit {
     public jumpMove: number = 0;
 
     public mulID: number = 0;
+    /** The unit list the stats came from (mul2, mul1, custom); empty for the creators and saves from before it was kept. */
+    public mulSource: string = "";
 
     public abilities: string[] = [];
 
@@ -305,6 +402,14 @@ export class AlphaStrikeUnit {
         this._pilot.gunnery = nv;
     }
 
+    /**
+     * Whether the card's stats are official: from MUL 2.0. A save from before the list was kept counts when it has a
+     * MUL id, as only MUL units had one; the creators' units don't.
+     */
+    public isOfficial(): boolean {
+        return this.mulSource ? this.mulSource === "mul2" : this.mulID > 0;
+    }
+
     public importMUL( incomingMechData: IASMULUnit ) {
 
         if( typeof(incomingMechData) !== "undefined" && incomingMechData !== null ) {
@@ -328,11 +433,13 @@ export class AlphaStrikeUnit {
             this.rulesLevel = getRulesLevelFromMULRules(incomingMechData.Rules);
 
             this.mulID = incomingMechData.Id;
+            this.mulSource = incomingMechData.MulSource ?? "";
 
             this.tonnage = +incomingMechData.Tonnage;
 
-            // MUL 2.0 records have no BFThreshold; only aerospace units have an armor threshold.
+            // Only aerospace units have an armor threshold. The MUL sync moves the live site's "TH n" ability here (#48).
             this.threshold = Number(incomingMechData.BFThreshold) || 0;
+            this.arcs = sanitizeASArcs(incomingMechData.BFArcs);
 
             if( incomingMechData.Role && incomingMechData.Role.Name ) {
                 this.role = incomingMechData.Role.Name;
@@ -376,7 +483,10 @@ export class AlphaStrikeUnit {
         
 
             if( incomingMechData.BFAbilities && incomingMechData.BFAbilities.trim() ) {
-                this.abilities = incomingMechData.BFAbilities.split(",").map(ability => ability.trim());
+                // The role is its own field: an older Master Unit List sync also stored it as an ability.
+                const roleName = incomingMechData.Role?.Name?.trim();
+                this.abilities = incomingMechData.BFAbilities.split(",").map(ability => ability.trim())
+                    .filter(ability => ability !== "" && ability !== roleName);
             }
 
             this.overheat = +incomingMechData.BFOverheat;
@@ -394,11 +504,10 @@ export class AlphaStrikeUnit {
                 currentMove: 0,
                 type: ""
             }
-            while( tmpMove.indexOf('"') > 0 )
-                tmpMove = tmpMove.replace('"', "");
+            tmpMove = tmpMove.replace(/"/g, "");
             if( tmpMove.indexOf("/") > 0 ) {
                 //split move....
-                let moveArray = tmpMove.split( "/" );
+                const moveArray = tmpMove.split( "/" );
 
                 for( let moveCount = 0; moveCount < moveArray.length; moveCount++ ) {
                     tmpMoveObj = {
@@ -448,6 +557,7 @@ export class AlphaStrikeUnit {
             this.costCR = incomingMechData.costCR / 1;
 
             this.mulID = incomingMechData.mulID / 1;
+            this.mulSource = incomingMechData.mulSource ?? "";
 
             this.imageURL = incomingMechData.imageURL;
 
@@ -461,12 +571,18 @@ export class AlphaStrikeUnit {
             this.tro = incomingMechData.tro;
 
             this.rulesLevel = typeof incomingMechData.rulesLevel === "number" ? incomingMechData.rulesLevel : undefined;
+            this.rulesets = Array.isArray(incomingMechData.rulesets) ? incomingMechData.rulesets.filter((id): id is string => typeof id === "string") : [];
+            this.quirks = Array.isArray(incomingMechData.quirks)
+                ? incomingMechData.quirks.filter((quirk) => quirk && typeof quirk.tag === "string").map((quirk) => ({ ...quirk }))
+                : [];
+            this.quirkEraStart = typeof incomingMechData.quirkEraStart === "number" ? incomingMechData.quirkEraStart : undefined;
 
             this.role =  incomingMechData.role;
 
             this.tonnage = incomingMechData.tonnage / 1;
 
             this.threshold = incomingMechData.threshold / 1;
+            this.arcs = sanitizeASArcs(incomingMechData.arcs);
 
             this.type = incomingMechData.type;
             this.size = incomingMechData.size / 1;
@@ -519,6 +635,14 @@ export class AlphaStrikeUnit {
 
         if( incomingMechData.currentArmor ) {
             this.currentArmor = incomingMechData.currentArmor;
+        }
+
+        if( typeof incomingMechData.munition === "string" ) {
+            this.munition = incomingMechData.munition;
+        }
+
+        if( incomingMechData.ewarPlay && typeof incomingMechData.ewarPlay === "object" ) {
+            this.ewarPlay = JSON.parse(JSON.stringify(incomingMechData.ewarPlay)) as IASEWarPlayState;
         }
 
         if( incomingMechData.currentStructure ) {
@@ -629,7 +753,7 @@ export class AlphaStrikeUnit {
     public get currentPilotAbility(): IASPilotAbility | null {
 
         if( this._pilot.alphaStrikeAbilities.length > 0 ) {
-            for( let abi of CONST_AS_PILOT_ABILITIES ) {
+            for( const abi of CONST_AS_PILOT_ABILITIES ) {
                 if( this._pilot.alphaStrikeAbilities[0] === abi.id )
                     return abi;
             }
@@ -640,7 +764,7 @@ export class AlphaStrikeUnit {
 
     public get currentPilotVeteranAbility(): IASPilotAbility | null {
         if( this._pilot.alphaStrikeAbilities.length > 1 ) {
-            for( let abi of CONST_AS_PILOT_ABILITIES ) {
+            for( const abi of CONST_AS_PILOT_ABILITIES ) {
                 if( this._pilot.alphaStrikeAbilities[1] === abi.id )
                     return abi;
             }
@@ -651,7 +775,7 @@ export class AlphaStrikeUnit {
 
     public get currentPilotHeroAbility(): IASPilotAbility | null {
         if( this._pilot.alphaStrikeAbilities.length > 2 ) {
-            for( let abi of CONST_AS_PILOT_ABILITIES ) {
+            for( const abi of CONST_AS_PILOT_ABILITIES ) {
                 if( this._pilot.alphaStrikeAbilities[2] === abi.id )
                     return abi;
             }
@@ -661,15 +785,19 @@ export class AlphaStrikeUnit {
     }
 
     public getPilotAbilities(): any[] {
-        let rv: any[] = [];
+        const rv: any[] = [];
 
 
 
-        for( let id of this._pilot.alphaStrikeAbilities ) {
+        for( const id of this._pilot.alphaStrikeAbilities ) {
             let found = false;
-            for( let card of CONST_AS_PILOT_ABILITIES ) {
+            for( const card of CONST_AS_PILOT_ABILITIES ) {
                 if( id === card.id ) {
-                    rv.push(card);
+                    // A held ability the edition does not offer stays, marked so the card can say so.
+                    const forEdition = getPilotAbilityForEdition(card, this.playEdition);
+                    rv.push(forEdition.offered
+                        ? { ...card, cost: forEdition.cost, source: forEdition.source }
+                        : { ...card, notInEdition: true });
                     found = true;
                     break;
                 }
@@ -682,12 +810,12 @@ export class AlphaStrikeUnit {
     }
 
     getPilotAbilityList(): string[] {
-        let rv: string[] = [];
+        const rv: string[] = [];
 
-        for( let id of this._pilot.alphaStrikeAbilities ) {
-            for( let card of CONST_AS_PILOT_ABILITIES ) {
+        for( const id of this._pilot.alphaStrikeAbilities ) {
+            for( const card of CONST_AS_PILOT_ABILITIES ) {
                 if( id === card.id ) {
-                    rv.push(card.ability + " (" + card.cost + ")");
+                    rv.push(card.ability + " (" + getPilotAbilityForEdition(card, this.playEdition).cost + ")");
                     break;
                 }
             }
@@ -700,10 +828,11 @@ export class AlphaStrikeUnit {
     public getTotalPilotAbilityPoints(): number {
         let rv = 0;
 
-        for( let id of this._pilot.alphaStrikeAbilities ) {
-            for( let card of CONST_AS_PILOT_ABILITIES ) {
+        for( const id of this._pilot.alphaStrikeAbilities ) {
+            for( const card of CONST_AS_PILOT_ABILITIES ) {
                 if( id === card.id ) {
-                    rv += card.cost;
+                    // Held abilities the edition does not offer keep their points, at the record cost.
+                    rv += getPilotAbilityForEdition(card, this.playEdition).cost;
                 }
             }
         }
@@ -732,12 +861,12 @@ export class AlphaStrikeUnit {
 
 
     private _getRawNumber( incomingString: string ): number {
-        let myString = incomingString.replace(/\D/g,'');
+        const myString = incomingString.replace(/\D/g,'');
         return +myString / 1;
     }
 
     private _getRawAlpha( incomingString: string ): string {
-        let myString = incomingString.replace(/\d/g,'');
+        const myString = incomingString.replace(/\d/g,'');
         return myString.toLowerCase().trim();
     }
 
@@ -812,32 +941,32 @@ export class AlphaStrikeUnit {
             return true;
         }
 
-        for( let point of this.roundArmor ) {
+        for( const point of this.roundArmor ) {
             if (point) {
                 return true;
             }
         }
-        for( let point of this.roundStructure ) {
+        for( const point of this.roundStructure ) {
             if (point) {
                 return true;
             }
         }
-        for( let point of this.roundEngineHits ) {
+        for( const point of this.roundEngineHits ) {
             if (point) {
                 return true;
             }
         }
-        for( let point of this.roundFireControlHits ) {
+        for( const point of this.roundFireControlHits ) {
             if (point) {
                 return true;
             }
         }
-        for( let point of this.roundMpControlHits ) {
+        for( const point of this.roundMpControlHits ) {
             if (point) {
                 return true;
             }
         }
-        for( let point of this.roundWeaponHits ) {
+        for( const point of this.roundWeaponHits ) {
             if (point) {
                 return true;
             }
@@ -871,7 +1000,7 @@ export class AlphaStrikeUnit {
     public getEngineHits(): number {
         let rv = 0;
         if( this.engineHits ) {
-            for( let val of this.engineHits  ) {
+            for( const val of this.engineHits  ) {
                 if( val ) {
                     rv++;
                 }
@@ -888,7 +1017,7 @@ export class AlphaStrikeUnit {
     }
 
     public hasAbility( ability: string ): boolean {
-        for( let abi of this.abilities ) {
+        for( const abi of this.abilities ) {
             if( abi.toLowerCase().trim() === ability.toLowerCase().trim()) {
                 return true;
             }
@@ -898,7 +1027,7 @@ export class AlphaStrikeUnit {
     public getFireControlHits(): number {
         let rv = 0;
         if( this.engineHits ) {
-            for( let val of this.fireControlHits  ) {
+            for( const val of this.fireControlHits  ) {
                 if( val ) {
                     rv++;
                 }
@@ -911,7 +1040,7 @@ export class AlphaStrikeUnit {
     public getMPHits(): number {
         let rv = 0;
         if( this.engineHits ) {
-            for( let val of this.mpControlHits  ) {
+            for( const val of this.mpControlHits  ) {
                 if( val ) {
                     rv++;
                 }
@@ -930,7 +1059,7 @@ export class AlphaStrikeUnit {
     public getWeaponHits(): number {
         let rv = 0;
         if( this.engineHits ) {
-            for( let val of this.weaponHits  ) {
+            for( const val of this.weaponHits  ) {
                 if( val ) {
                     rv++;
                 }
@@ -941,6 +1070,7 @@ export class AlphaStrikeUnit {
     }
 
     public reset() {
+        this.ewarPlay = {};
         this.currentArmor = [];
         this.currentStructure = [];
         this.currentHeat = 0;
@@ -1059,7 +1189,7 @@ export class AlphaStrikeUnit {
             } else if( this.basePoints <= 104) {
                 pvDifference = 10;
             } else {
-                pvDifference = 10 + Math.floor( ( this.basePoints - 104) / 10 );
+                pvDifference = 10 + Math.ceil( ( this.basePoints - 104) / 10 );
             }
             this.currentPoints = this.basePoints - ( pvDifference * ( this.currentSkill - 4) );
         } else {
@@ -1183,6 +1313,8 @@ export class AlphaStrikeUnit {
         }
 
         if( typeof( this.roundMpControlHits ) === "undefined"  || this.roundMpControlHits.length !== this.mpControlHits.length  ) {
+            // Started empty: adding to a list of another length never reached the right one, and grew it on every call.
+            this.roundMpControlHits = [];
             for ( let mpHitsCount = 0; mpHitsCount < this.mpControlHits.length; mpHitsCount++) {
                 this.roundMpControlHits.push( false );
             }
@@ -1229,12 +1361,13 @@ export class AlphaStrikeUnit {
             if( this.engineHits[ engineHitsCount ] )
                 currentEngineHits++;
         }
+        const playRules = getAlphaStrikeEdition(this.playEdition).playRules;
         // Calculate Current Damage Values from Crits...
         
-        let [shortDamage, shortMinimal] = this.calculateDamage(this.damage.short, currentWeaponHits, this.damage.shortMinimal || false);
-        let [mediumDamage, mediumMinimal] = this.calculateDamage(this.damage.medium, currentWeaponHits, this.damage.mediumMinimal || false);
-        let [longDamage, longMinimal] = this.calculateDamage(this.damage.long, currentWeaponHits, this.damage.longMinimal || false);
-        let [extremeDamage, extremeMinimal] = this.calculateDamage(this.damage.extreme, currentWeaponHits, this.damage.extremeMinimal || false);
+        const [shortDamage, shortMinimal] = this.calculateDamage(this.damage.short, currentWeaponHits, this.damage.shortMinimal || false, playRules.weaponHitToMinimal);
+        const [mediumDamage, mediumMinimal] = this.calculateDamage(this.damage.medium, currentWeaponHits, this.damage.mediumMinimal || false, playRules.weaponHitToMinimal);
+        const [longDamage, longMinimal] = this.calculateDamage(this.damage.long, currentWeaponHits, this.damage.longMinimal || false, playRules.weaponHitToMinimal);
+        const [extremeDamage, extremeMinimal] = this.calculateDamage(this.damage.extreme, currentWeaponHits, this.damage.extremeMinimal || false, playRules.weaponHitToMinimal);
 
         this.currentDamage = {
             short: shortDamage,
@@ -1248,16 +1381,17 @@ export class AlphaStrikeUnit {
         };
 
         this.currentAbilities = this.abilities.map((abi) => {
-                let split = abi.split(/\d/);
+                const split = abi.trimStart().split(/\d/);
 
-
-                let canBeCritAbilities = ['FLK', 'HT', 'IF', 'LRM', 'MSL', 'SRM', 'TUR(', 'TOR', 'REAR', 'AC','IATM']
-                // If there are no numbers, it's not got damage values
-                if (split.length === 1 || !canBeCritAbilities.includes(split[0].trim())) {
+                const canBeCritAbilities = ['FLK', 'HT', 'IF', 'LRM', 'MSL', 'SRM', 'TUR(', 'TOR', 'REAR', 'AC','IATM']
+                // If there are no numbers, it's not got damage values.
+                // MUL cards space the code from its values ("IF 0*", "TUR (2/2/1"), so compare without spaces.
+                if (split.length === 1 || !canBeCritAbilities.includes(split[0].replace(/\s+/g, "").toUpperCase())) {
                     return abi;
                 }
-                let type = split[0].trim();
-                let values = abi.trim().slice(type.length);
+                // Keep the card's own spelling of the code, space included.
+                const type = split[0];
+                let values = abi.trimStart().slice(type.length).trim();
                 let turret = false;
 
                 // If the last character is a parenthesis, remove it and set turret to true
@@ -1266,15 +1400,15 @@ export class AlphaStrikeUnit {
                     turret = true;
                     values = values.slice(0, values.length - 1);
                 }
-                let damageValues = values.split("/");
-                let abiString = type + damageValues.map((damageValue) => {
+                const damageValues = values.split("/");
+                const abiString = type + damageValues.map((damageValue) => {
                     let damage = 0;
                     let minimal = false;
                     let dash = false;
                     if (damageValue === "-") {
                         dash = true;
                     } else {
-                        [damage, minimal] = this.calculateDamage(+damageValue, currentWeaponHits, damageValue === "0*");
+                        [damage, minimal] = this.calculateDamage(+damageValue, currentWeaponHits, damageValue === "0*", playRules.weaponHitToMinimal);
                     }
                     return dash ? "-" : minimal ? "0*" : damage.toString();
                 }).join("/");
@@ -1292,6 +1426,12 @@ export class AlphaStrikeUnit {
             ( this.type && this.type.toLowerCase() === "bm" )
                 ||
             ( this.type && this.type.toLowerCase() === "im" )
+                ||
+            // A Micro-Mech (Custom Homebrew) takes critical hits on the 'Mech column.
+            ( this.type && this.type.toLowerCase() === "mm" )
+                ||
+            // A walker (Custom Homebrew): WK as a BattleMech, IWK as an IndustrialMech.
+            ( this.type && ( this.type.toLowerCase() === "wk" || this.type.toLowerCase() === "iwk" ) )
         ) {
             // for BattleMechs
             for( let count = 0; count < this.getMPHits(); count++ ) {
@@ -1362,7 +1502,7 @@ export class AlphaStrikeUnit {
         this.currentMoveHexes = "";
 
         this.immobile = true;
-        if( this.move[0].type === "j" ) {
+        if( this.move[0]?.type === "j" ) {
             this.move = [
                 {
                     move: this.move[0].move,
@@ -1472,10 +1612,10 @@ export class AlphaStrikeUnit {
                 tmpTMM++;
             }
 
-            let typeLower = this.type.trim().toLowerCase();
+            const typeLower = this.type.trim().toLowerCase();
             if (typeLower === "sv" || typeLower === "cv") {
-                if (this.getEngineHits() > 0) {
-                    // Vehicles with an engine hit halve their TMM (round down)
+                if (playRules.vehicleEngineHitHalvesTmm && this.getEngineHits() > 0) {
+                    // Vehicles with an engine hit halve their TMM (round down; ASCE p.50 only, the 2013 book halves Move and damage)
                     tmpTMM = Math.floor(tmpTMM / 2);
                 }
             }
@@ -1537,8 +1677,8 @@ export class AlphaStrikeUnit {
                 tmpTMM = -4;
                 this.immobile = true;
             } else {
-                // -1 TMM at OV2 or OV3 (ASC pg. 52)
-                if( this.currentHeat > 1 && this.move[moveC].type !== "j" ){
+                // -1 TMM at heat level 2 or higher (ASCE p.53 only; the 2013 book keeps the card TMM)
+                if( playRules.heatLowersTmm && this.currentHeat > 1 && this.move[moveC].type !== "j" ){
                     tmpTMM -= 1;
                     if( tmpTMM < 0 ) {
                         tmpTMM = 0;
@@ -1576,6 +1716,14 @@ export class AlphaStrikeUnit {
         this.currentToHitMedium = this.currentSkill + 2 + this.currentHeat + currentFCHits * 2; // + currentEngineHits;
         this.currentToHitLong = this.currentSkill + 4 + this.currentHeat + currentFCHits * 2; // + currentEngineHits;
         this.currentToHitExtreme = this.currentSkill + 6 + this.currentHeat + currentFCHits * 2; // + currentEngineHits;
+        // The Companion's quirks, with the game's "Use design quirks" switch on (ASC pp.59-67).
+        if( this.quirksInPlay ) {
+            const quirks = getAlphaStrikeQuirksInYear(this.quirks, this.quirkPlayYear ?? this.quirkEraStart);
+            this.currentToHitShort += getAlphaStrikeQuirkToHit(quirks, "short");
+            this.currentToHitMedium += getAlphaStrikeQuirkToHit(quirks, "medium");
+            this.currentToHitLong += getAlphaStrikeQuirkToHit(quirks, "long");
+            this.currentToHitExtreme += getAlphaStrikeQuirkToHit(quirks, "extreme");
+        }
 
         this.currentHeat = this.currentHeat / 1;
 
@@ -1598,8 +1746,8 @@ export class AlphaStrikeUnit {
 
     }
 
-    private calculateDamage(damage: number, weaponHits: number, minimal: boolean | undefined): [number, boolean] {
-        let typeLower = this.type.trim().toLowerCase();
+    private calculateDamage(damage: number, weaponHits: number, minimal: boolean | undefined, weaponHitToMinimal: boolean = true): [number, boolean] {
+        const typeLower = this.type.trim().toLowerCase();
         if ((typeLower === "sv") || (typeLower === "cv")) {
             if (this.getEngineHits() > 0) {
                 // Vehicles with an engine hit halve their damage (round down)
@@ -1610,7 +1758,7 @@ export class AlphaStrikeUnit {
         if (minimal === false) {
             damage = (+damage - weaponHits);
             // If weapon damage is now 0, and there are still hits, we have hit the minimal damage threshold
-            if (damage == 0 && weaponHits > 0) {
+            if (weaponHitToMinimal && damage == 0 && weaponHits > 0) {
                 minimal = true;
             } else if (damage < 0) {
                 damage = 0;
@@ -1628,6 +1776,11 @@ export class AlphaStrikeUnit {
         }
         return [damage, minimal ? true : false];
     }
+    /** True for a large craft whose damage is given by firing arc. */
+    public hasArcs(): boolean {
+        return this.arcs !== null;
+    }
+
     /**
     * Returns a boolean if the unit is a ground unit. This is used for
     * calculating whether or not the unit can sprint
@@ -1635,15 +1788,8 @@ export class AlphaStrikeUnit {
     * @beta
     */
     public isGroundUnit(): boolean {
-        if(
-            this.type === "AF"
-            ||
-            this.type === "DA"
-            ||
-            this.type === "DS"
-            ||
-            this.type === "SC"
-        ) {
+        // Fighters, Small Craft, DropShips and capital ships (ASC unit type codes).
+        if( ["AF", "CF", "SC", "DS", "DA", "JS", "WS", "SS"].includes(this.type) ) {
             return false;
         }
         for( let moveC = 0; moveC < this.move.length; moveC++  ){
@@ -1656,28 +1802,28 @@ export class AlphaStrikeUnit {
 
     public getSpecialAbility( tag: string ): IASSpecialAbility | null {
         if( this.abilities ) {
-            for( let def of CONST_AS_SPECIAL_ABILITIES ) {
+            for( const def of CONST_AS_SPECIAL_ABILITIES ) {
                 if( tag.toLowerCase().trim() === def.tag.toLowerCase().trim() ) {
-                    let newDef = JSON.parse(JSON.stringify(def));
+                    const newDef = JSON.parse(JSON.stringify(def));
                     newDef.rawTag = tag;
                     return newDef;
                 }
                 if(def.tag.indexOf("%") > 0) {
-                    let baseTag = def.tag.substring(0, def.tag.indexOf("%") ).toLowerCase();
+                    const baseTag = def.tag.substring(0, def.tag.indexOf("%") ).toLowerCase();
 
                     if( tag.toLowerCase().startsWith(baseTag) ) {
-                        let newDef = JSON.parse(JSON.stringify(def));
+                        const newDef = JSON.parse(JSON.stringify(def));
                         newDef.rawTag = tag;
                         return newDef;
                     }
                 }
                 if(def.tag.indexOf("#") > 0) {
-                    let baseTag = def.tag.substring(0, def.tag.indexOf("#") ).toLowerCase();
+                    const baseTag = def.tag.substring(0, def.tag.indexOf("#") ).toLowerCase();
                     if( tag.toLowerCase().startsWith(baseTag) ) {
-                        let tmp = tag.toLowerCase().replace(baseTag, "");
+                        const tmp = tag.toLowerCase().replace(baseTag, "");
                         if( tmp.length > 0 ) {
                             if( !Number.isNaN(Number(tmp[0])) ) {
-                                let newDef = JSON.parse(JSON.stringify(def));
+                                const newDef = JSON.parse(JSON.stringify(def));
                                 newDef.rawTag = tag;
                                 return newDef;
                             }
@@ -1810,7 +1956,7 @@ export class AlphaStrikeUnit {
         this.armor = nv;
     }
     public setStructure( nv: number ) {
-        this.armor = nv;
+        this.structure = nv;
     }
 
     public export(
@@ -1866,7 +2012,7 @@ export class AlphaStrikeUnit {
             _roundHeat = this.roundHeat;
         }
 
-        let rv:  IAlphaStrikeUnitExport = {
+        const rv:  IAlphaStrikeUnitExport = {
             mechCreatorUUID:  this.mechCreatorUUID,
             customName: this.customName,
             currentArmor: _currentArmor,
@@ -1892,6 +2038,7 @@ export class AlphaStrikeUnit {
             class:  this.class?? "",
             costCR:  this.costCR,
             mulID:  this.mulID,
+            mulSource:  this.mulSource,
             currentHeat:  _currentHeat,
             damage:  this.damage,
             variant:  this.variant,
@@ -1901,8 +2048,14 @@ export class AlphaStrikeUnit {
             tonnage:  this.tonnage,
             tro:  this.tro,
             rulesLevel:  this.rulesLevel,
+            ...(this.munition ? { munition: this.munition } : {}),
+            ...(this.rulesets.length > 0 ? { rulesets: [...this.rulesets] } : {}),
+            ...(!noInPlayVariables && Object.keys(this.ewarPlay).length > 0 ? { ewarPlay: JSON.parse(JSON.stringify(this.ewarPlay)) as IASEWarPlayState } : {}),
+            quirks:  this.quirks.map((quirk) => ({ ...quirk })),
+            quirkEraStart:  this.quirkEraStart,
             role:  this.role,
             threshold:  this.threshold,
+            arcs:  this.arcs,
             pilot:  this._pilot,
             imageURL:  this.imageURL,
             move:  this.move,
@@ -1923,7 +2076,7 @@ export class AlphaStrikeUnit {
     }
 
     export2(): IAlphaStrikeExport {
-        let rv: IAlphaStrikeExport = {
+        const rv: IAlphaStrikeExport = {
             mechCreatorUUID: this.uuid,
             name: this.name,
             move: this.move[0].move,
@@ -1951,302 +2104,44 @@ export class AlphaStrikeUnit {
         return rv;
     }
 
+    /**
+     * Recalculates the Point Value of a ground unit from its card (ASC pp.138-141 as corrected by errata v1.6),
+     * with the same rules as the 'Mech conversion. Aerospace cards keep the Point Value they were given.
+     */
     calc(): string {
-
-        let _calcLogAS = "";
-
-        /* *********************************
-         *
-         * Alpha Strike Point Value ASC - p138
-         *
-         * ******************************** */
-
-        this.basePoints = 0;
-        _calcLogAS += "<div class=\"text-center\"><strong> - Calculating Point Value - </strong></div>\n";
-        /* *********************************
-         * Step 1: Determine Unit’s Offensive Value ASC - p138
-         * ******************************** */
-
-        _calcLogAS += "<strong>Step 1: Determine Unit’s Offensive Value ASC - p138</strong><br />\n";
-        let offensive_value = 0;
-        // Attack Damage Factor
-        offensive_value += this.damage.short;
-        offensive_value += this.damage.medium;
-        offensive_value += this.damage.medium;
-        offensive_value += this.damage.long;
-        offensive_value += this.damage.extreme;
-
-        _calcLogAS += "Attack Damage Factor: "
-        + offensive_value.toString() + " ( "
-        + this.damage.short.toString() + " + "
-        + this.damage.medium.toString() + " + "
-         + this.damage.long.toString() + " + "
-         + this.damage.medium.toString() + " + "
-         + this.damage.extreme.toString()
-        + " )<br />\n";
-
-        // Unit Size Factor
-        if(
-            this.type.toLowerCase().trim() === "bm"
-            ||
-            this.type.toLowerCase().trim() === "pm"
-        )  {
-            offensive_value += this.size / 2;
-            _calcLogAS += "Unit Size Factor: " + (this.size / 2) + " ( " + this.size + " / 2)<br />\n";
+        const ground = ["BM", "IM", "PM", "CV", "SV", "BA", "CI", "MM", "WK", "IWK"];
+        const type = (this.type || "").trim().toUpperCase();
+        const jumpEntries = this.move.filter((move) => move.type === "j");
+        const moves = this.move.filter((move) => move.type !== "j").map((move) => ({ inches: +move.move || 0, mode: (move.type || "").toLowerCase() }));
+        const jump = Math.max(+this.jumpMove || 0, ...jumpEntries.map((move) => +move.move || 0));
+        // A card prints only the jump when it equals the ground Move ('12"j').
+        if (moves.length === 0 && jump > 0) moves.push({ inches: jump, mode: "" });
+        // Airships, fixed-wing and satellite support vehicles move in thrust, and price as aerospace units.
+        const aerospaceMove = moves.some((move) => ["a", "i", "k", "p"].includes(move.mode));
+        if (!ground.includes(type) || aerospaceMove) {
+            this.calcCurrentValues();
+            return "<div class=\"text-center\"><strong> - Point Value - </strong></div>\n"
+                + "The Point Value of an aerospace unit is not recalculated here; it keeps " + this.basePoints + ".<br />\n";
         }
 
-        // Overheat Factor
-        let overHeatFactor = 0;
-        if( this.overheat > 1) {
-            offensive_value += 1;
-            offensive_value += (this.overheat - 1) / 2;
-            overHeatFactor += 1;
-            overHeatFactor += (this.overheat - 1) / 2;
-        } else {
-            offensive_value += this.overheat;
-            overHeatFactor += this.overheat;
-
-        }
-
-        _calcLogAS += "Overheat Factor: " + overHeatFactor + "<br />\n";
-
-        /* *********************************
-         * Step 1a: Apply Blanket Offensive Modifiers ASC - p139
-         * ******************************** */
-        _calcLogAS += "<strong>Step 1a: Apply Blanket Offensive Modifiers ASC - p139</strong><br />\n";
-        // TODO
-
-        /* *********************************
-         * Step 2: Determine Unit’s Defensive Value ASC - p139
-         * ******************************** */
-        _calcLogAS += "<strong>Step 2: Determine Unit’s Defensive Value ASC - p139</strong><br />\n";
-        // let movementFactor = 0;
-
-        let _groundMove = 0;
-        for( let move of this.move ) {
-            if( move.type === "g" ) {
-                _groundMove = move.move;
-            }
-        }
-
-        // Movement Factor:
-        let movementDefenseValue = 0;
-        let bestMovement = 0;
-        if( _groundMove > this.jumpMove) {
-            movementDefenseValue += _groundMove * .25;
-            bestMovement = _groundMove;
-        } else {
-            movementDefenseValue += this.jumpMove * .25;
-            bestMovement = _groundMove;
-        }
-
-        if( this.jumpMove > 0) {
-            movementDefenseValue += .5;
-            _calcLogAS += "Movement Factor: " + movementDefenseValue + " ( " + bestMovement + " * .25 + .5)<br />\n";
-        } else {
-            _calcLogAS += "Movement Factor: " + movementDefenseValue + " ( " + bestMovement + " * .25)<br />\n";
-        }
-
-        // if (
-        //     +rearDamage.short > 0 ||
-        //     +rearDamage.medium > 0 ||
-        //     +rearDamage.long > 0
-        // ) {
-        //     this.abilityCodes.push( "Rear" );
-        // }
-
-        // let highestDamage = 0;
-
-        for (let aC = 0; aC < this.abilities.length; aC++) {
-
-        //     // Replace Heat with Heat X/X/X
-        //     if( this.abilityCodes[aC].toLowerCase() === "heat" ) {
-        //         heatDamage = adjustAlphaStrikeDamage(heatDamage);
-        //         this.abilityCodes[aC] = "Heat " + heatDamage.short + "/" + heatDamage.medium + "/" + heatDamage.long;
-        //         highestDamage = getHighestDamage(heatDamage);
-        //         offensive_value += highestDamage;
-        //         if (heatDamage.medium.toString() !== "-" && +heatDamage.medium > 0)
-        //             offensive_value += .5;
-
-        //         _calcLogAS += "<strong>Adding</strong> Heat Ability: " + heatDamage.short + "/" + heatDamage.medium + "/" + heatDamage.long + "<br />\n";
-        //         _calcLogAS += "Adding Heat Damage Factor to PV: " + highestDamage + "<br />\n";
-        //         if (heatDamage.medium.toString() !== "-" && +heatDamage.medium > 0)
-        //             _calcLogAS += "Adding Heat Medium Damage Bonus to PV: 0,5<br />\n";
-        //     }
-
-        //     // Replace LRM with LRM X/X/X
-        //     if( this.abilityCodes[aC].toLowerCase() === "lrm" ) {
-        //         lrmDamage = adjustAlphaStrikeDamage(lrmDamage);
-        //         this.abilityCodes[aC] = "LRM " + lrmDamage.short + "/" + lrmDamage.medium + "/" + lrmDamage.long;
-        //         _calcLogAS += "<strong>Adding</strong> LRM Ability: " + lrmDamage.short + "/" + lrmDamage.medium + "/" + lrmDamage.long + "<br />\n";
-
-        //     }
-
-        //     // Replace Flak with Flak X/X/X
-        //     if( this.abilityCodes[aC].toLowerCase() === "flak" ) {
-        //         flakDamage = adjustAlphaStrikeDamage(flakDamage);
-        //         this.abilityCodes[aC] = "Flak " + flakDamage.short + "/" + flakDamage.medium + "/" + flakDamage.long;
-        //         _calcLogAS += "<strong>Adding</strong> Flak Ability: " + flakDamage.short + "/" + flakDamage.medium + "/" + flakDamage.long + "<br />\n";
-        //     }
-
-        //     // Replace AC with AC X/X/X
-        //     if( this.abilityCodes[aC].toLowerCase() === "ac" ) {
-        //         acDamage = adjustAlphaStrikeDamage(acDamage);
-        //         this.abilityCodes[aC] = "AC " + acDamage.short + "/" + acDamage.medium + "/" + acDamage.long;
-        //         _calcLogAS += "<strong>Adding</strong> AC Ability: " + acDamage.short + "/" + acDamage.medium + "/" + acDamage.long + "<br />\n";
-        //     }
-
-        //     // Replace SRM with SRM X/X/X
-        //     if( this.abilityCodes[aC].toLowerCase() === "srm" ) {
-        //         srmDamage = adjustAlphaStrikeDamage(srmDamage);
-        //         this.abilityCodes[aC] = "SRM " + srmDamage.short + "/" + srmDamage.medium + "/" + srmDamage.long;
-        //         _calcLogAS += "<strong>Adding</strong> SRM Ability: " + srmDamage.short + "/" + srmDamage.medium + "/" + srmDamage.long + "<br />\n";
-        //     }
-
-        //     // Replace Missile with Missile X/X/X
-        //     if( this.abilityCodes[aC].toLowerCase() === "missile" || this.abilityCodes[aC].toLowerCase() === "msl" ) {
-        //         mslDamage = adjustAlphaStrikeDamage(mslDamage);
-        //         this.abilityCodes[aC] = "MSL " + mslDamage.short + "/" + mslDamage.medium + "/" + mslDamage.long;
-        //         _calcLogAS += "<strong>Adding</strong> Missile Ability: " + mslDamage.short + "/" + mslDamage.medium + "/" + mslDamage.long + "<br />\n";
-        //     }
-
-        //     // Replace Rear with Rear X/X/X
-        //     if( this.abilityCodes[aC].toLowerCase() === "rear" ) {
-        //         rearDamage = adjustAlphaStrikeDamage(rearDamage);
-        //         this.abilityCodes[aC] = "Rear " + rearDamage.short + "/" + rearDamage.medium + "/" + rearDamage.long;
-        //         _calcLogAS += "<strong>Adding</strong> Rear Ability: " + rearDamage.short + "/" + rearDamage.medium + "/" + rearDamage.long + "<br />\n";
-        //     }
-
-        //     // Replace IndirectFire with IF X
-        //     if(
-        //         this.abilityCodes[aC].toLowerCase() === "indirect fire"
-        //         ||
-        //         this.abilityCodes[aC].toLowerCase() === "if"
-        //     ) {
-        //         rearDamage = adjustAlphaStrikeDamage(rearDamage);
-        //         this.abilityCodes[aC] = "IF " + indirectFireRating;
-        //         _calcLogAS += "<strong>Adding</strong> IF Ability: " + indirectFireRating + "<br />\n";
-        //         offensive_value += indirectFireRating;
-        //         _calcLogAS += "Adding IF Rating to PV: " + indirectFireRating + "<br />\n";
-
-        //     }
-
-        }
-
-        // Defensive Special Abilities Factor
-        // TODO
-
-        // Defensive Interaction Rating
-        // TODO
-
-        /* *********************************
-         * Step 2a: Calculating Defensive Interaction Rating (DIR) ASC - p141
-         * ******************************* */
-        _calcLogAS += "<strong>Step 2a: Calculating Defensive Interaction Rating (DIR) ASC - p141</strong><br />\n";
-        let bmDIR = 0;
-        // Armor Factor
-        if( this.type.toLowerCase().trim() === "bm") {
-            _calcLogAS += "Armor Factor: " + (this.armor * 2) + " ( " + this.armor + " * 2)<br />\n";
-            bmDIR += this.armor * 2;
-        }
-        // TODO other types of units
-
-        // Structure Factor
-        if( this.type.toLowerCase().trim() === "bm") {
-            _calcLogAS += "Structure Factor: " + (this.structure * 1) + " ( " + this.structure + " * 1)<br />\n";
-            bmDIR += this.structure * 1;
-        }
-        // TODO other types of units
-
-        // Defense Factor
-        let defensiveFactor = 0;
-        if (bestMovement > 34) {
-            _calcLogAS += "Base Defense Factor: +5 (movement 35\"+)<br />\n";
-            defensiveFactor += 5;
-        } else if (bestMovement > 18) {
-            _calcLogAS += "Base Defense Factor: +4 (movement 19\"-34\")<br />\n";
-            defensiveFactor += 4;
-        } else if (bestMovement > 12) {
-            _calcLogAS += "Base Defense Factor: +3 (movement 13\"-18\")<br />\n";
-            defensiveFactor += 3;
-        } else if (bestMovement > 8) {
-            _calcLogAS += "Base Defense Factor: +2 (movement 9\"-12\")<br />\n";
-            defensiveFactor += 2;
-        } else if (bestMovement > 4) {
-            _calcLogAS += "Base Defense Factor: +1 (movement 4\"-8\")<br />\n";
-            defensiveFactor += 1;
-        } else {
-            _calcLogAS += "Base Defense Factor: +0 (movement 0\"-4\")<br />\n";
-            defensiveFactor += 0;
-        }
-
-
-        if( defensiveFactor < 0 )
-        defensiveFactor = 0;
-        bmDIR += defensiveFactor;
-        _calcLogAS += "Adding Defense Value from Step 2 above: " + (defensiveFactor) + "<br />\n";
-        // Calculate the DIR
-        _calcLogAS += "Total DIR: " + bmDIR + "<br />\n";
-
-        /* *********************************
-         * Step 3: Determine Unit’s Final Point Value ASC - p141
-         * ******************************* */
-        _calcLogAS += "<strong>Step 3: Determine Unit’s Final Point Value ASC - p141</strong><br />\n";
-        let baseFinalValue = offensive_value + bmDIR + movementDefenseValue;
-        _calcLogAS += "Base Point Value: " + baseFinalValue + " ( " + offensive_value + " + " + bmDIR + " + "  + movementDefenseValue + ")<br />\n";
-
-        let finalValue = baseFinalValue;
-        if (
-            bestMovement >= 6 &&
-            bestMovement <= 10 &&
-            +this.damage.medium === 0 &&
-            +this.damage.long === 0 &&
-            +this.damage.extreme === 0
-        ) {
-            _calcLogAS += "Unit has 6 to 10\" of Move, but only delivers damage at Short range. Point Value * .75<br />\n";
-            _calcLogAS += "Modified Point Value: " + (baseFinalValue * .75) + " ( " + offensive_value + " + " + bmDIR + " )<br />\n";
-            finalValue = baseFinalValue * .75;
-        }
-
-        if (
-            bestMovement >= 2 &&
-            bestMovement <= 5 &&
-            +this.damage.medium === 0 &&
-            +this.damage.long === 0 &&
-            +this.damage.extreme === 0
-        ) {
-            _calcLogAS += "Unit has 2 to 5\" of Move, but only delivers damage at Short range. Point Value * .5<br />\n";
-            _calcLogAS += "Modified Point Value: " + (baseFinalValue * .5) + " ( " + offensive_value + " + " + bmDIR + " )<br />\n";
-            finalValue = baseFinalValue * .5;
-        }
-
-        if (
-            bestMovement >= 2 &&
-            bestMovement <= 5 &&
-            +this.damage.long === 0 &&
-            +this.damage.extreme === 0
-        ) {
-            _calcLogAS += "Unit has 2 to 5\" of Move, but only delivers damage at Short and Medium ranges. Point Value * .75<br />\n";
-            _calcLogAS += "Modified Point Value: " + (baseFinalValue * .75) + " ( " + offensive_value + " + " + bmDIR + " )<br />\n";
-            finalValue = baseFinalValue * .75;
-        }
-
-
-        finalValue = Math.round(finalValue);
-
-        _calcLogAS += "Final Point Value: " + finalValue + "<br />\n";
-
-        /* *********************************
-         * Step 3a: Add Force Bonuses ASC - p141
-         * ******************************* */
-        _calcLogAS += "<strong>Step 3a: Add Force Bonuses ASC - p141</strong><br />\n";
-        // TODO
-        _calcLogAS += "<strong class=\"color-red\">TODO<br />\n";
-
-        this.basePoints = finalValue;
-
+        const damage = (value: number, minimal: boolean | undefined) => ({ damage: +value || 0, minimal: !!minimal });
+        const pv = calculateGroundPointValue({
+            type,
+            size: this.size,
+            moves,
+            jump,
+            short: damage(this.damage.short, this.damage.shortMinimal),
+            medium: damage(this.damage.medium, this.damage.mediumMinimal),
+            long: damage(this.damage.long, this.damage.longMinimal),
+            overheat: +this.overheat || 0,
+            armor: +this.armor || 0,
+            structure: +this.structure || 0,
+            specials: splitSpecialAbilities(Array.isArray(this.abilities) ? this.abilities.join(",") : this.abilities),
+        });
+        this.basePoints = pv.pointValue;
         this.calcCurrentValues();
-        return _calcLogAS;
+        return "<div class=\"text-center\"><strong> - Calculating Point Value - </strong></div>\n"
+            + pv.log.map((line) => line + "<br />\n").join("");
     }
 }
 
@@ -2257,7 +2152,7 @@ export function getRulesLevelFromMULRules(rules: string | undefined | null): num
         case "standard": return 2;
         case "advanced": return 3;
         case "experimental": return 4;
-        case "unofficial": return 5;
+        case "unofficial": return APOCRYPHAL_RULES_LEVEL;
         default: return undefined;
     }
 }

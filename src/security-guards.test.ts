@@ -110,13 +110,21 @@ describe("Security guard rails", () => {
         "ui/pages/classic-battletech/mech-creator/step3.tsx": 1,
         "ui/pages/classic-battletech/mech-creator/step4.tsx": 1,
         "ui/pages/classic-battletech/mech-creator/step5.tsx": 1,
-        "ui/pages/classic-battletech/mech-creator/summary.tsx": 4,
-        "ui/pages/classic-battletech/vehicle-creator/summary.tsx": 3,
-        "ui/pages/classic-battletech/roster/_tableGroup.tsx": 1,
-        "ui/pages/ssw-sanity-check.tsx": 1,
+        "ui/pages/classic-battletech/mech-creator/summary.tsx": 2,
+        "ui/pages/classic-battletech/vehicle-creator/summary.tsx": 1,
+        // Reviewed 2026-10-07: the fighter's Alpha Strike, Battle Value and cost logs. Equipment, engine, armor and
+        // heat sink names and tags go through escapeLogText in aerospace-fighter.ts; the rest is numbers and constants.
+        "ui/pages/classic-battletech/fighter-creator/summary.tsx": 3,
+        // Reviewed 2026-10-09: the Small Craft's Battle Value, cost and Alpha Strike logs. Equipment, armor and heat
+        // sink names and tags go through escapeLogText in small-craft.ts; the rest is numbers and constants.
+        "ui/pages/classic-battletech/small-craft-creator/summary.tsx": 3,
+        // Reviewed 2026-10-15: the JumpShip, WarShip and station cost and Battle Value logs. Every row name (armor, heat
+        // sinks, weapons, ammunition tags, arcs, bays, grav decks) and the type name go through escapeLogText in
+        // capital-ship.ts; the rest is numbers.
+        "ui/pages/classic-battletech/capital-ship-creator/summary.tsx": 3,
+        "ui/components/mech-view-panel.tsx": 1, // makeTROHTML(), from the roster's two view dialogs (#372)
         // Pre-existing sites not traced in the 2026-09-29 review (TRO output was hardened upstream in 7e01b14fe;
         // the Alpha Strike creator log is unreviewed). Review them before extending them.
-        "ui/pages/classic-battletech/roster/_addMechDialog.tsx": 1,
         "ui/pages/alpha-strike/unit-creator/home.tsx": 1,
     };
 
@@ -132,17 +140,24 @@ describe("Security guard rails", () => {
 
     it("SanitizedHTML is never created indirectly, where the raw check cannot see its props", () => {
         expect(occurrences(/createElement\s*\(\s*SanitizedHTML\b/g)).toEqual({});
-        // Only `import SanitizedHTML from ".../sanitized-html"`: no renames, named or namespace imports, re-exports,
-        // and no use of the name except as a JSX tag (an alias, a spread into an object, a wrapper).
+        // Only `import SanitizedHTML from ".../sanitized-html"`, or the same name lazily loaded with exactly
+        // `const SanitizedHTML = React.lazy(() => import(".../sanitized-html"))` (the app router's confirm dialog, #589):
+        // no renames, named or namespace imports, re-exports, and no use of the name except as a JSX tag (an alias, a
+        // spread into an object, a wrapper).
+        const LAZY_BINDING = /\bconst\s+SanitizedHTML\s*=\s*React\.lazy\(\s*\(\)\s*=>\s*import\(\s*["'][^"']*\/sanitized-html["']\s*\)\s*\)/g;
         const otherImports: Record<string, number> = {};
         const otherUses: Record<string, number> = {};
         for (const file of files) {
             if (file.path === "ui/components/sanitized-html.tsx") continue;
             const code = withoutComments(file.text);
-            const statements = code.match(/\b(import|export)\b[^;]*?from\s*["'][^"']*sanitized-html(\.tsx?)?["']|import\s*\(\s*["'][^"']*sanitized-html/g) ?? [];
-            const badImports = statements.filter((statement) => !/^import\s+SanitizedHTML\s+from\s*["']/.test(statement)).length;
+            const lazyBindings = code.match(LAZY_BINDING)?.length ?? 0;
+            const rest = code.replace(LAZY_BINDING, "");
+            const statements = rest.match(/\b(import|export)\b[^;]*?from\s*["'][^"']*sanitized-html(\.tsx?)?["']|import\s*\(\s*["'][^"']*sanitized-html/g) ?? [];
+            // One binding per file: a lazy one may not sit beside a second lazy one or an import.
+            const extraLazy = lazyBindings && (lazyBindings > 1 || statements.length) ? lazyBindings : 0;
+            const badImports = statements.filter((statement) => !/^import\s+SanitizedHTML\s+from\s*["']/.test(statement)).length + extraLazy;
             if (badImports) otherImports[file.path] = badImports;
-            const uses = (code.match(/(?<![</\w$])SanitizedHTML\b/g)?.length ?? 0) - (code.match(/\bimport\s+SanitizedHTML\s+from/g)?.length ?? 0);
+            const uses = (rest.match(/(?<![</\w$])SanitizedHTML\b/g)?.length ?? 0) - (rest.match(/\bimport\s+SanitizedHTML\s+from/g)?.length ?? 0);
             if (uses) otherUses[file.path] = uses;
         }
         expect(otherImports).toEqual({});

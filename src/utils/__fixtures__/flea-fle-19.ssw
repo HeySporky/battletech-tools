@@ -1,0 +1,103 @@
+<?xml version="1.0" encoding ="UTF-8"?>
+<mech name="Flea" model="FLE-19" tons="20" omnimech="FALSE" solaris7id="0" solaris7imageid="0" sswimage="">
+    <ssw_savefile_version>3</ssw_savefile_version>
+    <battle_value>381</battle_value>
+    <cost>1482250.0</cost>
+    <rules_level>1</rules_level>
+    <era>2</era>
+    <productionera>6</productionera>
+    <mech_type>BattleMech</mech_type>
+    <techbase manufacturer="Unknown" location="Unknown">Inner Sphere</techbase>
+    <year restricted="FALSE">3068</year>
+    <motive_type>Biped</motive_type>
+    <structure manufacturer="Unknown" techbase="0">
+        <type>Endo-Steel</type>
+        <location index="2">LT</location>
+        <location index="2">RT</location>
+        <location index="3">LT</location>
+        <location index="3">RT</location>
+        <location index="4">LT</location>
+        <location index="4">RT</location>
+        <location index="5">LT</location>
+        <location index="5">RT</location>
+        <location index="6">LT</location>
+        <location index="6">RT</location>
+        <location index="7">LT</location>
+        <location index="7">RT</location>
+        <location index="8">LT</location>
+        <location index="8">RT</location>
+    </structure>
+    <engine rating="120" manufacturer="Unknown" lsstart="-1" rsstart="-1" techbase="2">Fusion Engine</engine>
+    <gyro techbase="2">Standard Gyro</gyro>
+    <cockpit>
+        <type ejectionseat="FALSE" commandconsole="FALSE" fhes="FALSE">Standard Cockpit</type>
+    </cockpit>
+    <armor manufacturer="Unknown" techbase="2">
+        <type>Standard Armor</type>
+        <hd>5</hd>
+        <ct>8</ct>
+        <ctr>3</ctr>
+        <lt>5</lt>
+        <ltr>3</ltr>
+        <rt>5</rt>
+        <rtr>3</rtr>
+        <la>4</la>
+        <ra>4</ra>
+        <ll>4</ll>
+        <rl>4</rl>
+    </armor>
+    <baseloadout fcsa4="FALSE" fcsa5="FALSE" fcsapollo="FALSE">
+        <source>RS3050Uu-I</source>
+        <info>Flea FLE-19 20t, 6/9/0, Std FE, ES; 3.0T/70% Armor; 10 SHS; 1 Flmr, 1 RL10, 2 MGA+4LMG</info>
+        <battleforce pv="4" wt="1" mv="6" s="1" m="1" l="1" e="0" ov="0" armor="2" internal="2" abilities="SRCH, ES, SEAL, SOA" />
+        <actuators lla="FALSE" lh="FALSE" rla="FALSE" rh="FALSE"/>
+        <clancase>FALSE</clancase>
+        <heatsinks number="10" techbase="2">
+            <type>Single Heat Sink</type>
+
+            <location index="5">LL</location>
+            <location index="5">RL</location>
+            <location index="0">LT</location>
+            <location index="4">RL</location>
+            <location index="4">LL</location>
+            <location index="0">RT</location>
+        </heatsinks>
+        <equipment>
+            <name manufacturer="">(IS) Flamer</name>
+            <type>energy</type>
+            <location index="10">CT</location>
+        </equipment>
+        <equipment>
+            <name manufacturer="">(IS) MG Array (4 Light Machine Gun)</name>
+            <type>mgarray</type>
+            <location index="2">RA</location>
+        </equipment>
+        <equipment>
+            <name manufacturer="">(IS) MG Array (4 Light Machine Gun)</name>
+            <type>mgarray</type>
+            <location index="2">LA</location>
+        </equipment>
+        <equipment>
+            <name manufacturer="">(IS) Rocket Launcher 10</name>
+            <type>missile</type>
+            <location index="1">RT</location>
+        </equipment>
+        <equipment>
+            <name manufacturer="Unknown">@ Light Machine Gun (1/2)</name>
+            <type>ammunition</type>
+            <location index="1">LT</location>
+        </equipment>
+    </baseloadout>
+    <fluff>
+        <overview></overview>
+        <capabilities></capabilities>
+        <battlehistory></battlehistory>
+        <deployment></deployment>
+        <variants></variants>
+        <notables></notables>
+        <additional></additional>
+        <jumpjet_model>None</jumpjet_model>
+        <commsystem>Unknown</commsystem>
+        <tandtsystem>Unknown</tandtsystem>
+    </fluff>
+</mech>

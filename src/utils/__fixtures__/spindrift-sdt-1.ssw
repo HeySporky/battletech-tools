@@ -1,0 +1,109 @@
+<?xml version="1.0" encoding ="UTF-8"?>
+<mech name="Spindrift" model="SDT-1 Aquatic SecurityMech" tons="30" omnimech="FALSE" solaris7id="0" solaris7imageid="0" sswimage="">
+    <ssw_savefile_version>3</ssw_savefile_version>
+    <battle_value>441</battle_value>
+    <cost>1803760.0</cost>
+    <rules_level>3</rules_level>
+    <era>2</era>
+    <productionera>0</productionera>
+    <mech_type>IndustrialMech</mech_type>
+    <techbase manufacturer="Unknown" location="Unknown">Inner Sphere</techbase>
+    <year restricted="FALSE">3069</year>
+    <motive_type>Biped</motive_type>
+    <structure manufacturer="Unknown" techbase="2">
+        <type>Industrial Structure</type>
+    </structure>
+    <engine rating="120" manufacturer="Unknown" lsstart="-1" rsstart="-1" techbase="2">Fusion Engine</engine>
+    <gyro techbase="2">Standard Gyro</gyro>
+    <cockpit>
+        <type ejectionseat="FALSE" commandconsole="FALSE" fhes="FALSE">Industrial w/ Adv. FC</type>
+    </cockpit>
+    <armor manufacturer="Unknown" techbase="2">
+        <type>Patchwork Armor</type>
+        <hd type="Standard Armor" techbase="2">5</hd>
+        <ct type="Standard Armor" techbase="2">10</ct>
+        <ctr>3</ctr>
+        <lt type="Laser-Reflective" techbase="0">6</lt>
+        <ltr>2</ltr>
+        <rt type="Laser-Reflective" techbase="0">6</rt>
+        <rtr>2</rtr>
+        <la type="Reactive Armor" techbase="0">8</la>
+        <ra type="Reactive Armor" techbase="0">8</ra>
+        <ll type="Standard Armor" techbase="2">7</ll>
+        <rl type="Standard Armor" techbase="2">7</rl>
+        <location index="5">LA</location>
+        <location index="5">RA</location>
+        <location index="6">LT</location>
+        <location index="6">LA</location>
+        <location index="6">RA</location>
+        <location index="7">LT</location>
+        <location index="8">RT</location>
+        <location index="9">RT</location>
+    </armor>
+    <baseloadout fcsa4="FALSE" fcsa5="FALSE" fcsapollo="FALSE">
+        <source>XTRBoondocks</source>
+        <info>Spindrift SDT-1 Aquatic SecurityMech 30t, 4/6/4, Std FE, Ind; 4.5T/61% Armor; 10 SHS; 1 HrJl, 1 ERSL, 1 SRT6</info>
+        <battleforce pv="4" wt="1" mv="4u" s="2" m="2" l="0" e="0" ov="0" armor="2" internal="3" abilities="UMU, SRCH, SEAL, SOA" />
+        <actuators lla="TRUE" lh="TRUE" rla="TRUE" rh="TRUE"/>
+        <clancase>FALSE</clancase>
+        <jumpjets number="4">
+            <type>Mech UMU</type>
+            <location index="4">RL</location>
+            <location index="4">LT</location>
+            <location index="4">LL</location>
+            <location index="6">RT</location>
+        </jumpjets>
+        <heatsinks number="10" techbase="2">
+            <type>Single Heat Sink</type>
+
+            <location index="1">LT</location>
+            <location index="0">LT</location>
+            <location index="2">LT</location>
+            <location index="1">RT</location>
+            <location index="2">RT</location>
+            <location index="0">RT</location>
+        </heatsinks>
+        <multislot name="Environmental Sealing">
+            <location index="3">HD</location>
+            <location index="4">LA</location>
+            <location index="4">RA</location>
+            <location index="5">LT</location>
+            <location index="5">LL</location>
+            <location index="5">RL</location>
+            <location index="7">RT</location>
+            <location index="11">CT</location>
+        </multislot>
+        <equipment>
+            <name manufacturer="">(IS) ER Small Laser</name>
+            <type>energy</type>
+            <location index="3">LT</location>
+        </equipment>
+        <equipment>
+            <name manufacturer="">(IS) SRT-6</name>
+            <type>missile</type>
+            <location index="3">RT</location>
+        </equipment>
+        <equipment>
+            <name manufacturer="Unknown">@ SRT-6 (Torpedo)</name>
+            <type>ammunition</type>
+            <location index="5">RT</location>
+        </equipment>
+        <equipment>
+            <name manufacturer="">HarJel</name>
+            <type>equipment</type>
+            <location index="10">CT</location>
+        </equipment>
+    </baseloadout>
+    <fluff>
+        <overview></overview>
+        <capabilities></capabilities>
+        <battlehistory></battlehistory>
+        <deployment></deployment>
+        <variants></variants>
+        <notables></notables>
+        <additional></additional>
+        <jumpjet_model>Unknown</jumpjet_model>
+        <commsystem>Unknown</commsystem>
+        <tandtsystem>Unknown</tandtsystem>
+    </fluff>
+</mech>

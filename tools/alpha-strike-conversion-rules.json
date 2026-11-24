@@ -1,0 +1,40 @@
+{
+  "schema_version": 1,
+  "rules": {
+    "standard-lrm-catalog-calibration": {
+      "family": "lrm",
+      "mode": "cluster_linear",
+      "short_factor": 0.03,
+      "medium_factor": 0.06,
+      "long_factor": 0.06,
+      "extreme_factor": 0.0,
+      "source": "Existing BattleTech Tools LRM catalog calibration",
+      "status": "provisional",
+      "notes": "Matches the existing LRM 5/10/15/20 alphaStrike contributions. Verify against Catalyst Alpha Strike rules before canon promotion."
+    },
+    "standard-srm-catalog-calibration": {
+      "family": "srm",
+      "mode": "rack_lookup",
+      "values": {
+        "2": [0.2, 0.2, 0.0, 0.0],
+        "4": [0.5, 0.5, 0.0, 0.0],
+        "6": [0.8, 0.8, 0.0, 0.0]
+      },
+      "source": "Existing BattleTech Tools SRM catalog calibration",
+      "status": "provisional",
+      "notes": "Matches existing SRM catalog entries. Unsupported rack sizes remain unresolved."
+    },
+    "streak-srm-catalog-calibration": {
+      "family": "streak-srm",
+      "mode": "rack_lookup",
+      "values": {
+        "2": [0.3, 0.3, 0.0, 0.0],
+        "4": [0.6, 0.6, 0.0, 0.0],
+        "6": [1.0, 1.0, 0.0, 0.0]
+      },
+      "source": "Existing BattleTech Tools Streak SRM catalog calibration",
+      "status": "provisional",
+      "notes": "Matches existing Streak SRM catalog entries."
+    }
+  }
+}

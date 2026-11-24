@@ -1,0 +1,135 @@
+<?xml version="1.0" encoding ="UTF-8"?>
+<mech name="Supernova" model="5" tons="90" omnimech="FALSE" solaris7id="0" solaris7imageid="0" sswimage="">
+    <ssw_savefile_version>3</ssw_savefile_version>
+    <battle_value>3075</battle_value>
+    <cost>9956000.0</cost>
+    <rules_level>3</rules_level>
+    <era>3</era>
+    <productionera>10</productionera>
+    <mech_type>BattleMech</mech_type>
+    <techbase manufacturer="Irian BattleMechs Unlimited" location="Angell II">Clan</techbase>
+    <year restricted="FALSE">3144</year>
+    <motive_type>Biped</motive_type>
+    <structure manufacturer="Unknown" techbase="1">
+        <type>Endo-Steel</type>
+        <location index="10">LA</location>
+        <location index="10">RA</location>
+        <location index="11">CT</location>
+        <location index="11">LT</location>
+        <location index="11">RT</location>
+        <location index="11">LA</location>
+        <location index="11">RA</location>
+    </structure>
+    <engine rating="270" manufacturer="Unknown" lsstart="-1" rsstart="-1" techbase="2">Fusion Engine</engine>
+    <gyro techbase="2">Standard Gyro</gyro>
+    <cockpit>
+        <type ejectionseat="FALSE" commandconsole="FALSE" fhes="FALSE">Standard Cockpit</type>
+    </cockpit>
+    <armor manufacturer="Unknown" techbase="2">
+        <type>Standard Armor</type>
+        <hd>9</hd>
+        <ct>45</ct>
+        <ctr>10</ctr>
+        <lt>30</lt>
+        <ltr>8</ltr>
+        <rt>30</rt>
+        <rtr>8</rtr>
+        <la>30</la>
+        <ra>30</ra>
+        <ll>36</ll>
+        <rl>36</rl>
+    </armor>
+    <baseloadout fcsa4="FALSE" fcsa5="FALSE" fcsapollo="FALSE">
+        <source>RGiC 5</source>
+        <info>Supernova 5 90t, 3/5/3, Std FE, ES; 17.0T/97% Armor; 24 DHS; 6 ERLL, 4 CoolPd</info>
+        <battleforce pv="31" wt="4" mv="3j" s="5" m="5" l="5" e="0" ov="1" armor="9" internal="7" abilities="ENE, SRCH, ES, SEAL, SOA" />
+        <actuators lla="TRUE" lh="FALSE" rla="TRUE" rh="FALSE"/>
+        <clancase>TRUE</clancase>
+        <jumpjets number="3">
+            <type>Standard Jump Jet</type>
+            <location index="10">LT</location>
+            <location index="10">CT</location>
+            <location index="10">RT</location>
+        </jumpjets>
+        <heatsinks number="24" techbase="1">
+            <type>Double Heat Sink</type>
+
+            <location index="2">LT</location>
+            <location index="0">LT</location>
+            <location index="4">LT</location>
+            <location index="6">LT</location>
+            <location index="0">RT</location>
+            <location index="2">RT</location>
+            <location index="4">RT</location>
+            <location index="6">RT</location>
+            <location index="3">LA</location>
+            <location index="5">LA</location>
+            <location index="3">RA</location>
+            <location index="5">RA</location>
+            <location index="4">LL</location>
+            <location index="4">RL</location>
+        </heatsinks>
+        <equipment>
+            <name manufacturer="">(CL) ER Large Laser</name>
+            <type>energy</type>
+            <location index="8">LA</location>
+        </equipment>
+        <equipment>
+            <name manufacturer="">(CL) ER Large Laser</name>
+            <type>energy</type>
+            <location index="7">LA</location>
+        </equipment>
+        <equipment>
+            <name manufacturer="">(CL) ER Large Laser</name>
+            <type>energy</type>
+            <location index="9">LA</location>
+        </equipment>
+        <equipment>
+            <name manufacturer="">(CL) ER Large Laser</name>
+            <type>energy</type>
+            <location index="7">RA</location>
+        </equipment>
+        <equipment>
+            <name manufacturer="">(CL) ER Large Laser</name>
+            <type>energy</type>
+            <location index="8">RA</location>
+        </equipment>
+        <equipment>
+            <name manufacturer="">(CL) ER Large Laser</name>
+            <type>energy</type>
+            <location index="9">RA</location>
+        </equipment>
+        <equipment>
+            <name manufacturer="">Coolant Pod</name>
+            <type>equipment</type>
+            <location index="9">LT</location>
+        </equipment>
+        <equipment>
+            <name manufacturer="">Coolant Pod</name>
+            <type>equipment</type>
+            <location index="8">LT</location>
+        </equipment>
+        <equipment>
+            <name manufacturer="">Coolant Pod</name>
+            <type>equipment</type>
+            <location index="8">RT</location>
+        </equipment>
+        <equipment>
+            <name manufacturer="">Coolant Pod</name>
+            <type>equipment</type>
+            <location index="9">RT</location>
+        </equipment>
+    </baseloadout>
+    <fluff>
+        <overview>Star Colonel Rikkard Nova Cat pounced on OvKhan Kalasa’s offer to build the iconic Nova Cat Supernova on Angell II. Combining its classic lasers with the endo-steel chassis and heavy armor of late model Supernovas, Delta Aimag still found the space to carry four Coolant Pods by slightly reducing the number of heat sinks. The shocking result was a Supernova that could fire all its weapons without overheating. Unfortunately for Rikkard, Delta Aimag has claimed most of the Supernovas as payment for the factory. Rikkard’s loss is the Inner Sphere’s gain as Clan Sea Fox sells the Supernova far and wide.</overview>
+        <capabilities></capabilities>
+        <battlehistory></battlehistory>
+        <deployment></deployment>
+        <variants></variants>
+        <notables>Captain Bryant Flynn Dunham: The Fourth Regulan Hussars hit Marik in July 3147. Captain “BFD” was happy to see that the defending Clan Protectorate’s Purifier Cluster faced him in direct combat. Implementing his infamous motto of “hey diddle diddle, right up the middle,” his Marauder came face to face with a Protectorate Supernova. Thankfully, the Supernova overheated in the process of dismantling BFD’s ride and was swarmed by Leonidas battle armor. Dunham claimed the fallen ’Mech and pushed on with his unit. At the Winter Palace in Dormuth the Fourth ran into the Shiva Keshik, which scythed through them until BFD made a stand. Utilizing the Supernova’s coolant pods better than its previous pilot, he held the center of the field, acting as a rallying point until the Thirtieth Hussars could come to their aid. Ultimately pushed back after Colonel Mejia’s dishonorable actions, BFD was able to retreat in good order and kept his Supernova when the Hussars were granted hegira in August.</notables>
+        <additional></additional>
+        <jumpjet_model>Unknown</jumpjet_model>
+        <commsystem>Unknown</commsystem>
+        <tandtsystem>Unknown</tandtsystem>
+    </fluff>
+</mech>

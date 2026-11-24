@@ -1,10 +1,13 @@
 import * as React from 'react';
-import Vehicle, { IVehicleCriticalHits, VEHICLE_MAX_SENSOR_HITS, VehicleFollowUpRoll, VehicleMotiveHit, VehicleMovementMode, VehicleTurretLocation } from '../../../../classes/vehicle';
+import Vehicle, { isTurretLocation, IVehicleCriticalHits, VEHICLE_MAX_SENSOR_HITS, VehicleFollowUpRoll, VehicleMotiveHit, VehicleMovementMode, VehicleTurretLocation } from '../../../../classes/vehicle';
 import { IDamagePerRange, IEquipmentItem } from '../../../../data/data-interfaces';
 import { VehicleAttackDirection } from '../../../../data/vehicle-hit-tables';
+import { IBattleArmorCarrierLoad, isCarrierWeaponBlocked } from '../../../../classes/battle-armor-transport';
 import TextSection from '../../../components/text-section';
 import VehicleDiagramSVG from '../../../components/svg/vehicle-diagram-svg';
 import { vehicleName } from './_vehicleGroupTable';
+import { getCarrierPlayYear, getCarrierQuirkEffects, getQuirkToHit } from '../../../../utils/quirk-effects';
+import { QuirkRangeBand } from '../../../../data/quirk-interfaces';
 
 const MOTIVE_LEVELS: { level: VehicleMotiveHit; label: string }[] = [
     { level: "minor", label: "Minor (+1 driving)" },
@@ -13,7 +16,7 @@ const MOTIVE_LEVELS: { level: VehicleMotiveHit; label: string }[] = [
     { level: "immobilized", label: "Major (immobile)" },
 ];
 
-type CriticalFlag = Exclude<keyof IVehicleCriticalHits, "sensorHits" | "stabilizers" | "crewStunnedTurns" | "rotorDamage">;
+type CriticalFlag = Exclude<keyof IVehicleCriticalHits, "sensorHits" | "stabilizers" | "crewStunnedTurns" | "rotorDamage" | "crewHits" | "engineHits" | "ammoHits">;
 
 // Checkbox list per vehicle kind; "ground" also covers naval, hover and WiGE (TW pp. 194-198).
 const CRITICALS: { key: CriticalFlag; label: string; vtol?: boolean; ground?: boolean; turret?: boolean }[] = [
@@ -51,7 +54,8 @@ const SUPERHEAVY_DIRECTIONS: { value: VehicleAttackDirection; label: string }[] 
     { value: "rear", label: "Rear" },
 ];
 
-const directionsFor = (vehicle: Vehicle) => vehicle.isSuperheavy() ? SUPERHEAVY_DIRECTIONS : DIRECTIONS;
+// Six attack directions only for the six-facing vehicles; a VTOL keeps four at any weight (TO:AUE p.190).
+const directionsFor = (vehicle: Vehicle) => vehicle.hasSplitSides() ? SUPERHEAVY_DIRECTIONS : DIRECTIONS;
 
 // Turret facings in hexsides clockwise from the front; the forward turret of a dual-turret vehicle cannot
 // face the rear hexside (TO p. 347).
@@ -95,6 +99,7 @@ export default class VehiclePlayPanel extends React.Component<IVehiclePlayPanelP
             pendingRoll: null,
             pendingRollValue: "",
             log: [],
+            targetAirborne: false,
         }
     }
 
@@ -163,16 +168,18 @@ export default class VehiclePlayPanel extends React.Component<IVehiclePlayPanelP
         const name = (tag: string) => vehicle.getLocations().find((loc) => loc.tag === tag)?.name ?? tag;
         switch (pending.kind) {
             case "motive": {
-                const modifier = vehicle.getMotiveDamageRollModifier(pending.direction, pending.cause, !!pending.roughTerrain);
+                const modifier = vehicle.getMotiveDamageRollModifier(pending.direction, pending.cause, !!pending.roughTerrain) + (pending.modifier ?? 0);
                 const why = pending.cause === "skid" ? " after a skid" : pending.cause === "jump" ? " on landing a jump" : "";
                 return `Motive System Damage roll${why} (${modifier >= 0 ? "+" : ""}${modifier})`;
             }
             case "critical":
                 return `Critical Hit roll: ${name(pending.location)}${pending.modifier ? ` (armor-piercing ${pending.modifier})` : ""}`;
             case "hullBreach": return `Hull Integrity roll: ${name(pending.location)} (breached on ${pending.target}+)`;
+            case "turretLinkage": return `Turret linkage roll: the turret locks on ${pending.target}+ (FrankenVehicle)`;
             case "drivingSkill": return `Driving Skill Roll (${pending.target}+): ${pending.reason === "pilotHit" ? "or drop one elevation" : "land, or crash"}`;
             case "crashFacing": return `Facing After a Fall (1D6), ${pending.damage} falling damage`;
             case "crashHit": return `Crash damage ${pending.damage}: hit location from the ${pending.direction}`;
+            case "engineSurvival": return "Engine Hit check (2D6; 8+ ignores it)";
         }
         return "";
     }
@@ -213,20 +220,29 @@ export default class VehiclePlayPanel extends React.Component<IVehiclePlayPanelP
         const vehicle = this.props.vehicle;
         const modifier = vehicle.getWeaponToHitModifier(weapon);
         const status = vehicle.getWeaponStatus(weapon.uuid);
-        const target = (rangeModifier: number) => modifier === null ? "-" : `${gunnery + modifier + rangeModifier}+`;
+        // A weapon in a side or rear location a mechanized battle armor trooper occupies may not fire (TW p. 226).
+        const blocked = !!this.props.carrierLoad && isCarrierWeaponBlocked(this.props.carrierLoad, weapon);
+        // Design quirks, with the game's "Use design quirks" switch on; a destroyed weapon's quirk no longer counts.
+        const quirkToHit = (rangeBand: QuirkRangeBand): number => !this.props.quirksInPlay ? 0 : getQuirkToHit(
+            vehicle.quirks,
+            vehicle.getEquipmentList().filter((item) => item.uuid && vehicle.getWeaponStatus(item.uuid) !== "destroyed").map((item) => item.uuid!),
+            getCarrierPlayYear(vehicle),
+            { weaponUuid: weapon.uuid, rangeBand, vsAirborne: this.state.targetAirborne, attackerRanOrFlanked: vehicle.getInPlay().movementMode === "flank" },
+        ).modifier;
+        const target = (rangeModifier: number, rangeBand: QuirkRangeBand) => modifier === null || blocked ? "-" : `${gunnery + modifier + rangeModifier + quirkToHit(rangeBand)}+`;
         const range = weapon.range;
         return (
-            <tr key={weapon.uuid} className={status === "ok" && modifier !== null ? "" : "color-red"}>
-                <td>{weapon.name}{weapon.rear ? " (R)" : ""}</td>
+            <tr key={weapon.uuid} className={status === "ok" && modifier !== null && !blocked ? "" : "color-red"}>
+                <td>{weapon.name}{weapon.rear ? " (R)" : ""}{blocked ? <span data-testid="vehicle-weapon-blocked"> (battle armor rides this location)</span> : null}</td>
                 <td className="text-center">{weapon.location ? vehicle.getLocations().find((loc) => loc.tag === weapon.location)?.name ?? weapon.location : "-"}</td>
                 <td className="text-center">{vehicle.describeFiringArc(vehicle.getWeaponFiringArc(weapon))}</td>
                 <td className="text-center">{formatDamage(weapon.damage)}</td>
                 <td className="text-center no-wrap">
                     {range ? `${range.min ? range.min + " / " : ""}${range.short}/${range.medium}/${range.long}` : "-"}
                 </td>
-                <td className="text-center">{target(0)}</td>
-                <td className="text-center">{target(2)}</td>
-                <td className="text-center">{target(4)}</td>
+                <td className="text-center">{target(0, "short")}</td>
+                <td className="text-center">{target(2, "medium")}</td>
+                <td className="text-center">{target(4, "long")}</td>
                 <td className="text-center">
                     <select
                         aria-label={`${weapon.name} status`}
@@ -253,7 +269,7 @@ export default class VehiclePlayPanel extends React.Component<IVehiclePlayPanelP
         const locations = vehicle.getLocations();
         const isVTOL = !!vehicle.getMotiveType().hasRotor;
         const isNaval = !!vehicle.getMotiveType().naval;
-        const turrets = locations.filter((loc) => loc.tag === "turret" || loc.tag === "turret2");
+        const turrets = locations.filter((loc) => isTurretLocation(loc.tag));
         const weapons = vehicle.getEquipmentList().filter((item) => !item.isAmmo && (item.damage !== undefined || item.range));
         const movementModes: { mode: VehicleMovementMode; label: string; mp: number }[] = [
             { mode: "stationary", label: "Stationary", mp: 0 },
@@ -269,9 +285,50 @@ export default class VehiclePlayPanel extends React.Component<IVehiclePlayPanelP
             <div className="vehicle-play" data-testid="vehicle-play">
                 <TextSection label={vehicleName(vehicle)}>
                     <p>
-                        {vehicle.getTonnage()} t {vehicle.getMotiveType().name} &ndash; Gunnery {pilot.gunnery} / Driving {pilot.piloting}
+                        {vehicle.getTonnage()} t {vehicle.getMotiveType().name}{vehicle.isSupportVehicle() ? ` Support Vehicle, BAR ${vehicle.getBAR()}${vehicle.getFireControlToHitModifier() ? `, +${vehicle.getFireControlToHitModifier()} to-hit for fire control` : ""}` : ""} &ndash; Gunnery {pilot.gunnery} / Driving {pilot.piloting}
                         {pilot.name ? <> &ndash; Commander: {pilot.name}</> : null}
                     </p>
+                    {vehicle.isLargeNavalVessel() ? (
+                        <p className="smaller-text" data-testid="large-naval-status">
+                            Template {vehicle.getLargeVesselTemplate()?.template} Large Naval Vessel: {vehicle.getTemplateToHitModifier()} to attacks against it.
+                            Crew hits {crits.crewHits} of 6 (+{crits.crewHits} to Gunnery and Piloting);
+                            engine hits {crits.engineHits}, ammunition hits {crits.ammoHits} (-1 Cruising MP each). It speeds up or slows down 1 MP a turn,
+                            and survives losing a turret (TO:AUE pp.22-27).
+                        </p>
+                    ) : null}
+                    {vehicle.getSupportVehicleMotive() === "rail" ? (
+                        <p className="smaller-text">
+                            Rail: moves only along rails; speeds up or slows down {vehicle.isSuperheavy() ? 1 : 2} MP a turn, and if immobilized slows by that much each
+                            turn. A destroyed car makes the one behind it derail on 8+ on 2D6 (TO:AUE pp.17-21).
+                        </p>
+                    ) : null}
+                    {vehicle.ignoresSecondaryTargetModifier() ? (
+                        <p className="smaller-text">A Large Support Vehicle ignores the multiple-targets modifier when firing at more than one unit (TW p.206).</p>
+                    ) : null}
+                    {vehicle.isTractor() ? (
+                        <label className="d-block">
+                            Trailers towed (tons, at most {vehicle.getMaxTowTons()}):{" "}
+                            <input
+                                type="number"
+                                aria-label="Trailers towed"
+                                min={0}
+                                max={vehicle.getMaxTowTons()}
+                                value={inPlay.towedTons}
+                                onChange={(e) => { vehicle.setTowedTons(+e.currentTarget.value); this._changed(); }}
+                                style={{ width: "6em" }}
+                            />{" "}
+                            <span className="smaller-text">Up to a quarter of its weight costs 3 Cruising MP or half, whichever is less; more halves it (TW p.205).</span>
+                        </label>
+                    ) : null}
+                    {vehicle.isTrailer() ? (
+                        <label className="d-block">
+                            <input
+                                type="checkbox"
+                                checked={inPlay.beingTowed}
+                                onChange={(e) => { vehicle.setBeingTowed(e.currentTarget.checked); this._changed(); }}
+                            />{" "}Hitched to a Tractor (unhitched, a Trailer without an engine is an immobile target; TW p.205)
+                        </label>
+                    ) : null}
                     {vehicle.isDestroyed() ? (
                         <h3 className="color-red text-center">DESTROYED ({vehicle.getDestroyedReason()})</h3>
                     ) : null}
@@ -358,7 +415,7 @@ export default class VehiclePlayPanel extends React.Component<IVehiclePlayPanelP
                                     Leave 2D6 blank to roll. Resolve each Damage Value grouping (e.g. each 5-point LRM cluster)
                                     as its own hit. Motive, critical and Hull Integrity rolls follow the table results, any
                                     internal structure damage and naval hull hits (TW pp. 121, 192-198).
-                                    {vehicle.isSuperheavy() ? " Super-Heavy hit locations use the Tactical Operations Super-Heavy Vehicle Hit Location Table." : ""}
+                                    {vehicle.hasSplitSides() ? " Super-Heavy hit locations use the Tactical Operations Super-Heavy Vehicle Hit Location Table." : ""}
                                     {vehicle.hasDualTurret() ? " A turret hit rolls 1D6 for the turret struck (TO p. 347)." : ""}
                                 </p>
                                 {pending ? (
@@ -423,9 +480,28 @@ export default class VehiclePlayPanel extends React.Component<IVehiclePlayPanelP
                         <div className="col-md-6">
                             <fieldset className="fieldset">
                                 <legend>Movement</legend>
+                                {vehicle.hasSatelliteUplink() ? (
+                                    <label className="d-block">
+                                        <input
+                                            type="checkbox"
+                                            data-testid="vehicle-uplink-on"
+                                            checked={vehicle.isSatelliteUplinkActive()}
+                                            onChange={(e) => { vehicle.setSatelliteUplinkOn(e.currentTarget.checked); this._changed(); }}
+                                        />{" "}
+                                        Satellite uplink on (set in the End Phase; Maximum Tech p.59): +2 Initiative for the side; this vehicle takes +1 on attacks and Driving Skill Rolls and cannot spot, use a spotter or join a C3 network.
+                                    </label>
+                                ) : null}
+                                {vehicle.getHeadquartersKind() ? (
+                                    <p className="smaller-text" data-testid="vehicle-hq-status">
+                                        {vehicle.getHeadquartersKind() === "mobile" ? "Mobile HQ" : "Field HQ"} ({vehicle.getCommunicationsTons()} t of communications gear, Maximum Tech p.70):{" "}
+                                        {vehicle.isHeadquartersActive()
+                                            ? `+${vehicle.getHeadquartersKind() === "mobile" ? 2 : 1} Initiative for the side.`
+                                            : "no longer gives its Initiative bonus (Crew Killed, or a stabilizer hit after it moved last turn)."}
+                                    </p>
+                                ) : null}
                                 <select
                                     aria-label="Movement mode"
-                                    value={inPlay.movementMode}
+                                    value={movementModes.some((m) => m.mode === inPlay.movementMode) ? inPlay.movementMode : "stationary"}
                                     onChange={(e) => { vehicle.setMovement(e.currentTarget.value as VehicleMovementMode, inPlay.hexesMoved); this._changed(); }}
                                 >
                                     {movementModes.map((m) => <option key={m.mode} value={m.mode}>{m.label} ({m.mp} MP)</option>)}
@@ -645,6 +721,22 @@ export default class VehiclePlayPanel extends React.Component<IVehiclePlayPanelP
 
                     <h4>Weapons</h4>
                     {cannotFire ? <p className="color-red"><strong>Cannot fire:</strong> {cannotFire}</p> : null}
+                    {this.props.carrierLoad && this.props.carrierLoad.riders.length > 0 ? (
+                        <div className="smaller-text" data-testid="vehicle-carrier-notes">
+                            {this.props.carrierLoad.issues.map((issue, index) => <p key={`issue-${index}`} className="color-red">{issue}</p>)}
+                            {this.props.carrierLoad.notes.map((note, index) => <p key={index}>{note}</p>)}
+                        </div>
+                    ) : null}
+                    {this.props.quirksInPlay && getCarrierQuirkEffects(this.props.vehicle).some((applied) => applied.effect?.type === "to-hit" && applied.effect.vsAirborne) ? (
+                        <label className="d-block">
+                            <input
+                                type="checkbox"
+                                aria-label="Target airborne"
+                                checked={this.state.targetAirborne}
+                                onChange={(e) => this.setState({ targetAirborne: e.currentTarget.checked })}
+                            />{" "}Target airborne (not a jumping 'Mech; CO p.225)
+                        </label>
+                    ) : null}
                     <table className="table">
                         <thead>
                             <tr>
@@ -680,10 +772,16 @@ export default class VehiclePlayPanel extends React.Component<IVehiclePlayPanelP
 
 interface IVehiclePlayPanelProps {
     vehicle: Vehicle;
+    /** Mechanized battle armor riding the vehicle, and what it stops the vehicle doing. */
+    carrierLoad?: IBattleArmorCarrierLoad;
     onChange: (vehicle: Vehicle) => void;
+    /** The game's "Use design quirks" switch: the vehicle's quirks change its to-hit numbers. */
+    quirksInPlay?: boolean;
 }
 
 interface IVehiclePlayPanelState {
+    /** The target is airborne, for Anti-Aircraft Targeting (CO p.225). */
+    targetAirborne: boolean;
     direction: VehicleAttackDirection;
     attackerUnderwater: boolean;
     armorPiercing: 0 | 2 | 5 | 10 | 20;

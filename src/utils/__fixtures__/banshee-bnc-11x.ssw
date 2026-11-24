@@ -1,0 +1,139 @@
+<?xml version="1.0" encoding ="UTF-8"?>
+<mech name="Banshee" model="BNC-11X" tons="95" omnimech="FALSE" solaris7id="0" solaris7imageid="0" sswimage="">
+    <ssw_savefile_version>3</ssw_savefile_version>
+    <battle_value>2030</battle_value>
+    <cost>2.64750275E7</cost>
+    <rules_level>3</rules_level>
+    <era>2</era>
+    <productionera>6</productionera>
+    <mech_type>BattleMech</mech_type>
+    <techbase manufacturer="Unknown" location="Unknown">Mixed</techbase>
+    <year restricted="FALSE">3076</year>
+    <motive_type>Biped</motive_type>
+    <structure manufacturer="Unknown" techbase="0">
+        <type>Endo-Steel</type>
+        <location index="5">LA</location>
+        <location index="5">RA</location>
+        <location index="6">LA</location>
+        <location index="6">RA</location>
+        <location index="7">LA</location>
+        <location index="7">RA</location>
+        <location index="8">LA</location>
+        <location index="8">RA</location>
+        <location index="9">RT</location>
+        <location index="9">LA</location>
+        <location index="9">RA</location>
+        <location index="10">LA</location>
+        <location index="10">RA</location>
+        <location index="11">LT</location>
+    </structure>
+    <engine rating="380" manufacturer="Unknown" lsstart="0" rsstart="0" techbase="1">XL Engine</engine>
+    <gyro techbase="2">Standard Gyro</gyro>
+    <cockpit>
+        <type ejectionseat="FALSE" commandconsole="FALSE" fhes="FALSE">Standard Cockpit</type>
+    </cockpit>
+    <armor manufacturer="Unknown" techbase="2">
+        <type>Standard Armor</type>
+        <hd>9</hd>
+        <ct>40</ct>
+        <ctr>19</ctr>
+        <lt>30</lt>
+        <ltr>10</ltr>
+        <rt>30</rt>
+        <rtr>10</rtr>
+        <la>32</la>
+        <ra>32</ra>
+        <ll>38</ll>
+        <rl>38</rl>
+    </armor>
+    <baseloadout fcsa4="FALSE" fcsa5="FALSE" fcsapollo="FALSE">
+        <source>XTRSteiner</source>
+        <info>Banshee BNC-11X 95t, 4[3]/6[5]/0, XLFE, ES; 18.0T/98% Armor; 14 DHS; 7 ModArmor, 1 ERSL, 1 SBGR, 2 BmbstLsr</info>
+        <battleforce pv="20" wt="4" mv="3" s="4" m="4" l="1" e="0" ov="0" armor="12" internal="5" abilities="SRCH, ES, SEAL, SOA, FLK 1/1/1" />
+        <actuators lla="TRUE" lh="TRUE" rla="TRUE" rh="TRUE"/>
+        <clancase>FALSE</clancase>
+        <heatsinks number="14" techbase="0">
+            <type>Double Heat Sink</type>
+
+        </heatsinks>
+        <equipment>
+            <name manufacturer="">(IS) Silver Bullet Gauss</name>
+            <type>ballistic</type>
+            <location index="2">LT</location>
+        </equipment>
+        <equipment>
+            <name manufacturer="">(IS) Bombast Laser</name>
+            <type>energy</type>
+            <location index="2">RT</location>
+        </equipment>
+        <equipment>
+            <name manufacturer="">(IS) Bombast Laser</name>
+            <type>energy</type>
+            <location index="5">RT</location>
+        </equipment>
+        <equipment>
+            <name manufacturer="">(IS) ER Small Laser</name>
+            <type>energy</type>
+            <location index="3">HD</location>
+        </equipment>
+        <equipment>
+            <name manufacturer="Unknown">(IS) @ Silver Bullet Gauss</name>
+            <type>ammunition</type>
+            <location index="9">LT</location>
+        </equipment>
+        <equipment>
+            <name manufacturer="">Modular Armor</name>
+            <type>miscellaneous</type>
+            <location index="10">LT</location>
+        </equipment>
+        <equipment>
+            <name manufacturer="">Modular Armor</name>
+            <type>miscellaneous</type>
+            <location index="10">CT</location>
+        </equipment>
+        <equipment>
+            <name manufacturer="">Modular Armor</name>
+            <type>miscellaneous</type>
+            <location index="8">RT</location>
+        </equipment>
+        <equipment>
+            <name manufacturer="">Modular Armor</name>
+            <type>miscellaneous</type>
+            <location index="4">LA</location>
+        </equipment>
+        <equipment>
+            <name manufacturer="">Modular Armor</name>
+            <type>miscellaneous</type>
+            <location index="4">RA</location>
+        </equipment>
+        <equipment>
+            <name manufacturer="">Modular Armor</name>
+            <type>miscellaneous</type>
+            <location index="4">LL</location>
+        </equipment>
+        <equipment>
+            <name manufacturer="">Modular Armor</name>
+            <type>miscellaneous</type>
+            <location index="4">RL</location>
+        </equipment>
+        <armored_locations>
+            <location index="2">HD</location>
+            <location index="0">LA</location>
+            <location index="0">RA</location>
+            <location index="0">LL</location>
+            <location index="0">RL</location>
+        </armored_locations>
+    </baseloadout>
+    <fluff>
+        <overview></overview>
+        <capabilities></capabilities>
+        <battlehistory></battlehistory>
+        <deployment></deployment>
+        <variants></variants>
+        <notables></notables>
+        <additional></additional>
+        <jumpjet_model>None</jumpjet_model>
+        <commsystem>Unknown</commsystem>
+        <tandtsystem>Unknown</tandtsystem>
+    </fluff>
+</mech>

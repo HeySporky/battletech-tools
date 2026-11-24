@@ -17,9 +17,7 @@ describe("SanitizedHTML", () => {
         expect(container.querySelector("img")?.hasAttribute("onerror")).toBe(false);
     });
 
-    it("passes markup through untouched in raw mode", () => {
-        const { container } = render(<SanitizedHTML raw html={"<em data-x=\"1\">raw</em>"} />);
-
-        expect(container.querySelector("em")?.getAttribute("data-x")).toBe("1");
-    });
+    // #215: raw mode runs DOMPurify. It is tested only in sanitized-html.browser.test.tsx (Chromium, Firefox,
+    // WebKit; CI runs it): happy-dom's tree walk garbles DOMPurify's output (the first element is dropped and a
+    // script after it survives), so a happy-dom test here would prove nothing either way.
 });

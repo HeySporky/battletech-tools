@@ -1,6 +1,17 @@
 
 import React, { type JSX } from 'react';
 
+/** Cuts the arms out of a Biped outline: `points` is the part kept, in the art's own coordinates (Maximum Tech p.62, plan ruling R4). */
+export function ArmlessClip( props: { armless?: boolean; name: string; points: string; children: React.ReactNode } ): JSX.Element {
+    if( !props.armless ) return <>{props.children}</>;
+    return (
+        <>
+            <clipPath id={props.name}><polygon points={props.points} /></clipPath>
+            <g clipPath={`url(#${props.name})`}>{props.children}</g>
+        </>
+    );
+}
+
 export default class BipedArmorDiagramSVG extends React.Component<IBipedArmorDiagramSVGProps, IBipedArmorDiagramSVGState> {
     bgColor = "rgb(255,255,255)";
     strokeColor = "rgb(0,0,0)";
@@ -67,7 +78,8 @@ export default class BipedArmorDiagramSVG extends React.Component<IBipedArmorDia
             height={this.theHeight}
             viewBox={"0 0 " + this.baseWidth + " " + this.baseHeight }
         >
-        <g
+        <ArmlessClip armless={this.props.armless} name="armless-outline-armor" points="285,0 285,207 173,212 173,250 177,250 177,660 0,660 0,1060 744,1060 744,660 567,660 567,250 571,250 571,212 459,207 459,0">
+<g
             // transform="matrix(1.0031948,0,0,0.97901571,-163.52526,-89.756917)"
             id="g4">
 
@@ -80,12 +92,15 @@ export default class BipedArmorDiagramSVG extends React.Component<IBipedArmorDia
                 id="path4147"
             />
             </g>
-            </g></svg>
+            </g>
+</ArmlessClip>
+</svg>
       );
     }
 }
 
 interface IBipedArmorDiagramSVGProps {
+    armless?: boolean;
     bgColor?: string;
     strokeColor?: string;
 

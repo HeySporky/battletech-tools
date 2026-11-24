@@ -1,0 +1,87 @@
+<?xml version="1.0" encoding ="UTF-8"?>
+<mech name="Raider" model="JL-1" tons="50" omnimech="FALSE" solaris7id="0" solaris7imageid="0" sswimage="">
+    <ssw_savefile_version>3</ssw_savefile_version>
+    <battle_value>817</battle_value>
+    <cost>3402000.0000000005</cost>
+    <rules_level>3</rules_level>
+    <era>3</era>
+    <productionera>8</productionera>
+    <mech_type>BattleMech</mech_type>
+    <techbase manufacturer="Bannson Universal Unlimited" location="Tybalt, St. Andre">Inner Sphere</techbase>
+    <year restricted="FALSE">3134</year>
+    <motive_type>Biped</motive_type>
+    <structure manufacturer="BUU Standard Medium Chassis" techbase="2">
+        <type>Standard Structure</type>
+    </structure>
+    <engine rating="200" manufacturer="Bannson Spark 200" lsstart="-1" rsstart="-1" techbase="2">I.C.E. Engine</engine>
+    <gyro techbase="2">Standard Gyro</gyro>
+    <cockpit>
+        <type ejectionseat="FALSE" commandconsole="FALSE" fhes="FALSE">Standard Cockpit</type>
+    </cockpit>
+    <enhancement techbase="0">
+        <type>TSM</type>
+        <location index="0">LT</location>
+        <location index="4">RA</location>
+        <location index="4">LL</location>
+        <location index="4">RL</location>
+        <location index="5">RT</location>
+        <location index="10">LA</location>
+    </enhancement>
+    <armor manufacturer="BUU MechStandard" techbase="2">
+        <type>Standard Armor</type>
+        <hd>9</hd>
+        <ct>16</ct>
+        <ctr>5</ctr>
+        <lt>14</lt>
+        <ltr>4</ltr>
+        <rt>14</rt>
+        <rtr>4</rtr>
+        <la>10</la>
+        <ra>10</ra>
+        <ll>13</ll>
+        <rl>13</rl>
+    </armor>
+    <baseloadout fcsa4="FALSE" fcsa5="FALSE" fcsapollo="FALSE">
+        <source>EDDA</source>
+        <info>Raider JL-1 50t, 4[5]/6[8]/0 TSM, ICE, Std; 7.0T/66% Armor; 2 SHS; 2 MRM10, 1 2Saw</info>
+        <battleforce pv="8" wt="2" mv="4" s="1" m="1" l="0" e="0" ov="1" armor="4" internal="4" abilities="TSM, MEL, SAW, SRCH, EE, ES, SEAL, SOA" />
+        <actuators lla="TRUE" lh="FALSE" rla="TRUE" rh="TRUE"/>
+        <clancase>FALSE</clancase>
+        <heatsinks number="2" techbase="2">
+            <type>Single Heat Sink</type>
+
+        </heatsinks>
+        <equipment>
+            <name manufacturer="BUU Quarrel-10">(IS) MRM-10</name>
+            <type>missile</type>
+            <location index="2">RT</location>
+        </equipment>
+        <equipment>
+            <name manufacturer="BUU Quarrel-10">(IS) MRM-10</name>
+            <type>missile</type>
+            <location index="0">RT</location>
+        </equipment>
+        <equipment>
+            <name manufacturer="Unknown">(IS) @ MRM-10</name>
+            <type>ammunition</type>
+            <location index="4">RT</location>
+        </equipment>
+        <equipment>
+            <name manufacturer="BUU SuperCutter">Dual Saw</name>
+            <type>physical</type>
+            <location index="3">LA</location>
+        </equipment>
+    </baseloadout>
+    <fluff>
+        <overview></overview>
+        <capabilities></capabilities>
+        <battlehistory></battlehistory>
+        <deployment></deployment>
+        <variants></variants>
+        <notables></notables>
+        <additional>Features the following Design Quirks: Searchlight.</additional>
+        <jumpjet_model>None</jumpjet_model>
+        <commsystem>BUU FarSweep Comms</commsystem>
+        <tandtsystem>BUU AccuTrack 3000</tandtsystem>
+    </fluff>
+</mech>

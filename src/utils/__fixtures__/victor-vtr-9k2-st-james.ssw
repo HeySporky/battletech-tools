@@ -1,0 +1,122 @@
+<?xml version="1.0" encoding ="UTF-8"?>
+<mech name="Victor" model="VTR-9K2 St.James" tons="80" omnimech="FALSE" solaris7id="0" solaris7imageid="0" sswimage="">
+    <ssw_savefile_version>3</ssw_savefile_version>
+    <battle_value>2006</battle_value>
+    <cost>1.463004E7</cost>
+    <rules_level>3</rules_level>
+    <fractional />
+    <era>2</era>
+    <productionera>0</productionera>
+    <mech_type>BattleMech</mech_type>
+    <techbase manufacturer="Unknown" location="Unknown">Inner Sphere</techbase>
+    <year restricted="FALSE">3069</year>
+    <motive_type>Biped</motive_type>
+    <structure manufacturer="Unknown" techbase="0">
+        <type>Endo-Steel</type>
+        <location index="0">LT</location>
+        <location index="1">LT</location>
+        <location index="2">LT</location>
+        <location index="3">LT</location>
+        <location index="4">LT</location>
+        <location index="5">LT</location>
+        <location index="6">LT</location>
+        <location index="6">LA</location>
+        <location index="7">LT</location>
+        <location index="7">LA</location>
+        <location index="8">LT</location>
+        <location index="9">LT</location>
+        <location index="10">LT</location>
+        <location index="11">LT</location>
+    </structure>
+    <engine rating="320" manufacturer="Unknown" lsstart="-1" rsstart="-1" techbase="2">Fusion Engine</engine>
+    <gyro techbase="2">Standard Gyro</gyro>
+    <cockpit>
+        <type ejectionseat="FALSE" commandconsole="FALSE" fhes="FALSE">Standard Cockpit</type>
+    </cockpit>
+    <armor manufacturer="Unknown" techbase="2">
+        <type>Patchwork Armor</type>
+        <hd type="Standard Armor" techbase="2">9</hd>
+        <ct type="Standard Armor" techbase="2">34</ct>
+        <ctr>15</ctr>
+        <lt type="Standard Armor" techbase="2">23</lt>
+        <ltr>10</ltr>
+        <rt type="Standard Armor" techbase="2">23</rt>
+        <rtr>10</rtr>
+        <la type="Ferro-Fibrous" techbase="0">26</la>
+        <ra type="Ferro-Fibrous" techbase="0">26</ra>
+        <ll type="Ferro-Fibrous" techbase="0">34</ll>
+        <rl type="Ferro-Fibrous" techbase="0">34</rl>
+        <location index="4">LL</location>
+        <location index="4">RL</location>
+        <location index="5">LL</location>
+        <location index="5">RL</location>
+        <location index="8">LA</location>
+        <location index="9">LA</location>
+        <location index="10">RA</location>
+        <location index="11">RA</location>
+    </armor>
+    <baseloadout fcsa4="FALSE" fcsa5="FALSE" fcsapollo="FALSE">
+        <source>XTRPirates</source>
+        <info>Victor VTR-9K2 St.James 80t, 4/6[8]/0, Std FE, ES; 14.444T/99% Armor; 12 DHS; 2 MXPL, 1 LngTomCnn</info>
+        <battleforce pv="20" wt="4" mv="5" s="3" m="3" l="2" e="0" ov="1" armor="8" internal="6" abilities="ARTLTC, CASE, SRCH, ES, SEAL, SOA" />
+        <actuators lla="TRUE" lh="TRUE" rla="TRUE" rh="FALSE"/>
+        <clancase>FALSE</clancase>
+        <heatsinks number="12" techbase="0">
+            <type>Double Heat Sink</type>
+
+        </heatsinks>
+        <equipment>
+            <name manufacturer="">Long Tom Artillery Cannon</name>
+            <type>ballistic</type>
+            <splitlocation index="0" number="8">RT</splitlocation>
+            <splitlocation index="3" number="7">RA</splitlocation>
+        </equipment>
+        <equipment>
+            <name manufacturer="">(IS) Medium X-Pulse Laser</name>
+            <type>energy</type>
+            <location index="5">LA</location>
+        </equipment>
+        <equipment>
+            <name manufacturer="">(IS) Medium X-Pulse Laser</name>
+            <type>energy</type>
+            <location index="4">LA</location>
+        </equipment>
+        <equipment>
+            <name manufacturer="Unknown">@ Long Tom Cannon</name>
+            <type>ammunition</type>
+            <location index="9">RT</location>
+        </equipment>
+        <equipment>
+            <name manufacturer="Unknown">@ Long Tom Cannon</name>
+            <type>ammunition</type>
+            <location index="8">RT</location>
+        </equipment>
+        <equipment>
+            <name manufacturer="Unknown">@ Long Tom Cannon</name>
+            <type>ammunition</type>
+            <location index="10">RT</location>
+        </equipment>
+        <equipment>
+            <name manufacturer="">CASE</name>
+            <type>CASE</type>
+            <location index="11">RT</location>
+        </equipment>
+        <equipment>
+            <name manufacturer="">Supercharger</name>
+            <type>Supercharger</type>
+            <location index="10">CT</location>
+        </equipment>
+    </baseloadout>
+    <fluff>
+        <overview></overview>
+        <capabilities></capabilities>
+        <battlehistory></battlehistory>
+        <deployment></deployment>
+        <variants></variants>
+        <notables></notables>
+        <additional></additional>
+        <jumpjet_model>None</jumpjet_model>
+        <commsystem>Unknown</commsystem>
+        <tandtsystem>Unknown</tandtsystem>
+    </fluff>
+</mech>

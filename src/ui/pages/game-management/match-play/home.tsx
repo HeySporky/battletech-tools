@@ -54,12 +54,11 @@ export default class AlphaStrikeGameManagementHome extends React.Component<IAlph
             this.props.appGlobals.currentDeployments = generateScenarioDeployments(this.currentDeploymentSet, this.numberOfOptions);
             this.props.appGlobals.currentScenarios = generateAvailableScenarios(this.currentScenarioSet, this.numberOfOptions);
             this.props.appGlobals.currentTerrains = generateScenarioTerrains(this.currentTerrainSet, this.numberOfOptions);
-            console.log(this.props.appGlobals.currentTerrains);
             this.setState({updated: true});
         }
 
         toggleDeployment = (e: React.MouseEvent<HTMLButtonElement, MouseEvent>) => {
-            let curDeployments = this.props.appGlobals.currentDeployments!;
+            const curDeployments = this.props.appGlobals.currentDeployments!;
             for(let i = 0; i < curDeployments.length; i++) {
                 if(curDeployments[i].uuid === e.currentTarget!.value) {
                     if(curDeployments[i].banned === false && this.props.appGlobals.currentDeployments!.filter(x => x.banned === true).length === this.numberOfOptions - 1){
@@ -73,7 +72,7 @@ export default class AlphaStrikeGameManagementHome extends React.Component<IAlph
         }
 
         toggleScenario = (e: React.MouseEvent<HTMLButtonElement, MouseEvent>) => {
-            let curScenarios = this.props.appGlobals.currentScenarios!;
+            const curScenarios = this.props.appGlobals.currentScenarios!;
             for(let i = 0; i < curScenarios.length; i++) {
                 if(curScenarios[i].uuid === e.currentTarget!.value) {
                     if(curScenarios[i].banned === false && this.props.appGlobals.currentScenarios!.filter(x => x.banned === true).length === this.numberOfOptions - 1){
@@ -86,7 +85,7 @@ export default class AlphaStrikeGameManagementHome extends React.Component<IAlph
         }
 
         toggleTerrain = (e: React.MouseEvent<HTMLButtonElement, MouseEvent>) => {
-            let curTerrains = this.props.appGlobals.currentTerrains!;
+            const curTerrains = this.props.appGlobals.currentTerrains!;
             for(let i = 0; i < curTerrains.length; i++) {
                 if(curTerrains[i].uuid === e.currentTarget!.value) {
                     if(curTerrains[i].banned === false && this.props.appGlobals.currentTerrains!.filter(x => x.banned === true).length === this.numberOfOptions - 1){
@@ -99,7 +98,7 @@ export default class AlphaStrikeGameManagementHome extends React.Component<IAlph
         }
 
         saveAppSettings = () => {
-            let appSettings = this.props.appGlobals.appSettings;
+            const appSettings = this.props.appGlobals.appSettings;
             this.props.appGlobals.saveAppSettings(appSettings);
         }
 
@@ -133,7 +132,7 @@ export default class AlphaStrikeGameManagementHome extends React.Component<IAlph
                 <div className="row" style={{margin: 'auto'}}>
                     <div className="col-md-2">
                     <label htmlFor="numberOfOptions">Use bans?</label>
-                    <select value={this.numberOfOptions} onChange={(e) => {this.numberOfOptions = parseInt(e.currentTarget.value); this.regenerateCards(); this.setState({updated: true})}}>
+                    <select id="numberOfOptions" value={this.numberOfOptions} onChange={(e) => {this.numberOfOptions = parseInt(e.currentTarget.value); this.regenerateCards(); this.setState({updated: true})}}>
                         <option value="1">No</option>
                         <option value="3">Yes</option>
                         </select>
@@ -141,7 +140,7 @@ export default class AlphaStrikeGameManagementHome extends React.Component<IAlph
                     </div>
                     <div className="col-md-2">
                     <label htmlFor="gameSize">Game Size?</label>
-                    <select value={this.gameSize} onChange={(e) => {this.gameSize = e.currentTarget.value; this.setState({updated: true})}}>
+                    <select id="gameSize" value={this.gameSize} onChange={(e) => {this.gameSize = e.currentTarget.value; this.setState({updated: true})}}>
                         <option value="battle">Battle (500 PV)</option>
                         <option value="skirmish">Skirmish (250 PV)</option>
                         </select>
@@ -149,7 +148,7 @@ export default class AlphaStrikeGameManagementHome extends React.Component<IAlph
                     </div>
                     <div className="col-md-2">
                     <label htmlFor="generateTerrain">Random Terrain Type?</label>
-                    <select value={this.generateTerrain} onChange={(e) => {this.generateTerrain = e.currentTarget.value; this.setState({updated: true})}}>
+                    <select id="generateTerrain" value={this.generateTerrain} onChange={(e) => {this.generateTerrain = e.currentTarget.value; this.setState({updated: true})}}>
                         <option value="no">No</option>
                         <option value="yes">Yes</option>
                         </select>

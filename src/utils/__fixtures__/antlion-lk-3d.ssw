@@ -1,0 +1,136 @@
+<?xml version="1.0" encoding ="UTF-8"?>
+<mech name="Antlion" model="LK-3D" tons="45" omnimech="FALSE" solaris7id="0" solaris7imageid="0" sswimage="">
+    <ssw_savefile_version>3</ssw_savefile_version>
+    <battle_value>859</battle_value>
+    <cost>8233875.0</cost>
+    <rules_level>3</rules_level>
+    <era>2</era>
+    <productionera>8</productionera>
+    <mech_type>BattleMech</mech_type>
+    <techbase manufacturer="Unknown" location="Unknown">Mixed</techbase>
+    <year restricted="FALSE">3117</year>
+    <motive_type>Quad</motive_type>
+    <structure manufacturer="Unknown" techbase="2">
+        <type>Reinforced Structure</type>
+    </structure>
+    <engine rating="225" manufacturer="Unknown" lsstart="0" rsstart="0" techbase="0">XL Engine</engine>
+    <gyro techbase="0">Extra-Light Gyro</gyro>
+    <cockpit>
+        <type ejectionseat="FALSE" commandconsole="FALSE" fhes="FALSE">Small Cockpit</type>
+    </cockpit>
+    <armor manufacturer="Unknown" techbase="0">
+        <type>Light Ferro-Fibrous</type>
+        <hd>9</hd>
+        <ct>22</ct>
+        <ctr>6</ctr>
+        <lt>17</lt>
+        <ltr>5</ltr>
+        <rt>17</rt>
+        <rtr>5</rtr>
+        <la>20</la>
+        <ra>20</ra>
+        <ll>20</ll>
+        <rl>20</rl>
+        <location index="4">FLL</location>
+        <location index="4">RLL</location>
+        <location index="4">RRL</location>
+        <location index="5">FLL</location>
+        <location index="5">FRL</location>
+        <location index="5">RLL</location>
+        <location index="5">RRL</location>
+    </armor>
+    <baseloadout fcsa4="FALSE" fcsa5="FALSE" fcsapollo="FALSE">
+        <source>RS3145u</source>
+        <info>Antlion LK-3D 45t, 5/8/0, XLFE, Rnfrcd Quad, XL Gyro; 9.5T/95% LFF Armor; 10 DHS; 1 BlAP, 1 RSnsDisp, 2 Mrtr4, 2 LMG</info>
+        <battleforce pv="9" wt="2" mv="5" s="1" m="2" l="2" e="0" ov="0" armor="5" internal="4" abilities="BH, RCN, CASEII, SRCH, ES, SEAL, SOA, IF 1" />
+        <actuators lla="TRUE" lh="TRUE" rla="TRUE" rh="TRUE"/>
+        <clancase>FALSE</clancase>
+        <heatsinks number="10" techbase="0">
+            <type>Double Heat Sink</type>
+
+            <location index="3">LT</location>
+        </heatsinks>
+        <equipment>
+            <name manufacturer="">(IS) Light Machine Gun</name>
+            <type>ballistic</type>
+            <location index="5">HD</location>
+        </equipment>
+        <equipment>
+            <name manufacturer="">(IS) Light Machine Gun</name>
+            <type>ballistic</type>
+            <location index="4">HD</location>
+        </equipment>
+        <equipment>
+            <name manufacturer="">(CL) Mech Mortar 4</name>
+            <type>missile</type>
+            <location index="3">RT</location>
+        </equipment>
+        <equipment>
+            <name manufacturer="">(CL) Mech Mortar 4</name>
+            <type>missile</type>
+            <location index="6">LT</location>
+        </equipment>
+        <equipment>
+            <name manufacturer="">Bloodhound Active Probe</name>
+            <type>equipment</type>
+            <location index="8">LT</location>
+        </equipment>
+        <equipment>
+            <name manufacturer="">Remote Sensor Dispenser</name>
+            <type>equipment</type>
+            <location index="11">LT</location>
+        </equipment>
+        <equipment>
+            <name manufacturer="Unknown">@ Light Machine Gun (1/2)</name>
+            <type>ammunition</type>
+            <location index="4">FRL</location>
+        </equipment>
+        <equipment>
+            <name manufacturer="Unknown">(CL) @ &apos;Mech Mortar 4 (Armor Piercing)</name>
+            <type>ammunition</type>
+            <location index="6">RT</location>
+        </equipment>
+        <equipment>
+            <name manufacturer="Unknown">(CL) @ &apos;Mech Mortar 4 (Armor Piercing)</name>
+            <type>ammunition</type>
+            <location index="5">RT</location>
+        </equipment>
+        <equipment>
+            <name manufacturer="Unknown">(CL) @ &apos;Mech Mortar 4 (Armor Piercing)</name>
+            <type>ammunition</type>
+            <location index="7">RT</location>
+        </equipment>
+        <equipment>
+            <name manufacturer="Unknown">(CL) @ &apos;Mech Mortar 4 (Armor Piercing)</name>
+            <type>ammunition</type>
+            <location index="8">RT</location>
+        </equipment>
+        <equipment>
+            <name manufacturer="Unknown">(CL) @ &apos;Mech Mortar 4 (Armor Piercing)</name>
+            <type>ammunition</type>
+            <location index="9">RT</location>
+        </equipment>
+        <equipment>
+            <name manufacturer="Unknown">(CL) @ &apos;Mech Mortar 4 (Armor Piercing)</name>
+            <type>ammunition</type>
+            <location index="10">RT</location>
+        </equipment>
+        <equipment>
+            <name manufacturer="">(IS) CASE II</name>
+            <type>CASEII</type>
+            <location index="11">RT</location>
+        </equipment>
+    </baseloadout>
+    <fluff>
+        <overview></overview>
+        <capabilities></capabilities>
+        <battlehistory></battlehistory>
+        <deployment></deployment>
+        <variants></variants>
+        <notables></notables>
+        <additional></additional>
+        <jumpjet_model>None</jumpjet_model>
+        <commsystem>Unknown</commsystem>
+        <tandtsystem>Unknown</tandtsystem>
+    </fluff>
+</mech>

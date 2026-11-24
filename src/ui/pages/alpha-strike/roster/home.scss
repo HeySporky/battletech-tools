@@ -1,0 +1,38 @@
+
+// ForcePack rows: the add button, then the name and members in their own column (issue 19).
+.force-pack-row {
+    display: flex;
+    align-items: flex-start;
+    margin-bottom: 0.5rem;
+
+    > .btn {
+        flex: 0 0 auto;
+    }
+
+    .force-pack-text {
+        flex: 1 1 auto;
+        min-width: 0;
+    }
+}
+
+// Adding a unit from a photo of its card: the photo large enough to read against the fields.
+.as-scan {
+    .as-scan-photo {
+        display: block;
+        width: 100%;
+        max-width: 40rem;
+        height: auto;
+        margin-bottom: .5rem;
+    }
+
+    .as-scan-fields {
+        display: flex;
+        flex-wrap: wrap;
+        gap: .25rem 1rem;
+        margin: .5rem 0;
+    }
+
+    .as-scan-field input {
+        width: 9rem;
+    }
+}

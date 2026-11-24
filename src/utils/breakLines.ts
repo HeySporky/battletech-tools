@@ -3,12 +3,12 @@ export function breakLines(
     lineLength: number
 ): string[] {
 
-    let rv: string[] = [];
+    const rv: string[] = [];
 
-    let splitWords = incomingLine.split(" ");
+    const splitWords = incomingLine.split(" ");
 
     let line = "";
-    for( let word of splitWords ) {
+    for( const word of splitWords ) {
         if( word.length + line.length <= lineLength ) {
             line += word + " ";
         } else {

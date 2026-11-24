@@ -1,0 +1,115 @@
+<?xml version="1.0" encoding ="UTF-8"?>
+<mech name="Griffin" model="GRF-6S" tons="55" omnimech="FALSE" solaris7id="0" solaris7imageid="0" sswimage="">
+    <ssw_savefile_version>3</ssw_savefile_version>
+    <battle_value>1781</battle_value>
+    <cost>9089540.0</cost>
+    <rules_level>1</rules_level>
+    <era>2</era>
+    <productionera>5</productionera>
+    <mech_type>BattleMech</mech_type>
+    <techbase manufacturer="Defiance Industries, Kallon Industries, Victory Industries" location="Hesperus II, Talon, Marduk">Inner Sphere</techbase>
+    <year restricted="FALSE">3066</year>
+    <motive_type>Biped</motive_type>
+    <structure manufacturer="Earthwerks GRF" techbase="0">
+        <type>Endo-Steel</type>
+        <location index="2">LT</location>
+        <location index="3">HD</location>
+        <location index="3">LT</location>
+        <location index="4">LT</location>
+        <location index="5">LA</location>
+        <location index="6">LA</location>
+        <location index="7">LA</location>
+        <location index="7">RA</location>
+        <location index="8">LA</location>
+        <location index="8">RA</location>
+        <location index="9">RT</location>
+        <location index="9">RA</location>
+        <location index="10">RT</location>
+        <location index="11">RT</location>
+    </structure>
+    <engine rating="275" manufacturer="Defiance" lsstart="0" rsstart="0" techbase="0">Light Fusion Engine</engine>
+    <gyro techbase="2">Standard Gyro</gyro>
+    <cockpit>
+        <type ejectionseat="FALSE" commandconsole="FALSE" fhes="FALSE">Standard Cockpit</type>
+    </cockpit>
+    <armor manufacturer="Starshield A" techbase="2">
+        <type>Standard Armor</type>
+        <hd>9</hd>
+        <ct>27</ct>
+        <ctr>9</ctr>
+        <lt>20</lt>
+        <ltr>6</ltr>
+        <rt>20</rt>
+        <rtr>6</rtr>
+        <la>18</la>
+        <ra>18</ra>
+        <ll>26</ll>
+        <rl>26</rl>
+    </armor>
+    <baseloadout fcsa4="TRUE" fcsa5="FALSE" fcsapollo="FALSE">
+        <source>RS3085u-PP</source>
+        <info>Griffin GRF-6S 55t, 5/8/5, LFE, ES; 12.0T/100% Armor; 10 DHS; 1 LRM15, 2 ERML, 1 ERPPC</info>
+        <battleforce pv="18" wt="2" mv="5j" s="2" m="3" l="2" e="0" ov="1" armor="6" internal="3" abilities="CASE, SRCH, ES, SEAL, SOA, IF 1" />
+        <actuators lla="TRUE" lh="TRUE" rla="TRUE" rh="TRUE"/>
+        <clancase>FALSE</clancase>
+        <jumpjets number="5">
+            <type>Standard Jump Jet</type>
+            <location index="10">CT</location>
+            <location index="4">LL</location>
+            <location index="4">RL</location>
+            <location index="5">LL</location>
+            <location index="5">RL</location>
+        </jumpjets>
+        <heatsinks number="10" techbase="0">
+            <type>Double Heat Sink</type>
+
+        </heatsinks>
+        <equipment>
+            <name manufacturer="RamTech 1500Z">(IS) ER Medium Laser</name>
+            <type>energy</type>
+            <location index="4">LA</location>
+        </equipment>
+        <equipment>
+            <name manufacturer="Defiance 1001">(IS) ER PPC</name>
+            <type>energy</type>
+            <location index="4">RA</location>
+        </equipment>
+        <equipment>
+            <name manufacturer="RamTech 1500Z">(IS) ER Medium Laser</name>
+            <type>energy</type>
+            <location index="11">CT</location>
+        </equipment>
+        <equipment>
+            <name manufacturer="Coventry StarFire">(IS) LRM-15</name>
+            <type>missile</type>
+            <location index="2">RT</location>
+        </equipment>
+        <equipment>
+            <name manufacturer="Unknown">(IS) @ LRM-15 (Artemis IV Capable)</name>
+            <type>ammunition</type>
+            <location index="6">RT</location>
+        </equipment>
+        <equipment>
+            <name manufacturer="Unknown">(IS) @ LRM-15 (Artemis IV Capable)</name>
+            <type>ammunition</type>
+            <location index="7">RT</location>
+        </equipment>
+        <equipment>
+            <name manufacturer="">CASE</name>
+            <type>CASE</type>
+            <location index="8">RT</location>
+        </equipment>
+    </baseloadout>
+    <fluff>
+        <overview></overview>
+        <capabilities></capabilities>
+        <battlehistory></battlehistory>
+        <deployment></deployment>
+        <variants></variants>
+        <notables></notables>
+        <additional></additional>
+        <jumpjet_model>Rawlings 55</jumpjet_model>
+        <commsystem>Neil 6000</commsystem>
+        <tandtsystem>RCA Instatrac Mk X</tandtsystem>
+    </fluff>
+</mech>

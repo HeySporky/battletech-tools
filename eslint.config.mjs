@@ -9,17 +9,22 @@ import tseslint from "typescript-eslint";
 export default tseslint.config(
     {
         ignores: [
-            "build", "cli-tools", "node_modules", "coverage", "playwright-report", "test-results",
+            "build", "cli-tools", "node_modules", "battletech-tools", "coverage", "playwright-report", "test-results",
             // local-only environments/working folders that some contributors keep in the repo root
-            ".venv", "venv", "**/*_DEV/**",
+            ".venv", "venv", "**/*_DEV/**", ".superpowers", "src/zz-local", "tools-local",
         ],
     },
     js.configs.recommended,
     ...tseslint.configs.recommended,
     {
         // Node-side scripts and config files.
-        files: ["scripts/**/*.{js,mjs,cjs}", "*.{js,mjs,cjs,mts}"],
+        files: ["scripts/**/*.{js,mjs,cjs}", "tools/**/*.{js,mjs,cjs}", "*.{js,mjs,cjs,mts}"],
         languageOptions: { globals: { ...globals.node } },
+    },
+    {
+        // These two drive a real browser with Playwright; the callbacks they pass to page.evaluate() run in the page.
+        files: ["tools/live_mul_browser_probe.mjs", "tools/mul-sync/sync-mul.mjs"],
+        languageOptions: { globals: { ...globals.node, ...globals.browser } },
     },
     {
         files: ["**/*.{ts,tsx}"],
@@ -40,10 +45,6 @@ export default tseslint.config(
             "@typescript-eslint/no-unsafe-function-type": "off",
             "no-empty": "off",
             "no-useless-assignment": "off",
-            // Enabled by typescript-eslint's recommended preset. Both are auto-fixable (`eslint --fix`) but touch
-            // ~800 lines across most of src/, so they are left for a dedicated cleanup pass rather than this PR.
-            "prefer-const": "off",
-            "no-var": "off",
             // TypeScript's own compiler already catches real undefined references and
             // understands ambient globals (JSX, process via vite define, etc.) that no-undef doesn't.
             "no-undef": "off",

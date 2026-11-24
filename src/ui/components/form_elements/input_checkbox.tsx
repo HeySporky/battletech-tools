@@ -11,7 +11,7 @@ export default class InputCheckbox extends React.Component<IInputCheckboxProps, 
 
     onChange = ( _event: React.FormEvent<HTMLInputElement>): void => {
         if(!this.props.readOnly) {
-            let returnEvent = {
+            const returnEvent = {
                 currentTarget: {
                     checked: !this.props.checked
                 }
@@ -26,12 +26,12 @@ export default class InputCheckbox extends React.Component<IInputCheckboxProps, 
 
     toggleValue = (): void => {
         if(!this.props.readOnly) {
-            let newValue = !this.props.checked;
+            const newValue = !this.props.checked;
             if( this.props.setValue )
                 this.props.setValue( newValue );
 
             if( this.props.onChange ) {
-                let returnEvent = {
+                const returnEvent = {
                     currentTarget: {
                         checked: !this.props.checked
                     }

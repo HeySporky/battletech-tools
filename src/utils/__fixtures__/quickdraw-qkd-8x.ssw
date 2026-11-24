@@ -1,0 +1,128 @@
+<?xml version="1.0" encoding ="UTF-8"?>
+<mech name="Quickdraw" model="QKD-8X" tons="60" omnimech="FALSE" solaris7id="0" solaris7imageid="0" sswimage="">
+    <ssw_savefile_version>3</ssw_savefile_version>
+    <battle_value>1612</battle_value>
+    <cost>9903360.0</cost>
+    <rules_level>3</rules_level>
+    <era>2</era>
+    <productionera>6</productionera>
+    <mech_type>BattleMech</mech_type>
+    <techbase manufacturer="Unknown" location="Unknown">Inner Sphere</techbase>
+    <year restricted="FALSE">3073</year>
+    <motive_type>Biped</motive_type>
+    <structure manufacturer="Unknown" techbase="0">
+        <type>Endo-Steel</type>
+        <location index="4">LT</location>
+        <location index="4">LA</location>
+        <location index="4">RA</location>
+        <location index="5">LT</location>
+        <location index="5">RT</location>
+        <location index="5">LA</location>
+        <location index="5">RA</location>
+        <location index="6">LT</location>
+        <location index="6">RT</location>
+        <location index="6">LA</location>
+        <location index="6">RA</location>
+        <location index="7">LT</location>
+        <location index="7">RT</location>
+        <location index="8">RT</location>
+    </structure>
+    <engine rating="300" manufacturer="Unknown" lsstart="-1" rsstart="-1" techbase="2">Fusion Engine</engine>
+    <gyro techbase="0">Compact Gyro</gyro>
+    <cockpit>
+        <type>Torso-Mounted Cockpit</type>
+        <location index="8">CT</location>
+        <location index="9">CT</location>
+        <location index="0">LT</location>
+        <location index="0">RT</location>
+    </cockpit>
+    <enhancement techbase="0">
+        <type>TSM</type>
+        <location index="7">LA</location>
+        <location index="7">RA</location>
+        <location index="8">LA</location>
+        <location index="8">RA</location>
+        <location index="9">LA</location>
+        <location index="9">RA</location>
+    </enhancement>
+    <armor manufacturer="Unknown" techbase="0">
+        <type>Stealth Armor</type>
+        <hd>8</hd>
+        <ct>30</ct>
+        <ctr>10</ctr>
+        <lt>18</lt>
+        <ltr>10</ltr>
+        <rt>18</rt>
+        <rtr>10</rtr>
+        <la>16</la>
+        <ra>16</ra>
+        <ll>28</ll>
+        <rl>28</rl>
+        <location index="4">LL</location>
+        <location index="4">RL</location>
+        <location index="5">LL</location>
+        <location index="5">RL</location>
+        <location index="8">LT</location>
+        <location index="9">LT</location>
+        <location index="9">RT</location>
+        <location index="10">RT</location>
+        <location index="10">LA</location>
+        <location index="10">RA</location>
+        <location index="11">LA</location>
+        <location index="11">RA</location>
+    </armor>
+    <baseloadout fcsa4="FALSE" fcsa5="FALSE" fcsapollo="FALSE">
+        <source>XTRCorps</source>
+        <info>Quickdraw QKD-8X 60t, 5[6]/8[9]/0 TSM, Std FE, ES, Cmp Gyro; 12.0T/96% Stlth Armor; 12 SHS; 2 ML, 1 ECM, 1 PPC, 1 LftHst, 1 TAG</info>
+        <battleforce pv="16" wt="3" mv="5" s="1" m="1" l="1" e="0" ov="0" armor="6" internal="5" abilities="TSM, ECM, STL, TAG, ENE, SRCH, ES, SEAL, SOA" />
+        <actuators lla="TRUE" lh="TRUE" rla="TRUE" rh="TRUE"/>
+        <clancase>FALSE</clancase>
+        <heatsinks number="12" techbase="2">
+            <type>Single Heat Sink</type>
+
+        </heatsinks>
+        <turret type="head" index="10"/>
+        <equipment>
+            <name manufacturer="">Guardian ECM Suite</name>
+            <type>equipment</type>
+            <location index="3">RT</location>
+        </equipment>
+        <equipment>
+            <name manufacturer="">(T) (IS) PPC</name>
+            <type>energy</type>
+            <location index="2">HD</location>
+        </equipment>
+        <equipment>
+            <name manufacturer="">TAG</name>
+            <type>equipment</type>
+            <location index="5">HD</location>
+        </equipment>
+        <equipment>
+            <name manufacturer="">(R) (IS) Medium Laser</name>
+            <type>energy</type>
+            <location index="2">RT</location>
+        </equipment>
+        <equipment>
+            <name manufacturer="">(R) (IS) Medium Laser</name>
+            <type>energy</type>
+            <location index="1">RT</location>
+        </equipment>
+        <equipment>
+            <name manufacturer="">(R) Lift Hoist</name>
+            <type>equipment</type>
+            <location index="1">LT</location>
+        </equipment>
+    </baseloadout>
+    <fluff>
+        <overview></overview>
+        <capabilities></capabilities>
+        <battlehistory></battlehistory>
+        <deployment></deployment>
+        <variants></variants>
+        <notables></notables>
+        <additional>Field Testing Summation: Modified QKD-4G Prototype Refit:br::br:Producer/Site: Earthwerks Incorporated, Tikonov Test Site Gryphon:br::br:Supervising Technician: Meihui Quan:br::br:Project Start Date: 3073:br::br:Non-Production Equipment Analysis::br::br::tab:Torso-Mounted Cockpit:br::br::tab:BattleMech Head-Turret:br::br::tab:Handheld Weapons:br::br::br:Handheld Weapon Confi gurations:br::br:Weapons and Ammo Mass:br::br:Heavy LRM Weapon (12 tons):br::br:LRM-20 :tab::tab:10:br::br:Ammo (LRM) 6 :tab: 1:br::br:Armor (16 points) :tab: 1:br::br:Battle Value: 236:br::br::br:Heavy LB-X Weapon (12 tons):br::br:LB 10-X AC :tab::tab:11:br::br:Ammo (LB-X) 5 :tab:  .5:br::br:Armor (8 points) :tab:  .5:br::br:Battle Value: 174:br::br::br:Heavy Streak Weapon (12 tons):br::br:3 Streak SRM-4 :tab:9:br::br:Ammo (Streak) 25 :tab:1:br::br:Armor (32 points) :tab:2:br::br:Battle Value: 248:br::br::br:Heavy Rotary AC Weapon (12 tons):br::br:Rotary AC/5 :tab::tab:10:br::br:Ammo (RAC) 30 :tab:1.5:br::br:Armor (8 points) :tab:  .5:br::br:Battle Value: 310:br::br::br:Heavy Thunderbolt Weapon (12 tons):br::br:Thunderbolt-10 :tab:7:br::br:Ammo (Thunderbolt) 18 :tab:3:br::br:Armor (32 points) :tab:2:br::br:Battle Value: 239:br::br::br:Light Autocannon Weapon (6 tons):br::br:Light AC/5 :tab::tab:5:br::br:Ammo (AC) 10 :tab: .5:br::br:Armor (8 points) :tab: .5:br::br:Battle Value: 82:br::br::br:Light Anti-Infantry Weapon (6 tons):br::br:5 Machine Guns :tab:2.5:br::br:Ammo (MG) 100 :tab:  .5:br::br:Vehicular Flamer :tab:1:br::br:Ammo (Flamer) 20 :tab:1:br::br:Armor (16 points) :tab:1:br::br:Battle Value: 64:br::br::br:Light Laser Weapon (6 tons):br::br:Medium Laser :tab::tab:1:br::br:3 Heat Sinks :tab::tab:3:br::br:Armor (32 points) :tab:2:br::br:Battle Value: 110</additional>
+        <jumpjet_model>None</jumpjet_model>
+        <commsystem>Unknown</commsystem>
+        <tandtsystem>Unknown</tandtsystem>
+    </fluff>
+</mech>

@@ -2,6 +2,7 @@ import React, { type JSX } from 'react';
 import { IAppGlobals } from '../../../app-router';
 import PrintablePage from '../../../components/printable-page';
 import VehicleRecordSheet from '../../../components/vehicle-record-sheet';
+import { unitRulesLevel } from '../../../components/game-settings-block';
 
 export default class VehicleCreatorRecordSheet extends React.Component<IRecordSheetProps, IRecordSheetState> {
     constructor(props: IRecordSheetProps) {
@@ -15,8 +16,8 @@ export default class VehicleCreatorRecordSheet extends React.Component<IRecordSh
         if (!vehicle) return <></>;
 
         return (
-            <PrintablePage backTo={`${process.env.PUBLIC_URL}/classic-battletech/vehicle-creator/summary`} appGlobals={this.props.appGlobals} requiredRulesLevel={vehicle.getRequiredRulesLevel()}>
-                <VehicleRecordSheet vehicle={vehicle} />
+            <PrintablePage backTo={`${process.env.PUBLIC_URL}/classic-battletech/vehicle-creator/summary`} appGlobals={this.props.appGlobals} requiredRulesLevel={vehicle.getRequiredRulesLevel()} rulesLevel={unitRulesLevel(vehicle, this.props.appGlobals.appSettings)}>
+                <VehicleRecordSheet vehicle={vehicle} showAlphaStrike={true} />
             </PrintablePage>
         );
     }

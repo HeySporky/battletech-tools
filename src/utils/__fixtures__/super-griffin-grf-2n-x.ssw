@@ -1,0 +1,123 @@
+<?xml version="1.0" encoding ="UTF-8"?>
+<mech name="Super Griffin" model="GRF-2N-X" tons="60" omnimech="FALSE" solaris7id="0" solaris7imageid="0" sswimage="">
+    <ssw_savefile_version>3</ssw_savefile_version>
+    <battle_value>1269</battle_value>
+    <cost>6563760.0</cost>
+    <rules_level>3</rules_level>
+    <era>4</era>
+    <productionera>4</productionera>
+    <mech_type>BattleMech</mech_type>
+    <techbase manufacturer="Unknown" location="Unknown">Inner Sphere</techbase>
+    <year restricted="FALSE">0</year>
+    <motive_type>Biped</motive_type>
+    <structure manufacturer="Unknown" techbase="2">
+        <type>Standard Structure</type>
+    </structure>
+    <engine rating="240" manufacturer="Unknown" lsstart="-1" rsstart="-1" techbase="2">Fusion Engine</engine>
+    <gyro techbase="2">Standard Gyro</gyro>
+    <cockpit>
+        <type ejectionseat="FALSE" commandconsole="FALSE" fhes="FALSE">Standard Cockpit</type>
+    </cockpit>
+    <armor manufacturer="Unknown" techbase="2">
+        <type>Standard Armor</type>
+        <hd>9</hd>
+        <ct>24</ct>
+        <ctr>7</ctr>
+        <lt>22</lt>
+        <ltr>6</ltr>
+        <rt>22</rt>
+        <rtr>6</rtr>
+        <la>14</la>
+        <ra>14</ra>
+        <ll>18</ll>
+        <rl>18</rl>
+    </armor>
+    <baseloadout fcsa4="FALSE" fcsa5="FALSE" fcsapollo="FALSE">
+        <source>XTRSuccession Wars</source>
+        <info>Super Griffin GRF-2N-X 60t, 4/6/6, Std FE, Std; 10.0T/80% Armor; 10 SHS; 1 ML, 1 SL, 1 PPC, 1 LRM10, 5 </info>
+        <battleforce pv="13" wt="3" mv="4/6j" s="2" m="2" l="2" e="0" ov="1" armor="5" internal="5" abilities="SRCH, ES, SEAL, SOA, IF 1" />
+        <actuators lla="TRUE" lh="TRUE" rla="TRUE" rh="TRUE"/>
+        <clancase>FALSE</clancase>
+        <jumpjets number="6">
+            <type>Prototype Improved Jump Jet</type>
+            <location index="10">LT</location>
+            <location index="9">LT</location>
+            <location index="11">LT</location>
+            <location index="3">RT</location>
+            <location index="4">RT</location>
+            <location index="5">RT</location>
+        </jumpjets>
+        <heatsinks number="10" techbase="2">
+            <type>Single Heat Sink</type>
+
+            <location index="3">HD</location>
+        </heatsinks>
+        <equipment>
+            <name manufacturer="">(IS) PPC</name>
+            <type>energy</type>
+            <location index="7">RA</location>
+        </equipment>
+        <equipment>
+            <name manufacturer="">(IS) Small Laser</name>
+            <type>energy</type>
+            <location index="10">CT</location>
+        </equipment>
+        <equipment>
+            <name manufacturer="">(IS) Medium Laser</name>
+            <type>energy</type>
+            <location index="4">LA</location>
+        </equipment>
+        <equipment>
+            <name manufacturer="">(IS) LRM-10</name>
+            <type>missile</type>
+            <location index="6">RT</location>
+        </equipment>
+        <equipment>
+            <name manufacturer="Unknown">(IS) @ LRM-10</name>
+            <type>ammunition</type>
+            <location index="9">RT</location>
+        </equipment>
+        <equipment>
+            <name manufacturer="Unknown">(IS) @ LRM-10</name>
+            <type>ammunition</type>
+            <location index="8">RT</location>
+        </equipment>
+        <equipment>
+            <name manufacturer="Unknown">Extra Double Heat Sink (Freezers)</name>
+            <type>miscellaneous</type>
+            <location index="0">RT</location>
+        </equipment>
+        <equipment>
+            <name manufacturer="Unknown">Extra Double Heat Sink (Freezers)</name>
+            <type>miscellaneous</type>
+            <location index="4">RA</location>
+        </equipment>
+        <equipment>
+            <name manufacturer="Unknown">Extra Double Heat Sink (Freezers)</name>
+            <type>miscellaneous</type>
+            <location index="0">LT</location>
+        </equipment>
+        <equipment>
+            <name manufacturer="Unknown">Extra Double Heat Sink (Freezers)</name>
+            <type>miscellaneous</type>
+            <location index="3">LT</location>
+        </equipment>
+        <equipment>
+            <name manufacturer="Unknown">Extra Double Heat Sink (Freezers)</name>
+            <type>miscellaneous</type>
+            <location index="6">LT</location>
+        </equipment>
+    </baseloadout>
+    <fluff>
+        <overview></overview>
+        <capabilities></capabilities>
+        <battlehistory></battlehistory>
+        <deployment></deployment>
+        <variants></variants>
+        <notables></notables>
+        <additional>Field Testing Summation: Prototype Griffin chassis rebuilt and testbed:br::br:Producer/Site: Friden Aerospace Park, Hoff:br::br:Supervising Technician: Dr. Jorge Belasco:br::br:Project Start Date: 3020:br::br:Non-Production Equipment Analysis::br::br:Experimental “Freezer” Double Heat Sinks:br::br:Prototype Improved Jump Jets</additional>
+        <jumpjet_model>Unknown</jumpjet_model>
+        <commsystem>Unknown</commsystem>
+        <tandtsystem>Unknown</tandtsystem>
+    </fluff>
+</mech>

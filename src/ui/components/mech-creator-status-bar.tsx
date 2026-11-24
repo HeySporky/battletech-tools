@@ -1,6 +1,7 @@
 
 import React, { type JSX } from 'react';
 import { IAppGlobals } from '../app-router';
+import { getUnallocatedCriticals } from '../../classes/printed-droid';
 import './mech-creator-status-bar.scss';
 
 export default class MechCreatorStatusBar extends React.Component<IMechCreatorStatusBarProps, IMechCreatorStatusBarState> {
@@ -9,11 +10,13 @@ export default class MechCreatorStatusBar extends React.Component<IMechCreatorSt
         if(!this.props.appGlobals.currentBattleMech) {
             return <></>
         }
+      const incomplete = this.props.appGlobals.currentBattleMech.getIncompleteCustomStats();
       return (
-          <div className="mech-creator-status-bar">
-            <span className="no-wrap inline-block"><strong>Remaining Tons</strong>: {this.props.appGlobals.currentBattleMech.getRemainingTonnage()}</span>&nbsp;|&nbsp;
+          <>
+          <aside className="mech-creator-status-bar" aria-label="Design status">
+            <span className={`no-wrap inline-block${this.props.appGlobals.currentBattleMech.getRemainingTonnage() < 0 ? " color-red" : ""}`}><strong>Remaining Tons</strong>: {this.props.appGlobals.currentBattleMech.getRemainingTonnage()}</span>&nbsp;|&nbsp;
             <span className="no-wrap inline-block"><strong>Unallocated Armor</strong>: {this.props.appGlobals.currentBattleMech.getUnallocatedArmor()}</span>&nbsp;|&nbsp;
-            <span className="no-wrap inline-block"><strong>Unallocated Criticals</strong>: {this.props.appGlobals.currentBattleMech.getUnallocatedCritCount()}</span>&nbsp;|&nbsp;
+            <span className="no-wrap inline-block"><strong>Unallocated Criticals</strong>: {getUnallocatedCriticals(this.props.appGlobals.currentBattleMech).length}</span>&nbsp;|&nbsp;
 
             <span className="no-wrap inline-block"><strong>Move Heat</strong>: {this.props.appGlobals.currentBattleMech.getMoveHeat()}</span>&nbsp;|&nbsp;
             <span className="no-wrap inline-block"><strong>Weapon Heat</strong>: {this.props.appGlobals.currentBattleMech.getWeaponHeat()}</span>&nbsp;|&nbsp;
@@ -24,7 +27,17 @@ export default class MechCreatorStatusBar extends React.Component<IMechCreatorSt
                 <><span className="no-wrap inline-block"><strong>Heat Summary</strong>: <span className="color-red">{this.props.appGlobals.currentBattleMech.getHeatSummary()}</span></span></>
             )}
 
-          </div>
+          </aside>
+          {incomplete.length > 0 ? (
+            <div className="alert alert-warning" role="status">
+              Incomplete custom stats ({incomplete.join(", ")}): BV, heat and cost are not reliable until the placeholders' stats are entered.
+              {(() => {
+                const estimated = this.props.appGlobals.currentBattleMech.getEstimatedCustomStats();
+                return estimated.length > 0 ? <> Estimated from the SSW import, not confirmed: {estimated.join("; ")}.</> : null;
+              })()}
+            </div>
+          ) : null}
+          </>
       );
     }
 }

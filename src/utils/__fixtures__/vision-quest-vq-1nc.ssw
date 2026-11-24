@@ -1,0 +1,119 @@
+<?xml version="1.0" encoding ="UTF-8"?>
+<mech name="Vision Quest" model="VQ-1NC" tons="60" omnimech="FALSE" solaris7id="0" solaris7imageid="0" sswimage="">
+    <ssw_savefile_version>3</ssw_savefile_version>
+    <battle_value>2401</battle_value>
+    <cost>1.206048E7</cost>
+    <rules_level>3</rules_level>
+    <era>1</era>
+    <productionera>2</productionera>
+    <mech_type>BattleMech</mech_type>
+    <techbase manufacturer="Brim Ironworks" location="Brim">Mixed</techbase>
+    <year restricted="FALSE">2828</year>
+    <motive_type>Biped</motive_type>
+    <structure manufacturer="Endo Frame Brim-8" techbase="1">
+        <type>Endo-Steel</type>
+        <location index="3">HD</location>
+        <location index="4">LT</location>
+        <location index="4">RT</location>
+        <location index="4">LL</location>
+        <location index="4">RL</location>
+        <location index="5">LT</location>
+        <location index="5">RT</location>
+    </structure>
+    <engine rating="300" manufacturer="MotivX" lsstart="0" rsstart="0" techbase="1">XL Engine</engine>
+    <gyro techbase="2">Standard Gyro</gyro>
+    <cockpit>
+        <type ejectionseat="FALSE" commandconsole="FALSE" fhes="FALSE">Standard Cockpit</type>
+    </cockpit>
+    <armor manufacturer="HardShell Class-I" techbase="0">
+        <type>Ferro-Fibrous</type>
+        <hd>9</hd>
+        <ct>28</ct>
+        <ctr>9</ctr>
+        <lt>21</lt>
+        <ltr>7</ltr>
+        <rt>21</rt>
+        <rtr>7</rtr>
+        <la>20</la>
+        <ra>20</ra>
+        <ll>23</ll>
+        <rl>23</rl>
+        <location index="5">LL</location>
+        <location index="5">RL</location>
+        <location index="6">LT</location>
+        <location index="6">RT</location>
+        <location index="7">LT</location>
+        <location index="7">RT</location>
+        <location index="7">LA</location>
+        <location index="8">LT</location>
+        <location index="8">RT</location>
+        <location index="9">LT</location>
+        <location index="9">RT</location>
+        <location index="9">RA</location>
+        <location index="10">LT</location>
+        <location index="10">RT</location>
+    </armor>
+    <baseloadout fcsa4="FALSE" fcsa5="FALSE" fcsapollo="FALSE">
+        <source>TRGC</source>
+        <info>Vision Quest VQ-1NC 60t, 5/8/0, XLFE, ES; 10.5T/94% FF Armor; 12 DHS; 1 iGR, 2 ERLL, 3 MPL</info>
+        <battleforce pv="24" wt="3" mv="5" s="4" m="4" l="3" e="0" ov="2" armor="6" internal="3" abilities="SRCH, ES, SEAL, SOA" />
+        <actuators lla="TRUE" lh="TRUE" rla="TRUE" rh="FALSE"/>
+        <clancase>FALSE</clancase>
+        <heatsinks number="12" techbase="1">
+            <type>Double Heat Sink</type>
+
+        </heatsinks>
+        <equipment>
+            <name manufacturer="Eclipser">(CL) Medium Pulse Laser</name>
+            <type>energy</type>
+            <location index="5">LA</location>
+        </equipment>
+        <equipment>
+            <name manufacturer="Eclipser">(CL) Medium Pulse Laser</name>
+            <type>energy</type>
+            <location index="4">LA</location>
+        </equipment>
+        <equipment>
+            <name manufacturer="Eclipser">(CL) Medium Pulse Laser</name>
+            <type>energy</type>
+            <location index="6">LA</location>
+        </equipment>
+        <equipment>
+            <name manufacturer="SearFire">(CL) ER Large Laser</name>
+            <type>energy</type>
+            <location index="3">LT</location>
+        </equipment>
+        <equipment>
+            <name manufacturer="SearFire">(CL) ER Large Laser</name>
+            <type>energy</type>
+            <location index="2">LT</location>
+        </equipment>
+        <equipment>
+            <name manufacturer="Kaumodaki">(CL) Improved Gauss Rifle</name>
+            <type>ballistic</type>
+            <location index="3">RA</location>
+        </equipment>
+        <equipment>
+            <name manufacturer="Unknown">(CL) @ iGauss Rifle</name>
+            <type>ammunition</type>
+            <location index="3">RT</location>
+        </equipment>
+        <equipment>
+            <name manufacturer="Unknown">(CL) @ iGauss Rifle</name>
+            <type>ammunition</type>
+            <location index="2">RT</location>
+        </equipment>
+    </baseloadout>
+    <fluff>
+        <overview></overview>
+        <capabilities></capabilities>
+        <battlehistory></battlehistory>
+        <deployment></deployment>
+        <variants></variants>
+        <notables></notables>
+        <additional>Extinct</additional>
+        <jumpjet_model>None</jumpjet_model>
+        <commsystem>Nova Cat Comms Package A</commsystem>
+        <tandtsystem>PreyStalker TTS 5.4</tandtsystem>
+    </fluff>
+</mech>

@@ -1,0 +1,35 @@
+.campaign-page {
+    .campaign-table {
+        width: 100%;
+        th, td { padding: 0.2rem 0.4rem; vertical-align: top; }
+        td.number { text-align: right; white-space: nowrap; }
+        // Keep roster selects readable at phone width (the table scrolls instead).
+        select { min-width: 8rem; }
+        // At phone width a wide table scrolls on its own instead of being clipped by the page.
+        @media (max-width: 767.98px) {
+            display: block;
+            overflow-x: auto;
+        }
+    }
+    .campaign-search-results {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 0.25rem;
+        margin: 0.25rem 0;
+    }
+    .campaign-dot {
+        display: inline-block;
+        margin: 0 0.25rem 0.25rem 0;
+        padding: 0 0.35rem;
+        border: 1px solid currentColor;
+        border-radius: 0.6rem;
+        &.destroyed { text-decoration: line-through; opacity: 0.6; }
+    }
+    .campaign-area {
+        border: 1px solid #8884;
+        padding: 0.5rem;
+        margin-bottom: 0.75rem;
+    }
+    .not-official { font-weight: bold; color: #b00; }
+    label { margin-right: 0.5rem; }
+}

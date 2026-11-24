@@ -1,0 +1,111 @@
+<?xml version="1.0" encoding ="UTF-8"?>
+<mech name="Violator" model="VT-U1" tons="45" omnimech="FALSE" solaris7id="0" solaris7imageid="0" sswimage="">
+    <ssw_savefile_version>3</ssw_savefile_version>
+    <battle_value>928</battle_value>
+    <cost>4259080.0</cost>
+    <rules_level>3</rules_level>
+    <era>2</era>
+    <productionera>7</productionera>
+    <mech_type>BattleMech</mech_type>
+    <techbase manufacturer="Unknown" location="Unknown">Inner Sphere</techbase>
+    <year restricted="FALSE">3097</year>
+    <motive_type>Biped</motive_type>
+    <structure manufacturer="Unknown" techbase="0">
+        <type>Endo-Steel</type>
+        <location index="3">RT</location>
+        <location index="4">LL</location>
+        <location index="4">RL</location>
+        <location index="5">LL</location>
+        <location index="5">RL</location>
+        <location index="6">LA</location>
+        <location index="7">LA</location>
+        <location index="7">RA</location>
+        <location index="8">LA</location>
+        <location index="8">RA</location>
+        <location index="9">LT</location>
+        <location index="9">LA</location>
+        <location index="9">RA</location>
+        <location index="10">RA</location>
+    </structure>
+    <engine rating="225" manufacturer="Unknown" lsstart="-1" rsstart="-1" techbase="2">Fusion Engine</engine>
+    <gyro techbase="2">Standard Gyro</gyro>
+    <cockpit>
+        <type ejectionseat="FALSE" commandconsole="FALSE" fhes="FALSE">Standard Cockpit</type>
+    </cockpit>
+    <armor manufacturer="Unknown" techbase="2">
+        <type>Standard Armor</type>
+        <hd>9</hd>
+        <ct>21</ct>
+        <ctr>6</ctr>
+        <lt>17</lt>
+        <ltr>5</ltr>
+        <rt>17</rt>
+        <rtr>5</rtr>
+        <la>14</la>
+        <ra>14</ra>
+        <ll>18</ll>
+        <rl>18</rl>
+    </armor>
+    <baseloadout fcsa4="FALSE" fcsa5="FALSE" fcsapollo="TRUE">
+        <source>RS3145u</source>
+        <info>Violator VT-U1 45t, 5/8/0, Std FE, ES; 9.0T/94% Armor; 10 DHS; 2 MRM10, 1 MngDrl, 1 Clw</info>
+        <battleforce pv="9" wt="2" mv="5" s="2" m="2" l="0" e="0" ov="0" armor="5" internal="4" abilities="MEL, CASE, SRCH, ES, SEAL, SOA" />
+        <actuators lla="TRUE" lh="FALSE" rla="TRUE" rh="FALSE"/>
+        <clancase>FALSE</clancase>
+        <heatsinks number="10" techbase="0">
+            <type>Double Heat Sink</type>
+
+            <location index="0">LT</location>
+        </heatsinks>
+        <equipment>
+            <name manufacturer="">(IS) MRM-10</name>
+            <type>missile</type>
+            <location index="0">RT</location>
+        </equipment>
+        <equipment>
+            <name manufacturer="">(IS) MRM-10</name>
+            <type>missile</type>
+            <location index="3">LT</location>
+        </equipment>
+        <equipment>
+            <name manufacturer="">Claws</name>
+            <type>physical</type>
+            <location index="3">LA</location>
+        </equipment>
+        <equipment>
+            <name manufacturer="">Mining Drill</name>
+            <type>physical</type>
+            <location index="3">RA</location>
+        </equipment>
+        <equipment>
+            <name manufacturer="Unknown">(IS) @ MRM-10</name>
+            <type>ammunition</type>
+            <location index="7">LT</location>
+        </equipment>
+        <equipment>
+            <name manufacturer="Unknown">(IS) @ MRM-10</name>
+            <type>ammunition</type>
+            <location index="6">LT</location>
+        </equipment>
+        <equipment>
+            <name manufacturer="">CASE</name>
+            <type>CASE</type>
+            <location index="8">LT</location>
+        </equipment>
+        <armored_locations>
+            <location index="2">HD</location>
+        </armored_locations>
+    </baseloadout>
+    <fluff>
+        <overview></overview>
+        <capabilities></capabilities>
+        <battlehistory></battlehistory>
+        <deployment></deployment>
+        <variants></variants>
+        <notables></notables>
+        <additional></additional>
+        <jumpjet_model>None</jumpjet_model>
+        <commsystem>Unknown</commsystem>
+        <tandtsystem>Unknown</tandtsystem>
+    </fluff>
+</mech>

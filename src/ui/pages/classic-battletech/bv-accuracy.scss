@@ -1,0 +1,154 @@
+// The Battle Value accuracy record (#599).
+.bv-accuracy {
+    text-align: left;
+
+    p {
+        max-width: 70ch;
+    }
+
+    table {
+        width: 100%;
+
+        th, td {
+            text-align: left;
+            vertical-align: top;
+            overflow-wrap: anywhere;
+        }
+    }
+
+    .bv-accuracy-counts {
+        max-width: 50rem;
+
+        th, td {
+            overflow-wrap: normal;
+        }
+
+        td, thead th:not(:first-child) {
+            text-align: right;
+            font-variant-numeric: tabular-nums;
+        }
+    }
+
+    // Tons, Year, and the three BV columns, headings included.
+    .bv-accuracy-number {
+        text-align: right;
+        white-space: nowrap;
+        font-variant-numeric: tabular-nums;
+    }
+
+    .bv-accuracy-verdicts {
+        max-width: 70ch;
+
+        div {
+            margin-bottom: .25rem;
+        }
+
+        dt, dd {
+            display: inline;
+            margin: 0;
+        }
+
+        dt::after {
+            content: ": ";
+        }
+    }
+
+    .bv-accuracy-filters {
+        display: grid;
+        grid-template-columns: repeat(auto-fill, minmax(11rem, 1fr));
+        gap: .5rem 1rem;
+        align-items: end;
+        margin: 1rem 0 .5rem;
+
+        .bv-accuracy-filter {
+            display: flex;
+            flex-direction: column;
+            min-width: 0;
+        }
+
+        .bv-accuracy-search {
+            grid-column: 1 / -1;
+            max-width: 30rem;
+        }
+
+        label {
+            width: auto;
+            margin: 0;
+        }
+
+        select, input {
+            display: block;
+            width: 100%;
+            max-width: 100%;
+            margin: 0;
+        }
+    }
+
+    // A column heading that sorts: it reads as a heading, and shows it can be pressed.
+    .bv-accuracy-sort {
+        background: none;
+        border: none;
+        padding: 0;
+        color: inherit;
+        font: inherit;
+        font-weight: bold;
+        text-align: inherit;
+        cursor: pointer;
+        text-decoration: underline dotted;
+    }
+
+    // Words break only where they must: in a long unit name or note, never inside a heading, tech base or book.
+    .bv-accuracy-units {
+        th, td {
+            overflow-wrap: normal;
+        }
+
+        th[scope="row"], td[data-label="Note"] {
+            overflow-wrap: anywhere;
+        }
+
+        thead th, td[data-label="Tech"], td[data-label="Book"] {
+            white-space: nowrap;
+        }
+    }
+
+    .bv-accuracy-match td,
+    .bv-accuracy-match th {
+        opacity: .85;
+    }
+}
+
+// A phone: each unit is a card, its figures labelled.
+@media (max-width: 599px) {
+    .bv-accuracy .bv-accuracy-units {
+        display: block;
+
+        thead {
+            display: none;
+        }
+
+        tbody, tr, th, td {
+            display: block;
+        }
+
+        tr {
+            padding: .5rem 0;
+            border-bottom: 1px solid rgba(128, 128, 128, .4);
+        }
+
+        th, td {
+            border: none;
+            padding: 0;
+            text-align: left;
+        }
+
+        td:empty {
+            display: none;
+        }
+
+        td::before {
+            content: attr(data-label) ": ";
+            opacity: .75;
+        }
+    }
+}

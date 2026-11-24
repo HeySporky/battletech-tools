@@ -1,29 +1,72 @@
+import { AcesCampaign, IAcesCampaignExport } from "./classes/aces-campaign";
+import { Campaign } from "./classes/campaign/campaign";
+import { ICampaignExport } from "./classes/campaign/campaign-types";
+import { IAcesGameExport } from "./classes/aces-game";
+import { IAcesCardLibrary, mergeAcesCardLibrary, normalizeAcesCardLibrary } from "./data/aces-cards";
 import AlphaStrikeForce, { IASForceExport } from "./classes/alpha-strike-force";
 import AlphaStrikeGroup, { IASGroupExport } from "./classes/alpha-strike-group";
 import { BattleMech, IBattleMechExport } from "./classes/battlemech";
 import { BattleMechForce, ICBTForceExport, MAX_FORCE_GROUPS } from "./classes/battlemech-force";
 import { BattleMechGroup, ICBTGroupExport, MAX_GROUP_VEHICLES } from "./classes/battlemech-group";
 import Vehicle, { IVehicleExport, normalizeVehicleExport } from "./classes/vehicle";
+import AerospaceFighter, { IAerospaceFighterExport, normalizeAerospaceFighterExport } from "./classes/aerospace-fighter";
+import InfantryPlatoon, { IInfantryPlatoonExport, normalizeInfantryPlatoonExport } from "./classes/infantry-platoon";
+import BattleArmor, { IBattleArmorExport, normalizeBattleArmorExport } from "./classes/battle-armor";
+import ProtoMech, { IProtoMechExport, normalizeProtoMechExport } from "./classes/protomech";
+import MicroMech, { IMicroMechExport, normalizeMicroMechExport } from "./classes/micro-mech";
+import Walker, { IWalkerExport, normalizeWalkerExport } from "./classes/walker";
+import SmallCraft, { ISmallCraftExport, normalizeSmallCraftExport } from "./classes/small-craft";
+import CapitalShip, { ICapitalShipExport, normalizeCapitalShipExport } from "./classes/capital-ship";
+import Building, { IBuildingExport, normalizeBuildingExport } from "./classes/building";
 import { IAppGlobals } from "./ui/app-router";
-import { AppSettings, IAppSettingsExport } from "./ui/classes/app_settings";
+import { AppSettings } from "./ui/classes/app_settings";
+import { ESaveDataMode, getStorageWriteFailures, readLocalStorage, writeLocalStorage } from "./dataSavesStorage";
+export { ESaveDataMode, getAppSettings, getSaveDataModeName, getSaveDataModes, onStorageSaveError, saveAppSettings } from "./dataSavesStorage";
+export type { StorageSaveErrorHandler } from "./dataSavesStorage";
 // import {Storage} from 'session-storage-sync';
 
-export enum ESaveDataMode {
-    localStorage = 0,
-    firebase = 1,
+
+/** Most Aces campaigns restored from one backup, as for the other saved collections. */
+export const MAX_ACES_CAMPAIGNS = 500;
+
+/** Most campaigns (campaign play) restored from one backup. */
+export const MAX_CAMPAIGNS = 500;
+
+
+// The restore reads what it merges with at once, so every write it makes is finished when it returns.
+function getDataNow( appSettings: AppSettings, keyName: string ): string | null {
+    return appSettings.storageLocation === ESaveDataMode.localStorage ? readLocalStorage( keyName ) : null;
 }
 
-export function getSaveDataModes(): number[] {
-    return [0,1];
+function parseAcesCampaigns( rawData: string | null ): IAcesCampaignExport[] {
+    try {
+        const rv = rawData ? JSON.parse( rawData ) : null;
+        return Array.isArray(rv) ? rv.filter( (item) => item && typeof item === "object" ) : [];
+    }
+    catch {
+        return [];
+    }
 }
 
-export function getSaveDataModeName( id: ESaveDataMode ): string {
-
-    if( id === ESaveDataMode.localStorage ) return "localStorage";
-    if( id === ESaveDataMode.firebase) return "Firebase";
-
-    return "n/a";
+function parseCampaigns( rawData: string | null ): ICampaignExport[] {
+    try {
+        const rv = rawData ? JSON.parse( rawData ) : null;
+        return Array.isArray(rv) ? rv.filter( (item) => item && typeof item === "object" ) : [];
+    }
+    catch {
+        return [];
+    }
 }
+
+function parseAcesCardLibrary( rawData: string | null ): IAcesCardLibrary {
+    try {
+        return normalizeAcesCardLibrary( rawData ? JSON.parse( rawData ) : null );
+    }
+    catch {
+        return normalizeAcesCardLibrary( null );
+    }
+}
+
 
 export interface IFullBackup {
     battleMechSaves: IBattleMechExport[];
@@ -38,12 +81,49 @@ export interface IFullBackup {
 
     vehicleSaves: IVehicleExport[];
     currentVehicle: string | null;
+
+    // Aerospace fighters; optional so older backups still restore.
+    fighterSaves?: IAerospaceFighterExport[];
+    currentFighter?: string | null;
+
+    // Conventional infantry platoons; optional so older backups still restore.
+    infantrySaves?: IInfantryPlatoonExport[];
+    currentInfantry?: string | null;
+
+    // Battle armor designs; optional so older backups still restore.
+    battleArmorSaves?: IBattleArmorExport[];
+    currentBattleArmor?: string | null;
+    protoMechSaves?: IProtoMechExport[];
+    currentProtoMech?: string | null;
+    // Micro-Mechs (Custom Homebrew); optional so older backups still restore.
+    microMechSaves?: IMicroMechExport[];
+    currentMicroMech?: string | null;
+    // Walkers (Custom Homebrew); optional so older backups still restore.
+    walkerSaves?: IWalkerExport[];
+    currentWalker?: string | null;
+    smallCraftSaves?: ISmallCraftExport[];
+    currentSmallCraft?: string | null;
+    // JumpShips, WarShips and space stations; optional so older backups still restore.
+    capitalShipSaves?: ICapitalShipExport[];
+    currentCapitalShip?: string | null;
+
+    // Gun emplacements and buildings; optional so older backups still restore.
+    buildingSaves?: IBuildingExport[];
+    currentBuilding?: string | null;
+
+    // BattleTech: Aces; optional so older backups still restore.
+    acesGame?: IAcesGameExport | null;
+    acesCampaigns?: IAcesCampaignExport[];
+    acesCardLibrary?: IAcesCardLibrary | null;
+
+    // Campaign play; optional so older backups still restore.
+    campaigns?: ICampaignExport[];
 }
 
 export async function getFullBackup(
     appSettings: AppSettings,
 ): Promise<string> {
-    let rv: IFullBackup  = {
+    const rv: IFullBackup  = {
         battleMechSaves: await getBattleMechSaves(appSettings),
         // appSettings: getAppSettings(),
         favoriteASGroups: await getFavoriteASGroups(appSettings),
@@ -53,6 +133,28 @@ export async function getFullBackup(
         currentVBattleMech: await getCurrentBattleMech(appSettings),
         vehicleSaves: await getVehicleSaves(appSettings),
         currentVehicle: await getCurrentVehicle(appSettings),
+        fighterSaves: await getFighterSaves(appSettings),
+        currentFighter: await getCurrentFighter(appSettings),
+        infantrySaves: await getInfantrySaves(appSettings),
+        currentInfantry: await getCurrentInfantry(appSettings),
+        battleArmorSaves: await getBattleArmorSaves(appSettings),
+        currentBattleArmor: await getCurrentBattleArmor(appSettings),
+        protoMechSaves: await getProtoMechSaves(appSettings),
+        currentProtoMech: await getCurrentProtoMech(appSettings),
+        microMechSaves: await getMicroMechSaves(appSettings),
+        currentMicroMech: await getCurrentMicroMech(appSettings),
+        walkerSaves: await getWalkerSaves(appSettings),
+        currentWalker: await getCurrentWalker(appSettings),
+        smallCraftSaves: await getSmallCraftSaves(appSettings),
+        currentSmallCraft: await getCurrentSmallCraft(appSettings),
+        capitalShipSaves: await getCapitalShipSaves(appSettings),
+        currentCapitalShip: await getCurrentCapitalShip(appSettings),
+        buildingSaves: await getBuildingSaves(appSettings),
+        currentBuilding: await getCurrentBuilding(appSettings),
+        acesGame: await getAcesGame(appSettings),
+        acesCampaigns: await getAcesCampaigns(appSettings),
+        acesCardLibrary: await getAcesCardLibrary(appSettings),
+        campaigns: await getCampaigns(appSettings),
     }
 
     return JSON.stringify( rv );
@@ -65,6 +167,21 @@ export interface IRestoreMessage {
 
 /** Most saved vehicle designs read from storage or a backup: each is validated on load (a few ms apiece). */
 export const MAX_VEHICLE_SAVES = 500;
+/** Most saved aerospace fighter designs read from storage or a backup. */
+export const MAX_FIGHTER_SAVES = 500;
+/** Most saved infantry platoons read from storage or a backup. */
+export const MAX_INFANTRY_SAVES = 500;
+/** Most saved battle armor designs read from storage or a backup. */
+export const MAX_BATTLE_ARMOR_SAVES = 500;
+export const MAX_PROTOMECH_SAVES = 500;
+/** Most saved Micro-Mech designs read from storage or a backup. */
+export const MAX_MICRO_MECH_SAVES = 500;
+/** Most saved Walker designs read from storage or a backup. */
+export const MAX_WALKER_SAVES = 500;
+export const MAX_SMALL_CRAFT_SAVES = 500;
+export const MAX_CAPITAL_SHIP_SAVES = 500;
+/** Most saved buildings read from storage or a backup. */
+export const MAX_BUILDING_SAVES = 500;
 /** Most groups read from one backup's favorites or force. */
 export const MAX_RESTORE_GROUPS = MAX_FORCE_GROUPS;
 
@@ -132,22 +249,26 @@ export function restoreFullBackup(
     performActions: boolean = false,
 ): IRestoreMessage[] {
 
-    let restoreMessages: IRestoreMessage[] = [];
+    const restoreMessages: IRestoreMessage[] = [];
+    const writeFailuresBefore = getStorageWriteFailures();
 
     restoreMessages.push({
         severity: "replace",
         message: "Overwrite your Settings",
     })
 
-    if( io.favoriteASGroups ) {
-        for( let item of io.favoriteASGroups ) {
+    if( Array.isArray(io.favoriteASGroups) ) {
+        if( io.favoriteASGroups.length > MAX_RESTORE_GROUPS ) {
+            restoreMessages.push(warning("Only the first " + MAX_RESTORE_GROUPS + " of " + io.favoriteASGroups.length + " Alpha Strike Favorite Groups are restored"));
+        }
+        for( const item of io.favoriteASGroups.slice(0, MAX_RESTORE_GROUPS) ) {
             let foundItem: IASGroupExport | null = null;
             let itemName = "(nameless)";
             if( item.name ) {
                 itemName = item.name;
             }
-            for( let existingItem of appGlobals.favoriteASGroups ) {
-                let existingItemExport = existingItem.export();
+            for( const existingItem of appGlobals.favoriteASGroups ) {
+                const existingItemExport = existingItem.export();
                 if( existingItem.uuid === item.uuid ) {
                     foundItem = existingItemExport;
 
@@ -180,14 +301,14 @@ export function restoreFullBackup(
 
     if( Array.isArray(io.favoriteCBTGroups) ) {
         restoreMessages.push(...groupVehicleWarnings("Classic BattleTech Favorite Group", io.favoriteCBTGroups));
-        for( let item of io.favoriteCBTGroups.slice(0, MAX_RESTORE_GROUPS) ) {
+        for( const item of io.favoriteCBTGroups.slice(0, MAX_RESTORE_GROUPS) ) {
             let foundItem: ICBTGroupExport | null = null;
             let itemName = "(nameless)";
             if( item.name ) {
                 itemName = item.name;
             }
-            for( let existingItem of appGlobals.favoriteCBTGroups ) {
-                let existingItemExport = existingItem.export();
+            for( const existingItem of appGlobals.favoriteCBTGroups ) {
+                const existingItemExport = existingItem.export();
                 if( existingItem.uuid === item.uuid ) {
                     foundItem = existingItemExport;
 
@@ -219,13 +340,13 @@ export function restoreFullBackup(
     }
 
     if( io.battleMechSaves ) {
-        for( let item of io.battleMechSaves ) {
+        for( const item of io.battleMechSaves ) {
             let foundItem: IBattleMechExport | null = null;
             let itemName = "(nameless)";
             if( item.name ) {
                 itemName = item.name;
             }
-            for( let existingItemIndex in appGlobals.battleMechSaves ) {
+            for( const existingItemIndex in appGlobals.battleMechSaves ) {
 
                 if( appGlobals.battleMechSaves[existingItemIndex].uuid === item.uuid ) {
                     foundItem = appGlobals.battleMechSaves[existingItemIndex];
@@ -265,7 +386,7 @@ export function restoreFullBackup(
         if( io.vehicleSaves.length > MAX_VEHICLE_SAVES ) {
             restoreMessages.push(warning("Only the first " + MAX_VEHICLE_SAVES + " of " + io.vehicleSaves.length + " saved vehicles are restored"));
         }
-        for( let rawItem of io.vehicleSaves.slice(0, MAX_VEHICLE_SAVES) ) {
+        for( const rawItem of io.vehicleSaves.slice(0, MAX_VEHICLE_SAVES) ) {
             const normalized = normalizeVehicleExport( rawItem );
             const item = normalized.vehicle;
             for( const issue of normalized.issues ) {
@@ -279,7 +400,7 @@ export function restoreFullBackup(
             if( item.name ) {
                 itemName = item.name;
             }
-            for( let existingItemIndex in appGlobals.vehicleSaves ) {
+            for( const existingItemIndex in appGlobals.vehicleSaves ) {
 
                 if( appGlobals.vehicleSaves[existingItemIndex].uuid === item.uuid ) {
                     foundItem = appGlobals.vehicleSaves[existingItemIndex];
@@ -330,9 +451,429 @@ export function restoreFullBackup(
         }
     }
 
+    if( Array.isArray(io.fighterSaves) ) {
+        // Saved fighters in a backup may come from someone else: clean each one and report what changed.
+        if( io.fighterSaves.length > MAX_FIGHTER_SAVES ) {
+            restoreMessages.push(warning("Only the first " + MAX_FIGHTER_SAVES + " of " + io.fighterSaves.length + " saved fighters are restored"));
+        }
+        for( const rawItem of io.fighterSaves.slice(0, MAX_FIGHTER_SAVES) ) {
+            const normalized = normalizeAerospaceFighterExport( rawItem );
+            const item = normalized.fighter;
+            for( const issue of normalized.issues ) {
+                restoreMessages.push({ severity: "warning", message: "Saved fighter '" + (item?.name || "(nameless)") + "': " + issue });
+            }
+            if( !item ) {
+                continue;
+            }
+            const itemName = item.name || "(nameless)";
+            const existingIndex = appGlobals.fighterSaves.findIndex( (existing) => existing.uuid === item.uuid );
+            if( existingIndex > -1 ) {
+                restoreMessages.push({
+                    severity: "replace",
+                    message: "Replace Saved Fighter '" + (appGlobals.fighterSaves[existingIndex].name || "(nameless)") + "' with '" + itemName + "'",
+                });
+                if( performActions ) {
+                    appGlobals.fighterSaves[existingIndex] = item;
+                }
+            } else {
+                restoreMessages.push({
+                    severity: "add",
+                    message: "Add to your Saved Fighters: '" + itemName + "'",
+                })
+                if( performActions ) {
+                    appGlobals.fighterSaves.push( item )
+                }
+            }
+        }
+    }
+
+    if( Array.isArray(io.infantrySaves) ) {
+        // Saved platoons in a backup may come from someone else: clean each one and report what changed.
+        if( io.infantrySaves.length > MAX_INFANTRY_SAVES ) {
+            restoreMessages.push(warning("Only the first " + MAX_INFANTRY_SAVES + " of " + io.infantrySaves.length + " saved infantry platoons are restored"));
+        }
+        for( const rawItem of io.infantrySaves.slice(0, MAX_INFANTRY_SAVES) ) {
+            const normalized = normalizeInfantryPlatoonExport( rawItem );
+            const item = normalized.platoon;
+            for( const issue of normalized.issues ) {
+                restoreMessages.push({ severity: "warning", message: "Saved infantry platoon '" + (item?.name || "(nameless)") + "': " + issue });
+            }
+            if( !item ) {
+                continue;
+            }
+            const itemName = item.name || "(nameless)";
+            const existingIndex = appGlobals.infantrySaves.findIndex( (existing) => existing.uuid === item.uuid );
+            if( existingIndex > -1 ) {
+                restoreMessages.push({
+                    severity: "replace",
+                    message: "Replace Saved Infantry Platoon '" + (appGlobals.infantrySaves[existingIndex].name || "(nameless)") + "' with '" + itemName + "'",
+                });
+                if( performActions ) {
+                    appGlobals.infantrySaves[existingIndex] = item;
+                }
+            } else {
+                restoreMessages.push({
+                    severity: "add",
+                    message: "Add to your Saved Infantry Platoons: '" + itemName + "'",
+                })
+                if( performActions ) {
+                    appGlobals.infantrySaves.push( item )
+                }
+            }
+        }
+    }
+
+    const currentInfantryPrefix = conditional( overWriteCurrentBattlemech, "current infantry platoon" );
+    if( currentInfantryPrefix !== null && typeof io.currentInfantry === "string" && io.currentInfantry ) {
+        for( const issue of new InfantryPlatoon(io.currentInfantry).getImportIssues() ) {
+            restoreMessages.push(warning(currentInfantryPrefix + "Current infantry platoon: " + issue));
+        }
+    }
+
+    if( Array.isArray(io.battleArmorSaves) ) {
+        // Saved battle armor designs in a backup may come from someone else: clean each one and report what changed.
+        if( io.battleArmorSaves.length > MAX_BATTLE_ARMOR_SAVES ) {
+            restoreMessages.push(warning("Only the first " + MAX_BATTLE_ARMOR_SAVES + " of " + io.battleArmorSaves.length + " saved battle armor designs are restored"));
+        }
+        for( const rawItem of io.battleArmorSaves.slice(0, MAX_BATTLE_ARMOR_SAVES) ) {
+            const normalized = normalizeBattleArmorExport( rawItem );
+            const item = normalized.suit;
+            for( const issue of normalized.issues ) {
+                restoreMessages.push({ severity: "warning", message: "Saved battle armor design '" + (item?.name || "(nameless)") + "': " + issue });
+            }
+            if( !item ) {
+                continue;
+            }
+            const itemName = item.name || "(nameless)";
+            const existingIndex = appGlobals.battleArmorSaves.findIndex( (existing) => existing.uuid === item.uuid );
+            if( existingIndex > -1 ) {
+                restoreMessages.push({
+                    severity: "replace",
+                    message: "Replace Saved Battle Armor '" + (appGlobals.battleArmorSaves[existingIndex].name || "(nameless)") + "' with '" + itemName + "'",
+                });
+                if( performActions ) {
+                    appGlobals.battleArmorSaves[existingIndex] = item;
+                }
+            } else {
+                restoreMessages.push({
+                    severity: "add",
+                    message: "Add to your Saved Battle Armor: '" + itemName + "'",
+                })
+                if( performActions ) {
+                    appGlobals.battleArmorSaves.push( item )
+                }
+            }
+        }
+    }
+
+    const currentBattleArmorPrefix = conditional( overWriteCurrentBattlemech, "current battle armor design" );
+    if( currentBattleArmorPrefix !== null && typeof io.currentBattleArmor === "string" && io.currentBattleArmor ) {
+        for( const issue of new BattleArmor(io.currentBattleArmor).getImportIssues() ) {
+            restoreMessages.push(warning(currentBattleArmorPrefix + "Current battle armor design: " + issue));
+        }
+    }
+
+    if( Array.isArray(io.protoMechSaves) ) {
+        // Saved ProtoMechs in a backup may come from someone else: clean each one and report what changed.
+        if( io.protoMechSaves.length > MAX_PROTOMECH_SAVES ) {
+            restoreMessages.push(warning("Only the first " + MAX_PROTOMECH_SAVES + " of " + io.protoMechSaves.length + " saved ProtoMechs are restored"));
+        }
+        for( const rawItem of io.protoMechSaves.slice(0, MAX_PROTOMECH_SAVES) ) {
+            const normalized = normalizeProtoMechExport( rawItem );
+            const item = normalized.proto;
+            for( const issue of normalized.issues ) {
+                restoreMessages.push({ severity: "warning", message: "Saved ProtoMech '" + (item?.name || "(nameless)") + "': " + issue });
+            }
+            if( !item ) {
+                continue;
+            }
+            const itemName = item.name || "(nameless)";
+            const existingIndex = appGlobals.protoMechSaves.findIndex( (existing) => existing.uuid === item.uuid );
+            if( existingIndex > -1 ) {
+                restoreMessages.push({
+                    severity: "replace",
+                    message: "Replace Saved ProtoMech '" + (appGlobals.protoMechSaves[existingIndex].name || "(nameless)") + "' with '" + itemName + "'",
+                });
+                if( performActions ) {
+                    appGlobals.protoMechSaves[existingIndex] = item;
+                }
+            } else {
+                restoreMessages.push({
+                    severity: "add",
+                    message: "Add to your Saved ProtoMechs: '" + itemName + "'",
+                })
+                if( performActions ) {
+                    appGlobals.protoMechSaves.push( item )
+                }
+            }
+        }
+    }
+
+    const currentProtoMechPrefix = conditional( overWriteCurrentBattlemech, "current ProtoMech" );
+    if( currentProtoMechPrefix !== null && typeof io.currentProtoMech === "string" && io.currentProtoMech ) {
+        for( const issue of new ProtoMech(io.currentProtoMech).getImportIssues() ) {
+            restoreMessages.push(warning(currentProtoMechPrefix + "Current ProtoMech: " + issue));
+        }
+    }
+
+    if( Array.isArray(io.microMechSaves) ) {
+        // Saved Micro-Mechs in a backup may come from someone else: clean each one and report what changed.
+        if( io.microMechSaves.length > MAX_MICRO_MECH_SAVES ) {
+            restoreMessages.push(warning("Only the first " + MAX_MICRO_MECH_SAVES + " of " + io.microMechSaves.length + " saved Micro-Mechs are restored"));
+        }
+        for( const rawItem of io.microMechSaves.slice(0, MAX_MICRO_MECH_SAVES) ) {
+            const normalized = normalizeMicroMechExport( rawItem );
+            const item = normalized.micro;
+            for( const issue of normalized.issues ) {
+                restoreMessages.push({ severity: "warning", message: "Saved Micro-Mech '" + (item?.name || "(nameless)") + "': " + issue });
+            }
+            if( !item ) {
+                continue;
+            }
+            const itemName = item.name || "(nameless)";
+            const existingIndex = appGlobals.microMechSaves.findIndex( (existing) => existing.uuid === item.uuid );
+            if( existingIndex > -1 ) {
+                restoreMessages.push({
+                    severity: "replace",
+                    message: "Replace Saved Micro-Mech '" + (appGlobals.microMechSaves[existingIndex].name || "(nameless)") + "' with '" + itemName + "'",
+                });
+                if( performActions ) {
+                    appGlobals.microMechSaves[existingIndex] = item;
+                }
+            } else {
+                restoreMessages.push({
+                    severity: "add",
+                    message: "Add to your Saved Micro-Mechs: '" + itemName + "'",
+                })
+                if( performActions ) {
+                    appGlobals.microMechSaves.push( item )
+                }
+            }
+        }
+    }
+
+    const currentMicroMechPrefix = conditional( overWriteCurrentBattlemech, "current Micro-Mech" );
+    if( currentMicroMechPrefix !== null && typeof io.currentMicroMech === "string" && io.currentMicroMech ) {
+        for( const issue of new MicroMech(io.currentMicroMech).getImportIssues() ) {
+            restoreMessages.push(warning(currentMicroMechPrefix + "Current Micro-Mech: " + issue));
+        }
+    }
+
+    if( Array.isArray(io.walkerSaves) ) {
+        // Saved Walkers in a backup may come from someone else, or from a build that predates the type: clean each one
+        // and report what changed; an entry that is not a Walker is skipped with a message, never a failure.
+        if( io.walkerSaves.length > MAX_WALKER_SAVES ) {
+            restoreMessages.push(warning("Only the first " + MAX_WALKER_SAVES + " of " + io.walkerSaves.length + " saved Walkers are restored"));
+        }
+        // A store from before the type has no list yet: start one, but only when the restore is really being done.
+        const walkerSaves = Array.isArray(appGlobals.walkerSaves) ? appGlobals.walkerSaves : [];
+        if( performActions && !Array.isArray(appGlobals.walkerSaves) ) {
+            appGlobals.walkerSaves = walkerSaves;
+        }
+        for( const rawItem of io.walkerSaves.slice(0, MAX_WALKER_SAVES) ) {
+            const normalized = normalizeWalkerExport( rawItem );
+            const item = normalized.walker;
+            for( const issue of normalized.issues ) {
+                restoreMessages.push({ severity: "warning", message: "Saved Walker '" + (item?.name || "(nameless)") + "': " + issue });
+            }
+            if( !item ) {
+                continue;
+            }
+            const itemName = item.name || "(nameless)";
+            const existingIndex = walkerSaves.findIndex( (existing) => existing.uuid === item.uuid );
+            if( existingIndex > -1 ) {
+                restoreMessages.push({
+                    severity: "replace",
+                    message: "Replace Saved Walker '" + (walkerSaves[existingIndex].name || "(nameless)") + "' with '" + itemName + "'",
+                });
+                if( performActions ) {
+                    walkerSaves[existingIndex] = item;
+                }
+            } else {
+                restoreMessages.push({
+                    severity: "add",
+                    message: "Add to your Saved Walkers: '" + itemName + "'",
+                })
+                if( performActions ) {
+                    walkerSaves.push( item )
+                }
+            }
+        }
+    }
+
+    const currentWalkerPrefix = conditional( overWriteCurrentBattlemech, "current Walker" );
+    if( currentWalkerPrefix !== null && typeof io.currentWalker === "string" && io.currentWalker ) {
+        for( const issue of new Walker(io.currentWalker).getImportIssues() ) {
+            restoreMessages.push(warning(currentWalkerPrefix + "Current Walker: " + issue));
+        }
+    }
+
+    if( Array.isArray(io.smallCraftSaves) ) {
+        // Saved Small Craft in a backup may come from someone else: clean each one and report what changed.
+        if( io.smallCraftSaves.length > MAX_SMALL_CRAFT_SAVES ) {
+            restoreMessages.push(warning("Only the first " + MAX_SMALL_CRAFT_SAVES + " of " + io.smallCraftSaves.length + " saved Small Craft are restored"));
+        }
+        for( const rawItem of io.smallCraftSaves.slice(0, MAX_SMALL_CRAFT_SAVES) ) {
+            const normalized = normalizeSmallCraftExport( rawItem );
+            const item = normalized.craft;
+            for( const issue of normalized.issues ) {
+                restoreMessages.push({ severity: "warning", message: "Saved Small Craft '" + (item?.name || "(nameless)") + "': " + issue });
+            }
+            if( !item ) {
+                continue;
+            }
+            const itemName = item.name || "(nameless)";
+            const existingIndex = appGlobals.smallCraftSaves.findIndex( (existing) => existing.uuid === item.uuid );
+            if( existingIndex > -1 ) {
+                restoreMessages.push({
+                    severity: "replace",
+                    message: "Replace Saved Small Craft '" + (appGlobals.smallCraftSaves[existingIndex].name || "(nameless)") + "' with '" + itemName + "'",
+                });
+                if( performActions ) {
+                    appGlobals.smallCraftSaves[existingIndex] = item;
+                }
+            } else {
+                restoreMessages.push({
+                    severity: "add",
+                    message: "Add to your Saved Small Craft: '" + itemName + "'",
+                })
+                if( performActions ) {
+                    appGlobals.smallCraftSaves.push( item )
+                }
+            }
+        }
+    }
+
+    const currentSmallCraftPrefix = conditional( overWriteCurrentBattlemech, "current Small Craft" );
+    if( currentSmallCraftPrefix !== null && typeof io.currentSmallCraft === "string" && io.currentSmallCraft ) {
+        for( const issue of new SmallCraft(io.currentSmallCraft).getImportIssues() ) {
+            restoreMessages.push(warning(currentSmallCraftPrefix + "Current Small Craft: " + issue));
+        }
+    }
+
+    if( Array.isArray(io.capitalShipSaves) ) {
+        // Saved JumpShips, WarShips and Stations in a backup may come from someone else: clean each one and report what changed.
+        if( io.capitalShipSaves.length > MAX_CAPITAL_SHIP_SAVES ) {
+            restoreMessages.push(warning("Only the first " + MAX_CAPITAL_SHIP_SAVES + " of " + io.capitalShipSaves.length + " saved JumpShips, WarShips and stations are restored"));
+        }
+        for( const rawItem of io.capitalShipSaves.slice(0, MAX_CAPITAL_SHIP_SAVES) ) {
+            const normalized = normalizeCapitalShipExport( rawItem );
+            const item = normalized.ship;
+            for( const issue of normalized.issues ) {
+                restoreMessages.push({ severity: "warning", message: "Saved JumpShips, WarShips and Stations '" + (item?.name || "(nameless)") + "': " + issue });
+            }
+            if( !item ) {
+                continue;
+            }
+            const itemName = item.name || "(nameless)";
+            const existingIndex = appGlobals.capitalShipSaves.findIndex( (existing) => existing.uuid === item.uuid );
+            if( existingIndex > -1 ) {
+                restoreMessages.push({
+                    severity: "replace",
+                    message: "Replace Saved JumpShips, WarShips and Stations '" + (appGlobals.capitalShipSaves[existingIndex].name || "(nameless)") + "' with '" + itemName + "'",
+                });
+                if( performActions ) {
+                    appGlobals.capitalShipSaves[existingIndex] = item;
+                }
+            } else {
+                restoreMessages.push({
+                    severity: "add",
+                    message: "Add to your Saved JumpShips, WarShips and Stations: '" + itemName + "'",
+                })
+                if( performActions ) {
+                    appGlobals.capitalShipSaves.push( item )
+                }
+            }
+        }
+    }
+
+    const currentCapitalShipPrefix = conditional( overWriteCurrentBattlemech, "current JumpShip, WarShip or station" );
+    if( currentCapitalShipPrefix !== null && typeof io.currentCapitalShip === "string" && io.currentCapitalShip ) {
+        for( const issue of new CapitalShip(io.currentCapitalShip).getImportIssues() ) {
+            restoreMessages.push(warning(currentCapitalShipPrefix + "Current JumpShip, WarShip or station: " + issue));
+        }
+    }
+
+    if( Array.isArray(io.buildingSaves) ) {
+        // Saved buildings in a backup may come from someone else: clean each one and report what changed.
+        if( io.buildingSaves.length > MAX_BUILDING_SAVES ) {
+            restoreMessages.push(warning("Only the first " + MAX_BUILDING_SAVES + " of " + io.buildingSaves.length + " saved buildings are restored"));
+        }
+        for( const rawItem of io.buildingSaves.slice(0, MAX_BUILDING_SAVES) ) {
+            const normalized = normalizeBuildingExport( rawItem );
+            const item = normalized.building;
+            for( const issue of normalized.issues ) {
+                restoreMessages.push({ severity: "warning", message: "Saved building '" + (item?.name || "(nameless)") + "': " + issue });
+            }
+            if( !item ) {
+                continue;
+            }
+            const itemName = item.name || "(nameless)";
+            const existingIndex = appGlobals.buildingSaves.findIndex( (existing) => existing.uuid === item.uuid );
+            if( existingIndex > -1 ) {
+                restoreMessages.push({
+                    severity: "replace",
+                    message: "Replace Saved Building '" + (appGlobals.buildingSaves[existingIndex].name || "(nameless)") + "' with '" + itemName + "'",
+                });
+                if( performActions ) {
+                    appGlobals.buildingSaves[existingIndex] = item;
+                }
+            } else {
+                restoreMessages.push({
+                    severity: "add",
+                    message: "Add to your Saved Buildings: '" + itemName + "'",
+                })
+                if( performActions ) {
+                    appGlobals.buildingSaves.push( item )
+                }
+            }
+        }
+    }
+
+    const currentBuildingPrefix = conditional( overWriteCurrentBattlemech, "current building" );
+    if( currentBuildingPrefix !== null && typeof io.currentBuilding === "string" && io.currentBuilding ) {
+        for( const issue of new Building(io.currentBuilding).getImportIssues() ) {
+            restoreMessages.push(warning(currentBuildingPrefix + "Current building: " + issue));
+        }
+    }
+
+    const currentFighterPrefix = conditional( overWriteCurrentBattlemech, "current fighter" );
+    if( currentFighterPrefix !== null && typeof io.currentFighter === "string" && io.currentFighter ) {
+        for( const issue of new AerospaceFighter(io.currentFighter).getImportIssues() ) {
+            restoreMessages.push(warning(currentFighterPrefix + "Current fighter: " + issue));
+        }
+    }
+
     if( overWriteCurrentBattlemech && performActions ) {
+        if( typeof io.currentFighter === "string" && io.currentFighter ) {
+            appGlobals.currentFighter = new AerospaceFighter(io.currentFighter);
+        }
+        if( typeof io.currentInfantry === "string" && io.currentInfantry ) {
+            appGlobals.currentInfantry = new InfantryPlatoon(io.currentInfantry);
+        }
+        if( typeof io.currentBattleArmor === "string" && io.currentBattleArmor ) {
+            appGlobals.currentBattleArmor = new BattleArmor(io.currentBattleArmor);
+        }
+        if( typeof io.currentProtoMech === "string" && io.currentProtoMech ) {
+            appGlobals.currentProtoMech = new ProtoMech(io.currentProtoMech);
+        }
+        if( typeof io.currentMicroMech === "string" && io.currentMicroMech ) {
+            appGlobals.currentMicroMech = new MicroMech(io.currentMicroMech);
+        }
+        if( typeof io.currentWalker === "string" && io.currentWalker ) {
+            appGlobals.currentWalker = new Walker(io.currentWalker);
+        }
+        if( typeof io.currentSmallCraft === "string" && io.currentSmallCraft ) {
+            appGlobals.currentSmallCraft = new SmallCraft(io.currentSmallCraft);
+        }
+        if( typeof io.currentCapitalShip === "string" && io.currentCapitalShip ) {
+            appGlobals.currentCapitalShip = new CapitalShip(io.currentCapitalShip);
+        }
+        if( typeof io.currentBuilding === "string" && io.currentBuilding ) {
+            appGlobals.currentBuilding = new Building(io.currentBuilding);
+        }
         if( io.currentVBattleMech ) {
-            let bmObj = new BattleMech();
+            const bmObj = new BattleMech();
             bmObj.importJSON(io.currentVBattleMech);
             appGlobals.currentBattleMech = bmObj;
         }
@@ -345,11 +886,102 @@ export function restoreFullBackup(
         appGlobals.currentASForce = new AlphaStrikeForce(io.currentASForce);
     }
 
+    if( overWriteCurrentASGroup && io.acesGame && typeof io.acesGame === "object" ) {
+        restoreMessages.push({
+            severity: "replace",
+            message: "Replace your current Aces game",
+        })
+        if( performActions ) {
+            saveAcesGame( appGlobals.appSettings, io.acesGame );
+        }
+    }
+
+    if( Array.isArray(io.acesCampaigns) && io.acesCampaigns.length > 0 ) {
+        // Campaigns in a backup may come from someone else: cap the count and rebuild each through the class.
+        if( io.acesCampaigns.length > MAX_ACES_CAMPAIGNS ) {
+            restoreMessages.push(warning("Only the first " + MAX_ACES_CAMPAIGNS + " of " + io.acesCampaigns.length + " Aces campaigns are restored"));
+        }
+        const incoming: IAcesCampaignExport[] = [];
+        for( const rawItem of io.acesCampaigns.slice(0, MAX_ACES_CAMPAIGNS) ) {
+            if( !rawItem || typeof rawItem !== "object" || typeof rawItem.id !== "string" || !rawItem.id ) {
+                restoreMessages.push(warning("An Aces campaign in the backup is not readable and is skipped"));
+                continue;
+            }
+            try {
+                incoming.push( new AcesCampaign( rawItem ).export() );
+            } catch {
+                restoreMessages.push(warning("Aces campaign '" + String(rawItem.name || "(nameless)").slice(0, 60) + "' is not readable and is skipped"));
+            }
+        }
+        for( const item of incoming ) {
+            restoreMessages.push({
+                severity: "add",
+                message: "Add or replace Aces campaign '" + ( item.name ? String(item.name).slice(0, 60) : "(nameless)" ) + "'",
+            })
+        }
+        if( performActions ) {
+            const appSettings = appGlobals.appSettings;
+            const existing = parseAcesCampaigns( getDataNow( appSettings, "acesCampaigns" ) );
+            const merged = existing.filter( (campaign) => !incoming.some( (item) => item.id === campaign.id ) );
+            saveAcesCampaigns( appSettings, merged.concat( incoming ) );
+        }
+    }
+
+    if( Array.isArray(io.campaigns) && io.campaigns.length > 0 ) {
+        // As the Aces campaigns: cap the count and rebuild each through the class.
+        if( io.campaigns.length > MAX_CAMPAIGNS ) {
+            restoreMessages.push(warning("Only the first " + MAX_CAMPAIGNS + " of " + io.campaigns.length + " campaigns are restored"));
+        }
+        const incoming: ICampaignExport[] = [];
+        for( const rawItem of io.campaigns.slice(0, MAX_CAMPAIGNS) as unknown[] ) {
+            const item = rawItem as { id?: unknown; name?: unknown } | null;
+            if( !item || typeof item !== "object" || typeof item.id !== "string" || !item.id ) {
+                restoreMessages.push(warning("A campaign in the backup is not readable and is skipped"));
+                continue;
+            }
+            try {
+                incoming.push( new Campaign( item as ICampaignExport ).export() );
+            } catch {
+                restoreMessages.push(warning("Campaign '" + String(item.name || "(nameless)").slice(0, 60) + "' is not readable and is skipped"));
+            }
+        }
+        for( const item of incoming ) {
+            restoreMessages.push({
+                severity: "add",
+                message: "Add or replace campaign '" + ( item.name ? String(item.name).slice(0, 60) : "(nameless)" ) + "'",
+            })
+        }
+        if( performActions ) {
+            const appSettings = appGlobals.appSettings;
+            const existing = parseCampaigns( getDataNow( appSettings, "campaigns" ) );
+            const merged = existing.filter( (campaign) => !incoming.some( (item) => item.id === campaign.id ) );
+            saveCampaigns( appSettings, merged.concat( incoming ) );
+        }
+    }
+
+    if( io.acesCardLibrary && typeof io.acesCardLibrary === "object" ) {
+        const incomingLibrary = normalizeAcesCardLibrary( io.acesCardLibrary );
+        const count = incomingLibrary.cards.length + incomingLibrary.commandCards.length + incomingLibrary.specialOrders.length + incomingLibrary.edgeCards.length + incomingLibrary.scenarios.length;
+        if( count > 0 ) {
+            restoreMessages.push({
+                severity: "add",
+                message: "Add or replace " + count + " Aces card library entr" + ( count === 1 ? "y" : "ies" ),
+            })
+            if( performActions ) {
+                const appSettings = appGlobals.appSettings;
+                const existing = parseAcesCardLibrary( getDataNow( appSettings, "acesCardLibrary" ) );
+                saveAcesCardLibrary( appSettings, mergeAcesCardLibrary( existing, incomingLibrary ) );
+            }
+        }
+    }
+
     if( overWriteCurrentCBTGroup && performActions && io.currentCBTForce) {
         appGlobals.currentCBTForce = new BattleMechForce(io.currentCBTForce);
     }
 
     if( performActions ) {
+        appGlobals.saveFavoriteASGroups( appGlobals.favoriteASGroups );
+        appGlobals.saveFavoriteCBTGroups( appGlobals.favoriteCBTGroups );
         appGlobals.saveCurrentBattleMech( appGlobals.currentBattleMech );
         appGlobals.saveCurrentASForce( appGlobals.currentASForce );
         if( appGlobals.currentCBTForce )
@@ -358,8 +990,43 @@ export function restoreFullBackup(
         appGlobals.saveVehicleSaves( appGlobals.vehicleSaves );
         if( appGlobals.currentVehicle )
             appGlobals.saveCurrentVehicle( appGlobals.currentVehicle );
+        appGlobals.saveFighterSaves( appGlobals.fighterSaves );
+        if( appGlobals.currentFighter )
+            appGlobals.saveCurrentFighter( appGlobals.currentFighter );
+        appGlobals.saveInfantrySaves( appGlobals.infantrySaves );
+        if( appGlobals.currentInfantry )
+            appGlobals.saveCurrentInfantry( appGlobals.currentInfantry );
+        appGlobals.saveBattleArmorSaves( appGlobals.battleArmorSaves );
+        if( appGlobals.currentBattleArmor )
+            appGlobals.saveCurrentBattleArmor( appGlobals.currentBattleArmor );
+        appGlobals.saveProtoMechSaves( appGlobals.protoMechSaves );
+        if( appGlobals.currentProtoMech )
+            appGlobals.saveCurrentProtoMech( appGlobals.currentProtoMech );
+        appGlobals.saveMicroMechSaves( appGlobals.microMechSaves );
+        if( appGlobals.currentMicroMech )
+            appGlobals.saveCurrentMicroMech( appGlobals.currentMicroMech );
+        appGlobals.saveWalkerSaves( appGlobals.walkerSaves );
+        if( appGlobals.currentWalker )
+            appGlobals.saveCurrentWalker( appGlobals.currentWalker );
+        appGlobals.saveSmallCraftSaves( appGlobals.smallCraftSaves );
+        if( appGlobals.currentSmallCraft )
+            appGlobals.saveCurrentSmallCraft( appGlobals.currentSmallCraft );
+        appGlobals.saveCapitalShipSaves( appGlobals.capitalShipSaves );
+        if( appGlobals.currentCapitalShip )
+            appGlobals.saveCurrentCapitalShip( appGlobals.currentCapitalShip );
+        appGlobals.saveBuildingSaves( appGlobals.buildingSaves );
+        if( appGlobals.currentBuilding )
+            appGlobals.saveCurrentBuilding( appGlobals.currentBuilding );
         // let appSettingsObj = new AppSettings(io.appSettings);
         // appGlobals.saveAppSettings( appSettingsObj );
+    }
+
+    if( performActions && getStorageWriteFailures() > writeFailuresBefore ) {
+        const failed = getStorageWriteFailures() - writeFailuresBefore;
+        restoreMessages.push({
+            severity: "error",
+            message: failed + " save" + ( failed === 1 ? "" : "s" ) + " could not be written (the browser's storage is full or blocked), so part of this backup was not restored",
+        });
     }
 
     return restoreMessages;
@@ -372,7 +1039,7 @@ async function saveData(
 ): Promise<void> {
     switch( appSettings.storageLocation ) {
         case ESaveDataMode.localStorage: {
-            localStorage.setItem(keyName, data);
+            writeLocalStorage(keyName, data);
             break;
         }
         case ESaveDataMode.firebase: {
@@ -394,7 +1061,7 @@ async function getData(
     switch( appSettings.storageLocation ) {
         case ESaveDataMode.localStorage: {
 
-            return localStorage.getItem( keyName );;
+            return readLocalStorage( keyName );
         }
         case ESaveDataMode.firebase: {
             return null;
@@ -410,7 +1077,7 @@ export function saveBattleMechSaves(
     appSettings: AppSettings,
     newValue: IBattleMechExport[]
 ) {
-    for( let itemIndex in newValue ) {
+    for( const itemIndex in newValue ) {
         newValue[itemIndex].lastUpdated = new Date();
     }
     saveData(appSettings, "battleMechSaves", JSON.stringify(newValue) );
@@ -421,7 +1088,7 @@ export async function getBattleMechSaves(
 ): Promise<IBattleMechExport[]> {
     let rv: IBattleMechExport[] = [];
 
-    let rawData = await getData(appSettings, "battleMechSaves" );
+    const rawData = await getData(appSettings, "battleMechSaves" );
     try {
         if( rawData )
             rv = JSON.parse( rawData );
@@ -441,7 +1108,7 @@ export function saveVehicleSaves(
     appSettings: AppSettings,
     newValue: IVehicleExport[]
 ) {
-    for( let itemIndex in newValue ) {
+    for( const itemIndex in newValue ) {
         newValue[itemIndex].lastUpdated = new Date();
     }
     saveData(appSettings, "vehicleSaves", JSON.stringify(newValue) );
@@ -452,7 +1119,7 @@ export async function getVehicleSaves(
 ): Promise<IVehicleExport[]> {
     let rv: IVehicleExport[] = [];
 
-    let rawData = await getData(appSettings, "vehicleSaves" );
+    const rawData = await getData(appSettings, "vehicleSaves" );
     try {
         if( rawData )
             rv = JSON.parse( rawData );
@@ -486,12 +1153,77 @@ export function saveCurrentASForce(
     saveData(appSettings, "currentASForce", JSON.stringify(newValue) );
 }
 
+export function saveAcesGame(
+    appSettings: AppSettings,
+    newValue: IAcesGameExport | null,
+) {
+    saveData(appSettings, "acesGame", JSON.stringify(newValue) );
+}
+
+export async function getAcesGame(
+    appSettings: AppSettings,
+): Promise<IAcesGameExport | null> {
+    const rawData = await getData(appSettings, "acesGame" );
+    try {
+        if( rawData ) {
+            const rv = JSON.parse( rawData );
+            if( rv && typeof rv === "object" ) {
+                return rv;
+            }
+        }
+    }
+    catch {
+        return null;
+    }
+    return null;
+}
+
+export function saveAcesCampaigns(
+    appSettings: AppSettings,
+    newValue: IAcesCampaignExport[],
+) {
+    saveData(appSettings, "acesCampaigns", JSON.stringify(newValue) );
+}
+
+export async function getAcesCampaigns(
+    appSettings: AppSettings,
+): Promise<IAcesCampaignExport[]> {
+    return parseAcesCampaigns( await getData(appSettings, "acesCampaigns" ) );
+}
+
+export function saveCampaigns(
+    appSettings: AppSettings,
+    newValue: ICampaignExport[],
+) {
+    saveData(appSettings, "campaigns", JSON.stringify(newValue) );
+}
+
+export async function getCampaigns(
+    appSettings: AppSettings,
+): Promise<ICampaignExport[]> {
+    return parseCampaigns( await getData(appSettings, "campaigns" ) );
+}
+
+export function saveAcesCardLibrary(
+    appSettings: AppSettings,
+    newValue: IAcesCardLibrary,
+) {
+    saveData(appSettings, "acesCardLibrary", JSON.stringify(newValue) );
+}
+
+/** The players' own Aces cards, Command cards, Special Orders and sorties. Always returns a library. */
+export async function getAcesCardLibrary(
+    appSettings: AppSettings,
+): Promise<IAcesCardLibrary> {
+    return parseAcesCardLibrary( await getData(appSettings, "acesCardLibrary" ) );
+}
+
 export async function getCurrentCBTForce(
     appSettings: AppSettings,
 ): Promise<ICBTForceExport | null> {
     let rv: ICBTForceExport | null = null;
 
-    let rawData = await getData(appSettings, "currentCBTForce" );
+    const rawData = await getData(appSettings, "currentCBTForce" );
     try {
         if( rawData )
             rv = JSON.parse( rawData );
@@ -512,7 +1244,7 @@ export async function getCurrentASForce(
 ): Promise<IASForceExport | null> {
     let rv: IASForceExport | null = null;
 
-    let rawData = await getData(appSettings, "currentASForce" );
+    const rawData = await getData(appSettings, "currentASForce" );
     try {
         if( rawData )
             rv = JSON.parse( rawData );
@@ -546,6 +1278,405 @@ export async function getCurrentBattleMech(
 
 }
 
+export function saveBuildingSaves(
+    appSettings: AppSettings,
+    newValue: IBuildingExport[]
+) {
+    saveData(appSettings, "buildingSaves", JSON.stringify(newValue) );
+}
+
+export async function getBuildingSaves(
+    appSettings: AppSettings,
+): Promise<IBuildingExport[]> {
+    let rv: IBuildingExport[] = [];
+
+    const rawData = await getData(appSettings, "buildingSaves" );
+    try {
+        if( rawData )
+            rv = JSON.parse( rawData );
+
+        // Clean stored buildings before anything renders them (restored backups included).
+        rv = Array.isArray( rv ) ? rv.slice( 0, MAX_BUILDING_SAVES ).map( (item) => normalizeBuildingExport( item ).building )
+            .filter( (item): item is IBuildingExport => item !== null ) : [];
+    }
+    catch {
+        rv = [];
+    }
+
+    return rv;
+}
+
+export function saveCurrentBuilding(
+    appSettings: AppSettings,
+    newValue: string,
+) {
+    saveData(appSettings, "currentBuilding", newValue );
+}
+
+export async function getCurrentBuilding(
+    appSettings: AppSettings,
+): Promise<string | null> {
+    return await getData(
+        appSettings,
+        "currentBuilding"
+    );
+}
+
+export function saveInfantrySaves(
+    appSettings: AppSettings,
+    newValue: IInfantryPlatoonExport[]
+) {
+    saveData(appSettings, "infantrySaves", JSON.stringify(newValue) );
+}
+
+export async function getInfantrySaves(
+    appSettings: AppSettings,
+): Promise<IInfantryPlatoonExport[]> {
+    let rv: IInfantryPlatoonExport[] = [];
+
+    const rawData = await getData(appSettings, "infantrySaves" );
+    try {
+        if( rawData )
+            rv = JSON.parse( rawData );
+
+        // Clean stored platoons before anything renders them (restored backups included).
+        rv = Array.isArray( rv ) ? rv.slice( 0, MAX_INFANTRY_SAVES ).map( (item) => normalizeInfantryPlatoonExport( item ).platoon )
+            .filter( (item): item is IInfantryPlatoonExport => item !== null ) : [];
+    }
+    catch {
+        rv = [];
+    }
+
+    return rv;
+}
+
+export function saveCurrentInfantry(
+    appSettings: AppSettings,
+    newValue: string,
+) {
+    saveData(appSettings, "currentInfantry", newValue );
+}
+
+export async function getCurrentInfantry(
+    appSettings: AppSettings,
+): Promise<string | null> {
+    return await getData(
+        appSettings,
+        "currentInfantry"
+    );
+}
+
+export function saveBattleArmorSaves(
+    appSettings: AppSettings,
+    newValue: IBattleArmorExport[]
+) {
+    saveData(appSettings, "battleArmorSaves", JSON.stringify(newValue) );
+}
+
+export async function getBattleArmorSaves(
+    appSettings: AppSettings,
+): Promise<IBattleArmorExport[]> {
+    let rv: IBattleArmorExport[] = [];
+
+    const rawData = await getData(appSettings, "battleArmorSaves" );
+    try {
+        if( rawData )
+            rv = JSON.parse( rawData );
+
+        // Clean stored battle armor designs before anything renders them (restored backups included).
+        rv = Array.isArray( rv ) ? rv.slice( 0, MAX_BATTLE_ARMOR_SAVES ).map( (item) => normalizeBattleArmorExport( item ).suit )
+            .filter( (item): item is IBattleArmorExport => item !== null ) : [];
+    }
+    catch {
+        rv = [];
+    }
+
+    return rv;
+}
+
+export function saveCurrentBattleArmor(
+    appSettings: AppSettings,
+    newValue: string,
+) {
+    saveData(appSettings, "currentBattleArmor", newValue );
+}
+
+export async function getCurrentBattleArmor(
+    appSettings: AppSettings,
+): Promise<string | null> {
+    return await getData(
+        appSettings,
+        "currentBattleArmor"
+    );
+}
+
+export function saveProtoMechSaves(
+    appSettings: AppSettings,
+    newValue: IProtoMechExport[]
+) {
+    saveData(appSettings, "protoMechSaves", JSON.stringify(newValue) );
+}
+
+export async function getProtoMechSaves(
+    appSettings: AppSettings,
+): Promise<IProtoMechExport[]> {
+    let rv: IProtoMechExport[] = [];
+
+    const rawData = await getData(appSettings, "protoMechSaves" );
+    try {
+        if( rawData )
+            rv = JSON.parse( rawData );
+
+        // Clean stored ProtoMechs before anything renders them (restored backups included).
+        rv = Array.isArray( rv ) ? rv.slice( 0, MAX_PROTOMECH_SAVES ).map( (item) => normalizeProtoMechExport( item ).proto )
+            .filter( (item): item is IProtoMechExport => item !== null ) : [];
+    }
+    catch {
+        rv = [];
+    }
+
+    return rv;
+}
+
+export function saveCurrentProtoMech(
+    appSettings: AppSettings,
+    newValue: string,
+) {
+    saveData(appSettings, "currentProtoMech", newValue );
+}
+
+export async function getCurrentProtoMech(
+    appSettings: AppSettings,
+): Promise<string | null> {
+    return await getData(
+        appSettings,
+        "currentProtoMech"
+    );
+}
+
+export function saveMicroMechSaves(
+    appSettings: AppSettings,
+    newValue: IMicroMechExport[]
+) {
+    saveData(appSettings, "microMechSaves", JSON.stringify(newValue) );
+}
+
+export async function getMicroMechSaves(
+    appSettings: AppSettings,
+): Promise<IMicroMechExport[]> {
+    let rv: IMicroMechExport[] = [];
+
+    const rawData = await getData(appSettings, "microMechSaves" );
+    try {
+        if( rawData )
+            rv = JSON.parse( rawData );
+
+        // Clean stored Micro-Mechs before anything renders them (restored backups included).
+        rv = Array.isArray( rv ) ? rv.slice( 0, MAX_MICRO_MECH_SAVES ).map( (item) => normalizeMicroMechExport( item ).micro )
+            .filter( (item): item is IMicroMechExport => item !== null ) : [];
+    }
+    catch {
+        rv = [];
+    }
+
+    return rv;
+}
+
+export function saveCurrentMicroMech(
+    appSettings: AppSettings,
+    newValue: string,
+) {
+    saveData(appSettings, "currentMicroMech", newValue );
+}
+
+export async function getCurrentMicroMech(
+    appSettings: AppSettings,
+): Promise<string | null> {
+    return await getData(
+        appSettings,
+        "currentMicroMech"
+    );
+}
+
+export function saveWalkerSaves(
+    appSettings: AppSettings,
+    newValue: IWalkerExport[]
+) {
+    saveData(appSettings, "walkerSaves", JSON.stringify(newValue) );
+}
+
+export async function getWalkerSaves(
+    appSettings: AppSettings,
+): Promise<IWalkerExport[]> {
+    let rv: IWalkerExport[] = [];
+
+    const rawData = await getData(appSettings, "walkerSaves" );
+    try {
+        if( rawData )
+            rv = JSON.parse( rawData );
+
+        // Clean stored Walkers before anything renders them (restored backups included).
+        rv = Array.isArray( rv ) ? rv.slice( 0, MAX_WALKER_SAVES ).map( (item) => normalizeWalkerExport( item ).walker )
+            .filter( (item): item is IWalkerExport => item !== null ) : [];
+    }
+    catch {
+        rv = [];
+    }
+
+    return rv;
+}
+
+export function saveCurrentWalker(
+    appSettings: AppSettings,
+    newValue: string,
+) {
+    saveData(appSettings, "currentWalker", newValue );
+}
+
+export async function getCurrentWalker(
+    appSettings: AppSettings,
+): Promise<string | null> {
+    return await getData(
+        appSettings,
+        "currentWalker"
+    );
+}
+
+export function saveSmallCraftSaves(
+    appSettings: AppSettings,
+    newValue: ISmallCraftExport[]
+) {
+    saveData(appSettings, "smallCraftSaves", JSON.stringify(newValue) );
+}
+
+export async function getSmallCraftSaves(
+    appSettings: AppSettings,
+): Promise<ISmallCraftExport[]> {
+    let rv: ISmallCraftExport[] = [];
+
+    const rawData = await getData(appSettings, "smallCraftSaves" );
+    try {
+        if( rawData )
+            rv = JSON.parse( rawData );
+
+        // Clean stored Small Craft before anything renders them (restored backups included).
+        rv = Array.isArray( rv ) ? rv.slice( 0, MAX_SMALL_CRAFT_SAVES ).map( (item) => normalizeSmallCraftExport( item ).craft )
+            .filter( (item): item is ISmallCraftExport => item !== null ) : [];
+    }
+    catch {
+        rv = [];
+    }
+
+    return rv;
+}
+
+export function saveCurrentSmallCraft(
+    appSettings: AppSettings,
+    newValue: string,
+) {
+    saveData(appSettings, "currentSmallCraft", newValue );
+}
+
+export async function getCurrentSmallCraft(
+    appSettings: AppSettings,
+): Promise<string | null> {
+    return await getData(
+        appSettings,
+        "currentSmallCraft"
+    );
+}
+
+export function saveCapitalShipSaves(
+    appSettings: AppSettings,
+    newValue: ICapitalShipExport[]
+) {
+    saveData(appSettings, "capitalShipSaves", JSON.stringify(newValue) );
+}
+
+export async function getCapitalShipSaves(
+    appSettings: AppSettings,
+): Promise<ICapitalShipExport[]> {
+    let rv: ICapitalShipExport[] = [];
+
+    const rawData = await getData(appSettings, "capitalShipSaves" );
+    try {
+        if( rawData )
+            rv = JSON.parse( rawData );
+
+        // Clean stored vessels before anything renders them (restored backups included).
+        rv = Array.isArray( rv ) ? rv.slice( 0, MAX_CAPITAL_SHIP_SAVES ).map( (item) => normalizeCapitalShipExport( item ).ship )
+            .filter( (item): item is ICapitalShipExport => item !== null ) : [];
+    }
+    catch {
+        rv = [];
+    }
+
+    return rv;
+}
+
+export function saveCurrentCapitalShip(
+    appSettings: AppSettings,
+    newValue: string,
+) {
+    saveData(appSettings, "currentCapitalShip", newValue );
+}
+
+export async function getCurrentCapitalShip(
+    appSettings: AppSettings,
+): Promise<string | null> {
+    return await getData(
+        appSettings,
+        "currentCapitalShip"
+    );
+}
+
+export function saveFighterSaves(
+    appSettings: AppSettings,
+    newValue: IAerospaceFighterExport[]
+) {
+    for( const item of newValue ) {
+        item.lastUpdated = new Date();
+    }
+    saveData(appSettings, "fighterSaves", JSON.stringify(newValue) );
+}
+
+export async function getFighterSaves(
+    appSettings: AppSettings,
+): Promise<IAerospaceFighterExport[]> {
+    let rv: IAerospaceFighterExport[] = [];
+
+    const rawData = await getData(appSettings, "fighterSaves" );
+    try {
+        if( rawData )
+            rv = JSON.parse( rawData );
+
+        // Clean stored designs before anything renders them (restored backups included).
+        rv = Array.isArray( rv ) ? rv.slice( 0, MAX_FIGHTER_SAVES ).map( (item) => normalizeAerospaceFighterExport( item ).fighter )
+            .filter( (item): item is IAerospaceFighterExport => item !== null ) : [];
+    }
+    catch {
+        rv = [];
+    }
+
+    return rv;
+}
+
+export function saveCurrentFighter(
+    appSettings: AppSettings,
+    newValue: string,
+) {
+    saveData(appSettings, "currentFighter", newValue );
+}
+
+export async function getCurrentFighter(
+    appSettings: AppSettings,
+): Promise<string | null> {
+    return await getData(
+        appSettings,
+        "currentFighter"
+    );
+}
+
 export function saveCurrentVehicle(
     appSettings: AppSettings,
     newValue: string,
@@ -569,7 +1700,7 @@ export function saveFavoriteASGroups(
     newValue: IASGroupExport[]
 ) {
 
-    for( let itemIndex in newValue ) {
+    for( const itemIndex in newValue ) {
         newValue[itemIndex].lastUpdated = new Date();
     }
     saveData(appSettings, "favoriteASGroups", JSON.stringify(newValue) );
@@ -579,12 +1710,12 @@ export function saveFavoriteASGroupsObjects(
     appSettings: AppSettings,
     newValue: AlphaStrikeGroup[]
 ) {
-    let rv: IASGroupExport[] = [];
-    for( let unit of newValue ) {
+    const rv: IASGroupExport[] = [];
+    for( const unit of newValue ) {
         rv.push( unit.export() );
     }
 
-    for( let itemIndex in newValue ) {
+    for( const itemIndex in newValue ) {
         newValue[itemIndex].lastUpdated = new Date();
     }
 
@@ -596,7 +1727,7 @@ export async function getFavoriteASGroups(
 ): Promise<IASGroupExport[]> {
     let rv: IASGroupExport[] = [];
 
-    let rawData = await getData(appSettings, "favoriteASGroups" );
+    const rawData = await getData(appSettings, "favoriteASGroups" );
     try {
         if( rawData )
             rv = JSON.parse( rawData );
@@ -616,12 +1747,12 @@ export function saveFavoriteCBTGroupsObjects(
     appSettings: AppSettings,
     newValue: BattleMechGroup[]
 ) {
-    let rv: ICBTGroupExport[] = [];
-    for( let unit of newValue ) {
+    const rv: ICBTGroupExport[] = [];
+    for( const unit of newValue ) {
         rv.push( unit.export() );
     }
 
-    for( let itemIndex in newValue ) {
+    for( const itemIndex in newValue ) {
         newValue[itemIndex].lastUpdated = new Date();
     }
     saveData(appSettings, "favoriteCBTGroups", JSON.stringify(rv) );
@@ -632,7 +1763,7 @@ export async function getFavoriteCBTGroups(
 ): Promise<ICBTGroupExport[]> {
     let rv: ICBTGroupExport[] = [];
 
-    let rawData = await getData(appSettings, "favoriteCBTGroups" );
+    const rawData = await getData(appSettings, "favoriteCBTGroups" );
     try {
         if( rawData )
             rv = JSON.parse( rawData );
@@ -648,27 +1779,3 @@ export async function getFavoriteCBTGroups(
     return rv;
 }
 
-export function saveAppSettings(
-    newValue: IAppSettingsExport,
-) {
-    localStorage.setItem("appSettings", JSON.stringify(newValue) );
-}
-
-export function getAppSettings(): IAppSettingsExport {
-    let rv: IAppSettingsExport = (new AppSettings(null)).export()
-    let rawData = localStorage.getItem("appSettings" );
-
-    try {
-        if( rawData )
-            rv = JSON.parse( rawData );
-
-        if(rv ) {
-            return rv;
-        }
-    }
-    catch {
-        return rv;
-    }
-
-    return rv;
-}

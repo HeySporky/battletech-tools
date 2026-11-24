@@ -1,0 +1,245 @@
+# Bundled fighters: build report
+
+315 designs kept, 233 files left out.
+
+| Reason | Files |
+|---|---|
+| BV differs from the MUL | 130 |
+| the import could not carry all of it over | 101 |
+| no Master Unit List entry to check its BV against | 2 |
+
+## Left out
+
+- `convfighter/3039u/Heavy Strike Fighter Bat Hawk.blk`: BV differs from the MUL: BV 310, MUL 293
+- `convfighter/3039u/Heavy Strike Fighter Inseki II.blk`: the import could not carry all of it over: "IS Machine Gun Ammo - Half" is a half-ton bin, which this builder does not carry outside Fractional Accounting; left off.
+- `convfighter/3039u/Heavy Strike Fighter Inseki.blk`: BV differs from the MUL: BV 398, MUL 381
+- `convfighter/3039u/Heavy Strike Fighter Meteor.blk`: BV differs from the MUL: BV 398, MUL 381
+- `convfighter/3039u/Mechbuster.blk`: BV differs from the MUL: BV 401, MUL 368
+- `convfighter/3039u/Medium Strike Fighter (Kaiseradler).blk`: the import could not carry all of it over: "IS Machine Gun Ammo - Half" is a half-ton bin, which this builder does not carry outside Fractional Accounting; left off.
+- `convfighter/3039u/Planetlifter Air Transport (SuperPelican - Waddle).blk`: BV differs from the MUL: BV 307, MUL 282
+- `convfighter/3039u/Planetlifter Air Transport.blk`: the import could not carry all of it over: Transport "cargobay" is not one a fighter carries here and was left off.
+- `convfighter/3145 NTNU/Medium Strike Fighter Defender II C.blk`: BV differs from the MUL: BV 384, MUL 376
+- `convfighter/3145/Liao/Saroyan Jump Bomber.blk`: the import could not carry all of it over: Armor type 22 is not one this fighter can have here; Standard Armor (Aerospace) used.; "IS Vehicular Stealth" has no match in this catalog and was left off.
+- `convfighter/HBHL/Katya Ground Assault Craft (RL10).blk`: the import could not carry all of it over: "IS Light Machine Gun Ammo - Half" is a half-ton bin, which this builder does not carry outside Fractional Accounting; left off.
+- `convfighter/HBHL/Katya Ground Assault Craft (RL15).blk`: the import could not carry all of it over: "IS Light Machine Gun Ammo - Half" is a half-ton bin, which this builder does not carry outside Fractional Accounting; left off.
+- `convfighter/HBHL/Katya Ground Assault Craft (RL20).blk`: the import could not carry all of it over: "IS Light Machine Gun Ammo - Half" is a half-ton bin, which this builder does not carry outside Fractional Accounting; left off.
+- `convfighter/HBMPS/Bluehawk Combat Support Fighter MSF-42.blk`: the import could not carry all of it over: "IS Machine Gun Ammo - Half" is a half-ton bin, which this builder does not carry outside Fractional Accounting; left off.
+- `convfighter/HBMPS/Protector Combat Support Fighter ASF-23.blk`: the import could not carry all of it over: "IS Machine Gun Ammo - Half" is a half-ton bin, which this builder does not carry outside Fractional Accounting; left off.
+- `convfighter/ProtoTypes/Bullet Suicide Drone.blk`: BV differs from the MUL: BV 77, MUL 104
+- `convfighter/ProtoTypes/Drake Medium Stealth Fighter.blk`: the import could not carry all of it over: The file's 0 heat sinks are fewer than the engine's free ones; 10 used.; Armor type 22 is not one this fighter can have here; Standard Armor (Aerospace) used.; "IS Vehicular Stealth" has no match in this catalog and was left off.
+- `convfighter/ProtoTypes/Planetlifter Tactical Support.blk`: the import could not carry all of it over: The file's 0 heat sinks are fewer than the engine's free ones; 10 used.; Armor type 22 is not one this fighter can have here; Standard Armor (Aerospace) used.; "ISTankCockpitCommandConsole" could not be mounted and was left off.; "IS Vehicular Stealth" has no match in this catalog and was left off.
+- `convfighter/ProtoTypes/Seabuster Strike Fighter (Production).blk`: the import could not carry all of it over: "ISFlotationHull" has no match in this catalog and was left off.
+- `convfighter/RSUniqueFighters/Mechbuster (Mary).blk`: BV differs from the MUL: BV 415, MUL 469
+- `convfighter/XTRs/Boondocks/Drake Medium Strike Fighter.blk`: the import could not carry all of it over: Armor type 22 is not one this fighter can have here; Standard Armor (Aerospace) used.; "IS Vehicular Stealth" has no match in this catalog and was left off.
+- `convfighter/XTRs/Corporations/Planetlifter Support Aircraft.blk`: the import could not carry all of it over: Armor type 22 is not one this fighter can have here; Standard Armor (Aerospace) used.; "ISTankCockpitCommandConsole" could not be mounted and was left off.; "IS Vehicular Stealth" has no match in this catalog and was left off.
+- `convfighter/XTRs/Periphery/SeaBuster Strike Fighter (Early).blk`: the import could not carry all of it over: "ISFlotationHull" has no match in this catalog and was left off.
+- `fighters/Era Digests/Age of War/Firebird FR-1.blk`: the import could not carry all of it over: The file's Primitive Cockpit is not one this builder has; a standard cockpit used.
+- `fighters/Golden Century/Goth D.blk`: the import could not carry all of it over: 1 fire control system or capacitor line(s) in the nose had no weapon to fit and were left off.
+- `fighters/Golden Century/Issedone C.blk`: BV differs from the MUL: BV 725, MUL 704
+- `fighters/Golden Century/Kublai E.blk`: the import could not carry all of it over: Armor type 3 is not one this fighter can have here; Standard Armor (Aerospace) used.
+- `fighters/Golden Century/Kublai F.blk`: the import could not carry all of it over: Armor type 3 is not one this fighter can have here; Standard Armor (Aerospace) used.
+- `fighters/Golden Century/Kublai G.blk`: the import could not carry all of it over: Armor type 3 is not one this fighter can have here; Standard Armor (Aerospace) used.
+- `fighters/Golden Century/Qasar C.blk`: the import could not carry all of it over: 1 fire control system or capacitor line(s) in the left wing had no weapon to fit and were left off.; 1 fire control system or capacitor line(s) in the right wing had no weapon to fit and were left off.
+- `fighters/Hist LofT/Voidseeker Mk 39-004 Interceptor.blk`: the import could not carry all of it over: "ImprovedShieldedAeroSRCS" has no match in this catalog and was left off.
+- `fighters/Hist LofT/Voidseeker Mk 39-007 Striker.blk`: the import could not carry all of it over: "ImprovedShieldedAeroSRCS" has no match in this catalog and was left off.
+- `fighters/JHS Terra/Aeshna Heavy Drone Fighter.blk`: the import could not carry all of it over: "ImprovedSmartRoboticControlSystem" has no match in this catalog and was left off.
+- `fighters/JHS Terra/Scarab Medium Drone Fighter.blk`: the import could not carry all of it over: "ImprovedSmartRoboticControlSystem" has no match in this catalog and was left off.
+- `fighters/JHS Terra/Tabanid Light Drone Fighter.blk`: the import could not carry all of it over: "ImprovedSmartRoboticControlSystem" has no match in this catalog and was left off.
+- `fighters/Operation Klondike/Corsair CSR-V12b.blk`: BV differs from the MUL: BV 1399, MUL 1388
+- `fighters/Operation Klondike/Hellcat II HCT-213C.blk`: BV differs from the MUL: BV 1302, MUL 1308
+- `fighters/Operation Klondike/Stuka STU-K5b.blk`: BV differs from the MUL: BV 2435, MUL 2208
+- `fighters/ProtoTypes/Cheetah OF-17A-R.blk`: the import could not carry all of it over: The file's Small Cockpit is not one this builder has; a standard cockpit used.; Armor type 22 is not one this fighter can have here; Standard Armor (Aerospace) used.; "ISHypersprectralImager" has no match in this catalog and was left off.; "IS Vehicular Stealth" has no match in this catalog and was left off.
+- `fighters/ProtoTypes/Corax C.blk`: the import could not carry all of it over: The file's Small Cockpit is not one this builder has; a standard cockpit used.
+- `fighters/ProtoTypes/Corsair CSR-12D.blk`: BV differs from the MUL: BV 1652, MUL 1619
+- `fighters/ProtoTypes/Hydaspes 3.blk`: BV differs from the MUL: BV 3771, MUL 2611
+- `fighters/ProtoTypes/Lucifer III  LCR-3.blk`: BV differs from the MUL: BV 1818, MUL 2356
+- `fighters/ProtoTypes/Persepolis.blk`: BV differs from the MUL: BV 2870, MUL 2323
+- `fighters/ProtoTypes/Rapier RPR-300S.blk`: BV differs from the MUL: BV 1875, MUL 1867
+- `fighters/ProtoTypes/Suzaku SU-14.blk`: BV differs from the MUL: BV 2218, MUL 1940
+- `fighters/ProtoTypes/Transit TR-13G.blk`: the import could not carry all of it over: Armor type 3 is not one this fighter can have here; Standard Armor (Aerospace) used.
+- `fighters/ProtoTypes/Tyre 3.blk`: BV differs from the MUL: BV 2165, MUL 1499
+- `fighters/ProtoTypes/Umbra RF-1.blk`: the import could not carry all of it over: The file's Small Cockpit is not one this builder has; a standard cockpit used.
+- `fighters/ProtoTypes/Wildkatze WKT-1S.blk`: the import could not carry all of it over: Armor type 3 is not one this fighter can have here; Standard Armor (Aerospace) used.
+- `fighters/ProtoTypes/Wildkatze WKT-2S.blk`: the import could not carry all of it over: Armor type 3 is not one this fighter can have here; Standard Armor (Aerospace) used.
+- `fighters/RSUniqueFighters/Corsair Bob.blk`: BV differs from the MUL: BV 1357, MUL 1339
+- `fighters/RSUniqueFighters/Hydaspes Algar.blk`: BV differs from the MUL: BV 3778, MUL 3636
+- `fighters/RSUniqueFighters/Slayer SL-15 Eric.blk`: BV differs from the MUL: BV 1938, MUL 1941
+- `fighters/RSUniqueFighters/Thrush Maximillian.blk`: the import could not carry all of it over: Transport "cargobay" is not one a fighter carries here and was left off.
+- `fighters/Somerset Strikers/Banshee BSE-X2.blk`: no Master Unit List entry to check its BV against
+- `fighters/TRO3039u/Chippewa CHP-W7T.blk`: BV differs from the MUL: BV 2150, MUL 2159
+- `fighters/TRO3039u/Chippewa CHP-W8.blk`: BV differs from the MUL: BV 1611, MUL 1662
+- `fighters/TRO3039u/Riever F-100.blk`: BV differs from the MUL: BV 1557, MUL 1539
+- `fighters/TRO3039u/Riever F-100a.blk`: BV differs from the MUL: BV 1593, MUL 1575
+- `fighters/TRO3039u/Riever F-100b.blk`: BV differs from the MUL: BV 1316, MUL 1262
+- `fighters/TRO3039u/Riever F-700.blk`: BV differs from the MUL: BV 1644, MUL 1626
+- `fighters/TRO3039u/Shilone SL-17AC.blk`: BV differs from the MUL: BV 1008, MUL 972
+- `fighters/TRO3039u/Shilone SL-18.blk`: BV differs from the MUL: BV 1400, MUL 1418
+- `fighters/TRO3039u/Sholagar SL-22.blk`: BV differs from the MUL: BV 812, MUL 830
+- `fighters/TRO3039u/Slayer SL-15.blk`: BV differs from the MUL: BV 1306, MUL 1288
+- `fighters/TRO3039u/Stingray F-90S.blk`: BV differs from the MUL: BV 1126, MUL 1108
+- `fighters/TRO3039u/Stingray F-94.blk`: BV differs from the MUL: BV 1252, MUL 1268
+- `fighters/TRO3039u/Stuka STU-D7.blk`: BV differs from the MUL: BV 2632, MUL 2596
+- `fighters/TRO3039u/Transgressor TR-14 AC.blk`: BV differs from the MUL: BV 1197, MUL 1179
+- `fighters/TRO3039u/Transit TR-10.blk`: BV differs from the MUL: BV 1109, MUL 1091
+- `fighters/TRO3039u/Transit TR-11.blk`: BV differs from the MUL: BV 833, MUL 815
+- `fighters/TRO3050U/IS/Ahab AHB-643.blk`: BV differs from the MUL: BV 2097, MUL 1537
+- `fighters/TRO3050U/IS/Hammerhead HMR-HD.blk`: BV differs from the MUL: BV 1046, MUL 1028
+- `fighters/TRO3050U/IS/HellcatII HCT213B.blk`: BV differs from the MUL: BV 1147, MUL 1153
+- `fighters/TRO3050U/IS/HellcatII HCT214.blk`: BV differs from the MUL: BV 1369, MUL 1375
+- `fighters/TRO3050U/IS/HellcatII HCT215.blk`: BV differs from the MUL: BV 1681, MUL 1686
+- `fighters/TRO3050U/IS/Rapier RPR-100.blk`: BV differs from the MUL: BV 1572, MUL 1554
+- `fighters/TRO3050U/IS/Rapier RPR-101.blk`: BV differs from the MUL: BV 1738, MUL 1807
+- `fighters/TRO3050U/IS/Rapier RPR-102.blk`: BV differs from the MUL: BV 1345, MUL 1327
+- `fighters/TRO3050U/IS/Rogue RGU-133E.blk`: BV differs from the MUL: BV 953, MUL 802
+- `fighters/TRO3050U/IS/Swift SWF-606.blk`: BV differs from the MUL: BV 301, MUL 298
+- `fighters/TRO3050U/IS/Swift SWF-606R.blk`: BV differs from the MUL: BV 148, MUL 166
+- `fighters/TRO3050U/IS/Trident TRN-3T.blk`: BV differs from the MUL: BV 521, MUL 374
+- `fighters/TRO3050U/IS/Trident TRN-3U.blk`: BV differs from the MUL: BV 512, MUL 385
+- `fighters/TRO3050U/IS/Trident TRN-3V.blk`: the import could not carry all of it over: The file's Small Cockpit is not one this builder has; a standard cockpit used.
+- `fighters/TRO3055U/Avar A.blk`: BV differs from the MUL: BV 2215, MUL 2151
+- `fighters/TRO3055U/Avar E.blk`: BV differs from the MUL: BV 1406, MUL 1438
+- `fighters/TRO3055U/Bashkir E.blk`: the import could not carry all of it over: "Clan Machine Gun Ammo - Half:OMNI" is a half-ton bin, which this builder does not carry outside Fractional Accounting; left off.
+- `fighters/TRO3055U/Batu D.blk`: BV differs from the MUL: BV 2552, MUL 2435
+- `fighters/TRO3055U/Jagatai X.blk`: BV differs from the MUL: BV 2946, MUL 2978
+- `fighters/TRO3055U/Jengiz E.blk`: BV differs from the MUL: BV 2972, MUL 2983
+- `fighters/TRO3055U/Jengiz Prime.blk`: BV differs from the MUL: BV 3004, MUL 3015
+- `fighters/TRO3055U/Jengiz X.blk`: BV differs from the MUL: BV 3155, MUL 3166
+- `fighters/TRO3055U/Kirghiz C.blk`: the import could not carry all of it over: Transport "troopspace" is not one a fighter carries here and was left off.
+- `fighters/TRO3055U/Kirghiz E.blk`: BV differs from the MUL: BV 4011, MUL 4023
+- `fighters/TRO3055U/Sabutai B.blk`: BV differs from the MUL: BV 3026, MUL 3086
+- `fighters/TRO3055U/Sabutai E.blk`: BV differs from the MUL: BV 3155, MUL 3159
+- `fighters/TRO3055U/Sabutai X.blk`: BV differs from the MUL: BV 3259, MUL 3277
+- `fighters/TRO3055U/Scytha B.blk`: BV differs from the MUL: BV 3479, MUL 3517
+- `fighters/TRO3055U/Scytha E.blk`: BV differs from the MUL: BV 3531, MUL 3553
+- `fighters/TRO3055U/Scytha X.blk`: BV differs from the MUL: BV 2905, MUL 2926
+- `fighters/TRO3055U/Turk E.blk`: BV differs from the MUL: BV 1811, MUL 1845
+- `fighters/TRO3055U/Vandal E.blk`: BV differs from the MUL: BV 394, MUL 418
+- `fighters/TRO3055U/Vandal Prime.blk`: BV differs from the MUL: BV 501, MUL 525
+- `fighters/TRO3055U/Visigoth Carew Nygren.blk`: no Master Unit List entry to check its BV against
+- `fighters/TRO3067 Unabridged/Clan Aerospace/Chaeronea 2.blk`: BV differs from the MUL: BV 1381, MUL 1384
+- `fighters/TRO3067 Unabridged/Clan Aerospace/Chaeronea 4.blk`: BV differs from the MUL: BV 979, MUL 988
+- `fighters/TRO3067 Unabridged/IS Aerospace/Corax CRX-OD.blk`: BV differs from the MUL: BV 852, MUL 870
+- `fighters/TRO3067 Unabridged/IS Aerospace/Corax CRX-OR.blk`: BV differs from the MUL: BV 1649, MUL 1667
+- `fighters/TRO3067 Unabridged/IS Aerospace/Dagger DARO-1C.blk`: BV differs from the MUL: BV 1733, MUL 1325
+- `fighters/TRO3067 Unabridged/IS Aerospace/Dagger DARO-1D.blk`: BV differs from the MUL: BV 1468, MUL 1318
+- `fighters/TRO3067 Unabridged/IS Aerospace/Defiance DFC-OD.blk`: BV differs from the MUL: BV 1300, MUL 1318
+- `fighters/TRO3067 Unabridged/IS Aerospace/Eisensturm EST-OD.blk`: BV differs from the MUL: BV 2676, MUL 2712
+- `fighters/TRO3067 Unabridged/IS Aerospace/Huscarl HSCL-1-OR.blk`: BV differs from the MUL: BV 2843, MUL 2879
+- `fighters/TRO3067 Unabridged/IS Aerospace/Lancer LX-3.blk`: BV differs from the MUL: BV 1003, MUL 1037
+- `fighters/TRO3067 Unabridged/IS Aerospace/Shiva SHV-OD.blk`: BV differs from the MUL: BV 2005, MUL 2019
+- `fighters/TRO3067 Unabridged/IS Aerospace/Tatsu MIK-OD.blk`: BV differs from the MUL: BV 1630, MUL 1666
+- `fighters/TRO3067 Unabridged/IS Aerospace/Tatsu MIK-OE.blk`: BV differs from the MUL: BV 2213, MUL 2241
+- `fighters/TRO3067 Unabridged/IS Aerospace/Troika CMT-6T.blk`: the import could not carry all of it over: Transport "troopspace" is not one a fighter carries here and was left off.
+- `fighters/TRO3067/IS/Dagger DARO-1.blk`: BV differs from the MUL: BV 1784, MUL 1766
+- `fighters/TRO3067/IS/Huscarl HSCL-1-OB.blk`: BV differs from the MUL: BV 1654, MUL 1675
+- `fighters/TRO3067/IS/Oni ON-2.blk`: BV differs from the MUL: BV 1545, MUL 1597
+- `fighters/TRO3075/Centurion CNT-1A.blk`: the import could not carry all of it over: The file's Primitive Cockpit is not one this builder has; a standard cockpit used.
+- `fighters/TRO3075/Centurion CNT-2D.blk`: BV differs from the MUL: BV 739, MUL 757
+- `fighters/TRO3075/Deathstalker F-77.blk`: BV differs from the MUL: BV 1714, MUL 1696
+- `fighters/TRO3075/Deathstalker F-77A.blk`: BV differs from the MUL: BV 1826, MUL 1866
+- `fighters/TRO3075/Eagle EGL-R1.blk`: the import could not carry all of it over: The file's Primitive Cockpit is not one this builder has; a standard cockpit used.
+- `fighters/TRO3075/Eagle EGL-R4.blk`: the import could not carry all of it over: The file's Primitive Cockpit is not one this builder has; a standard cockpit used.
+- `fighters/TRO3075/Hellcat HCT-213D.blk`: BV differs from the MUL: BV 1069, MUL 1169
+- `fighters/TRO3075/Lightning LTN-G14.blk`: the import could not carry all of it over: The file's Primitive Cockpit is not one this builder has; a standard cockpit used.
+- `fighters/TRO3075/Lightning LTN-G15.blk`: BV differs from the MUL: BV 1075, MUL 1057
+- `fighters/TRO3075/Lightning LTN-G16D.blk`: BV differs from the MUL: BV 1310, MUL 1328
+- `fighters/TRO3075/Lightning LTN-G16L.blk`: BV differs from the MUL: BV 1346, MUL 1376
+- `fighters/TRO3075/Lightning LTN-G16O.blk`: BV differs from the MUL: BV 1202, MUL 1220
+- `fighters/TRO3075/Lightning LTN-G16S.blk`: BV differs from the MUL: BV 1632, MUL 1633
+- `fighters/TRO3075/Lightning LTN-G16T.blk`: BV differs from the MUL: BV 1208, MUL 1256
+- `fighters/TRO3075/Royals/Ahab AHB-443b.blk`: BV differs from the MUL: BV 1976, MUL 1889
+- `fighters/TRO3075/Sabre SB-26.blk`: the import could not carry all of it over: The file's Primitive Cockpit is not one this builder has; a standard cockpit used.
+- `fighters/TRO3075/Spectrals/Rusalka S-RSL-O Invictus.blk`: the import could not carry all of it over: The file's Small Cockpit is not one this builder has; a standard cockpit used.
+- `fighters/TRO3075/Spectrals/Rusalka S-RSL-OA Dominus.blk`: the import could not carry all of it over: The file's Small Cockpit is not one this builder has; a standard cockpit used.
+- `fighters/TRO3075/Spectrals/Rusalka S-RSL-OB Infernus.blk`: the import could not carry all of it over: The file's Small Cockpit is not one this builder has; a standard cockpit used.
+- `fighters/TRO3075/Spectrals/Rusalka S-RSL-OC Comminus.blk`: the import could not carry all of it over: The file's Small Cockpit is not one this builder has; a standard cockpit used.
+- `fighters/TRO3075/Spectrals/Rusalka S-RSL-OD Luminos.blk`: the import could not carry all of it over: The file's Small Cockpit is not one this builder has; a standard cockpit used.
+- `fighters/TRO3075/Spectrals/Rusalka S-RSL-OE Eminus.blk`: the import could not carry all of it over: The file's Small Cockpit is not one this builder has; a standard cockpit used.
+- `fighters/TRO3075/Spectrals/Shade S-HA-O Invictus.blk`: the import could not carry all of it over: The file's Small Cockpit is not one this builder has; a standard cockpit used.
+- `fighters/TRO3075/Spectrals/Shade S-HA-OA Dominus.blk`: the import could not carry all of it over: The file's Small Cockpit is not one this builder has; a standard cockpit used.
+- `fighters/TRO3075/Spectrals/Shade S-HA-OB Infernus.blk`: the import could not carry all of it over: The file's Small Cockpit is not one this builder has; a standard cockpit used.
+- `fighters/TRO3075/Spectrals/Shade S-HA-OC Comminus.blk`: the import could not carry all of it over: The file's Small Cockpit is not one this builder has; a standard cockpit used.
+- `fighters/TRO3075/Spectrals/Shade S-HA-OD Luminos.blk`: the import could not carry all of it over: The file's Small Cockpit is not one this builder has; a standard cockpit used.
+- `fighters/TRO3075/Spectrals/Shade S-HA-OE Eminus.blk`: the import could not carry all of it over: The file's Small Cockpit is not one this builder has; a standard cockpit used.
+- `fighters/TRO3075/Spectrals/Striga S-STR-O Invictus.blk`: the import could not carry all of it over: The file's Small Cockpit is not one this builder has; a standard cockpit used.
+- `fighters/TRO3075/Spectrals/Striga S-STR-OA Dominus.blk`: the import could not carry all of it over: The file's Small Cockpit is not one this builder has; a standard cockpit used.
+- `fighters/TRO3075/Spectrals/Striga S-STR-OB Infernus.blk`: the import could not carry all of it over: The file's Small Cockpit is not one this builder has; a standard cockpit used.
+- `fighters/TRO3075/Spectrals/Striga S-STR-OC Comminus.blk`: the import could not carry all of it over: The file's Small Cockpit is not one this builder has; a standard cockpit used.
+- `fighters/TRO3075/Spectrals/Striga S-STR-OD Luminos.blk`: the import could not carry all of it over: The file's Small Cockpit is not one this builder has; a standard cockpit used.
+- `fighters/TRO3075/Spectrals/Striga S-STR-OE Eminus.blk`: the import could not carry all of it over: The file's Small Cockpit is not one this builder has; a standard cockpit used.
+- `fighters/TRO3075/Thunderbird TRB-D46.blk`: BV differs from the MUL: BV 2302, MUL 2320
+- `fighters/TRO3075/Thunderbird TRB-D50.blk`: BV differs from the MUL: BV 1810, MUL 1828
+- `fighters/TRO3075/Thunderbird TRB-D56.blk`: BV differs from the MUL: BV 2629, MUL 2665
+- `fighters/TRO3075/Typhoon TFN-3A.blk`: BV differs from the MUL: BV 1403, MUL 1367
+- `fighters/TRO3075/Typhoon TFN-3M.blk`: BV differs from the MUL: BV 1638, MUL 1593
+- `fighters/TRO3075/Typhoon TFN-5H.blk`: BV differs from the MUL: BV 1953, MUL 1971
+- `fighters/TRO3075/Vulcan VLC-5N.blk`: BV differs from the MUL: BV 1363, MUL 1327
+- `fighters/TRO3075/Vulcan VLC-8N.blk`: BV differs from the MUL: BV 1745, MUL 1766
+- `fighters/TRO3085u/Cutting Edge/Morgenstern MR-1S.blk`: BV differs from the MUL: BV 1640, MUL 1658
+- `fighters/TRO3085u/Cutting Edge/Morgenstern MR-1SB.blk`: BV differs from the MUL: BV 1949, MUL 1967
+- `fighters/TRO3085u/Cutting Edge/Morgenstern MR-1SD.blk`: BV differs from the MUL: BV 1704, MUL 1722
+- `fighters/TRO3085u/Cutting Edge/Ostrogoth A.blk`: BV differs from the MUL: BV 3224, MUL 3265
+- `fighters/TRO3085u/Cutting Edge/Ostrogoth B.blk`: BV differs from the MUL: BV 3137, MUL 3171
+- `fighters/TRO3085u/Cutting Edge/Ostrogoth C.blk`: BV differs from the MUL: BV 2865, MUL 2973
+- `fighters/TRO3085u/Cutting Edge/Ostrogoth Prime.blk`: BV differs from the MUL: BV 3686, MUL 3720
+- `fighters/TRO3085u/Cutting Edge/Poignard PGD-Y3.blk`: BV differs from the MUL: BV 1310, MUL 1292
+- `fighters/TRO3085u/Cutting Edge/Sagittarii SGT-2R.blk`: BV differs from the MUL: BV 1293, MUL 1311
+- `fighters/TRO3085u/Cutting Edge/Sagittarii SGT-3R.blk`: BV differs from the MUL: BV 1470, MUL 1488
+- `fighters/TRO3085u/Cutting Edge/Wusun A.blk`: BV differs from the MUL: BV 2369, MUL 2372
+- `fighters/TRO3085u/Cutting Edge/Wusun B.blk`: BV differs from the MUL: BV 2450, MUL 2453
+- `fighters/TRO3085u/Cutting Edge/Wusun C.blk`: BV differs from the MUL: BV 2357, MUL 2368
+- `fighters/TRO3085u/Cutting Edge/Wusun Prime.blk`: BV differs from the MUL: BV 2450, MUL 2453
+- `fighters/TRO3145/Davion/Cutlass CUT-01D.blk`: the import could not carry all of it over: Armor type 3 is not one this fighter can have here; Standard Armor (Aerospace) used.
+- `fighters/TRO3145/Davion/Cutlass CUT-01E.blk`: the import could not carry all of it over: Armor type 3 is not one this fighter can have here; Standard Armor (Aerospace) used.
+- `fighters/TRO3145/Davion/Rondel RDL-01C.blk`: the import could not carry all of it over: Armor type 3 is not one this fighter can have here; Standard Armor (Aerospace) used.
+- `fighters/TRO3145/Kurita/Koroshiya KOS-1A.blk`: the import could not carry all of it over: Armor type 3 is not one this fighter can have here; Standard Armor (Aerospace) used.
+- `fighters/TRO3145/Liao/Yun Y-2.blk`: the import could not carry all of it over: Armor type 22 is not one this fighter can have here; Standard Armor (Aerospace) used.; "IS Vehicular Stealth" has no match in this catalog and was left off.; Transport "troopspace" is not one a fighter carries here and was left off.
+- `fighters/TRO3145/Marik/Shikra SKR-4M.blk`: BV differs from the MUL: BV 2647, MUL 2849
+- `fighters/TRO3145/NTNU/Cheetah IIC.blk`: the import could not carry all of it over: The file's Small Cockpit is not one this builder has; a standard cockpit used.; Engine type 3 is not one this fighter can have here; Standard Fusion used.; Armor type 3 is not one this fighter can have here; Standard Armor (Aerospace) used.; "Clan Reflective" has no match in this catalog and was left off.
+- `fighters/TRO3145/NTNU/Lucifer III C.blk`: the import could not carry all of it over: Armor type 16 is not one this fighter can have here; Standard Armor (Aerospace) used.; 1 fire control system or capacitor line(s) in the nose had no weapon to fit and were left off.; "Clan Ferro-Lamellor" has no match in this catalog and was left off.
+- `fighters/TRO3145/NTNU/Morgenstern MR-1SE.blk`: BV differs from the MUL: BV 1774, MUL 1840
+- `fighters/TRO3145/NTNU/Sagittarii SGT-4R.blk`: BV differs from the MUL: BV 1210, MUL 1228
+- `fighters/TRO3145/NTNU/Seydlitz C.blk`: the import could not carry all of it over: Armor type 3 is not one this fighter can have here; Standard Armor (Aerospace) used.; 1 fire control system or capacitor line(s) in the nose had no weapon to fit and were left off.; "Clan Reflective" has no match in this catalog and was left off.
+- `fighters/TRO3145/NTNU/Tatsu MIK-OF.blk`: BV differs from the MUL: BV 1651, MUL 1662
+- `fighters/TRO3145/NTNU/Thrush TR-9.blk`: the import could not carry all of it over: Armor type 3 is not one this fighter can have here; Standard Armor (Aerospace) used.; "IS Reflective" has no match in this catalog and was left off.
+- `fighters/TRO3145/NTNU/Troika CMT-7T.blk`: BV differs from the MUL: BV 1587, MUL 1593
+- `fighters/TRO3145/NTNU/Wusun D.blk`: BV differs from the MUL: BV 2359, MUL 2362
+- `fighters/TRO3145/Republic/Schrack SCK-OB.blk`: BV differs from the MUL: BV 2158, MUL 2212
+- `fighters/TRO3145/Republic/Simurgh SMG-O.blk`: the import could not carry all of it over: Armor type 3 is not one this fighter can have here; Standard Armor (Aerospace) used.
+- `fighters/TRO3145/Republic/Simurgh SMG-OA.blk`: the import could not carry all of it over: Armor type 3 is not one this fighter can have here; Standard Armor (Aerospace) used.
+- `fighters/TRO3145/Republic/Simurgh SMG-OB.blk`: the import could not carry all of it over: Armor type 3 is not one this fighter can have here; Standard Armor (Aerospace) used.
+- `fighters/TRO3145/Steiner/Sternensturm STM-OA.blk`: BV differs from the MUL: BV 1693, MUL 1676
+- `fighters/TRO3150/Shikra SKR-4N.blk`: BV differs from the MUL: BV 2752, MUL 2754
+- `fighters/Wars of Reaving/Bashkir Z.blk`: the import could not carry all of it over: "NovaCEWS:OMNI" could not be mounted and was left off.
+- `fighters/Wars of Reaving/Batu Z.blk`: the import could not carry all of it over: "NovaCEWS:OMNI" could not be mounted and was left off.
+- `fighters/Wars of Reaving/Sabutai Z.blk`: the import could not carry all of it over: "NovaCEWS:OMNI" could not be mounted and was left off.
+- `fighters/XTRs/Boondocks/Sangihe Shrike-Thrush Nanook.blk`: the import could not carry all of it over: Engine type 3 is not one this fighter can have here; Standard Fusion used.; Armor type 7 is not one this fighter can have here; Standard Armor (Aerospace) used.
+- `fighters/XTRs/Boondoggles/Cheetah II F-12A.blk`: BV differs from the MUL: BV 127, MUL 154
+- `fighters/XTRs/Clans/Scytha-XR.blk`: the import could not carry all of it over: Armor type 16 is not one this fighter can have here; Standard Armor (Aerospace) used.
+- `fighters/XTRs/Comstar/Tomahawk CX-11.blk`: the import could not carry all of it over: Armor type 3 is not one this fighter can have here; Standard Armor (Aerospace) used.; "ISLaserInsulator" could not be mounted and was left off.; "ISLaserInsulator" could not be mounted and was left off.
+- `fighters/XTRs/Corporations/Sholagar SL-27X.blk`: the import could not carry all of it over: Engine type 3 is not one this fighter can have here; Standard Fusion used.
+- `fighters/XTRs/Davion/Corsair CSR-X12 Rigid Night.blk`: the import could not carry all of it over: Engine type 3 is not one this fighter can have here; Standard Fusion used.
+- `fighters/XTRs/Davion/Dagger DAR4-XP.blk`: the import could not carry all of it over: Engine type 3 is not one this fighter can have here; Standard Fusion used.
+- `fighters/XTRs/Gunslingers/Hellcat II HCT-213BC (Herman).blk`: the import could not carry all of it over: The file's Command Console is not one this builder has; a standard cockpit used.
+- `fighters/XTRs/Gunslingers/Swift SWF-606 (Aaron).blk`: the import could not carry all of it over: "ISLaserInsulator" could not be mounted and was left off.; "ISLaserInsulator" could not be mounted and was left off.; "ISLaserInsulator" could not be mounted and was left off.
+- `fighters/XTRs/Kurita/Oni ON-2X.blk`: the import could not carry all of it over: Armor type 22 is not one this fighter can have here; Standard Armor (Aerospace) used.; "IS Vehicular Stealth" has no match in this catalog and was left off.
+- `fighters/XTRs/Kurita/Shilone Sl-17X.blk`: BV differs from the MUL: BV 1931, MUL 1933
+- `fighters/XTRs/Liao/Transit TR-13 Glare.blk`: the import could not carry all of it over: Armor type 3 is not one this fighter can have here; Standard Armor (Aerospace) used.
+- `fighters/XTRs/Liao/Troika CMT-3TV (Viktor).blk`: BV differs from the MUL: BV 2972, MUL 2975
+- `fighters/XTRs/Marik/Cheetah OF-17.blk`: the import could not carry all of it over: Armor type 22 is not one this fighter can have here; Standard Armor (Aerospace) used.; "ISHypersprectralImager" has no match in this catalog and was left off.; "IS Vehicular Stealth" has no match in this catalog and was left off.
+- `fighters/XTRs/Marik/Shiva SHV-S.blk`: the import could not carry all of it over: Armor type 22 is not one this fighter can have here; Standard Armor (Aerospace) used.; "IS Vehicular Stealth" has no match in this catalog and was left off.
+- `fighters/XTRs/Mercenaries/Seydlitz SYD-45X Starling.blk`: the import could not carry all of it over: The file's Small Cockpit is not one this builder has; a standard cockpit used.; Engine type 3 is not one this fighter can have here; Standard Fusion used.
+- `fighters/XTRs/Mercenaries/Slayer SL-CX1.blk`: the import could not carry all of it over: Armor type 16 is not one this fighter can have here; Standard Armor (Aerospace) used.
+- `fighters/XTRs/Periphery/Thunderbird TRB-XTS.blk`: the import could not carry all of it over: "ISLaserInsulator" could not be mounted and was left off.; "ISLaserInsulator" could not be mounted and was left off.
+- `fighters/XTRs/Phantoms/Battle Taxi NL-43.blk`: the import could not carry all of it over: Armor type 22 is not one this fighter can have here; Standard Armor (Aerospace) used.; "IS Vehicular Stealth" has no match in this catalog and was left off.; Transport "troopspace" is not one a fighter carries here and was left off.; Transport "cargobay" is not one a fighter carries here and was left off.
+- `fighters/XTRs/Phantoms/Deathstalker XF-78.blk`: the import could not carry all of it over: Armor type 22 is not one this fighter can have here; Standard Armor (Aerospace) used.; "IS Vehicular Stealth" has no match in this catalog and was left off.
+- `fighters/XTRs/Pirates/Chippewa CHP-X-P Gladstone.blk`: the import could not carry all of it over: Armor type 3 is not one this fighter can have here; Standard Armor (Aerospace) used.
+- `fighters/XTRs/Pirates/Lightning LTN-G16-P Branson.blk`: the import could not carry all of it over: Armor type 16 is not one this fighter can have here; Standard Armor (Aerospace) used.
+- `fighters/XTRs/Primitives IV/Hammerhead HMR-HA.blk`: the import could not carry all of it over: The file's Primitive Cockpit is not one this builder has; a standard cockpit used.
+- `fighters/XTRs/Primitives I/Vulcan VLC-3N.blk`: the import could not carry all of it over: The file's Primitive Cockpit is not one this builder has; a standard cockpit used.
+- `fighters/XTRs/Republic II/Persepolis 2.blk`: the import could not carry all of it over: Armor type 16 is not one this fighter can have here; Standard Armor (Aerospace) used.
+- `fighters/XTRs/RetroTech/Malaika BAM-1A1.blk`: the import could not carry all of it over: The file's Primitive Cockpit is not one this builder has; a standard cockpit used.
+- `fighters/XTRs/RetroTech/Sparrowhawk SPR-DH.blk`: the import could not carry all of it over: The file's Primitive Cockpit is not one this builder has; a standard cockpit used.
+- `fighters/XTRs/RetroTech/Star Dagger S-2.blk`: the import could not carry all of it over: The file's Primitive Cockpit is not one this builder has; a standard cockpit used.
+- `fighters/XTRs/Steiner/Rapier RPR-300X.blk`: BV differs from the MUL: BV 1968, MUL 2007
+- `fighters/XTRs/Succession Wars/Starfire SF-1X (Prototype).blk`: the import could not carry all of it over: Armor type 27 is not one this fighter can have here; Standard Armor (Aerospace) used.

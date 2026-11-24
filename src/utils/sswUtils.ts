@@ -26,7 +26,7 @@ export function getSSWRulesLevelLabel(
     }
     if( num === 3 ) {
         if( short )
-        return "Ex["
+        return "Exp"
         else
         return "Experimental"
     }

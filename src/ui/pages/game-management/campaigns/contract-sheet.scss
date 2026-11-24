@@ -1,0 +1,294 @@
+// The Mercenary Contract Record Sheet (#639), drawn after Hot Spots: Draconis Reach p.203: heavy rounded boxes,
+// bold condensed labels, ruled blanks. Every blank is an input with only its rule showing.
+$cs-ink: #000;
+$cs-font: "Arial Narrow", "Roboto Condensed", "Helvetica Neue", Arial, sans-serif;
+
+.campaign-contract-sheets {
+    padding: 0.5rem 16px 2rem;
+
+    .cs-controls {
+        background: transparent;
+        border: none;
+        text-align: left;
+        max-width: 8.5in;
+        margin: 0 auto 0.5rem;
+        label { margin-right: 0.5rem; }
+    }
+}
+
+.contract-sheet {
+    background: #fff;
+    color: $cs-ink;
+    font-family: $cs-font;
+    font-size: 11pt;
+    max-width: 8.5in;
+    margin: 0 auto;
+    padding: 0.35in 0.4in 0.25in;
+    box-shadow: 0 0 0.5rem #0006;
+
+    input.cs-line {
+        flex: 1 1 auto;
+        min-width: 0;
+        width: 100%;
+        border: none;
+        border-bottom: 1.5px solid $cs-ink;
+        border-radius: 0;
+        background: transparent;
+        color: $cs-ink;
+        font: inherit;
+        font-weight: normal;
+        padding: 0 0.15rem;
+        line-height: 1.3;
+        &:focus { outline: none; background: #fff6c8; }
+    }
+
+    .cs-header {
+        display: flex;
+        align-items: center;
+        gap: 0.25in;
+        margin-bottom: 0.15in;
+    }
+    .cs-brand {
+        flex: 1 1 auto;
+        font-family: "Arial Black", $cs-font;
+        font-weight: 900;
+        font-size: 30pt;
+        letter-spacing: 0.02em;
+        line-height: 1;
+    }
+    .cs-title-box {
+        flex: 0 0 auto;
+        border: 3px solid $cs-ink;
+        border-radius: 0.6rem;
+        padding: 0.3rem 1.2rem;
+        text-align: center;
+        font-weight: bold;
+        font-size: 12pt;
+        line-height: 1.2;
+    }
+
+    .cs-box {
+        border: 3px solid $cs-ink;
+        border-radius: 0.6rem;
+        box-shadow: 4px 4px 0 #aaa;
+    }
+
+    .cs-terms {
+        padding: 0.4rem 0.6rem 0.5rem;
+        margin-bottom: 0.18in;
+    }
+    .cs-line-row {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 0.2rem 0.9rem;
+        margin: 0.35rem 0;
+    }
+    .cs-field {
+        display: inline-flex;
+        align-items: baseline;
+        gap: 0.2rem;
+        min-width: 0;
+        &.cs-grow { flex: 1 1 0; min-width: 10rem; }
+        &.cs-mid { flex: 0 1 11rem; }
+        &.cs-third { flex: 0 1 15rem; }
+    }
+    .cs-label, .cs-suffix {
+        font-weight: bold;
+        white-space: nowrap;
+    }
+    .cs-term-main {
+        display: inline-flex;
+        align-items: baseline;
+        gap: 0.2rem;
+        flex: 1 1 auto;
+        min-width: 0;
+        margin: 0;
+    }
+    input.cs-roll { flex: 0 0 2.2rem; width: 2.2rem; text-align: center; }
+
+    .cs-body {
+        display: flex;
+        gap: 0.12in;
+        align-items: flex-start;
+    }
+    .cs-ledger {
+        flex: 1 1 auto;
+        min-width: 0;
+        padding: 0.3rem 0.5rem 0.5rem;
+        table { width: 100%; border-collapse: separate; border-spacing: 0.3rem 0; table-layout: fixed; }
+        th { font-size: 9pt; font-weight: bold; text-align: left; padding: 0 0 0.1rem; }
+        td { padding: 0.18rem 0 0; }
+        input.cs-line { font-size: 10pt; }
+        .cs-col-month { width: 9%; }
+        .cs-col-event { width: 35%; }
+        .cs-col-cost, .cs-col-cover, .cs-col-rep { width: 9%; }
+        .cs-col-paid, .cs-col-balance { width: 11%; }
+    }
+    .cs-common {
+        flex: 0 0 2.6in;
+        font-size: 10pt;
+        line-height: 1.45;
+    }
+    .cs-common-title { font-weight: bold; text-align: center; letter-spacing: 0.03em; margin-bottom: 0.2rem; }
+    .cs-common-heading { font-weight: bold; }
+    .cs-common-line { padding-left: 0.6rem; strong { font-weight: bold; } }
+
+    // A printed check box: an empty square, an X when ticked.
+    input.cs-box-check {
+        appearance: none;
+        -webkit-appearance: none;
+        width: 1em;
+        height: 1em;
+        margin: 0 0.12em 0 0;
+        border: 1.5px solid $cs-ink;
+        border-radius: 0;
+        background: #fff;
+        vertical-align: -0.12em;
+        display: inline-block;
+        cursor: pointer;
+        &.cs-dashed { border-style: dashed; }
+        &:checked {
+            background: #fff center / 80% no-repeat url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 10 10'%3E%3Cpath d='M1 1L9 9M9 1L1 9' stroke='black' stroke-width='1.6'/%3E%3C/svg%3E");
+            -webkit-print-color-adjust: exact;
+            print-color-adjust: exact;
+        }
+        &:focus-visible { outline: 2px solid #c90; }
+    }
+
+    .cs-mallory {
+        margin-top: 0.6rem;
+        .cs-mallory-sub { font-weight: bold; text-align: center; margin-top: 0.2rem; }
+        .cs-mallory-hex { display: flex; justify-content: space-between; gap: 0.3rem; }
+    }
+    .cs-boxes { white-space: nowrap; }
+    .cs-center { text-align: center; }
+    .cs-options {
+        margin-top: 0.08in;
+        font-size: 10pt;
+        display: flex;
+        flex-wrap: wrap;
+        gap: 0.1rem 1.2rem;
+        padding-left: 0.5in;
+        max-width: 6.5in;
+        label { display: inline-flex; align-items: center; gap: 0.25rem; width: auto; margin: 0; white-space: nowrap; }
+    }
+
+    // Contracts and the negotiation worksheet: the printed text, blanks inline.
+    &.cs-document {
+        font-family: "Segoe UI", "Helvetica Neue", Arial, sans-serif;
+        font-size: 10pt;
+        line-height: 1.55;
+        .cs-doc-title {
+            font-family: "Arial Black", $cs-font;
+            font-weight: 900;
+            font-size: 20pt;
+            letter-spacing: 0.08em;
+            text-align: center;
+            margin-bottom: 0.15in;
+        }
+        .cs-doc-heading { font-family: "Arial Black", $cs-font; font-weight: 900; font-size: 13pt; margin: 0.12in 0 0.04in; }
+        .cs-doc-para { margin: 0 0 0.35rem; text-align: justify; }
+        .cs-indent { padding-left: 0.35in; }
+        .cs-doc-lead { font-family: $cs-font; font-size: 11pt; letter-spacing: 0.03em; }
+        input.cs-inline { display: inline-block; width: auto; flex: none; max-width: 100%; vertical-align: baseline; }
+        textarea.cs-area {
+            width: 100%;
+            border: none;
+            background: repeating-linear-gradient(transparent, transparent 1.45em, $cs-ink 1.45em, $cs-ink calc(1.45em + 1px));
+            line-height: 1.5em;
+            font: inherit;
+            color: $cs-ink;
+            resize: vertical;
+            &:focus { outline: none; background-color: #fff6c8; }
+        }
+        .cs-neg {
+            display: grid;
+            grid-template-columns: 1.6fr repeat(5, 1fr);
+            gap: 0 0.5rem;
+            align-items: end;
+            margin: 0.3rem 0 0.15rem;
+            &.cs-neg-head span { font-weight: bold; text-align: center; font-size: 9pt; line-height: 1.2; }
+            .cs-neg-fixed { text-align: center; }
+        }
+        .cs-doc-table {
+            margin: 0.1rem 0 0.3rem 0.35in;
+            border-collapse: collapse;
+            th { font-style: italic; font-weight: normal; padding-right: 1rem; text-align: left; }
+            td { padding: 0 1rem 0 0; }
+        }
+        .cs-page-break { break-after: page; height: 0.2in; border-bottom: 1px dashed #999; margin-bottom: 0.2in; }
+    }
+
+    .cs-footer {
+        margin-top: 0.15in;
+        text-align: center;
+        font-family: Arial, sans-serif;
+        font-size: 6.5pt;
+    }
+
+    // Phone width: the terms stack, the panel goes under the ledger, and the ledger scrolls on its own.
+    @media (max-width: 767.98px) {
+        padding: 0.75rem 0.5rem;
+        .cs-brand { font-size: 18pt; }
+        .cs-title-box { font-size: 9pt; padding: 0.25rem 0.5rem; }
+        .cs-body { flex-direction: column; }
+        .cs-ledger { width: 100%; overflow-x: auto; table { min-width: 38rem; } }
+        .cs-common { flex: 0 0 auto; }
+        .cs-options { padding-left: 0; }
+        &.cs-document .cs-neg { grid-template-columns: 1fr 1fr; gap: 0.2rem 0.5rem; }
+        &.cs-document .cs-neg-head { display: none; }
+        &.cs-document .cs-doc-table { margin-left: 0; font-size: 9pt; }
+        &.cs-document .cs-doc-title { font-size: 14pt; letter-spacing: 0.03em; }
+        &.cs-document .cs-doc-para { text-align: left; }
+        &.cs-document .cs-indent { padding-left: 0.75rem; }
+    }
+}
+
+@media print {
+    @page { size: letter portrait; margin: 0.3in; }
+    // The app's dark page must not show under the sheet.
+    html:has(.contract-sheet), body:has(.contract-sheet) { background: #fff !important; }
+    .campaign-contract-sheets { padding: 0; }
+    .contract-sheet {
+        // Taller ledger lines so the sheet fills the page, as the book's does.
+        .cs-ledger td { padding-top: 0.5rem; }
+        max-width: none;
+        box-shadow: none;
+        padding: 0;
+        font-size: 11pt;
+        input.cs-line:focus { background: transparent; }
+        .cs-box { box-shadow: 3px 3px 0 #aaa; -webkit-print-color-adjust: exact; print-color-adjust: exact; }
+        .cs-ledger tr { break-inside: avoid; }
+        input.cs-box-check:focus-visible { outline: none; }
+        textarea.cs-area { resize: none; }
+        // Mallory's World: its panel runs as long as the ledger, so the lines stay at the screen's spacing.
+        &.cs-form-hs-draconis-reach-mallorys-world {
+            .cs-ledger td { padding-top: 0.2rem; }
+            .cs-common { line-height: 1.3; }
+            .cs-header { margin-bottom: 0.08in; }
+            .cs-terms { margin-bottom: 0.1in; }
+        }
+        // One page for a contract, as printed; two for the worksheet.
+        &.cs-document {
+            font-size: 9.5pt;
+            line-height: 1.38;
+            .cs-doc-title { margin-bottom: 0.08in; }
+            .cs-doc-para { margin-bottom: 0.18rem; }
+            .cs-page-break { border: none; height: 0; margin: 0; }
+        }
+        &.cs-form-mh1987-contract {
+            font-size: 9pt;
+            .cs-doc-para { margin-bottom: 0.12rem; }
+        }
+        &.cs-form-fmm-worksheet {
+            font-size: 8pt;
+            line-height: 1.25;
+            .cs-doc-title { font-size: 16pt; }
+            .cs-doc-heading { font-size: 11pt; margin: 0.06in 0 0.02in; }
+            .cs-doc-para { margin-bottom: 0.08rem; text-align: left; }
+            .cs-neg { margin: 0.12rem 0 0.04rem; }
+            .cs-doc-table { margin-top: 0; margin-bottom: 0.08rem; }
+            input.cs-box-check { width: 0.9em; height: 0.9em; }
+        }
+    }
+}

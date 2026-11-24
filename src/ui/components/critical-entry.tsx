@@ -43,7 +43,7 @@ export default class CriticalEntry extends React.Component<ICriticalEntryProps, 
         if( e && e.preventDefault ) {
             e.preventDefault();
         }
-        let value = this.props.valueCritical;
+        const value = this.props.valueCritical;
         value.battlemech = +e.currentTarget.value;
 
         this.props.onChange( value );
@@ -55,7 +55,7 @@ export default class CriticalEntry extends React.Component<ICriticalEntryProps, 
         if( e && e.preventDefault ) {
             e.preventDefault();
         }
-        let value = this.props.valueCritical;
+        const value = this.props.valueCritical;
         value.protomech = +e.currentTarget.value;
 
         this.props.onChange( value );
@@ -67,7 +67,7 @@ export default class CriticalEntry extends React.Component<ICriticalEntryProps, 
         if( e && e.preventDefault ) {
             e.preventDefault();
         }
-        let value = this.props.valueCritical;
+        const value = this.props.valueCritical;
         value.supportVehicle = +e.currentTarget.value;
 
         this.props.onChange( value );
@@ -79,7 +79,7 @@ export default class CriticalEntry extends React.Component<ICriticalEntryProps, 
         if( e && e.preventDefault ) {
             e.preventDefault();
         }
-        let value = this.props.valueCritical;
+        const value = this.props.valueCritical;
         value.combatVehicle = +e.currentTarget.value;
 
         this.props.onChange( value );
@@ -90,7 +90,7 @@ export default class CriticalEntry extends React.Component<ICriticalEntryProps, 
         if( e && e.preventDefault ) {
             e.preventDefault();
         }
-        let value = this.props.valueCritical;
+        const value = this.props.valueCritical;
         value.aerospaceFighter = +e.currentTarget.value;
 
         this.props.onChange( value );
@@ -101,7 +101,7 @@ export default class CriticalEntry extends React.Component<ICriticalEntryProps, 
         if( e && e.preventDefault ) {
             e.preventDefault();
         }
-        let value = this.props.valueCritical;
+        const value = this.props.valueCritical;
         value.smallCraft = +e.currentTarget.value;
 
         this.props.onChange( value );
@@ -112,7 +112,7 @@ export default class CriticalEntry extends React.Component<ICriticalEntryProps, 
         if( e && e.preventDefault ) {
             e.preventDefault();
         }
-        let value = this.props.valueCritical;
+        const value = this.props.valueCritical;
         value.dropShip = +e.currentTarget.value;
 
         this.props.onChange( value );

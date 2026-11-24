@@ -21,20 +21,20 @@ export default class HeatSinksSVG extends React.Component<IHeatSinksSVGProps, IH
 
     render = (): JSX.Element => {
 
-    let heatSinkDots: JSX.Element[] = [];
+    const heatSinkDots: JSX.Element[] = [];
 
-	let lineHeight = 27;
+	const lineHeight = 27;
 
 	let hsCounter = 0;
 	let lCounter = 0;
 
-	let numHeatSinks = this.props.mechData.getHeatSinks();
+	const numHeatSinks = this.props.mechData.getHeatSinks();
 
-	let armorBubbleRadius = 15;
-	let hsTop = 185;
-	let hsLeft = 100;
+	const armorBubbleRadius = 15;
+	const hsTop = 185;
+	const hsLeft = 100;
 
-	let distanceFromCenter = 65;
+	const distanceFromCenter = 65;
 
 	let bgColor = "rgb(255,255,255)";
     let strokeColor = "rgb(0,0,0)";

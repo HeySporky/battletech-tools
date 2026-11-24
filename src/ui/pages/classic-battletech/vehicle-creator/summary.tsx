@@ -1,11 +1,16 @@
 import React, { type JSX } from 'react';
 import { Link } from 'react-router';
 import { IAppGlobals } from '../../../app-router';
-import VehicleCreatorSideMenu from '../../../components/vehicle-creator-side-menu';
+import { VehicleCreatorSideMenu } from '../../../components/creator-side-menus';
+import QuirkPicker from '../../../components/quirk-picker';
 import TextSection from '../../../components/text-section';
 import UIPage from '../../../components/ui-page';
 import SanitizedHTML from '../../../components/sanitized-html';
+import { VehicleCalcBreakdown } from '../../../components/calc-breakdown';
+import { SupportVehicleCalcBreakdown } from '../../../components/support-vehicle-calc-breakdown';
 import { formatVehicleASDamage } from '../../../../classes/vehicle';
+import { unitRulesLevel } from '../../../components/game-settings-block';
+import { formatBattleValue } from '../../../../data/battle-value';
 
 export default class VehicleCreatorSummary extends React.Component<ISummaryProps, ISummaryState> {
     constructor(props: ISummaryProps) {
@@ -32,13 +37,13 @@ export default class VehicleCreatorSummary extends React.Component<ISummaryProps
                     <div className="col-md-9 col-lg-10">
                         <TextSection label={`${vehicle.getModel()} ${vehicle.getName()}`.trim() || "Vehicle Summary"}>
                             <p>
-                                <strong>{vehicle.getMotiveType().name}</strong> - {vehicle.getTonnage()} tons
+                                <strong>{vehicle.isOmni() ? "Omni " : ""}{vehicle.getMotiveType().name}</strong> - {vehicle.getTonnage()} tons
                                 {vehicle.hasTurret() ? ` - ${vehicle.getTurretName()}` : " - No Turret"}
                                 {` - Cruise ${vehicle.getCruiseMP()} / Flank ${vehicle.getFlankMP()}${vehicle.getJumpMP() > 0 ? ` / Jump ${vehicle.getJumpMP()}` : ""} - ${vehicle.getEngineType().name} ${vehicle.getEngineRating()} - Crew ${vehicle.getCrew()} - Item Slots ${vehicle.getUsedItemSlots()}/${vehicle.getTotalItemSlots()}`}
                             </p>
 
                             <p>
-                                <strong>Battle Value</strong>: {vehicle.getBattleValue()} &nbsp;|&nbsp;
+                                <strong>Battle Value</strong>: {formatBattleValue((edition) => vehicle.getBattleValue(edition), "vehicle", vehicle.getRulesEdition())} &nbsp;|&nbsp;
                                 <strong>C-Bill Cost</strong>: {vehicle.getCBillCost().toLocaleString()}
                             </p>
 
@@ -82,6 +87,18 @@ export default class VehicleCreatorSummary extends React.Component<ISummaryProps
                                     <tr><td>Point Value</td><td>{as.pointValue}</td></tr>
                                 </tbody>
                             </table>
+                            {vehicle.getAlphaStrikeSpecialAmmoOptions().length > 0 ? (
+                                <label>
+                                    Special Ammunition:<br />
+                                    <select
+                                        value={vehicle.getAlphaStrikeSpecialAmmoTag()}
+                                        onChange={(event) => { vehicle.setAlphaStrikeSpecialAmmoTag(event.currentTarget.value); this.props.appGlobals.saveCurrentVehicle(vehicle); this.setState({ updated: !this.state.updated }); }}
+                                    >
+                                        <option value="">Standard ammunition</option>
+                                        {vehicle.getAlphaStrikeSpecialAmmoOptions().map((ammo) => <option key={ammo.tag} value={ammo.tag}>{ammo.name}</option>)}
+                                    </select>
+                                </label>
+                            ) : null}
                             <SanitizedHTML raw={true} html={as.calcLog} />
                             <p className="smaller-text">
                                 Converted with the Alpha Strike Companion rules as implemented by MegaMek; published
@@ -89,12 +106,29 @@ export default class VehicleCreatorSummary extends React.Component<ISummaryProps
                                 MUL card.
                             </p>
                             <Link to={`${process.env.PUBLIC_URL}/classic-battletech/vehicle-creator/print-as`} className="btn btn-primary btn-sm">Print Alpha Strike Card</Link>
+                            {" "}
+                            <Link to={`${process.env.PUBLIC_URL}/classic-battletech/vehicle-creator/print-tro`} className="btn btn-primary btn-sm">Print the TRO sheet</Link>
 
-                            <h3>Battle Value Calculation</h3>
-                            <SanitizedHTML raw={true} html={vehicle.getBattleValueLog()} />
+                            <QuirkPicker
+                                quirks={vehicle.quirks}
+                                unitType={vehicle.getQuirkUnitType()}
+                                editionTag={vehicle.getRulesEdition()}
+                                rulesLevel={unitRulesLevel(this.props.appGlobals.currentVehicle, this.props.appGlobals.appSettings)}
+                                {...vehicle.getQuirkTargets()}
+                                onChange={() => this.props.appGlobals.saveCurrentVehicle(vehicle)}
+                            />
 
-                            <h3>C-Bill Cost Calculation</h3>
-                            <SanitizedHTML raw={true} html={vehicle.getCBillCostLog()} />
+                            {vehicle.isSupportVehicle() ? (
+                                <>
+                                    <h3>Calculations</h3>
+                                    <SupportVehicleCalcBreakdown vehicle={vehicle} />
+                                </>
+                            ) : (
+                                <>
+                                    <h3>Calculations</h3>
+                                    <VehicleCalcBreakdown vehicle={vehicle} />
+                                </>
+                            )}
 
                             <div className="clear-both overflow-hidden">
                                 <hr />

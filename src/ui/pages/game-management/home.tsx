@@ -28,6 +28,10 @@ export default class GameManagementHome extends React.Component<IGameManagementH
                   <TableViewIcon />
                   Alpha Strike Match Play
                 </Link>
+                <Link  to={`${process.env.PUBLIC_URL}/game-management/campaigns`}>
+                  <TableViewIcon />
+                  Campaigns
+                </Link>
               </div>
            </TextSection>
 

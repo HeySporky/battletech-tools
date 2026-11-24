@@ -13,17 +13,17 @@ export default class BattleMechHeatEffectsBoxSVG extends React.Component<IBattle
 
     render = (): JSX.Element => {
 
-        let effectsTable: JSX.Element[] = [];
+        const effectsTable: JSX.Element[] = [];
 
 	// Heat Effects....
 	// let this.props.yLoc = 1885;
 	// let this.props.xLoc = 1240;
 	// svgCode += createRSGroupBox( "Heat Effects", this.props.xLoc, this.props.yLoc, 575, 435);
-	let col1Loc = 70;
-	let col2Loc = 90;
+	const col1Loc = 70;
+	const col2Loc = 90;
 
 	let hCounter = 0;
-	let lineHeight = 27;
+	const lineHeight = 27;
 
 	let bgColor = "rgb(255,255,255)";
     let strokeColor = "rgb(0,0,0)";
