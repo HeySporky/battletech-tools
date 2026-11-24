@@ -29,7 +29,7 @@ export default class InputField extends React.Component<IInputFieldProps, IInput
     }
 
     setText = (newValue: string) => {
-        let event = {
+        const event = {
             currentTarget: {
                 value: newValue,
             }

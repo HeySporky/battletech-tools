@@ -1,7 +1,12 @@
 import { IASMULUnit } from "../../classes/alpha-strike-unit";
-import { DEFAULT_MUL_SOURCE_SELECTION, isMULSourceSelection, MULSourceSelection } from "../../data/mul-list-items";
-import { ESaveDataMode } from "../../dataSaves";
+import { DEFAULT_MUL_SOURCE_SELECTION, MULSourceSelection, normalizeMULSourceSelection } from "../../data/mul-list-items";
+import { normalizeStandingSelection, UNIT_STANDING_ORDER, UnitStanding } from "../../utils/unit-standing";
+import { ESaveDataMode } from "../../dataSavesStorage";
 import { CUSTOM_HOMEBREW_RULES_LEVEL } from "../../data/rules-level-options";
+import { IMULSearchFilters, newMULSearchFilters } from "../../utils/mulSearchFilters";
+
+/** BattleMech: the Classic MUL search covers 'Mechs first (Ideas #84, round 1). */
+export const CBT_MUL_DEFAULT_TYPE = 18;
 
 /** 2: levels 5 Apocryphal, 6 Custom Homebrew, 7 Munchkin. Before it, 5 was Custom Homebrew. */
 const RULES_LEVEL_SCHEME = 2;
@@ -15,6 +20,8 @@ export class AppSettings {
 
     mechRulesFilter: number = 2; // Defaults to "Standard"
     mechNameFilter: string = "";
+    // The Classic Roster's Master Unit List search, kept apart from the Alpha Strike one.
+    cbtMULSearch: IMULSearchFilters = newMULSearchFilters({ type: CBT_MUL_DEFAULT_TYPE });
 
     storageLocation: ESaveDataMode = ESaveDataMode.localStorage;
 
@@ -27,12 +34,14 @@ export class AppSettings {
     alphaStrikeSearchEra: number = 0;
     alphaStrikeSearchType: number = 0;
     alphaStrikeFactionSearchTerm: string = "";
-    alphaStrikeFactionSuggestions: Array<number> = [];
     alphaStrikeSearchFactions: Array<number> = [];
     alphaStrikeAbilitySearchTerm: string = "";
     // Ability codes the unit must have; a "!" prefix means it must not have it.
     alphaStrikeSearchAbilities: Array<string> = [];
+    // Special Rulesets (#324) the search follows.
+    alphaStrikeSearchRulesets: Array<string> = [];
     alphaStrikeMULSources: MULSourceSelection = DEFAULT_MUL_SOURCE_SELECTION;
+    alphaStrikeSearchStandings: UnitStanding[] = UNIT_STANDING_ORDER;
     hideMPIntro: boolean = false;
 
     equipmentEditorFile: string = "";
@@ -83,7 +92,7 @@ export class AppSettings {
                 this.alphaStrikeSearchEra = +io.alphaStrikeSearchEra;
             }
 
-            if ( typeof( io.alphaStrikeSearchTech ) !== "undefined" ) {
+            if ( typeof( io.alphaStrikeSearchTech ) === "string" ) {
                 this.alphaStrikeSearchTech = io.alphaStrikeSearchTech;
             }
             if ( typeof( io.alphaStrikeSearchType ) !== "undefined" ) {
@@ -101,10 +110,12 @@ export class AppSettings {
             if ( Array.isArray( io.alphaStrikeSearchAbilities ) ) {
                 this.alphaStrikeSearchAbilities = io.alphaStrikeSearchAbilities.filter( (ability) => typeof ability === "string" );
             }
-
-            if ( isMULSourceSelection( io.alphaStrikeMULSources ) ) {
-                this.alphaStrikeMULSources = io.alphaStrikeMULSources;
+            if ( Array.isArray( io.alphaStrikeSearchRulesets ) ) {
+                this.alphaStrikeSearchRulesets = io.alphaStrikeSearchRulesets.filter( (id) => typeof id === "string" );
             }
+
+            this.alphaStrikeMULSources = normalizeMULSourceSelection( io.alphaStrikeMULSources ) ?? DEFAULT_MUL_SOURCE_SELECTION;
+            this.alphaStrikeSearchStandings = normalizeStandingSelection( io.alphaStrikeSearchStandings ) ?? UNIT_STANDING_ORDER;
 
             if ( typeof( io.asValues ) !== "undefined" ) {
                 this.asValues = io.asValues;
@@ -119,6 +130,21 @@ export class AppSettings {
                 if ( io.rulesLevelScheme !== RULES_LEVEL_SCHEME && this.mechRulesFilter === 5 ) {
                     this.mechRulesFilter = CUSTOM_HOMEBREW_RULES_LEVEL;
                 }
+            }
+            if ( io.cbtMULSearch && typeof( io.cbtMULSearch ) === "object" ) {
+                const saved = io.cbtMULSearch;
+                this.cbtMULSearch = newMULSearchFilters({
+                    term: typeof saved.term === "string" ? saved.term : "",
+                    rules: typeof saved.rules === "string" ? saved.rules : "",
+                    tech: typeof saved.tech === "string" ? saved.tech : "",
+                    role: typeof saved.role === "string" ? saved.role : "",
+                    era: Number.isFinite( +saved.era ) ? +saved.era : 0,
+                    type: Number.isFinite( +saved.type ) ? +saved.type : CBT_MUL_DEFAULT_TYPE,
+                    factions: Array.isArray( saved.factions ) ? saved.factions.filter( (id) => typeof id === "number" ) : [],
+                    sources: normalizeMULSourceSelection( saved.sources ) ?? DEFAULT_MUL_SOURCE_SELECTION,
+                    rulesets: Array.isArray( saved.rulesets ) ? saved.rulesets.filter( (id) => typeof id === "string" ) : [],
+                    standings: normalizeStandingSelection( saved.standings ) ?? UNIT_STANDING_ORDER,
+                });
             }
             if ( typeof( io.hideMPIntro ) !== "undefined" ) {
                 this.hideMPIntro = io.hideMPIntro;
@@ -144,13 +170,16 @@ export class AppSettings {
             asValues: this.asValues,
             alphaStrikeSearchFactions: this.alphaStrikeSearchFactions,
             alphaStrikeSearchAbilities: this.alphaStrikeSearchAbilities,
+            alphaStrikeSearchRulesets: this.alphaStrikeSearchRulesets,
             alphaStrikeMULSources: this.alphaStrikeMULSources,
+            alphaStrikeSearchStandings: this.alphaStrikeSearchStandings,
             hideMPIntro: this.hideMPIntro,
         
 
             mechRulesFilter: this.mechRulesFilter,
             rulesLevelScheme: RULES_LEVEL_SCHEME,
             mechNameFilter: this.mechNameFilter,
+            cbtMULSearch: this.cbtMULSearch,
         }
     }
 }
@@ -171,7 +200,10 @@ export interface IAppSettingsExport {
     alphaStrikeMeasurementsInHexes: boolean;
     alphaStrikeSearchFactions: Array<number>;
     alphaStrikeSearchAbilities?: Array<string>;
-    alphaStrikeMULSources?: MULSourceSelection;
+    alphaStrikeSearchRulesets?: Array<string>;
+    // A "mul2+mul1"-style string in settings saved before the lists became checkboxes.
+    alphaStrikeMULSources?: MULSourceSelection | string;
+    alphaStrikeSearchStandings?: unknown;
     hideMPIntro: boolean;
    
     equipmentEditorFile: string;
@@ -181,4 +213,5 @@ export interface IAppSettingsExport {
     /** Which numbering mechRulesFilter uses; absent in settings saved before the levels above Experimental were added. */
     rulesLevelScheme?: number
     mechNameFilter: string
+    cbtMULSearch?: IMULSearchFilters
 }

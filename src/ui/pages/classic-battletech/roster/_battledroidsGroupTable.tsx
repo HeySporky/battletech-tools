@@ -72,7 +72,7 @@ export default class BattledroidsGroupTable extends React.Component<IBattledroid
             <table className="table" data-testid="battledroids-group-table">
                 <thead>
                     <tr>
-                        {this.props.showEdit ? <th className="min-width no-wrap"></th> : null}
+                        {this.props.showEdit ? <th className="min-width no-wrap"><span className="visually-hidden">Actions</span></th> : null}
                         <th>Battledroids (1984) Tanks, Jeeps and Infantry</th>
                         <th>Weapons</th>
                         <th className="min-width no-wrap text-center">MP</th>

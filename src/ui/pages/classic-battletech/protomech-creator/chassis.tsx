@@ -7,17 +7,16 @@ import {
 } from '../../../../data/protomech-construction';
 import { IAppGlobals } from '../../../app-router';
 import InputField from "../../../components/form_elements/input_field";
-import ProtoMechCreatorSideMenu from '../../../components/protomech-creator-side-menu';
-import RulesEditionSelect from '../../../components/rules-edition-select';
-import RulesLevelSelect from '../../../components/rules-level-select';
+import { ProtoMechCreatorSideMenu } from '../../../components/creator-side-menus';
 import TextSection from '../../../components/text-section';
 import UIPage from '../../../components/ui-page';
 import ProtoMechStatusBar from './_statusBar';
+import { UnitGameSettingsBlock, unitRulesLevel } from '../../../components/game-settings-block';
 const ArrowCircleRight = FaArrowCircleRight as any;
 
 const range = (from: number, to: number): number[] => Array.from({ length: Math.max(0, to - from + 1) }, (_unused, index) => from + index);
-const JUMP_NAMES: Record<ProtoMechJumpType, string> = { none: "None", standard: "Jump Jets", extended: "Extended Jump Jet (XJJ) System", umu: "UMUs" };
-const JUMP_LEVELS: Record<ProtoMechJumpType, number> = { none: 0, standard: 2, extended: 2, umu: PROTOMECH_EXPERIMENTAL_RULES_LEVEL };
+const JUMP_NAMES: Record<ProtoMechJumpType, string> = { none: "None", standard: "Jump Jets", extended: "Extended Jump Jet (XJJ) System", umu: "UMUs", pack: "Jump Pack" };
+const JUMP_LEVELS: Record<ProtoMechJumpType, number> = { none: 0, standard: 2, extended: 2, umu: PROTOMECH_EXPERIMENTAL_RULES_LEVEL, pack: 3 };
 
 export default class ProtoMechCreatorChassis extends React.Component<IChassisProps> {
     constructor(props: IChassisProps) {
@@ -34,16 +33,10 @@ export default class ProtoMechCreatorChassis extends React.Component<IChassisPro
         }
     }
 
-    updateRulesLevel = (level: number): void => {
-        const appSettings = this.props.appGlobals.appSettings;
-        appSettings.mechRulesFilter = level;
-        this.props.appGlobals.saveAppSettings(appSettings);
-    }
-
     render = (): JSX.Element => {
         const proto = this.props.appGlobals.currentProtoMech;
         if (!proto) return <></>;
-        const rulesLevel = this.props.appGlobals.appSettings.mechRulesFilter;
+        const rulesLevel = unitRulesLevel(this.props.appGlobals.currentProtoMech, this.props.appGlobals.appSettings);
         const advanced = rulesLevel >= PROTOMECH_ADVANCED_RULES_LEVEL;
         const experimental = rulesLevel >= PROTOMECH_EXPERIMENTAL_RULES_LEVEL;
         const maxTons = advanced || proto.isUltraheavy() ? proto.getMaxTons() : PROTOMECH_MAX_STANDARD_TONS;
@@ -59,22 +52,13 @@ export default class ProtoMechCreatorChassis extends React.Component<IChassisPro
                     <div className="col-md-9 col-lg-10">
                         <ProtoMechStatusBar proto={proto} />
                         <TextSection label="Step 1: Design the Chassis">
-                            {/* The rules edition comes first: it decides what every field below offers. */}
-                            <RulesEditionSelect unitType="protomech" value={proto.getRulesEdition()} onChange={(tag) => this.update((p) => p.setRulesEdition(tag))} />
-                            <RulesLevelSelect editionTag={proto.getRulesEdition()} value={rulesLevel} onChange={this.updateRulesLevel} />
+                            {/* The shared settings block comes first: it decides what every field below offers (#324). */}
+                            <UnitGameSettingsBlock unitType="protomech" unit={proto} appGlobals={this.props.appGlobals} onChange={() => this.update(() => undefined)} />
                             <InputField
                                 label="Name (e.g. Centaur 2, Roc)"
                                 value={proto.getName()}
                                 onChange={(e) => { const value = e.currentTarget.value; this.update((p) => p.setName(value)); }}
                             />
-                            <label>
-                                Era:
-                                <select data-testid="pm-era" value={proto.getEra().tag} onChange={(e) => { const value = e.currentTarget.value; this.update((p) => p.setEra(value)); }}>
-                                    {proto.getAvailableEras().map((option) => (
-                                        <option key={option.tag} value={option.tag}>{option.name}</option>
-                                    ))}
-                                </select>
-                            </label>
                             <label>
                                 Chassis Type:
                                 <select data-testid="pm-chassis" value={proto.getChassis()} onChange={(e) => { const value = e.currentTarget.value; this.update((p) => p.setChassis(value)); }}>
@@ -177,11 +161,20 @@ export default class ProtoMechCreatorChassis extends React.Component<IChassisPro
                                         Jump Capability:
                                         <select data-testid="pm-jump-type" value={jumpType} onChange={(e) => { const value = e.currentTarget.value; this.update((p) => p.setJump(value, p.getJumpJets() || 1)); }}>
                                             {proto.getAvailableJumpTypes().filter((type) => JUMP_LEVELS[type] <= rulesLevel || type === jumpType).map((type) => (
-                                                <option key={type} value={type}>{JUMP_NAMES[type]}{type === "umu" ? " (Experimental; TO:AUE p. 107)" : type === "extended" ? " (IO:AE p. 59)" : ""}</option>
+                                                <option key={type} value={type}>{JUMP_NAMES[type]}{type === "umu" ? " (Experimental; TO:AUE p. 107)" : type === "extended" ? " (IO:AE p. 59)" : type === "pack" ? " (Advanced; TO:AUE p. 105)" : ""}</option>
                                             ))}
                                         </select>
                                     </label>
-                                    {jumpType !== "none" ? (
+                                    {jumpType === "pack" ? (
+                                        <label>
+                                            Jump Pack Tons:
+                                            <select data-testid="pm-jump-pack-tons" value={proto.getJumpPackTons()} onChange={(e) => { const value = +e.currentTarget.value; this.update((p) => { p.setJumpPackTons(value); }); }}>
+                                                {range(0, proto.getMaxJumpPackTons() * 2).map((half) => <option key={half} value={half / 2}>{half / 2}</option>)}
+                                            </select>
+                                            &nbsp;{proto.getJumpPackMP()} Jump MP, {proto.getJumpPackFuel()} fuel points; no design weight, 20,000 C-bills a ton (TO:AUE p. 105)
+                                        </label>
+                                    ) : null}
+                                    {jumpType !== "none" && jumpType !== "pack" ? (
                                         <label>
                                             {jumpType === "umu" ? "UMUs:" : "Jump Jets:"}
                                             <select data-testid="pm-jump-mp" value={proto.getJumpJets()} onChange={(e) => { const value = +e.currentTarget.value; this.update((p) => p.setJump(p.getJumpType(), value)); }}>

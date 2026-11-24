@@ -319,9 +319,10 @@ describe("Vehicle play mode: save and roster", () => {
         pilot.piloting = 4;
         tank.setPilot(pilot);
         expect(tank.getPilotAdjustedBattleValue()).toBe(Math.round(tank.getBattleValue() * 1.32));
-        // Master Rules p.144 gives 1.25 for the same crew; the 1987 Manual has no Battle Value to adjust.
-        expect(tank.getPilotAdjustedBattleValue("master-rules")).toBe(Math.round(tank.getBattleValue() * 1.25));
-        expect(tank.getPilotAdjustedBattleValue("battletech-manual")).toBe(tank.getBattleValue());
+        // A BV1 reads its own edition's table (Master Rules p.144: 1.25); the 1987 Manual has no Battle Value, so it
+        // shows BV2 on the TechManual table (plan ruling 2).
+        expect(tank.getPilotAdjustedBattleValue("master-rules")).toBe(Math.round(tank.getBattleValue("master-rules") * 1.25));
+        expect(tank.getPilotAdjustedBattleValue("battletech-manual")).toBe(Math.round(tank.getBattleValue() * 1.32));
     });
 
     it("groups carry vehicles in totals and in saves; older saves without vehicles still load", () => {
@@ -330,7 +331,7 @@ describe("Vehicle play mode: save and roster", () => {
         group.vehicles.push(tank);
         expect(group.getTotalUnits()).toBe(1);
         expect(group.getTotalTons()).toBe(50);
-        expect(group.getTotaBV2()).toBe(tank.getBattleValue());
+        expect(group.getTotalBattleValue()).toBe(tank.getBattleValue());
         const reloaded = new BattleMechGroup(group.export());
         expect(reloaded.vehicles.length).toBe(1);
 
@@ -348,5 +349,23 @@ describe("Vehicle play mode: save and roster", () => {
         tank.setMovement("cruise", 3);
         tank.turnReset();
         expect(tank.getInPlay().movementMode).toBe("stationary");
+    });
+});
+
+describe("the power dial on a vehicle (#645)", () => {
+    it("keeps the setting with the play state; an old save is at the top", () => {
+        const tank = buildTank();
+        tank.addEquipmentFromTag("bombast-laser");
+        const bombast = tank.getEquipmentList().find((item) => item.tag === "bombast-laser")!;
+        expect(bombast).toBeDefined();
+        expect(tank.getDialSetting(bombast.uuid!)).toBe(12);
+        tank.setDialSetting(bombast.uuid!, 8);
+        expect(tank.getDialSetting(bombast.uuid!)).toBe(8);
+        tank.setDialSetting(bombast.uuid!, 20);
+        expect(tank.getDialSetting(bombast.uuid!)).toBe(12);
+        tank.setDialSetting(bombast.uuid!, 9);
+        const copy = new Vehicle(tank.exportJSON());
+        const saved = copy.getEquipmentList().find((item) => item.tag === "bombast-laser")!;
+        expect(copy.getDialSetting(saved.uuid!)).toBe(9);
     });
 });

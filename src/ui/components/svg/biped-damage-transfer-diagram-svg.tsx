@@ -1,5 +1,6 @@
 
 import React, { type JSX } from 'react';
+import { ArmlessClip } from './biped-armor-diagram';
 
 export default class BipedDamageTransferDiagramSVG extends React.Component<IBipedDamageTransferDiagramSVGProps, IBipedDamageTransferDiagramSVGState> {
     bgColor = "rgb(255,255,255)";
@@ -19,8 +20,8 @@ export default class BipedDamageTransferDiagramSVG extends React.Component<IBipe
             this.strokeColor = this.props.strokeColor;
         }
 
-        let baseWidth = 744.09448819;
-        let baseHeight = 1052.3622047;
+        const baseWidth = 744.09448819;
+        const baseHeight = 1052.3622047;
         if( this.props.width ) {
             this.theWidth = this.props.width;
             this.theHeight = Math.round( this.props.width / baseWidth * baseHeight );
@@ -62,7 +63,8 @@ export default class BipedDamageTransferDiagramSVG extends React.Component<IBipe
                 y={this.props.yLoc}
                 id="armorTransferDiagram"
                 version="1.1">
-                <g>
+                <ArmlessClip armless={this.props.armless} name="armless-outline-transfer" points="290,0 290,180 183,190 183,645 0,645 0,1060 768,1060 768,645 585,645 585,190 478,180 478,0">
+<g>
                 <g
                 transform="translate(0,-3.75)"
                 id="layer1"
@@ -75,12 +77,20 @@ export default class BipedDamageTransferDiagramSVG extends React.Component<IBipe
             </path>
 </g>
 </g>
+{/* An armless 'Mech's arm hits do not transfer (Maximum Tech p.62): no arrows into the side torsos. */}
+{this.props.armless ? <>
+    <rect x={198} y={218} width={54} height={84} fill={this.bgColor} />
+    <rect x={516} y={218} width={54} height={84} fill={this.bgColor} />
+</> : null}
+</ArmlessClip>
+
 </svg>
       );
     }
 }
 
 interface IBipedDamageTransferDiagramSVGProps {
+    armless?: boolean;
     bgColor?: string;
     strokeColor?: string;
 

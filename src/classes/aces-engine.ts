@@ -13,8 +13,15 @@ import {
     TAcesMoveType,
     TAcesStat,
     acesTextToPlain,
+    parseAcesPriorityLine,
 } from "../data/aces-cards";
 import {
+    asceAerospaceCriticalTable,
+    asceDropShipCriticalTable,
+    asceMechCriticalTable,
+    asceProtoMechCriticalTable,
+    asceVehicleCriticalTable,
+    TAsceCritical,
     acesMotiveSystemsTable,
     acesVehicleCriticalHitTable,
     ACES_MAX_AUTOMATED_TARGET_NUMBER,
@@ -22,6 +29,7 @@ import {
     lookupAcesTable,
     TAcesMotiveEffect,
     TAcesVehicleCritical,
+    getAcesRulesType,
 } from "../data/aces-rules";
 import { AlphaStrikeUnit } from "./alpha-strike-unit";
 
@@ -120,6 +128,8 @@ export const getAcesUnitStats = ( unit: AlphaStrikeUnit ): IAcesUnitStats => {
         "damage-l": +unit.currentDamage.long || 0,
         "size": unit.size,
         "heat": unit.currentHeat,
+        "armor-start": unit.armor,
+        "structure-start": unit.structure,
     };
 }
 
@@ -138,6 +148,8 @@ export const getAcesDestroyObjectiveStats = ( currentCF: number = 0, startingCF:
         "damage-l": 0,
         "size": startingCF,
         "heat": 0,
+        "armor-start": startingCF,
+        "structure-start": startingCF,
     };
 }
 
@@ -156,6 +168,8 @@ export interface IAcesCandidate {
     moved?: boolean;
     /** The automated unit can attack it: after moving (Movement Phase) or now (Combat Phase). */
     canAttack?: boolean;
+    /** The automated unit can see it now (Aces p.9); unknown counts as neither seen nor unseen. */
+    inLOS?: boolean;
     /** Target Number against it (Combat Phase). */
     targetNumber?: number | null;
     /** Has already taken enough damage to be destroyed this turn (Aces p.18). */
@@ -192,8 +206,9 @@ export const narrowAcesCandidates = (
     trace: string[] = [],
 ): IAcesNarrowResult => {
     let remaining = candidates.slice();
-    for( const rule of rules ) {
+    for( let rule of rules ) {
         if( remaining.length <= 1 ) break;
+        if( !rule.stat && !rule.color && !rule.objective && !rule.noArmor && !rule.unresolved ) rule = parseAcesPriorityLine( rule.text );
         const label = acesTextToPlain( rule.text );
         if( rule.unresolved ) {
             trace.push( "Skipped unreadable line \"" + label + "\"." );
@@ -215,6 +230,8 @@ export const narrowAcesCandidates = (
             matched = bestByStat( remaining, rule.stat, rule.direction );
         } else if( rule.objective ) {
             matched = remaining.filter( ( candidate ) => candidate.isObjective );
+        } else if( rule.noArmor ) {
+            matched = remaining.filter( ( candidate ) => candidate.stats.armor === 0 );
         } else {
             const answer = judgements[rule.text];
             if( !answer ) return { remaining: remaining, trace: trace, pending: rule };
@@ -348,8 +365,9 @@ const finishTarget = ( remaining: IAcesCandidate[], trace: string[], pending: IA
 
 /**
  * Identify the target for movement (Aces p.12). Filters first: ⌖ keeps enemies the unit can attack after moving,
- * ✔ keeps enemies that have moved; if either leaves nobody the column is skipped. Then the closest Zone, then the
- * color list or "nearest".
+ * ✔ keeps enemies that have moved; if either leaves nobody the column is skipped. The line-of-sight icons (Aces p.9)
+ * sit with them on some cards (Missile Boat, Scout): 👁 keeps enemies the unit can see, ⊘ those it cannot, and
+ * skip the column the same way. Then the closest Zone, then the color list or "nearest".
  */
 export const identifyAcesMovementTarget = (
     column: IAcesBehaviorColumn,
@@ -374,6 +392,20 @@ export const identifyAcesMovementTarget = (
         candidates = candidates.filter( ( candidate ) => candidate.moved || candidate.isObjective );
         if( candidates.length === 0 ) {
             trace.push( "No enemy has moved yet: skip this column." );
+            return { target: null, tied: [], skipColumn: true, noTargets: false, trace: trace, pending: null };
+        }
+    }
+    if( column.targetInLOS ) {
+        candidates = candidates.filter( ( candidate ) => candidate.inLOS === true );
+        if( candidates.length === 0 ) {
+            trace.push( "No enemy is in line of sight: skip this column." );
+            return { target: null, tied: [], skipColumn: true, noTargets: false, trace: trace, pending: null };
+        }
+    }
+    if( column.targetNoLOS ) {
+        candidates = candidates.filter( ( candidate ) => candidate.inLOS === false );
+        if( candidates.length === 0 ) {
+            trace.push( "Every enemy is in line of sight: skip this column." );
             return { target: null, tied: [], skipColumn: true, noTargets: false, trace: trace, pending: null };
         }
     }
@@ -623,9 +655,21 @@ export const orderAcesSupportCards = <T extends IAcesSupportCard>( cards: T[] ):
     } );
 }
 
+/** The Command card's support orders say Battlefield Support is only spent when it will hit structure. */
+export const acesSupportOnlyIfStructure = ( commandCard: IAcesCommandCard | null ): boolean => {
+    if( !commandCard ) return false;
+    return commandCard.supportOnlyIfStructure || /hit[^.]*structure/i.test( commandCard.supportOrders );
+}
+
+/** The N in the Command card's "up to N" Battlefield Support cards, or null when it names no limit. */
+export const getAcesSupportSpendLimit = ( supportOrders: string ): number | null => {
+    const match = /up to (\d+)/i.exec( supportOrders || "" );
+    return match ? +match[1] : null;
+}
+
 /** Support order check: a card that must hit structure is played only when its damage gets through the armor. */
 export const acesSupportCardAllowed = ( commandCard: IAcesCommandCard | null, damage: number, targetArmor: number ): boolean => {
-    if( !commandCard || !commandCard.supportOnlyIfStructure ) return true;
+    if( !acesSupportOnlyIfStructure( commandCard ) ) return true;
     return damage > targetArmor;
 }
 
@@ -641,10 +685,13 @@ export const acesSpotterAttacks = ( spotterDamage: number, indirectFireTotal: nu
  * Command cards (Aces pp.8, 10, 21)
  * ------------------------------------------------------------------------------------------------------------- */
 
+/** A printed "None." order is the card saying it has no order. */
+export const isAcesNoOrder = ( text: string ): boolean => /^\s*none\.?\s*$/i.test( text );
+
 /** Orders on a Command card that apply to a phase. */
 export const getAcesOrdersForPhase = ( card: IAcesCommandCard | null, phase: string ): IAcesCommandOrder[] => {
     if( !card ) return [];
-    return card.orders.filter( ( order ) => order.phase === phase || order.phase === "any" );
+    return card.orders.filter( ( order ) => ( order.phase === phase || order.phase === "any" ) && !isAcesNoOrder( order.text ) );
 }
 
 /**
@@ -688,6 +735,10 @@ export const evaluateAcesStrategy = (
 ): IAcesStrategyResult => {
     const trace: string[] = [];
     for( const row of card.strategy ) {
+        if( row.auto === "maintain" ) {
+            trace.push( acesTextToPlain( row.text ) + ": card " + card.letter + " stays." );
+            return { letter: null, pending: null, trace: trace };
+        }
         let value: boolean | null | undefined = answers[row.letter];
         if( row.auto === "objective-complete" ) value = auto.objectiveComplete;
         if( row.auto === "enemy-no-armor" ) value = auto.enemyWithNoArmor;
@@ -711,8 +762,22 @@ export const evaluateAcesStrategy = (
 
 export interface IAcesCriticalResult {
     roll: number | null;
-    effect: TAcesVehicleCritical | "weapon" | "use-asce-table";
+    effect: TAcesVehicleCritical | TAsceCritical | "weapon" | "use-asce-table";
     label: string;
+    /** An IndustrialMech rolls twice under ASCE (p.50): the second result. */
+    also?: IAcesCriticalResult;
+}
+
+/** The ASCE table for a unit type, or null when the book prints none (ships, buildings). */
+const asceTableFor = ( type: string ) => {
+    switch( type ) {
+        case "BM": case "IM": case "MM": return asceMechCriticalTable;
+        case "PM": return asceProtoMechCriticalTable;
+        case "CV": case "SV": return asceVehicleCriticalTable;
+        case "AF": case "CF": return asceAerospaceCriticalTable;
+        case "SC": case "DS": case "DA": return asceDropShipCriticalTable;
+        default: return null;
+    }
 }
 
 /**
@@ -725,8 +790,34 @@ export const rollAcesCriticalHit = (
     unitType: string,
     isEmplacement: boolean,
     rng: IAcesRngState,
+    /** A Micro-Mech's state, for MCR's Engine Hit: whether it has ENE, and its Engine Hits before this one. */
+    micro?: { energy: boolean, engineHits: number },
 ): IAcesCriticalResult => {
-    const type = unitType.toUpperCase();
+    const result = rollAcesCriticalHitByTable( ruleset, unitType, isEmplacement, rng );
+    if( unitType.toUpperCase() !== "MM" || result.effect !== "engine" ) return result;
+    // MCR (this app's Micro-Mech rules, Custom Homebrew): the first Engine Hit stops an ENE unit's weapon attacks
+    // and is a Weapon Hit for any other; the second destroys the unit.
+    if( ( micro?.engineHits ?? 0 ) >= 1 ) {
+        return { ...result, label: "Engine Hit: a second Engine Hit, so the Micro-Mech is destroyed (MCR)" };
+    }
+    if( micro?.energy ) {
+        return { ...result, label: "Engine Hit: the Micro-Mech (ENE) can make no more weapon attacks; a second Engine Hit destroys it (MCR)" };
+    }
+    return {
+        ...result,
+        label: "Engine Hit: for a Micro-Mech also a Weapon Hit; a second Engine Hit destroys it (MCR)",
+        also: { roll: null, effect: "weapon", label: "Weapon Hit (MCR: a Micro-Mech's first Engine Hit)" },
+    };
+}
+
+const rollAcesCriticalHitByTable = (
+    ruleset: TAcesRuleset,
+    unitType: string,
+    isEmplacement: boolean,
+    rng: IAcesRngState,
+): IAcesCriticalResult => {
+    // A walker reads as a 'Mech: WK as BM, IWK as IM (an IndustrialMech rolls twice). Custom Homebrew.
+    const type = getAcesRulesType( unitType );
     if( ruleset === "aces" ) {
         if( isEmplacement ) return { roll: null, effect: "weapon", label: "Weapon Hit (emplacements always take a Weapon Hit, Aces p.6)" };
         if( type === "CI" || type === "BA" ) return { roll: null, effect: "weapon", label: "Weapon Hit (infantry always take a Weapon Hit, Aces p.5)" };
@@ -736,8 +827,22 @@ export const rollAcesCriticalHit = (
             return { roll: roll, effect: row.effect, label: row.label + " (Aces p.4)" };
         }
     }
+    // Alpha Strike: Commander's Edition (pp.49-50, 187). Infantry and battle armor never roll.
+    if( type === "CI" || type === "BA" ) return { roll: null, effect: "none", label: "No critical hit (infantry and battle armor never take one, ASCE p.49)" };
+    const table = asceTableFor( type );
+    if( !table ) {
+        const roll = rollAces2D6( rng );
+        return { roll: roll, effect: "use-asce-table", label: "Look up " + roll + " on the Alpha Strike: Commander's Edition critical hit table" };
+    }
     const roll = rollAces2D6( rng );
-    return { roll: roll, effect: "use-asce-table", label: "Look up " + roll + " on the Alpha Strike: Commander's Edition critical hit table" };
+    const row = lookupAcesTable( table, roll );
+    const result: IAcesCriticalResult = { roll: roll, effect: row.effect, label: row.label + " (ASCE p." + ( table === asceMechCriticalTable || table === asceProtoMechCriticalTable || table === asceVehicleCriticalTable ? "50" : "187" ) + ")" };
+    if( type === "IM" ) {
+        const secondRoll = rollAces2D6( rng );
+        const second = lookupAcesTable( table, secondRoll );
+        result.also = { roll: secondRoll, effect: second.effect, label: second.label + " (second roll, IndustrialMech)" };
+    }
+    return result;
 }
 
 /** Motive systems damage roll under "aces" (Aces p.4); hover and wheeled units add 1. */
@@ -791,6 +896,155 @@ export const acesBehaviorLabel = ( behavior: string ): string => {
     if( behavior === "forced-withdrawal" ) return "Forced Withdrawal";
     if( behavior === "fleeing" ) return "Fleeing";
     return acesBehaviorIds.indexOf( behavior as TAcesBehavior ) > -1 ? capitalize( behavior ) : behavior;
+}
+
+export interface IAcesIdealTarget {
+    color: "red" | "yellow" | "blue";
+    /** The one unit the color list picks. */
+    ideal: IAcesCandidate | null;
+    /** Units still tied after the whole list. */
+    tied: IAcesCandidate[];
+    /** A judged line the players must answer before the list can pick. */
+    pending: IAcesPriorityRule | null;
+    trace: string[];
+}
+
+/**
+ * The ideal unit for each color list of the face-up Command card (Aces pp.12, 18), worked out over a set of units.
+ * The same lists the card reader expands when a priority line says "[red] command list".
+ */
+export const getAcesIdealTargets = (
+    candidates: IAcesCandidate[],
+    commandCard: IAcesCommandCard | null,
+    judgements: TAcesJudgements = {},
+): IAcesIdealTarget[] => {
+    if( !commandCard ) return [];
+    return ( [ "red", "yellow", "blue" ] as const ).map( ( color ) => {
+        const trace: string[] = [];
+        if( candidates.length === 0 ) return { color: color, ideal: null, tied: [], pending: null, trace: trace };
+        const result = narrowAcesCandidates( candidates, commandCard[color], null, judgements, trace );
+        if( result.pending ) return { color: color, ideal: null, tied: result.remaining, pending: result.pending, trace: trace };
+        if( result.remaining.length === 1 ) return { color: color, ideal: result.remaining[0], tied: [], pending: null, trace: trace };
+        return { color: color, ideal: null, tied: result.remaining, pending: null, trace: trace };
+    } );
+}
+
+
+/* ---------------------------------------------------------------------------------------------------------------
+ * Behavior conditions answered from known data (#630 point 2)
+ * ------------------------------------------------------------------------------------------------------------- */
+
+export interface IAcesConditionContext {
+    candidates: IAcesCandidate[];
+    /** The Command card color lists worked out over the same candidates (getAcesIdealTargets). */
+    ideals: IAcesIdealTarget[];
+    /** This unit is crippled (QSR p.12), or null when it is not known. */
+    crippled: boolean | null;
+}
+
+type TTriState = boolean | null;
+
+/** AND over clauses: a false wins, all true is true, and anything unknown leaves the question to the players. */
+const andTriState = ( values: TTriState[] ): TTriState => {
+    if( values.some( ( value ) => value === false ) ) return false;
+    return values.length > 0 && values.every( ( value ) => value === true ) ? true : null;
+}
+
+/** Any candidate with this moved state inside N inches: true when one is known inside, null when one's distance is unknown. */
+const anyWithin = ( candidates: IAcesCandidate[], moved: boolean, inches: number ): TTriState => {
+    let unknown = false;
+    for( const candidate of candidates ) {
+        if( !!candidate.moved !== moved ) continue;
+        if( typeof candidate.distance !== "number" ) unknown = true;
+        else if( candidate.distance <= inches ) return true;
+    }
+    return unknown ? null : false;
+}
+
+const negate = ( value: TTriState ): TTriState => value === null ? null : !value;
+
+const conditionClauses: { pattern: RegExp, answer: ( match: RegExpExecArray, context: IAcesConditionContext ) => TTriState }[] = [
+    { pattern: /^(?:there are )?any \[moved\] enemies in (\d+)"/i, answer: ( m, c ) => anyWithin( c.candidates, true, +m[1] ) },
+    { pattern: /^(?:there are )?no \[moved\] enemies in (\d+)"/i, answer: ( m, c ) => negate( anyWithin( c.candidates, true, +m[1] ) ) },
+    { pattern: /^(?:there are )?no \[notmoved\] enemies in (\d+)"/i, answer: ( m, c ) => negate( anyWithin( c.candidates, false, +m[1] ) ) },
+    {
+        pattern: /^(?:there are )?at least (\d+) enemies in \[los\] and (\d+)"/i,
+        answer: ( m, c ) => {
+            const needed = +m[1];
+            const inches = +m[2];
+            const seen = c.candidates.filter( ( candidate ) => candidate.inLOS !== false );
+            const known = seen.filter( ( candidate ) => typeof candidate.distance === "number" && candidate.distance <= inches ).length;
+            const unknown = seen.filter( ( candidate ) => typeof candidate.distance !== "number" ).length;
+            if( known >= needed ) return true;
+            return known + unknown < needed ? false : null;
+        },
+    },
+    {
+        pattern: /^the ideal \[(red|yellow|blue)\](?: enemy)? is \[moved\](?: and in (\d+)")?/i,
+        answer: ( m, c ) => {
+            const entry = c.ideals.find( ( ideal ) => ideal.color === m[1].toLowerCase() );
+            if( !entry || entry.pending ) return null;
+            if( !entry.ideal ) return entry.tied.length > 0 ? null : false;
+            const ideal = c.candidates.find( ( candidate ) => candidate.id === entry.ideal!.id ) || entry.ideal;
+            if( !ideal.moved ) return false;
+            if( m[2] === undefined ) return true;
+            return typeof ideal.distance === "number" ? ideal.distance <= +m[2] : null;
+        },
+    },
+    { pattern: /^this unit is crippled/i, answer: ( _m, c ) => c.crippled },
+];
+
+/**
+ * Answers a Behavior column's printed condition ("If there are any [moved] enemies in 18\" and ...") from the
+ * distances, moved marks and unit state already known. True or false when the data settles it, null when the
+ * players must answer (unknown distance, a tied ideal unit, or wording the engine does not read). A line with an
+ * unread clause still answers false when a clause it can read is false.
+ */
+export const evaluateAcesCondition = ( text: string, context: IAcesConditionContext ): boolean | null => {
+    let rest = text.trim().replace( /^if\s+/i, "" );
+    if( !rest ) return null;
+    const answers: TTriState[] = [];
+    while( rest ) {
+        let matched = false;
+        for( const clause of conditionClauses ) {
+            const match = clause.pattern.exec( rest );
+            if( !match ) continue;
+            answers.push( clause.answer( match, context ) );
+            rest = rest.substring( match[0].length ).replace( /^\s*,?\s*(?:and\s+)?/i, "" ).trim();
+            matched = true;
+            break;
+        }
+        if( !matched ) {
+            answers.push( null );
+            break;
+        }
+    }
+    return andTriState( answers );
+}
+
+const plainWords = ( text: string ): string => text.toLowerCase().replace( /[^a-z0-9]+/g, " " ).trim();
+
+/**
+ * Finds the face-up Command card in a library. A saved card id wins when its letter still matches. Otherwise the
+ * deck name decides: a sortie writes "MechWarrior, Clan Jade Falcon" while the library keeps the deck and faction
+ * apart, so the name matches when it equals the deck, "deck faction", or starts with the deck name as whole words.
+ * A name that matches nothing falls back to the only card with that letter; with several, nothing is guessed.
+ */
+export const findAcesCommandCard = ( cards: IAcesCommandCard[], letter: string, deckName: string, cardId: string = "" ): IAcesCommandCard | null => {
+    const sameLetter = cards.filter( ( card ) => card.letter === letter );
+    const byId = cardId ? sameLetter.find( ( card ) => card.id === cardId ) : null;
+    if( byId ) return byId;
+    const wanted = plainWords( deckName.replace( /\bdeck\b/gi, " " ) );
+    if( !wanted ) return sameLetter[0] || null;
+    const matches = sameLetter.filter( ( card ) => {
+        const deck = plainWords( card.deck );
+        if( !deck ) return false;
+        return wanted === deck || wanted === plainWords( card.deck + " " + card.faction ) || wanted.indexOf( deck + " " ) === 0;
+    } );
+    // The longest deck name is the most specific ("Star Captain" over "Star").
+    matches.sort( ( a, b ) => b.deck.length - a.deck.length );
+    if( matches.length > 0 ) return matches[0];
+    return sameLetter.length === 1 ? sameLetter[0] : null;
 }
 
 /** Finds the card in a library whose deck and movement priority match what's showing on the table. */

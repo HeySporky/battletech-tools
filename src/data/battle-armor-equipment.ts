@@ -1,3 +1,4 @@
+import type { ICatalogStanding } from "./data-interfaces";
 /*
  * DISCLAIMER: This file processes gameplay data derived from the BattleTech universe.
  * All official lore, trademarks, and intellectual property belong strictly to
@@ -20,7 +21,7 @@ import { BattleArmorTechBase } from "./battle-armor-construction";
 
 export type BattleArmorEquipmentKind = "weapon" | "missile" | "equipment";
 
-export interface IBattleArmorEquipment {
+export interface IBattleArmorEquipment extends ICatalogStanding {
     tag: string;
     name: string;
     techBase: BattleArmorTechBase;
@@ -52,6 +53,8 @@ export interface IBattleArmorEquipment {
     cost: number | null;
     /** Printed "Ref" page of the item's rules in the TechManual. */
     page: number;
+    /** Where the Battle Value is printed, when it is not the rules page (the TechManual's Battle Value tables). */
+    bvSource?: string;
     /** At most this many on a suit. */
     max?: number;
     /** May not go in a modular, turret or squad support mount (TM p.171). */
@@ -64,7 +67,7 @@ export interface IBattleArmorEquipment {
     jumpBonus?: number;
     notes?: string;
     /** Book the item's rules are in; the TechManual when absent. */
-    book?: "TM" | "TO:AUE";
+    book?: "TM" | "TO:AUE" | "IO:AE";
     /** Rules level: 2 Standard (the default), 3 Advanced, 4 Experimental. */
     rulesLevel?: number;
     /** Added to the Defensive Battle Rating in place of 1 (Angel ECM, TO:AUE p.192). */
@@ -201,8 +204,8 @@ const equipmentRows: IBattleArmorEquipment[] = [
     weapon("is", "Gauss Weapons", "Magshot Gauss Rifle", "2", "-/3/6/9", 175, 3, 0.5, 10, 15, 10500, 255),
     weapon("is", "Gauss Weapons", "Grand Mauler Gauss Rifle", "1", "-/2/4/5", 125, 2, 1, 5, 6, 8000, 255),
     weapon("is", "Gauss Weapons", "Tsunami Gauss Rifle", "1", "-/2/4/5", 125, 2, 1, 5, 6, 9500, 255),
-    weapon("is", "Grenade Launchers", "Micro Grenade Launcher", "1", "-/1/2/-", 75, 1, 0.25, 20, 1, 1950, 256),
-    weapon("is", "Grenade Launchers", "Heavy Grenade Launcher", "1", "-/1/2/3", 100, 1, 0.25, 20, 2, 4500, 256),
+    { ...weapon("is", "Grenade Launchers", "Micro Grenade Launcher", "1", "-/1/2/-", 75, 1, 0.25, 20, 1, 1950, 256), bvSource: "TM p.317, errata v6.0 p.34; CBT Companion p.190" },
+    { ...weapon("is", "Grenade Launchers", "Heavy Grenade Launcher", "1", "-/1/2/3", 100, 1, 0.25, 20, 2, 4500, 256), bvSource: "TM p.317, errata v6.0 p.34; CBT Companion p.190" },
     weapon("is", "Machine Guns", "Light Machine Gun", "1", "-/2/4/6", 75, 1, 0.1, 50, 5, 5000, 258),
     weapon("is", "Machine Guns", "Machine Gun", "2", "-/1/2/3", 100, 1, 0.1, 50, 5, 5000, 258),
     weapon("is", "Machine Guns", "Heavy Machine Gun", "3", "-/1/2/-", 150, 1, 0.1, 50, 6, 7500, 258),
@@ -248,6 +251,13 @@ const equipmentRows: IBattleArmorEquipment[] = [
     item("is", "Camo System", "NA", 200, 2, 200000, 253, { noMount: true, max: 1, defensiveFactorBonus: 0.2 }),
     item("is", "ECM Suite", "-/-/-/0", 100, 1, 50000, 254, { defensive: true }),
     item("is", "Heat Sensor", "-/9/18/27", 20, 1, 15000, 255),
+    // IO:AE p.85 (rules): the RISC advanced point defense system, Advanced rules. IO:AE prints no Battle Value or price
+    // for it. It is anti-missile equipment, so its Battle Value goes in the Defensive Battle Rating, as MegaMek does:
+    // the Aegis Point Defense Suit's printed 179 (squad) / 35 (suit, XTRO:Republic III) needs (16 + 7) x 1.5 = 34.5 per
+    // suit, which fixes the value at 7 (MegaMek's too). The price, 50,000, is MegaMek's (cross-check, no book row read).
+    { ...weapon("is", "Anti-Missile Systems", "Advanced Point Defense System", "NA", "-/-/-/3", 350, 2, 15, 6, 0, 50000, 85, "Anti-missile system: -4 Cluster Hits at range 0 (IO:AE p.85); a squad counts as one APDS and engages one missile flight a turn. A magazine of 6 rounds weighs 15 kg."), book: "IO:AE", rulesLevel: 3, defensive: true, defensiveValue: 7 },
+    item("is", "BattleMech Neural Interface Unit", "NA", 100, 2, 650000, 110, { book: "IO:AE", rulesLevel: 4, noMount: true, bodyOnly: true, max: 1,
+        notes: "Mounted only in the interface suit, a PA(L) battle armor (100 kg, 2 slots in the torso); Battle Value 0 (IO:AE p.187); price from the Jihad Equipment table (IO:AE p.180)." }),
     item("is", "Improved Sensors", "-/-/-/2", 65, 1, 35000, 257, { defensive: true, max: 1 }),
     item("is", "Magnetic Clamps", "NA", 30, 2, 2500, 259, { noMount: true, max: 1, bv: 1 }),
     item("is", "Partial Wing", "NA", 200, 1, 50000, 266, { bodyOnly: true, max: 1, jumpBonus: 1 }),
@@ -264,7 +274,7 @@ const equipmentRows: IBattleArmorEquipment[] = [
 
     // Clan Battle Armor Equipment Table (TM p.348)
     weapon("clan", "Gauss Weapons", "AP Gauss Rifle", "3", "-/3/6/9", 200, 2, 1.25, 20, 21, 10000, 255),
-    weapon("clan", "Grenade Launchers", "Heavy Grenade Launcher", "1", "-/1/2/3", 100, 1, 0.25, 20, 2, 4500, 256),
+    { ...weapon("clan", "Grenade Launchers", "Heavy Grenade Launcher", "1", "-/1/2/3", 100, 1, 0.25, 20, 2, 4500, 256), bvSource: "TM p.318, errata v6.0 p.34; CBT Companion p.190" },
     weapon("clan", "Machine Guns", "Light Machine Gun", "1", "-/2/4/6", 75, 1, 0.1, 50, 5, 5000, 258),
     weapon("clan", "Machine Guns", "Machine Gun", "2", "-/1/2/3", 100, 1, 0.1, 50, 5, 5000, 258),
     weapon("clan", "Machine Guns", "Heavy Machine Gun", "3", "-/1/2/-", 150, 1, 0.1, 50, 6, 7500, 258),
@@ -316,6 +326,8 @@ const equipmentRows: IBattleArmorEquipment[] = [
         notes: "+2 Ground MP on PA(L), Light and Medium suits, +1 on Heavy and Assault suits; Leg and Swarm attacks do 2 more damage for each active trooper (TO:AUE pp.98-99)." }),
     item("clan", "HarJel", "NA", 0, 0, null, 256, { noMount: true, max: 1, notes: "The price list has no row for HarJel on battle armor." }),
     item("clan", "Heat Sensor", "-/11/23/34", 20, 1, 15000, 256),
+    item("clan", "BattleMech Neural Interface Unit", "NA", 100, 2, 650000, 110, { book: "IO:AE", rulesLevel: 4, noMount: true, bodyOnly: true, max: 1,
+        notes: "Mounted only in the interface suit, a PA(L) battle armor (100 kg, 2 slots in the torso); Battle Value 0 (IO:AE p.187); price from the Jihad Equipment table (IO:AE p.180)." }),
     item("clan", "Improved Sensors", "-/-/-/3", 45, 1, 35000, 257, { defensive: true, max: 1 }),
     ...sharedEquipment("clan"),
 ];
@@ -345,6 +357,10 @@ const DATE_ROWS: [RegExp, IBattleArmorDates][] = [
     [/^clan-harjel$/, on(2840, 2838)],
     [/^clan-heat-sensor$/, on(2880, 2879)],
     [/^is-heat-sensor$/, on(3050)],
+    // IO:AE p.85 and pp.47-48: prototype 3132, production 3134 (Republic of the Sphere, battle armor). IO:AE p.180: the interface unit, IS prototype 3078, Clan 3083.
+    [/^is-advanced-point-defense-system$/, on(3134, 3132)],
+    [/^is-battlemech-neural-interface-unit$/, on(null, 3078)],
+    [/^clan-battlemech-neural-interface-unit$/, on(null, 3083)],
     [/^clan-improved-sensors$/, on(2890, 2887)],
     [/^is-improved-sensors$/, on(3051)],
     [/-laser-microphone$/, on("ES")],
@@ -480,6 +496,7 @@ const ALPHA_STRIKE_ROWS: [RegExp, (tag: string) => IBattleArmorAlphaStrikeDamage
 /** Special abilities an item gives its unit (ASC pp.117-133). */
 const ALPHA_STRIKE_SPECIALS: [RegExp, string][] = [
     [/-active-probe$/, "LPRB"],
+    [/-advanced-point-defense-system$/, "RAMS"],
     [/-angel-ecm$/, "AECM"],
     [/-ecm-suite$/, "LECM"],
     [/-light-tag$/, "LTAG"],
@@ -502,7 +519,8 @@ export const battleArmorEquipment: IBattleArmorEquipment[] = equipmentRows.map((
     const dates = DATE_ROWS.find(([pattern]) => pattern.test(entry.tag))?.[1];
     const alphaStrike = ALPHA_STRIKE_ROWS.find(([pattern]) => pattern.test(entry.tag))?.[1](entry.tag);
     const alphaStrikeSpecial = ALPHA_STRIKE_SPECIALS.find(([pattern]) => pattern.test(entry.tag))?.[1];
-    return { ...entry, ...(dates ? { dates } : {}), ...(alphaStrike ? { alphaStrike } : {}), ...(alphaStrikeSpecial ? { alphaStrikeSpecial } : {}) };
+    // Every Battle Armor Equipment Table row is from a Total Warfare-era book (TM, TO:AUE, IO:AE).
+    return { editions: ["total-warfare"], ...entry, ...(dates ? { dates } : {}), ...(alphaStrike ? { alphaStrike } : {}), ...(alphaStrikeSpecial ? { alphaStrikeSpecial } : {}) };
 });
 
 /** Minefield BV Table (TO:AUE p.197), for the land minefields a mine dispenser lays: Battle Value of a 10-point field. */
@@ -522,6 +540,43 @@ export const battleArmorMineTypes: IBattleArmorMineType[] = [
 ];
 export const findBattleArmorMineType = (tag: string | undefined): IBattleArmorMineType =>
     battleArmorMineTypes.find((entry) => entry.tag === tag) ?? battleArmorMineTypes[0];
+
+/**
+ * Battle armor missile munitions (TM p.261; TW p.229; Additional Battle Armor Weapons and Equipment, TM p.297): standard
+ * LRM and SRM launchers only, one-shot versions included. They weigh what a standard missile does and change neither
+ * Battle Value nor the launcher's price (the table's multiplier is on the ammunition, which the suit's price leaves out).
+ */
+export interface IBattleArmorMunition {
+    tag: string;
+    name: string;
+    /** The launcher families that may fire it: standard LRM or SRM launchers, or BA tube artillery. */
+    families: ("LRM" | "SRM" | "TUBE")[];
+    /** By the launcher's tech base; absent where that tech base has none. */
+    dates: Partial<Record<BattleArmorTechBase, IBattleArmorDates>>;
+    notes: string;
+}
+export const battleArmorMunitions: IBattleArmorMunition[] = [
+    { tag: "standard", name: "Standard", families: ["LRM", "SRM", "TUBE"], dates: { is: { introduced: "PS" }, clan: { introduced: "PS" } }, notes: "" },
+    { tag: "inferno", name: "Inferno", families: ["SRM"], dates: { is: { introduced: 2380 }, clan: { introduced: 2380 } },
+        notes: "Standard inferno rules (TW p.141); a trooper without fire-resistant armor who is eliminated while carrying infernos sets them off on 8+ on 2D6, striking every unit in the hex with that many inferno rounds (TW p.229). Availability D-D-D." },
+    { tag: "torpedo", name: "Torpedo", families: ["LRM", "SRM"], dates: { is: { introduced: 2380 }, clan: { introduced: 2380 } },
+        notes: "The launcher's own statistics; fired only from or into water of Depth 1 or more, with LOS traced through such water (TW p.229). Availability C-C-C." },
+    { tag: "multi-purpose", name: "Multi-Purpose", families: ["LRM", "SRM"], dates: { clan: { introduced: 3060 } },
+        notes: "Clan only (Goliath Scorpion, 3060). Fired as a torpedo, or as a standard attack from a Depth 1 water hex at a non-submerged unit, LOS traced as though one level above the surface; only submerged units with LOS may attack the suit in return (TW p.229). Availability X-X-E." },
+    { tag: "smoke", name: "Smoke", families: ["TUBE"], dates: { is: { introduced: "PS" } },
+        notes: "Artillery smoke (TO:AUE p.168): BA tube artillery fires high-explosive or smoke rounds, smoke filling a radius of 1 (TO errata, Artillery Ordnance Table BA Tube column). The game-rules text also names anti-personnel and Thunder/FASCAM, but the table gives the tube no values for them, so they are not offered. Shots are tracked like battle armor missile ammunition (TO:AUE p.96)." },
+];
+/** "Inferno missiles", or "Smoke rounds" for tube artillery. */
+export const getBattleArmorMunitionLabel = (munition: IBattleArmorMunition): string =>
+    `${munition.name} ${munition.families.includes("TUBE") ? "rounds" : "missiles"}`;
+export const findBattleArmorMunition = (tag: string | undefined): IBattleArmorMunition =>
+    battleArmorMunitions.find((entry) => entry.tag === tag) ?? battleArmorMunitions[0];
+/** The munitions a launcher may fire, standard first: those of its family (standard LRM or SRM, tube artillery) and tech base. */
+export const getBattleArmorMunitionsFor = (equipment: IBattleArmorEquipment): IBattleArmorMunition[] => {
+    const family = (/^(?:is|clan)-(lrm|srm)-\d+$/.exec(equipment.tag)?.[1].toUpperCase()
+        ?? (/^(?:is|clan)-tube-artillery$/.test(equipment.tag) ? "TUBE" : undefined)) as "LRM" | "SRM" | "TUBE" | undefined;
+    return family ? battleArmorMunitions.filter((munition) => munition.families.includes(family) && !!munition.dates[equipment.techBase]) : [battleArmorMunitions[0]];
+};
 
 export const findBattleArmorEquipment = (tag: string): IBattleArmorEquipment | null =>
     battleArmorEquipment.find((entry) => entry.tag === tag) ?? null;

@@ -1,5 +1,6 @@
 import { ProtoMechMissileFamily, ProtoMechMountLocation } from "../data/protomech-construction";
 import { IBlkFile, blkLines, blkValue, parseBlkFile } from "../utils/blk-file";
+import { readBlkTechnicalReadout } from "../utils/blk-technical-readout";
 import ProtoMech from "./protomech";
 
 // Reads a MegaMek ProtoMech ".blk" file into a ProtoMech. The file names its equipment by MegaMek's lookup names;
@@ -210,5 +211,6 @@ export const importProtoMechBlk = (text: string): IProtoMechBlkImport => {
         const era = proto.getAvailableEras().find((item) => item.yearStart <= year && (item.yearEnd ?? Infinity) >= year);
         if (era) proto.setEra(era.tag);
     }
+    proto.tro.import(readBlkTechnicalReadout(file));
     return { proto, issues, notes };
 };

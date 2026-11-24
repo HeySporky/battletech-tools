@@ -4,7 +4,7 @@ import { getRulesLevelFromMULRules } from "../classes/alpha-strike-unit";
 import type { IEquipmentItem } from "./data-interfaces";
 import {
     APOCRYPHAL_RULES_LEVEL, CUSTOM_HOMEBREW_RULES_LEVEL, EXPERIMENTAL_RULES_LEVEL, MUNCHKIN_RULES_LEVEL,
-    getEquipmentListByTech, getEquipmentRulesLevel, isEquipmentWithinRulesLevel,
+    getEquipmentListByTech, getEquipmentRulesLevel, isEquipmentOffered,
 } from "./equipment-registry";
 import { getTonnageBoundsForMechType } from "./mech-tonnages";
 import { getRulesLevelOptions } from "./rules-level-options";
@@ -37,26 +37,30 @@ describe("Rules levels", () => {
         expect(custom.filter(record => record.rulesLevel === APOCRYPHAL_RULES_LEVEL).map(record => record.tag)).toEqual([]);
     });
 
-    it("hide Apocryphal, Custom and Munchkin items below their own level; canon items are never hidden by level", () => {
+    it("hide every item below its own level, Experimental ones included", () => {
         const apocryphal = item({ catalog: "is", rulesLevel: APOCRYPHAL_RULES_LEVEL });
         const custom = item({ catalog: "custom" });
         const munchkin = item({ catalog: "custom", rulesLevel: MUNCHKIN_RULES_LEVEL });
         const experimental = item({ catalog: "is", rulesLevel: EXPERIMENTAL_RULES_LEVEL });
 
-        const visibleAt = (level: number) => [experimental, apocryphal, custom, munchkin].map(record => isEquipmentWithinRulesLevel(record, level));
-        expect(visibleAt(2)).toEqual([true, false, false, false]);
+        const visibleAt = (level: number) => [experimental, apocryphal, custom, munchkin].map(record => isEquipmentOffered(record, "total-warfare", level));
+        expect(visibleAt(2)).toEqual([false, false, false, false]);
+        expect(visibleAt(EXPERIMENTAL_RULES_LEVEL)).toEqual([true, false, false, false]);
         expect(visibleAt(APOCRYPHAL_RULES_LEVEL)).toEqual([true, true, false, false]);
         expect(visibleAt(CUSTOM_HOMEBREW_RULES_LEVEL)).toEqual([true, true, true, false]);
         expect(visibleAt(MUNCHKIN_RULES_LEVEL)).toEqual([true, true, true, true]);
     });
 
-    it("offer custom equipment in the 'Mech builder at Custom Homebrew and Munchkin, not at Apocryphal", () => {
+    it("offer custom equipment in the 'Mech builder at Custom Homebrew and Munchkin, not at Apocryphal; Munchkin records at Munchkin only", () => {
         const mech = new BattleMech();
-        const customCount = (level: number) => mech.getAvailableEquipment(level >= CUSTOM_HOMEBREW_RULES_LEVEL, level)
-            .filter(record => record.catalog === "custom").length;
-        expect(customCount(APOCRYPHAL_RULES_LEVEL)).toBe(0);
-        expect(customCount(CUSTOM_HOMEBREW_RULES_LEVEL)).toBeGreaterThan(0);
-        expect(customCount(MUNCHKIN_RULES_LEVEL)).toBe(customCount(CUSTOM_HOMEBREW_RULES_LEVEL));
+        const custom = (level: number) => mech.getAvailableEquipment(level >= CUSTOM_HOMEBREW_RULES_LEVEL, level)
+            .filter(record => record.catalog === "custom");
+        expect(custom(APOCRYPHAL_RULES_LEVEL).length).toBe(0);
+        expect(custom(CUSTOM_HOMEBREW_RULES_LEVEL).length).toBeGreaterThan(0);
+        expect(custom(CUSTOM_HOMEBREW_RULES_LEVEL).filter(record => record.rulesLevel === MUNCHKIN_RULES_LEVEL)).toEqual([]);
+        const munchkinOnly = custom(MUNCHKIN_RULES_LEVEL).filter(record => record.rulesLevel === MUNCHKIN_RULES_LEVEL).length;
+        expect(munchkinOnly).toBeGreaterThan(0);
+        expect(custom(MUNCHKIN_RULES_LEVEL).length).toBe(custom(CUSTOM_HOMEBREW_RULES_LEVEL).length + munchkinOnly);
     });
 
     it("lift the tonnage limits at Custom Homebrew and Munchkin only", () => {

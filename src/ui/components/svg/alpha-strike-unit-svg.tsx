@@ -5,6 +5,8 @@ import { IASSpecialAbility } from '../../../data/alpha-strike-special-abilities'
 import { IAppGlobals } from '../../app-router';
 import { safeImageURL } from '../../../utils/safeImageURL';
 import BattleTechLogo from '../battletech-logo';
+import { rulesetsAttributionSvg } from '../rulesets-attribution';
+import AlphaStrikeArcsSVG from './alpha-strike-arcs-svg';
 
 export default class AlphaStrikeUnitSVG extends React.Component<IAlphaStrikeUnitSVGProps, IAlphaStrikeUnitSVGState> {
     height: string = "100%";
@@ -181,7 +183,7 @@ export default class AlphaStrikeUnitSVG extends React.Component<IAlphaStrikeUnit
         radius: number = 0,
         target: string = "armor",
     ): JSX.Element[] => {
-        let dots: JSX.Element[] = []
+        const dots: JSX.Element[] = []
 
         if( radius === 0 ) {
             radius = this.buttonRadius - 5;
@@ -237,8 +239,8 @@ export default class AlphaStrikeUnitSVG extends React.Component<IAlphaStrikeUnit
 
     private _splitAbilities = ( val: string ): string[][] => {
         val = val.trim();
-        let words = val.split(",");
-        let rv: string[][] = [];
+        const words = val.split(",");
+        const rv: string[][] = [];
         let line: string[] = [];
 
 
@@ -268,15 +270,15 @@ export default class AlphaStrikeUnitSVG extends React.Component<IAlphaStrikeUnit
         }
         let critLineStart = 325;
 
-        let damageLabelColWidth=130;
+        const damageLabelColWidth=130;
         let damageColWidth=150;
         if (this.props.showExtreme && this.props.asUnit.damage.extreme > 0 ){
             damageColWidth=110;
         }
 
-        let abilitiesSplit: string[][] = this._splitAbilities(this.props.asUnit.currentAbilities.join( ", "));
+        const abilitiesSplit: string[][] = this._splitAbilities(this.props.asUnit.currentAbilities.join( ", "));
 
-        let pilotAbilitiesList = this.props.asUnit.getPilotAbilityList();
+        const pilotAbilitiesList = this.props.asUnit.getPilotAbilityList();
 
         return (
 
@@ -344,6 +346,10 @@ export default class AlphaStrikeUnitSVG extends React.Component<IAlphaStrikeUnit
                 {this.props.asUnit.currentPoints !== this.props.asUnit.basePoints ? (
                     <text x="988" y="60" textAnchor="end" fontFamily="sans-serif" fontSize="20">Base PV: {this.props.asUnit.basePoints.toString().toUpperCase()}</text>
                 ) : null}
+                {/* Stats from anywhere but MUL 2.0 (MUL 1.0, custom lists, the creators, a card photo) aren't official. */}
+                {!this.props.asUnit.isOfficial() ? (
+                    <text data-testid="not-official" x="988" y="105" textAnchor="end" fill="rgb(200,0,0)" stroke="rgb(255,255,255)" strokeWidth="4" paintOrder="stroke" fontFamily="sans-serif" fontWeight="bold" fontSize="24">NOT OFFICIAL</text>
+                ) : null}
                 {this.props.asUnit.currentPilotAbility ? (
                     <text x="988" y={this.props.asUnit.currentPoints !== this.props.asUnit.basePoints ? "80" : "60"} textAnchor="end" fontFamily="sans-serif" fontSize="20">SPA Total: {this.props.asUnit.getTotalPilotAbilityPoints()}</text>
                 ) : null}
@@ -378,6 +384,10 @@ export default class AlphaStrikeUnitSVG extends React.Component<IAlphaStrikeUnit
                 <rect x="20" y="210" width="550" height="100" fill="rgb(0,0,0)" rx="18" ry="18"></rect>
                 <rect x="25" y="215" width="540" height="90" fill="rgba( 255,255,255,.8)" rx="15" ry="15"></rect>
                 <text x="55" y="250" fontFamily="sans-serif" textAnchor="middle" fontSize="15" transform="rotate(270, 58, 250)">DAMAGE</text>
+                {this.props.asUnit.hasArcs() ? (
+                    <text x="310" y="270" fontFamily="sans-serif" textAnchor="middle" fontSize="24" data-testid="as-card-damage-by-arc">BY FIRING ARC: SEE CARD BACK</text>
+                ) : (
+                <>
                 {this.props.forPrint ? (
                     <text x={damageLabelColWidth+(damageColWidth*0)} y="245" fontFamily="sans-serif" textAnchor="middle" fontSize="20">S (0)</text>
                 ) : (
@@ -434,7 +444,12 @@ export default class AlphaStrikeUnitSVG extends React.Component<IAlphaStrikeUnit
                     )}
                 </>
                 ) : null}
+                </>
+                )}
 
+                {/* A Micro-Mech has no Heat Scale and no Overheat: the box is left off, as on an official vehicle card. */}
+                {this.props.asUnit.type.toLowerCase() !== "mm" ? (
+                <>
                 <rect x="20" y="315" width="550" height="80" fill="rgb(0,0,0)" rx="18" ry="18"></rect>
 
                 {/* Heat Scale Box */}
@@ -520,6 +535,8 @@ export default class AlphaStrikeUnitSVG extends React.Component<IAlphaStrikeUnit
                 <text onClick={() => this._setHeat(4)} className={this.props.inPlay && this.props.asUnit ? "cursor-pointer" : ""} x="515" y="368" textAnchor="start" style={{fill: "rgb(255,255,255)"}} fontFamily="sans-serif" fontSize={35}>S</text>
 
                 {/* End Heat Scale Box */}
+                </>
+                ) : null}
 
                 {/* Armor and Structure Box */}
                 <rect x="20" y="400" width="550" height="105" fill="rgb(0,0,0)" rx="18" ry="18"></rect>
@@ -626,7 +643,7 @@ export default class AlphaStrikeUnitSVG extends React.Component<IAlphaStrikeUnit
                                 }
 
                                 if( this.props.asUnit && this.props.inPlay ) {
-                                    let ability = this.props.asUnit.getSpecialAbility(word);
+                                    const ability = this.props.asUnit.getSpecialAbility(word);
                                     if( ability !== null ) {
                                         return (
                                             // @ts-expect-error Legacy compatibility type mismatch
@@ -663,7 +680,7 @@ export default class AlphaStrikeUnitSVG extends React.Component<IAlphaStrikeUnit
                                     comma = <>,&nbsp;</>;
                                 }
                                 if( this.props.showSpecialAbility && this.props.asUnit && this.props.inPlay ) {
-                                    let ability = this.props.asUnit.getSpecialAbility(word);
+                                    const ability = this.props.asUnit.getSpecialAbility(word);
                                     if( ability ) {
                                         return (
                                             // @ts-expect-error Legacy compatibility type mismatch
@@ -705,7 +722,7 @@ export default class AlphaStrikeUnitSVG extends React.Component<IAlphaStrikeUnit
 
                         {this.props.asUnit.engineHits.map( (ehValue, ehIndex) => {
                             let fillColor = this.props.inPlay && this.props.asUnit?.roundEngineHits[ehIndex] ? this.roundDotColor : "rgb(255,255,255)";
-                            let strokeColor = this.props.inPlay && this.props.asUnit?.roundEngineHits[ehIndex] ? this.roundStrokeColor : "rgb(0,0,0)";
+                            const strokeColor = this.props.inPlay && this.props.asUnit?.roundEngineHits[ehIndex] ? this.roundStrokeColor : "rgb(0,0,0)";
                             if( this.props.inPlay && ehValue ) {
                                 fillColor = this.props.asUnit?.roundEngineHits[ehIndex] ? this.roundActiveColor : this.activeDotColor;
                             }
@@ -741,7 +758,7 @@ export default class AlphaStrikeUnitSVG extends React.Component<IAlphaStrikeUnit
                 <text x="750" y={critLineStart} textAnchor="end" fontFamily="sans-serif" fontSize="20">FIRE CONTROL</text>
                 {this.props.asUnit.fireControlHits.map( (fcValue, fcIndex) => {
                             let fillColor = this.props.inPlay && this.props.asUnit?.roundFireControlHits[fcIndex] ? this.roundDotColor : "rgb(255,255,255)";
-                            let strokeColor = this.props.inPlay && this.props.asUnit?.roundFireControlHits[fcIndex] ? this.roundStrokeColor : "rgb(0,0,0)";
+                            const strokeColor = this.props.inPlay && this.props.asUnit?.roundFireControlHits[fcIndex] ? this.roundStrokeColor : "rgb(0,0,0)";
                             if( this.props.inPlay &&  fcValue ) {
                                 fillColor = this.props.asUnit?.roundFireControlHits[fcIndex] ? this.roundActiveColor : this.activeDotColor;
                             }
@@ -769,12 +786,12 @@ export default class AlphaStrikeUnitSVG extends React.Component<IAlphaStrikeUnit
                 <text x="750" y={critLineStart + this.buttonRadius + 3} textAnchor="start" fontFamily="sans-serif" fontSize="12">+2 To Hit Each</text>
                 {critLineStart += this.critLineHeight}
 
-                {this.props.asUnit.type.toLowerCase() === 'bm' || this.props.asUnit.type.toLowerCase() === 'pm' ? (
+                {this.props.asUnit.type.toLowerCase() === 'bm' || this.props.asUnit.type.toLowerCase() === 'pm' || this.props.asUnit.type.toLowerCase() === 'mm' || this.props.asUnit.type.toLowerCase() === 'wk' || this.props.asUnit.type.toLowerCase() === 'iwk' ? (
                     <>
                         <text x="750"y={critLineStart} textAnchor="end" fontFamily="sans-serif" fontSize="20">MP</text>
                         {this.props.asUnit.mpControlHits.map( (mpValue, mpIndex) => {
                             let fillColor = this.props.inPlay && this.props.asUnit?.roundMpControlHits[mpIndex] ? this.roundDotColor : "rgb(255,255,255)";
-                            let strokeColor = this.props.inPlay && this.props.asUnit?.roundMpControlHits[mpIndex] ? this.roundStrokeColor : "rgb(0,0,0)";
+                            const strokeColor = this.props.inPlay && this.props.asUnit?.roundMpControlHits[mpIndex] ? this.roundStrokeColor : "rgb(0,0,0)";
                             if( this.props.inPlay &&  mpValue ) {
                                 fillColor = this.props.asUnit?.roundMpControlHits[mpIndex] ? this.roundActiveColor : this.activeDotColor;
                             }
@@ -810,7 +827,7 @@ export default class AlphaStrikeUnitSVG extends React.Component<IAlphaStrikeUnit
                 <text x="750" y={critLineStart} textAnchor="end" fontFamily="sans-serif" fontSize="20">WEAPONS</text>
                 {this.props.asUnit.weaponHits.map( (whValue, whIndex) => {
                             let fillColor = this.props.inPlay && this.props.asUnit?.roundWeaponHits[whIndex] ? this.roundDotColor : "rgb(255,255,255)";
-                            let strokeColor = this.props.inPlay && this.props.asUnit?.roundWeaponHits[whIndex] ? this.roundStrokeColor : "rgb(0,0,0)";
+                            const strokeColor = this.props.inPlay && this.props.asUnit?.roundWeaponHits[whIndex] ? this.roundStrokeColor : "rgb(0,0,0)";
                             if( whValue && this.props.inPlay ) {
                                 fillColor = this.props.inPlay && this.props.asUnit?.roundWeaponHits[whIndex] ? this.roundActiveColor : this.activeDotColor;
                             }
@@ -903,8 +920,11 @@ export default class AlphaStrikeUnitSVG extends React.Component<IAlphaStrikeUnit
                     yLoc={600}
                     width={250}
                 />
+                {/* The Special Rulesets the unit is built under (#324), in the strip under the Special box. */}
+                {rulesetsAttributionSvg(25, 586, this.props.asUnit.rulesets, { size: 13, maxWidth: 950 })}
                 </g>
                 </svg>
+                {this.props.asUnit.hasArcs() ? <AlphaStrikeArcsSVG asUnit={this.props.asUnit} className={this.props.className} /> : null}
             </>
         )
     }

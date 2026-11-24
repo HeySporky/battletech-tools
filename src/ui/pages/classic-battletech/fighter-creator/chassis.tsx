@@ -2,18 +2,16 @@ import React, { type JSX } from 'react';
 import { Link } from 'react-router';
 import { FaArrowCircleRight } from "react-icons/fa";
 import AerospaceFighter, { FIGHTER_MIN_TONNAGE, FIGHTER_TYPES } from '../../../../classes/aerospace-fighter';
-import { btTechOptions } from '../../../../data/tech-options';
 import { SRCS_RULES_LEVEL } from '../../../../data/robotic-control-systems';
 import { IAppGlobals } from '../../../app-router';
 import { availabilityOptionLabel, isOptionShown } from '../../../components/availability-options';
-import FighterCreatorSideMenu from '../../../components/fighter-creator-side-menu';
+import { FighterCreatorSideMenu } from '../../../components/creator-side-menus';
 import InputField from "../../../components/form_elements/input_field";
 import InputNumeric from "../../../components/form_elements/input_numeric";
-import RulesEditionSelect from '../../../components/rules-edition-select';
-import RulesLevelSelect from '../../../components/rules-level-select';
 import TextSection from '../../../components/text-section';
 import UIPage from '../../../components/ui-page';
 import SupportAircraftChassis from './_support-chassis';
+import { UnitGameSettingsBlock, unitRulesLevel } from '../../../components/game-settings-block';
 const ArrowCircleRight = FaArrowCircleRight as any;
 
 const range = (from: number, to: number, step: number = 1): number[] => {
@@ -37,16 +35,10 @@ export default class FighterCreatorChassis extends React.Component<IChassisProps
         }
     }
 
-    updateRulesLevel = (level: number): void => {
-        const appSettings = this.props.appGlobals.appSettings;
-        appSettings.mechRulesFilter = level;
-        this.props.appGlobals.saveAppSettings(appSettings);
-    }
-
     render = (): JSX.Element => {
         const fighter = this.props.appGlobals.currentFighter;
         if (!fighter) return <></>;
-        const rulesLevel = this.props.appGlobals.appSettings.mechRulesFilter;
+        const rulesLevel = unitRulesLevel(this.props.appGlobals.currentFighter, this.props.appGlobals.appSettings);
         const remaining = fighter.getRemainingTonnage();
         const conventional = fighter.isConventional();
 
@@ -58,9 +50,8 @@ export default class FighterCreatorChassis extends React.Component<IChassisProps
                     </div>
                     <div className="col-md-9 col-lg-10">
                         <TextSection label="Step 1: Design the Chassis">
-                            {/* The rules edition comes first: it decides what every field below offers. */}
-                            <RulesEditionSelect unitType="fighter" value={fighter.getRulesEdition()} onChange={(tag) => this.update((f) => f.setRulesEdition(tag))} />
-                            <RulesLevelSelect editionTag={fighter.getRulesEdition()} value={rulesLevel} onChange={this.updateRulesLevel} />
+                            {/* The shared settings block comes first: it decides what every field below offers (#324). */}
+                            <UnitGameSettingsBlock unitType="fighter" unit={fighter} appGlobals={this.props.appGlobals} onChange={() => this.update(() => undefined)} />
                             <InputField
                                 label="Fighter Model # (e.g. SL-17)"
                                 value={fighter.getModel()}
@@ -87,26 +78,6 @@ export default class FighterCreatorChassis extends React.Component<IChassisProps
                                     ? "A conventional fighter flies in atmosphere only: 5 to 50 tons, a turbine or standard fusion engine, single heat sinks and armor of one point per ton of fighter (TM pp. 184-193)."
                                     : "An aerospace fighter flies in atmosphere and space: 5 to 100 tons, a fusion engine and armor of up to eight points per ton of fighter (TM pp. 184-193)."}
                             </p>
-
-                            <label>
-                                Technology Base:
-                                <select value={fighter.getTech().tag} onChange={(e) => { const value = e.currentTarget.value; this.update((f) => f.setTech(value)); }}>
-                                    {btTechOptions.map((option) => (
-                                        <option key={option.tag} value={option.tag}>{option.name}</option>
-                                    ))}
-                                </select>
-                            </label>
-
-
-                            <label>
-                                Era:
-                                <select value={fighter.getEra().tag} onChange={(e) => { const value = e.currentTarget.value; this.update((f) => f.setEra(value)); }}>
-                                    {fighter.getAvailableEras().map((option) => (
-                                        <option key={option.tag} value={option.tag}>{option.name}</option>
-                                    ))}
-                                </select>
-                            </label>
-                            {fighter.getEra().description ? <p className="smaller-text">{fighter.getEra().description}</p> : null}
 
                             {fighter.isSupportVehicle() ? <SupportAircraftChassis fighter={fighter} update={this.update} /> : (<>
                             <label>

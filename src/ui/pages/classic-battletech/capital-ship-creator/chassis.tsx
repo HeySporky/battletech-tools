@@ -3,17 +3,16 @@ import { Link } from 'react-router';
 import { FaArrowCircleRight } from "react-icons/fa";
 import CapitalShip, { MAX_CAPITAL_SHIP_SAFE_THRUST } from '../../../../classes/capital-ship';
 import { advancedAerospaceTypes } from '../../../../data/advanced-aerospace-construction';
-import { btTechOptions } from '../../../../data/tech-options';
-import { CUSTOM_HOMEBREW_RULES_LEVEL, getRulesLevelOptions } from '../../../../data/rules-level-options';
+import { CUSTOM_HOMEBREW_RULES_LEVEL } from '../../../../data/rules-level-options';
 import { IAppGlobals } from '../../../app-router';
 import InputField from "../../../components/form_elements/input_field";
 import InputNumeric from "../../../components/form_elements/input_numeric";
 import NumberField from "./_numberField";
-import CapitalShipCreatorSideMenu from '../../../components/capital-ship-creator-side-menu';
-import RulesEditionSelect from '../../../components/rules-edition-select';
+import { CapitalShipCreatorSideMenu } from '../../../components/creator-side-menus';
 import TextSection from '../../../components/text-section';
 import UIPage from '../../../components/ui-page';
 import CapitalShipStatusBar from './_statusBar';
+import { UnitGameSettingsBlock, unitRulesLevel } from '../../../components/game-settings-block';
 const ArrowCircleRight = FaArrowCircleRight as any;
 
 const range = (from: number, to: number): number[] => Array.from({ length: to - from + 1 }, (_value, index) => from + index);
@@ -34,16 +33,10 @@ export default class CapitalShipCreatorChassis extends React.Component<IChassisP
         }
     }
 
-    updateRulesLevel = (e: React.FormEvent<HTMLSelectElement>): void => {
-        const appSettings = this.props.appGlobals.appSettings;
-        appSettings.mechRulesFilter = +e.currentTarget.value;
-        this.props.appGlobals.saveAppSettings(appSettings);
-    }
-
     render = (): JSX.Element => {
         const ship = this.props.appGlobals.currentCapitalShip;
         if (!ship) return <></>;
-        const rulesLevel = this.props.appGlobals.appSettings.mechRulesFilter;
+        const rulesLevel = unitRulesLevel(this.props.appGlobals.currentCapitalShip, this.props.appGlobals.appSettings);
 
         return (
             <UIPage current="classic-battletech-capital-ship-creator" appGlobals={this.props.appGlobals}>
@@ -54,8 +47,8 @@ export default class CapitalShipCreatorChassis extends React.Component<IChassisP
                     <div className="col-md-9 col-lg-10">
                         <CapitalShipStatusBar ship={ship} rulesLevel={rulesLevel} />
                         <TextSection label="Step 1: Design the Hull">
-                            {/* The rules edition comes first: it decides what every field below offers. */}
-                            <RulesEditionSelect unitType="capital-ship" value={ship.getRulesEdition()} onChange={(tag) => this.update((s) => s.setRulesEdition(tag))} />
+                            {/* The shared settings block comes first: it decides what every field below offers (#324). */}
+                            <UnitGameSettingsBlock unitType="capital-ship" unit={ship} appGlobals={this.props.appGlobals} onChange={() => this.update(() => undefined)} />
                             <InputField
                                 label="Class (e.g. McKenna)"
                                 value={ship.getName()}
@@ -90,24 +83,6 @@ export default class CapitalShipCreatorChassis extends React.Component<IChassisP
                                 </label>
                             ) : null}
                             <label>
-                                Technology Base:
-                                <select value={ship.getTech().tag} onChange={(e) => { const value = e.currentTarget.value; this.update((s) => s.setTech(value)); }}>
-                                    {btTechOptions.map((option) => <option key={option.tag} value={option.tag}>{option.name}</option>)}
-                                </select>
-                            </label>
-                            <label>
-                                Rules Level:
-                                <select value={rulesLevel} onChange={this.updateRulesLevel}>
-                                    {getRulesLevelOptions().map((option) => <option key={option.id} value={option.id}>{option.name}</option>)}
-                                </select>
-                            </label>
-                            <label>
-                                Era:
-                                <select value={ship.getEra().tag} onChange={(e) => { const value = e.currentTarget.value; this.update((s) => s.setEra(value)); }}>
-                                    {ship.getAvailableEras().map((option) => <option key={option.tag} value={option.tag}>{option.name}</option>)}
-                                </select>
-                            </label>
-                            <label>
                                 Tonnage:
                                 <input
                                     type="number"
@@ -124,6 +99,47 @@ export default class CapitalShipCreatorChassis extends React.Component<IChassisP
                                     <input type="checkbox" data-testid="cs-kf-boom" checked={ship.hasKFBoom()} onChange={(e) => { const value = e.currentTarget.checked; this.update((s) => s.setKFBoom(value)); }} />
                                     {" "}K-F boom: carried by a JumpShip, 100,000 tons at most, cost x 20 (SO:AA p.139)
                                 </label>
+                            ) : null}
+                            {ship.isSpaceStation() ? (
+                                <div data-testid="cs-energy-storage">
+                                    <label>
+                                        Energy storage batteries:{" "}
+                                        <input type="number" min={0} max={20} aria-label="Energy storage batteries" value={ship.getEnergyStorageBatteries()}
+                                            onChange={(e) => { const value = +e.currentTarget.value || 0; this.update((s) => s.setEnergyStorageBatteries(value)); }} />
+                                        {" "}100,000 tons and 1,000,000 C-bills each, recharge stations for K-F drives (TO:AUE p.188)
+                                    </label>
+                                    {ship.getEnergyStorageBatteries() > 0 ? (
+                                        <label style={{ display: "block" }}>
+                                            <input type="checkbox" data-testid="cs-station-sail" checked={ship.hasJumpSail()} onChange={(e) => { const value = e.currentTarget.checked; this.update((s) => s.setJumpSail(value)); }} />
+                                            {" "}Jump sail to collect the batteries energy: {ship.getJumpSailWeight() || "30 + tonnage / 7,500"} tons, sized like a JumpShip (SO:AA p.136)
+                                        </label>
+                                    ) : null}
+                                </div>
+                            ) : null}
+                            {ship.isSpaceStation() || ship.isWarShip() ? (
+                                <div data-testid="cs-sds">
+                                    <label>
+                                        SDS (Caspar) drone control:{" "}
+                                        <select data-testid="cs-sds-level" value={ship.getSds()} onChange={(e) => { const value = e.currentTarget.value as "none" | "standard" | "improved"; this.update((s) => s.setSds(value)); }}>
+                                            <option value="none">None</option>
+                                            <option value="standard">Standard (skills 4/5)</option>
+                                            <option value="improved">Improved (skills 3/4)</option>
+                                        </select>
+                                        {" "}Experimental, IO:AE p.134
+                                    </label>
+                                    {ship.getSdsRefusal() ? <p className="color-red" data-testid="cs-sds-refusal">{ship.getSdsRefusal()}</p> : null}
+                                    {ship.getSds() !== "none" ? <p className="small-text">{ship.getSdsNotes().join(" ")}</p> : null}
+                                    <label style={{ display: "block" }}>
+                                        <input type="checkbox" data-testid="cs-sds-destruct" checked={ship.hasSdsSelfDestruct()} onChange={(e) => { const value = e.currentTarget.checked; this.update((s) => s.setSdsSelfDestruct(value)); }} />
+                                        {" "}SDS self-destruct: 10% of the vessel, 10,000 tons at most (IO:AE p.141)
+                                    </label>
+                                    {ship.isWarShip() ? (
+                                        <label style={{ display: "block" }}>
+                                            <input type="checkbox" data-testid="cs-sds-jammer" checked={ship.hasSdsJammer()} onChange={(e) => { const value = e.currentTarget.checked; this.update((s) => s.setSdsJammer(value)); }} />
+                                            {" "}SLDF SDS Jammer: 30,000 tons, a 50-hex jamming field (IO:AE p.140)
+                                        </label>
+                                    ) : null}
+                                </div>
                             ) : null}
                         </TextSection>
 

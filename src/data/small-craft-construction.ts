@@ -1,6 +1,8 @@
 // Small Craft construction data (TechManual pp.180-197). The transport bay, quarters and escape system tables
 // are the ones DropShips use as well.
 
+import { CUSTOM_HOMEBREW_RULES_LEVEL } from "./rules-level-options";
+
 export type SmallCraftShape = "aerodyne" | "spheroid";
 export const SMALL_CRAFT_SHAPES: { tag: SmallCraftShape; name: string }[] = [
     { tag: "aerodyne", name: "Aerodyne" },
@@ -104,10 +106,25 @@ export interface ITransportBayType {
     cost: number;
     costPerTon?: boolean;
     infantry?: boolean;
+    /** Battle armor bays: infantry, but they still want a door (TM p.196, SO:AA p.144). */
+    battleArmor?: boolean;
     /** The tech base that fields this bay; absent for both. */
     tech?: "is" | "clan";
     /** Bay personnel, who need no quarters (TM p.239). */
     personnel?: number;
+    /** A bay from outside the rulebooks: the rules level a design that carries it needs. */
+    rulesLevel?: number;
+    /**
+     * A Naval Repair Facility (TO:AUE pp.146-147): bought by capacity in tons, which is the amount; it weighs `weightFactor` of
+     * that, rounded up to the ton, and costs `cost` for each ton of capacity. Two docking collars come with each.
+     */
+    repair?: { weightFactor: number; pressurized: boolean; reinforced?: boolean };
+    /** Only these large craft can carry the bay (never a Small Craft, DropShip or vehicle). */
+    largeCraftOnly?: ("jumpShip" | "spaceStation" | "warShip")[];
+    /** The well decks: only a DropShip on the Flotation Hull (#643) may carry one. */
+    needsFlotationHull?: boolean;
+    /** Bought by the ton, but it holds a unit and so wants a door (the Large Well Deck). */
+    unitBay?: boolean;
 }
 export const transportBayTypes: ITransportBayType[] = [
     { tag: "cargo", name: "Cargo, Standard", tonsEach: null, capacity: "1 ton of bulk cargo", cargoFactor: 1, cost: 0, costPerTon: true },
@@ -121,9 +138,9 @@ export const transportBayTypes: ITransportBayType[] = [
     { tag: "infantry-jump", name: "Infantry Bay, Jump", tonsEach: 6, capacity: "30 jump troopers", cost: 15000, costPerTon: true, infantry: true, personnel: 30 },
     { tag: "infantry-motorized", name: "Infantry Bay, Motorized", tonsEach: 7, capacity: "30 motorized troopers", cost: 15000, costPerTon: true, infantry: true, personnel: 30 },
     { tag: "infantry-mechanized", name: "Infantry Bay, Mechanized", tonsEach: 8, capacity: "7 mechanized troopers", cost: 15000, costPerTon: true, infantry: true, personnel: 7 },
-    { tag: "battle-armor-is", name: "Battle Armor Bay (4 troopers)", tonsEach: 8, capacity: "4 battle armor troopers", cost: 15000, costPerTon: true, infantry: true, tech: "is", personnel: 6 },
-    { tag: "battle-armor-clan", name: "Battle Armor Bay (5 troopers)", tonsEach: 10, capacity: "5 battle armor troopers", cost: 15000, costPerTon: true, infantry: true, tech: "clan", personnel: 6 },
-    { tag: "battle-armor-is-6", name: "Battle Armor Bay (6 troopers)", tonsEach: 12, capacity: "6 battle armor troopers", cost: 15000, costPerTon: true, infantry: true, tech: "is", personnel: 6 },
+    { tag: "battle-armor-is", name: "Battle Armor Bay (4 troopers)", tonsEach: 8, capacity: "4 battle armor troopers", cost: 15000, costPerTon: true, infantry: true, battleArmor: true, tech: "is", personnel: 6 },
+    { tag: "battle-armor-clan", name: "Battle Armor Bay (5 troopers)", tonsEach: 10, capacity: "5 battle armor troopers", cost: 15000, costPerTon: true, infantry: true, battleArmor: true, tech: "clan", personnel: 6 },
+    { tag: "battle-armor-is-6", name: "Battle Armor Bay (6 troopers)", tonsEach: 12, capacity: "6 battle armor troopers", cost: 15000, costPerTon: true, infantry: true, battleArmor: true, tech: "is", personnel: 6 },
     { tag: "protomech", name: "ProtoMech Cubicles (5)", tonsEach: 50, capacity: "5 ProtoMechs", cost: 10000, tech: "clan", personnel: 6 },
     { tag: "vehicle-light", name: "Vehicle Cubicle, Light", tonsEach: 50, capacity: "1 vehicle of up to 50 tons", cost: 10000, personnel: 5 },
     { tag: "vehicle-heavy", name: "Vehicle Cubicle, Heavy", tonsEach: 100, capacity: "1 vehicle of up to 100 tons", cost: 10000, personnel: 8 },
@@ -131,7 +148,44 @@ export const transportBayTypes: ITransportBayType[] = [
     { tag: "fighter", name: "Fighter Cubicle", tonsEach: 150, capacity: "1 fighter of up to 100 tons", cost: 20000, personnel: 2 },
     { tag: "vehicle-superheavy", name: "Vehicle Cubicle, Superheavy", tonsEach: 200, capacity: "1 vehicle of up to 200 tons", cost: 20000, personnel: 15 },
     { tag: "small-craft", name: "Small Craft Cubicle", tonsEach: 200, capacity: "1 Small Craft of up to 200 tons", cost: 20000, personnel: 5 },
+    // Micro-Mechs 6.1.0.2, AeroTech 2 supplement (Custom Homebrew, #173): 75 tons, 15,000 C-bills, basic repair and
+    // quarters for the Micro-Mechwarrior and a technician (taken as 2 bay personnel, as the 'Mech cubicle's).
+    // In an emergency two Micro-Mechs fit a 'Mech cubicle; no BattleMech fits this bay.
+    { tag: "micro-mech", name: "Micro-Mech Bay", tonsEach: 75, capacity: "1 Micro-Mech of up to 19 tons", cost: 15000, personnel: 2, rulesLevel: CUSTOM_HOMEBREW_RULES_LEVEL },
+    // DropShip Flotation Hull and Well Deck (#643, NGCFells; Custom Homebrew): 50 tons for the vehicle it holds, plus 10% each for gates and seals,
+    // support equipment (pumps, ballast, flooding and drainage) and berthage (cradles, fenders, moorings): 65 tons.
+    // It holds one hover or naval vehicle of up to 50 tons, and launches and recovers only while the ship is afloat.
+    // Public sources: Vehrec's water-takeoff DropShip (BattleTech forums, 14 February 2015, reply 18) and the floodable vehicle
+    // bays of wellspring and Jimmyray73 in the same thread, https://www.battletech.com/forums/index.php?topic=44777.0
+    // (credited-ideas.ts VEHREC_WATER_TAKEOFF_POST).
+    { tag: "well-deck", name: "Well Deck", tonsEach: 65, capacity: "1 hover or naval vehicle of up to 50 tons; afloat only", cost: 13000, personnel: 5, rulesLevel: CUSTOM_HOMEBREW_RULES_LEVEL, needsFlotationHull: true },
+    // Naval Repair Facilities (TO:AUE pp.146-147, table p.221; SO:AA p.142): JumpShips, space stations and WarShips, Advanced. Weight a share of
+    // the capacity (pressurized 7.5 percent, unpressurized 2.5, reinforced 10) to the full ton; price a ton of capacity: 10,000, 5,000 and 30,000.
+    // The reinforced one is Experimental, Inner Sphere (3065P), JumpShips and WarShips only. Each has an assigned facing in the book, and a door.
+    { tag: "repair-pressurized", name: "Pressurized Repair Facility", tonsEach: null, capacity: "tons of docked vessels; people work without life support gear", cost: 10000, rulesLevel: 3,
+        repair: { weightFactor: 0.075, pressurized: true }, largeCraftOnly: ["jumpShip", "spaceStation", "warShip"] },
+    { tag: "repair-unpressurized", name: "Unpressurized Repair Facility", tonsEach: null, capacity: "tons of docked vessels; vacuum work", cost: 5000, rulesLevel: 3,
+        repair: { weightFactor: 0.025, pressurized: false }, largeCraftOnly: ["jumpShip", "spaceStation", "warShip"] },
+    { tag: "repair-reinforced", name: "Reinforced Repair Facility (Unpressurized)", tonsEach: null, capacity: "tons of docked vessels; the ship keeps its Thrust as a tug", cost: 30000, rulesLevel: 4, tech: "is",
+        repair: { weightFactor: 0.1, pressurized: false, reinforced: true }, largeCraftOnly: ["jumpShip", "warShip"] },
+    // The Large Well Deck (#643): Chaeronea's DropShip that sets down in the ocean and lets a wet-navy ship cruise out of
+    // its hold, and The_Caveman's ruling that such a bay is a mobile drydock, flooded and drained, with 10% more for the
+    // pumps (BattleTech forums, Black and Blue - DropShips and Wet Navy Ships, December 2015,
+    // https://www.battletech.com/forums/index.php?topic=50320.0). Bought by the ton at the
+    // Well Deck's own rate: 1.3 tons of bay for each ton of vessel (the 10% for pumps is the Well Deck's support share;
+    // gates, seals and berthage are the other two tenths) and 200 C-bills a ton (13,000 / 65). One Large Naval Vessel.
+    {
+        tag: "well-deck-large", name: "Well Deck, Large Vessel", tonsEach: null, capacity: "1 Large Naval Vessel of up to the bay's tons / 1.3; afloat only",
+        cost: 200, costPerTon: true, personnel: 5, rulesLevel: CUSTOM_HOMEBREW_RULES_LEVEL, needsFlotationHull: true, unitBay: true,
+    },
 ];
+/** Tons of bay for each ton of vessel in a Large Well Deck: the Well Deck's 65 for 50. */
+export const LARGE_WELL_DECK_RATIO = 1.3;
+/** The heaviest Large Naval Vessel a Large Well Deck of these tons holds, in whole tons. */
+export const getLargeWellDeckVesselTons = (bayTons: number): number => Math.floor(bayTons / LARGE_WELL_DECK_RATIO + 1e-6);
+/** The rules level a set of bays needs: the highest of their own levels (0 for the rulebook bays). */
+export const getTransportBaysRulesLevel = (bays: { tag: string }[]): number =>
+    bays.reduce((level, bay) => Math.max(level, findTransportBayType(bay.tag)?.rulesLevel ?? 0), 0);
 export const findTransportBayType = (tag: string): ITransportBayType | undefined => transportBayTypes.find((type) => type.tag === tag);
 
 /** Aerospace escape pods and lifeboats: 7 tons and 5,000 C-bills each, seven people (TM pp.216, 227; prices in the TM cost tables). */
@@ -205,12 +259,56 @@ export const getDropShipFreeHeatSinks = (engineTons: number, shape: SmallCraftSh
         ? Math.floor((shape === "aerodyne" ? engineTons / 20 : Math.sqrt(engineTons * 6.8)) + 1e-9)
         : getSmallCraftFreeHeatSinks(engineTons, shape);
 
+// Primitive Small Craft and DropShips (IO:AE pp.119-121): Inner Sphere craft built from 2100 to 2499.
+export const PRIMITIVE_FIRST_YEAR = 2100;
+export const PRIMITIVE_LAST_YEAR = 2499;
+/** Armor, the free points too, is multiplied by this and rounded down (IO:AE pp.120-121). */
+export const PRIMITIVE_ARMOR_FACTOR = 0.66;
+/** Engine/Controls Weight Tables, by year of introduction: [last year, engine factor, fuel factor, controls factor]. */
+const PRIMITIVE_FACTORS: Record<CraftType, [number, number, number, number][]> = {
+    smallCraft: [[2150, 0.143, 2.2, 0.01575], [2200, 0.1235, 1.9, 0.01425], [2250, 0.1105, 1.7, 0.01275], [2299, 0.0975, 1.5, 0.01125], [2399, 0.091, 1.4, 0.00975], [2499, 0.078, 1.2, 0.00825]],
+    dropShip: [[2150, 0.13, 2, 0.015], [2200, 0.117, 1.8, 0.0135], [2250, 0.104, 1.6, 0.012], [2299, 0.091, 1.4, 0.0105], [2350, 0.0845, 1.3, 0.00975], [2499, 0.0715, 1.1, 0.009]],
+};
+/** Engine weight = Base Movement Factor (tonnage x Safe Thrust) x engine; controls = tonnage x controls; fuel points a ton / fuel. */
+export const getPrimitiveFactors = (craftType: CraftType, year: number): { engine: number; fuel: number; controls: number } => {
+    const rows = PRIMITIVE_FACTORS[craftType];
+    const [, engine, fuel, controls] = rows.find(([last]) => year <= last) ?? rows[rows.length - 1];
+    return { engine, fuel, controls };
+};
+/** Primitive DropShip Maximum Weight Limit Table (IO:AE p.120): [last year, spheroid, aerodyne]. */
+const PRIMITIVE_DROPSHIP_MAX_TONNAGE: [number, number, number][] = [
+    [2129, 3000, 1000], [2149, 4000, 1500], [2164, 7000, 2500], [2174, 10000, 3500], [2199, 14000, 5000],
+    [2249, 15000, 6000], [2299, 19000, 7000], [2349, 23000, 8000], [2424, 30000, 10000], [2499, 50000, 20000],
+];
+export const getPrimitiveDropShipMaxTonnage = (year: number, shape: SmallCraftShape): number => {
+    const [, spheroid, aerodyne] = PRIMITIVE_DROPSHIP_MAX_TONNAGE.find(([last]) => year <= last) ?? PRIMITIVE_DROPSHIP_MAX_TONNAGE[PRIMITIVE_DROPSHIP_MAX_TONNAGE.length - 1];
+    return shape === "spheroid" ? spheroid : aerodyne;
+};
+/** Primitive DropShip Heat Sinks Table (IO:AE p.121): engine tons / 75 (aerodyne) or the square root of engine tons x 1.3, rounded down. */
+export const getPrimitiveDropShipFreeHeatSinks = (engineTons: number, shape: SmallCraftShape): number =>
+    Math.floor((shape === "aerodyne" ? engineTons / 75 : Math.sqrt(engineTons * 1.3)) + 1e-9);
+/** A Primitive DropShip over 5,000 tons cannot ride a Primitive JumpShip: it is interplanetary only (IO:AE p.120). */
+export const PRIMITIVE_DROPSHIP_JUMP_TONNAGE = 5000;
+
 /** Bay doors: 7 plus the weight / 50,000, rounded up (TM p.196). */
 export const getDropShipMaxBayDoors = (tonnage: number): number => 7 + Math.ceil(tonnage / 50000 - 1e-9);
 
 /** A DropShip's docking collar (TM p.284). */
 export const DOCKING_COLLAR_COST = 10000;
+/**
+ * The K-F boom in a DropShip's docking collar (IO:AE p.113). A prototype boom (2458-2469) prices the collar at
+ * 1,010,000 C-bills and adds +2 to the docking Control Roll; a DropShip with no boom cannot jump while docked.
+ */
+export type KFBoomType = "standard" | "prototype" | "none";
+export const KF_BOOM_TYPES: { tag: KFBoomType; name: string; cost: number }[] = [
+    { tag: "standard", name: "K-F Boom", cost: DOCKING_COLLAR_COST },
+    { tag: "prototype", name: "Prototype K-F Boom", cost: 1010000 },
+    { tag: "none", name: "No K-F Boom (pre-boom collar)", cost: DOCKING_COLLAR_COST },
+];
 /** Gunnery control systems, for each arc with weapons (Aerospace Units Structural Costs Table, TM p.284). */
 export const GUNNERY_CONTROL_COST_PER_ARC = 10000;
 /** Final cost multiplier (TM p.285). */
 export const DROPSHIP_COST_MULTIPLIER: Record<SmallCraftShape, number> = { aerodyne: 36, spheroid: 28 };
+
+/** The DropShip Flotation Hull (#643, NGCFells; Custom Homebrew): 5 percent of the tonnage, cost x1.25, aerodyne DropShips only. */
+export const DROPSHIP_FLOTATION_HULL = { weightFraction: 0.05, costMultiplier: 1.25, rulesLevel: CUSTOM_HOMEBREW_RULES_LEVEL };

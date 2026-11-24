@@ -25,6 +25,27 @@ export default defineConfig(({ command, mode }) => {
         build: {
             outDir: "build",
             sourcemap: false,
+            // Vite's 500 kB default is already lenient (webpack warns at 250 kB, the Angular CLI at 170 kB). It is
+            // raised only enough for the missile catalog, one 501 kB module the bundler cannot split (#589).
+            chunkSizeWarningLimit: 510,
+            rolldownOptions: {
+                // The plugin-timing note only reports a slow machine (it came and went between identical builds).
+                checks: { bundlerTimings: false },
+                output: {
+                    codeSplitting: {
+                        // The big equipment catalogs get a chunk each, so their shared chunk stays under the size
+                        // warning (#589). They import only data types, so moving them cannot change the order
+                        // modules run in (broad groups did, and broke startup) nor pull anything else along.
+                        groups: [
+                            {
+                                name: (id: string) => id.replace(/\\/g, "/").split("/").pop()!.replace(/\.ts$/, ""),
+                                debugName: "equipment-catalogs",
+                                test: /src[\\/]data[\\/](equipment-(missile|misc|ballistic|energy)|ammo)\.ts$/,
+                            },
+                        ],
+                    },
+                },
+            },
         },
         server: {
             port: 3000,

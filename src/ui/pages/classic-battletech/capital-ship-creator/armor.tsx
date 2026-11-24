@@ -7,10 +7,11 @@ import { IAppGlobals } from '../../../app-router';
 import { availabilityOptionLabel, isOptionShown } from '../../../components/availability-options';
 import InputNumeric from "../../../components/form_elements/input_numeric";
 import NumberField from "./_numberField";
-import CapitalShipCreatorSideMenu from '../../../components/capital-ship-creator-side-menu';
+import { CapitalShipCreatorSideMenu } from '../../../components/creator-side-menus';
 import TextSection from '../../../components/text-section';
 import UIPage from '../../../components/ui-page';
 import CapitalShipStatusBar from './_statusBar';
+import { unitRulesLevel } from '../../../components/game-settings-block';
 const ArrowCircleLeft = FaArrowCircleLeft as any;
 const ArrowCircleRight = FaArrowCircleRight as any;
 
@@ -31,7 +32,7 @@ export default class CapitalShipCreatorArmor extends React.Component<IArmorProps
     render = (): JSX.Element => {
         const ship = this.props.appGlobals.currentCapitalShip;
         if (!ship) return <></>;
-        const rulesLevel = this.props.appGlobals.appSettings.mechRulesFilter;
+        const rulesLevel = unitRulesLevel(this.props.appGlobals.currentCapitalShip, this.props.appGlobals.appSettings);
         const unallocated = ship.getUnallocatedArmorPoints();
 
         return (

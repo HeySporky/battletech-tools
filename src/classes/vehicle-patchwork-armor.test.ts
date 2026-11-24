@@ -90,10 +90,11 @@ describe("Patchwork Armor on Combat Vehicles (TO:AUE pp.188-189)", () => {
 
     it("applies each location's Battle Value modifier and cost per ton", () => {
         const vehicle = patchworkTank();
-        expect(vehicle.getBattleValueLog()).toContain("Armor (Front): 40 points x 2.5 x 1.5 (Reactive Armor) = 150.00");
-        expect(vehicle.getBattleValueLog()).toContain("Armor (Left): 30 points x 2.5 x 1 (Ferro Fibrous) = 75.00");
-        expect(vehicle.getCBillCostLog()).toContain("Armor, Front (Reactive Armor, 2.5 t)");
-        expect(vehicle.getCBillCostLog()).toContain("Armor, Left (Ferro Fibrous, 2 t)");
+        expect(vehicle.getBattleValueLog()).toContain("Armor (Front): 40 points x 2.5 x 1.5 (Reactive Armor) = 150");
+        expect(vehicle.getBattleValueLog()).toContain("Armor (Left): 30 points x 2.5 x 1 (Ferro Fibrous) = 75");
+        const armorSteps = vehicle.getCostBreakdown().steps.filter((step) => step.id === "cv.cost.armor.patchwork");
+        expect(armorSteps.find((step) => step.label === "Armor, Front (Reactive Armor)")?.detail).toContain("2.5 tons");
+        expect(armorSteps.find((step) => step.label === "Armor, Left (Ferro Fibrous)")?.detail).toContain("2 tons");
 
         const standard = patchworkTank();
         standard.setPatchworkArmorType("front", "standard");

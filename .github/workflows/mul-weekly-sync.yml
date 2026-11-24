@@ -94,9 +94,12 @@ jobs:
     steps:
       - name: Create or update sync failure alert
         uses: actions/github-script@v9
+        env:
+          # Passed through the environment, not pasted into the script text, so the value cannot become code.
+          FAILURE_REASON: ${{ needs.sync.outputs.failure-reason }}
         with:
           script: |
-            const failureReason = "${{ needs.sync.outputs.failure-reason }}";
+            const failureReason = process.env.FAILURE_REASON ?? "";
             const isCloudflareBlock = failureReason === "cloudflare-block";
             const title = isCloudflareBlock ? "Weekly MUL sync blocked by Cloudflare" : "Weekly MUL sync failed";
             const detail = isCloudflareBlock

@@ -1,30 +1,48 @@
 import { generateUUID } from "../utils/generateUUID";
-import { DEFAULT_RULES_EDITION, getSelectableRulesEditionTag } from "../data/rules-editions";
+import { getEWarKind, normalizeEWarPlay, type IEWarGear, type IEWarPlayState } from "../utils/ewar-play";
+import { IGameSettingsUnit, UnitGameSettings } from "./unit-game-settings";
+import { chooseEraByTechBase } from "../data/era-choice";
+import { TechnicalReadout } from "./technical-readout";
+import type { ITechnicalReadoutExport } from "../data/technical-readout-interfaces";
+import { IAssignedQuirk, IQuirkTargets, QuirkUnitType } from "../data/quirk-interfaces";
+import { getQuirkIssues, getQuirkTargets } from "../data/quirk-registry";
+import { QuirkList } from "./quirk-list";
+import { getAlphaStrikeQuirks } from "../utils/quirk-effects";
+import { DEFAULT_RULES_EDITION, getRulesEdition, getSelectableRulesEditionTag } from "../data/rules-editions";
 import { battleArmorArmorTypes, battleArmorMaximumArmor } from "../data/battle-armor-armor-types";
 import {
     BATTLE_ARMOR_ADAPTOR, BATTLE_ARMOR_AP_MOUNT, BATTLE_ARMOR_CLAN_COST_MULTIPLIER, BATTLE_ARMOR_DETACHABLE, BATTLE_ARMOR_GROUND_MP_COST,
     BATTLE_ARMOR_MAX_SQUAD, BATTLE_ARMOR_MODULAR_MOUNT, BATTLE_ARMOR_SHOTS_PER_SLOT, BATTLE_ARMOR_SQUAD_SUPPORT_COST,
-    BATTLE_ARMOR_SQUAD_SUPPORT_SHARE, BATTLE_ARMOR_TURRET, BATTLE_ARMOR_UNIT_SIZE_BV, BATTLE_ARMOR_WEAPON_LIMITS, BattleArmorBodyType,
+    BATTLE_ARMOR_SQUAD_SUPPORT_SHARE, BATTLE_ARMOR_TRAINING_COST, BATTLE_ARMOR_TURRET, BATTLE_ARMOR_UNIT_SIZE_BV, BATTLE_ARMOR_WEAPON_LIMITS, BattleArmorBodyType,
     BattleArmorMotive, BattleArmorTechBase, BattleArmorWeightClass, IBattleArmorManipulator, IBattleArmorMotiveLimit, IBattleArmorWeightClass,
     battleArmorWeightClasses, findBattleArmorManipulator, findBattleArmorWeightClass, getBattleArmorSpeedFactor,
     getBattleArmorTargetMovementModifier,
 } from "../data/battle-armor-construction";
 import { battleArmorChassisDates, battleArmorFeatureDates, battleArmorManipulatorDates } from "../data/battle-armor-dates";
 import {
-    IBattleArmorDates, IBattleArmorEquipment, battleArmorEquipment, battleArmorMineTypes, findBattleArmorEquipment, findBattleArmorMineType,
+    IBattleArmorDates, IBattleArmorEquipment, battleArmorEquipment, battleArmorMineTypes, findBattleArmorEquipment, findBattleArmorMineType, findBattleArmorMunition, getBattleArmorMunitionLabel, getBattleArmorMunitionsFor,
     formatBattleArmorDates, getBattleArmorEquipmentFor, isBattleArmorDateAvailable,
 } from "../data/battle-armor-equipment";
 import { IBattleArmorArmorType, IEras } from "../data/data-interfaces";
 import { btEraOptions, findEraByTag, getErasForTech } from "../data/era-options";
 import { IInfantryWeapon, findInfantryWeapon, infantryWeapons } from "../data/infantry-weapons";
 import { EXPERIMENTAL_RULES_LEVEL } from "../data/rules-level-options";
-import { getSkillMultiplier } from "../data/skill-multipliers";
+import { editionHasBattleValue, getBattleValueEdition, getBattleValueFor, getBattleValueSkillEdition, getSkillMultiplier } from "../data/battle-value";
+import { CalcTrace, formatCalcStep, type ICalcBreakdown, type ICalcStep } from "../data/calc-steps";
+import { NO_BATTLE_VALUE_STEPS } from "../data/calc-steps-mech-bv1";
+import { BATTLE_ARMOR_BMRR_STOCK_PRICES, BATTLE_ARMOR_BV1_COMPONENTS, BATTLE_ARMOR_BV1_MINE_DISPENSER, BATTLE_ARMOR_BV1_MISSILES, BATTLE_ARMOR_BV1_SPEED_FACTORS, BATTLE_ARMOR_BV2_STEPS, BATTLE_ARMOR_COST_STEPS, getBattleArmorBv1Steps } from "../data/calc-steps-battle-armor";
 import { AlphaStrikeUnit, IASMULUnit } from "./alpha-strike-unit";
 
 // Battle armor construction (TechManual pp.160-173), Battle Value (TM pp.310-311, 316) and cost (TM pp.276, 281, 296-298);
 // the battle armor equipment of Tactical Operations: Advanced Units & Equipment (pp.91-161, 192-197, 224-225);
 // introduction dates (IO:AE pp.45-47); play (Total Warfare pp.219-227); Alpha Strike conversion (ASC pp.92-141);
 // Automata (BattleTech Adventures: Ghosts of Obeedah pp.51-53).
+
+const AP_MOUNT_UNCOUNTED_WEAPON = "inf-auto-rifle";
+
+/** A suit's Battle Value worked out: the suit's, the unit's, and the steps. */
+interface IBattleArmorBvResult { suit: number; squad: number; steps: ICalcStep[]; log: string[] }
+interface IBattleArmorCostResult { suit: number; squad: number; steps: ICalcStep[]; log: string[] }
 
 export type BattleArmorLocation = "la" | "ra" | "body" | "turret";
 export type BattleArmorArm = "la" | "ra";
@@ -44,6 +62,9 @@ export const MAX_BATTLE_ARMOR_ITEMS = 40;
 export const MAX_BATTLE_ARMOR_LOADOUTS = 12;
 /** A detachable weapon pack (TO:AUE pp.99, 225): the weapon counts three quarters of its weight and takes one slot. */
 export const BATTLE_ARMOR_WEAPON_PACK = { share: 0.75, roundTo: 5, slots: 1, cost: 18000, rulesLevel: 3 };
+
+/** Clan EI neural implants, per augmented warrior (IO:AE p.184, Warrior Augmentations). */
+const EI_IMPLANT_COST = 1500000;
 
 /** The skills an Automata's Core gives it (Ghosts of Obeedah p.52). */
 export const AUTOMATA_SKILLS = { gunnery: 4, antiMech: 5 };
@@ -99,6 +120,8 @@ export const BATTLE_ARMOR_PUBLISHED_EXCEPTIONS: { name: RegExp; issue: string; n
 export interface IBattleArmorMountedItem {
     tag: string;
     location: BattleArmorLocation;
+    /** Identifies the mount for what is attached to it, such as a weapon quirk; kept across saves. */
+    uuid?: string;
     /** A missile launcher built as a one-shot launcher. */
     oneShot?: boolean;
     /** Missile shots carried with the launcher. */
@@ -117,6 +140,8 @@ export interface IBattleArmorMountedItem {
     trooper?: number;
     /** The mines a mine dispenser carries; absent for standard mines. */
     mine?: string;
+    /** The munition a standard LRM or SRM launcher (TM p.261; TW p.229) or tube artillery (TO:AUE p.96) fires; absent for standard. */
+    munition?: string;
 }
 
 export type BattleArmorCarrierKind = "mech" | "vehicle";
@@ -199,7 +224,11 @@ export interface IBattleArmorTurret {
 export interface IBattleArmorExport {
     /** The rules edition it is built under (rules-editions.ts); absent means Total Warfare. */
     rulesEdition?: string;
+    rulesLevel?: number;
+    rulesets?: string[];
     uuid: string;
+    tro?: ITechnicalReadoutExport;
+    quirks?: IAssignedQuirk[];
     lastUpdated: string;
     name: string;
     techBase: BattleArmorTechBase;
@@ -213,6 +242,8 @@ export interface IBattleArmorExport {
     exoskeletonChassis?: boolean;
     /** A robotic Automata on the Clan chassis weight (Ghosts of Obeedah p.51). */
     automata?: boolean;
+    /** Clan EI neural implants in the troopers (IO:AE p.69). */
+    eiImplants?: boolean;
     groundMP: number;
     motive: BattleArmorMotive;
     motiveMP: number;
@@ -231,6 +262,7 @@ export interface IBattleArmorExport {
     /** The loadout a roster unit is fielded in; absent for the base design. */
     activeLoadout?: number;
     inPlay?: IBattleArmorInPlay;
+    ewarPlay?: IEWarPlayState;
 }
 
 export interface IBattleArmorCapabilities {
@@ -277,12 +309,20 @@ export const normalizeBattleArmorExport = (raw: unknown): { suit: IBattleArmorEx
     return { suit: loaded.export(true), issues: [...loaded.getImportIssues()] };
 };
 
-export default class BattleArmor {
+export default class BattleArmor implements IGameSettingsUnit {
     private _uuid: string = generateUUID();
+    public tro: TechnicalReadout = new TechnicalReadout();
+
+    /** The design quirks assigned to this unit (quirk tables, Campaign Operations pp.228 and 232). */
+    public quirks: QuirkList = new QuirkList();
+    /** The force's "Game year", set by `BattleMechForce.syncQuirkPlayYear`; not saved with the unit. */
+    public quirkPlayYear: number | null = null;
     public lastUpdated: Date = new Date();
 
     private _name: string = "";
     private _rulesEdition: string = DEFAULT_RULES_EDITION;
+    /** The rules level and Special Rulesets the design is built under (#324). */
+    public readonly gameSettings = new UnitGameSettings();
     private _techBase: BattleArmorTechBase = "is";
     private _mixedTech: boolean = false;
     private _armorTechBase: BattleArmorTechBase | null = null;
@@ -292,6 +332,7 @@ export default class BattleArmor {
     private _bodyType: BattleArmorBodyType = "humanoid";
     private _exoskeletonChassis: boolean = false;
     private _automata: boolean = false;
+    private _eiImplants: boolean = false;
     private _groundMP: number = 1;
     private _motive: BattleArmorMotive = "none";
     private _motiveMP: number = 0;
@@ -304,6 +345,8 @@ export default class BattleArmor {
     private _loadouts: IBattleArmorLoadout[] = [];
     private _activeLoadout: number = -1;
     private _inPlay: IBattleArmorInPlay = { damage: [] };
+    /** What the unit has switched on, been hit by or been told by the force board in E-War play (#642). */
+    public ewarPlay: IEWarPlayState = {};
     private _turret: IBattleArmorTurret | null = null;
     private _squadSize: number = 4;
     private _gunnery: number = 4;
@@ -318,6 +361,19 @@ export default class BattleArmor {
 
     public getUUID(): string { return this._uuid; }
     public newUUID(): void { this._uuid = generateUUID(); }
+
+    /** Which column of the quirk tables this unit is graded by. */
+    public getQuirkUnitType(): QuirkUnitType { return "battle-armor"; }
+
+    /** What the quirk picker can attach quirks to on this unit. */
+    public getQuirkTargets(): IQuirkTargets {
+        return getQuirkTargets(this.getLocations().map((location) => ({ tag: location, label: BATTLE_ARMOR_LOCATION_NAMES[location] })), this._baseItems.map((entry) => ({ uuid: entry.uuid, label: this.getItemLabel(entry), damage: findBattleArmorEquipment(entry.tag)?.damage })));
+    }
+
+    /** One line for each quirk this unit could not be given now: rules edition, rules level or unit type. */
+    public getQuirkIssues(rulesLevel: number): string[] {
+        return getQuirkIssues(this.quirks.getAll(), this.getQuirkUnitType(), this._rulesEdition, rulesLevel, undefined, this.getQuirkTargets());
+    }
     public getName(): string { return this._name; }
     /** The rules edition the design is built under. Only the editions with rules for this unit type are offered. */
     public getRulesEdition(): string { return this._rulesEdition; }
@@ -325,6 +381,9 @@ export default class BattleArmor {
         this._rulesEdition = getSelectableRulesEditionTag(editionTag, "battle-armor");
         return this._rulesEdition;
     }
+    public getTechTag(): string { return this.getTechBase(); }
+    public setTechTag(tag: string): void { this.setTechBase(tag === "clan" ? "clan" : "is"); }
+    public chooseEra(tag: string): void { chooseEraByTechBase(this, tag); }
 
     public setName(name: string): void { this._name = String(name ?? "").slice(0, MAX_BATTLE_ARMOR_NAME_LENGTH); }
     public getBaseName(): string { return this._name.trim() || `${this._weightClass.name} ${this.getUnitTypeName()}`; }
@@ -344,6 +403,8 @@ export default class BattleArmor {
         // Mixed technology is an advanced construction option (TO:AUE p.189).
         if (this._mixedTech) level = Math.max(level, BATTLE_ARMOR_ADVANCED_RULES_LEVEL);
         if (this._automata) level = Math.max(level, EXPERIMENTAL_RULES_LEVEL);
+        if (this._eiImplants) level = Math.max(level, EXPERIMENTAL_RULES_LEVEL);
+        for (const mount of this._apMounts) level = Math.max(level, findInfantryWeapon(mount.weapon)?.rulesLevel ?? 0);
         return level;
     }
 
@@ -411,8 +472,8 @@ export default class BattleArmor {
         check(`${this._weightClass.name} battle armor`, battleArmorChassisDates[this._weightClass.tag][this._techBase]);
         if (this._automata) check("The Automata Core", battleArmorFeatureDates.automata[this._techBase]);
         if (this._motive === "jump") check("Jump jets", battleArmorFeatureDates.jump[this._techBase]);
-        if (this._motive === "umu") check("UMUs", battleArmorFeatureDates.umu[this._techBase]);
-        if (this._motive === "vtol") check("VTOL equipment", battleArmorFeatureDates.vtol[this._techBase]);
+        if (this._motive === "umu") check("UMUs", battleArmorFeatureDates.umu.clan, "clan");
+        if (this._motive === "vtol") check("VTOL equipment", battleArmorFeatureDates.vtol.clan, "clan");
         if (!this.isQuad()) {
             const seen = new Set<string>();
             for (const arm of ["la", "ra"] as BattleArmorArm[]) {
@@ -428,6 +489,9 @@ export default class BattleArmor {
             const equipment = findBattleArmorEquipment(entry.tag);
             if (equipment && !seenItems.has(equipment.tag)) check(equipment.name, equipment.dates, equipment.techBase);
             seenItems.add(entry.tag);
+            const munition = entry.munition && equipment ? findBattleArmorMunition(entry.munition) : null;
+            if (munition && equipment && !seenItems.has(`munition:${munition.tag}`)) check(getBattleArmorMunitionLabel(munition), munition.dates[equipment.techBase], equipment.techBase);
+            if (munition) seenItems.add(`munition:${munition.tag}`);
         }
         if (this._apMounts.length > 0) check("The anti-personnel weapon mount", battleArmorFeatureDates.apMount[this._techBase]);
         if (this._items.some((entry) => entry.squadSupport)) check("The squad support weapon mount", battleArmorFeatureDates.squadSupport[this._techBase]);
@@ -486,6 +550,15 @@ export default class BattleArmor {
 
     /** A robotic suit run by an Automata Core in place of a trooper (Ghosts of Obeedah p.51). */
     public isAutomata(): boolean { return this._automata; }
+    // The Clan EI neural implants (IO:AE pp.69, 184): Experimental, Clan suits only. The EI interface they need is built into a
+    // Clan suit's cockpit at no weight or space (p.69); the price the book gives the interface is not read here.
+    public hasEIImplants(): boolean { return this._eiImplants && this.isClan() && !this._automata; }
+    public canHaveEIImplants(rulesLevel: number): boolean { return this.isClan() && !this._automata && rulesLevel >= EXPERIMENTAL_RULES_LEVEL; }
+    public setEIImplants(value: boolean, rulesLevel: number): boolean {
+        if (value && !this._eiImplants && !this.canHaveEIImplants(rulesLevel)) return false;
+        this._eiImplants = value;
+        return true;
+    }
     /** Automata are Experimental. */
     public canBeAutomata(rulesLevel: number): boolean { return rulesLevel >= EXPERIMENTAL_RULES_LEVEL; }
     /** Makes the suit an Automata, or battle armor again; refused below the Experimental rules level. The Core sets the skills (p.52). */
@@ -580,8 +653,9 @@ export default class BattleArmor {
     public getMotiveLimit(motive: BattleArmorMotive): IBattleArmorMotiveLimit | null {
         if (motive === "none" || this.isQuad()) return null;
         if (motive === "jump") return this._weightClass.jump;
-        // VTOL and UMU systems are Clan only (TM pp.164-165).
-        if (!this.isClan()) return null;
+        // VTOL and UMU systems are Clan technology (TM pp.164-165); a mixed-technology suit may carry them on an Inner
+        // Sphere chassis (the Sea Fox's UMU, the Tornado G17's VTOL: MUL 130 and 56).
+        if (!this.isClan() && !this._mixedTech) return null;
         return motive === "vtol" ? this._weightClass.vtol : this._weightClass.umu;
     }
 
@@ -905,7 +979,7 @@ export default class BattleArmor {
         const equipment = findBattleArmorEquipment(tag);
         if (!equipment || !this._offers(equipment.techBase) || this._baseItems.length >= MAX_BATTLE_ARMOR_ITEMS) return false;
         if (!this.getLocations().includes(location)) return false;
-        const entry: IBattleArmorMountedItem = { tag, location: equipment.bodyOnly ? "body" : location };
+        const entry: IBattleArmorMountedItem = { tag, location: equipment.bodyOnly ? "body" : location, uuid: generateUUID() };
         if (equipment.kind === "missile" && equipment.oneShot !== "always") entry.shots = 1;
         this._baseItems.push(entry);
         return true;
@@ -952,6 +1026,7 @@ export default class BattleArmor {
         // Every suit carries its share of the squad support weapon, so it is never one trooper's own.
         next.trooper = !next.squadSupport && typeof next.trooper === "number" && Number.isInteger(next.trooper) && next.trooper >= 1 && next.trooper <= BATTLE_ARMOR_MAX_SQUAD ? next.trooper : undefined;
         next.mine = equipment.mineDispenser && next.mine !== battleArmorMineTypes[0].tag && battleArmorMineTypes.some((mine) => mine.tag === next.mine) ? next.mine : undefined;
+        next.munition = next.munition !== "standard" && getBattleArmorMunitionsFor(equipment).some((munition) => munition.tag === next.munition) ? next.munition : undefined;
         // One squad support weapon to a suit (TM p.270).
         if (next.squadSupport) this._baseItems.forEach((other, otherIndex) => { if (otherIndex !== index) delete other.squadSupport; });
         this._baseItems[index] = next;
@@ -959,7 +1034,7 @@ export default class BattleArmor {
 
     /** Standard-type conventional infantry weapons an anti-personnel mount may carry (TM p.170). */
     public getAntiPersonnelWeapons(): IInfantryWeapon[] {
-        return infantryWeapons.filter((weapon) => weapon.type === "standard" && (weapon.techBase === "both" || this._mixedTech || weapon.techBase === this._techBase));
+        return infantryWeapons.filter((weapon) => weapon.type === "standard" && (weapon.techBase === "universal" || this._mixedTech || weapon.techBase === this._techBase));
     }
 
     public addAPMount(location: BattleArmorLocation, weapon: string = ""): boolean {
@@ -1029,6 +1104,7 @@ export default class BattleArmor {
         if (entry.dwp) parts.push("detachable weapon pack");
         if (entry.squadSupport) parts.push("squad support weapon");
         if (equipment.mineDispenser) parts.push(`${findBattleArmorMineType(entry.mine).name} mines`);
+        if (entry.munition) parts.push(getBattleArmorMunitionLabel(findBattleArmorMunition(entry.munition)));
         if (entry.trooper) parts.push(`trooper ${entry.trooper} only`);
         return `${this._mixedTech ? `${equipment.techBase === "clan" ? "Clan" : "IS"} ` : ""}${equipment.name}${parts.length ? ` (${parts.join(", ")})` : ""}, ${BATTLE_ARMOR_LOCATION_NAMES[entry.location]}`;
     }
@@ -1083,8 +1159,10 @@ export default class BattleArmor {
         this._items.forEach((entry) => counts.set(entry.tag, (counts.get(entry.tag) ?? 0) + 1));
         for (const [tag, count] of counts) {
             const equipment = findBattleArmorEquipment(tag);
-            if (equipment?.max && count > equipment.max) issues.push(`A suit may mount only ${equipment.max} ${equipment.name} (TM p.${equipment.page}).`);
+            if (equipment?.max && count > equipment.max) issues.push(`A suit may mount only ${equipment.max} ${equipment.name} (${equipment.book ?? "TM"} p.${equipment.page}).`);
         }
+
+        if (this._hasItem("BattleMech Neural Interface Unit") && this._weightClass.tag !== "pa-l") issues.push("The BattleMech Neural Interface Unit is mounted in a PA(L) suit only (IO:AE p.110).");
 
         const boosters = this._items.filter((entry) => (findBattleArmorEquipment(entry.tag)?.jumpBonus ?? 0) > 0);
         const mechanical = this._items.some((entry) => findBattleArmorEquipment(entry.tag)?.mechanicalJumpBooster);
@@ -1175,6 +1253,7 @@ export default class BattleArmor {
 
     public getNotes(): string[] {
         const notes: string[] = [];
+        if (this.hasEIImplants()) notes.push("EI implants (IO:AE p.69): when the suit takes internal structure damage, roll 2D6; under 7 the trooper takes 1 point of pilot damage and makes a consciousness check. BV takes 1 off Gunnery and Anti-'Mech skill (p.186). The augmentation cost is multiplied by the augmented troopers (p.184).");
         const weight = this.getWeight();
         if (weight < this._weightClass.minWeight) notes.push(`At ${weight} kg the suit is under the ${this._weightClass.minWeight} kg at which the ${this._weightClass.name} class starts; the unspent weight is wasted or left for modular mounts and mission equipment (TM p.162).`);
         if (this._weightClass.tag === "pa-l" && (!this.isClan() || this.usesExoskeletonChassis()) && !(this._hasItem("Extended Life Support") && this._armorPoints >= 1)) {
@@ -1237,93 +1316,286 @@ export default class BattleArmor {
         return launcherBV + ammunition;
     }
 
-    private _suitBattleValue(): { raw: number; log: string[] } {
-        const log: string[] = [];
-        const armorBV = ["ba-fire-resistant", "ba-laser-reflective", "ba-reactive"].includes(this._armor.tag) ? 3.5 : 2.5;
-        let defensive = this._armorPoints * armorBV + 1;
-        log.push(`Armor: (${this._armorPoints} points x ${armorBV}) + 1 = ${round2(defensive)}`);
-        const defensiveItems = this._items.reduce((sum, entry) => {
+    /** A suit with an Inner Sphere missile launcher fixed in its body: TW p.220 bars its anti-'Mech attacks until it is jettisoned. */
+    private _isBurdened(): boolean {
+        return !this.isClan() && this._items.some((entry) => {
             const equipment = findBattleArmorEquipment(entry.tag);
-            return sum + (equipment?.defensive ? equipment.defensiveValue ?? 1 : 0);
-        }, 0);
-        if (defensiveItems > 0) {
-            defensive += defensiveItems;
-            log.push(`Improved sensors, active probes and ECM: +${defensiveItems}`);
+            return equipment?.kind === "missile" && !!equipment.tubes && entry.location === "body" && !entry.detachable;
+        });
+    }
+
+    /** Anti-missile equipment (the APDS) counts in the Defensive Battle Rating, not as a weapon. */
+    private _firesAtTargets(entry: IBattleArmorMountedItem): boolean {
+        const equipment = findBattleArmorEquipment(entry.tag);
+        return equipment?.kind === "weapon" && !equipment.defensive;
+    }
+
+    /**
+     * The defensive electronics every suit of the squad counts: each kind once at the most any one suit mounts (the squad's, with the
+     * most a single trooper carries of its own). One trooper's ECM covers the squad (the Kage [ECM]); two troopers' ECM suits are not
+     * two systems in a suit (ruling, 2026-11-23).
+     */
+    private _squadGear(): IBattleArmorEquipment[] {
+        const items = this._loadoutItems();
+        const squad = items.filter((entry) => !entry.trooper);
+        const troopers = [...new Set(items.filter((entry) => entry.trooper).map((entry) => entry.trooper))];
+        const gear: IBattleArmorEquipment[] = [];
+        for (const tag of new Set(items.map((entry) => entry.tag))) {
+            const equipment = findBattleArmorEquipment(tag);
+            if (!equipment?.defensive) continue;
+            const own = Math.max(0, ...troopers.map((trooper) => items.filter((entry) => entry.trooper === trooper && entry.tag === tag).length));
+            for (let count = squad.filter((entry) => entry.tag === tag).length + own; count > 0; count--) gear.push(equipment);
+        }
+        return gear;
+    }
+
+    private _suitBattleValue(trace: CalcTrace): number {
+        const special = ["ba-fire-resistant", "ba-laser-reflective", "ba-reactive"].includes(this._armor.tag);
+        const armorBV = special ? 3.5 : 2.5;
+        let defensive = this._armorPoints * armorBV + 1;
+        trace.add(special && this._armor.tag !== "ba-fire-resistant" ? "ba.bv2.def.armor.special" : "ba.bv2.def.armor", { label: "Armor", detail: `(${this._armorPoints} points x ${armorBV}) + 1`, value: round2(defensive) });
+        // Electronics carried by one trooper (the Kage's ECM) cover the whole squad: every suit's Defensive Battle
+        // Rating counts them, as the Master Unit List and MegaMek value the Kage [ECM] (ruling, 2026-11-23).
+        const gear = this._squadGear();
+        const isApds = (equipment: IBattleArmorEquipment): boolean => equipment.tag.endsWith("advanced-point-defense-system");
+        const sensors = gear.filter((equipment) => !isApds(equipment)).reduce((sum, equipment) => sum + (equipment.defensiveValue ?? 1), 0);
+        const apds = gear.filter(isApds).reduce((sum, equipment) => sum + (equipment.defensiveValue ?? 1), 0);
+        if (sensors > 0) {
+            defensive += sensors;
+            trace.add("ba.bv2.def.equipment", { label: "Improved sensors, active probes and ECM", detail: `+${sensors}`, ...(gear.some((equipment) => equipment.tag.endsWith("angel-ecm")) ? { cites: [{ source: "toaue", page: "192" }] } : {}) });
+        }
+        if (apds > 0) {
+            defensive += apds;
+            trace.add("ba.bv2.def.apds", { label: "Advanced point defense system", detail: `+${apds}` });
         }
         const movement = this._bestMovement();
         const camo = this._items.reduce((sum, entry) => Math.max(sum, findBattleArmorEquipment(entry.tag)?.defensiveFactorBonus ?? 0), 0);
         const factor = round2(1 + movement.modifier / 10 + 0.1 + this._armor.defensiveFactorBonus + camo);
         const defensiveRating = defensive * factor;
-        log.push(`Defensive Factor: 1 + ${round2(movement.modifier / 10)} (target movement modifier +${movement.modifier}) + 0.1 (battle armor)${this._armor.defensiveFactorBonus ? ` + ${this._armor.defensiveFactorBonus} (${this._armor.name})` : ""}${camo ? ` + ${camo} (camo system)` : ""} = ${factor}`);
-        log.push(`Defensive Battle Rating: ${round2(defensive)} x ${factor} = ${round2(defensiveRating)}`);
+        trace.add("ba.bv2.def.factor", {
+            label: "Defensive Factor",
+            detail: `1 + ${round2(movement.modifier / 10)} (target movement modifier +${movement.modifier}) + 0.1 (battle armor)${this._armor.defensiveFactorBonus ? ` + ${this._armor.defensiveFactorBonus} (${this._armor.name})` : ""}${camo ? ` + ${camo} (camo system)` : ""}`,
+            value: factor,
+        });
+        trace.add("ba.bv2.def.rating", { label: "Defensive Battle Rating", detail: `${round2(defensive)} x ${factor}`, value: round2(defensiveRating), emphasis: true });
 
         const capabilities = this.getCapabilities();
         const own = this._items.filter((entry) => !entry.squadSupport);
-        const directFire = own.filter((entry) => findBattleArmorEquipment(entry.tag)?.kind === "weapon").reduce((sum, entry) => sum + this._itemBattleValue(entry), 0);
+        const directFire = own.filter((entry) => this._firesAtTargets(entry)).reduce((sum, entry) => sum + this._itemBattleValue(entry), 0);
         const missiles = own.filter((entry) => findBattleArmorEquipment(entry.tag)?.kind === "missile").reduce((sum, entry) => sum + this._itemBattleValue(entry), 0);
         let antiMech = 0;
+        let antiMechDetail = "";
         if (capabilities.swarm) {
             const manipulators = this.isQuad() ? [] : (["la", "ra"] as BattleArmorArm[]).map((arm) => this.getManipulator(arm));
             const each = manipulators.reduce((sum, manipulator) => sum + (manipulator.bv?.per === "each" ? manipulator.bv.value : 0), 0);
             const pair = manipulators.length === 2 && manipulators[0].bv?.per === "pair" && manipulators[0].tag === manipulators[1].tag ? manipulators[0].bv.value : 0;
             // TM p.310 prints "all direct-fire weapons"; only arm-mounted weapons fire in a Swarm attack (TW p.220), and
             // those alone are counted (user ruling, 2026-10-08; MegaMek does the same).
-            const armFire = own.filter((entry) => findBattleArmorEquipment(entry.tag)?.kind === "weapon" && (entry.location === "la" || entry.location === "ra")).reduce((sum, entry) => sum + this._itemBattleValue(entry), 0);
+            const armFire = own.filter((entry) => this._firesAtTargets(entry) && (entry.location === "la" || entry.location === "ra")).reduce((sum, entry) => sum + this._itemBattleValue(entry), 0);
             antiMech = armFire + each + pair;
+            antiMechDetail = `${round2(armFire)} (arm-mounted weapons) + ${each + pair} (claws and magnets)`;
         }
-        const antiPersonnel = this._apMounts.reduce((sum, mount) => sum + (findInfantryWeapon(mount.weapon)?.battleValue ?? 0), 0);
+        // The assault rifle (auto-rifle) in an anti-personnel mount adds nothing: the Master Unit List values every suit
+        // carrying one that way without it (181 suits), as MegaMek does after a rules forum answer.
+        const antiPersonnel = this._apMounts.reduce((sum, mount) => sum + (mount.weapon === AP_MOUNT_UNCOUNTED_WEAPON ? 0 : findInfantryWeapon(mount.weapon)?.battleValue ?? 0), 0);
         const squadSupport = this._items.filter((entry) => entry.squadSupport).reduce((sum, entry) => sum + this._itemBattleValue(entry), 0) / this._squadSize;
-        const other = own.filter((entry) => findBattleArmorEquipment(entry.tag)?.kind === "equipment").reduce((sum, entry) => sum + this._itemBattleValue(entry), 0);
+        const otherItems = own.filter((entry) => findBattleArmorEquipment(entry.tag)?.kind === "equipment");
+        const sumOf = (entries: IBattleArmorMountedItem[]): number => entries.reduce((sum, entry) => sum + this._itemBattleValue(entry), 0);
+        const mines = sumOf(otherItems.filter((entry) => findBattleArmorEquipment(entry.tag)?.mineDispenser));
+        const clamps = sumOf(otherItems.filter((entry) => entry.tag.endsWith("magnetic-clamps")));
+        const other = sumOf(otherItems);
+        if (directFire > 0) trace.add("ba.bv2.off.direct", { label: "Direct-fire weapons", value: round2(directFire) });
+        if (missiles > 0) trace.add("ba.bv2.off.missiles", { label: "Missile launchers and ammunition", detail: "launcher BV + (kilograms carried / 1,000) x the BV of a ton of its ammunition", value: round2(missiles) });
+        if (capabilities.swarm) trace.add(this._isBurdened() ? "ba.bv2.off.anti-mech.burdened" : "ba.bv2.off.anti-mech", { label: "Anti-'Mech attacks", detail: antiMechDetail, value: round2(antiMech) });
+        if (antiPersonnel > 0) trace.add("ba.bv2.off.anti-personnel", { label: "Anti-personnel weapons", value: round2(antiPersonnel) });
+        if (squadSupport > 0) trace.add("ba.bv2.off.support", { label: "Squad support weapon", detail: `its BV / ${this._squadSize} troopers`, value: round2(squadSupport) });
+        if (other - mines - clamps > 0) trace.add("ba.bv2.off.other", { label: "Other equipment", value: round2(other - mines - clamps) });
+        if (clamps > 0) trace.add("ba.bv2.off.other.clamps", { label: "Magnetic clamps", value: round2(clamps) });
+        if (mines > 0) trace.add("ba.bv2.off.mines", { label: "Mine dispensers", detail: "a 10-point minefield each", value: round2(mines) });
         const weaponRating = directFire + missiles + antiMech + antiPersonnel + squadSupport + other;
-        log.push(`Weapon Battle Rating: ${round2(directFire)} (direct fire) + ${round2(missiles)} (missiles and ammunition) + ${round2(antiMech)} (Anti-'Mech attacks) + ${round2(antiPersonnel)} (anti-personnel) + ${round2(squadSupport)} (squad support weapon) + ${round2(other)} (other) = ${round2(weaponRating)}`);
+        trace.add("ba.bv2.off.weapons", {
+            label: "Weapon Battle Rating",
+            detail: `${round2(directFire)} (direct fire) + ${round2(missiles)} (missiles and ammunition) + ${round2(antiMech)} (Anti-'Mech attacks) + ${round2(antiPersonnel)} (anti-personnel) + ${round2(squadSupport)} (squad support weapon) + ${round2(other)} (other)`,
+            value: round2(weaponRating),
+        });
         const speedFactor = getBattleArmorSpeedFactor(movement.mp);
         const offensiveRating = weaponRating * speedFactor;
-        log.push(`Offensive Battle Rating: ${round2(weaponRating)} x ${speedFactor} (Speed Factor, ${movement.mp} MP) = ${round2(offensiveRating)}`);
+        trace.add("ba.bv2.off.speed", { label: "Speed Factor", detail: `${movement.mp} MP`, value: speedFactor });
+        trace.add("ba.bv2.off.rating", { label: "Offensive Battle Rating", detail: `${round2(weaponRating)} x ${speedFactor}`, value: round2(offensiveRating), emphasis: true });
 
         const suit = defensiveRating + offensiveRating;
-        log.push(`Battle Value of one suit: ${round2(defensiveRating)} + ${round2(offensiveRating)} = ${round2(suit)}, or ${roundNormally(suit)}`);
-        return { raw: suit, log };
+        trace.add("ba.bv2.final.suit", { label: "Battle Value of one suit", detail: `${round2(defensiveRating)} + ${round2(offensiveRating)}`, value: round2(suit), total: roundNormally(suit) });
+        return suit;
     }
 
-    private _calcBattleValue(): { suit: number; squad: number; log: string[] } {
-        const suits = this._trooperSuits().map((suit) => ({ ...suit, ...this._asTrooper(suit.trooper, () => this._suitBattleValue()) }));
-        const modifier = BATTLE_ARMOR_UNIT_SIZE_BV[this._squadSize] ?? 1;
-        const log: string[] = [];
-        let suit = suits[0].raw;
-        if (suits.length === 1) {
-            log.push(...suits[0].log);
-        } else {
-            // The rules value one suit and multiply; with unlike suits the troopers' average is used, as MegaMek does.
-            for (const item of suits) log.push(`${this._suitName(item)}:`, ...item.log);
-            suit = suits.reduce((sum, item) => sum + item.raw * item.count, 0) / this._squadSize;
-            log.push(`Average of the ${this._squadSize} troopers' suits: ${round2(suit)}`);
+    private _calcBattleValue(): IBattleArmorBvResult {
+        const trace = new CalcTrace(BATTLE_ARMOR_BV2_STEPS);
+        const suits = this._trooperSuits();
+        const raws = suits.map((item) => this._asTrooper(item.trooper, () => {
+            if (suits.length > 1) trace.add("ba.bv2.suit", { label: `${this._suitName(item)}:` });
+            return this._suitBattleValue(trace);
+        }));
+        // The rules value one suit and multiply; with unlike suits the troopers' average is used, as MegaMek does.
+        let suit = raws[0];
+        if (suits.length > 1) {
+            suit = suits.reduce((sum, item, index) => sum + raws[index] * item.count, 0) / this._squadSize;
+            trace.add("ba.bv2.final.average", { label: `Average of the ${this._squadSize} troopers' suits`, value: round2(suit) });
         }
-        log.push(`${this._squadSize} ${this._squadSize === 1 ? "trooper" : "troopers"}: ${round2(suit)} x ${modifier} = ${roundNormally(suit * modifier)}`);
-        return { suit: roundNormally(suit), squad: roundNormally(suit * modifier), log };
+        const listed = BATTLE_ARMOR_UNIT_SIZE_BV[this._squadSize];
+        const modifier = listed ?? 1;
+        const squad = roundNormally(suit * modifier);
+        trace.add(listed === undefined ? "ba.bv2.final.size.unlisted" : "ba.bv2.final.size", {
+            label: `${this._squadSize} ${this._squadSize === 1 ? "trooper" : "troopers"}`, detail: `${round2(suit)} x ${modifier}`, value: squad, emphasis: true,
+        });
+        return { suit: roundNormally(suit), squad, steps: trace.steps, log: trace.steps.map(formatCalcStep) };
     }
 
-    public getSuitBattleValue(): number { return this._calcBattleValue().suit; }
-    public getBattleValue(): number { return this._calcBattleValue().squad; }
-    public getBattleValueLog(): string[] { return this._calcBattleValue().log; }
-    public getSkillMultiplier(edition?: string): number { return getSkillMultiplier(this._gunnery, this._antiMech, "battle-armor", edition) ?? 1; }
-    public getSkillAdjustedBattleValue(edition?: string): number { return roundNormally(this.getBattleValue() * this.getSkillMultiplier(edition)); }
+    /** An item's Battle Value under the Companion (pp.189-190): its table row, or its Total Warfare figure where the tables do not list it. */
+    private _bv1Item(entry: IBattleArmorMountedItem): { bv: number; ammunition: number; listed: boolean } {
+        const equipment = findBattleArmorEquipment(entry.tag);
+        if (!equipment) return { bv: 0, ammunition: 0, listed: true };
+        if (equipment.mineDispenser) return { bv: BATTLE_ARMOR_BV1_MINE_DISPENSER, ammunition: 0, listed: true };
+        const family = /^(is|clan)-(advanced-srm|lrm|srm|mrm|rocket-launcher)-(\d)$/.exec(equipment.tag);
+        const row = family ? BATTLE_ARMOR_BV1_MISSILES[`${family[1]}-${family[2]}`]?.[Number(family[3]) - 1] : undefined;
+        if (row) {
+            const oneShot = this.isOneShot(entry);
+            const ammunition = oneShot || row[1] === null ? 0 : (this.getItemShots(entry) * (equipment.ammoKg ?? 0) / 1000) * row[1];
+            return { bv: oneShot ? row[2] ?? row[0] : row[0], ammunition, listed: true };
+        }
+        const table = BATTLE_ARMOR_BV1_COMPONENTS[equipment.tag];
+        if (table !== undefined) return { bv: table, ammunition: 0, listed: true };
+        return { bv: equipment.bv, ammunition: 0, listed: equipment.bv === 0 };
+    }
 
-    // Cost (TM pp.276, 281, 296-298)
+    /** One suit's Battle Value 1 (CBT Companion pp.187-190). */
+    private _suitBattleValue1(trace: CalcTrace): number {
+        const resistant = ["ba-fire-resistant", "ba-laser-reflective", "ba-reactive"].includes(this._armor.tag);
+        const armorBV = resistant ? 3 : 2;
+        let defensive = this._armorPoints * armorBV + 1.5;
+        trace.add(resistant && this._armor.tag !== "ba-fire-resistant" ? "ba.bv1.def.armor.special" : "ba.bv1.def.armor", { label: "Armor", detail: `(${this._armorPoints} points x ${armorBV}) + 1.5`, value: round2(defensive) });
+        // "Add 1 if the battle armor mounts ECM" (p.187): once, whatever number of ECM suits; Angel ECM's 2 and the APDS's 7 are carried over from BV2.
+        const gear = this._squadGear();
+        const ecmValue = Math.max(0, ...gear.filter((equipment) => /ecm-suite$|angel-ecm$/.test(equipment.tag)).map((equipment) => equipment.defensiveValue ?? 1));
+        const ecm = ecmValue + gear.filter((equipment) => equipment.tag.endsWith("advanced-point-defense-system")).reduce((sum, equipment) => sum + (equipment.defensiveValue ?? 1), 0);
+        if (ecm > 0) {
+            defensive += ecm;
+            trace.add("ba.bv1.def.ecm", { label: "ECM and anti-missile equipment", detail: `+${ecm}` });
+        }
+        const movement = this._bestMovement();
+        const camo = this._items.reduce((sum, entry) => Math.max(sum, findBattleArmorEquipment(entry.tag)?.defensiveFactorBonus ?? 0), 0);
+        const factor = round2(1 + movement.modifier / 10 + this._armor.defensiveFactorBonus + camo);
+        const defensiveRating = defensive * factor;
+        trace.add("ba.bv1.def.factor", {
+            label: "Defensive Movement Factor",
+            detail: `1 + ${round2(movement.modifier / 10)} (target movement modifier +${movement.modifier})${this._armor.defensiveFactorBonus ? ` + ${this._armor.defensiveFactorBonus} (${this._armor.name})` : ""}${camo ? ` + ${camo} (camo system)` : ""}`,
+            value: factor,
+        });
+        trace.add("ba.bv1.def.rating", { label: "Defensive Battle Rating", detail: `${round2(defensive)} x ${factor}`, value: round2(defensiveRating), emphasis: true });
 
-    private _suitCost(): { raw: number; squadOnly: number; log: string[] } {
-        const log: string[] = [];
+        const own = this._items.filter((entry) => !entry.squadSupport);
+        const isLauncher = (entry: IBattleArmorMountedItem): boolean => /^(is|clan)-(advanced-srm|lrm|srm|mrm)-\d$/.test(entry.tag);
+        const rate = (entry: IBattleArmorMountedItem): number => { const item = this._bv1Item(entry); return item.bv + item.ammunition; };
+        const direct = own.filter((entry) => { const equipment = findBattleArmorEquipment(entry.tag); return !!equipment && equipment.kind !== "equipment" && !equipment.defensive && !isLauncher(entry); });
+        const missiles = own.filter(isLauncher);
+        const others = own.filter((entry) => findBattleArmorEquipment(entry.tag)?.kind === "equipment");
+        const directFire = direct.reduce((sum, entry) => sum + rate(entry), 0);
+        const missileRating = missiles.reduce((sum, entry) => sum + rate(entry), 0);
+        const other = others.reduce((sum, entry) => sum + rate(entry), 0);
+        let antiMech = 0;
+        let antiMechDetail = "";
+        const capabilities = this.getCapabilities();
+        if (capabilities.swarm) {
+            const manipulators = this.isQuad() ? [] : (["la", "ra"] as BattleArmorArm[]).map((arm) => this.getManipulator(arm));
+            const each = manipulators.reduce((sum, manipulator) => sum + (manipulator.bv?.per === "each" ? manipulator.bv.value : 0), 0);
+            const pair = manipulators.length === 2 && manipulators[0].bv?.per === "pair" && manipulators[0].tag === manipulators[1].tag ? manipulators[0].bv.value : 0;
+            const armFire = direct.filter((entry) => entry.location === "la" || entry.location === "ra").reduce((sum, entry) => sum + rate(entry), 0);
+            antiMech = armFire + each + pair;
+            antiMechDetail = `${round2(armFire)} (arm-mounted direct-fire weapons) + ${each + pair} (claws and magnets)`;
+        }
+        // Anti-personnel weapons count only for a unit with no other offensive weapon (p.188).
+        const armed = directFire + missileRating > 0;
+        const antiPersonnel = armed ? 0 : this._apMounts.reduce((sum, mount) => sum + (mount.weapon === AP_MOUNT_UNCOUNTED_WEAPON ? 0 : findInfantryWeapon(mount.weapon)?.battleValue ?? 0), 0);
+        const squadSupport = this._items.filter((entry) => entry.squadSupport).reduce((sum, entry) => sum + rate(entry), 0) / this._squadSize;
+        const unlisted = [...direct, ...missiles, ...others, ...this._items.filter((entry) => entry.squadSupport)].filter((entry) => !this._bv1Item(entry).listed);
+        if (directFire > 0) trace.add("ba.bv1.off.direct", { label: "Direct-fire weapons", value: round2(directFire) });
+        if (capabilities.swarm) trace.add("ba.bv1.off.anti-mech", { label: "Anti-'Mech attacks", detail: antiMechDetail, value: round2(antiMech) });
+        if (missileRating > 0) trace.add("ba.bv1.off.missiles", { label: "Missile launchers and ammunition", detail: "launcher BV + (kilograms carried / 1,000) x the BV of 1,000 kg of its ammunition", value: round2(missileRating) });
+        if (antiPersonnel > 0) trace.add("ba.bv1.off.anti-personnel", { label: "Anti-personnel weapons", value: round2(antiPersonnel) });
+        if (squadSupport > 0) trace.add("ba.bv1.off.support", { label: "Squad support weapon", detail: `its BV / ${this._squadSize} troopers`, value: round2(squadSupport) });
+        if (other > 0) trace.add("ba.bv1.off.other", { label: "Other equipment", value: round2(other) });
+        if (unlisted.length > 0) trace.add("ba.bv1.off.unlisted", { label: "Not in the Companion's tables", detail: [...new Set(unlisted.map((entry) => findBattleArmorEquipment(entry.tag)?.name ?? entry.tag))].join(", ") });
+        const weaponRating = directFire + antiMech + missileRating + antiPersonnel + squadSupport + other;
+        trace.add("ba.bv1.off.weapons", {
+            label: "Weapon Battle Rating",
+            detail: `${round2(directFire)} (direct fire) + ${round2(antiMech)} (Anti-'Mech attacks) + ${round2(missileRating)} (missiles and ammunition) + ${round2(antiPersonnel)} (anti-personnel) + ${round2(squadSupport)} (squad support weapon) + ${round2(other)} (other)`,
+            value: round2(weaponRating),
+        });
+        const speedFactor = BATTLE_ARMOR_BV1_SPEED_FACTORS[Math.min(12, Math.max(1, movement.mp)) - 1];
+        const offensiveRating = weaponRating * speedFactor;
+        trace.add("ba.bv1.off.speed", { label: "Speed Factor", detail: `${movement.mp} MP`, value: speedFactor });
+        trace.add("ba.bv1.off.rating", { label: "Offensive Battle Rating", detail: `${round2(weaponRating)} x ${speedFactor}`, value: round2(offensiveRating), emphasis: true });
+        const suit = defensiveRating + offensiveRating;
+        trace.add("ba.bv1.final.suit", { label: "Battle Value of one suit", detail: `${round2(defensiveRating)} + ${round2(offensiveRating)} = ${round2(suit)}, rounded`, value: roundNormally(suit) });
+        return suit;
+    }
+
+    /** Battle Value 1 under a Master Rules edition: each suit rounded, then multiplied by the suits in the unit (Companion p.189). */
+    private _calcBattleValue1(edition: string): IBattleArmorBvResult {
+        const trace = new CalcTrace(getBattleArmorBv1Steps(edition));
+        const suits = this._trooperSuits();
+        const rounded = suits.map((item) => this._asTrooper(item.trooper, () => {
+            if (suits.length > 1) trace.add("ba.bv1.suit", { label: `${this._suitName(item)}:` });
+            return roundNormally(this._suitBattleValue1(trace));
+        }));
+        const squad = suits.reduce((sum, item, index) => sum + rounded[index] * item.count, 0);
+        trace.add("ba.bv1.final.squad", { label: `${this._squadSize} ${this._squadSize === 1 ? "trooper" : "troopers"}`, detail: suits.length === 1 ? `${rounded[0]} x ${this._squadSize}` : "each trooper's suit, rounded, added", value: squad, emphasis: true });
+        return { suit: Math.max(...rounded), squad, steps: trace.steps, log: trace.steps.map(formatCalcStep) };
+    }
+
+    private _bvFor(edition: string): IBattleArmorBvResult {
+        return getBattleValueFor(edition, "battle-armor", { bv1: () => this._calcBattleValue1(edition), bv2: () => this._calcBattleValue() });
+    }
+
+    /** The suit's Battle Value as the rules edition works it out (BV2 where the edition's BV1 is not entered). */
+    public getSuitBattleValue(edition: string = this._rulesEdition): number { return this._bvFor(edition).suit; }
+    public getBattleValue(edition: string = this._rulesEdition): number { return this._bvFor(edition).squad; }
+    public getBattleValueLog(edition: string = this._rulesEdition): string[] { return this._bvFor(edition).log; }
+    /**
+     * The Battle Value steps under `edition`, each with its page (#599): BV2 under a Total Warfare edition, the Companion's BV1 under
+     * the Master Rules, and one step with a null result under an edition older than the Battle Value system.
+     */
+    public getBattleValueBreakdown(edition: string = this._rulesEdition): ICalcBreakdown {
+        if (!editionHasBattleValue(edition, "battle-armor")) {
+            const trace = new CalcTrace(NO_BATTLE_VALUE_STEPS);
+            trace.add("none.no-battle-value", { label: `${getRulesEdition(edition).name} has no Battle Value. Battle Value first appears in the BattleTech Master Rules (1998)` });
+            return { kind: "battle-value", edition, scheme: "none", steps: trace.steps, result: null };
+        }
+        const bv1 = getBattleValueFor<boolean>(edition, "battle-armor", { bv1: () => true, bv2: () => false });
+        const calculated = this._bvFor(edition);
+        return { kind: "battle-value", edition, scheme: bv1 ? "bv1" : "bv2", steps: calculated.steps, result: calculated.squad };
+    }
+    public getSkillMultiplier(edition?: string): number { const ei = this.hasEIImplants() ? 1 : 0; return getSkillMultiplier(Math.max(0, this._gunnery - ei), Math.max(0, this._antiMech - ei), "battle-armor", getBattleValueSkillEdition(edition ?? this._rulesEdition, "battle-armor")) ?? 1; }
+    public getSkillAdjustedBattleValue(edition?: string): number { return roundNormally(this.getBattleValue(edition) * this.getSkillMultiplier(edition)); }
+
+    // Cost (TM pp.276, 281-282, 285-286, 296-298)
+
+    /** The training of one trooper: 150,000 Inner Sphere, 200,000 Clan, by the suit's technology base (a mixed suit's chassis; TM p.285; Companion p.187). */
+    public getTrooperTrainingCost(): number { return this.isClan() ? BATTLE_ARMOR_TRAINING_COST.clan : BATTLE_ARMOR_TRAINING_COST.is; }
+
+    private _suitCost(trace: CalcTrace): { raw: number; squadOnly: number } {
+        const format = (value: number): string => Math.round(value).toLocaleString("en-US");
         const weightClass = this._weightClass;
         let structural = weightClass.chassisCost;
-        log.push(`Chassis (${weightClass.name}): ${weightClass.chassisCost.toLocaleString("en-US")}`);
+        trace.add("ba.cost.chassis", { label: `Chassis (${weightClass.name})`, value: weightClass.chassisCost });
         const extraGround = this._groundMP - this.getFreeGroundMP();
         if (extraGround > 0) {
             structural += extraGround * BATTLE_ARMOR_GROUND_MP_COST;
-            log.push(`Ground MP above the free minimum: ${extraGround} x ${BATTLE_ARMOR_GROUND_MP_COST.toLocaleString("en-US")}`);
+            trace.add("ba.cost.ground", { label: "Ground MP above the free minimum", detail: `${extraGround} x ${format(BATTLE_ARMOR_GROUND_MP_COST)}`, value: extraGround * BATTLE_ARMOR_GROUND_MP_COST });
         }
         const limit = this.getMotiveLimit(this._motive);
         if (limit && this._motiveMP > 0) {
             structural += this._motiveMP * limit.costPerMP;
-            log.push(`${this._motive === "jump" ? "Jump" : this._motive.toUpperCase()} MP: ${this._motiveMP} x ${limit.costPerMP.toLocaleString("en-US")}`);
+            trace.add("ba.cost.motive", { label: `${this._motive === "jump" ? "Jump" : this._motive.toUpperCase()} MP`, detail: `${this._motiveMP} x ${format(limit.costPerMP)}`, value: this._motiveMP * limit.costPerMP });
         }
         if (!this.isQuad()) {
             for (const arm of ["la", "ra"] as BattleArmorArm[]) {
@@ -1331,19 +1603,19 @@ export default class BattleArmor {
                 const cost = manipulator.cost * (manipulator.kind === "cargo" ? this._arms[arm].cargoHalfTons : 1) + (this._arms[arm].adaptor ? BATTLE_ARMOR_ADAPTOR.cost : 0);
                 if (cost > 0) {
                     structural += cost;
-                    log.push(`${BATTLE_ARMOR_LOCATION_NAMES[arm]}: ${manipulator.name}${this._arms[arm].adaptor ? " in a modular equipment adaptor" : ""}: ${cost.toLocaleString("en-US")}`);
+                    trace.add("ba.cost.manipulator", { label: `${BATTLE_ARMOR_LOCATION_NAMES[arm]}: ${manipulator.name}${this._arms[arm].adaptor ? " in a modular equipment adaptor" : ""}`, value: cost });
                 }
             }
         }
         if (this._armorPoints > 0) {
             structural += this._armorPoints * this._armor.costPerPoint;
-            log.push(`${this._armor.name} armor: ${this._armorPoints} x ${this._armor.costPerPoint.toLocaleString("en-US")}`);
+            trace.add("ba.cost.armor", { label: `${this._armor.name} armor`, detail: `${this._armorPoints} x ${format(this._armor.costPerPoint)}`, value: this._armorPoints * this._armor.costPerPoint });
         }
         if (this.isClan()) {
             structural *= BATTLE_ARMOR_CLAN_COST_MULTIPLIER;
-            log.push(`Clan Technology Multiplier: x ${BATTLE_ARMOR_CLAN_COST_MULTIPLIER}`);
+            trace.add("ba.cost.clan", { label: "Clan Technology Multiplier", detail: `x ${BATTLE_ARMOR_CLAN_COST_MULTIPLIER}` });
         }
-        log.push(`Structural cost: ${Math.round(structural).toLocaleString("en-US")}`);
+        trace.add("ba.cost.structure", { label: "Structural cost", value: Math.round(structural) });
 
         let equipmentCost = this._turretMount().cost;
         let squadOnly = 0;
@@ -1351,7 +1623,7 @@ export default class BattleArmor {
             const equipment = findBattleArmorEquipment(entry.tag);
             if (!equipment) return;
             if (equipment.cost === null) {
-                log.push(`${equipment.name}: no price is listed`);
+                trace.add("ba.cost.unpriced", { label: `${equipment.name}: no price is listed` });
                 return;
             }
             let cost = equipment.cost * (equipment.tubes ?? 1);
@@ -1371,26 +1643,55 @@ export default class BattleArmor {
             equipmentCost += cost + (entry.modular ? BATTLE_ARMOR_MODULAR_MOUNT.cost : 0);
         });
         this._apMounts.forEach((mount) => { equipmentCost += BATTLE_ARMOR_AP_MOUNT.cost + (findInfantryWeapon(mount.weapon)?.cost ?? 0); });
-        log.push(`Weapons, equipment and mounts: ${Math.round(equipmentCost).toLocaleString("en-US")}`);
-        return { raw: structural + equipmentCost, squadOnly, log };
+        trace.add("ba.cost.equipment", { label: "Weapons, equipment and mounts", value: Math.round(equipmentCost) });
+        return { raw: structural + equipmentCost, squadOnly };
     }
 
-    private _calcCost(): { suit: number; squad: number; log: string[] } {
-        const suits = this._trooperSuits().map((suit) => ({ ...suit, ...this._asTrooper(suit.trooper, () => this._suitCost()) }));
-        const squadOnly = suits[0].squadOnly;
-        const log: string[] = [];
-        if (suits.length === 1) log.push(...suits[0].log);
-        else for (const item of suits) log.push(`${this._suitName(item)}:`, ...item.log, `Suit: ${Math.round(item.raw).toLocaleString("en-US")}`);
+    private _calcCost(): IBattleArmorCostResult {
+        const trace = new CalcTrace(BATTLE_ARMOR_COST_STEPS);
+        const format = (value: number): string => Math.round(value).toLocaleString("en-US");
+        const suits = this._trooperSuits();
+        const parts = suits.map((item) => this._asTrooper(item.trooper, () => {
+            if (suits.length > 1) trace.add("ba.cost.suit", { label: `${this._suitName(item)}:` });
+            return this._suitCost(trace);
+        }));
+        const squadOnly = parts[0].squadOnly;
         // The price of one suit; with unlike suits, of the dearest.
-        const suit = Math.round(Math.max(...suits.map((item) => item.raw)));
-        const squad = Math.round(suits.reduce((sum, item) => sum + item.raw * item.count, 0) + squadOnly);
-        log.push(`${suits.length === 1 ? "One suit" : "The dearest suit"}: ${suit.toLocaleString("en-US")}; ${this._squadSize} suits${squadOnly > 0 ? ` and the squad support weapon (${squadOnly.toLocaleString("en-US")})` : ""}: ${squad.toLocaleString("en-US")}`);
-        return { suit, squad, log };
+        const suit = Math.round(Math.max(...parts.map((item) => item.raw)));
+        const training = this.getTrooperTrainingCost();
+        trace.add("ba.cost.training", { label: `Trooper training (${this.isClan() ? "Clan" : "Inner Sphere"} troopers)`, detail: `${format(training)} for each of ${this._squadSize} troopers`, value: training });
+        trace.add("ba.cost.suit-total", { label: suits.length === 1 ? "One suit with its trooper's training" : "The dearest suit with its trooper's training", detail: `${format(suit)} + ${format(training)}`, value: suit + training });
+        const implants = this.hasEIImplants() ? EI_IMPLANT_COST * this._squadSize : 0;
+        if (implants > 0) trace.add("ba.cost.implants", { label: "EI neural implants", detail: `${this._squadSize} troopers x ${format(EI_IMPLANT_COST)}`, value: implants });
+        const squad = Math.round(parts.reduce((sum, item, index) => sum + (item.raw + training) * suits[index].count, 0) + squadOnly + implants);
+        trace.add("ba.cost.final", {
+            label: `${this._squadSize} ${this._squadSize === 1 ? "trooper" : "troopers"}`,
+            detail: `(structure + weapons and equipment + training) x ${this._squadSize}${squadOnly > 0 ? ` + the squad support weapon (${format(squadOnly)})` : ""}${implants > 0 ? " + implants" : ""}`,
+            value: squad, emphasis: true,
+        });
+        return { suit, squad, steps: trace.steps, log: trace.steps.map(formatCalcStep) };
     }
 
     public getSuitCost(): number { return this._calcCost().suit; }
     public getCBillCost(): number { return this._calcCost().squad; }
     public getCBillCostLog(): string[] { return this._calcCost().log; }
+
+    /**
+     * The C-bill cost as cited steps (#599). Under a Master Rules edition, the Revised Edition's fixed price for a stock suit (BMR(R)
+     * p.150) is shown beside the built cost; it does not replace it (owner call 8).
+     */
+    public getCostBreakdown(edition: string = this._rulesEdition): ICalcBreakdown {
+        const cost = this._calcCost();
+        const steps = [...cost.steps];
+        const tag = getBattleValueEdition(edition);
+        const stock = tag === "master-rules" || tag === "master-rules-revised" ? BATTLE_ARMOR_BMRR_STOCK_PRICES.find(([pattern, troopers]) => pattern.test(this._name) && troopers === this._squadSize) : undefined;
+        if (stock) {
+            const trace = new CalcTrace(BATTLE_ARMOR_COST_STEPS);
+            trace.add("ba.cost.stock-price", { label: "The Revised Master Rules' fixed price for the stock suit", detail: `${stock[2].toLocaleString("en-US")} C-bills for ${this._squadSize} troopers`, value: stock[2] });
+            steps.push(...trace.steps);
+        }
+        return { kind: "cost", edition, steps, result: cost.squad };
+    }
 
     // Alternate loadouts: what the modular mounts and adaptors carry on another mission (TM pp.167, 171, 262)
 
@@ -1470,7 +1771,22 @@ export default class BattleArmor {
     // Play (Total Warfare pp.219-227)
 
     public getInPlay(): IBattleArmorInPlay { return this._inPlay; }
-    public resetInPlay(): void { this._inPlay = { damage: [] }; }
+    public resetInPlay(): void { this._inPlay = { damage: [] }; this.ewarPlay = {}; }
+    /**
+     * Every piece of E-War gear on the suit (#642), each mounted item once, not once per trooper, and the armor when it
+     * is stealth or mimetic. Destroyed is isItemLost: gear carried by one trooper is lost with that trooper; squad gear is
+     * not tracked per item, so it is not destroyed.
+     */
+    public getEWarGear(): IEWarGear[] {
+        const gear: IEWarGear[] = [];
+        for (const entry of this._loadoutItems()) {
+            const kind = getEWarKind(entry.tag);
+            if (kind) gear.push({ kind, tag: entry.tag, name: findBattleArmorEquipment(entry.tag)?.name ?? entry.tag, uuid: entry.uuid, location: entry.location, destroyed: this.isItemLost(entry) });
+        }
+        const armor = getEWarKind(this._armor.tag);
+        if (armor) gear.push({ kind: armor, tag: this._armor.tag, name: this._armor.name, location: "armor", destroyed: false });
+        return gear;
+    }
     /** Damage a trooper takes before being destroyed: the Armor Value and 1 for the soldier inside (TW p.219). */
     public getTrooperCapacity(): number { return this._armorPoints + 1; }
     public getTrooperDamage(trooper: number): number {
@@ -1811,7 +2127,7 @@ export default class BattleArmor {
         else if (movement >= 5) targetMovement = 1;
         const stealth = specials.includes("STL");
         // A mimetic system counts as a movement modifier of 3, a camo system as 2, when the suit's own is lower.
-        const concealed = specials.includes("MAS") ? 3 : specials.includes("LMAS") ? 2 : 0;
+        const concealed = specials.includes("MAS") || specials.includes("LMAS") ? 3 : 0; // Companion Defense Factor table: +3 for MAS and LMAS; the MUL uses 2 for LMAS (#648 M9)
         // The table's "VTOL or WiGE Vehicle" +1 is given to battle armor with VTOL movement too, as MegaMek and the
         // Master Unit List's cards do.
         const defenseModifier = Math.max(targetMovement + (jumps || code === "v" ? 1 : 0), concealed) + 1 + (stealth ? 1 : 0);
@@ -1891,7 +2207,13 @@ export default class BattleArmor {
         } as unknown as IASMULUnit;
         const unit = new AlphaStrikeUnit();
         unit.importMUL(record);
+        // The unit picture stored in the design (#95); with none, the picture the MUL record gave stays.
+        if (this.tro.getImage()) unit.imageURL = this.tro.getImage();
         unit.rulesLevel = Math.max(2, this.getRequiredRulesLevel());
+        unit.quirks = getAlphaStrikeQuirks(this);
+        unit.quirkEraStart = this.getEra().yearStart;
+        // The card credits the Special Rulesets the design is built under (#324).
+        unit.rulesets = this.gameSettings.getRulesets();
         return unit;
     }
 
@@ -1927,10 +2249,14 @@ export default class BattleArmor {
         };
         return {
             ...(inPlay ? { inPlay } : {}),
+            ...(!noInPlayVariables && Object.keys(this.ewarPlay).length ? { ewarPlay: JSON.parse(JSON.stringify(this.ewarPlay)) as IEWarPlayState } : {}),
             uuid: this._uuid,
+            tro: this.tro.export(),
+            quirks: this.quirks.export(),
             lastUpdated: this.lastUpdated.toISOString(),
             name: this._name,
             ...(this._rulesEdition !== DEFAULT_RULES_EDITION ? { rulesEdition: this._rulesEdition } : {}),
+            ...this.gameSettings.export(),
             techBase: this._techBase,
             ...(this._mixedTech ? { mixedTech: true } : {}),
             ...(this._mixedTech && this._armorBase() !== this._techBase ? { armorTechBase: this._armorBase() } : {}),
@@ -1938,6 +2264,7 @@ export default class BattleArmor {
             bodyType: this._bodyType,
             ...(this.usesExoskeletonChassis() ? { exoskeletonChassis: true } : {}),
             ...(this._automata ? { automata: true } : {}),
+            ...(this._eiImplants ? { eiImplants: true } : {}),
             groundMP: this._groundMP,
             motive: this._motive,
             motiveMP: this.getMotiveMP(),
@@ -1975,10 +2302,13 @@ export default class BattleArmor {
 
         const uuid = savedString(raw.uuid);
         if (/^[0-9a-zA-Z-]{8,64}$/.test(uuid)) this._uuid = uuid;
+        this.tro.import(raw.tro);
+        this.quirks.import(raw.quirks);
         const updated = new Date(savedString(raw.lastUpdated));
         if (!Number.isNaN(updated.getTime())) this.lastUpdated = updated;
         this.setName(savedString(raw.name));
         this._rulesEdition = getSelectableRulesEditionTag(raw.rulesEdition, "battle-armor");
+        this.gameSettings.import(raw);
 
         this._techBase = raw.techBase === "clan" ? "clan" : "is";
         this._mixedTech = raw.mixedTech === true;
@@ -1995,6 +2325,7 @@ export default class BattleArmor {
         if (raw.bodyType === "quad" && this._bodyType !== "quad") this._importIssues.push("Exoskeletons and PA(L) suits are humanoid: body type set to humanoid");
         this._exoskeletonChassis = raw.exoskeletonChassis === true;
         this._automata = raw.automata === true;
+        this._eiImplants = raw.eiImplants === true;
 
         this._groundMP = savedNumber(raw.groundMP, this.getFreeGroundMP(), this.getFreeGroundMP(), this.getMaxGroundMP());
         this._motive = "none";
@@ -2045,7 +2376,12 @@ export default class BattleArmor {
                 dwp: saved.dwp === true,
                 trooper: typeof saved.trooper === "number" ? saved.trooper : undefined,
                 mine: typeof saved.mine === "string" ? saved.mine : undefined,
+                munition: typeof saved.munition === "string" ? saved.munition : undefined,
             });
+            const savedUuid = savedString(saved.uuid);
+            if (/^[0-9a-zA-Z-]{8,64}$/.test(savedUuid) && !this._baseItems.some((entry) => entry.uuid === savedUuid)) {
+                this._baseItems[this._baseItems.length - 1].uuid = savedUuid;
+            }
         }
 
         this._apMounts = [];
@@ -2080,6 +2416,7 @@ export default class BattleArmor {
         this._activeLoadout = savedNumber(raw.activeLoadout, -1, -1, this._loadouts.length - 1);
 
         this._inPlay = { damage: [] };
+        this.ewarPlay = normalizeEWarPlay(raw.ewarPlay);
         if (isPlainObject(raw.inPlay)) {
             const damage = Array.isArray(raw.inPlay.damage) ? raw.inPlay.damage : [];
             for (let trooper = 0; trooper < this._squadSize; trooper++) this.setTrooperDamage(trooper, savedNumber(damage[trooper], 0, 0, 99));

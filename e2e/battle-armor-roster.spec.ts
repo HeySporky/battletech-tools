@@ -57,13 +57,13 @@ test("a suit gets an alternate loadout, an era and an Alpha Strike card", async 
     await page.getByRole("link", { name: "View Alpha Strike Card" }).click();
     await expect(page.getByTestId("ba-as-card")).toHaveCount(2);
     await page.goto("classic-battletech/battle-armor-creator/record-sheet");
-    await expect(page.getByRole("heading", { name: "Purifier [PPC]" })).toBeVisible();
+    await expect(page.getByTestId("ba-squad-2")).toContainText("Purifier [PPC]");
 
     // An earlier era has no mimetic armor, and the creator says so (IO:AE pp. 45-47).
     await page.goto("classic-battletech/battle-armor-creator/chassis");
-    await page.getByTestId("ba-era").selectOption("late-sw-rn");
+    await page.getByLabel("Era:").selectOption("late-sw-rn");
     await expect(page.getByTestId("ba-issues")).toContainText("Mimetic armor is not available to Inner Sphere battle armor");
-    await page.getByTestId("ba-era").selectOption("jihad");
+    await page.getByLabel("Era:").selectOption("jihad");
     await expect(page.getByTestId("ba-issues")).toHaveCount(0);
 
     expect(errors).toEqual([]);
@@ -144,8 +144,10 @@ test("a battle armor squad joins the roster, takes damage in play and prints", a
     await expect(page.getByText("This Squad is Damaged")).toBeVisible();
 
     await page.goto("classic-battletech/roster/print");
-    await expect(page.getByRole("heading", { name: "Purifier Squad" })).toBeVisible();
-    await expect(page.getByTestId("battle-armor-sheet-troopers")).toContainText("destroyed");
+    await expect(page.getByTestId("ba-squad-1")).toContainText("Purifier Squad");
+    // Trooper 2 is destroyed: their trooper circle is filled.
+    await expect(page.getByTestId("ba-squad-1-trooper-2").locator("circle").first()).toHaveAttribute("data-hit", "filled");
+    await expect(page.getByTestId("ba-squad-1-trooper-1").locator("circle").first()).not.toHaveAttribute("data-hit", "filled");
 
     expect(errors).toEqual([]);
 });

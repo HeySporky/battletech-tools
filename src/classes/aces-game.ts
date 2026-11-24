@@ -1,19 +1,22 @@
-import { IAcesCard, IAcesCardLibrary, IAcesScenario, IAcesScenarioObjective, IAcesWaypoint } from "../data/aces-cards";
+import { IAcesCard, IAcesCardLibrary, IAcesCommandCard, IAcesScenario, IAcesScenarioObjective, IAcesWaypoint } from "../data/aces-cards";
 import { acesDecks, ACES_CARDS_PER_DECK, getAcesDeck, TAcesDeckId } from "../data/aces-rules";
 import { generateUUID } from "../utils/generateUUID";
 import {
+    acesCommandInitiativeModifier,
     getAcesCrippledReasonsForUnit,
     getAcesFrontLoadedMoveOrder,
     getAcesInitiativeModifiers,
+    getAcesUnitLabels,
     IAcesModifier,
     IAcesMoveStep,
+    isAcesEmplacementCard,
     sortAcesActivation,
     splitAcesDeck,
     suggestAcesDeckForUnit,
     TAcesPriorityToken,
     TAcesSide,
 } from "./aces-helpers";
-import { IAcesRngState, newAcesRngState, rollAces2D6, rollAcesD6, shuffleAces, TAcesRuleset } from "./aces-engine";
+import { chooseAcesTokenUnit, getAcesOrdersForPhase, getAcesUnitStats, IAcesRngState, newAcesRngState, rollAces2D6, rollAcesD6, shuffleAces, TAcesRuleset } from "./aces-engine";
 import AlphaStrikeForce, { IASForceExport } from "./alpha-strike-force";
 import { AlphaStrikeUnit } from "./alpha-strike-unit";
 
@@ -52,6 +55,16 @@ export interface IAcesUnitState {
     /** Transport carrying this unit (Aces p.5); a transported unit can't move, attack or spot. */
     transportedBy: string;
     mountedThisTurn: boolean;
+    /** True for a unit brought in mid-game; only these can be taken back out. Optional so older saves load. */
+    addedDuringPlay?: boolean;
+}
+
+/** A Battlefield Support card the automated force holds. The player names it; nothing about the card is shipped. */
+export interface IAcesGameSupportCard {
+    id: string;
+    name: string;
+    /** Game turn it was spent on, or null while still in hand. */
+    spentTurn: number | null;
 }
 
 export interface IAcesGameWaypoint extends IAcesWaypoint {
@@ -114,6 +127,10 @@ export interface IAcesGameExport {
     specialOrders?: IAcesGameSpecialOrders;
     commandCardId?: string;
     deckPools?: { [deckId: string]: string[] };
+    /** Player units (by uuid) that have moved this turn, for the Command card conditions. */
+    playerUnitsMoved?: string[];
+    /** Battlefield Support cards the automated force holds. Optional so older saves load. */
+    supportCards?: IAcesGameSupportCard[];
 }
 
 export const newAcesUnitState = ( unitUUID: string ): IAcesUnitState => {
@@ -156,6 +173,9 @@ export class AcesGame {
     public initiativeWinner: TAcesSide | null = null;
     public lastInitiativeWinner: TAcesSide | null = null;
     public playerUnitsAbleToMove: number = 0;
+    /** Player units that moved this turn; ticking one once carries to every automated unit card reading. */
+    public playerUnitsMoved: string[] = [];
+    public supportCards: IAcesGameSupportCard[] = [];
     public scenario: IAcesGameScenario = {
         gameSize: "battle",
         deploymentId: null,
@@ -212,7 +232,9 @@ export class AcesGame {
             state = newAcesUnitState( unitUUID );
             const unit = this.getUnit( unitUUID );
             if( unit ) {
-                state.deckId = suggestAcesDeckForUnit( unit, this.hasScouringSands ) || "";
+                // A Battlefield Support emplacement card (type BD, IMMOBILE) starts ticked as one, with no deck (Aces p.6, p.31).
+                state.isEmplacement = isAcesEmplacementCard( unit );
+                state.deckId = state.isEmplacement ? "" : suggestAcesDeckForUnit( unit, this.hasScouringSands ) || "";
             }
             this.unitStates.push( state );
         }
@@ -237,6 +259,76 @@ export class AcesGame {
         this.unitStates = [];
         this.syncUnitStates();
         this.assignDecks();
+    }
+
+    /**
+     * Brings another unit into the automated force mid-game. It joins as a fresh copy (new id, undamaged) and gets
+     * its own deck dealt; the other decks and every other unit's state are left alone. Aces names no rule for this,
+     * so the unit simply acts from the current phase on (not moved, not attacked).
+     */
+    public addAutomatedUnit( unit: AlphaStrikeUnit, groupIndex: number = 0 ): AlphaStrikeUnit {
+        const copy = new AlphaStrikeUnit();
+        copy.importUnit( unit.export() );
+        copy.uuid = generateUUID();
+        copy.reset();
+        this.automatedForce.addToGroup( copy, groupIndex );
+        const state = this.getUnitState( copy.uuid );
+        state.addedDuringPlay = true;
+        if( state.deckId ) this.dealDeck( state.deckId );
+        this.addLog( this.getUnitLabel( copy ) + " joins the automated force." );
+        return copy;
+    }
+
+    /** Takes back a unit added by mistake. Only units added during play can go; false otherwise. */
+    public removeAutomatedUnit( unitUUID: string ): boolean {
+        const state = this.unitStates.find( ( entry ) => entry.unitUUID === unitUUID );
+        if( !state || !state.addedDuringPlay ) return false;
+        const unit = this.getUnit( unitUUID );
+        if( !unit ) return false;
+        const label = this.getUnitLabel( unit );
+        for( let groupIndex = 0; groupIndex < this.automatedForce.groups.length; groupIndex++ ) {
+            const unitIndex = this.automatedForce.groups[groupIndex].members.indexOf( unit );
+            if( unitIndex > -1 ) {
+                this.automatedForce.removeUnitFromGroup( groupIndex, unitIndex );
+                break;
+            }
+        }
+        this.unitStates = this.unitStates.filter( ( entry ) => entry.unitUUID !== unitUUID );
+        if( this.automatedCommanderUUID === unitUUID ) this.automatedCommanderUUID = "";
+        // Units that shared its deck split it again; a deck of its own has nothing left to deal.
+        if( state.deckId && this.getUnitsUsingDeck( state.deckId ).length > 0 ) this.dealDeck( state.deckId );
+        this.addLog( label + " leaves the automated force (added by mistake)." );
+        return true;
+    }
+
+    public addSupportCard( name: string ): IAcesGameSupportCard {
+        const card: IAcesGameSupportCard = { id: generateUUID(), name: name.trim() || "Battlefield Support card", spentTurn: null };
+        this.supportCards.push( card );
+        return card;
+    }
+
+    public removeSupportCard( id: string ) {
+        this.supportCards = this.supportCards.filter( ( card ) => card.id !== id );
+    }
+
+    /**
+     * Spends the chosen unspent cards this turn. Spending more than the Command card's limit, or a card that is
+     * unknown or already spent, is refused and spends none.
+     */
+    public spendSupportCards( ids: string[], limit: number | null ): { ok: boolean; reason: string } {
+        const unique = ids.filter( ( id, index ) => ids.indexOf( id ) === index );
+        if( unique.length === 0 ) return { ok: false, reason: "Choose at least one card." };
+        const alreadySpent = this.supportCards.filter( ( card ) => card.spentTurn === this.turn && unique.indexOf( card.id ) === -1 ).length;
+        if( limit !== null && alreadySpent + unique.length > limit ) {
+            return { ok: false, reason: "The Command card allows up to " + limit + " Battlefield Support card" + ( limit === 1 ? "" : "s" ) + " per turn; " + alreadySpent + " already spent this turn, " + unique.length + " chosen." };
+        }
+        const chosen = unique.map( ( id ) => this.supportCards.find( ( card ) => card.id === id ) );
+        if( chosen.some( ( card ) => !card || card.spentTurn !== null ) ) {
+            return { ok: false, reason: "Only cards still in hand can be spent." };
+        }
+        for( const card of chosen ) card!.spentTurn = this.turn;
+        this.addLog( "Battlefield Support spent: " + chosen.map( ( card ) => card!.name ).join( ", " ) + "." );
+        return { ok: true, reason: "" };
     }
 
     /** Adds states for new units and drops states for removed ones. */
@@ -392,10 +484,12 @@ export class AcesGame {
         }
     }
 
-    public getInitiativeModifiers( side: TAcesSide ): IAcesModifier[] {
+    /** The Command card is the face-up card from the players' library, when they entered one. */
+    public getInitiativeModifiers( side: TAcesSide, commandCard: IAcesCommandCard | null = null ): IAcesModifier[] {
         const campaign = this.campaignId !== "";
         const commanderDestroyed = side === "player" ? this.playerCommanderDestroyed : this.isAutomatedCommanderDestroyed();
-        return getAcesInitiativeModifiers( this.lastInitiativeWinner === side, commanderDestroyed, campaign );
+        const commandOrder = side === "automated" && commandCard ? acesCommandInitiativeModifier( commandCard.orders ) : 0;
+        return getAcesInitiativeModifiers( this.lastInitiativeWinner === side, commanderDestroyed, campaign, commandOrder );
     }
 
     public isAutomatedCommanderDestroyed(): boolean {
@@ -418,8 +512,9 @@ export class AcesGame {
      * Rolls Initiative for both sides with the Aces modifiers (Aces p.32), rerolling ties. Players who roll their
      * own dice set the winner by hand instead.
      */
-    public rollInitiative(): { player: number, automated: number, winner: TAcesSide } {
-        const total = ( side: TAcesSide ) => this.roll2D6() + this.getInitiativeModifiers( side ).reduce( ( sum, modifier ) => sum + modifier.value, 0 );
+    public rollInitiative( commandCard: IAcesCommandCard | null = null ): { player: number, automated: number, winner: TAcesSide } {
+        const modifiers = ( side: TAcesSide ) => this.getInitiativeModifiers( side, commandCard );
+        const total = ( side: TAcesSide ) => this.roll2D6() + modifiers( side ).reduce( ( sum, modifier ) => sum + modifier.value, 0 );
         let player = total( "player" );
         let automated = total( "automated" );
         while( player === automated ) {
@@ -427,7 +522,11 @@ export class AcesGame {
             automated = total( "automated" );
         }
         const winner: TAcesSide = player > automated ? "player" : "automated";
-        this.addLog( "Initiative roll: players " + player + ", automated force " + automated + "." );
+        const listed = ( side: TAcesSide ) => {
+            const list = modifiers( side ).map( ( modifier ) => modifier.label + " " + ( modifier.value > 0 ? "+" : "" ) + modifier.value );
+            return list.length > 0 ? " (" + list.join( ", " ) + ")" : "";
+        };
+        this.addLog( "Initiative roll: players " + player + listed( "player" ) + ", automated force " + automated + listed( "automated" ) + "." );
         this.setInitiativeWinner( winner );
         return { player: player, automated: automated, winner: winner };
     }
@@ -521,7 +620,7 @@ export class AcesGame {
         state.cannotMove = true;
         state.moved = true;
         state.token = null;
-        this.addLog( ( passenger.customName || passenger.name ) + " mounts " + ( transport.customName || transport.name ) + ". The transport can't Sprint this turn." );
+        this.addLog( this.getUnitLabel( passenger ) + " mounts " + this.getUnitLabel( transport ) + ". The transport can't Sprint this turn." );
         return check;
     }
 
@@ -536,7 +635,7 @@ export class AcesGame {
         state.moved = true;
         const move = passenger.move.length > 0 ? Math.ceil( passenger.move[0].currentMove / 2 ) : 0;
         const reason = "Dismounts in base contact, then may move up to " + move + "\" (Ground, or Jump from an OMNI unit).";
-        this.addLog( ( passenger.customName || passenger.name ) + ": " + reason );
+        this.addLog( this.getUnitLabel( passenger ) + ": " + reason );
         return { ok: true, reason: reason };
     }
 
@@ -551,7 +650,7 @@ export class AcesGame {
             const state = this.getUnitState( passenger.uuid );
             state.transportedBy = "";
             state.cannotMove = false;
-            const name = passenger.customName || passenger.name;
+            const name = this.getUnitLabel( passenger );
             if( transport && transport.hasAbility( "OMNI" ) && passenger.type.toUpperCase() === "BA" ) {
                 rv.push( name + " is placed in base contact with the destroyed Omni unit." );
             } else {
@@ -607,6 +706,28 @@ export class AcesGame {
         } ).length;
     }
 
+    /** A unit name for the log and messages: same-name automated units are numbered in force order. */
+    public getUnitLabel( unit: AlphaStrikeUnit ): string {
+        return getAcesUnitLabels( this.getAutomatedUnits() ).get( unit.uuid ) || ( unit.customName || unit.name );
+    }
+
+    /** Sets the player move count from the roster: units still standing that are not immobile. No roster leaves it as typed. */
+    public setPlayerUnitsFromForce( force: AlphaStrikeForce | null ) {
+        if( !force ) return;
+        let count = 0;
+        for( const group of force.groups ) {
+            for( const unit of group.members ) {
+                if( !unit.isWrecked() && !unit.immobile ) count++;
+            }
+        }
+        this.playerUnitsAbleToMove = count;
+    }
+
+    public setPlayerUnitMoved( id: string, moved: boolean ) {
+        const rest = this.playerUnitsMoved.filter( ( entry ) => entry !== id );
+        this.playerUnitsMoved = moved ? rest.concat( [ id ] ) : rest;
+    }
+
     public getMoveOrder(): IAcesMoveStep[][] {
         if( !this.initiativeWinner ) return [];
         const loser: TAcesSide = this.initiativeWinner === "player" ? "automated" : "player";
@@ -644,6 +765,29 @@ export class AcesGame {
     }
 
     /**
+     * Hands out the Move First / Move Last tokens the face-up Command card orders (Aces p.8). Old tokens are taken
+     * back first, since the card in play decides who holds them. A tied ranking gives no token: the players choose.
+     */
+    public applyCommandTokens( card: IAcesCommandCard | null ) {
+        for( const state of this.unitStates ) state.token = null;
+        if( !card ) return;
+        const units = this.getLiveAutomatedUnits().map( ( unit ) => {
+            const state = this.getUnitState( unit.uuid );
+            return {
+                id: unit.uuid,
+                name: this.getUnitLabel( unit ),
+                stats: getAcesUnitStats( unit ),
+                eligible: !state.moved && !state.cannotMove && !state.forcedWithdrawal && !state.fleeing && !state.isEmplacement && !state.transportedBy,
+            };
+        } );
+        for( const order of getAcesOrdersForPhase( card, "initiative" ) ) {
+            if( !order.token ) continue;
+            const choice = chooseAcesTokenUnit( order, units );
+            if( choice.unitId ) this.assignToken( choice.unitId, order.token );
+        }
+    }
+
+    /**
      * Crippled automated units (End Phase step 2, Aces p.32). With Forced Withdrawal in play they are put under
      * the Forced Withdrawal order (Aces p.16).
      */
@@ -657,7 +801,7 @@ export class AcesGame {
                 if( this.forcedWithdrawal && !state.forcedWithdrawal && !state.isEmplacement ) {
                     state.forcedWithdrawal = true;
                     state.token = null;
-                    this.addLog( ( unit.customName || unit.name ) + " is crippled and under Forced Withdrawal." );
+                    this.addLog( this.getUnitLabel( unit ) + " is crippled and under Forced Withdrawal." );
                 }
             }
         }
@@ -687,6 +831,7 @@ export class AcesGame {
         this.phase = "initiative";
         this.lastInitiativeWinner = this.initiativeWinner;
         this.initiativeWinner = null;
+        this.playerUnitsMoved = [];
         for( const state of this.unitStates ) {
             state.moved = false;
             state.attacked = false;
@@ -705,8 +850,12 @@ export class AcesGame {
         for( const unit of this.getAutomatedUnits() ) {
             unit.reset();
         }
-        const keep = this.unitStates.map( ( state ) => ( { unitUUID: state.unitUUID, deckId: state.deckId, isEmplacement: state.isEmplacement } ) );
-        this.unitStates = keep.map( ( entry ) => ( { ...newAcesUnitState( entry.unitUUID ), deckId: entry.deckId, isEmplacement: entry.isEmplacement } ) );
+        const keep = this.unitStates.map( ( state ) => ( { unitUUID: state.unitUUID, deckId: state.deckId, isEmplacement: state.isEmplacement, addedDuringPlay: state.addedDuringPlay } ) );
+        this.unitStates = keep.map( ( entry ) => {
+            const fresh: IAcesUnitState = { ...newAcesUnitState( entry.unitUUID ), deckId: entry.deckId, isEmplacement: entry.isEmplacement };
+            if( entry.addedDuringPlay ) fresh.addedDuringPlay = true;
+            return fresh;
+        } );
         this.rng = newAcesRngState( this.rng.seed );
         this.assignDecks();
         this.turn = 1;
@@ -717,6 +866,8 @@ export class AcesGame {
         this.automatedCommanderDestroyed = false;
         this.commandCard = "A";
         this.log = [];
+        // A restart keeps the force's cards but they are all back in hand.
+        for( const card of this.supportCards ) card.spentTurn = null;
         this.automatedObjectiveComplete = false;
         for( const waypoint of this.waypoints ) waypoint.resolved = false;
         for( const objective of this.objectives ) objective.complete = false;
@@ -758,6 +909,8 @@ export class AcesGame {
             specialOrders: { ...this.specialOrders },
             commandCardId: this.commandCardId,
             deckPools: JSON.parse( JSON.stringify( this.deckPools ) ),
+            playerUnitsMoved: this.playerUnitsMoved.slice(),
+            supportCards: this.supportCards.map( ( card ) => ( { ...card } ) ),
         };
     }
 
@@ -815,6 +968,12 @@ export class AcesGame {
             };
         }
         if( typeof data.commandCardId === "string" ) this.commandCardId = data.commandCardId;
+        this.playerUnitsMoved = Array.isArray( data.playerUnitsMoved ) ? data.playerUnitsMoved.filter( ( id ) => typeof id === "string" ) : [];
+        this.supportCards = Array.isArray( data.supportCards )
+            ? data.supportCards
+                .filter( ( item ) => item && typeof item.id === "string" && item.id && typeof item.name === "string" )
+                .map( ( item ) => ( { id: item.id, name: item.name, spentTurn: typeof item.spentTurn === "number" && item.spentTurn > 0 ? item.spentTurn : null } ) )
+            : [];
         this.deckPools = {};
         if( data.deckPools && typeof data.deckPools === "object" ) {
             for( const key of Object.keys( data.deckPools ) ) {

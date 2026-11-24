@@ -3,7 +3,7 @@ import BattleArmor, {
     BATTLE_ARMOR_ATTACK_KINDS, BATTLE_ARMOR_LOCATION_NAMES, BATTLE_ARMOR_SWARM_DEFENDER_MODIFIERS, BattleArmorAttackKind, BattleArmorCarrierKind,
 } from '../../../../classes/battle-armor';
 import { IBattleArmorCarrier } from '../../../../classes/battle-armor-transport';
-import { findBattleArmorEquipment, findBattleArmorMineType } from '../../../../data/battle-armor-equipment';
+import { findBattleArmorEquipment, findBattleArmorMineType, findBattleArmorMunition } from '../../../../data/battle-armor-equipment';
 import { findInfantryWeapon } from '../../../../data/infantry-weapons';
 
 const formatModifier = (modifier: number): string => modifier >= 0 ? `+${modifier}` : `${modifier}`;
@@ -158,6 +158,7 @@ export default class BattleArmorPlayPanel extends React.Component<IBattleArmorPl
                                         {entry.dwp ? " (detachable weapon pack)" : ""}{entry.detachable ? " (detachable)" : ""}{jettisoned ? " - jettisoned" : ""}
                                         {entry.trooper ? ` (trooper ${entry.trooper} only${squad.isItemLost(entry) ? ": lost with the trooper" : ""})` : ""}
                                         {equipment.mineDispenser ? ` (${findBattleArmorMineType(entry.mine).name} mines)` : ""}
+                                        {entry.munition ? ` (${findBattleArmorMunition(entry.munition).name})` : ""}
                                         {equipment.notes ? <div className="small-text">{equipment.notes}</div> : null}
                                     </td>
                                     <td>{BATTLE_ARMOR_LOCATION_NAMES[entry.location]}</td>

@@ -12,7 +12,7 @@ export default class AlphaStrikeUnitToken extends React.Component<IAlphaStrikeUn
             return <></>
         }
 
-        let classes = ["alpha-strike-unit-token"];
+        const classes = ["alpha-strike-unit-token"];
         classes.push(this.props.asUnit.type.toLowerCase());
         classes.push(this.props.asUnit.abilities.indexOf("LG") > -1 ? 'superheavy' : "");
 

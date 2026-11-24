@@ -1,22 +1,43 @@
+import { getUnitDialSetting, setUnitDialSetting } from "../utils/dial-weapons";
+import { advanceAutocannonTurn, declareClear, getAutocannonKind, isClearingAttempt, resolveClear, getMaxShots, getSelectedShots, normalizeAutocannonPlay, recordToHitRoll, canFire, type AutocannonKind, type IAutocannonPlay } from "../utils/autocannon-play";
 import { generateUUID } from "../utils/generateUUID";
-import { DEFAULT_RULES_EDITION, getSelectableRulesEditionTag } from "../data/rules-editions";
-import { aerospaceArmorTypes, getAerospaceArmorPointsPerTon } from "../data/aerospace-armor-types";
+import { getEWarKind, normalizeEWarPlay, type IEWarGear, type IEWarPlayState } from "../utils/ewar-play";
+import { IGameSettingsUnit, UnitGameSettings } from "./unit-game-settings";
+import { chooseEra } from "../data/era-choice";
+import { findUnitCatalogRecord, copyCatalogRecord, getUnitCatalogRecords } from "../data/equipment-lookup";
+import { TechnicalReadout } from "./technical-readout";
+import type { ITechnicalReadoutExport } from "../data/technical-readout-interfaces";
+import { IAssignedQuirk, IQuirkTargets, QuirkUnitType } from "../data/quirk-interfaces";
+import { getQuirkIssues, getQuirkTargets } from "../data/quirk-registry";
+import { QuirkList } from "./quirk-list";
+import { getAlphaStrikeQuirks } from "../utils/quirk-effects";
+import { DEFAULT_RULES_EDITION, getRulesEdition, getSelectableRulesEditionTag } from "../data/rules-editions";
+import {
+    AERO_GROUND_EDITIONS, AeroGroundEdition, AirToGroundAttack, IAirToGroundToHit, IFlightState, IFlightStep, accelerate, changeAltitude,
+    endFlightMovement, getAeroGroundEdition, getAirToGroundToHit, startFlightTurn,
+} from "../utils/aero-ground-play";
+import { AmmoExplosionProtection, getHeatAmmoExplosion } from "../data/ammo-explosion";
+import { aerospaceArmorTypes, getAerospaceArmorDates, getAerospaceArmorPointsPerTon, getAerospaceArmorTechBase, isStarLeagueVersion } from "../data/aerospace-armor-types";
 import { mechEngineOptions } from "../data/mech-engine-options";
 import { mechEngineTypes } from "../data/mech-engine-types";
 import { mechHeatSinkTypes } from "../data/mech-heat-sink-types";
 import { btTechOptions } from "../data/tech-options";
 import { btEraOptions, findEraByTag, getClosestEraForTech, getErasForTech } from "../data/era-options";
-import { CUSTOM_HOMEBREW_RULES_LEVEL, getArtemisLauncherBattleValue, EXPERIMENTAL_RULES_LEVEL, getAmmoBattleValuePerTon, getBattleArmorScaleListByTech, getCompatibleAmmo, getEffectiveIntroduction, getEquipmentListByTech, getEquipmentRulesLevel, getWeaponShotsPerTon, isEquipmentWithinRulesLevel } from "../data/equipment-registry";
+import { CUSTOM_HOMEBREW_RULES_LEVEL, getArtemisLauncherBattleValue, getLauncherBattleValueWithoutFireControl, EXPERIMENTAL_RULES_LEVEL, getAmmoBattleValuePerTon, getAmmoFamily, getBattleArmorScaleListByTech, getCompatibleAmmo, getDatesAvailability, getEquipmentListByTech, getEquipmentRulesLevel, getEquipmentOfferIssue, getWeaponShotsPerTon, isEquipmentOffered, isUnderUnitLimit, getTechDatesAvailability, getAlphaStrikeEquipmentSpecials } from "../data/equipment-registry";
 import { getFractionalAerospaceArmorTonsPerPoint, getFractionalEngineWeight, roundUpToKilogram } from "../data/fractional-accounting";
 import { AlphaStrikeUnit, IASMULUnit } from "./alpha-strike-unit";
 import Pilot, { IPilot } from "./pilot";
-import { getSkillMultiplier } from "../data/skill-multipliers";
+import { IBattleValueTagShare, editionHasBattleValue, getBattleValueFor, isBattleValue1Defensive, rateBattleValue1, getBattleValueForceRules, getBattleValueSkillEdition, getBattleValueTagShare, getSkillMultiplier } from "../data/battle-value";
+import { CalcTrace, formatCalcNumber, ICalcBreakdown, ICalcCitation, ICalcStep, renderCalcStepsHtml, renderCalcStepsTable } from "../data/calc-steps";
+import { CLAN_CASE_COST } from "../data/calc-steps-mech-cost";
+import { FIGHTER_BV2_STEPS, FIGHTER_BV2_WEAPON_CITES, FIGHTER_COST_STEPS, getFighterBv1Steps } from "../data/calc-steps-fighter";
+import { NO_BATTLE_VALUE_STEPS } from "../data/calc-steps-mech-bv1";
 import {
     getRoboticControlCost, getRoboticControlSystem, getRoboticControlSystemsFor, getRoboticControlWeight, getRoboticSkills,
     IRoboticControlSystem, RoboticControlTag, RoboticUnitType, SRCS_BATTLE_VALUE_MULTIPLIER, SRCS_RULES_LEVEL,
 } from "../data/robotic-control-systems";
 import { FIGHTER_CRITICAL_NAMES, FighterAttackDirection, FighterCritical, getFighterHitLocation } from "../data/fighter-hit-tables";
-import { isTargetingComputerWeapon, sizeDroneSystems } from "../data/variable-equipment";
+import { isTargetingComputerWeapon, sizeTonnageScaledEquipment, sizeTargetingComputers } from "../data/variable-equipment";
 import { findByTag } from "../data/tag-match";
 import {
     getSupportVehicleBaseCrew, getSupportVehicleChassisModification, getSupportVehicleEngine, getSupportVehicleEngineWeight,
@@ -149,6 +170,16 @@ export interface IFighterInPlay {
     firedWeapons: string[];
     /** Weapon critical hits waiting for a player to choose the weapon. */
     pendingWeaponCriticals: IFighterPendingWeaponCritical[];
+    /** uuids of ammunition bins lost to explosions. Shots fired are not tracked, so any other bin is full. */
+    explodedAmmo: string[];
+    /** Altitude level on the low-altitude map: 0 is landed or in space (aero-ground-play.ts). */
+    altitude: number;
+    velocity: number;
+    /** Thrust spent this turn. */
+    thrustUsed: number;
+    controlRollsFailed: number;
+    /** Whose atmospheric rules apply: the book that prints them (Total Warfare unless the player picks another). */
+    flightRules: AeroGroundEdition;
 }
 
 export interface IFighterPendingWeaponCritical {
@@ -170,7 +201,8 @@ export const FIGHTER_HEAT_TRIGGERS: { name: string; levels: number[] }[] = [
 const newFighterInPlay = (): IFighterInPlay => ({
     armorDamage: { nose: 0, leftWing: 0, rightWing: 0, aft: 0 },
     structureDamage: 0, avionics: 0, engine: 0, fcs: 0, sensors: 0, gear: false, heatSinks: 0, pilotHits: 0, bombsLost: 0,
-    fuelExploded: false, storesDropped: false, destroyedWeapons: [], heat: 0, firedWeapons: [], pendingWeaponCriticals: [],
+    fuelExploded: false, storesDropped: false, destroyedWeapons: [], heat: 0, firedWeapons: [], pendingWeaponCriticals: [], explodedAmmo: [],
+    altitude: 0, velocity: 0, thrustUsed: 0, controlRollsFailed: 0, flightRules: "total-warfare",
 });
 
 /** Critical hits that are counted in boxes, and how many boxes each has. */
@@ -204,12 +236,18 @@ export interface IFighterEquipmentExport {
     pod?: boolean;
     /** Fractional Accounting: shots bought for an ammunition bin of less than a ton (TO:AUE p.189). */
     shots?: number;
+    /** An ammunition bin's launcher, where one kind of round feeds several (an MRM 10 and an MRM 30). */
+    feedsWeaponTag?: string;
 }
 
 export interface IAerospaceFighterExport {
     /** The rules edition it is built under (rules-editions.ts); absent means Total Warfare. */
     rulesEdition?: string;
+    rulesLevel?: number;
+    rulesets?: string[];
     uuid: string;
+    tro?: ITechnicalReadoutExport;
+    quirks?: IAssignedQuirk[];
     lastUpdated: Date;
     name: string;
     model: string;
@@ -243,6 +281,8 @@ export interface IAerospaceFighterExport {
     bays?: IVehicleBay[];
     pilot?: IPilot;
     inPlay?: IFighterInPlay;
+    ewarPlay?: IEWarPlayState;
+    autocannonPlay?: IAutocannonPlay;
 }
 
 /** A flying Support Vehicle's construction choices: the parts of the Support Vehicle rules fighters do not have. */
@@ -273,8 +313,6 @@ const savedNumber = (value: unknown, fallback: number, min: number, max: number)
 const isPlainObject = (value: unknown): value is Record<string, unknown> =>
     typeof value === "object" && value !== null && !Array.isArray(value);
 const emptyArmor = (): IFighterArmorAllocation => ({ nose: 0, leftWing: 0, rightWing: 0, aft: 0 });
-/** The aerospace armor catalog writes an absent prototype year as null; ITechDates leaves it out. */
-const armorDates = (armor: IAerospaceArmorType): ITechDates => ({ ...armor, prototype: armor.prototype ?? undefined });
 const roundUpHalf = (tons: number): number => Math.ceil(tons * 2 - 1e-9) / 2;
 /** Escapes text written into the HTML calculation logs, which the summary page renders as markup. */
 const escapeLogText = (value: unknown): string => String(value ?? "")
@@ -297,14 +335,22 @@ export const normalizeAerospaceFighterExport = (raw: unknown): { fighter: IAeros
     return { fighter: loaded.export(), issues: [...loaded.getImportIssues()] };
 };
 
-export default class AerospaceFighter {
+export default class AerospaceFighter implements IGameSettingsUnit {
     public static readonly PATCHWORK_ARMOR_TAG = "patchwork";
 
     private _uuid: string = generateUUID();
+    public tro: TechnicalReadout = new TechnicalReadout();
+
+    /** The design quirks assigned to this unit (quirk tables, Campaign Operations pp.228 and 232). */
+    public quirks: QuirkList = new QuirkList();
+    /** The force's "Game year", set by `BattleMechForce.syncQuirkPlayYear`; not saved with the unit. */
+    public quirkPlayYear: number | null = null;
     public lastUpdated: Date = new Date();
 
     private _name: string = "";
     private _rulesEdition: string = DEFAULT_RULES_EDITION;
+    /** The rules level and Special Rulesets the design is built under (#324). */
+    public readonly gameSettings = new UnitGameSettings();
     private _model: string = "";
     private _fighterType: FighterType = "aerospace";
     private _vstol: boolean = false;
@@ -314,8 +360,14 @@ export default class AerospaceFighter {
     private _externalStores: IFighterExternalStore[] = [];
     private _pilot: Pilot = new Pilot();
     private _inPlay: IFighterInPlay = newFighterInPlay();
+    /** What the unit has switched on, been hit by or been told by the force board in E-War play (#642). */
+    public ewarPlay: IEWarPlayState = {};
+    /** Rotary and Ultra AC shots and jams, by uuid (#643). */
+    public autocannonPlay: IAutocannonPlay = {};
     private _battleValue: number = 0;
     private _calcLogBV: string = "";
+    private _bv2Steps: ICalcStep[] = [];
+    private _costSteps: ICalcStep[] = [];
     private _cost: number = 0;
     private _calcLogCost: string = "";
     private _tonnage: number = 50;
@@ -341,7 +393,7 @@ export default class AerospaceFighter {
     // Whether battle armor items were mounted at the last recalculation: only the first one turns Fractional Accounting on.
     private _hadBattleArmorEquipment = false;
 
-    private _weights: { name: string; weight: number }[] = [];
+    private _weights: { name: string; weight: number; item?: IEquipmentItem }[] = [];
     private _currentTonnage: number = 0;
 
     constructor(importJSON: string = "") {
@@ -354,6 +406,19 @@ export default class AerospaceFighter {
     public getUUID(): string { return this._uuid; }
     public newUUID(): void { this._uuid = generateUUID(); }
 
+    /** Which column of the quirk tables this unit is graded by. */
+    public getQuirkUnitType(): QuirkUnitType { return "fighter-small-craft"; }
+
+    /** What the quirk picker can attach quirks to on this unit. */
+    public getQuirkTargets(): IQuirkTargets {
+        return getQuirkTargets(FIGHTER_LOCATIONS.map((location) => ({ tag: location.tag, label: location.name })), this._equipmentList.filter((item) => !item.isAmmo).map((item) => ({ ...item, label: (item.location ? `${item.name} (${FIGHTER_LOCATIONS.find((location) => location.tag === item.location)?.name ?? item.location})` : item.name) })));
+    }
+
+    /** One line for each quirk this unit could not be given now: rules edition, rules level or unit type. */
+    public getQuirkIssues(rulesLevel: number): string[] {
+        return getQuirkIssues(this.quirks.getAll(), this.getQuirkUnitType(), this._rulesEdition, rulesLevel, undefined, this.getQuirkTargets());
+    }
+
     public getName(): string { return this._name; }
     /** The rules edition the design is built under. Only the editions with rules for this unit type are offered. */
     public getRulesEdition(): string { return this._rulesEdition; }
@@ -361,6 +426,9 @@ export default class AerospaceFighter {
         this._rulesEdition = getSelectableRulesEditionTag(editionTag, "fighter");
         return this._rulesEdition;
     }
+    public getTechTag(): string { return this.getTech().tag; }
+    public setTechTag(tag: string): void { this.setTech(tag); }
+    public chooseEra(tag: string): void { chooseEra(this, tag); }
 
     public setName(name: string): string {
         this._name = name.slice(0, 200);
@@ -467,6 +535,9 @@ export default class AerospaceFighter {
     // Airship, Fixed-Wing and Satellite Support Vehicles (TM pp.116-139; TO:AUE pp.52-71) ---------------------------
 
     public isSupportVehicle(): boolean { return this._support !== null; }
+
+    /** The unit type its Battle Value is worked out as: a Support Vehicle aircraft has no BV1 in any edition. */
+    public getBattleValueUnitType(): "fighter" | "support-aircraft" { return this._support ? "support-aircraft" : "fighter"; }
 
     /** The Support Vehicle settings; null on a fighter. A copy: change them through the setters. */
     public getSupportVehicleSettings(): IFighterSupportExport | null {
@@ -668,19 +739,20 @@ export default class AerospaceFighter {
     public getTotalItemSlots(): number { return this._support ? getSupportVehicleItemSlots(this._tonnage) : 0; }
 
     /**
-     * Item slots used: each item's Support Vehicle slots, one per kind of ammunition, one for all communications
-     * equipment, the bays, and BAR 10 armor at Tech E or F (Ferro-Fibrous space, errata v8.0).
+     * Item slots used: each item's Support Vehicle slots, one bin per weapon type's ammunition (TM p.136), one for all
+     * communications equipment, the bays, and BAR 10 armor at Tech E (Inner Sphere Ferro-Fibrous space) or F (Clan;
+     * errata v8.0).
      */
     public getUsedItemSlots(): number {
         const ammoTypes = new Set<string>();
         let used = 0;
         for (const item of this._equipmentList) {
-            if (item.isAmmo) ammoTypes.add(item.tag);
+            if (item.isAmmo) ammoTypes.add(getAmmoFamily(item));
             else if (item.tag !== "communications-equipment") used += Math.max(0, item.space?.supportVehicle ?? 0);
         }
         used += ammoTypes.size + (this.getCommunicationsTons() > 0 ? 1 : 0) + getVehicleBaySlots(this._bays);
         const ferroFibrous = supportVehicleArmor.find((armor) => armor.bar === this._support?.bar)?.ferroFibrousSlotRatings ?? [];
-        if (this._support && this.getTotalArmorPoints() > 0 && ferroFibrous.includes(this._support.armorTechRating)) used += this.getChassisTechBase() === "clan" ? 1 : 2;
+        if (this._support && this.getTotalArmorPoints() > 0 && ferroFibrous.includes(this._support.armorTechRating)) used += this._support.armorTechRating === "f" ? 1 : 2;
         return used;
     }
 
@@ -1046,12 +1118,13 @@ export default class AerospaceFighter {
     public getAvailableArmorTypes(rulesLevel: number = 2): (IAerospaceArmorType & { available: boolean })[] {
         // A Support Vehicle's armor is chosen by BAR and Tech Rating instead (TM p.134).
         if (this._support) return [];
-        const techBase = this.getChassisTechBase();
         return aerospaceArmorTypes
-            .filter((armor) => armor.fighterSlots !== null && armor.fighterSlots[techBase] !== null
-                && getAerospaceArmorPointsPerTon(armor.tag, this._armorUnit(), techBase) !== null)
-            .map((armor) => ({ ...armor, available: this._datesAvailability(armorDates(armor), rulesLevel).available
-                && (armor.tag !== AerospaceFighter.PATCHWORK_ARMOR_TAG || rulesLevel >= PATCHWORK_ARMOR_RULES_LEVEL) }));
+            .filter((armor) => armor.fighterSlots !== null && armor.fighterSlots[this._armorTechBase(armor)] !== null
+                && getAerospaceArmorPointsPerTon(armor.tag, this._armorUnit(), this._armorTechBase(armor)) !== null)
+            .map((armor) => ({ ...armor, available: this._datesAvailability(getAerospaceArmorDates(armor, this._tech.tag), rulesLevel).available
+                && (armor.tag !== AerospaceFighter.PATCHWORK_ARMOR_TAG || rulesLevel >= PATCHWORK_ARMOR_RULES_LEVEL) }))
+            // The Star League version is no choice at all outside its years.
+            .filter((armor) => armor.available || !isStarLeagueVersion(armor, this._tech.tag));
     }
 
     public setArmorType(tag: string): IAerospaceArmorType {
@@ -1076,9 +1149,8 @@ export default class AerospaceFighter {
 
     /** The armor types an arc may carry: those the fighter could mount as its only armor that the Patchwork Armor Table lists. */
     public getAvailablePatchworkArmorTypes(rulesLevel: number = 2): (IAerospaceArmorType & { available: boolean })[] {
-        const techBase = this.getChassisTechBase();
         return this.getAvailableArmorTypes(rulesLevel).filter((armor) => armor.tag !== AerospaceFighter.PATCHWORK_ARMOR_TAG
-            && armor.patchwork?.slots[techBase] !== undefined && armor.patchwork?.tonsPerPoint[techBase] !== undefined);
+            && armor.patchwork?.slots[this._armorTechBase(armor)] !== undefined && armor.patchwork?.tonsPerPoint[this._armorTechBase(armor)] !== undefined);
     }
 
     public getPatchworkArmorType(arc: FighterArc): IAerospaceArmorType {
@@ -1097,13 +1169,15 @@ export default class AerospaceFighter {
     /** Weapon slots the arc gives up for its armor (Patchwork Armor Table, right of the slash; TO:AUE p.189). */
     public getPatchworkArcSlots(arc: FighterArc): number {
         if (!this.isPatchworkArmor()) return 0;
-        return this.getPatchworkArmorType(arc).patchwork?.slots[this.getChassisTechBase()] ?? 0;
+        const armor = this.getPatchworkArmorType(arc);
+        return armor.patchwork?.slots[this._armorTechBase(armor)] ?? 0;
     }
 
     /** Tons of armor on the arc: points x the type's tons per point, "rounding the final result up to the nearest half-ton" (TO:AUE p.189). */
     public getPatchworkArcWeight(arc: FighterArc): number {
         if (!this.isPatchworkArmor()) return 0;
-        const tonsPerPoint = this.getPatchworkArmorType(arc).patchwork?.tonsPerPoint[this.getChassisTechBase()] ?? 0;
+        const armor = this.getPatchworkArmorType(arc);
+        const tonsPerPoint = armor.patchwork?.tonsPerPoint[this._armorTechBase(armor)] ?? 0;
         const weight = this._armorAllocation[arc] * tonsPerPoint;
         return weight > 0 ? roundUpHalf(weight) : 0;
     }
@@ -1117,6 +1191,11 @@ export default class AerospaceFighter {
         }
     }
 
+    /** Whose figures the fighter uses for an armor: its chassis's, or Inner Sphere for a Star League record on a Clan fighter (#168). */
+    private _armorTechBase(armor: IAerospaceArmorType): "is" | "clan" {
+        return getAerospaceArmorTechBase(armor, this.getChassisTechBase(), this._tech.tag);
+    }
+
     private _armorUnit(): "aerospace-fighter" | "conventional-fighter" {
         return this.isConventional() ? "conventional-fighter" : "aerospace-fighter";
     }
@@ -1126,7 +1205,7 @@ export default class AerospaceFighter {
             const kg = this.getSupportArmorKgPerPoint();
             return kg ? Math.floor(1000 / kg) : null;
         }
-        return getAerospaceArmorPointsPerTon(this._armorType.tag, this._armorUnit(), this.getChassisTechBase());
+        return getAerospaceArmorPointsPerTon(this._armorType.tag, this._armorUnit(), this._armorTechBase(this._armorType));
     }
 
     public getArmorAllocation(): IFighterArmorAllocation { return this._armorAllocation; }
@@ -1184,7 +1263,7 @@ export default class AerospaceFighter {
 
     /** Tons per point of the selected armor under Fractional Accounting (Fractional Armor Table, TO:AUE p.188). */
     public getFractionalArmorTonsPerPoint(): number {
-        return getFractionalAerospaceArmorTonsPerPoint(this._armorType.tag, this.getChassisTechBase(), this.getArmorPointsPerTon() ?? 16);
+        return getFractionalAerospaceArmorTonsPerPoint(this._armorType.tag, this._armorTechBase(this._armorType), this.getArmorPointsPerTon() ?? 16);
     }
 
     /** Points the armor tonnage paid for but that are not allocated yet (fractions of a point are lost). */
@@ -1293,7 +1372,9 @@ export default class AerospaceFighter {
         const stores: IEquipmentItem[] = [];
         for (const item of getEquipmentListByTech(this._tech.tag, false)) {
             if (!item.isAmmo || !(item.bombBaySlots && item.bombBaySlots > 0) || seen.has(item.tag)) continue;
-            if (!isEquipmentWithinRulesLevel(item, rulesLevel)) continue;
+            if (!isEquipmentOffered(item, this._rulesEdition, rulesLevel)) continue;
+            // Nuclear ordnance only under its optional ruleset (IO:AE p.163).
+            if (item.requiresRuleset && !this.gameSettings.getRulesets().includes(item.requiresRuleset)) continue;
             seen.add(item.tag);
             stores.push({ ...item, available: this._datesAvailability(item, rulesLevel).available });
         }
@@ -1301,7 +1382,7 @@ export default class AerospaceFighter {
     }
 
     private _storeRecord(tag: string): IEquipmentItem | undefined {
-        const item = findByTag(this._catalog(), tag);
+        const item = this._findRecord(tag);
         return item && item.isAmmo && item.bombBaySlots && item.bombBaySlots > 0 ? item : undefined;
     }
 
@@ -1346,7 +1427,7 @@ export default class AerospaceFighter {
         // A Support Vehicle has item slots for the whole unit, not weapon slots by arc (TM p.120).
         if (this._support) return this.getTotalItemSlots();
         if (this.isPatchworkArmor()) return FIGHTER_WEAPONS_PER_ARC - this.getPatchworkArcSlots(arc);
-        const lost = this._armorType.fighterSlots?.[this.getChassisTechBase()] ?? 0;
+        const lost = this._armorType.fighterSlots?.[this._armorTechBase(this._armorType)] ?? 0;
         const placement = (this._armorType.fighterSlots?.placement ?? "").toLowerCase();
         let taken = 0;
         if (lost > 0) {
@@ -1366,6 +1447,7 @@ export default class AerospaceFighter {
     public isEquipmentAllowed(item: IEquipmentItem): boolean {
         if (this._support) {
             if ((item.space?.supportVehicle ?? -1) < 0) return false;
+            if (item.aerospaceUnitTypes && !(this._support.motive === "satellite" && item.aerospaceUnitTypes.includes("satellite"))) return false;
             // Small Support Vehicles carry no heavy weapons (TM p.136).
             return !(this._isSmallSupport() && (this._isWeapon(item) || item.isAmmo));
         }
@@ -1383,9 +1465,9 @@ export default class AerospaceFighter {
                 if (!this.isEquipmentAllowed(item)) continue;
                 item.catalog = item.catalog ?? (item.category === "Custom Equipment" ? "custom" : list);
                 item.criticals = this.getItemSlots(item);
-                const availability = this._datesAvailability(item, rulesLevel);
+                const availability = this._techDatesAvailability(item, rulesLevel);
                 item.availableAsPrototype = availability.asPrototype;
-                item.available = availability.available;
+                item.available = availability.available && isUnderUnitLimit(item, this._equipmentList);
                 items.push(item);
             }
         }
@@ -1397,30 +1479,26 @@ export default class AerospaceFighter {
             for (const item of battleArmorScale) {
                 if (energyTags.includes(item.feedsWeaponTag ?? "")) continue;
                 item.criticals = this.getItemSlots(item);
-                const availability = this._datesAvailability(item, rulesLevel);
+                const availability = this._techDatesAvailability(item, rulesLevel);
                 item.availableAsPrototype = availability.asPrototype;
-                item.available = availability.available;
+                item.available = availability.available && isUnderUnitLimit(item, this._equipmentList);
                 items.push(item);
             }
         }
         items.sort((a, b) => (a.sort > b.sort ? 1 : a.sort < b.sort ? -1 : 0));
         const offeredLevel = includeCustom ? Math.max(rulesLevel, CUSTOM_HOMEBREW_RULES_LEVEL) : rulesLevel;
-        return items.filter((item) => isEquipmentWithinRulesLevel(item, offeredLevel));
+        return items.filter((item) => isEquipmentOffered(item, this._rulesEdition, offeredLevel));
     }
 
-    private _catalog(): IEquipmentItem[] {
-        const techTag = this._tech.tag;
-        const own = getEquipmentListByTech(techTag, true);
-        // A saved fighter keeps what it mounted, including equipment since moved to the other tech base's catalog.
-        const catalog = techTag === "is" || techTag === "clan" ? [...own, ...getEquipmentListByTech(techTag === "clan" ? "mclan" : "mis", true)] : own;
-        // Battle armor scale items go last, so a catalog record always wins a lookup.
-        return [...catalog, ...getBattleArmorScaleListByTech(techTag)];
+    /** The catalog record for a tag, from the lookup every unit class shares (equipment-lookup.ts). */
+    private _findRecord(tag: unknown): IEquipmentItem | undefined {
+        return findUnitCatalogRecord(this._tech.tag, tag, { battleArmorScale: true });
     }
 
     private _newEquipment(catalogItem: IEquipmentItem, location?: unknown, uuid?: unknown): IEquipmentItem {
         const freshId = typeof uuid !== "string" || !uuid || this._equipmentList.some((item) => item.uuid === uuid);
         // A deep copy: mounted items never share nested data with each other or the catalog.
-        const item: IEquipmentItem = { ...JSON.parse(JSON.stringify(catalogItem)), uuid: freshId ? generateUUID() : uuid as string };
+        const item: IEquipmentItem = { ...copyCatalogRecord(catalogItem), uuid: freshId ? generateUUID() : uuid as string };
         item.location = this._validLocation(item, location);
         return item;
     }
@@ -1440,8 +1518,8 @@ export default class AerospaceFighter {
     }
 
     public addEquipmentFromTag(tag: string, location?: string): IEquipmentItem | null {
-        const catalogItem = findByTag(this._catalog(), tag);
-        if (!catalogItem || !this.isEquipmentAllowed(catalogItem) || this._equipmentList.length >= MAX_FIGHTER_EQUIPMENT) return null;
+        const catalogItem = this._findRecord(tag);
+        if (!catalogItem || !this.isEquipmentAllowed(catalogItem) || !isUnderUnitLimit(catalogItem, this._equipmentList) || this._equipmentList.length >= MAX_FIGHTER_EQUIPMENT) return null;
         const item = this._newEquipment(catalogItem, location);
         this._equipmentList.push(item);
         this._calc();
@@ -1464,9 +1542,21 @@ export default class AerospaceFighter {
 
     // Ammunition by the shot ----------------------------------------------------------------------------------
 
-    /** The weapon a bin feeds; undefined with no such weapon aboard. */
+    /**
+     * The weapon a bin feeds: the launcher it is loaded for (one kind of MRM round feeds every MRM size), else the
+     * first weapon that fires it; undefined with no such weapon aboard.
+     */
     private _binWeapon(ammo: IEquipmentItem): IEquipmentItem | undefined {
-        return this._equipmentList.find((item) => !item.isAmmo && getCompatibleAmmo(item, ammo));
+        const weapons = this._equipmentList.filter((item) => !item.isAmmo && getCompatibleAmmo(item, ammo));
+        return (ammo.feedsWeaponTag ? weapons.find((item) => item.tag === ammo.feedsWeaponTag) : undefined) ?? weapons[0];
+    }
+
+    /** Loads a bin for one launcher, as a ton of MRM rounds is loaded for an MRM 30 rather than an MRM 10 (TM p.312). */
+    public setAmmoBinWeapon(uuid: string, weaponTag: string): void {
+        const bin = this._equipmentList.find((item) => item.uuid === uuid && item.isAmmo);
+        if (!bin) return;
+        bin.feedsWeaponTag = weaponTag;
+        this._calc();
     }
 
     /** Shots in one full ton of a bin's ammunition, for the weapon it feeds; 0 with no such weapon aboard. */
@@ -1498,7 +1588,8 @@ export default class AerospaceFighter {
 
     // Totals --------------------------------------------------------------------------------------------------
 
-    public getWeights(): { name: string; weight: number }[] { return this._weights; }
+    /** The tonnage breakdown; equipment lines carry their item (the TRO construction table reads it). */
+    public getWeights(): { name: string; weight: number; item?: IEquipmentItem }[] { return this._weights; }
     public getCurrentTonnage(): number { return this._currentTonnage; }
     public getRemainingTonnage(): number { return Math.round((this._tonnage - this._currentTonnage) * 1e6) / 1e6; }
 
@@ -1519,11 +1610,11 @@ export default class AerospaceFighter {
             issues.push(`A conventional fighter needs heat sinks for all its energy weapons: ${this.getWeaponHeat()} heat, ${this.getHeatDissipation()} sinks (TM p.193).`);
         }
         if (this.getArmorPointsPerTon() === null) issues.push(`${this._armorType.name} is not available to this tech base.`);
-        else if (!this._datesAvailability(armorDates(this._armorType), rulesLevel).available) issues.push(`${this._armorType.name} is not available in the selected era.`);
+        else if (!this._datesAvailability(getAerospaceArmorDates(this._armorType, this._tech.tag), rulesLevel).available) issues.push(`${this._armorType.name} is not available in the selected era.`);
         if (this.isPatchworkArmor()) {
             for (const arc of FIGHTER_ARCS) {
                 const arcArmor = this.getPatchworkArmorType(arc.tag);
-                if (!this._datesAvailability(armorDates(arcArmor), rulesLevel).available) issues.push(`${arc.name}: ${arcArmor.name} is not available in the selected era.`);
+                if (!this._datesAvailability(getAerospaceArmorDates(arcArmor, this._tech.tag), rulesLevel).available) issues.push(`${arc.name}: ${arcArmor.name} is not available in the selected era.`);
             }
         }
         if (this._heatSinkType.tag !== "single" && !this._techDatesAvailability(this._heatSinkType, rulesLevel).available) {
@@ -1557,7 +1648,9 @@ export default class AerospaceFighter {
         }
         for (const store of this.getExternalStores()) {
             const record = this._storeRecord(store.tag);
-            if (record && !isEquipmentWithinRulesLevel(record, rulesLevel)) issues.push(`${record.name} is above the selected rules level.`);
+            const issue = record ? getEquipmentOfferIssue(record, this._rulesEdition, rulesLevel) : null;
+            if (record && issue === "edition") issues.push(`${record.name} is not in the selected rules edition.`);
+            else if (record && issue === "level") issues.push(`${record.name} is above the selected rules level.`);
         }
         return issues;
     }
@@ -1634,26 +1727,19 @@ export default class AerospaceFighter {
 
     /** In production in the selected era, or (where the rules level allows) a prototype. */
     private _datesAvailability(dates: ITechDates, rulesLevel: number): { available: boolean; asPrototype: boolean } {
-        const prototypeOnly = dates.introduced === null && !!dates.prototype;
-        const inProduction = !prototypeOnly && this._itemIsAvailable(dates.introduced, dates.extinct, dates.reintroduced);
-        const effectiveIntroduction = getEffectiveIntroduction(dates, rulesLevel);
-        const asPrototype = !inProduction && effectiveIntroduction !== dates.introduced
-            && this._itemIsAvailable(effectiveIntroduction, dates.extinct, dates.reintroduced);
-        return { available: inProduction || asPrototype, asPrototype };
+        return getDatesAvailability(dates, rulesLevel, (introduced, extinct, reintroduced) => this._itemIsAvailable(introduced, extinct, reintroduced));
     }
 
-    /** As above, reading the Clan window for a Clan chassis where the record has one. */
+    /** Availability using the Clan window for Clan designs; mixed tech may use either (getTechDatesAvailability). */
     private _techDatesAvailability(item: ITechDates & { clanDates?: ITechDates }, rulesLevel: number): { available: boolean; asPrototype: boolean } {
-        const innerSphere = this._datesAvailability(item, rulesLevel);
-        const clan = this._datesAvailability(item.clanDates ?? item, rulesLevel);
-        if (this._tech.tag === "clan") return clan;
-        if (this._tech.tag === "is") return innerSphere;
-        return innerSphere.available ? innerSphere : clan;
+        return getTechDatesAvailability(item, this._tech.tag, rulesLevel, (introduced, extinct, reintroduced) => this._itemIsAvailable(introduced, extinct, reintroduced));
     }
 
     private _calc(): void {
-        // A drone operating system weighs 10 percent of the fighter plus its sensors (TO:AUE p.117).
-        sizeDroneSystems(this._equipmentList, this._tonnage);
+        // A drone operating system weighs 10 percent of the fighter plus its sensors, a light sail 10 percent of the
+        // satellite (TO:AUE pp.117, 135).
+        sizeTonnageScaledEquipment(this._equipmentList, this._tonnage);
+        sizeTargetingComputers(this._equipmentList, this._tonnage);
         if (this._support) {
             this._calcSupportWeights();
             this._calcBattleValue();
@@ -1674,7 +1760,7 @@ export default class AerospaceFighter {
             { name: `Armor (${this._armorType.name}, ${this.getTotalArmorPoints()} points)`, weight: this.getArmorWeight() },
             { name: `Heat Sinks (${this.getTotalHeatSinks()} ${this._heatSinkType.name}, ${this.getFreeHeatSinks()} free)`, weight: this._additionalHeatSinks },
             ...(this.getPowerAmplifierWeight() > 0 ? [{ name: "Power Amplifiers", weight: this.getPowerAmplifierWeight() }] : []),
-            ...this._equipmentList.map((item) => ({ name: item.name, weight: item.weight || 0 })),
+            ...this._equipmentList.map((item) => ({ name: item.name, weight: item.weight || 0, item })),
         ];
         this._currentTonnage = Math.round(this._weights.reduce((sum, entry) => sum + entry.weight, 0) * 1000) / 1000;
         this._calcBattleValue();
@@ -1707,7 +1793,7 @@ export default class AerospaceFighter {
         }
         for (const item of this._equipmentList) {
             if (!this._isSmallSupport() && ((item.weight || 0) * 2) % 1 !== 0) smallItems += item.weight || 0;
-            else this._weights.push({ name: item.name, weight: item.weight || 0 });
+            else this._weights.push({ name: item.name, weight: item.weight || 0, item });
         }
         if (smallItems > 0) this._weights.push({ name: `Items and cargo weighed in kilograms (${Math.round(smallItems * 1000)} kg)`, weight: roundSupportVehicleWeight(smallItems, false) });
         this._currentTonnage = Math.round(this._weights.reduce((sum, entry) => sum + entry.weight, 0) * 1e6) / 1e6;
@@ -1715,8 +1801,33 @@ export default class AerospaceFighter {
 
     // Battle Value and cost -----------------------------------------------------------------------------------
 
-    public getBattleValue(): number { return this._battleValue; }
-    public getBattleValueLog(): string { return this._calcLogBV; }
+    /** BV1 under a BV1 edition (a Support Vehicle aircraft has none: AeroTech 2 predates them), BV2 otherwise. */
+    public getBattleValue(edition: string = this._rulesEdition): number {
+        return getBattleValueFor(edition, "fighter", { bv1: this._support ? undefined : () => this._calcBattleValue1(edition, new CalcTrace(getFighterBv1Steps(edition))), bv2: () => this._battleValue });
+    }
+    public getBattleValueLog(edition: string = this._rulesEdition): string {
+        return getBattleValueFor(edition, "fighter", { bv1: this._support ? undefined : () => renderCalcStepsHtml(this.getBattleValueBreakdown(edition).steps), bv2: () => this._calcLogBV });
+    }
+
+    /**
+     * The Battle Value steps under `edition`, each with its page (#599): BV2 under a Total Warfare edition, and one step
+     * with a null result under an edition older than the Battle Value system. A Support Vehicle aircraft has its log
+     * only until the Support Vehicle round cites its steps.
+     */
+    public getBattleValueBreakdown(edition: string = this._rulesEdition): ICalcBreakdown {
+        if (!editionHasBattleValue(edition, "fighter")) {
+            const trace = new CalcTrace(NO_BATTLE_VALUE_STEPS);
+            trace.add("none.no-battle-value", { label: `${getRulesEdition(edition).name} has no Battle Value. Battle Value first appears in the BattleTech Master Rules (1998)` });
+            return { kind: "battle-value", edition, scheme: "none", steps: trace.steps, result: null };
+        }
+        return getBattleValueFor<ICalcBreakdown>(edition, "fighter", {
+            bv1: this._support ? undefined : () => {
+                const trace = new CalcTrace(getFighterBv1Steps(edition));
+                return { kind: "battle-value", edition, scheme: "bv1", result: this._calcBattleValue1(edition, trace), steps: trace.steps };
+            },
+            bv2: () => ({ kind: "battle-value", edition, scheme: "bv2", steps: this._bv2Steps.map((entry) => ({ ...entry, cites: [...entry.cites] })), result: this._battleValue }),
+        });
+    }
     public getCBillCost(): number { return this._cost; }
     public getCBillCostLog(): string { return this._calcLogCost; }
 
@@ -1728,6 +1839,20 @@ export default class AerospaceFighter {
         return !item.isAmmo && !item.isEquipment && !item.battleValueDefensive && (item.battleValue || 0) > 0;
     }
 
+    /**
+     * A machine gun array has no BV of its own: it is worth 0.67 x the (up to four) machine guns of its kind it links in
+     * its location (TM pp.228, 317). Where an arc holds several arrays of a kind, its guns are dealt among them in turn.
+     */
+    private _machineGunArrayBV(item: IEquipmentItem): number {
+        const arrays = this._equipmentList.filter((other) => other.tag === item.tag && other.location === item.location);
+        const turn = arrays.indexOf(item);
+        return this._equipmentList
+            .filter((other) => other.location === item.location && !other.linkedWeaponTags?.length && item.linkedWeaponTags!.includes(other.tag))
+            .filter((_gun, index) => index % arrays.length === turn)
+            .slice(0, 4)
+            .reduce((sum, gun) => sum + this._weaponBaseBV(gun), 0) * 0.67;
+    }
+
     /** Heat a weapon counts for in the Battle Value: Ultra x 2, rotary x 6, Streak x 0.5, one-shot x 0.25 (TM p.303). */
     private static _bvHeat(item: IEquipmentItem): number {
         // The multipliers apply to the heat of one shot: a rapid-fire weapon's aerospace heat is already that of
@@ -1735,7 +1860,8 @@ export default class AerospaceFighter {
         const text = `${item.tag} ${item.name}`.toLowerCase();
         const rotary = /rotary|\brac\b/.test(text);
         const ultra = !rotary && /ultra|\buac\b/.test(text);
-        const heat = rotary || ultra ? item.heat ?? 0 : item.heatAero ?? item.heat ?? 0;
+        // Prototype lasers count their IO:AE p.189 heat ("for heat efficiency calculations").
+        const heat = item.battleValueHeat ?? (rotary || ultra ? item.heat ?? 0 : item.heatAero ?? item.heat ?? 0);
         if (item.isOneShot) return heat * 0.25;
         if (rotary) return heat * 6;
         if (ultra) return heat * 2;
@@ -1749,7 +1875,14 @@ export default class AerospaceFighter {
      * record, so the plain launcher's value is looked up and raised.
      */
     private _weaponBaseBV(item: IEquipmentItem): number {
-        return getArtemisLauncherBattleValue(item, () => this._catalog());
+        if (item.linkedWeaponTags?.length) return this._machineGunArrayBV(item);
+        return getArtemisLauncherBattleValue(item, () => getUnitCatalogRecords(this._tech.tag, { battleArmorScale: true }), this._tech.tag);
+    }
+
+    /** A weapon's value without its fire control (Artemis): the unmodified BV that caps its ammunition (TM p.312). */
+    private _weaponUnmodifiedBV(item: IEquipmentItem): number {
+        if (item.linkedWeaponTags?.length) return this._machineGunArrayBV(item);
+        return getLauncherBattleValueWithoutFireControl(item, () => getUnitCatalogRecords(this._tech.tag, { battleArmorScale: true }), this._tech.tag);
     }
 
     /** The Speed Factor for a Maximum Thrust (Speed Factor Table and formula, TM p.316). */
@@ -1758,25 +1891,41 @@ export default class AerospaceFighter {
     }
 
     /**
-     * Battle Value (Calculating Aerospace BV, TM pp.302-304; the worked TRB-D36 Thunderbird on p.313).
-     * Defensive = (armor x 2.5 + Structural Integrity x 2 + defensive equipment - 15 per type of explosive
-     * ammunition and 1 per Gauss weapon on an Inner Sphere fighter without CASE, never below 1) x 1.2, or 1.1
-     * for a conventional fighter. Offensive = (weapons + ammunition, capped at its weapons, + other equipment)
-     * x the Speed Factor for Maximum Thrust. The weaker of the nose and aft weapon groups counts half. An
-     * aerospace fighter that makes more heat than 6 + its heat sinks halves every weapon after the one that
-     * crosses that line, taking the highest values first. A launcher fitted with Artemis IV counts 20 percent
-     * more than the plain launcher. External stores are not part of a fighter's own Battle Value.
+     * Battle Value 2 (Calculating Aerospace BV, TM pp.311-313; the worked TRB-D36 Thunderbird on p.313), each step
+     * recorded with its page (FIGHTER_BV2_STEPS). Defensive = (armor x 2.5 + Structural Integrity x 2 + defensive
+     * equipment - 15 per type of explosive ammunition and 1 per Gauss weapon on an Inner Sphere fighter without CASE,
+     * never below 1) x 1.2, or 1.1 for a conventional fighter. Offensive = (weapons + ammunition, capped at its
+     * weapons, + other equipment) x the Speed Factor for Maximum Thrust. The weaker of the nose and aft weapon groups
+     * counts half. An aerospace fighter that makes more heat than 6 + its heat sinks halves every weapon after the one
+     * that crosses that line, taking the highest values first. A drone operating system takes 0.8 off each weapon and
+     * 0.95 off the total (TO:AUE p.193). External stores are not part of a fighter's own Battle Value (TM p.315).
      */
     private _calcBattleValue(): void {
         if (this._support) {
             this._calcSupportBattleValue(this._support);
+            this._bv2Steps = [];
             return;
         }
-        let log = "<strong>DEFENSIVE BATTLE RATING</strong><br />";
+        const trace = new CalcTrace(FIGHTER_BV2_STEPS);
+        this._battleValue = this._calcBattleValue2(trace);
+        this._bv2Steps = trace.steps;
+        this._calcLogBV = renderCalcStepsHtml(trace.steps);
+    }
+
+    private _calcBattleValue2(trace: CalcTrace): number {
+        const fmt = formatCalcNumber;
         const armorPoints = this.getTotalArmorPoints();
+        let running = armorPoints * 2.5;
+        trace.add("af.bv2.def.armor", { label: "Armor", detail: `${armorPoints} points x 2.5`, value: armorPoints * 2.5, total: running });
+        // Modular armor packs add their points to the armor (TO:AUE p.93), as on a vehicle.
+        const modularPoints = this._equipmentList.filter((item) => item.isModularArmor).reduce((sum, item) => sum + (item.currentAdditionalArmor ?? item.additionalArmor ?? 0), 0);
+        if (modularPoints > 0) {
+            running += modularPoints * 2.5;
+            trace.add("af.bv2.def.armor.modular", { label: "Modular armor", detail: `${modularPoints} points x 2.5`, value: modularPoints * 2.5, total: running });
+        }
         const structuralIntegrity = this.getStructuralIntegrity();
-        let defensive = armorPoints * 2.5 + structuralIntegrity * 2;
-        log += `Armor: ${armorPoints} x 2.5 = ${armorPoints * 2.5}<br />Structural Integrity: ${structuralIntegrity} x 2 = ${structuralIntegrity * 2}<br />`;
+        running += structuralIntegrity * 2;
+        trace.add("af.bv2.def.structure", { label: "Structural Integrity", detail: `${structuralIntegrity} x 2`, value: structuralIntegrity * 2, total: running });
 
         const weapons = this._equipmentList.filter((item) => !item.isAmmo);
         let amsAmmoBV = 0;
@@ -1786,63 +1935,102 @@ export default class AerospaceFighter {
                 const fed = weapons.find((weapon) => weapon.battleValueDefensive && getCompatibleAmmo(weapon, item));
                 if (fed) amsAmmoBV += getAmmoBattleValuePerTon(fed, item) * (item.weight || 0);
             } else if (item.battleValueDefensive) {
-                defensive += item.battleValue || 0;
+                running += item.battleValue || 0;
                 if (item.weaponType?.includes("AMS")) amsBV += item.battleValue || 0;
-                log += `+ Defensive Equipment: ${escapeLogText(item.name)} = ${item.battleValue || 0}<br />`;
+                trace.add("af.bv2.def.equipment", { label: item.name, value: item.battleValue || 0, total: running });
             }
         }
-        defensive += Math.min(amsAmmoBV, amsBV);
+        if (amsAmmoBV > 0) {
+            const ammo = Math.min(amsAmmoBV, amsBV);
+            running += ammo;
+            trace.add("af.bv2.def.equipment.ams-ammo", { label: "Anti-missile system ammunition", detail: ammo < amsAmmoBV ? `${fmt(amsAmmoBV)}, capped at the systems' ${fmt(amsBV)}` : undefined, value: ammo, total: running });
+        }
 
-        // Clan fighters are taken to have CASE; an Inner Sphere one needs to mount it (TM p.302).
-        const hasCASE = this.getChassisTechBase() === "clan" || this._equipmentList.some((item) => /(^|-)case(-|$)/.test(item.tag));
-        if (!hasCASE) {
-            const explosiveTypes = new Set(this._equipmentList.filter((item) => item.isAmmo && item.explosive).map((item) => item.tag)).size;
-            const gaussWeapons = weapons.filter((item) => /gauss|(^|-)hag(-|$)/.test(item.tag)).length;
-            const penalty = explosiveTypes * 15 + gaussWeapons;
-            if (penalty > 0) {
-                defensive = Math.max(1, defensive - penalty);
-                log += `- Explosive ammunition (${explosiveTypes} type${explosiveTypes === 1 ? "" : "s"} x 15) and Gauss weapons (${gaussWeapons} x 1), no CASE = -${penalty}<br />`;
+        // Clan fighters are taken to have CASE (TM p.311). The page's exception, a Clan design that did not pay for
+        // CASE, is not modelled: a Clan fighter here always has it (ledger A15).
+        const protection = this._ammoExplosionProtection();
+        const ownCase = this._equipmentList.some((item) => /^(clan-)?case(-ii|-prototype)?$/.test(item.tag));
+        // A type of ammunition is a launcher's round: TM pp.317-318 list each launcher's ammunition on its own row.
+        const explosiveTypes = new Set(this._equipmentList.filter((item) => item.isAmmo && item.explosive).map((item) => `${item.tag}|${this._binWeapon(item)?.tag ?? ""}`)).size;
+        // Gauss weapons, and what the Battle Value table treats as one: an HVAC, a pod, a capacitor (TO:AUE p.195), as a
+        // 'Mech's explosive components are marked.
+        const gaussWeapons = weapons.filter((item) => !item.isAmmo && (/gauss|(^|-)hag(-|$)/.test(item.tag) || item.gauss === true || item.explosive === true)).length;
+        if (protection === "none") {
+            if (explosiveTypes > 0) {
+                running -= explosiveTypes * 15;
+                trace.add("af.bv2.def.explosive", { label: "Explosive ammunition, no CASE", detail: `${explosiveTypes} type${explosiveTypes === 1 ? "" : "s"} x 15`, value: -explosiveTypes * 15, total: running });
             }
+            if (gaussWeapons > 0) {
+                running -= gaussWeapons;
+                trace.add("af.bv2.def.gauss", { label: "Gauss weapons and those treated as one, no CASE", detail: `${gaussWeapons} x 1`, value: -gaussWeapons, total: running });
+            }
+            if (running < 1) {
+                running = 1;
+                trace.add("af.bv2.def.floor", { label: "The deductions stop at 1", value: 1, total: running });
+            }
+        } else if (!ownCase && (explosiveTypes > 0 || gaussWeapons > 0)) {
+            trace.add("af.bv2.def.clan-case", { label: "A Clan fighter is taken to have CASE: no deduction" });
+        } else if (explosiveTypes > 0 || gaussWeapons > 0) {
+            trace.add("af.bv2.def.explosive", { label: "CASE fitted: no deduction" });
         }
+        trace.add("af.bv2.def.subtotal", { label: "Subtotal", value: running });
         const typeModifier = FIGHTER_BV_TYPE_MODIFIER[this._fighterType];
-        log += `Subtotal ${defensive.toFixed(2)} x ${typeModifier} (${this.getFighterTypeName()})`;
-        defensive *= typeModifier;
-        log += ` = ${defensive.toFixed(2)}<br />`;
+        const defensive = running * typeModifier;
+        trace.add("af.bv2.def.rating", { label: "Defensive Battle Rating", detail: `${fmt(running)} x ${typeModifier} (${this.getFighterTypeName()})`, value: defensive, emphasis: true });
 
-        log += "<strong>OFFENSIVE BATTLE RATING</strong><br />";
         const hasTC = this.hasTargetingComputer();
-        const offensiveWeapons = this._equipmentList.filter((item) => this._isWeapon(item));
-        const arcBV = (arc: FighterArc) => offensiveWeapons.filter((item) => item.location === arc).reduce((sum, item) => sum + (item.battleValue || 0), 0);
-        const halvedArc: FighterArc = arcBV("nose") < arcBV("aft") ? "nose" : "aft";
+        const drone = this._equipmentList.some((item) => item.tag === "drone-operating-system");
+        // A machine gun array is rated as a weapon in its arc (TM pp.228, 317).
+        const offensiveWeapons = this._equipmentList.filter((item) => this._isWeapon(item) || (!item.isAmmo && !!item.linkedWeaponTags?.length));
+        // TM p.312: aft weapons count half, unless the forward-firing ones are worth less; then those count half. A
+        // fighter's nose and wing weapons all fire forward, so they are weighed together, as the MUL and MegaMek do.
+        const isAft = (item: IEquipmentItem) => item.location === "aft";
+        const groupBV = (aft: boolean) => offensiveWeapons.filter((item) => isAft(item) === aft).reduce((sum, item) => sum + this._weaponUnmodifiedBV(item), 0);
+        const halveForward = groupBV(false) < groupBV(true);
+        const inHalvedGroup = (item: IEquipmentItem) => isAft(item) !== halveForward;
         const modifiedBV = (item: IEquipmentItem) => this._weaponBaseBV(item)
-            * (hasTC && isTargetingComputerWeapon(item) ? 1.25 : 1) * (item.location === halvedArc ? 0.5 : 1);
+            * (hasTC && isTargetingComputerWeapon(item) ? 1.25 : 1) * (inHalvedGroup(item) ? 0.5 : 1) * (drone ? 0.8 : 1);
 
         let rating = 0;
-        // Ammunition, capped at the unmodified value of the weapons of the model it feeds.
+        // Ammunition, capped at the unmodified value of the weapons of the model it feeds (TM p.312).
         const weaponBVByTag: Record<string, number> = {};
-        for (const item of offensiveWeapons) weaponBVByTag[item.tag] = (weaponBVByTag[item.tag] ?? 0) + (item.battleValue || 0);
-        const ammoBVByTag: Record<string, number> = {};
+        for (const item of offensiveWeapons) weaponBVByTag[item.tag] = (weaponBVByTag[item.tag] ?? 0) + this._weaponUnmodifiedBV(item);
+        const ammoByTag = new Map<string, { weapon: IEquipmentItem; value: number }>();
         for (const ammo of this._equipmentList.filter((item) => item.isAmmo)) {
-            const fed = offensiveWeapons.find((weapon) => getCompatibleAmmo(weapon, ammo));
-            if (fed) ammoBVByTag[fed.tag] = (ammoBVByTag[fed.tag] ?? 0) + getAmmoBattleValuePerTon(fed, ammo) * (ammo.weight || 0);
+            const bound = this._binWeapon(ammo);
+            const fed = bound && offensiveWeapons.includes(bound) ? bound : offensiveWeapons.find((weapon) => getCompatibleAmmo(weapon, ammo));
+            if (!fed) continue;
+            const entry = ammoByTag.get(fed.tag) ?? { weapon: fed, value: 0 };
+            entry.value += getAmmoBattleValuePerTon(fed, ammo) * (ammo.weight || 0);
+            ammoByTag.set(fed.tag, entry);
         }
-        for (const [tag, value] of Object.entries(ammoBVByTag)) {
-            const capped = Math.min(value, weaponBVByTag[tag] ?? 0);
+        for (const [tag, { weapon, value }] of ammoByTag) {
+            const cap = weaponBVByTag[tag] ?? 0;
+            const capped = Math.min(value, cap);
             rating += capped;
-            log += `+ Ammunition for ${escapeLogText(tag)} = ${capped.toFixed(2)}${capped < value ? " (capped at weapon BV)" : ""}<br />`;
+            trace.add(capped < value ? "af.bv2.off.ammo.cap" : "af.bv2.off.ammo", { label: `Ammunition for ${weapon.name}`,
+                detail: capped < value ? `${fmt(value)}, capped at the weapons' unmodified ${fmt(cap)}` : undefined, value: capped, total: rating });
         }
         // Equipment that is neither a weapon nor defensive.
         for (const item of weapons) {
             if (!this._isWeapon(item) && !item.battleValueDefensive && (item.battleValue || 0) > 0) {
                 rating += item.battleValue || 0;
-                log += `+ ${escapeLogText(item.name)} = ${item.battleValue}<br />`;
+                trace.add("af.bv2.off.equipment", { label: item.name, value: item.battleValue || 0, total: rating });
             }
         }
 
         const efficiency = 6 + this.getHeatDissipation();
         const totalHeat = offensiveWeapons.reduce((sum, item) => sum + AerospaceFighter._bvHeat(item), 0);
         const tracksHeat = !this.isConventional() && totalHeat > efficiency;
-        if (!this.isConventional()) log += `Heat Efficiency 6 + ${this.getHeatDissipation()} = ${efficiency}; Total Weapon Heat ${totalHeat}<br />`;
+        if (this.isConventional()) {
+            trace.add("af.bv2.off.heat.conventional", { label: "A conventional fighter tracks no heat: every weapon at its Modified BV" });
+        } else {
+            trace.add("af.bv2.off.heat.efficiency", { label: "Heat Efficiency", detail: `6 + heat sink capacity ${this.getHeatDissipation()}`, value: efficiency });
+            // Prototype weapons count their own heat for this (IO:AE p.189).
+            const prototypeHeat = offensiveWeapons.some((item) => item.battleValueHeat !== undefined);
+            trace.add("af.bv2.off.heat.weapons", { label: "Total Weapon Heat", detail: tracksHeat ? "over the Heat Efficiency: weapons after the one that reaches it count half" : "within the Heat Efficiency",
+                value: totalHeat, ...(prototypeHeat ? { cites: [{ source: "ioae", page: "189" }] } : {}) });
+        }
         const ordered = [...offensiveWeapons].sort((a, b) => {
             const heatless = (AerospaceFighter._bvHeat(a) > 0 ? 1 : 0) - (AerospaceFighter._bvHeat(b) > 0 ? 1 : 0);
             if (heatless !== 0) return heatless;
@@ -1859,18 +2047,162 @@ export default class AerospaceFighter {
                 runningHeat += heat;
                 if (runningHeat >= efficiency) overheated = true;
             }
-            log += `+ ${escapeLogText(item.name)} (${escapeLogText(FIGHTER_LOCATIONS.find((loc) => loc.tag === item.location)?.name ?? "no arc")}) = ${value.toFixed(2)}`
-                + `${item.location === halvedArc ? " (weaker of nose and aft x 0.5)" : ""}${halved ? " (over Heat Efficiency x 0.5)" : ""}<br />`;
+            const parts = [fmt(this._weaponBaseBV(item))];
+            const cites: ICalcCitation[] = [];
+            if (item.linkedWeaponTags?.length) { parts[0] = `0.67 x the linked machine guns ${fmt(this._weaponBaseBV(item) / 0.67)}`; cites.push(FIGHTER_BV2_WEAPON_CITES.machineGunArray); }
+            if (hasTC && isTargetingComputerWeapon(item)) { parts.push("x 1.25 (targeting computer)"); cites.push(FIGHTER_BV2_WEAPON_CITES.targetingComputer); }
+            if (inHalvedGroup(item)) parts.push(`x 0.5 (weaker of forward and aft)`);
+            if (drone) { parts.push("x 0.8 (drone operating system)"); cites.push(FIGHTER_BV2_WEAPON_CITES.droneOperatingSystem); }
+            if (halved) parts.push("x 0.5 (over the Heat Efficiency)");
+            if (tracksHeat && heat > 0 && !halved) parts.push(`(running heat ${fmt(runningHeat)})`);
+            trace.add("af.bv2.off.weapon", { label: `${item.name} (${FIGHTER_LOCATIONS.find((loc) => loc.tag === item.location)?.name ?? "no arc"})`,
+                detail: parts.length > 1 ? parts.join(" ") : undefined, value, total: rating, ...(cites.length ? { cites } : {}) });
         }
+        trace.add("af.bv2.off.weapons.total", { label: "Weapon Battle Rating", value: rating });
         const speedFactor = AerospaceFighter.speedFactor(this.getMaxThrust());
+        trace.add("af.bv2.off.speed", { label: "Speed Factor", detail: `Maximum Thrust ${this.getMaxThrust()}`, value: speedFactor });
         const offensive = rating * speedFactor;
-        log += `Weapon Battle Rating ${rating.toFixed(2)} x Speed Factor ${speedFactor} (Max Thrust ${this.getMaxThrust()}) = ${offensive.toFixed(2)}<br />`;
+        trace.add("af.bv2.off.rating", { label: "Offensive Battle Rating", detail: `${fmt(rating)} x ${speedFactor}`, value: offensive, emphasis: true });
 
-        const robotic = this._roboticControl === "none" ? 1 : SRCS_BATTLE_VALUE_MULTIPLIER;
-        this._battleValue = Math.round((defensive + offensive) * robotic);
-        log += `<strong>Battle Value</strong>: ${defensive.toFixed(2)} + ${offensive.toFixed(2)}`
-            + `${robotic !== 1 ? ` x ${robotic} (Smart Robotic Control System, IO:AE p.187)` : ""} = ${this._battleValue}<br />`;
-        this._calcLogBV = log;
+        let total = defensive + offensive;
+        trace.add("af.bv2.final.sum", { label: "Defensive + Offensive Battle Rating", detail: `${fmt(defensive)} + ${fmt(offensive)}`, value: total });
+        if (this._roboticControl !== "none") {
+            total *= SRCS_BATTLE_VALUE_MULTIPLIER;
+            trace.add("af.bv2.final.robotic", { label: `${this.getRoboticControl().name}: total multiplied by ${SRCS_BATTLE_VALUE_MULTIPLIER}`, value: total });
+        }
+        const multipliers = new Map(this._equipmentList.filter((item) => item.battleValueFinalMultiplier).map((item) => [item.tag, item]));
+        for (const item of multipliers.values()) {
+            total *= item.battleValueFinalMultiplier!;
+            trace.add(item.tag === "drone-operating-system" ? "af.bv2.final.drone" : "af.bv2.final.equipment",
+                { label: `${item.name}: total multiplied by ${item.battleValueFinalMultiplier}`, value: total });
+        }
+        const result = Math.round(total);
+        trace.add("af.bv2.final.round", { label: "Battle Value", detail: `${fmt(total)}, rounded to the nearest whole number`, value: result, emphasis: true });
+        if (this._externalStores.length > 0) trace.add("af.bv2.final.stores", { label: "External stores join this Battle Value in the force, before skill" });
+        return result;
+    }
+
+    /**
+     * Battle Value 1 under a BV1 edition (#599): AeroTech 2 pp.53-54 under the 1998 Master Rules, AeroTech 2 Revised
+     * p.81 under the Revised Edition, from the edition's equipment tables, each step recorded with its page
+     * (getFighterBv1Steps). Defensive = (armor x 2 + Structural Integrity x 1.5 + fuel tons + defensive equipment - 20 a
+     * ton of explosive ammunition, 10 behind CASE, - 5 per point of heat over the heat sinks) x 1.2, or 1.1 for a
+     * conventional fighter. Offensive = (every weapon at full value, aft ones too, + ammunition capped at its weapons,
+     * halved past the heat sinks by X + Y, + the fighter's tonnage as its Bombing Battle Rating) x the Speed Factor.
+     */
+    private _calcBattleValue1(edition: string, trace: CalcTrace): number {
+        const fmt = formatCalcNumber;
+        const rate = (item: IEquipmentItem, weapon?: IEquipmentItem) => rateBattleValue1(edition, this._tech.tag, false, item, weapon);
+        const itemStep = (source: string, listed: string) => source === "unlisted" ? "af.bv1.off.weapon.unlisted" : source === "level-three" || source === "artemis-v" ? "af.bv1.l3.item" : listed;
+        const arcName = (item: IEquipmentItem) => FIGHTER_LOCATIONS.find((loc) => loc.tag === item.location)?.name ?? "no arc";
+
+        // Step 1: Defensive Battle Rating.
+        const armor = this.getTotalArmorPoints();
+        const structuralIntegrity = this.getStructuralIntegrity();
+        trace.add("af.bv1.def.armor", { label: "Armor", detail: `${armor} points x 2`, value: armor * 2 });
+        trace.add("af.bv1.def.structure", { label: "Structural Integrity", detail: `${structuralIntegrity} x 1.5`, value: structuralIntegrity * 1.5 });
+        trace.add("af.bv1.def.fuel", { label: "Fuel", detail: `${fmt(this._fuelTons)} tons`, value: this._fuelTons });
+        let subtotal = armor * 2 + structuralIntegrity * 1.5 + this._fuelTons;
+        // Anti-missile systems (with their ammunition), ECM and screen launchers.
+        for (const item of this._equipmentList) {
+            if (item.isAmmo || !isBattleValue1Defensive(item)) continue;
+            const rating = rate(item);
+            if (!rating.value) continue;
+            subtotal += rating.value;
+            trace.add(itemStep(rating.source, "af.bv1.def.equipment"), { label: item.name, value: rating.value });
+        }
+        for (const bin of this._equipmentList.filter((item) => item.isAmmo)) {
+            const fed = this._binWeapon(bin);
+            if (!fed || !isBattleValue1Defensive(fed)) continue;
+            const rating = rate(bin, fed);
+            if (!rating.value) continue;
+            subtotal += rating.value * (bin.weight || 0);
+            trace.add(itemStep(rating.source, "af.bv1.def.equipment"), { label: bin.name, detail: `${fmt(bin.weight || 0)} tons x ${fmt(rating.value)}`, value: rating.value * (bin.weight || 0) });
+        }
+        // 20 a ton of explosive ammunition, 10 a ton behind CASE; a Clan fighter has CASE (AT2R p.65).
+        const clanCase = this.getChassisTechBase() === "clan";
+        const ownCase = this._equipmentList.some((item) => /^(clan-)?case(-ii|-prototype)?$/.test(item.tag));
+        const explosiveTons = this._equipmentList.filter((item) => item.isAmmo && item.explosive).reduce((sum, item) => sum + (item.weight || 0), 0);
+        if (explosiveTons > 0) {
+            const behindCase = clanCase || ownCase;
+            const perTon = behindCase ? 10 : 20;
+            if (clanCase && !ownCase) trace.add("af.bv1.def.clan-case", { label: "A Clan fighter has CASE built in" });
+            subtotal -= perTon * explosiveTons;
+            trace.add(behindCase ? "af.bv1.def.explosive.case" : "af.bv1.def.explosive", { label: behindCase ? "Explosive ammunition behind CASE" : "Explosive ammunition, no CASE",
+                detail: `${fmt(explosiveTons)} ${explosiveTons === 1 ? "ton" : "tons"} x ${perTon}`, value: -perTon * explosiveTons });
+        }
+        const firing = this._equipmentList.filter((item) => !item.isAmmo && !isBattleValue1Defensive(item));
+        // The heat the fighter builds, as getWeaponHeat counts it: a conventional fighter's non-energy weapons make
+        // none (AeroTech 2 errata, the p.46 change), and battle armor weapons on power cells none.
+        const maxHeat = firing.filter((item) => (!this.isConventional() || AerospaceFighter._isEnergyWeapon(item)) && !this._hasPowerCells(item))
+            .reduce((sum, item) => sum + (item.heatAero ?? item.heat ?? 0), 0);
+        const capacity = this.getHeatDissipation();
+        if (maxHeat > capacity) {
+            const penalty = (maxHeat - capacity) * 5;
+            subtotal -= penalty;
+            trace.add("af.bv1.def.heat", { label: "Heat the heat sinks cannot shed", detail: `(${fmt(maxHeat)} maximum heat - ${fmt(capacity)} heat sink capacity) x 5`, value: -penalty });
+        }
+        if (subtotal < 1) {
+            trace.add("af.bv1.def.floor", { label: "The subtractions stop at 1", detail: `${fmt(subtotal)} raised to 1` });
+            subtotal = 1;
+        }
+        trace.add("af.bv1.def.subtotal", { label: "Subtotal", value: subtotal });
+        const classMultiplier = FIGHTER_BV_TYPE_MODIFIER[this._fighterType];
+        const defensive = subtotal * classMultiplier;
+        trace.add("af.bv1.def.rating", { label: "Defensive Battle Rating", detail: `${fmt(subtotal)} x ${classMultiplier} (${this.getFighterTypeName()})`, value: defensive, emphasis: true });
+
+        // Step 2: Offensive Battle Rating. Aft-mounted weapons add their full value.
+        const weapons = firing.map((item) => ({ item, rating: rate(item) })).filter((entry) => entry.rating.value > 0);
+        let weaponBV = 0;
+        for (const { item, rating } of weapons) {
+            weaponBV += rating.value;
+            trace.add(itemStep(rating.source, "af.bv1.off.weapon"), { label: `${item.name} (${arcName(item)})`, value: rating.value });
+        }
+        const linkedBV = this.hasTargetingComputer() ? weapons.reduce((sum, entry) => sum + (isTargetingComputerWeapon(entry.item) ? entry.rating.value : 0), 0) : 0;
+        const computerBV = 0.2 * linkedBV;
+        if (this.hasTargetingComputer()) trace.add("af.bv1.off.targeting-computer", { label: "Targeting computer", detail: `${fmt(linkedBV)} of linked weapons x 0.2`, value: computerBV });
+        // Ammunition, capped at the BV of the weapons of the model it feeds.
+        const groups = new Map<string, { weapon: IEquipmentItem; tons: number; value: number; unlisted: boolean; special: boolean }>();
+        for (const bin of this._equipmentList.filter((item) => item.isAmmo)) {
+            const fed = this._binWeapon(bin);
+            if (!fed || isBattleValue1Defensive(fed)) continue;
+            const rating = rate(bin, fed);
+            if (!rating.value) continue;
+            const group = groups.get(fed.tag) ?? { weapon: fed, tons: 0, value: 0, unlisted: false, special: false };
+            group.tons += bin.weight || 0;
+            group.value += rating.value * (bin.weight || 0);
+            group.unlisted ||= rating.source === "unlisted";
+            group.special ||= rating.multiplier !== 1;
+            groups.set(fed.tag, group);
+        }
+        let ammoBV = 0;
+        for (const [tag, group] of groups) {
+            const cap = weapons.filter((entry) => entry.item.tag === tag).reduce((sum, entry) => sum + entry.rating.value, 0);
+            const capped = Math.min(group.value, cap);
+            ammoBV += capped;
+            trace.add(group.unlisted ? "af.bv1.off.weapon.unlisted" : capped < group.value ? "af.bv1.off.ammo.cap" : group.special ? "af.bv1.l3.ammo.special" : "af.bv1.off.ammo", {
+                label: `Ammunition for ${group.weapon.name}`,
+                detail: `${fmt(group.tons)} ${group.tons === 1 ? "ton" : "tons"}, ${fmt(group.value)}${capped < group.value ? `, capped at the weapons' ${fmt(cap)}` : ""}`, value: capped,
+            });
+        }
+        let base = weaponBV + computerBV + ammoBV;
+        trace.add("af.bv1.off.base", { label: "Base Weapon Battle Rating", detail: `weapons ${fmt(weaponBV)}${computerBV ? ` + targeting ${fmt(computerBV)}` : ""} + ammunition ${fmt(ammoBV)}`, value: base });
+        if (maxHeat > capacity) {
+            const x = capacity * base / maxHeat;
+            const y = (base - x) / 2;
+            base = x + y;
+            trace.add("af.bv1.off.heat", { label: "Modified Weapon Battle Rating", detail: `X = ${fmt(capacity)} x base / ${fmt(maxHeat)} = ${fmt(x)}; Y = (base - X) / 2 = ${fmt(y)}; X + Y`, value: base });
+        }
+        trace.add("af.bv1.off.bombing", { label: "Bombing Battle Rating", detail: "the fighter's tonnage", value: this._tonnage });
+        const speedFactor = AerospaceFighter.speedFactor(this.getMaxThrust());
+        trace.add("af.bv1.off.speed", { label: "Speed Factor", detail: `Maximum Thrust ${this.getMaxThrust()}`, value: speedFactor });
+        const offensive = (base + this._tonnage) * speedFactor;
+        trace.add("af.bv1.off.rating", { label: "Offensive Battle Rating", detail: `(${fmt(base)} + ${this._tonnage}) x ${speedFactor}`, value: offensive, emphasis: true });
+
+        // Step 3: the sum, rounded.
+        const battleValue = Math.round(defensive + offensive);
+        trace.add("af.bv1.final.round", { label: "Battle Value", detail: `${fmt(defensive)} + ${fmt(offensive)}, rounded`, value: battleValue, emphasis: true });
+        return battleValue;
     }
 
     /**
@@ -1909,14 +2241,14 @@ export default class AerospaceFighter {
 
         const hasTC = this.hasTargetingComputer();
         const offensiveWeapons = this._equipmentList.filter((item) => this._isWeapon(item));
-        const arcBV = (arc: FighterArc) => offensiveWeapons.filter((item) => item.location === arc).reduce((sum, item) => sum + (item.battleValue || 0), 0);
+        const arcBV = (arc: FighterArc) => offensiveWeapons.filter((item) => item.location === arc).reduce((sum, item) => sum + this._weaponUnmodifiedBV(item), 0);
         const halvedArc: FighterArc = arcBV("nose") < arcBV("aft") ? "nose" : "aft";
         let weaponBV = 0;
         const weaponBVByTag: Record<string, number> = {};
         for (const item of offensiveWeapons) {
             const value = this._weaponBaseBV(item) * (hasTC && isTargetingComputerWeapon(item) ? 1.25 : 1) * (item.location === halvedArc ? 0.5 : 1);
             weaponBV += value;
-            weaponBVByTag[item.tag] = (weaponBVByTag[item.tag] ?? 0) + (item.battleValue || 0);
+            weaponBVByTag[item.tag] = (weaponBVByTag[item.tag] ?? 0) + this._weaponUnmodifiedBV(item);
             log += `+ ${escapeLogText(item.name)} = ${value.toFixed(2)}${item.location === halvedArc ? " (weaker of nose and aft x 0.5)" : ""}<br />`;
         }
         const ammoBVByTag: Record<string, number> = {};
@@ -1945,54 +2277,94 @@ export default class AerospaceFighter {
     }
 
     /**
-     * C-bill cost (Aerospace Unit Structural Costs table and the final cost formula, TM pp.283-285; the worked
-     * 'Mechbuster on p.277). Structure, engine, fuel, armor, heat sinks, amplifiers, weapons and ammunition,
-     * then x 1.25 for an OmniFighter and x (1 + tonnage / 200). External stores are not part of the price.
+     * C-bill cost (Aerospace Unit Structural Costs table, TM p.283; weapons and equipment, p.282; the final cost formula,
+     * p.285; the worked 'Mechbuster on pp.277, 284 and 286), each step recorded with its page (FIGHTER_COST_STEPS).
+     * Structure, engine, fuel tanks, armor, heat sinks, amplifiers, weapons and equipment, then x 1.25 for an OmniFighter
+     * and x (1 + tonnage / 200). Ammunition need not be bought (p.282): it is left out, and shown as the loaded cost.
+     * External stores are not part of the price.
      */
     private _calcCost(): void {
         if (this._support) {
             this._calcSupportCost(this._support);
+            this._costSteps = [];
             return;
         }
-        const rows: [string, number][] = [];
+        const trace = new CalcTrace(FIGHTER_COST_STEPS);
+        const fmt = (value: number) => value.toLocaleString("en-US", { maximumFractionDigits: 3 });
+        let structure = 0;
+        const add = (id: string, label: string, value: number, detail?: string) => {
+            structure += value;
+            trace.add(id, { label, ...(detail ? { detail } : {}), value });
+        };
         if (this.isConventional()) {
-            rows.push([`Avionics (4,000 x ${this.getControlsWeight()} t)`, 4000 * this.getControlsWeight()]);
+            add("af.cost.avionics", "Avionics", 4000 * this.getControlsWeight(), `4,000 x ${fmt(this.getControlsWeight())} tons`);
         } else {
-            rows.push(["Cockpit", 200000], ["Life Support", 50000], [`Sensors (2,000 x ${this._tonnage} t)`, 2000 * this._tonnage]);
+            add("af.cost.cockpit", "Cockpit", 200000);
+            add("af.cost.life-support", "Life support", 50000);
+            add("af.cost.sensors", "Sensors", 2000 * this._tonnage, `2,000 x ${this._tonnage} tons`);
         }
-        if (this._vstol) rows.push([`VSTOL (5,000 x ${this.getVSTOLWeight()} t)`, 5000 * this.getVSTOLWeight()]);
+        if (this._vstol) add("af.cost.vstol", "VSTOL equipment", 5000 * this.getVSTOLWeight(), `5,000 x ${fmt(this.getVSTOLWeight())} tons`);
         if (this._roboticControl !== "none") {
-            rows.push([`${this.getRoboticControl().name} (${this.getRoboticControlWeight()} t)`, getRoboticControlCost(this._roboticControl, this.getRoboticControlWeight())]);
+            add("af.cost.robotic", this.getRoboticControl().name, getRoboticControlCost(this._roboticControl, this.getRoboticControlWeight()),
+                `5,000 + 10,000 x ${fmt(this.getRoboticControlWeight())} tons`);
         }
         const structureRate = this.isConventional() ? 4000 : 50000;
-        rows.push([`Structural Integrity (${structureRate.toLocaleString("en-US")} x ${this.getStructuralIntegrity()})`, structureRate * this.getStructuralIntegrity()]);
-        rows.push(["Attitude Thruster", 25000], [`Landing Gear (10 x ${this._tonnage} t)`, 10 * this._tonnage]);
+        add("af.cost.structure", "Structural Integrity", structureRate * this.getStructuralIntegrity(), `${fmt(structureRate)} x ${this.getStructuralIntegrity()}`);
+        add("af.cost.thruster", "Attitude thruster", 25000);
+        add("af.cost.landing-gear", "Landing gear", 10 * this._tonnage, `10 x ${this._tonnage} tons`);
         const rating = this.getEngineRating();
-        rows.push([`${this._engineType.name} Engine (${(this._engineType.costMultiplier || 0).toLocaleString("en-US")} x rating ${rating} x ${this._tonnage} t / 75)`,
-            (this._engineType.costMultiplier || 0) * rating * this._tonnage / 75]);
-        rows.push([`Fuel Tanks (200 x ${this._fuelTons} t)`, 200 * this._fuelTons]);
+        add("af.cost.engine", `${this._engineType.name} engine`, (this._engineType.costMultiplier || 0) * rating * this._tonnage / 75,
+            `${fmt(this._engineType.costMultiplier || 0)} x rating ${rating} x ${this._tonnage} tons / 75`);
+        add("af.cost.fuel", "Fuel tanks", 200 * this._fuelTons, `200 x ${fmt(this._fuelTons)} tons`);
         if (this.isPatchworkArmor()) {
-            // Patchwork: each arc's armor at its own type's cost per ton.
             for (const arc of FIGHTER_ARCS) {
                 const weight = this.getPatchworkArcWeight(arc.tag);
                 const arcArmor = this.getPatchworkArmorType(arc.tag);
-                if (weight > 0) rows.push([`Armor, ${arc.name} (${arcArmor.name}, ${weight} t)`, weight * (arcArmor.costMultiplier || 10000)]);
+                if (weight > 0) add("af.cost.armor.patchwork", `Armor, ${arc.name} (${arcArmor.name})`, weight * (arcArmor.costMultiplier || 10000), `${fmt(arcArmor.costMultiplier || 10000)} x ${fmt(weight)} tons`);
             }
         } else {
-            rows.push([`Armor (${this._armorType.name}, ${this.getArmorWeight()} t)`, this.getArmorWeight() * (this._armorType.costMultiplier || 10000)]);
+            add("af.cost.armor", `Armor (${this._armorType.name})`, this.getArmorWeight() * (this._armorType.costMultiplier || 10000), `${fmt(this._armorType.costMultiplier || 10000)} x ${fmt(this.getArmorWeight())} tons`);
         }
-        if (this.getTotalHeatSinks() > 0) rows.push([`Heat Sinks (${this.getTotalHeatSinks()} ${this._heatSinkType.name})`, this.getTotalHeatSinks() * (this._heatSinkType.cost || 2000)]);
-        if (this.getPowerAmplifierWeight() > 0) rows.push([`Power Amplifiers (20,000 x ${this.getPowerAmplifierWeight()} t)`, 20000 * this.getPowerAmplifierWeight()]);
-        const equipment = this._equipmentList.reduce((sum, item) => sum + (item.isAmmo ? (item.cbills || 0) * (item.weight || 0) : item.cbills || 0), 0);
-        rows.push(["Weapons, Equipment and Ammunition", equipment]);
-        const subtotal = rows.reduce((sum, [, value]) => sum + value, 0);
+        if (this.getTotalHeatSinks() > 0) {
+            add("af.cost.heat-sinks", `Heat sinks (${this._heatSinkType.name})`, this.getTotalHeatSinks() * (this._heatSinkType.cost || 2000), `${fmt(this._heatSinkType.cost || 2000)} x ${this.getTotalHeatSinks()}`);
+        }
+        if (this.getPowerAmplifierWeight() > 0) add("af.cost.power-amplifiers", "Power amplifiers", 20000 * this.getPowerAmplifierWeight(), `20,000 x ${fmt(this.getPowerAmplifierWeight())} tons`);
+        trace.add("af.cost.structure.total", { label: "Structural cost", value: structure, emphasis: true });
+
+        let subtotal = structure;
+        let ammo = 0;
+        for (const item of this._equipmentList) {
+            if (item.isAmmo) {
+                ammo += (item.cbills || 0) * (item.weight || 0);
+                continue;
+            }
+            subtotal += item.cbills || 0;
+            trace.add("af.cost.equipment", { label: item.name, value: item.cbills || 0, total: subtotal });
+        }
+        if (ammo > 0) trace.add("af.cost.ammo", { label: "Ammunition carried (not bought for the cost)", value: ammo });
+        // Clan CASE: presumed where a Clan structure stores ammunition or explosive equipment (TM p.210) and priced at 50,000,
+        // one row for both tech bases (TM p.292), so each such location is billed (NGCFells 2026-11-23).
+        const clanCaseLocations = this._clanCaseLocations();
+        if (clanCaseLocations.length > 0) {
+            const clanCaseCost = CLAN_CASE_COST * clanCaseLocations.length;
+            subtotal += clanCaseCost;
+            trace.add("af.cost.clan-case", { label: "Clan CASE (presumed)", detail: `${fmt(CLAN_CASE_COST)} x ${clanCaseLocations.length} (${clanCaseLocations.join(", ")})`, value: clanCaseCost, total: subtotal });
+        }
+        trace.add("af.cost.subtotal", { label: "Structure, weapons and equipment", value: subtotal, emphasis: true });
         const omni = this._omni ? 1.25 : 1;
+        if (this._omni) trace.add("af.cost.omni", { label: "OmniFighter conversion", value: omni });
         const multiplier = 1 + this._tonnage / 200;
+        trace.add("af.cost.tonnage-multiplier", { label: "Tonnage multiplier", detail: `1 + ${this._tonnage} / 200`, value: multiplier });
         this._cost = Math.round(subtotal * omni * multiplier);
-        const money = (value: number) => Math.round(value).toLocaleString("en-US");
-        this._calcLogCost = rows.map(([name, value]) => `${escapeLogText(name)}: ${money(value)}`).join("<br />")
-            + `<br />Subtotal ${money(subtotal)}${this._omni ? " x 1.25 (OmniFighter)" : ""} x ${multiplier} (1 + ${this._tonnage} / 200)`
-            + ` = <strong>${money(this._cost)}</strong>`;
+        trace.add("af.cost.final", { label: "Final cost", detail: `${fmt(subtotal)}${this._omni ? " x 1.25" : ""} x ${fmt(multiplier)}, rounded`, value: this._cost, emphasis: true });
+        if (ammo > 0) trace.add("af.cost.final.loaded", { label: "Loaded cost, with the ammunition carried", value: this._cost + ammo, emphasis: true });
+        this._costSteps = trace.steps;
+        this._calcLogCost = renderCalcStepsTable(trace.steps);
+    }
+
+    /** The C-bill cost calculation as cited steps (a Support Vehicle aircraft's waits for the Support Vehicle round). */
+    public getCostBreakdown(): ICalcBreakdown {
+        return { kind: "cost", edition: this._rulesEdition, steps: this._costSteps.map((entry) => ({ ...entry, cites: [...entry.cites] })), result: this._cost };
     }
 
     /**
@@ -2156,7 +2528,8 @@ export default class AerospaceFighter {
         // base x dissipation / (heat - 4). Long and Extreme use the heat of the long-range weapons only (ASC
         // pp.115-116). Conventional fighters do not track heat.
         if (!this.isConventional()) {
-            const dissipation = this.getHeatDissipation();
+            // ASC heat table: each Coolant Pod lowers the heat by 1 (#647).
+            const dissipation = this.getHeatDissipation() + this._equipmentList.filter((item) => !item.isAmmo && item.coolantPod).length;
             const heat = front.reduce((sum, item) => sum + AerospaceFighter._asHeat(item), 0);
             const longHeat = front.filter((item) => (item.alphaStrike?.rangeLong || 0) > 0 || !(item.alphaStrike?.rangeShort || 0))
                 .reduce((sum, item) => sum + AerospaceFighter._asHeat(item), 0);
@@ -2216,14 +2589,10 @@ export default class AerospaceFighter {
         const pointDefense = Math.ceil(AerospaceFighter._roundUpToTenth(this._equipmentList.reduce((sum, item) => sum + AerospaceFighter._asPointDefense(item), 0)) - 1e-9);
         if (pointDefense > 0) specials.push(`PNT${pointDefense}`);
         const usesAmmo = weapons.some((item) => !!item.ammoTypes?.length || (item.shotsPerTon ?? 0) > 0);
-        if (weapons.length > 0 && !usesAmmo) specials.push("ENE");
-        const equipmentSpecials = new Set<string>();
-        for (const item of this._equipmentList) {
-            if (item.isAmmo) continue;
-            for (const code of item.alphaStrike?.specialAbility ?? []) {
-                if (!code.includes("#")) equipmentSpecials.add(code);
-            }
-        }
+        // A booby trap is an explosive component for ENE (ASC p.123).
+        const boobyTrap = this._equipmentList.some((item) => item.tag === "booby-trap");
+        if (weapons.length > 0 && !usesAmmo && !boobyTrap) specials.push("ENE");
+        const equipmentSpecials = new Set(getAlphaStrikeEquipmentSpecials(this._equipmentList, this.getRequiredRulesLevel()));
         specials.push(...[...equipmentSpecials].filter((code) => !specials.includes(code)));
         specials.sort();
 
@@ -2241,7 +2610,10 @@ export default class AerospaceFighter {
         let offensive = pvDamage(short) + 2 * pvDamage(medium) + pvDamage(long);
         if (overheat >= 1) offensive += (1 + 0.5 * (overheat - 1)) / (pvDamage(medium) + pvDamage(long) === 0 ? 2 : 1);
         offensive += size;
-        log += `Offensive value: S + 2M + L + Overheat + BOMB ${size} = ${offensive}<br />`;
+        // BT: Unit Size x (Highest Move x 0.5) (ASC p.143, Offensive Special Ability Factor Table, aerospace units).
+        const boobyTrapFactor = equipmentSpecials.has("BT") ? size * move * 0.5 : 0;
+        offensive += boobyTrapFactor;
+        log += `Offensive value: S + 2M + L + Overheat + BOMB ${size}${boobyTrapFactor ? ` + BT ${size} x ${move} x 0.5` : ""} = ${offensive}<br />`;
         let defensive = 4 + 0.25 * move + (move >= 10 ? 1 : move >= 7 ? 0.5 : 0);
         if (equipmentSpecials.has("AMS")) defensive += 1;
         defensive += pointDefense;
@@ -2299,7 +2671,13 @@ export default class AerospaceFighter {
         } as unknown as IASMULUnit;
         const unit = new AlphaStrikeUnit();
         unit.importMUL(record);
+        // The unit picture stored in the design (#95); with none, the picture the MUL record gave stays.
+        if (this.tro.getImage()) unit.imageURL = this.tro.getImage();
         unit.rulesLevel = Math.max(2, this.getRequiredRulesLevel());
+        unit.quirks = getAlphaStrikeQuirks(this);
+        unit.quirkEraStart = this.getEra().yearStart;
+        // The card credits the Special Rulesets the design is built under (#324).
+        unit.rulesets = this.gameSettings.getRulesets();
         return unit;
     }
 
@@ -2313,16 +2691,189 @@ export default class AerospaceFighter {
         return this._pilot;
     }
 
-    /** Battle Value adjusted for gunnery and piloting skill (TM p.315 skill multipliers, as for 'Mechs). */
-    public getPilotAdjustedBattleValue(edition?: string): number {
+    /**
+     * Battle Value adjusted for gunnery and piloting skill (TM p.315 skill multipliers, as for 'Mechs), with the
+     * external stores carried added first where the edition's force adjustments say so (BV v4.1 p.23).
+     * `forceBonus` is the force adjustments (TAG) it adds before skill.
+     */
+    public getPilotAdjustedBattleValue(edition?: string, forceBonus: number = 0): number {
+        const tag = edition ?? this._rulesEdition;
         // A drone fights at its control system's Skills (IO:AE p.187).
         const skills = this.getRoboticSkills();
-        const multiplier = getSkillMultiplier(skills?.gunnery ?? this._pilot?.gunnery ?? 4, skills?.piloting ?? this._pilot?.piloting ?? 5, "fighter", edition) ?? 1;
-        return Math.round(this._battleValue * multiplier);
+        const multiplier = getSkillMultiplier(skills?.gunnery ?? this._pilot?.gunnery ?? 4, skills?.piloting ?? this._pilot?.piloting ?? 5, "fighter", getBattleValueSkillEdition(tag, this.getBattleValueUnitType())) ?? 1;
+        const stores = getBattleValueForceRules(tag)?.externalStores
+            ? this._externalStores.reduce((sum, store) => sum + (this._storeRecord(store.tag)?.battleValue ?? 0) * store.count, 0) : 0;
+        return Math.round((this.getBattleValue(edition) + stores + forceBonus) * multiplier);
+    }
+
+    /** This unit's part in its force's TAG adjustment under `edition` (BV v4.1 p.23; TO:AUE p.198). */
+    public getBattleValueTagShare(edition: string = this._rulesEdition): IBattleValueTagShare {
+        return getBattleValueTagShare(edition, this._equipmentList, (bin) => this._binWeapon(bin),
+            this._externalStores.map((store) => ({ item: this._storeRecord(store.tag), count: store.count })));
+    }
+
+    /**
+     * Every piece of E-War gear on the fighter (#642). Destroyed is the weapon-destroyed state the crit rolls already
+     * set (isWeaponDestroyed). Aerospace armor has no stealth type, so no armor entry is listed.
+     */
+    /** The power-dial setting of the weapon `uuid` (the Bombast Laser, #645; none kept is the top, so an old save fires as it always did). */
+    public getDialSetting(uuid: string): number {
+        const item = this.getEquipmentList().find((candidate) => candidate.uuid === uuid);
+        return item ? getUnitDialSetting(this, item) : 0;
+    }
+
+    /** Set a dial weapon's setting; kept with the unit's play state. */
+    public setDialSetting(uuid: string, setting: number): void {
+        setUnitDialSetting(this, uuid, setting, this.getEquipmentList());
+    }
+
+    public getEWarGear(): IEWarGear[] {
+        const gear: IEWarGear[] = [];
+        for (const item of this._equipmentList) {
+            const kind = getEWarKind(item.tag);
+            if (kind) gear.push({ kind, tag: item.tag, name: item.name, uuid: item.uuid, location: item.location, destroyed: item.uuid !== undefined && this.isWeaponDestroyed(item.uuid) });
+        }
+        return gear;
     }
 
     public getInPlay(): IFighterInPlay { return this._inPlay; }
-    public resetInPlay(): void { this._inPlay = newFighterInPlay(); }
+    public resetInPlay(): void { this._inPlay = newFighterInPlay(); this.ewarPlay = {}; this.autocannonPlay = {}; }
+
+    // --- Altitude, velocity and air-to-ground attacks (#137; src/utils/aero-ground-play.ts).
+    public getFlight(): IFlightState {
+        const play = this._inPlay;
+        return { altitude: play.altitude, velocity: play.velocity, thrustUsed: play.thrustUsed, controlRollsFailed: play.controlRollsFailed };
+    }
+
+    /** Sets any of altitude, velocity, thrust spent and failed Control Rolls by hand; each is kept to whole numbers in range. */
+    public setFlight(values: Partial<IFlightState>): void {
+        const whole = (value: number | undefined, current: number, max: number): number =>
+            typeof value === "number" && Number.isFinite(value) ? Math.min(max, Math.max(0, Math.floor(value))) : current;
+        const play = this._inPlay;
+        play.altitude = whole(values.altitude, play.altitude, 11);
+        play.velocity = whole(values.velocity, play.velocity, 99);
+        play.thrustUsed = whole(values.thrustUsed, play.thrustUsed, 99);
+        play.controlRollsFailed = whole(values.controlRollsFailed, play.controlRollsFailed, 99);
+    }
+
+    public getFlightRules(): AeroGroundEdition { return this._inPlay.flightRules; }
+    public setFlightRules(edition: string): AeroGroundEdition {
+        this._inPlay.flightRules = getAeroGroundEdition(edition);
+        return this._inPlay.flightRules;
+    }
+
+    /** Airships and VTOLs may not enter the low- or high-altitude maps (TW p.79). */
+    public isFlightMapAllowed(): boolean { return this.getSupportMotive() !== "airship"; }
+
+    private _takeFlightStep(result: IFlightStep): IFlightStep {
+        const state = result.state;
+        this._inPlay.altitude = state.altitude;
+        this._inPlay.velocity = state.velocity;
+        this._inPlay.thrustUsed = state.thrustUsed;
+        return result;
+    }
+
+    public startFlightTurn(): void { this._takeFlightStep({ state: startFlightTurn(this.getFlight(), this._inPlay.flightRules), controlRolls: [], notes: [] }); }
+    public accelerateFlight(change: number): IFlightStep {
+        return this._takeFlightStep(accelerate(this.getFlight(), change, this._inPlay.flightRules, this.getCurrentSafeThrust()));
+    }
+    public changeFlightAltitude(levels: number): IFlightStep { return this._takeFlightStep(changeAltitude(this.getFlight(), levels, this._inPlay.flightRules)); }
+    public endFlightMovement(): IFlightStep {
+        const thrustLeft = Math.max(0, this.getCurrentMaxThrust() - this._inPlay.thrustUsed);
+        return this._takeFlightStep(endFlightMovement(this.getFlight(), this._inPlay.flightRules, { safeThrust: this.getCurrentSafeThrust(), vstol: this._vstol, thrustLeft }));
+    }
+    /** Records the result of a Control Roll the player made. */
+    public recordControlRoll(failed: boolean): void { if (failed) this._inPlay.controlRollsFailed = Math.min(99, this._inPlay.controlRollsFailed + 1); }
+
+    /** The to-hit for an air-to-ground attack: the pilot, the damage the fighter carries and thrust spent over Safe Thrust. */
+    public getAirToGroundAttack(type: AirToGroundAttack, options: { targetIsStructure?: boolean } = {}): IAirToGroundToHit {
+        const damage = this.getDamageToHitModifier();
+        const play = this._inPlay;
+        const result = getAirToGroundToHit(
+            { gunnery: this._pilot.gunnery, altitude: play.altitude, omniFighter: this._omni, otherModifiers: damage ?? 0, exceededSafeThrust: play.thrustUsed > this.getCurrentSafeThrust() },
+            type, play.flightRules, options,
+        );
+        if (damage === null) return { ...result, allowed: false, reason: "A third FCS hit stops all weapon attacks (TW p.240).", baseToHit: null };
+        return result;
+    }
+
+    public getFlightRulesName(): string { return AERO_GROUND_EDITIONS.find((entry) => entry.tag === this._inPlay.flightRules)?.name ?? this._inPlay.flightRules; }
+
+    // --- Autocannon rate of fire and jams in play (#643; src/utils/autocannon-play.ts).
+
+    private _autocannonItem(uuid: string): IEquipmentItem | undefined {
+        return this._equipmentList.find((item) => item.uuid === uuid);
+    }
+
+    /** "rac" | "ultra", or undefined when the item is not a rate-of-fire autocannon. */
+    public getAutocannonKind(uuid: string): AutocannonKind | undefined {
+        return getAutocannonKind(this._autocannonItem(uuid));
+    }
+
+    /** The rotary and Ultra autocannons the unit carries (rate of fire and jams). */
+    public getRateOfFireWeapons(): IEquipmentItem[] {
+        return this._equipmentList.filter((item) => !!item.uuid && ["rac", "ultra"].includes(getAutocannonKind(item) ?? ""));
+    }
+
+    public getShots(uuid: string): number {
+        const kind = this.getAutocannonKind(uuid);
+        return kind ? getSelectedShots(kind, this.autocannonPlay[uuid]) : 1;
+    }
+
+    public setShots(uuid: string, shots: number): void {
+        const kind = this.getAutocannonKind(uuid);
+        if( !kind ) return;
+        const cap = getMaxShots(kind);
+        this.autocannonPlay = { ...this.autocannonPlay, [uuid]: { ...this.autocannonPlay[uuid], shots: Math.min(cap, Math.max(1, Math.round(shots))) } };
+    }
+
+    public isJammed(uuid: string): boolean {
+        return !!this.autocannonPlay[uuid]?.jammed;
+    }
+
+    /** Record the to-hit roll of an attack with `uuid`: the shots fire either way, and a low roll jams it for the next turn. */
+    public recordToHitRoll(uuid: string, roll: number): { jammed: boolean } {
+        const kind = this.getAutocannonKind(uuid);
+        if( !kind ) return { jammed: false };
+        const state = { ...this.autocannonPlay[uuid] };
+        const result = recordToHitRoll(kind, state, roll);
+        this.autocannonPlay = { ...this.autocannonPlay, [uuid]: state };
+        return result;
+    }
+
+    /** Declare, in an End Phase, that a jammed rotary will be cleared next turn (TW p.140). An Ultra stays jammed. */
+    public declareClear(uuid: string): boolean {
+        const kind = this.getAutocannonKind(uuid);
+        if( !kind ) return false;
+        const state = { ...this.autocannonPlay[uuid] };
+        const declared = declareClear(kind, state);
+        if( declared ) this.autocannonPlay = { ...this.autocannonPlay, [uuid]: state };
+        return declared;
+    }
+
+    /** The unit is on the clearing attempt turn: no weapon attacks. */
+    public isClearingAttempt(uuid: string): boolean {
+        return isClearingAttempt(this.autocannonPlay[uuid]);
+    }
+
+    /** The Gunnery Skill Roll at +3 at the end of the Weapon Attack Phase of the attempt turn. */
+    public resolveClear(uuid: string, success: boolean): boolean {
+        const state = { ...this.autocannonPlay[uuid] };
+        const result = resolveClear(state, success);
+        this.autocannonPlay = { ...this.autocannonPlay, [uuid]: state };
+        return result;
+    }
+
+    /** New turn: the fired flags clear. */
+    public advanceAutocannonTurn(): void {
+        advanceAutocannonTurn(this.autocannonPlay);
+    }
+
+    /** Ready, out of ammunition or jammed. */
+    public getAutocannonStatus(uuid: string): "ready" | "no-ammo" | "jammed" {
+        const left = Infinity; // ammunition is not tracked per bin on fighters
+        return canFire(this.autocannonPlay[uuid], left);
+    }
     /** A new turn: nothing is marked as fired yet. Heat stays until the Heat Phase works it off. */
     public turnReset(): void { this._inPlay.firedWeapons = []; }
 
@@ -2455,7 +3006,41 @@ export default class AerospaceFighter {
         const play = this._inPlay;
         return this.getCurrentArmor() < this.getTotalArmorPoints() || play.structureDamage > 0 || play.avionics > 0 || play.engine > 0
             || play.fcs > 0 || play.sensors > 0 || play.gear || play.heatSinks > 0 || play.pilotHits > 0 || play.fuelExploded
-            || play.destroyedWeapons.length > 0 || play.heat > 0;
+            || play.destroyedWeapons.length > 0 || play.heat > 0 || play.explodedAmmo.length > 0;
+    }
+
+    /** Clan fighters are taken to have CASE; an Inner Sphere one needs to mount it (TM p.302). */
+    /**
+     * The locations a Clan fighter presumes CASE in (TM p.210): an arc with an explosive weapon, and the fuselage for the
+     * ammunition carried (a fighter's ammunition has no arc of its own). A location with a CASE item of its own pays for that.
+     */
+    private _clanCaseLocations(): string[] {
+        if (this.getChassisTechBase() !== "clan") return [];
+        const explosive = (item: IEquipmentItem) => !item.isAmmo && (item.gauss === true || item.explosive === true || /gauss|(^|-)hag(-|$)/.test(item.tag));
+        const withCase = new Set(this._equipmentList.filter((item) => /^(clan-)?case(-ii|-prototype)?$/.test(item.tag)).map((item) => item.location ?? ""));
+        const stored = new Set<string>();
+        for (const item of this._equipmentList) {
+            if (item.isAmmo && item.explosive) stored.add(item.location || "fuselage");
+            else if (explosive(item) && item.location) stored.add(item.location);
+        }
+        return FIGHTER_LOCATIONS.map((location) => location.tag as string).filter((tag) => stored.has(tag) && !withCase.has(tag));
+    }
+
+    private _ammoExplosionProtection(): AmmoExplosionProtection {
+        if (this._equipmentList.some((item) => item.tag === "case-ii" || item.tag === "clan-case-ii")) return "case-ii";
+        return this.getChassisTechBase() === "clan" || this._equipmentList.some((item) => item.tag === "case" || item.tag === "case-prototype") ? "case" : "none";
+    }
+
+    /** A failed ammunition explosion Avoid Roll in the Heat Phase: the damage goes to the SI (TW p.161). */
+    public explodeAmmunition(): string[] {
+        const play = this._inPlay;
+        const explosion = getHeatAmmoExplosion(this._rulesEdition, "fighter", this._equipmentList, (bin) => this._binWeapon(bin),
+            (bin) => play.explodedAmmo.includes(bin.uuid ?? "") ? 0 : this.getAmmoBinShots(bin), this._ammoExplosionProtection());
+        if (!explosion) return ["No explosive ammunition left to explode"];
+        play.explodedAmmo.push(...explosion.spent.map((bin) => bin.uuid ?? ""));
+        play.structureDamage += explosion.damage;
+        play.pilotHits = Math.min(6, play.pilotHits + explosion.rules.pilotDamage);
+        return explosion.log;
     }
 
     /** Safe Thrust now: less the external stores still carried and 2 per engine hit (TW pp.240, 247). */
@@ -2622,15 +3207,21 @@ export default class AerospaceFighter {
         return {
             ...(noInPlayVariables ? {} : {
                 pilot: this._pilot.export(),
+                ...(Object.keys(this.ewarPlay).length ? { ewarPlay: JSON.parse(JSON.stringify(this.ewarPlay)) as IEWarPlayState } : {}),
+                ...(Object.keys(this.autocannonPlay).length ? { autocannonPlay: JSON.parse(JSON.stringify(this.autocannonPlay)) as IAutocannonPlay } : {}),
                 inPlay: {
                     ...this._inPlay, armorDamage: { ...this._inPlay.armorDamage }, destroyedWeapons: [...this._inPlay.destroyedWeapons],
                     firedWeapons: [...this._inPlay.firedWeapons], pendingWeaponCriticals: this._inPlay.pendingWeaponCriticals.map((entry) => ({ ...entry })),
+                    explodedAmmo: [...this._inPlay.explodedAmmo],
                 },
             }),
             uuid: this._uuid,
+            tro: this.tro.export(),
+            quirks: this.quirks.export(),
             lastUpdated: this.lastUpdated,
             name: this._name,
             ...(this._rulesEdition !== DEFAULT_RULES_EDITION ? { rulesEdition: this._rulesEdition } : {}),
+            ...this.gameSettings.export(),
             model: this._model,
             fighterType: this._fighterType,
             vstol: this._vstol,
@@ -2656,6 +3247,7 @@ export default class AerospaceFighter {
             equipment: this._equipmentList.map((item) => ({
                 tag: item.tag, location: item.location, uuid: item.uuid, ...(this.isPodMounted(item.uuid ?? "") ? { pod: true } : {}),
                 ...(this.canSetAmmoBinShots(item) && (item.weight || 0) < 1 ? { shots: this.getAmmoBinShots(item) } : {}),
+                ...(item.isAmmo && item.feedsWeaponTag ? { feedsWeaponTag: item.feedsWeaponTag } : {}),
             })),
         };
     }
@@ -2675,6 +3267,11 @@ export default class AerospaceFighter {
         }
         this._inPlay = newFighterInPlay();
         if (!isPlainObject(inPlay)) return;
+        this.setFlight({
+            altitude: savedNumber(inPlay.altitude, 0, 0, 11), velocity: savedNumber(inPlay.velocity, 0, 0, 99),
+            thrustUsed: savedNumber(inPlay.thrustUsed, 0, 0, 99), controlRollsFailed: savedNumber(inPlay.controlRollsFailed, 0, 0, 99),
+        });
+        this.setFlightRules(savedString(inPlay.flightRules, "total-warfare"));
         const armor = isPlainObject(inPlay.armorDamage) ? inPlay.armorDamage : {};
         for (const arc of FIGHTER_ARCS) this.setArmorDamage(arc.tag, savedNumber(armor[arc.tag], 0, 0, 10000));
         this.setStructureDamage(savedNumber(inPlay.structureDamage, 0, 0, 1000));
@@ -2695,6 +3292,8 @@ export default class AerospaceFighter {
             const arc = FIGHTER_ARCS.find((candidate) => candidate.tag === entry.arc);
             if (arc) this._inPlay.pendingWeaponCriticals.push({ arc: arc.tag, chooser: entry.chooser === "attacking" ? "attacking" : "controlling" });
         }
+        const exploded = Array.isArray(inPlay.explodedAmmo) ? inPlay.explodedAmmo.slice(0, MAX_FIGHTER_EQUIPMENT) : [];
+        this._inPlay.explodedAmmo = exploded.filter((uuid): uuid is string => typeof uuid === "string" && this._equipmentList.some((item) => item.isAmmo && item.uuid === uuid));
     }
 
     /** Problems found in the last import: fields that were invalid and replaced, or entries that were dropped. */
@@ -2751,6 +3350,8 @@ export default class AerospaceFighter {
             }
             const saved = parsed as Partial<Record<keyof IAerospaceFighterExport, unknown>>;
             this._uuid = savedString(saved.uuid).slice(0, 100) || generateUUID();
+            this.tro.import(saved.tro);
+            this.quirks.import(saved.quirks);
             const updated = typeof saved.lastUpdated === "string" || typeof saved.lastUpdated === "number" ? new Date(saved.lastUpdated) : new Date();
             this.lastUpdated = Number.isNaN(updated.getTime()) ? new Date() : updated;
             for (const key of ["name", "model"] as const) {
@@ -2758,6 +3359,7 @@ export default class AerospaceFighter {
             }
             this.setName(savedString(saved.name));
             this._rulesEdition = getSelectableRulesEditionTag(saved.rulesEdition, "fighter");
+            this.gameSettings.import(saved);
             this.setModel(savedString(saved.model));
             // A save from before conventional fighters has no type: it is an aerospace fighter.
             if (saved.fighterType !== undefined && !["aerospace", "conventional", "support"].includes(saved.fighterType as string)) issue("Ignored an unknown fighter type");
@@ -2806,14 +3408,13 @@ export default class AerospaceFighter {
             if (saved.equipment !== undefined && !Array.isArray(saved.equipment)) issue("Ignored an equipment list that is not a list");
             const entries = Array.isArray(saved.equipment) ? saved.equipment : [];
             if (entries.length > MAX_FIGHTER_EQUIPMENT) issue(`Kept the first ${MAX_FIGHTER_EQUIPMENT} of ${entries.length} equipment entries`);
-            const catalog = this._catalog();
             const pendingShots: { uuid: string | undefined; shots: number }[] = [];
             for (const entry of entries.slice(0, MAX_FIGHTER_EQUIPMENT)) {
                 if (!isPlainObject(entry) || typeof entry.tag !== "string") {
                     issue("Skipped an equipment entry that could not be read");
                     continue;
                 }
-                const catalogItem = findByTag(catalog, entry.tag);
+                const catalogItem = this._findRecord(entry.tag);
                 if (!catalogItem) {
                     issue(`Skipped unknown equipment "${entry.tag.slice(0, 60)}"`);
                     continue;
@@ -2822,6 +3423,7 @@ export default class AerospaceFighter {
                 this._equipmentList.push(item);
                 if (this._omni && entry.pod === true && item.uuid) this._podUUIDs.add(item.uuid);
                 if (item.isAmmo && typeof entry.shots === "number" && Number.isFinite(entry.shots)) pendingShots.push({ uuid: item.uuid, shots: entry.shots });
+                if (item.isAmmo && typeof entry.feedsWeaponTag === "string") item.feedsWeaponTag = entry.feedsWeaponTag.slice(0, 80);
             }
             // After every weapon is aboard, so each bin can find the weapon it feeds; clamped to one ton.
             // A saved design keeps the accounting it was saved with, battle armor items or not.
@@ -2840,6 +3442,8 @@ export default class AerospaceFighter {
                 if (this._externalStores.length === before && entry.count > 0) issue(`Skipped unknown external store "${entry.tag.slice(0, 60)}"`);
             }
             this._importPlay(saved.pilot, saved.inPlay);
+            this.ewarPlay = normalizeEWarPlay(saved.ewarPlay);
+            this.autocannonPlay = normalizeAutocannonPlay(saved.autocannonPlay);
             this._calc();
         } catch (error) {
             issue("The saved fighter could not be read completely");

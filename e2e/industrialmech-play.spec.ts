@@ -21,8 +21,10 @@ test("an IndustrialMech rolls for critical hits at +2 and makes its End Phase da
     await page.getByTitle("Click here to save a a new 'mech row").click();
 
     await page.goto("classic-battletech/roster");
-    await page.getByTitle("Click here to open the add 'mech dialog").first().click();
-    await page.locator(".modal button.btn-xs.btn-primary").nth(1).click();
+    await page.getByTitle("Add 'Mechs, or search the Master Unit List for any unit type").first().click();
+    // The picker shows BattleMechs until its Type filter is changed.
+    await page.getByLabel("Type:").selectOption({ label: "IndustrialMech" });
+    await page.locator(".modal tr", { hasText: "Saved" }).getByRole("button", { name: /^Add / }).first().click();
     await page.goto("classic-battletech/roster/play");
     await page.locator(".mech-selector li button").first().click();
     await page.getByTitle("Weapon Attack Phase").click();

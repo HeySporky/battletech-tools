@@ -1,6 +1,7 @@
 import React, { type JSX } from 'react';
 import ProtoMech from '../../../../classes/protomech';
 import TextSection from '../../../components/text-section';
+import { formatBattleValue } from '../../../../data/battle-value';
 
 /** The running totals every step of the ProtoMech Creator shows: weight, room by location, and what is not legal yet. */
 export default class ProtoMechStatusBar extends React.Component<IProtoMechStatusBarProps> {
@@ -17,7 +18,7 @@ export default class ProtoMechStatusBar extends React.Component<IProtoMechStatus
                         return `${proto.getLocationName(location)} ${proto.getLocationMounts(location).length}/${proto.getLocationItems(location)}${maxKg === null ? "" : ` (${proto.getLocationWeight(location)}/${maxKg} kg)`}`;
                     }).join(", ")} &nbsp;|&nbsp;
                     <strong>Movement</strong>: {proto.getMovementText()} &nbsp;|&nbsp;
-                    <strong>BV</strong>: {proto.getBattleValue()}
+                    <strong>BV</strong>: {formatBattleValue((edition) => proto.getBattleValue(edition), "protomech", proto.getRulesEdition())}
                     {issues.length > 0 ? (
                         <ul className="color-red" data-testid="pm-issues">
                             {issues.map((issue, index) => <li key={index}>{issue}</li>)}

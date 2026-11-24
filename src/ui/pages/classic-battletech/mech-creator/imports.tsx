@@ -1,25 +1,20 @@
 
 import React, { type JSX } from 'react';
-import { FaArrowCircleLeft, FaCheckCircle, FaEye, FaPlusCircle, FaTimesCircle } from "react-icons/fa";
+import { FaArrowCircleLeft } from "react-icons/fa";
 import { Link } from 'react-router';
 import { BattleMech } from "../../../../classes/battlemech";
-import { sortByMechName } from '../../../../utils/sortByMechName';
-import { getSSWRulesLevelLabel } from '../../../../utils/sswUtils';
 import { IAppGlobals } from '../../../app-router';
-import InputField from '../../../components/form_elements/input_field';
-import MechCreatorSideMenu from '../../../components/mech-creator-side-menu';
+import { MechCreatorSideMenu } from '../../../components/creator-side-menus';
 import SanitizedHTML from '../../../components/sanitized-html';
 import StandardModal from "../../../components/standard-modal";
 import BattleMechSVG from '../../../components/svg/battlemech-svg';
 import TextSection from '../../../components/text-section';
 import UIPage from '../../../components/ui-page';
+import BundledMechList from '../../../components/bundled-mech-list';
+import MordelUnitsPanel from '../../../components/mordel-units-panel';
 import './home.scss';
 import { replaceCurrentBattleMech } from '../../../components/confirm-replace-design';
 const ArrowCircleLeft = FaArrowCircleLeft as any;
-const CheckCircle = FaCheckCircle as any;
-const Eye = FaEye as any;
-const PlusCircle = FaPlusCircle as any;
-const TimesCircle = FaTimesCircle as any;
 
 export default class MechCreatorImports extends React.Component<IHomeProps, IHomeState> {
     constructor(props: IHomeProps) {
@@ -42,71 +37,6 @@ export default class MechCreatorImports extends React.Component<IHomeProps, IHom
         }
 
         this.props.appGlobals.makeDocumentTitle("Imports | 'Mech Creator");
-    }
-
-    updateMechNameFilter = (
-      e: React.FormEvent<HTMLInputElement>,
-    ) => {
-      if( e && e.preventDefault ) {
-        e.preventDefault()
-      }
-      let appSettings = this.props.appGlobals.appSettings;
-      appSettings.mechNameFilter = e.currentTarget.value;
-
-      this.props.appGlobals.saveAppSettings(appSettings);
-      this.setState({
-        updated: true,
-      })
-    }
-
-    updateMechRulesFilter = (
-      e: React.FormEvent<HTMLSelectElement>,
-    ) => {
-      if( e && e.preventDefault ) {
-        e.preventDefault()
-      }
-      let appSettings = this.props.appGlobals.appSettings;
-      appSettings.mechRulesFilter = +e.currentTarget.value;
-
-      this.props.appGlobals.saveAppSettings(appSettings)
-      this.setState({
-        updated: true,
-      })
-    }
-
-    _filterSSWMechs = (
-      a: BattleMech
-    ): boolean => {
-
-      if(
-        this.props.appGlobals.appSettings.mechNameFilter.trim() !== ""
-        &&
-        a.getName().trim().toLowerCase().indexOf( this.props.appGlobals.appSettings.mechNameFilter.trim().toLowerCase()  ) === -1
-      ) {
-        return false;
-      }
-
-      if(
-        this.props.appGlobals.appSettings.mechRulesFilter > -1
-        &&
-        a.basicSSWInfo?.rules_level_ssw !== this.props.appGlobals.appSettings.mechRulesFilter
-      ) {
-        return false;
-      }
-
-      return true;
-    }
-
-    importUnit = (
-      e:React.FormEvent<HTMLButtonElement>,
-      unit: BattleMech,
-    ) => {
-      if( e && e.preventDefault ) {
-        e.preventDefault()
-      }
-      if( unit ) {
-        replaceCurrentBattleMech( this.props.appGlobals, () => this.props.appGlobals.saveCurrentBattleMech( unit ) );
-      }
     }
 
     updateTRO = (e: React.FormEvent<HTMLTextAreaElement>) => {
@@ -145,8 +75,11 @@ export default class MechCreatorImports extends React.Component<IHomeProps, IHom
       if( this.state.ParsedTRO ) {
         let currentBattleMech = this.props.appGlobals.currentBattleMech;
 
+        // The TRO text carries no Technical Readout fields; the importer must not wipe the ones already entered.
+        const troFields = this.props.appGlobals.currentBattleMech?.tro.export();
         currentBattleMech = new BattleMech();
         currentBattleMech.import( this.state.ParsedTRO.export() )
+        currentBattleMech.tro.import( troFields );
         const imported = currentBattleMech;
         replaceCurrentBattleMech( this.props.appGlobals, () => this.props.appGlobals.saveCurrentBattleMech( imported ) );
         this.setState({
@@ -173,19 +106,6 @@ export default class MechCreatorImports extends React.Component<IHomeProps, IHom
       })
     }
 
-
-    viewUnit = (
-      e: React.FormEvent<HTMLButtonElement>,
-      bm: BattleMech,
-    ) => {
-      if( e && e.preventDefault ) {
-        e.preventDefault();
-      }
-      console.log("viewUnit", bm.getName() )
-      this.setState({
-        viewingUnit: bm,
-      })
-    }
 
   closeViewUnit = (
       e: React.FormEvent<HTMLButtonElement> | null,
@@ -305,138 +225,19 @@ export default class MechCreatorImports extends React.Component<IHomeProps, IHom
                           <p><Link className="btn btn-primary" to={`${process.env.PUBLIC_URL}/classic-battletech/mech-creator/ssw-file-import`}>Import your own .ssw files</Link></p>
                           <div className="alert alert-info">
 
-                            <p>This is now working perfectly in a limited fashion! Be sure to only semi-trust the units with a <CheckCircle title="This import looks good to add!" className="color-green" /> beside their name</p>
-
-                            <p>Since we're still short on base equipment for Clans, right now only the TRO3039 is loadable. Don't worry we'll get it taken care of as this app develops. TRO 3050/3055 is the next target!</p>
+                            <p>The list below holds the 'Mechs converted from the Solaris Skunk Werks data whose Battle Value matches the Master Unit List's (or the file's, for a design the MUL does not list). OmniMechs are not in it yet. To bring in any other design, use <strong>Import your own .ssw files</strong>.</p>
 
                             <div className="text-center">
                               <a href="https://github.com/Solaris-Skunk-Werks/SSW-Master" target="_blank" rel="noopener noreferrer">Solaris Skunk Werks Master Data Repo</a>
                             </div>
 
                           </div>
-<div className="row">
-  <div className="col">
-  <InputField
-              type="search"
-              placeholder='Filter'
-              value={this.props.appGlobals.appSettings.mechNameFilter}
-              onChange={this.updateMechNameFilter}
-            />
-  </div>
-  <div className="col">
-  <label>
-              <select
-                  value={this.props.appGlobals.appSettings.mechRulesFilter}
-                  onChange={this.updateMechRulesFilter}
-              >
-                <option value={-1}>All</option>
-                <option value={0}>{getSSWRulesLevelLabel(0)}</option>
-                <option value={1}>{getSSWRulesLevelLabel(1)}</option>
-                <option value={2}>{getSSWRulesLevelLabel(2)}</option>
-              </select>
-            </label>
+                          <BundledMechList
+                            appGlobals={this.props.appGlobals}
+                            onView={(mech) => this.setState({ viewingUnit: mech })}
+                            onAdd={(mech) => replaceCurrentBattleMech( this.props.appGlobals, () => this.props.appGlobals.saveCurrentBattleMech( mech ) )}
+                          />
 
-  </div>
-</div>
-
-
-
-
-
-            <table className="table">
-                    <thead>
-                        <tr>
-                            <th>Make</th>
-                            <th className="min-width no-wrap text-left">Tech</th>
-                            <th className="min-width no-wrap text-center">Rules</th>
-                            <th className="min-width no-wrap text-center">Tonnage</th>
-
-                            <th className="min-width no-wrap text-center">BV2</th>
-                            <th className="min-width no-wrap text-center">&nbsp;</th>
-                        </tr>
-                    </thead>
-                    {this.props.appGlobals.sswMechObjects.length === 0 ? (
-                        <tbody>
-                            <tr>
-                                <td className="text-center" colSpan={5}>
-                                    <br />No 'mechs found for import. This should not be!
-                                    <br />
-                                    <br />
-                                </td>
-                            </tr>
-                        </tbody>
-                    ) : null}
-                    {this.props.appGlobals.sswMechObjects.length > 0 && this.props.appGlobals.sswMechObjects.filter( this._filterSSWMechs ).length === 0 ? (
-                        <tbody>
-                            <tr>
-                                <td className="text-center" colSpan={5}>
-                                    <br />There are no 'mechs found with your filter preferences
-                                    <br />
-                                    <br />
-                                </td>
-                            </tr>
-                        </tbody>
-                    ) : (
-                      <>
-                      {this.props.appGlobals.sswMechObjects.sort( sortByMechName ).filter( this._filterSSWMechs ).map( (bmObj, bmIndex) => {
-
-
-let perfectImport = true;
-let problems: string[] = [];
-if( bmObj.basicSSWInfo && bmObj.basicSSWInfo.bv2 !== bmObj.getBattleValue()) {
-    perfectImport = false;
-    problems.push( "BV2 doesn't match! SSW " + bmObj.basicSSWInfo.bv2 + " vs calculated " + bmObj.getBattleValue() )
-}
-if( bmObj.basicSSWInfo && bmObj.basicSSWInfo.cbill_cost !== bmObj.getCBillCostNumeric(true)) {
-    perfectImport = false;
-    problems.push( "Cbill Cost doesn't match! SSW " + bmObj.basicSSWInfo.cbill_cost + " vs calculated " + bmObj.getCBillCost(true) )
-}
-if( bmObj.sswImportErrors.length > 0 ) {
-    perfectImport = false;
-    problems.push( bmObj.sswImportErrors.length + " import errors!" );
-}
-
-return (
-    <tbody key={bmIndex}>
-        <tr>
-            <td>
-                {bmObj.getName()}&nbsp;
-                {perfectImport ? (
-                    <CheckCircle title="This import looks good to add!" className="color-green" />
-                ) : (
-                    <TimesCircle title={"Not an accurate import, not recommended for adding to your force. " + problems.join("; ")} className="color-red" />
-                )}
-            </td>
-            <td className="min-width no-wrap text-left">{bmObj.getTech().name}</td>
-            <td className="min-width no-wrap text-left">{getSSWRulesLevelLabel(bmObj.basicSSWInfo?.rules_level_ssw ? bmObj.basicSSWInfo?.rules_level_ssw : 0, true )}</td>
-            <td className="min-width no-wrap text-center">{bmObj.getTonnage()}</td>
-            <td className="min-width no-wrap text-center">{bmObj.getBattleValue()}</td>
-            <td className="min-width no-wrap text-center">
-                <button
-                    className='btn btn-sm btn-primary'
-                    onClick={e => this.viewUnit(e, bmObj )}
-                >
-                    <Eye />
-                </button>
-
-                <button
-                    className='btn btn-sm btn-primary'
-                    onClick={e => this.importUnit(e, bmObj )}
-                >
-                    <PlusCircle />
-                </button>
-            </td>
-        </tr>
-    </tbody>
-)
-})}
-                      </>
-                    )}
-
-
-                </table>
-
-                            See the <Link to="ssw-sanity-check">Sanity Test</Link> page for compatibility
 
 
                           <div className="clear-both overflow-hidden">
@@ -446,6 +247,15 @@ return (
                               <Link to={`${process.env.PUBLIC_URL}/classic-battletech/mech-creator/exports`} className="btn btn-primary btn-sm"><ArrowCircleLeft /> Exports</Link>
                             </div>
                           </div>
+                        </TextSection>
+
+                        <TextSection
+                          label="Start From a mordel.net 'Mech"
+                        >
+                          <MordelUnitsPanel
+                            mode="designer"
+                            onAddMech={(mech) => replaceCurrentBattleMech( this.props.appGlobals, () => this.props.appGlobals.saveCurrentBattleMech( mech ) )}
+                          />
                         </TextSection>
 
                         <TextSection

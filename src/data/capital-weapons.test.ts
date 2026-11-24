@@ -2,6 +2,8 @@ import { describe, expect, it } from "vitest";
 import { capitalWeapons } from "./capital-weapons";
 import { subCapitalWeapons } from "./sub-capital-weapons";
 import { getEquipmentCatalogDefinitions } from "./equipment-registry";
+import { getCapitalWeaponEditionNotes, getCapitalWeaponForEdition } from "./capital-weapon-helpers";
+import { btRulesExpansions, getEditionStats, isKnownEditionTag, isOfferedInEdition } from "./rules-editions";
 
 describe("capital and sub-capital weapon catalogs", () => {
     const all = [...capitalWeapons, ...subCapitalWeapons];
@@ -72,7 +74,7 @@ describe("capital and sub-capital weapon catalogs", () => {
             heat: 30, damage: 10, range: "long", weight: 2000, cbills: 2000000, battleValue: 1896,
             ammo: { tonsPerShot: 0.2, cbills: 30000, battleValue: 237 },
             space: { supportVehicle: -1, smallCraft: -1, dropShip: -1, jumpShip: 1, warShip: 1, spaceStation: 1, mobileStructure: 1 },
-            techBase: "both", techRating: "d", availability: "E-X-E-E",
+            techBase: "universal", techRating: "d", availability: "E-X-E-E",
             prototype: 2100, introduced: 2195, extinct: 2950, reintroduced: 3051, rulesLevel: 3, book: "TO:AUE", page: 143,
         });
         expect(find("heavy-n-gauss")).toMatchObject({ heat: 18, damage: 30, range: "extreme", weight: 7000, cbills: 50050000, battleValue: 6048, ammo: { tonsPerShot: 0.5 } });
@@ -82,7 +84,7 @@ describe("capital and sub-capital weapon catalogs", () => {
         expect(find("killer-whale")).toMatchObject({
             heat: 20, damage: 4, range: "extreme", weight: 150, cbills: 150000, battleValue: 769,
             ammo: { tonsPerShot: 50, cbills: 20000, cbillsPer: "shot", battleValue: 96, battleValuePer: "shot" },
-            techBase: "both", techRating: "e", availability: "D-E-E-D", prototype: 2200, introduced: 2305, extinct: 2950, reintroduced: 3051,
+            techBase: "universal", techRating: "e", availability: "D-E-E-D", prototype: 2200, introduced: 2305, extinct: 2950, reintroduced: 3051,
             rulesLevel: 2, book: "TM", page: 210,
         });
         expect(find("kraken-t")).toMatchObject({ heat: 50, damage: 10, weight: 220, cbills: 500000, battleValue: 2306, techBase: "is", prototype: 3053, introduced: 3057, ammo: { tonsPerShot: 100, cbills: 55000, battleValue: 288 } });
@@ -102,7 +104,7 @@ describe("capital and sub-capital weapon catalogs", () => {
         expect(find("scl-1")).toMatchObject({
             heat: 24, damage: 1, range: "long", weight: 150, cbills: 220000, battleValue: 237, ammo: null,
             space: { supportVehicle: 20, smallCraft: -1, dropShip: 1, jumpShip: 1, warShip: 1, spaceStation: 1, mobileStructure: 1 },
-            techBase: "both", availability: "X-X-F-D", prototype: 3069, introduced: 3073, clanDates: { introduced: 3091, extinct: null, reintroduced: null },
+            techBase: "universal", availability: "X-X-F-D", prototype: 3069, introduced: 3073, clanDates: { introduced: 3091, extinct: null, reintroduced: null },
         });
         expect(find("manta-ray")).toMatchObject({
             heat: 21, damage: 5, range: "short", weight: 160, cbills: 150000, battleValue: 396,
@@ -151,10 +153,96 @@ describe("capital and sub-capital weapon catalogs", () => {
         expect(find("screen-launcher")).toMatchObject({ techRating: "f", sourceVariants: [{ book: "TM", page: 342, techRating: "e" }] });
         // Clan sub-capital cannons and lasers from 3091 (IO:AE p.33; user ruling); TO:AUE p.223 has them Inner Sphere only.
         for (const item of all.filter(entry => ["Sub-Capital Cannon", "Sub-Capital Laser"].includes(entry.category))) {
-            expect(item, item.tag).toMatchObject({ techBase: "both", clanDates: { introduced: 3091 }, sourceVariants: [{ book: "TO:AUE", page: 223, techBase: "is" }] });
+            expect(item, item.tag).toMatchObject({ techBase: "universal", clanDates: { introduced: 3091 }, sourceVariants: [{ book: "TO:AUE", page: 223, techBase: "is" }] });
         }
         for (const item of all) {
             for (const variant of item.sourceVariants ?? []) expect(variant.page, item.tag).toBeGreaterThan(0);
         }
+    });
+});
+
+describe("capital weapons by rules edition (#151)", () => {
+    const all = [...capitalWeapons, ...subCapitalWeapons];
+    const find = (tag: string) => all.find(item => item.tag === tag)!;
+    const BS = "battlespace", AT2 = "aerotech-2", AT2R = "aerotech-2-revised", TW = "total-warfare";
+
+    it("lists BattleSpace (FASA 1680, 1993) as an aerospace expansion", () => {
+        expect(btRulesExpansions.find(entry => entry.tag === BS)).toMatchObject({ name: "BattleSpace", year: 1993, book: "BS", unitTypes: ["fighter", "small-craft", "capital-ship"] });
+        expect(isKnownEditionTag(BS)).toBe(true);
+    });
+
+    it("gives a Naval Laser 45 each edition's heat, damage, range, weight and price", () => {
+        // BS p.71, AT2 p.101, AT2R p.75 (page images): the same figures as TO:AUE p.145.
+        for (const edition of [BS, AT2, AT2R, TW]) {
+            expect(getCapitalWeaponForEdition(find("nl45"), edition), edition).toMatchObject({ heat: 70, damage: 4.5, range: "extreme", weight: 900, cbills: 850000 });
+        }
+        expect(getCapitalWeaponForEdition(find("nl45"), BS)).toMatchObject({ book: "BS", page: 71 });
+        expect(getCapitalWeaponForEdition(find("nl45"), AT2R)).toMatchObject({ book: "AT2", page: 101 });
+        expect(getCapitalWeaponForEdition(find("nl45"), TW)).toBe(find("nl45"));
+    });
+
+    it("reads each edition's Battle Value: none in BattleSpace, AeroTech 2's table in both AeroTech 2 books", () => {
+        // BS p.71 prints a Maintenance Point Value (campaign rules pp.57-58), not a Battle Value.
+        expect(getEditionStats(find("nl45"), BS)).toMatchObject({ maintenancePointValue: 1145 });
+        expect(getEditionStats(find("nl45"), BS)?.battleValue).toBeUndefined();
+        // AT2 p.54 and AT2R p.82 print the same table; TW's figure (TO:AUE p.220) is unchanged.
+        expect(getCapitalWeaponForEdition(find("nl45"), AT2).battleValue).toBe(1081);
+        expect(getCapitalWeaponForEdition(find("nl45"), AT2R).battleValue).toBe(1081);
+        expect(find("nl45").battleValue).toBe(1134);
+        expect(getCapitalWeaponForEdition(find("nac-10"), AT2)).toMatchObject({ battleValue: 1901, ammo: { tonsPerShot: 0.2, cbills: 30000, battleValue: 238, battleValuePer: "ton" } });
+        expect(getCapitalWeaponForEdition(find("heavy-n-gauss"), AT2R)).toMatchObject({ battleValue: 5767, ammo: { battleValue: 721 } });
+        expect(getCapitalWeaponForEdition(find("killer-whale"), AT2)).toMatchObject({ battleValue: 769, ammo: { tonsPerShot: 50, cbills: 20000, battleValue: 96, battleValuePer: "shot" } });
+        const at2BattleValues = Object.fromEntries(all.filter(item => item.editions?.includes(AT2)).map(item => [item.tag, getCapitalWeaponForEdition(item, AT2).battleValue]));
+        expect(at2BattleValues).toEqual({
+            "nac-10": 1901, "nac-20": 3802, "nac-25": 4752, "nac-30": 5702, "nac-35": 4959, "nac-40": 5668,
+            "light-n-gauss": 2884, "medium-n-gauss": 4806, "heavy-n-gauss": 5767, nl35: 832, nl45: 1081, nl55: 1322,
+            "light-n-ppc": 1663, "medium-n-ppc": 2163, "heavy-n-ppc": 3605, "killer-whale": 769, "white-shark": 577, barracuda: 522,
+            "ar-10-launcher": 961, "kraken-t": 2306, "killer-whale-t": 923, "white-shark-t": 692, "barracuda-t": 461, "screen-launcher": 160,
+        });
+    });
+
+    it("prints every other figure as Total Warfare does in all three older books", () => {
+        for (const item of all) {
+            for (const edition of [BS, AT2, AT2R].filter(tag => item.editions?.includes(tag))) {
+                const older = getCapitalWeaponForEdition(item, edition);
+                expect({ ...older, battleValue: 0, ammo: { ...older.ammo, battleValue: 0 }, book: "", page: 0 }, `${item.tag} ${edition}`)
+                    .toEqual({ ...item, battleValue: 0, ammo: { ...item.ammo, battleValue: 0 }, book: "", page: 0 });
+            }
+        }
+    });
+
+    it("offers each weapon only in the editions that print it", () => {
+        // BattleSpace p.71 has no tele-operated missiles and no Screen Launcher; AT2 p.101 adds them. Mass Drivers,
+        // the Dragon's Breath and the sub-capital weapons first appear in TO:AUE and IO:AE.
+        expect(all.filter(item => item.editions?.includes(BS)).map(item => item.tag)).toEqual([
+            "nac-10", "nac-20", "nac-25", "nac-30", "nac-35", "nac-40", "light-n-gauss", "medium-n-gauss", "heavy-n-gauss",
+            "nl35", "nl45", "nl55", "light-n-ppc", "medium-n-ppc", "heavy-n-ppc", "killer-whale", "white-shark", "barracuda", "ar-10-launcher",
+        ]);
+        expect(isOfferedInEdition(find("kraken-t"), BS, 2)).toBe(false);
+        expect(isOfferedInEdition(find("screen-launcher"), BS, 2)).toBe(false);
+        expect(isOfferedInEdition(find("kraken-t"), AT2, 2)).toBe(true);
+        expect(isOfferedInEdition(find("light-mass-driver"), AT2R, 7)).toBe(false);
+        expect(isOfferedInEdition(find("scl-1"), AT2R, 7)).toBe(false);
+        // The older books grade nothing by level, so a naval autocannon is there at any level; TW makes it Advanced.
+        expect(isOfferedInEdition(find("nac-10"), AT2, 2)).toBe(true);
+        expect(isOfferedInEdition(find("nac-10"), TW, 2)).toBe(false);
+        // Nothing a book prints is dropped by a later one, so no weapon is apocryphal in a later edition.
+        const order = [BS, AT2, AT2R, TW];
+        for (const item of all) {
+            const first = order.findIndex(tag => item.editions?.includes(tag));
+            expect(order.slice(first).every(tag => item.editions?.includes(tag)), item.tag).toBe(true);
+        }
+    });
+
+    it("says how each older edition differs, for the creator", () => {
+        expect(getCapitalWeaponEditionNotes(find("nl45"))).toEqual([
+            "BattleSpace (BS p.71): as Total Warfare; no Battle Value (Maintenance Point Value 1,145)",
+            "AeroTech 2 (AT2 p.101): Battle Value 1,081",
+            "AeroTech 2, Revised Edition: as AeroTech 2",
+        ]);
+        expect(getCapitalWeaponEditionNotes(find("nac-35"))[1]).toBe("AeroTech 2 (AT2 p.101): Battle Value 4,959");
+        expect(getCapitalWeaponEditionNotes(find("killer-whale"))[1]).toBe("AeroTech 2 (AT2 p.101): as Total Warfare");
+        expect(getCapitalWeaponEditionNotes(find("light-n-gauss"))[1]).toBe("AeroTech 2 (AT2 p.101): Battle Value 2,884; ammunition Battle Value 360");
+        expect(getCapitalWeaponEditionNotes(find("light-mass-driver"))).toEqual([]);
     });
 });

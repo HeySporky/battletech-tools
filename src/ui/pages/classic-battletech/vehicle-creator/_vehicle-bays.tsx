@@ -33,7 +33,7 @@ export default class VehicleBays extends React.Component<IVehicleBaysProps, IVeh
                 {vehicle.getBays().length > 0 ? (
                     <table className="table" data-testid="vehicle-bays">
                         <thead>
-                            <tr><th>Bay</th><th>Tons, Bays or Cubicles</th><th>Doors</th><th>Weight</th><th></th></tr>
+                            <tr><th>Bay</th><th>Tons, Bays or Cubicles</th><th>Doors</th><th>Weight</th><th><span className="visually-hidden">Actions</span></th></tr>
                         </thead>
                         <tbody>
                             {vehicle.getBays().map((bay, index) => {

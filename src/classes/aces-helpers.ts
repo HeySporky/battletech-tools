@@ -14,7 +14,9 @@ import {
     ACES_MOVE_FIRST_PRIORITY,
     ACES_MOVE_LAST_PRIORITY,
     TAcesDeckId,
+    getAcesRulesType,
 } from "../data/aces-rules";
+import { IAcesCommandOrder } from "../data/aces-cards";
 import { AlphaStrikeUnit } from "./alpha-strike-unit";
 
 /*
@@ -130,7 +132,8 @@ export const getAcesTargetMovementModifier = (
 
 /** Only 'Mechs get partial cover: vehicles, infantry and other token units never do (Aces pp.3-5). */
 export const canClaimAcesPartialCover = ( targetType: string ): boolean => {
-    const type = targetType.trim().toUpperCase();
+    // A walker reads as a 'Mech (WK as BM, IWK as IM; Custom Homebrew).
+    const type = getAcesRulesType( targetType );
     return type === "BM" || type === "IM";
 }
 
@@ -454,6 +457,12 @@ export const suggestAcesDeck = (
     }
 }
 
+/** A Battlefield Support emplacement card: type BD with IMMOBILE (Aces: Scouring Sands, #191). */
+export const isAcesEmplacementCard = ( unit: Pick<AlphaStrikeUnit, "type" | "abilities"> ): boolean => {
+    return ( unit.type || "" ).trim().toUpperCase() === "BD"
+        && ( unit.abilities || [] ).some( ( ability ) => ability.trim().toUpperCase() === "IMMOBILE" );
+}
+
 export const suggestAcesDeckForUnit = ( unit: AlphaStrikeUnit, hasScouringSands: boolean ): TAcesDeckId | null => {
     return suggestAcesDeck(
         unit.role || "",
@@ -467,15 +476,64 @@ export const suggestAcesDeckForUnit = ( unit: AlphaStrikeUnit, hasScouringSands:
  * Initiative (Aces p.32)
  * ------------------------------------------------------------------------------------------------------------- */
 
+/**
+ * The Initiative modifier ordered by a Command card: the "+N" or "-N" in an Initiative-phase order that names
+ * Initiative. The orders are read from printed or scanned text, so this is a best-effort read (#604).
+ */
+export const acesCommandInitiativeModifier = ( orders: IAcesCommandOrder[] ): number => {
+    let rv = 0;
+    for( const order of orders ) {
+        if( order.phase !== "initiative" || !/initiative/i.test( order.text ) ) continue;
+        const match = order.text.replace( /\u2212/g, "-" ).match( /([+-])\s?(\d+)/ );
+        if( match ) rv += ( match[1] === "-" ? -1 : 1 ) * parseInt( match[2], 10 );
+    }
+    return rv;
+}
+
 export const getAcesInitiativeModifiers = (
     wonLastTurn: boolean,
     commanderDestroyed: boolean,
     campaign: boolean,
+    commandOrder: number = 0,
 ): IAcesModifier[] => {
     const rv: IAcesModifier[] = [];
+    // The automated force's Command card can order an Initiative modifier (#604).
+    if( commandOrder !== 0 ) rv.push( { label: "Command card Initiative order", value: commandOrder } );
     // The winner's penalty is a campaign rule (Aces p.32).
     if( campaign && wonLastTurn ) rv.push( { label: "Won Initiative last turn", value: ACES_INITIATIVE_LAST_WINNER_MODIFIER } );
     // A lost commander affects Initiative in any Aces game (Aces pp.32, 39).
     if( commanderDestroyed ) rv.push( { label: "Force Commander destroyed", value: ACES_INITIATIVE_COMMANDER_DESTROYED_MODIFIER } );
+    return rv;
+}
+
+/**
+ * The damage a unit deals at a distance, from its current short, medium, long and extreme values and the range
+ * brackets (ASCE p.44). Null when the distance is not known.
+ */
+export const getAcesDamageAtDistance = (
+    damage: { short: number, medium: number, long: number, extreme: number },
+    inches: number | null,
+): number | null => {
+    if( inches === null || isNaN( inches ) || inches < 0 ) return null;
+    return damage[getAcesRangeBracket( inches )];
+}
+
+/**
+ * Display names for a list of units. Units that share a name are numbered in the order given ("Fulcrum Heavy
+ * Hovertank (1)", "(2)"), so two of the same unit can be told apart however a list is sorted. Pass the force in
+ * its own order, not a priority-sorted queue.
+ */
+export const getAcesUnitLabels = ( units: AlphaStrikeUnit[] ): Map<string, string> => {
+    const base = ( unit: AlphaStrikeUnit ): string => unit.customName ? unit.customName + " (" + unit.name + ")" : unit.name;
+    const totals = new Map<string, number>();
+    for( const unit of units ) totals.set( base( unit ), ( totals.get( base( unit ) ) || 0 ) + 1 );
+    const seen = new Map<string, number>();
+    const rv = new Map<string, string>();
+    for( const unit of units ) {
+        const name = base( unit );
+        const number = ( seen.get( name ) || 0 ) + 1;
+        seen.set( name, number );
+        rv.set( unit.uuid, totals.get( name )! > 1 ? name + " (" + number + ")" : name );
+    }
     return rv;
 }

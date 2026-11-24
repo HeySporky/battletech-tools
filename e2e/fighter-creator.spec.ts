@@ -29,7 +29,9 @@ test("an aerospace fighter can be built, armed, checked and saved", async ({ pag
     await page.getByRole("link", { name: /Next: Weapons and Equipment/ }).click();
     await expect(page.getByText("Nothing installed yet.")).toBeVisible();
 
-    await page.getByRole("link", { name: /Next: Summary/ }).click();
+    await page.getByRole("link", { name: /Next: Technical Readout/ }).click();
+    await expect(page.getByText("Step 4: Technical Readout (optional)")).toBeVisible();
+    await page.getByRole("link", { name: "Summary", exact: true }).click();
     await expect(page.getByText("This design is legal under the TechManual construction rules.")).toBeVisible();
     await expect(page.getByText("Summary: Testbed")).toBeVisible();
 
@@ -120,12 +122,13 @@ test("a fighter shows its pods, stores, values, record sheet and Alpha Strike ca
     await expect(page.getByRole("cell", { name: /BOMB3/ })).toBeVisible();
 
     await page.getByRole("link", { name: "View Record Sheet" }).click();
-    await expect(page.getByRole("heading", { name: "Critical Damage" })).toBeVisible();
-    await expect(page.getByText(/10 x Bomb - Cluster/)).toBeVisible();
+    const sheet = page.getByTestId("fighter-record-sheet-svg");
+    await expect(sheet).toContainText("CRITICAL DAMAGE");
+    await expect(sheet).toContainText("External stores: 10 x Cluster");
     // TM p.336: Attack Values by range bracket, the pilot's hits track, the Heat Scale and the Velocity Record.
-    await expect(page.getByTestId("fighter-sheet-inventory")).toContainText("SRV");
-    await expect(page.getByTestId("aerospace-heat-scale")).toContainText("Random Movement, avoid on 5+");
-    await expect(page.getByRole("heading", { name: "Velocity Record" })).toBeVisible();
+    await expect(sheet).toContainText("SRV");
+    await expect(sheet).toContainText("Random Movement, avoid on 5+");
+    await expect(sheet).toContainText("VELOCITY RECORD");
 
     await page.goto("classic-battletech/fighter-creator/print-as");
     await expect(page.getByTestId("alpha-strike-card").first()).toBeVisible();

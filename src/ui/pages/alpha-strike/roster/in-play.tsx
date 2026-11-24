@@ -12,6 +12,8 @@ import StandardModal from '../../../components/standard-modal';
 import AlphaStrikeUnitSVG from '../../../components/svg/alpha-strike-unit-svg';
 import './in-play.scss';
 import AlphaStrikeToggleRulerHexes from "./_toggleRulerHexes";
+import { ASEWarBlock, ASEWarBoardPanel } from "./_asEWar";
+import { getAlphaStrikeEdition, getAlphaStrikeRulesLevelOptions } from "../../../../data/rules-editions";
 const ArrowCircleLeft = FaArrowCircleLeft as any;
 const Columns = FaColumns as any;
 const RefreshCcw = FiRefreshCcw as any;
@@ -20,6 +22,8 @@ export default class AlphaStrikeRosterInPlay extends React.Component<IInPlayProp
 
     constructor(props: IInPlayProps) {
         super(props);
+        // Units added on the roster since the force was loaded take the "Use design quirks" switch here.
+        this.props.appGlobals.currentASForce?.syncQuirksInPlay();
 
 
         this.state = {
@@ -43,11 +47,12 @@ export default class AlphaStrikeRosterInPlay extends React.Component<IInPlayProp
         "Cancel",
         () => {
           if (this.props.appGlobals.currentASForce) {
-            for (let group of this.props.appGlobals.currentASForce.groups) {
-              for( let unit of group.members ) {
+            for (const group of this.props.appGlobals.currentASForce.groups) {
+              for( const unit of group.members ) {
                 unit.applyRound();
               }
             }
+            this.props.appGlobals.currentASForce.applyEWarRound();
     
             this.props.appGlobals.saveCurrentASForce( this.props.appGlobals.currentASForce );
     
@@ -64,7 +69,7 @@ export default class AlphaStrikeRosterInPlay extends React.Component<IInPlayProp
 
       if( e && e.preventDefault ) e.preventDefault();
 
-      let appSettings = this.props.appGlobals.appSettings;
+      const appSettings = this.props.appGlobals.appSettings;
 
       if (appSettings.alphaStrikeInPlayColumns < 5) {
         appSettings.alphaStrikeInPlayColumns++;
@@ -90,7 +95,7 @@ export default class AlphaStrikeRosterInPlay extends React.Component<IInPlayProp
         "Yes",
         "No, Thank you",
         () => {
-          for( let unit of group.members ) {
+          for( const unit of group.members ) {
             if( unit && unit.reset ) {
               unit.reset();
             }
@@ -167,7 +172,7 @@ export default class AlphaStrikeRosterInPlay extends React.Component<IInPlayProp
   show={true}
   onClose={this.closeSpecialAbility}
 >
-  <div className='text-center'><em>{getSpecialAbilityTypeName(this.state.showSpecialAbility.type)}</em> - <span title={this.state.showSpecialAbility.source.book}>{this.state.showSpecialAbility.source.book} p{this.state.showSpecialAbility.source.page}</span></div>
+  <div className='text-center'><em>{getSpecialAbilityTypeName(this.state.showSpecialAbility.type)}</em> - <span title={this.state.showSpecialAbility.source.book}>{this.state.showSpecialAbility.source.book}{this.state.showSpecialAbility.source.page > 0 ? ` p${this.state.showSpecialAbility.source.page}` : ""}</span></div>
 
   {this.state.showSpecialAbility.summary.map( (line, lineIndex) => {
     return (
@@ -205,6 +210,13 @@ export default class AlphaStrikeRosterInPlay extends React.Component<IInPlayProp
             </ul>
 
           </header>
+          <p className="smaller-text lr-margin" data-testid="as-edition-line">
+            {getAlphaStrikeEdition(this.props.appGlobals.currentASForce.rulesEdition).name}, {this.props.appGlobals.currentASForce.rulesLevel === undefined ? "no rules level limit" : getAlphaStrikeRulesLevelOptions(this.props.appGlobals.currentASForce.rulesEdition).find((option) => option.id === this.props.appGlobals.currentASForce?.rulesLevel)?.name}
+          </p>
+          <ASEWarBoardPanel
+            force={this.props.appGlobals.currentASForce}
+            onChange={() => this.props.appGlobals.saveCurrentASForce( this.props.appGlobals.currentASForce )}
+          />
           {this.props.appGlobals.currentASForce.groups.map( (group, groupIndex) => {
             if( group.members.length === 0) {
               return (<></>);
@@ -251,6 +263,11 @@ export default class AlphaStrikeRosterInPlay extends React.Component<IInPlayProp
                           measurementsInHexes={this.props.appGlobals.appSettings.alphaStrikeMeasurementsInHexes}
                           showSpecialAbility={this.showSpecialAbility}
                           showPilotAbility={this.showPilotAbility}
+                        />
+                        <ASEWarBlock
+                          unit={unit}
+                          force={this.props.appGlobals.currentASForce!}
+                          onChange={() => this.props.appGlobals.saveCurrentASForce( this.props.appGlobals.currentASForce )}
                         />
                       </div>
                     </React.Fragment>

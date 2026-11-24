@@ -41,7 +41,12 @@ test("the TechManual's Purifier can be built, checked, saved and printed", async
     await page.getByRole("button", { name: "Remove Small Laser" }).click();
     await expect(page.getByTestId("ba-issues")).toHaveCount(0);
 
-    await page.goto("classic-battletech/battle-armor-creator/summary");
+    await page.goto("classic-battletech/battle-armor-creator/loadouts");
+    await page.getByRole("link", { name: /Next: Technical Readout/ }).click();
+    await expect(page.getByText("Step 6: Technical Readout (optional)")).toBeVisible();
+    await page.getByLabel("Manufacturer", { exact: true }).fill("Achernar BattleMechs");
+    await expect(page.getByLabel("ER Small Laser (modular mount), Left Arm manufacturer")).toBeVisible();
+    await page.getByRole("link", { name: "Summary", exact: true }).click();
     await expect(page.getByTestId("ba-legal")).toBeVisible();
     await expect(page.getByText("Summary: Purifier")).toBeVisible();
     // TM p.311: 51.78 a suit, 466 for the Level I.
@@ -49,8 +54,8 @@ test("the TechManual's Purifier can be built, checked, saved and printed", async
     await expect(page.getByTestId("ba-cost-log")).toContainText("Structural cost: 425,000");
 
     await page.getByRole("link", { name: "View Record Sheet" }).click();
-    await expect(page.getByRole("heading", { name: "Purifier" })).toBeVisible();
-    await expect(page.getByTestId("battle-armor-sheet-troopers").getByRole("row")).toHaveCount(6);
+    await expect(page.getByTestId("ba-squad-1")).toContainText("Type:Purifier (Medium");
+    await expect(page.locator("[data-testid^='ba-squad-1-trooper-']")).toHaveCount(6);
 
     await page.goto("classic-battletech/battle-armor-creator");
     await page.getByRole("button", { name: /Save as New/ }).click();
@@ -65,7 +70,7 @@ test("a Clan quad with a turret follows the quad rules", async ({ page }) => {
     await page.goto("classic-battletech/battle-armor-creator");
     await page.getByRole("button", { name: /Start Over/ }).click();
     await page.getByRole("link", { name: /Start Building/ }).click();
-    await page.getByTestId("ba-tech-base").selectOption("clan");
+    await page.getByLabel("Technology Base:").selectOption("clan");
     await page.getByTestId("ba-weight-class").selectOption("assault");
     await page.getByTestId("ba-body-type").selectOption("quad");
     await expect(page.getByText("Quad battle armor may not use manipulators")).toBeVisible();

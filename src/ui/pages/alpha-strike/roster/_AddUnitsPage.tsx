@@ -1,27 +1,35 @@
 import * as React from 'react';
-import { FaBars, FaEye, FaPlus, FaTrash } from "react-icons/fa";
+import { FaBars, FaEye, FaPlus } from "react-icons/fa";
 import { Link } from 'react-router';
 import { AlphaStrikeUnit, getMULDisplayName, IASMULUnit } from '../../../../classes/alpha-strike-unit';
+import { getMULRecordStanding } from '../../../../utils/unit-standing';
+import UnitStandingBadge, { UnitStandingLegend } from '../../../components/unit-standing-badge';
 import { BattleMech } from '../../../../classes/battlemech';
 import AerospaceFighter from '../../../../classes/aerospace-fighter';
 import InfantryPlatoon from '../../../../classes/infantry-platoon';
 import BattleArmor from '../../../../classes/battle-armor';
 import ProtoMech from '../../../../classes/protomech';
-import { isMULSourceSelection, loadMULListItems, MUL_SOURCE_LABELS, MUL_SOURCE_SELECTIONS } from '../../../../data/mul-list-items';
+import MicroMech from '../../../../classes/micro-mech';
+import Walker from '../../../../classes/walker';
+import { loadMULListItems, MUL_SOURCE_LABELS } from '../../../../data/mul-list-items';
 import { getMULASSearchResults } from '../../../../utils';
 import { countAbilityCodes, IAbilityCodeCount } from '../../../../utils/mulAbilities';
-import { getMULAerospaceRoles, getMULEraAliases, getMULEraIDs, getMULEraLabel, getMULFactionIDs, getMULFactionLabels, getMULGroundRoles, getMULTypeIDs, getMULTypeLabel } from '../../../../utils/mulUtilities';
+import { getMULEraLabel } from '../../../../utils/mulUtilities';
+import { alphaStrikeEditionAllowsConstruction } from '../../../../data/rules-editions';
+import { filterMULByAlphaStrikeLevel, filterMULByRulesets, filterMULByStanding, IMULSearchFilters } from '../../../../utils/mulSearchFilters';
 import { IAppGlobals } from '../../../app-router';
-import InputField from '../../../components/form_elements/input_field';
+import MULSearchFilters from '../../../components/mul-search-filters';
+import SearchResultsPager from '../../../components/search-results-pager';
 import TextSection from '../../../components/text-section';
 import CurrentForceList from './_CurrentForceList';
+import ScanUnitCard from './_ScanUnitCard';
+import MordelUnitsPanel from '../../../components/mordel-units-panel';
 import { generateUUID } from '../../../../utils/generateUUID';
-import { IPage, paginate } from '../../../../utils/paginate';
+import { paginate } from '../../../../utils/paginate';
 import type { JSX } from "react";
 const Bars = FaBars as any;
 const Eye = FaEye as any;
 const Plus = FaPlus as any;
-const Trash = FaTrash as any;
 
 // Rendering every match froze the page once a search returned the whole bundled MUL (~8.7k units).
 const SEARCH_RESULTS_PAGE_SIZE = 25;
@@ -35,8 +43,6 @@ const SEARCH_RESULTS_PAGE_SIZE = 25;
 }
 
 */
-
-const MAX_ABILITY_SUGGESTIONS = 12;
 
 export default class AlphaStrikeAddUnitsView extends React.Component<IAlphaStrikeAddUnitsViewProps, IAlphaStrikeAddUnitsViewState> {
 
@@ -64,12 +70,8 @@ export default class AlphaStrikeAddUnitsView extends React.Component<IAlphaStrik
     }
 
       componentDidMount() {
-        if (
-          this.props.appGlobals.appSettings.alphaStrikeSearchTerm.trim().length >= 3
-          || this.props.appGlobals.appSettings.alphaStrikeSearchAbilities.length > 0
-        ) {
-          void this.updateSearchResults();
-        }
+        // Search on opening even with no filters, so the unit lists show their units (#377).
+        void this.updateSearchResults();
         void this.loadAbilityCodes();
       }
 
@@ -112,167 +114,67 @@ export default class AlphaStrikeAddUnitsView extends React.Component<IAlphaStrik
         })
       }
 
-    updateSearch = ( event: React.FormEvent<HTMLInputElement> ): void => {
+    // The Alpha Strike search keeps its filters in its own flat settings; the shared filter UI works on IMULSearchFilters.
+    getSearchFilters = (): IMULSearchFilters => {
+        const settings = this.props.appGlobals.appSettings;
+        return {
+          term: settings.alphaStrikeSearchTerm,
+          rules: settings.alphaStrikeSearchRules,
+          tech: settings.alphaStrikeSearchTech,
+          role: settings.alphaStrikeSearchRole,
+          era: settings.alphaStrikeSearchEra,
+          type: settings.alphaStrikeSearchType,
+          factions: settings.alphaStrikeSearchFactions,
+          factionSearchTerm: settings.alphaStrikeFactionSearchTerm,
+          abilities: settings.alphaStrikeSearchAbilities,
+          abilitySearchTerm: settings.alphaStrikeAbilitySearchTerm,
+          sources: settings.alphaStrikeMULSources,
+          rulesets: settings.alphaStrikeSearchRulesets,
+          standings: settings.alphaStrikeSearchStandings,
+        };
+    }
 
-        let appSettings = this.props.appGlobals.appSettings;
+    updateSearchFilters = ( filters: IMULSearchFilters, search: boolean ): void => {
+        const settings = this.props.appGlobals.appSettings;
+        const termChanged = filters.term !== settings.alphaStrikeSearchTerm;
+        const sourcesChanged = filters.sources.join() !== settings.alphaStrikeMULSources.join();
+        settings.alphaStrikeSearchTerm = filters.term;
+        settings.alphaStrikeSearchRules = filters.rules;
+        settings.alphaStrikeSearchTech = filters.tech;
+        settings.alphaStrikeSearchRole = filters.role;
+        settings.alphaStrikeSearchEra = filters.era;
+        settings.alphaStrikeSearchType = filters.type;
+        settings.alphaStrikeSearchFactions = filters.factions;
+        settings.alphaStrikeFactionSearchTerm = filters.factionSearchTerm;
+        settings.alphaStrikeSearchAbilities = filters.abilities;
+        settings.alphaStrikeAbilitySearchTerm = filters.abilitySearchTerm;
+        settings.alphaStrikeMULSources = filters.sources;
+        settings.alphaStrikeSearchRulesets = filters.rulesets;
+        settings.alphaStrikeSearchStandings = filters.standings;
+        this.props.appGlobals.saveAppSettings( settings );
 
-        appSettings.alphaStrikeSearchTerm = event.currentTarget.value;
-        this.props.appGlobals.saveAppSettings( appSettings );
-
-        // Clear existing timeout
+        if( sourcesChanged ) {
+          void this.loadAbilityCodes();
+        }
+        if( !search ) {
+          return;
+        }
         if (this.searchTimeout) {
             clearTimeout(this.searchTimeout);
         }
-
-        // Set a new timeout to wait for user to stop typing (500ms delay)
-        this.searchTimeout = setTimeout(() => {
-            this.updateSearchResults();
-        }, 500);
-    }
-
-    updateRules = ( event: React.FormEvent<HTMLSelectElement> ): void => {
-
-      let appSettings = this.props.appGlobals.appSettings;
-
-      appSettings.alphaStrikeSearchRules = event.currentTarget.value;
-      this.props.appGlobals.saveAppSettings( appSettings );
-
-      this.updateSearchResults();
-    }
-
-    updateTech = ( event: React.FormEvent<HTMLSelectElement> ): void => {
-
-      let appSettings = this.props.appGlobals.appSettings;
-
-      appSettings.alphaStrikeSearchTech = event.currentTarget.value;
-      this.props.appGlobals.saveAppSettings( appSettings );
-
-      this.updateSearchResults();
-    }
-
-    updateRole = ( event: React.FormEvent<HTMLSelectElement> ): void => {
-
-      let appSettings = this.props.appGlobals.appSettings;
-
-      appSettings.alphaStrikeSearchRole = event.currentTarget.value;
-      this.props.appGlobals.saveAppSettings( appSettings );
-
-      this.updateSearchResults();
-    }
-
-    updateEra = ( event: React.FormEvent<HTMLSelectElement> ): void => {
-
-      let appSettings = this.props.appGlobals.appSettings;
-
-      appSettings.alphaStrikeSearchEra = +event.currentTarget.value;
-      this.props.appGlobals.saveAppSettings( appSettings );
-
-      this.updateSearchResults();
-    }
-
-    updateType = ( event: React.FormEvent<HTMLSelectElement> ): void => {
-
-      let appSettings = this.props.appGlobals.appSettings;
-
-      appSettings.alphaStrikeSearchType = +event.currentTarget.value;
-      this.props.appGlobals.saveAppSettings( appSettings );
-
-      this.updateSearchResults();
-    }
-
-    updateMULSources = ( event: React.FormEvent<HTMLSelectElement> ): void => {
-      const selection = event.currentTarget.value;
-      if( !isMULSourceSelection( selection ) ) {
-        return;
-      }
-
-      let appSettings = this.props.appGlobals.appSettings;
-
-      appSettings.alphaStrikeMULSources = selection;
-      this.props.appGlobals.saveAppSettings( appSettings );
-
-      this.updateSearchResults();
-      void this.loadAbilityCodes();
-    }
-
-    updateAbilitySearch = ( event: React.FormEvent<HTMLInputElement> ): void => {
-      let appSettings = this.props.appGlobals.appSettings;
-      appSettings.alphaStrikeAbilitySearchTerm = event.currentTarget.value;
-      this.props.appGlobals.saveAppSettings( appSettings );
-    }
-
-    getAbilitySuggestions = (): IAbilityCodeCount[] => {
-      const term = this.props.appGlobals.appSettings.alphaStrikeAbilitySearchTerm.trim().toUpperCase();
-      if( !term ) {
-        return [];
-      }
-      const selectedCodes = this.props.appGlobals.appSettings.alphaStrikeSearchAbilities.map( (filter) => filter.replace(/^!/, "") );
-      return this.state.abilityCodes
-        .filter( (ability) => ability.code.startsWith( term ) && !selectedCodes.includes( ability.code ) )
-        .slice( 0, MAX_ABILITY_SUGGESTIONS );
-    }
-
-    addAbilityFilter = ( code: string, exclude: boolean ): void => {
-      let appSettings = this.props.appGlobals.appSettings;
-      appSettings.alphaStrikeSearchAbilities = appSettings.alphaStrikeSearchAbilities
-        .filter( (filter) => filter.replace(/^!/, "") !== code )
-        .concat( exclude ? "!" + code : code );
-      appSettings.alphaStrikeAbilitySearchTerm = "";
-      this.props.appGlobals.saveAppSettings( appSettings );
-      this.updateSearchResults();
-    }
-
-    removeAbilityFilter = ( filter: string ): void => {
-      let appSettings = this.props.appGlobals.appSettings;
-      appSettings.alphaStrikeSearchAbilities = appSettings.alphaStrikeSearchAbilities.filter( (existing) => existing !== filter );
-      this.props.appGlobals.saveAppSettings( appSettings );
-      this.updateSearchResults();
-    }
-
-    updateFactionSearch = ( event: React.FormEvent<HTMLInputElement> ): void => {
-        
-        let appSettings = this.props.appGlobals.appSettings;
-  
-        appSettings.alphaStrikeFactionSearchTerm = event.currentTarget.value;
-        if( appSettings.alphaStrikeFactionSearchTerm.length < 3 ) {
-          appSettings.alphaStrikeFactionSuggestions = [];
-          this.props.appGlobals.saveAppSettings( appSettings );
-          return;
+        if( termChanged ) {
+          // Wait for the user to stop typing (500ms delay)
+          this.searchTimeout = setTimeout(() => {
+              this.updateSearchResults();
+          }, 500);
+        } else {
+          this.updateSearchResults();
         }
-
-        let arrFound = [];
-        for( let factionID of getMULFactionIDs() ) {
-          if( getMULFactionLabels(factionID).toLowerCase().includes( appSettings.alphaStrikeFactionSearchTerm.toLowerCase() ) ) {
-            arrFound.push( factionID  );
-          }
-        }
-        appSettings.alphaStrikeFactionSuggestions = arrFound;
-        this.props.appGlobals.saveAppSettings( appSettings );
     }
-
-    addFactionSelected = ( factionID: number ): void => {
-      if( this.props.appGlobals.appSettings.alphaStrikeSearchFactions.includes( factionID ) ) {
-        return;
-      }
-      let appSettings = this.props.appGlobals.appSettings;
-      appSettings.alphaStrikeSearchFactions.push( factionID );
-      this.props.appGlobals.saveAppSettings( appSettings );
-      this.updateSearchResults();
-    }
-
-    removeFactionSelected = ( factionID: number ): void => {
-      console.log('removeFactionSelected', factionID);
-      let appSettings = this.props.appGlobals.appSettings;
-      appSettings.alphaStrikeSearchFactions = appSettings.alphaStrikeSearchFactions.filter( (faction) => faction !== factionID );
-      console.log(appSettings.alphaStrikeSearchFactions);
-      this.props.appGlobals.saveAppSettings( appSettings );
-      this.updateSearchResults();
-    }
-
 
     updateSearchResults = async (): Promise<void> => {
 
-      let currentSearchId = generateUUID();
+      const currentSearchId = generateUUID();
       this.latestSearchId = currentSearchId;
 
       this.setState({
@@ -293,9 +195,13 @@ export default class AlphaStrikeAddUnitsView extends React.Component<IAlphaStrik
           this.props.appGlobals,
           this.props.appGlobals.appSettings.alphaStrikeSearchAbilities,
         );
+        // The live search knows nothing of Special Rulesets (#324): their units are left out here.
+        data = filterMULByRulesets( data, this.props.appGlobals.appSettings.alphaStrikeSearchRulesets );
+        data = filterMULByStanding( data, this.props.appGlobals.appSettings.alphaStrikeSearchStandings );
+        // A force at level 0 or 1 loads BattleMechs the Master Unit List rates Introductory only (#646).
+        data = filterMULByAlphaStrikeLevel( data, this.props.appGlobals.currentASForce?.rulesLevel );
 
         if(this.latestSearchId !== currentSearchId) {
-          console.log("updateSearchResults: searchId mismatch, aborting");
           // Don't set isSearching to false here - a newer search is running
           return;
         }
@@ -325,7 +231,7 @@ export default class AlphaStrikeAddUnitsView extends React.Component<IAlphaStrik
         searchPage: 0,
       });
 
-      let appSettings = this.props.appGlobals.appSettings;
+      const appSettings = this.props.appGlobals.appSettings;
 
       appSettings.alphasStrikeCachedSearchResults = data;
       // Search results stay in memory; saveAppSettings persists preferences and user work, not
@@ -368,24 +274,6 @@ export default class AlphaStrikeAddUnitsView extends React.Component<IAlphaStrik
         this.searchResultsHeading.current?.scrollIntoView({ block: "nearest" });
     }
 
-    renderSearchPager = ( resultsPage: IPage<IASMULUnit> ): JSX.Element | null => {
-        if( resultsPage.totalPages < 2 ) {
-          return null;
-        }
-        const isFirst = resultsPage.page === 0;
-        const isLast = resultsPage.page === resultsPage.totalPages - 1;
-
-        return (
-          <nav className="text-center" aria-label="Search results pages">
-            <button className="btn btn-sm btn-secondary" disabled={isFirst} onClick={() => this.goToSearchPage(0)} title="First page">&laquo;</button>
-            <button className="btn btn-sm btn-secondary" disabled={isFirst} onClick={() => this.goToSearchPage(resultsPage.page - 1)} title="Previous page">&lsaquo; Prev</button>
-            &nbsp;Page {resultsPage.page + 1} of {resultsPage.totalPages}&nbsp;
-            <button className="btn btn-sm btn-secondary" disabled={isLast} onClick={() => this.goToSearchPage(resultsPage.page + 1)} title="Next page">Next &rsaquo;</button>
-            <button className="btn btn-sm btn-secondary" disabled={isLast} onClick={() => this.goToSearchPage(resultsPage.totalPages - 1)} title="Last page">&raquo;</button>
-          </nav>
-        );
-    }
-
     handleSort = ({ target: { value } }: any) => {
         this.setState({ searchSort: value }, () => this.updateSearchResults());
     }
@@ -395,6 +283,7 @@ export default class AlphaStrikeAddUnitsView extends React.Component<IAlphaStrik
         return <></>
       }
 
+        const canBuild = alphaStrikeEditionAllowsConstruction( this.props.appGlobals.currentASForce.rulesEdition, this.props.appGlobals.currentASForce.rulesLevel );
         const resultsPage = paginate( this.state.searchResults, this.state.searchPage, SEARCH_RESULTS_PAGE_SIZE );
 
         return(
@@ -417,215 +306,15 @@ export default class AlphaStrikeAddUnitsView extends React.Component<IAlphaStrik
 {navigator && navigator.onLine ? (
     <>
 
-<fieldset className="fieldset">
-                    <div className="row">
-                      <div className="col-md-6 text-center">
-
-                    <InputField
-                         type="search"
-                         onChange={this.updateSearch}
-                         value={this.props.appGlobals.appSettings.alphaStrikeSearchTerm}
-                         label="Search Terms"
-                    />
-                      </div>
-                      <div className="col-md-6 text-center">
-                      <label>
-                      Search Rules:<br />
-                      <select
-                        onChange={this.updateRules}
-                        value={this.props.appGlobals.appSettings.alphaStrikeSearchRules}
-                      >
-                        <option value="">All</option>
-                        <option value="introductory">Introductory</option>
-                        <option value="standard">Standard</option>
-                        <option value="advanced">Advanced</option>
-                      </select>
-                    </label>
-
-                      </div>
-</div>
-<div className="row">
-                      <div className="col-md-6 text-center">
-                      <label>
-                      Search Tech:<br />
-                      <select
-                        onChange={this.updateTech}
-                        value={this.props.appGlobals.appSettings.alphaStrikeSearchTech}
-                      >
-                        <option value="">All</option>
-                        <option value="inner sphere">Inner Sphere</option>
-                        <option value="clan">Clan</option>
-                      </select>
-                    </label>
-
-                    <label>
-                      Type:<br />
-                      <select
-                        onChange={this.updateType}
-                        value={this.props.appGlobals.appSettings.alphaStrikeSearchType}
-                      >
-                        <option value="">All</option>
-                        {getMULTypeIDs().map( (typeID ) => {
-                          return <option key={typeID} value={typeID}>{getMULTypeLabel( typeID )}</option>
-                        })}
-                        {/* {btEraOptions.map( (era, eraIndex) => {
-                          return (
-                            <option key={eraIndex} value={era.yearStart}>{era.name}</option>
-                          )
-                        })} */}
-                      </select>
-                    </label>
-                          
-                      
-                      </div>
-                      <div className="col-md-6 text-center">
-
-                      <label>
-                      Era:<br />
-                      <select
-                        onChange={this.updateEra}
-                        value={this.props.appGlobals.appSettings.alphaStrikeSearchEra}
-                      >
-                        <option value="">All</option>
-                        {getMULEraIDs().map( (eraID ) => {
-                          return <option key={eraID} value={eraID}>{getMULEraLabel( eraID )}</option>
-                        })}
-                        <optgroup label="Clan eras">
-                          {getMULEraAliases().map( (alias) => {
-                            return <option key={alias.id} value={alias.id}>{alias.label}</option>
-                          })}
-                        </optgroup>
-                        {/* {btEraOptions.map( (era, eraIndex) => {
-                          return (
-                            <option key={eraIndex} value={era.yearStart}>{era.name}</option>
-                          )
-                        })} */}
-                      </select>
-                    </label>
-
-                    <label>
-                      Role:<br />
-                      <select
-                        onChange={this.updateRole}
-                        value={this.props.appGlobals.appSettings.alphaStrikeSearchRole}
-                      >
-                        <option value="">All</option>
-                        <optgroup label="Ground Unit Roles">
-                        {getMULGroundRoles().map( (role, roleIndex ) => {
-                          return <option key={roleIndex} value={role}>{role}</option>
-                        })}
-                        </optgroup>
-                        <optgroup label="Aerospace Roles">
-                        {getMULAerospaceRoles().map( (role, roleIndex ) => {
-                          return <option key={roleIndex} value={role}>{role}</option>
-                        })}
-                        </optgroup>
-
-
-                      </select>
-                    </label>
-                    
-                      </div>
-                     
-                    </div>
-                    <div className="row">
-                      <div className="col-md-12 text-center">
-                      <InputField
-                         type="search"
-                         onChange={this.updateFactionSearch}
-                         value={this.props.appGlobals.appSettings.alphaStrikeFactionSearchTerm}
-                         label="Filter Availability By Factions"
-                         placeholder='Type 3 or more characters to search. MUL uses OR logic for multiple factions.'
-                        />
-                      </div>
-                      <div className="col-md-6 text-center">
-                      {this.props.appGlobals.appSettings.alphaStrikeFactionSuggestions.length > 0 ? (
-                      <label htmlFor="factionFilter">
-                      Add to Faction Filter?<br />
-                      {this.props.appGlobals.appSettings.alphaStrikeFactionSuggestions.map( (factionID) => { 
-                        return <div className="text-left"><button onClick={() => this.addFactionSelected(factionID)} className="btn-sm btn btn-primary"><Plus /></button>&nbsp;{getMULFactionLabels(factionID)}</div>
-                      })}
-                      </label>
-                      ) : null}
-                      </div>
-                      <div className="col-md-6 text-center">
-                      {this.props.appGlobals.appSettings.alphaStrikeSearchFactions.length > 0 ? (
-                    <label htmlFor="factionFilter">
-                      Current Faction Filter:<br />
-                      {this.props.appGlobals.appSettings.alphaStrikeSearchFactions.map( (factionID) => { 
-                        return <div className="text-left"><button onClick={() => this.removeFactionSelected(factionID)} className="btn btn-sm btn-danger"><Trash /></button>{getMULFactionLabels(factionID)}</div>
-                      })}
-                      </label>
-                    ):null}
-                      </div>
-                    </div>
-                    <div className="row">
-                      <div className="col-md-12 text-center">
-                      <InputField
-                         type="search"
-                         onChange={this.updateAbilitySearch}
-                         value={this.props.appGlobals.appSettings.alphaStrikeAbilitySearchTerm}
-                         label="Filter By Special Abilities"
-                         placeholder='Type an ability code, such as ECM, IF or TAG.'
-                        />
-                      </div>
-                      <div className="col-md-6 text-center">
-                      {this.getAbilitySuggestions().length > 0 ? (
-                      <div>
-                      Add to Ability Filter?<br />
-                      {this.getAbilitySuggestions().map( (ability) => {
-                        return (
-                          <div key={ability.code} className="text-left">
-                            <button onClick={() => this.addAbilityFilter(ability.code, false)} className="btn-sm btn btn-primary" title={"Only units with " + ability.code} aria-label={"Has " + ability.code}>Has</button>
-                            <button onClick={() => this.addAbilityFilter(ability.code, true)} className="btn-sm btn btn-secondary" title={"Only units without " + ability.code} aria-label={"Lacks " + ability.code}>Lacks</button>
-                            &nbsp;{ability.code} <span className="small-text">({ability.count} units)</span>
-                          </div>
-                        )
-                      })}
-                      </div>
-                      ) : null}
-                      </div>
-                      <div className="col-md-6 text-center">
-                      {this.props.appGlobals.appSettings.alphaStrikeSearchAbilities.length > 0 ? (
-                    <div>
-                      Current Ability Filter:<br />
-                      {this.props.appGlobals.appSettings.alphaStrikeSearchAbilities.map( (filter) => {
-                        const label = filter.startsWith("!") ? "Lacks " + filter.substring(1) : "Has " + filter;
-                        return (
-                          <div key={filter} className="text-left">
-                            <button onClick={() => this.removeAbilityFilter(filter)} className="btn btn-sm btn-danger" title={"Remove " + label + " from the filter"} aria-label={"Remove " + label + " from the filter"}><Trash /></button>
-                            {label}
-                          </div>
-                        )
-                      })}
-                      </div>
-                    ):null}
-                      </div>
-                    </div>
-                    <div className="row">
-                      <div className="col-md-12 text-center">
-                        <label>
-                          Unit Lists:<br />
-                          <select
-                            name="alphaStrikeMULSources"
-                            onChange={this.updateMULSources}
-                            value={this.props.appGlobals.appSettings.alphaStrikeMULSources}
-                          >
-                            {MUL_SOURCE_SELECTIONS.map( (option) => {
-                              return <option key={option.value} value={option.value}>{option.label}</option>
-                            })}
-                          </select>
-                        </label>
-                        <div className="small-text">
-                          {MUL_SOURCE_SELECTIONS.find( (option) => option.value === this.props.appGlobals.appSettings.alphaStrikeMULSources )?.description}
-                          {this.props.appGlobals.appSettings.developerMenu ? (
-                            <>&nbsp;<Link to={`${process.env.PUBLIC_URL}/custom-mul-editor`}>Manage custom units</Link></>
-                          ) : null}
-                        </div>
-                      </div>
-                    </div>
-
-                  </fieldset>
+<MULSearchFilters
+    filters={this.getSearchFilters()}
+    onChange={this.updateSearchFilters}
+    idPrefix="alphaStrike"
+    abilityCodes={this.state.abilityCodes}
+    sourcesNote={this.props.appGlobals.appSettings.developerMenu && canBuild ? (
+      <>&nbsp;<Link to={`${process.env.PUBLIC_URL}/settings/custom-mul-editor`}>Manage custom units</Link></>
+    ) : null}
+/>
 
                 <h3 className="text-center" ref={this.searchResultsHeading}>
                   Search Results ({this.state.isSearching ? '...' : this.state.searchResults.length})
@@ -661,12 +350,13 @@ export default class AlphaStrikeAddUnitsView extends React.Component<IAlphaStrik
                         <label htmlFor="search-sort-pv">PV</label>
                     </span>
                 </div>
-                  {!this.state.isSearching ? this.renderSearchPager( resultsPage ) : null}
+                  <UnitStandingLegend />
+                  {!this.state.isSearching ? <SearchResultsPager page={resultsPage} onGo={this.goToSearchPage} /> : null}
                   <div className="table-wrapper">
                     <table className="table">
                       <thead>
                         <tr>
-                          <th>&nbsp;</th>
+                          <th><span className="visually-hidden">Actions</span></th>
                           <th>Name</th>
                           <th>Rules</th>
                           <th>Tech</th>
@@ -676,7 +366,7 @@ export default class AlphaStrikeAddUnitsView extends React.Component<IAlphaStrik
 
                         </tr>
                         <tr>
-                          <th>&nbsp;</th>
+                          <th><span className="visually-hidden">Actions</span></th>
                           <th colSpan={4}>Notes</th>
                           <th colSpan={2}>Role</th>
                         </tr>
@@ -724,7 +414,7 @@ export default class AlphaStrikeAddUnitsView extends React.Component<IAlphaStrik
               <li
                 key={asGroupIndex}
                 onClick={() => {
-                  let unitObj = new AlphaStrikeUnit();
+                  const unitObj = new AlphaStrikeUnit();
                   unitObj.importMUL( JSON.parse(JSON.stringify(asUnit)) );
                   this.addToGroup( unitObj, asGroupIndex)
                 }}
@@ -742,7 +432,7 @@ export default class AlphaStrikeAddUnitsView extends React.Component<IAlphaStrik
       <button
         className="btn-sm btn btn-primary no-right-margin"
         onClick={() => {
-          let unitObj = new AlphaStrikeUnit();
+          const unitObj = new AlphaStrikeUnit();
           unitObj.importMUL( JSON.parse(JSON.stringify(asUnit)) );
           this.addToGroup( unitObj, 0)
         }}
@@ -755,7 +445,7 @@ export default class AlphaStrikeAddUnitsView extends React.Component<IAlphaStrik
     <button
       className="btn btn-primary btn-sm"
       onClick={() => {
-        let unitObj = new AlphaStrikeUnit();
+        const unitObj = new AlphaStrikeUnit();
         unitObj.importMUL( asUnit );
         this.props.openViewUnit( unitObj )
       }}
@@ -765,6 +455,7 @@ export default class AlphaStrikeAddUnitsView extends React.Component<IAlphaStrik
     </button>
   </td>
                                 <td>
+                                  <UnitStandingBadge standing={getMULRecordStanding(asUnit)} />
                                   {getMULDisplayName(asUnit)}
                                   {asUnit.MulSource && asUnit.MulSource !== "mul2" ? (
                                     <>
@@ -839,7 +530,7 @@ export default class AlphaStrikeAddUnitsView extends React.Component<IAlphaStrik
 
                     </table>
                   </div>
-                  {!this.state.isSearching ? this.renderSearchPager( resultsPage ) : null}
+                  {!this.state.isSearching ? <SearchResultsPager page={resultsPage} onGo={this.goToSearchPage} below /> : null}
     </>
 ) : (
     <div className="alert alert-warning">
@@ -849,14 +540,24 @@ export default class AlphaStrikeAddUnitsView extends React.Component<IAlphaStrik
 
                 </TextSection>
 
-{this.props.appGlobals.battleMechSaves && this.props.appGlobals.battleMechSaves.length > 0 ? (
+<ScanUnitCard appGlobals={this.props.appGlobals} addToGroup={this.addToGroup} />
+
+{!canBuild ? (
+    <div className="alert alert-info" data-testid="as-no-building-note">Levels 0 and 1 load BattleMechs only; building starts at Standard (level 2).</div>
+) : null}
+
+<TextSection label="mordel.net Units">
+    <MordelUnitsPanel mode="alpha-strike" onAddAS={(unit) => this.addToGroup( unit, 0 )} />
+</TextSection>
+
+{canBuild && this.props.appGlobals.battleMechSaves && this.props.appGlobals.battleMechSaves.length > 0 ? (
     <TextSection
         label="Your Created BattleMechs"
     >
                   <table className="table">
                     <thead>
                       <tr>
-                        <th>&nbsp;</th>
+                        <th><span className="visually-hidden">Actions</span></th>
                         <th>Name</th>
                         {/* <th>Rules</th>
                         <th>Tech</th>
@@ -866,17 +567,17 @@ export default class AlphaStrikeAddUnitsView extends React.Component<IAlphaStrik
 
                       </tr>
                       <tr>
-                        <th>&nbsp;</th>
+                        <th><span className="visually-hidden">Actions</span></th>
                         <th colSpan={3}>Notes</th>
 
                       </tr>
                     </thead>
 
         {this.props.appGlobals.battleMechSaves.map( (bm, unitIndex) => {
-            let bmObj = new BattleMech();
+            const bmObj = new BattleMech();
             bmObj.import( bm );
 
-            let asUnit = bmObj.calcAlphaStrike();
+            const asUnit = bmObj.calcAlphaStrike();
 
             return (
                 <tbody key={unitIndex}>
@@ -959,14 +660,14 @@ title="View this unit's Alpha Strike Card"
     </TextSection>
 ) : null}
 
-{this.props.appGlobals.fighterSaves && this.props.appGlobals.fighterSaves.length > 0 ? (
+{canBuild && this.props.appGlobals.fighterSaves && this.props.appGlobals.fighterSaves.length > 0 ? (
     <TextSection
         label="Your Created Fighters"
     >
         <table className="table">
             <thead>
                 <tr>
-                    <th>&nbsp;</th>
+                    <th><span className="visually-hidden">Actions</span></th>
                     <th>Name</th>
                     <th>Points</th>
                 </tr>
@@ -1023,14 +724,14 @@ title="View this unit's Alpha Strike Card"
     </TextSection>
 ) : null}
 
-{this.props.appGlobals.infantrySaves && this.props.appGlobals.infantrySaves.length > 0 ? (
+{canBuild && this.props.appGlobals.infantrySaves && this.props.appGlobals.infantrySaves.length > 0 ? (
     <TextSection
         label="Your Created Infantry"
     >
         <table className="table">
             <thead>
                 <tr>
-                    <th>&nbsp;</th>
+                    <th><span className="visually-hidden">Actions</span></th>
                     <th>Name</th>
                     <th>Points</th>
                 </tr>
@@ -1087,14 +788,14 @@ title="View this unit's Alpha Strike Card"
     </TextSection>
 ) : null}
 
-{this.props.appGlobals.battleArmorSaves && this.props.appGlobals.battleArmorSaves.length > 0 ? (
+{canBuild && this.props.appGlobals.battleArmorSaves && this.props.appGlobals.battleArmorSaves.length > 0 ? (
     <TextSection
         label="Your Created Battle Armor"
     >
         <table className="table" data-testid="as-battle-armor-saves">
             <thead>
                 <tr>
-                    <th>&nbsp;</th>
+                    <th><span className="visually-hidden">Actions</span></th>
                     <th>Name</th>
                     <th>Points</th>
                 </tr>
@@ -1156,14 +857,14 @@ title="View this unit's Alpha Strike Card"
     </TextSection>
 ) : null}
 
-{this.props.appGlobals.protoMechSaves && this.props.appGlobals.protoMechSaves.length > 0 ? (
+{canBuild && this.props.appGlobals.protoMechSaves && this.props.appGlobals.protoMechSaves.length > 0 ? (
     <TextSection
         label="Your Created ProtoMechs"
     >
         <table className="table" data-testid="as-protomech-saves">
             <thead>
                 <tr>
-                    <th>&nbsp;</th>
+                    <th><span className="visually-hidden">Actions</span></th>
                     <th>Name</th>
                     <th>Points</th>
                 </tr>
@@ -1211,6 +912,146 @@ title="View this unit's Alpha Strike Card"
                             <td colSpan={2} className="med-small-text">
                                 <strong title="Alpha Strike Type">Type</strong>: {asUnit.type}&nbsp;|&nbsp;
                                 <strong title="Alpha Strike Move">Move</strong>: {proto.getAlphaStrikeStats().move}&nbsp;
+                                <strong title="Alpha Strike Damage Bands">Damage</strong>: {asUnit.damage.short}/{asUnit.damage.medium}/{asUnit.damage.long}
+                                {asUnit.abilities.length > 0 ? <>&nbsp;|&nbsp;<strong title="Special Abilities">Special</strong>: {asUnit.abilities.join(", ")}</> : null}
+                            </td>
+                        </tr>
+                    </tbody>
+                );
+            })}
+        </table>
+    </TextSection>
+) : null}
+
+{canBuild && this.props.appGlobals.microMechSaves && this.props.appGlobals.microMechSaves.length > 0 ? (
+    <TextSection
+        label="Your Created Micro-Mechs"
+    >
+        <p className="med-small-text">
+            Custom Homebrew, NOT OFFICIAL: the Alpha Strike rules for a Micro-Mech (type MM, the MCR ability) are this app's own.
+            {" "}<Link to={`${process.env.PUBLIC_URL}/classic-battletech/tro-jbt/micro-mechs`}>They are explained in TRO - JBT: Micro-Mechs.</Link>
+        </p>
+        <table className="table" data-testid="as-micro-mech-saves">
+            <thead>
+                <tr>
+                    <th><span className="visually-hidden">Actions</span></th>
+                    <th>Name</th>
+                    <th>Points</th>
+                </tr>
+            </thead>
+            {this.props.appGlobals.microMechSaves.map( (save, unitIndex) => {
+                // Converted from the saved design by NGCFells's own ruleset: a Micro-Mech is on no Master Unit List.
+                const micro = new MicroMech( JSON.stringify(save) );
+                const asUnit = micro.getAlphaStrikeUnit();
+                const groups = this.props.appGlobals.currentASForce ? this.props.appGlobals.currentASForce.groups : [];
+                return (
+                    <tbody key={unitIndex}>
+                        <tr>
+                            <td className="text-left min-width no-wrap">
+                                {groups.length > 1 ? groups.map( (asGroup, asGroupIndex) => (
+                                    <button
+                                        key={asGroupIndex}
+                                        className="btn btn-primary btn-sm"
+                                        onClick={() => this.addToGroup(asUnit, asGroupIndex)}
+                                        title={"Adds this Micro-Mech to your group '" + asGroup.getName(asGroupIndex + 1) + "'"}
+                                    >
+                                        <Plus />&nbsp;{asGroupIndex + 1}
+                                    </button>
+                                )) : (
+                                    <button
+                                        className="btn btn-primary btn-sm no-right-margin"
+                                        onClick={() => this.addToGroup(asUnit, 0)}
+                                        title="Add this Micro-Mech to your current group"
+                                    >
+                                        <Plus />
+                                    </button>
+                                )}
+                                <button
+                                    className="btn btn-primary btn-sm"
+                                    onClick={() => this.props.openViewUnit(asUnit)}
+                                    title="View this Micro-Mech's Alpha Strike Card"
+                                >
+                                    <Eye />
+                                </button>
+                            </td>
+                            <td>{asUnit.name}</td>
+                            <td>{asUnit.basePoints}</td>
+                        </tr>
+                        <tr>
+                            <td>&nbsp;</td>
+                            <td colSpan={2} className="med-small-text">
+                                <strong title="Alpha Strike Type">Type</strong>: {asUnit.type}&nbsp;|&nbsp;
+                                <strong title="Alpha Strike Move">Move</strong>: {micro.getAlphaStrikeStats().move}&nbsp;
+                                <strong title="Alpha Strike Damage Bands">Damage</strong>: {asUnit.damage.short}/{asUnit.damage.medium}/{asUnit.damage.long}
+                                {asUnit.abilities.length > 0 ? <>&nbsp;|&nbsp;<strong title="Special Abilities">Special</strong>: {asUnit.abilities.join(", ")}</> : null}
+                            </td>
+                        </tr>
+                    </tbody>
+                );
+            })}
+        </table>
+    </TextSection>
+) : null}
+
+{canBuild && this.props.appGlobals.walkerSaves && this.props.appGlobals.walkerSaves.length > 0 ? (
+    <TextSection
+        label="Your Created Walkers"
+    >
+        <p className="med-small-text">
+            Custom Homebrew, NOT OFFICIAL: the Alpha Strike rules for a walker (type WK, or IWK for an industrial walker; the WLK and AIF abilities)
+            are this app's own, after Clell Flint's walker rules in Future Wars. View a card to read them.
+        </p>
+        <table className="table" data-testid="as-walker-saves">
+            <thead>
+                <tr>
+                    <th><span className="visually-hidden">Actions</span></th>
+                    <th>Name</th>
+                    <th>Points</th>
+                </tr>
+            </thead>
+            {this.props.appGlobals.walkerSaves.map( (save, unitIndex) => {
+                // Converted from the saved design by NGCFells's own ruleset: a walker is on no Master Unit List.
+                const walker = new Walker( JSON.stringify(save) );
+                const asUnit = walker.getAlphaStrikeUnit();
+                const groups = this.props.appGlobals.currentASForce ? this.props.appGlobals.currentASForce.groups : [];
+                return (
+                    <tbody key={unitIndex}>
+                        <tr>
+                            <td className="text-left min-width no-wrap">
+                                {groups.length > 1 ? groups.map( (asGroup, asGroupIndex) => (
+                                    <button
+                                        key={asGroupIndex}
+                                        className="btn btn-primary btn-sm"
+                                        onClick={() => this.addToGroup(asUnit, asGroupIndex)}
+                                        title={"Adds this walker to your group '" + asGroup.getName(asGroupIndex + 1) + "'"}
+                                    >
+                                        <Plus />&nbsp;{asGroupIndex + 1}
+                                    </button>
+                                )) : (
+                                    <button
+                                        className="btn btn-primary btn-sm no-right-margin"
+                                        onClick={() => this.addToGroup(asUnit, 0)}
+                                        title="Add this walker to your current group"
+                                    >
+                                        <Plus />
+                                    </button>
+                                )}
+                                <button
+                                    className="btn btn-primary btn-sm"
+                                    onClick={() => this.props.openViewUnit(asUnit)}
+                                    title="View this walker's Alpha Strike Card"
+                                >
+                                    <Eye />
+                                </button>
+                            </td>
+                            <td>{asUnit.name}</td>
+                            <td>{asUnit.basePoints}</td>
+                        </tr>
+                        <tr>
+                            <td>&nbsp;</td>
+                            <td colSpan={2} className="med-small-text">
+                                <strong title="Alpha Strike Type">Type</strong>: {asUnit.type}&nbsp;|&nbsp;
+                                <strong title="Alpha Strike Move">Move</strong>: {walker.getAlphaStrikeStats().move}&nbsp;
                                 <strong title="Alpha Strike Damage Bands">Damage</strong>: {asUnit.damage.short}/{asUnit.damage.medium}/{asUnit.damage.long}
                                 {asUnit.abilities.length > 0 ? <>&nbsp;|&nbsp;<strong title="Special Abilities">Special</strong>: {asUnit.abilities.join(", ")}</> : null}
                             </td>

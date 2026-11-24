@@ -8,6 +8,8 @@ import ProtoMechCreatorEquipment from './equipment';
 import ProtoMechCreatorSummary from './summary';
 import ProtoMechCreatorRecordSheet from './record-sheet';
 import ProtoMechCreatorPrintAS from './print-as';
+import { CreatorPrintTRO, CreatorTechnicalReadoutStep } from '../../../components/creator-tro-pages';
+import { PROTOMECH_TRO } from '../creator-tro-configs';
 
 import type { JSX } from "react";
 
@@ -26,6 +28,14 @@ export default class ProtoMechCreatorRouter extends React.Component<IProtoMechCr
 
                 <Route path={`equipment`} element={
                     <ProtoMechCreatorEquipment appGlobals={this.props.appGlobals} />
+                }/>
+
+                <Route path={`technical-readout`} element={
+                    <CreatorTechnicalReadoutStep appGlobals={this.props.appGlobals} config={PROTOMECH_TRO} />
+                }/>
+
+                <Route path={`print-tro`} element={
+                    <CreatorPrintTRO appGlobals={this.props.appGlobals} config={PROTOMECH_TRO} />
                 }/>
 
                 <Route path={`print-as`} element={

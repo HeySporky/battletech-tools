@@ -1,13 +1,19 @@
 import { beforeEach, describe, expect, it } from "vitest";
-import { sswMechs } from "../data/ssw/sswMechs";
+import { sswTestFixtures } from "../data/ssw/sswTestFixtures";
 import { registerLocalCustomContent } from "../data/custom-content-local";
 import type { ICustomContentDraft } from "../data/custom-content-types";
-import { MAX_SSW_IMPORT_FILE_BYTES, MAX_SSW_IMPORT_FILES, runSSWImportSession, sswImportLimitError } from "./sswImportSession";
+import { acceptSSWImport, analyzeSSWImport, MAX_SSW_IMPORT_FILE_BYTES, MAX_SSW_IMPORT_FILES, runSSWImportSession, sswImportLimitError } from "./sswImportSession";
+import { guessTonnage, missingAnswers, missingFields } from "./sswDraftBuilder";
 
-const griffin = sswMechs.find((xml) => /name="Griffin" model="GRF-1N"/.test(xml))!;
+const griffin = sswTestFixtures["Griffin GRF-1N"];
 const withWidget = griffin.replace(/\(IS\) PPC</, "(IS) Widget Cannon<");
 let saved: ICustomContentDraft[] = [];
-const options = () => ({ existingDrafts: [] as ICustomContentDraft[], save: (drafts: ICustomContentDraft[]) => { saved = drafts; registerLocalCustomContent(drafts); return true; } });
+let evidence: Record<string, string> = {};
+const options = () => ({
+    existingDrafts: [] as ICustomContentDraft[],
+    save: (drafts: ICustomContentDraft[]) => { saved = drafts; registerLocalCustomContent(drafts); return true; },
+    saveEvidence: (files: Record<string, string>) => { evidence = files; return true; },
+});
 
 describe("SSW import session", () => {
     beforeEach(() => registerLocalCustomContent([]));
@@ -50,7 +56,7 @@ describe("SSW import session", () => {
         expect(drafts[0].slotsEstimated).toBe(true);
         expect(results.map((r) => r.status)).toEqual(["unresolved", "unresolved"]);
         expect(results[0].draftIds).toEqual([drafts[0].id]);
-        expect(drafts[0].sourceXml?.["a.ssw"]).toBe(withWidget);
+        expect(evidence[drafts[0].sourceFiles[0].sha256]).toBe(withWidget);
         expect(JSON.stringify(results[0].mech!.export(true))).toContain(drafts[0].record.tag as string);
         expect(saved).toHaveLength(1);
         // Review finding: SSW files don't give an item's tons, so the placeholder weighs 0; say so.
@@ -100,5 +106,127 @@ describe("SSW import limits", () => {
 
     it("refuses a file over the size limit and names it", () => {
         expect(sswImportLimitError([file("ok.ssw", 10), file("huge.ssw", MAX_SSW_IMPORT_FILE_BYTES + 1)])).toContain("huge.ssw");
+    });
+});
+
+// #76: the importer is asked about each unknown item before anything is saved.
+describe("SSW import: analyze and accept", () => {
+    beforeEach(() => registerLocalCustomContent([]));
+
+    it("analyze gives one question per unknown item with best guesses and saves nothing", async () => {
+        let saveCalls = 0;
+        const twoUnknown = withWidget.replace(/\(IS\) Medium Laser</, "(IS) Gadget Beam<");
+        const spy = { ...options(), save: () => { saveCalls++; return true; } };
+        const { questions } = await analyzeSSWImport([{ fileName: "a.ssw", xml: twoUnknown }], spy.existingDrafts);
+        expect(saveCalls).toBe(0);
+        expect(questions.length).toBeGreaterThanOrEqual(1);
+        const widget = questions.find((q) => q.name === "Widget Cannon")!;
+        expect(widget.designs).toEqual(["Griffin GRF-1N"]);
+        expect(widget.required).toEqual(["techBase", "tons", "slots"]);
+        expect(widget.guess.techBase).toBe("is");
+        expect(widget.guess.unknown).toEqual({ techBase: false, tons: false, slots: false });
+        expect(widget.guess.slots).toBe(8);
+        expect(Number.isNaN(widget.guess.tons)).toBe(false);
+        expect(widget.guess.tons).toBeGreaterThanOrEqual(0);
+    });
+
+    it("two files sharing an unknown item give one question naming both designs", async () => {
+        const { questions } = await analyzeSSWImport([
+            { fileName: "a.ssw", xml: withWidget },
+            { fileName: "b.ssw", xml: withWidget.replace('model="GRF-1N"', 'model="GRF-1X"') },
+        ], []);
+        expect(questions).toHaveLength(1);
+        expect(questions[0].designs).toEqual(["Griffin GRF-1N", "Griffin GRF-1X"]);
+    });
+
+    it("an item an earlier import already drafted is not asked about again", async () => {
+        const first = await runSSWImportSession([{ fileName: "a.ssw", xml: withWidget }], options());
+        const { questions } = await analyzeSSWImport([{ fileName: "c.ssw", xml: withWidget.replace('model="GRF-1N"', 'model="GRF-1Z"') }], first.drafts);
+        expect(questions).toHaveLength(0);
+    });
+
+    it("accept builds the drafts from the answers; the design then weighs its full tonnage", async () => {
+        const analysis = await analyzeSSWImport([{ fileName: "a.ssw", xml: withWidget }], []);
+        const q = analysis.questions[0];
+        const mech0 = analysis.results[0].mech!;
+        const gap = mech0.getTonnage() - mech0.getCurrentTonnage();
+        const answers = { [q.key]: { ...q.guess, tons: gap, slots: 3, damage: 10, heat: 4, sourceNote: "from the TRO" } };
+        const out = await acceptSSWImport(analysis, answers, options());
+        expect(out.drafts).toHaveLength(1);
+        expect(out.drafts[0].record.weight).toBe(gap);
+        expect((out.drafts[0].record.space as Record<string, unknown>).battlemech).toBe(3);
+        expect(out.drafts[0].record.damage).toBe(10);
+        expect(out.drafts[0].sourceNote).toBe("from the TRO");
+        const mech = out.results[0].mech!;
+        expect(mech.getCurrentTonnage()).toBe(mech.getTonnage());
+    });
+
+    it("I do not know keeps the guess and marks the field estimated", async () => {
+        const analysis = await analyzeSSWImport([{ fileName: "a.ssw", xml: withWidget }], []);
+        const q = analysis.questions[0];
+        const answers = { [q.key]: { ...q.guess, unknown: { ...q.guess.unknown, tons: true } } };
+        const out = await acceptSSWImport(analysis, answers, options());
+        expect(out.drafts[0].estimated).toContain("weight");
+        expect(missingFields(out.drafts[0])).toContain("estimated:weight");
+    });
+
+    it("missingAnswers: a null field is missing unless marked I do not know", async () => {
+        const { questions } = await analyzeSSWImport([{ fileName: "a.ssw", xml: withWidget }], []);
+        const q = questions[0];
+        expect(missingAnswers(q, { ...q.guess, tons: null })).toEqual(["tons"]);
+        expect(missingAnswers(q, { ...q.guess, tons: null, unknown: { ...q.guess.unknown, tons: true } })).toEqual([]);
+        expect(missingAnswers(q, undefined)).toEqual(["techBase", "tons", "slots"]);
+    });
+
+    it("guessTonnage splits the gap, rounds to half a ton and never goes below zero", () => {
+        expect(guessTonnage(3, 2)).toBe(1.5);
+        expect(guessTonnage(1, 3)).toBe(0.5);
+        expect(guessTonnage(0, 2)).toBe(0);
+        expect(guessTonnage(-1, 1)).toBe(0);
+        expect(guessTonnage(5, 0)).toBe(0);
+    });
+});
+
+// #76 review fixes.
+describe("SSW import: review fixes", () => {
+    beforeEach(() => registerLocalCustomContent([]));
+
+    it("I do not know on an emptied field keeps the guess, not a blank", async () => {
+        const analysis = await analyzeSSWImport([{ fileName: "a.ssw", xml: withWidget }], []);
+        const q = analysis.questions[0];
+        const answers = { [q.key]: { ...q.guess, tons: null, unknown: { ...q.guess.unknown, tons: true } } };
+        const out = await acceptSSWImport(analysis, answers, options());
+        expect(out.drafts[0].record.weight).toBe(q.guess.tons);
+        expect(out.drafts[0].estimated).toContain("weight");
+    });
+
+    it("tons and slots the importer typed are not marked estimated", async () => {
+        const analysis = await analyzeSSWImport([{ fileName: "a.ssw", xml: withWidget }], []);
+        const q = analysis.questions[0];
+        const answers = { [q.key]: { ...q.guess, tons: 7, slots: 3, edited: { tons: true, slots: true } } };
+        const out = await acceptSSWImport(analysis, answers, options());
+        expect(out.drafts[0].estimated ?? []).not.toContain("weight");
+        expect(out.drafts[0].estimated ?? []).not.toContain("space.battlemech");
+        expect(out.drafts[0].slotsEstimated).toBe(false);
+        expect(missingFields(out.drafts[0])).not.toContain("estimated:weight");
+    });
+
+    it("an unedited guess is still estimated", async () => {
+        const analysis = await analyzeSSWImport([{ fileName: "a.ssw", xml: withWidget }], []);
+        const q = analysis.questions[0];
+        const out = await acceptSSWImport(analysis, { [q.key]: q.guess }, options());
+        expect(out.drafts[0].estimated).toEqual(expect.arrayContaining(["weight", "space.battlemech"]));
+    });
+
+    it("an ammo bin is guessed at one ton and the weapon gets the rest of the gap", async () => {
+        const xml = withWidget.replace(/@ LRM-10</g, "@ Widget Rocket<");
+        const analysis = await analyzeSSWImport([{ fileName: "a.ssw", xml }], []);
+        const ammo = analysis.questions.find((q) => q.kind === "ammunition")!;
+        const weapon = analysis.questions.find((q) => q.name === "Widget Cannon")!;
+        expect(ammo.guess.tons).toBe(1);
+        const bins = analysis.entries.filter((e) => e.item.kind === "ammunition").length;
+        const mech = analysis.results[0].mech!;
+        const gap = mech.getTonnage() - mech.getCurrentTonnage();
+        expect(weapon.guess.tons).toBe(guessTonnage(gap - bins, 1));
     });
 });

@@ -33,6 +33,16 @@ test("SO:AA's McKenna hull can be built, checked and saved", async ({ page }) =>
     await officers.press("Enter");
     await page.getByTestId("cs-quarters-fill").click();
     await expect(page.getByTestId("cs-remaining")).toHaveText("516,108");
+
+    // Step 7, the optional Technical Readout, and its printed sheet (#78).
+    await page.getByRole("link", { name: /Next: Technical Readout/ }).click();
+    await expect(page.getByText("Step 7: Technical Readout (optional)")).toBeVisible();
+    await page.getByLabel("Manufacturer", { exact: true }).fill("Dekirk Shipyards");
+    await page.getByRole("link", { name: "Print TRO sheet" }).click();
+    await expect(page.getByText("Dekirk Shipyards").first()).toBeVisible();
+    await expect(page.getByText("1,930,000 tons").first()).toBeVisible();
+    await expect(page.getByText("Compact K-F Drive (Integrity 37)").first()).toBeVisible();
+
     await page.goto("classic-battletech/capital-ship-creator/armor");
     const sinks = page.getByLabel(/Additional Heat Sinks/);
     await sinks.fill("5447");
@@ -59,9 +69,11 @@ test("SO:AA's McKenna hull can be built, checked and saved", async ({ page }) =>
 
     // The record sheet (SO:AA pp.9-11): data block, armor in capital-scale squares, K-F drive integrity.
     await page.getByRole("link", { name: "View Record Sheet" }).click();
-    await expect(page.getByTestId("cs-sheet-data")).toContainText("Safe Thrust 3 / Maximum Thrust 5");
-    await expect(page.getByTestId("cs-sheet-si")).toHaveAttribute("data-count", "95");
-    await expect(page.getByTestId("cs-sheet-drive")).toContainText("K-F Drive Integrity: 37");
+    const sheet = page.getByTestId("capital-ship-record-sheet-svg");
+    await expect(sheet).toContainText(/Safe Thrust:\s*3\s*Maximum Thrust:\s*5/);
+    await expect(page.getByTestId("capital-track-si")).toHaveAttribute("data-count", "95");
+    await expect(sheet).toContainText("K-F Drive Integrity: 37");
+    await expect(page.getByTestId("capital-track-kf")).toHaveAttribute("data-count", "37");
 
     await page.goto("classic-battletech/capital-ship-creator");
     await page.getByRole("button", { name: /Save as New/ }).click();

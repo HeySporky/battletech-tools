@@ -7,10 +7,12 @@ import { CUSTOM_HOMEBREW_RULES_LEVEL } from '../../../../data/equipment-registry
 import { IAppGlobals } from '../../../app-router';
 import AvailableEquipment from '../../../components/available-equipment';
 import { availabilityOptionLabel } from '../../../components/availability-options';
-import FighterCreatorSideMenu from '../../../components/fighter-creator-side-menu';
+import { FighterCreatorSideMenu } from '../../../components/creator-side-menus';
 import InputNumeric from "../../../components/form_elements/input_numeric";
 import TextSection from '../../../components/text-section';
+import TonnageBar from '../../../components/tonnage-bar';
 import UIPage from '../../../components/ui-page';
+import { unitRulesLevel } from '../../../components/game-settings-block';
 const ArrowCircleLeft = FaArrowCircleLeft as any;
 const ArrowCircleRight = FaArrowCircleRight as any;
 const Trash = FaTrash as any;
@@ -40,7 +42,7 @@ export default class FighterCreatorEquipment extends React.Component<IEquipmentP
     render = (): JSX.Element => {
         const fighter = this.props.appGlobals.currentFighter;
         if (!fighter) return <></>;
-        const rulesLevel = this.props.appGlobals.appSettings.mechRulesFilter;
+        const rulesLevel = unitRulesLevel(this.props.appGlobals.currentFighter, this.props.appGlobals.appSettings);
         const remaining = fighter.getRemainingTonnage();
         const stores = fighter.getExternalStores();
         const storesUsed = fighter.getExternalStoresHardpointsUsed();
@@ -57,18 +59,19 @@ export default class FighterCreatorEquipment extends React.Component<IEquipmentP
                             <TextSection label="Step 3: Weapons and Equipment">
                                 <p className={remaining < 0 ? "color-red" : ""}>
                                     <strong>Remaining Tonnage</strong>: {remaining} &nbsp;|&nbsp;
-                                    <strong>{fighter.isConventional() ? "Energy Weapon Heat" : "Weapon Heat"}</strong>: {fighter.getWeaponHeat()} of {fighter.getHeatDissipation()} dissipated
+                                    <strong>{fighter.isConventional() ? "Energy Weapon Heat" : "Weapon Heat"}</strong>: {fighter.getHeatDissipation()} dissipated of {fighter.getWeaponHeat()} generated
                                     {fighter.getPowerAmplifierWeight() > 0 ? <> &nbsp;|&nbsp; <strong>Power Amplifiers</strong>: {fighter.getPowerAmplifierWeight()} tons (TM p. 195)</> : null}
                                 </p>
                                 <AvailableEquipment
                                     appGlobals={this.props.appGlobals}
                                     equipment={fighter.getAvailableEquipment(rulesLevel >= CUSTOM_HOMEBREW_RULES_LEVEL, rulesLevel)}
+                                    mounted={fighter.getEquipmentList()}
                                     addFunction={this.addEquipment}
                                 />
 
                                 <div className="clear-both overflow-hidden">
                                     <hr />
-                                    <Link to={`${process.env.PUBLIC_URL}/classic-battletech/fighter-creator/summary`} className="btn btn-primary pull-right btn-sm">Next: Summary <ArrowCircleRight /></Link>
+                                    <Link to={`${process.env.PUBLIC_URL}/classic-battletech/fighter-creator/technical-readout`} className="btn btn-primary pull-right btn-sm">Next: Technical Readout <ArrowCircleRight /></Link>
                                     <div className="inline-block text-left">
                                         <Link to={`${process.env.PUBLIC_URL}/classic-battletech/fighter-creator/armor`} className="btn btn-primary btn-sm"><ArrowCircleLeft /> Previous Step</Link>
                                     </div>
@@ -101,7 +104,7 @@ export default class FighterCreatorEquipment extends React.Component<IEquipmentP
                                 </>)}
                                 <table className="table">
                                     <thead>
-                                        <tr><th>Name</th><th>Tons</th><th>Location</th>{fighter.isOmni() ? <th>Pod</th> : null}<th></th></tr>
+                                        <tr><th>Name</th><th>Tons</th><th>Location</th>{fighter.isOmni() ? <th>Pod</th> : null}<th><span className="visually-hidden">Actions</span></th></tr>
                                     </thead>
                                     <tbody>
                                         {fighter.getEquipmentList().map((item) => (
@@ -201,6 +204,7 @@ export default class FighterCreatorEquipment extends React.Component<IEquipmentP
                         </div>
                     </div>
                 </div>
+                <TonnageBar used={fighter.getCurrentTonnage()} total={fighter.getTonnage()} slots={{ used: fighter.getUsedItemSlots(), total: fighter.getTotalItemSlots() }} />
             </UIPage>
         );
     }

@@ -1,4 +1,6 @@
 import React, { type JSX } from 'react';
+import { getUnitRulesets } from '../../classes/unit-game-settings';
+import { RulesetsAttribution } from './rulesets-attribution';
 import SmallCraft, { SMALL_CRAFT_AS_ARCS, formatSmallCraftASDamage } from '../../classes/small-craft';
 
 // The Alpha Strike card of a Small Craft. Like a DropShip, it is a large aerospace unit: armor, structure and a
@@ -7,7 +9,7 @@ export default class SmallCraftAlphaStrikeCard extends React.Component<ISmallCra
     render = (): JSX.Element => {
         const craft = this.props.craft;
         const stats = craft.getAlphaStrikeStats();
-        const cell: React.CSSProperties = { border: "1px solid #000", padding: "0.2em 0.6em", textAlign: "center" };
+        const cell: React.CSSProperties = { border: "1px solid #000", padding: "0.2em 0.6em", textAlign: "center", color: "#000" };
         const head: React.CSSProperties = { ...cell, background: "#ddd", fontWeight: "bold" };
         const pips = (count: number, structure: boolean): JSX.Element[] => Array.from({ length: count }, (_pip, pip) => (
             <span key={pip} style={{
@@ -19,7 +21,7 @@ export default class SmallCraftAlphaStrikeCard extends React.Component<ISmallCra
         return (
             <div data-testid="small-craft-as-card" style={{ border: "2px solid #000", borderRadius: "0.6em", padding: "0.8em 1em", maxWidth: "46em", background: "#fff", color: "#000" }}>
                 <div style={{ display: "flex", justifyContent: "space-between", alignItems: "baseline" }}>
-                    <h3 style={{ margin: 0 }}>{`${craft.getName()} ${craft.getModel()}`.trim() || "Small Craft"}</h3>
+                    <h2 className="h3" style={{ margin: 0 }}>{`${craft.getName()} ${craft.getModel()}`.trim() || "Small Craft"}</h2>
                     <strong data-testid="small-craft-as-pv">PV: {stats.pointValue}</strong>
                 </div>
                 <p style={{ margin: "0.4em 0" }} data-testid="small-craft-as-line">
@@ -43,6 +45,7 @@ export default class SmallCraftAlphaStrikeCard extends React.Component<ISmallCra
                 <p style={{ margin: "0.3em 0" }}><strong>A ({stats.armor})</strong>: {pips(stats.armor, false)}</p>
                 <p style={{ margin: "0.3em 0" }}><strong>S ({stats.structure})</strong>: {pips(stats.structure, true)}</p>
                 <p style={{ margin: "0.3em 0" }}><strong>Special</strong>: {stats.specialAbilities.join(", ") || "none"}</p>
+                <RulesetsAttribution rulesets={getUnitRulesets(craft)} className="small mb-0" />
             </div>
         );
     }

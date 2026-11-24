@@ -1,0 +1,151 @@
+<?xml version="1.0" encoding ="UTF-8"?>
+<mech name="Amarok" model="2" tons="100" omnimech="FALSE" solaris7id="0" solaris7imageid="0" sswimage="">
+    <ssw_savefile_version>3</ssw_savefile_version>
+    <battle_value>3351</battle_value>
+    <cost>4.148533333333333E7</cost>
+    <rules_level>3</rules_level>
+    <era>3</era>
+    <productionera>10</productionera>
+    <mech_type>BattleMech</mech_type>
+    <techbase manufacturer="Manufacturing Plant SFF-TU1" location="Tukayyid">Clan</techbase>
+    <year restricted="FALSE">3150</year>
+    <motive_type>Biped</motive_type>
+    <structure manufacturer="SFAM Endo 4" techbase="1">
+        <type>Endo-Steel</type>
+        <location index="4">LL</location>
+        <location index="4">RL</location>
+        <location index="5">LA</location>
+        <location index="5">RA</location>
+        <location index="5">LL</location>
+        <location index="5">RL</location>
+        <location index="6">RA</location>
+    </structure>
+    <engine rating="400" manufacturer="Type 79" lsstart="0" rsstart="0" techbase="1">XL Engine</engine>
+    <gyro techbase="2">Standard Gyro</gyro>
+    <cockpit>
+        <type ejectionseat="FALSE" commandconsole="FALSE" fhes="FALSE">Standard Cockpit</type>
+    </cockpit>
+    <enhancement techbase="1">
+        <type>MASC</type>
+        <location index="7">LT</location>
+    </enhancement>
+    <armor manufacturer="Double-Forged ZX20" techbase="2">
+        <type>Hardened Armor</type>
+        <hd>9</hd>
+        <ct>25</ct>
+        <ctr>8</ctr>
+        <lt>18</lt>
+        <ltr>5</ltr>
+        <rt>18</rt>
+        <rtr>5</rtr>
+        <la>18</la>
+        <ra>18</ra>
+        <ll>20</ll>
+        <rl>20</rl>
+    </armor>
+    <baseloadout fcsa4="FALSE" fcsa5="FALSE" fcsapollo="FALSE">
+        <source>RGiC 17</source>
+        <info>Amarok 2 100t, 4/6[9]/0 MASC, XLFE, ES; 20.5T/53% Hrdnd Armor; 16 DHS; 1 iHLL, 1 SLRM20, 3 ERML, 2 APGR, 1 LPL</info>
+        <battleforce pv="34" wt="4" mv="6" s="5" m="5" l="3" e="0" ov="3" armor="11" internal="5" abilities="CASEII, CASE, SRCH, ES, SEAL, SOA" />
+        <actuators lla="TRUE" lh="TRUE" rla="TRUE" rh="TRUE"/>
+        <clancase>TRUE</clancase>
+        <heatsinks number="16" techbase="1">
+            <type>Double Heat Sink</type>
+
+        </heatsinks>
+        <equipment>
+            <name manufacturer="">(CL) ER Medium Laser</name>
+            <type>energy</type>
+            <location index="3">HD</location>
+        </equipment>
+        <equipment>
+            <name manufacturer="">(CL) ER Medium Laser</name>
+            <type>energy</type>
+            <location index="4">LA</location>
+        </equipment>
+        <equipment>
+            <name manufacturer="">(CL) ER Medium Laser</name>
+            <type>energy</type>
+            <location index="4">RA</location>
+        </equipment>
+        <equipment>
+            <name manufacturer="">(CL) Large Pulse Laser</name>
+            <type>energy</type>
+            <location index="10">CT</location>
+        </equipment>
+        <equipment>
+            <name manufacturer="">(CL) Improved Heavy Large Laser</name>
+            <type>energy</type>
+            <location index="7">RT</location>
+        </equipment>
+        <equipment>
+            <name manufacturer="">(CL) AP Gauss Rifle</name>
+            <type>ballistic</type>
+            <location index="3">LT</location>
+        </equipment>
+        <equipment>
+            <name manufacturer="">(CL) AP Gauss Rifle</name>
+            <type>ballistic</type>
+            <location index="2">LT</location>
+        </equipment>
+        <equipment>
+            <name manufacturer="">(CL) Streak LRM-20</name>
+            <type>missile</type>
+            <location index="2">RT</location>
+        </equipment>
+        <equipment>
+            <name manufacturer="Unknown">(CL) @ AP Gauss Rifle</name>
+            <type>ammunition</type>
+            <location index="4">LT</location>
+        </equipment>
+        <equipment>
+            <name manufacturer="Unknown">(CL) @ Streak LRM-20</name>
+            <type>ammunition</type>
+            <location index="6">LT</location>
+        </equipment>
+        <equipment>
+            <name manufacturer="Unknown">(CL) @ Streak LRM-20</name>
+            <type>ammunition</type>
+            <location index="5">LT</location>
+        </equipment>
+        <equipment>
+            <name manufacturer="">(CL) CASE II</name>
+            <type>CASEII</type>
+            <location index="11">LT</location>
+        </equipment>
+        <equipment>
+            <name manufacturer="">(CL) CASE II</name>
+            <type>CASEII</type>
+            <location index="11">RT</location>
+        </equipment>
+        <equipment>
+            <name manufacturer="">Supercharger</name>
+            <type>Supercharger</type>
+            <location index="10">RT</location>
+        </equipment>
+    </baseloadout>
+    <fluff>
+        <overview>Considered Ramiel Bekker’s crowning achievement, the Amarok was intended to counteract Death From Above (DFA) attacks commonly used by the Jade Falcons. Constrained by time, Bekker turned to Clan Sea Fox for assistance, as he had with the Stormwolf, this time earning an eager response from the ilKhanate.:br::br::tab:The ilKhanate’s standing compared to other Khanates was much reduced after Gray Monday. A special order from Clan Wolf could begin to reverse their fortunes. Bekker was granted extensive access to the ilKhanate’s resources. This caused dissent between Khanates, when it became clear that Bekker borrowed heavily from the Hammerhead to complete his project. Trials of Possession and Refusal with the Wolves—for various design elements and the first production run—were defeated, making it possible to supply a significant number of Amaroks in record time. Khan Hawker himself has been on a personal goodwill tour, meeting with saKhan Andreas Sutherland before traveling to confer with saKhan Petr Kalasa, to ensure the necessary degree of cooperation with the Wolves.</overview>
+        <capabilities>Combating the six century-old tactic of the DFA is no easy task. The Amarok adopted many physical traits of the Hammerhead, because its hardened armor reduced the inherent vulnerability of the cockpit. The new ’Mech more than doubled in mass, much of which went toward a significant arsenal. The ER PPC was enhanced with a capacitor to provide a ranged weapon able to disrupt the flight path of an incoming ’Mech. A rotary autocannon and large pulse laser act as excellent secondary weapons, backed up by paired Streak missile launchers.:br::br::tab:The ’Mech’s most innovative feature—based on data collected from Solaris VII—builds upon the physical layout advantages of the Hammerhead by using a pre-programmed routine to lock the arms together above the cockpit. This potentially shields it from a DFA attack. Unfortunately, myriad problems manifested almost immediately, from simple activation failure of the system, to malfunctions causing one or both arms to smash into the upper torso and cockpit, killing a MechWarrior in one extreme case. As a result, this software macro has been permanently disabled by many Amarok MechWarriors. It is scheduled for omission from further production runs. Despite these issues, the ’Mech is in such high demand that warriors must fight a Trial of Possession to be assigned one.</capabilities>
+        <battlehistory>Bekker had hoped to pepper most Clusters with Amaroks, as specialists ready to counter major Jade Falcon threats. While this type of utilization largely occurred, it was only viable in a handful of Clusters, mostly in Alpha and Beta Galaxies. They proved instrumental during the battle for Skye, highlighting both the ’Mech’s strengths and its flaws. The Amaroks of the Nineteenth Wolf Striker Cluster performed well in the pivotal fighting around the Sanglamore Academy campus. Amaroks, often fighting in groups, pulled down Shrikes, Turkinas, and Jade Hawks, disrupting their efforts to break Wolf lines. However, they were overwhelmed by the sheer volume of firepower from Turkina Keshik. The Amaroks of the Ninth Wolf Guard fared better, ambushing Turkina Keshik and crushing them against the Nineteenth. Able to use their speed unhindered, they routed the Keshik and then dealt with stragglers one by one.</battlehistory>
+        <deployment></deployment>
+        <variants>A variant of the Amarok adds MASC to reach speeds similar to the Executioner. Weight limits required the sacrifice of the autocannon. Engineers thus replaced the Streak SRMs with long-range versions to produce a viable ranged combatant. Its damage potential remains greatest up close, where it retains its capability against physical attacks.:br::br::tab:The Amarok 3 focuses on combating DFA attacks. Spikes are added, along with twelve additional tons of hardened armor. The weapons package is further modified, relying on a brace of small pulse laser clusters to inflict disruptive damage on an incoming enemy. The remaining weaponry is optimized to provide covering fire when friendlies are threatened by a DFA.</variants>
+        <notables>Star Captain Roy Kerensky: Roy Kerensky was a ristar of Clan Wolf after defeating three opponents in his Trial of Position. He was assigned to Beta Galaxy, and in the three years before the battle of Skye, he regularly exceeded expectations. He prefers Clan Wolf’s traditional mobile cavalry tactics, but he has adapted to more direct assaults when the situation calls for it. Assigned one of the Amaroks of Beta Galaxy’s Nineteenth Wolf Strikers, he recorded more kills than any other Amarok MechWarrior on Skye. Roy’s Amarok was lost when the anti-DFA feature malfunctioned and he was overwhelmed. Though he currently pilots a Timber Wolf, he seeks to Trial for an Amarok.:br::br:Star Captain Matthew Taylor: Star Captain Matthew Taylor gained his Bloodname after winning a Grand Melee to earn a place in the Trial of Bloodright. This accomplishment improved his standing in the months prior to the battle of Skye. He was reassigned from Iota Galaxy to Beta Galaxy’s Ninth Wolf Guards, along with an Amarok. No stranger to Falcon tactics and physical attacks, he acquitted himself well, gaining more kills than all Amarok pilots save one. He has a freeborn son with an aerospace pilot from his Bloodhouse, a matter that is still frowned upon by the more conservative warriors of his Clan.</notables>
+        <additional></additional>
+        <quirks>
+            <quirk postive="true" battlemech="true" industrialmech="true" combatvehicle="false" battlearmor="false" aerospacefighter="false" conventionalfigher="false" dropship="false" jumpship="false" warship="false" spacestation="false" protomech="false" isvariable="false">
+                <Name>Battlefists</Name>
+                <Cost>2</Cost>
+                <Description>The Battlefists quirk applies only to â€™Mechs that are equipped with hand actuators. This quirk reflects â€™Mechs that feature hands which are better designed for melee combat as a consequence of their unique configuration (such as the Awesomeâ€™s mace-like fist, or the Pillagerâ€™s sharpened â€œknucklesâ€�). This quirk is only paid for once, even if the â€™Mech has two fists. If the â€™Mech has two hands, and this quirk is only meant to apply to one of those hands, this must be specified (the cost remains the same). A â€™Mech with Battlefists receives a â€“1 Target Number modifier when making Punch attacks.</Description>
+            </quirk>
+            <quirk postive="true" battlemech="true" industrialmech="true" combatvehicle="false" battlearmor="false" aerospacefighter="false" conventionalfigher="false" dropship="false" jumpship="false" warship="false" spacestation="false" protomech="false" isvariable="false">
+                <Name>Stable</Name>
+                <Cost>2</Cost>
+                <Description>`Mech designs such as the Dragon are exceptionally stable, receiving a -1 target number modifier when forced to make a Piloting Skill roll as a result of a physical attack.</Description>
+            </quirk>
+        </quirks>
+        <jumpjet_model>None</jumpjet_model>
+        <commsystem>Khan Series (Type 6c)</commsystem>
+        <tandtsystem>SEries XIV OPT</tandtsystem>
+    </fluff>
+</mech>

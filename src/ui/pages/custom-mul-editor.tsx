@@ -21,6 +21,7 @@ import {
 } from '../../data/custom-mul';
 import { getLocalCustomMULUnits, saveLocalCustomMULUnits } from '../../data/custom-mul-local';
 import bundledCustomUnits from '../../data/mul/custom/custom-units.json';
+import { untabulate } from '../../utils/packed-json';
 import { loadMULListItems } from '../../data/mul-list-items';
 import { submitGithubFileContribution } from '../../utils/githubContribution';
 import { getMULAerospaceRoles, getMULEraIDs, getMULEraLabel, getMULGroundRoles } from '../../utils/mulUtilities';
@@ -34,7 +35,7 @@ const Trash = FaTrash as any;
 const GITHUB_TOKEN_SESSION_KEY = "customMULGithubToken";
 
 // The shared list as shipped in this build. Read-only here; changes to it go through pull requests.
-const sharedRecords = bundledCustomUnits as unknown as IASMULUnit[];
+const sharedRecords = untabulate(bundledCustomUnits) as IASMULUnit[];
 const sharedKeys = new Set(sharedRecords.map((record) => record.MulUnitKey));
 
 function damageSummary(record: IASMULUnit): string {
@@ -71,7 +72,7 @@ export default class CustomMULEditor extends React.Component<ICustomMULEditorPro
 
     componentDidMount(): void {
         // Used to stop canonical MUL 2.0 units from being re-entered as customs.
-        void loadMULListItems("mul2").then((units) => {
+        void loadMULListItems(["mul2"]).then((units) => {
             this.setState({
                 canonicalIdentities: new Set(units.map((unit) => mulIdentity(unit.Name, unit.Variant))),
             });
@@ -395,7 +396,7 @@ export default class CustomMULEditor extends React.Component<ICustomMULEditorPro
         const canSubmit = CONST_CUSTOM_MUL_SUBMISSION_ENABLED && !this.state.isSubmittingContribution && this.state.githubToken.trim() !== "";
 
         return (
-            <UIPage current="custom-mul-editor" appGlobals={this.props.appGlobals}>
+            <UIPage current="settings-custom-mul-editor" appGlobals={this.props.appGlobals}>
                 <div className="alert alert-warning text-center">
                     <p className="no-margins"><strong>Developers only!</strong> Data entry for non-canonical custom units.</p>
                 </div>
@@ -460,8 +461,8 @@ export default class CustomMULEditor extends React.Component<ICustomMULEditorPro
                 <table className="table">
                     <thead>
                         <tr>
-                            <th>&nbsp;</th>
-                            <th>&nbsp;</th>
+                            <th><span className="visually-hidden">Actions</span></th>
+                            <th><span className="visually-hidden">Actions</span></th>
                             <th>Name</th>
                             <th>Type</th>
                             <th className="text-center">PV</th>
@@ -571,7 +572,7 @@ export default class CustomMULEditor extends React.Component<ICustomMULEditorPro
                 <table className="table">
                     <thead>
                         <tr>
-                            <th>&nbsp;</th>
+                            <th><span className="visually-hidden">Actions</span></th>
                             <th>Name</th>
                             <th>Type</th>
                             <th className="text-center">PV</th>

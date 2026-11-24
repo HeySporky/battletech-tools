@@ -4,6 +4,8 @@ import CapitalShip from '../../../../classes/capital-ship';
 import Pilot from '../../../../classes/pilot';
 import { IAppGlobals } from '../../../app-router';
 import StatBar from '../../../components/stat-bar';
+import MULSearchButton from './_mulSearchButton';
+import { formatBattleValue } from '../../../../data/battle-value';
 const Trash = FaTrash as any;
 
 /**
@@ -87,7 +89,7 @@ export default class CapitalShipGroupTable extends React.Component<ICapitalShipG
             <table className="table" data-testid="capital-ship-group-table">
                 <thead>
                     <tr>
-                        {this.props.showEdit ? <th className="min-width no-wrap"></th> : null}
+                        {this.props.showEdit ? <th className="min-width no-wrap"><span className="visually-hidden">Actions</span></th> : null}
                         <th>Vessel</th>
                         <th>Tons</th>
                         <th>Tech</th>
@@ -98,8 +100,8 @@ export default class CapitalShipGroupTable extends React.Component<ICapitalShipG
                 </thead>
                 {crafts.map( (craft, index) => {
                     const pilot = craft.getPilot();
-                    const pilotBV = craft.getPilotAdjustedBattleValue();
-                    const baseBV = craft.getBattleValue();
+                    const pilotBV = formatBattleValue((edition) => craft.getPilotAdjustedBattleValue(edition), "capital-ship", this.props.appGlobals.currentCBTForce?.rulesEdition);
+                    const baseBV = formatBattleValue((edition) => craft.getBattleValue(edition), "capital-ship", this.props.appGlobals.currentCBTForce?.rulesEdition);
                     return (
                         <tbody key={craft.getUUID()}>
                             <tr>
@@ -210,6 +212,7 @@ export default class CapitalShipGroupTable extends React.Component<ICapitalShipG
                                 ) : (
                                     <span className="small-text">Save vessels in the JumpShip and WarShip Creator to add them to this group.</span>
                                 )}
+                                <MULSearchButton unitLabel="JumpShips, WarShips and space stations" onClick={this.props.onSearchMUL} />
                             </td>
                         </tr>
                     </tfoot>
@@ -234,6 +237,7 @@ interface ICapitalShipGroupTableProps {
     bmGroupIndex: number;
     showAdd: boolean;
     showEdit: boolean;
+    onSearchMUL?: ( e: React.FormEvent<HTMLButtonElement> ) => void;
 }
 
 interface ICapitalShipGroupTableState {

@@ -15,7 +15,7 @@ export default class AlphaStrikeEquipmentEntry extends React.Component<IAlphaStr
         if( e && e.preventDefault ) {
             e.preventDefault();
         }
-        let item = this.props.editingItem;
+        const item = this.props.editingItem;
 
         item.alphaStrike.heat = +e.currentTarget.value;
 
@@ -27,7 +27,7 @@ export default class AlphaStrikeEquipmentEntry extends React.Component<IAlphaStr
         if( e && e.preventDefault ) {
             e.preventDefault();
         }
-        let item = this.props.editingItem;
+        const item = this.props.editingItem;
 
         item.alphaStrike.tc = e.currentTarget.checked;
 
@@ -40,7 +40,7 @@ export default class AlphaStrikeEquipmentEntry extends React.Component<IAlphaStr
         if( e && e.preventDefault ) {
             e.preventDefault();
         }
-        let item = this.props.editingItem;
+        const item = this.props.editingItem;
 
         item.alphaStrike.rangeShort = +e.currentTarget.value;
 
@@ -53,7 +53,7 @@ export default class AlphaStrikeEquipmentEntry extends React.Component<IAlphaStr
         if( e && e.preventDefault ) {
             e.preventDefault();
         }
-        let item = this.props.editingItem;
+        const item = this.props.editingItem;
 
         item.alphaStrike.rangeMedium = +e.currentTarget.value;
 
@@ -66,7 +66,7 @@ export default class AlphaStrikeEquipmentEntry extends React.Component<IAlphaStr
         if( e && e.preventDefault ) {
             e.preventDefault();
         }
-        let item = this.props.editingItem;
+        const item = this.props.editingItem;
 
         item.alphaStrike.rangeLong = +e.currentTarget.value;
 
@@ -79,7 +79,7 @@ export default class AlphaStrikeEquipmentEntry extends React.Component<IAlphaStr
         if( e && e.preventDefault ) {
             e.preventDefault();
         }
-        let item = this.props.editingItem;
+        const item = this.props.editingItem;
 
         item.alphaStrike.rangeExtreme = +e.currentTarget.value;
 
@@ -92,7 +92,7 @@ export default class AlphaStrikeEquipmentEntry extends React.Component<IAlphaStr
         if( e && e.preventDefault ) {
             e.preventDefault();
         }
-        let item = this.props.editingItem;
+        const item = this.props.editingItem;
 
         item.alphaStrike.notes = e.currentTarget.value.split("\n");
 
@@ -105,7 +105,7 @@ export default class AlphaStrikeEquipmentEntry extends React.Component<IAlphaStr
         if( e && e.preventDefault ) {
             e.preventDefault();
         }
-        let item = this.props.editingItem;
+        const item = this.props.editingItem;
 
         item.alphaStrike.specialAbility = e.currentTarget.value
             .split("\n")

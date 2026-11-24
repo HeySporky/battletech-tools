@@ -1,14 +1,18 @@
-import { getCompatibleAmmo, getEquipmentListByTech } from "../data/equipment-registry";
+import { getCompatibleAmmo, getEquipmentRecordsByTech, getWeaponShotsPerTon } from "../data/equipment-registry";
 import { IEquipmentItem } from "../data/data-interfaces";
 import {
-    DROPSHIP_MAX_TONNAGE, DROPSHIP_MIN_TONNAGE, SMALL_CRAFT_MAX_TONNAGE, SMALL_CRAFT_MIN_TONNAGE, SmallCraftArc, findTransportBayType, quartersTypes,
+    DROPSHIP_MAX_TONNAGE, DROPSHIP_MIN_TONNAGE, SMALL_CRAFT_ARCS, SMALL_CRAFT_MAX_TONNAGE, SMALL_CRAFT_MIN_TONNAGE, SmallCraftArc, findTransportBayType, quartersTypes,
+    PRIMITIVE_ARMOR_FACTOR,
 } from "../data/small-craft-construction";
 import { IBlkFile, blkLines, blkValue, parseBlkFile } from "../utils/blk-file";
+import { readBlkTechnicalReadout } from "../utils/blk-technical-readout";
 import SmallCraft from "./small-craft";
 import { findImportedEquipment } from "../utils/importedEquipment";
 import { IBlkAmmoLine, findBlkAmmo, findBlkAmmoWeapon, parseBlkAmmoLine } from "../utils/blk-ammo";
 import { findCapitalWeaponByName, getCapitalAmmoTags } from "../data/capital-weapon-helpers";
 import { ICapitalWeapon } from "../data/data-interfaces";
+import { applyBlkQuirks, IBlkImportedItem } from "../utils/blk-quirks";
+import { getBlkFireControlSuffix, getBlkFittedTag } from "../utils/blk-fire-control";
 
 // Reads a MegaMek Small Craft ".blk" file into a SmallCraft. The file names its equipment by MegaMek's lookup
 // names; the tables below pair those names with this catalog. Anything that has no match is left off and
@@ -20,6 +24,7 @@ const EQUIPMENT: Record<string, [string | null, string | null]> = {
     mediumlaser: ["medium-laser", "medium-laser-clan"],
     largelaser: ["large-laser", "clan-large-laser"],
     ppc: ["standard-ppc", "clan-standard-ppc"],
+    isppc: ["standard-ppc", null],
     heavyppc: ["heavy-ppc", null],
     isheavyppc: ["heavy-ppc", null],
     isersmalllaser: ["er-small-laser", null],
@@ -57,9 +62,6 @@ const EQUIPMENT: Record<string, [string | null, string | null]> = {
     clecmsuite: [null, "clan-ecm-system"],
 };
 
-/** Launchers that the file fits with a fire control system listed on its own line. */
-const FIRE_CONTROL: Record<string, string> = { isartemisiv: "-artemis-iv", clartemisiv: "-artemis-iv", clartemisv: "-artemis-v", isapollo: "-apollo" };
-
 // Ammunition lines: the weapon lookup name the round belongs to, and the kind of round where it is not the standard one.
 const AMMO: Record<string, { weapon: string; kind?: RegExp }> = {
     isammolrm5: { weapon: "lrm5" },
@@ -84,13 +86,15 @@ const AMMO: Record<string, { weapon: string; kind?: RegExp }> = {
 
 const ARMOR: Record<string, [string, string]> = {
     "41": ["aerospace-standard", "aerospace-standard"],
+    // MegaMek's primitive aerospace armor: standard armor on a craft built to the Primitive rules (IO:AE pp.120-121).
+    "40": ["aerospace-standard", "aerospace-standard"],
     "19": ["ferro-aluminum", "clan-ferro-aluminum"],
     "20": ["heavy-ferro-aluminum", "heavy-ferro-aluminum"],
     "21": ["light-ferro-aluminum", "light-ferro-aluminum"],
 };
 
 // A file names its own equipment: keep "constructor" or "__proto__" from finding an inherited property.
-[EQUIPMENT, FIRE_CONTROL, AMMO, ARMOR].forEach((table) => Object.setPrototypeOf(table, null));
+[EQUIPMENT, AMMO, ARMOR].forEach((table) => Object.setPrototypeOf(table, null));
 
 const LOCATIONS: { block: string; arc: SmallCraftArc | "hull"; rear?: SmallCraftArc }[] = [
     { block: "nose equipment", arc: "nose" },
@@ -99,6 +103,16 @@ const LOCATIONS: { block: string; arc: SmallCraftArc | "hull"; rear?: SmallCraft
     { block: "aft equipment", arc: "aft" },
     { block: "hull equipment", arc: "hull" },
 ];
+
+// MegaMek's location abbreviations in a weapon quirk line, as the file's equipment blocks.
+const BLK_ARCS: Record<string, string> = { NOS: "nose", LS: "left", LWG: "left", RS: "right", RWG: "right", AFT: "aft", HULL: "hull" };
+
+/** MegaMek's names for the bays of each of our bay classes, which its weapon quirk lines use ("mod_weapons:NOS:1:PPC Bay"). */
+const MEGAMEK_BAY_NAMES: Record<string, string[]> = Object.assign(Object.create(null), {
+    "Lasers": ["Laser Bay"], "Pulse Lasers": ["Pulse Laser Bay"], "PPCs": ["PPC Bay"], "Autocannons": ["AC Bay"], "LB-X Autocannons": ["LBX AC Bay"], "Gauss": ["Gauss Bay"],
+    "LRM": ["LRM Bay"], "SRM": ["SRM Bay"], "MML": ["MML Bay"], "MRM": ["MRM Bay"], "Rocket Launchers": ["Rocket Launcher Bay"],
+    "Thunderbolt": ["Thunderbolt Bay"], "Artillery": ["Artillery Bay"], "Point Defense": ["AMS Bay", "Point Defense Bay"], "Plasma": ["Plasma Bay"],
+});
 
 const lookupName = (name: string): string => name.toLowerCase().replace(/[^a-z0-9]/g, "");
 
@@ -149,6 +163,19 @@ export const importSmallCraftBlk = (text: string): ISmallCraftBlkResult => {
     const notes: string[] = [];
     const spheroid = blkValue(file, "motion_type").toLowerCase() === "spheroid";
     const fileTons = numberOf(file, "tonnage", dropShip ? DROPSHIP_MIN_TONNAGE : SMALL_CRAFT_MAX_TONNAGE);
+    if (!dropShip && fileTons < SMALL_CRAFT_MIN_TONNAGE) {
+        // MegaMek lists the 5-ton Escape Pod and Life Boat of the TRO 3057 Revised as Small Craft files; they are equipment
+        // that a large craft carries (SO / TM Lifeboat, Escape Pod), so the file names its own kind (owner call, 2026-11-22).
+        const name = blkValue(file, "Name").trim().toLowerCase();
+        if (name === "escape pod" || name === "life boat" || name === "lifeboat") {
+            const noun = name === "escape pod" ? "an escape pod" : "a life boat";
+            return {
+                craft: null,
+                issues: [`This is ${noun}, not a unit: ${noun === "an escape pod" ? "escape pods" : "life boats"} are carried by a large craft, whose own file lists them. Set the count on the ship that carries them.`],
+                notes: [],
+            };
+        }
+    }
     if (!dropShip && (fileTons < SMALL_CRAFT_MIN_TONNAGE || fileTons > SMALL_CRAFT_MAX_TONNAGE)) {
         return { craft: null, issues: [`At ${fileTons} tons this is not a Small Craft, which weighs 100 to 200 tons (TM p.184).`], notes: [] };
     }
@@ -182,6 +209,13 @@ export const importSmallCraftBlk = (text: string): ISmallCraftBlkResult => {
         const era = craft.getAvailableEras().find((item) => item.yearStart <= year && (item.yearEnd ?? Infinity) >= year);
         if (era) craft.setEra(era.tag);
     }
+    // MegaMek marks a Primitive craft by its armor type and builds it to the rules of its year (IO:AE pp.119-121).
+    if (blkValue(file, "armor_type") === "40") {
+        if (craft.setPrimitiveYear(year > 0 ? year : null) === null) issues.push("The file's primitive armor needs an Inner Sphere craft with a year of introduction; built to the modern rules.");
+    }
+    // MegaMek's collar type: 0 K-F boom, 1 prototype boom, 2 no boom (IO:AE p.113).
+    const boom = ({ "1": "prototype", "2": "none" } as Record<string, string>)[blkValue(file, "collartype")];
+    if (boom) craft.setKFBoom(boom);
     craft.setTonnage(fileTons);
     if (craft.getTonnage() !== fileTons) issues.push(`The file's weight of ${fileTons} tons is not a ${craft.getCraftTypeName()} weight; ${craft.getTonnage()} tons used.`);
     // A value the file does not give is never filled in silently: say what was used in its place.
@@ -206,18 +240,20 @@ export const importSmallCraftBlk = (text: string): ISmallCraftBlkResult => {
     if (armor.length < 4) issues.push(`The file lists armor for ${armor.length} of the 4 facings; the rest carry none.`);
     const facings = ["nose", "left", "right", "aft"] as const;
     const total = armor.slice(0, 4).reduce((sum, value) => sum + value, 0);
-    // The file lists the points on each facing, the structure's free points among them.
-    const bought = Math.max(0, total - craft.getBonusArmorPoints());
+    // The file lists the points on each facing, the structure's free points among them; on a Primitive craft after the x 0.66.
+    const bought = Math.max(0, (craft.isPrimitive() ? Math.ceil(total / PRIMITIVE_ARMOR_FACTOR - 1e-9) : total) - craft.getBonusArmorPoints());
     craft.setArmorTons(Math.ceil(bought / (craft.getArmorPointsPerTon() ?? 16) * 2 - 1e-9) / 2);
     facings.forEach((facing, index) => craft.setArmorAllocation(facing, armor[index] ?? 0));
 
     // Equipment.
     const techCatalog = clan ? "clan" : "is";
-    const ammoCatalog: IEquipmentItem[] = [...getEquipmentListByTech("is", false), ...getEquipmentListByTech("clan", false)].filter((item) => item.isAmmo);
+    const ammoCatalog = [...getEquipmentRecordsByTech("is"), ...getEquipmentRecordsByTech("clan")].filter((item) => item.isAmmo);
     const mounted: Record<string, IEquipmentItem[]> = Object.create(null);
+    // What the file placed where, by its own names, for its weapon quirk lines; a side's rear half counts as the side.
+    const placed: IBlkImportedItem[] = [];
     const pendingAmmo: string[] = [];
     const pendingFireControl: { name: string; arc: string; rear?: string }[] = [];
-    const pendingLineAmmo: { line: IBlkAmmoLine; raw: string }[] = [];
+    const pendingLineAmmo: { line: IBlkAmmoLine; raw: string; arc: string }[] = [];
     const pendingCapitalAmmo: { tag: string; ar10: boolean; arc: string; shots: number; raw: string }[] = [];
     for (const location of LOCATIONS) {
         for (const rawLine of blkLines(file, location.block)) {
@@ -236,7 +272,10 @@ export const importSmallCraftBlk = (text: string): ISmallCraftBlkResult => {
                 const mount = craft.addCapitalWeapon(capitalWeapon.tag, capitalArc);
                 if (!mount) issues.push(`"${rawLine.trim()}" cannot be mounted on a ${craft.getCraftTypeName()} and was left off.`);
                 // Shots come from the file's ammunition lines, not the 10 a new launcher starts with.
-                else for (const tag of Object.keys(mount.shots)) craft.setCapitalWeaponShots(mount.uuid, tag, 0);
+                else {
+                    for (const tag of Object.keys(mount.shots)) craft.setCapitalWeaponShots(mount.uuid, tag, 0);
+                    placed.push({ name: fileName, location: location.arc, uuid: mount.uuid });
+                }
                 continue;
             }
             const name = lookupName(fileName);
@@ -245,20 +284,26 @@ export const importSmallCraftBlk = (text: string): ISmallCraftBlkResult => {
                 pendingAmmo.push(name);
                 continue;
             }
-            if (FIRE_CONTROL[name]) {
+            // Fire control systems and PPC Capacitors upgrade a weapon in the arc (blk-fire-control); for aerospace
+            // units a capacitor is integral to its PPC (TO:AUE p.131).
+            if (getBlkFireControlSuffix(name)) {
                 pendingFireControl.push({ name, arc: location.arc, rear: location.rear });
                 continue;
             }
             const ammoLine = parseBlkAmmoLine(fileName);
             if (ammoLine) {
-                pendingLineAmmo.push({ line: ammoLine, raw: rawLine.trim() });
+                pendingLineAmmo.push({ line: ammoLine, raw: rawLine.trim(), arc: rear && location.rear ? location.rear : location.arc });
                 continue;
             }
             const pair = EQUIPMENT[name];
             // Names the table does not list go to the catalog's own import names (altNames and altTags).
             const match = pair ? null : findImportedEquipment(fileName, techCatalog, mixed);
             if (match?.item.isAmmo) {
-                if (!craft.addEquipmentFromTag(match.item.tag)) issues.push(`"${rawLine.trim()}" could not be carried and was left off.`);
+                const shots = Number(rawLine.split(":")[1]);
+                const perTon = match.item.roundsPerTon || 0;
+                const bin = craft.addEquipmentFromTag(match.item.tag, rear && location.rear ? location.rear : location.arc);
+                if (!bin) issues.push(`"${rawLine.trim()}" could not be carried and was left off.`);
+                else if (dropShip && shots > 0 && perTon > 0) craft.setAmmoBinTons(bin.uuid, Math.ceil(shots / perTon - 1e-9));
                 continue;
             }
             const tag = pair ? pair[techCatalog === "clan" ? 1 : 0] ?? pair[0] ?? pair[1] : match?.item.tag ?? null;
@@ -269,37 +314,50 @@ export const importSmallCraftBlk = (text: string): ISmallCraftBlkResult => {
                 continue;
             }
             (mounted[name] = mounted[name] ?? []).push(item);
+            if (item.uuid) placed.push({ name: fileName, location: location.arc, uuid: item.uuid });
         }
     }
-    // A fire control system upgrades one launcher in its arc to the catalog's record for the fitted launcher. The
-    // file does not mark the system "(R)" when its launcher faces the rear, so the arc's rear half is searched too.
+    // A fire control system upgrades one launcher in its arc to the catalog's record for the fitted launcher: any
+    // standard LRM, SRM, MML (TM p.207) or MRM the catalog has with the system; a capacitor one PPC. The file does not
+    // mark the system "(R)" when its weapon faces the rear, so the arc's rear half is searched too.
     for (const fireControl of pendingFireControl) {
-        const suffix = FIRE_CONTROL[fireControl.name];
+        const suffix = getBlkFireControlSuffix(fireControl.name)!;
         const launcher = craft.getEquipmentList().find((item) => (item.location === fireControl.arc || (!!fireControl.rear && item.location === fireControl.rear)) && !item.isAmmo
-            && /^(clan-)?(lrm|srm|mrm)-\d+$/.test(item.tag));
-        const upgraded = launcher ? craft.addEquipmentFromTag(launcher.tag + suffix, launcher.location) : null;
+            && !!getBlkFittedTag(item.tag, suffix));
+        const upgradedTag = launcher ? getBlkFittedTag(launcher.tag, suffix) : undefined;
+        const upgraded = launcher && upgradedTag ? craft.addEquipmentFromTag(upgradedTag, launcher.location) : null;
         if (launcher && upgraded) {
             craft.removeEquipment(launcher.uuid ?? "");
             for (const list of Object.values(mounted)) {
                 const index = list.indexOf(launcher);
                 if (index >= 0) list[index] = upgraded;
             }
+            for (const entry of placed) if (entry.uuid === launcher.uuid && upgraded.uuid) entry.uuid = upgraded.uuid;
         } else {
-            issues.push(`A fire control system (${fireControl.name}) had no launcher to fit and was left off.`);
+            issues.push(`A fire control system or capacitor (${fireControl.name}) had no weapon to fit and was left off.`);
         }
     }
     // Ammunition the table above does not list: the line names the weapon it feeds.
-    for (const { line, raw } of pendingLineAmmo) {
+    for (const { line, raw, arc } of pendingLineAmmo) {
         const weapon = findBlkAmmoWeapon(line, craft.getEquipmentList());
         const ammo = weapon ? findBlkAmmo(line, weapon) : undefined;
         // A DropShip line gives its shots after the colon; the bins are whole tons (TM p.194).
         const shots = Number(raw.split(":")[1]);
-        const perTon = weapon?.shotsPerTon || ammo?.roundsPerTon || 0;
+        // An MML's LRM and SRM rounds pack differently: the shots a ton are the weapon's for that round.
+        const perTon = (weapon && ammo ? getWeaponShotsPerTon(weapon, ammo) : 0) || weapon?.shotsPerTon || ammo?.roundsPerTon || 0;
         const tons = dropShip && shots > 0 && perTon > 0 ? Math.ceil(shots / perTon - 1e-9) : 1;
         let added = 0;
-        for (let ton = 0; ammo && ton < tons; ton++) if (craft.addEquipmentFromTag(ammo.tag)) added++;
+        // A DropShip keeps each line as one bin in the bays of its arc (TM p.195); other craft carry a ton an item.
+        if (ammo && dropShip) {
+            const bin = craft.addEquipmentFromTag(ammo.tag, arc);
+            // One kind of round may feed launchers of several sizes in a bay: the bin keeps the one its line names.
+            if (bin && weapon) bin.feedsWeaponTag = weapon.tag;
+            // The mass rounds up to the whole ton; the bin keeps the rounds the line gives (TM p.194).
+            if (bin) added = (shots > 0 ? craft.setAmmoBinCarriedShots(bin.uuid, shots) : 0) || craft.setAmmoBinTons(bin.uuid, tons) || 1;
+        }
+        else for (let ton = 0; ammo && ton < tons; ton++) if (craft.addEquipmentFromTag(ammo.tag, arc)) added++;
         if (!ammo || added === 0) issues.push(`Ammunition "${raw}" has no weapon or no match in this catalog and was left off.`);
-        else if (line.half) notes.push(`"${raw}" is a half-ton bin; carried as a full ton.`);
+        else if (line.half && !dropShip) notes.push(`"${raw}" is a half-ton bin; carried as a full ton.`);
     }
     // Capital ammunition goes to a launcher that fires it, one in the same arc first; an "AR10" line to an AR-10.
     for (const ammo of pendingCapitalAmmo) {
@@ -380,5 +438,15 @@ export const importSmallCraftBlk = (text: string): ISmallCraftBlkResult => {
     craft.setPassengers(passengers);
     craft.setLifeBoats(numberOf(file, "life_boat"));
     craft.setEscapePods(numberOf(file, "escape_pod"));
+    // A bay quirk line names the bay by its class; a side's rear half counts as the side, as for weapons.
+    for (const arc of SMALL_CRAFT_ARCS) {
+        const side = arc === "leftAft" ? "left" : arc === "rightAft" ? "right" : arc;
+        for (const bay of craft.getArcWeaponBays(arc)) {
+            const names = MEGAMEK_BAY_NAMES[bay.name] ?? [`${bay.name} Bay`];
+            if (bay.uuids[0]) for (const name of names) placed.push({ name, location: side, uuid: bay.uuids[0] });
+        }
+    }
+    applyBlkQuirks(file, craft, placed, issues, (abbr) => BLK_ARCS[abbr.toUpperCase()]);
+    craft.tro.import(readBlkTechnicalReadout(file));
     return { craft, issues, notes };
 };

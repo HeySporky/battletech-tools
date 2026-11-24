@@ -1,7 +1,8 @@
 import { generateUUID } from "../utils/generateUUID";
+import { getEWarKind, normalizeEWarPlay, type IEWarGear, type IEWarPlayState } from "../utils/ewar-play";
+import { copyCatalogRecord, findUnitCatalogRecord } from "../data/equipment-lookup";
 import { BattledroidsArmorLocation, IBattledroidsUnitDesign, IBattledroidsUnitKind, battledroidsUnitDesigns, battledroidsUnitKinds, getBattledroidsTankHitLocation } from "../data/battledroids-units";
 import { IEquipmentItem } from "../data/data-interfaces";
-import { getEquipmentListByTech } from "../data/equipment-registry";
 import { getEditionStats, getEquipmentForEdition } from "../data/rules-editions";
 
 // The tanks, jeeps and infantry squads of Expert Battledroids in play (BD pp.22-23): fixed designs, their damage and their shots.
@@ -38,6 +39,7 @@ export interface IBattledroidsUnitExport {
         firing?: boolean;
         shotsFired?: number[];
     };
+    ewarPlay?: IEWarPlayState;
 }
 
 interface IInPlay {
@@ -74,6 +76,8 @@ export default class BattledroidsUnit {
     private _name: string = "";
     private _gunnery: number = BATTLEDROIDS_DEFAULT_GUNNERY;
     private _inPlay: IInPlay = newInPlay();
+    /** What the unit has switched on, been hit by or been told by the force board in E-War play (#642). */
+    public ewarPlay: IEWarPlayState = {};
 
     constructor(designOrJSON: string = "") {
         if (findBattledroidsUnitDesign(designOrJSON)) {
@@ -113,10 +117,11 @@ export default class BattledroidsUnit {
     // Weapons
 
     private _findWeapon(tag: string): IEquipmentItem | undefined {
-        const record = getEquipmentListByTech("is", false).find((item) => item.tag === tag);
+        const record = findUnitCatalogRecord("is", tag, { otherTechBase: false, includeCustom: false });
         if (!record) return undefined;
-        // The stats and the name the Battledroids Weapons Table prints (BD p.20).
-        return { ...getEquipmentForEdition(record, "battledroids"), name: getEditionStats(record, "battledroids")?.name ?? record.name };
+        // The stats and the name the Battledroids Weapons Table prints (BD p.20), in a copy that shares nothing with the catalog.
+        const weapon = copyCatalogRecord(getEquipmentForEdition(record, "battledroids"));
+        return { ...weapon, name: getEditionStats(record, "battledroids")?.name ?? record.name };
     }
 
     /** The weapons as the design carries them, one entry for each kind. */
@@ -139,7 +144,7 @@ export default class BattledroidsUnit {
                     arc: weapon.arc,
                     shots: weapon.shots,
                     shotsLeft: weapon.shots - fired,
-                    damage: item ? String(item.damage) : "",
+                    damage: !item ? "" : item.damagePerCluster ? `${item.damagePerCluster}/Msl` : String(item.damage),
                     range: {
                         min: item?.range?.min ?? 0,
                         short: item?.range?.short ?? 0,
@@ -253,7 +258,22 @@ export default class BattledroidsUnit {
         return log;
     }
 
-    public resetInPlay(): void { this._inPlay = newInPlay(); }
+    public resetInPlay(): void { this._inPlay = newInPlay(); this.ewarPlay = {}; }
+
+    /** The rules edition a Battledroids unit plays under: always the 1984 boxed game. */
+    public getRulesEdition(): string { return "battledroids"; }
+    /**
+     * The E-War gear of the design (#642): the printed designs carry only weapons, so this is empty unless a weapon tag
+     * classifies. A design has no per-item damage state, so destroyed is always false.
+     */
+    public getEWarGear(): IEWarGear[] {
+        const gear: IEWarGear[] = [];
+        for (const weapon of this._design.weapons) {
+            const kind = getEWarKind(weapon.tag);
+            if (kind) gear.push({ kind, tag: weapon.tag, name: this._findWeapon(weapon.tag)?.name ?? weapon.tag, location: weapon.arc, destroyed: false });
+        }
+        return gear;
+    }
 
     // Saving
 
@@ -265,6 +285,7 @@ export default class BattledroidsUnit {
             design: this._design.tag,
             name: this._name,
             gunnery: this._gunnery,
+            ...(!noInPlayVariables && Object.keys(this.ewarPlay).length ? { ewarPlay: JSON.parse(JSON.stringify(this.ewarPlay)) as IEWarPlayState } : {}),
             ...(noInPlayVariables || !used ? {} : {
                 inPlay: {
                     armorDamage: { ...inPlay.armorDamage },
@@ -298,6 +319,7 @@ export default class BattledroidsUnit {
         this.setName(typeof data.name === "string" ? data.name : "");
         this.setGunnery(typeof data.gunnery === "number" ? data.gunnery : BATTLEDROIDS_DEFAULT_GUNNERY);
         this._inPlay = newInPlay();
+        this.ewarPlay = normalizeEWarPlay(data.ewarPlay);
         const saved = data.inPlay && typeof data.inPlay === "object" && !Array.isArray(data.inPlay) ? data.inPlay as Record<string, unknown> : null;
         if (saved) {
             const armorDamage = saved.armorDamage && typeof saved.armorDamage === "object" ? saved.armorDamage as Record<string, unknown> : {};

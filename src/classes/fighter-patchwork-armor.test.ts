@@ -55,10 +55,13 @@ describe("Patchwork Armor on fighters (TO:AUE pp.188-189)", () => {
     });
 
     it("prices each arc's armor at its own type's cost per ton", () => {
-        const log = patchworkFighter().getCBillCostLog();
-        expect(log).toContain("Armor, Nose (Ferro-Aluminum, 4.5 t)");
-        expect(log).toContain("Armor, Left Wing (Heavy Ferro-Aluminum, 3.5 t)");
-        expect(log).toContain("Armor, Right Wing (Standard Armor (Aerospace), 4 t)");
+        const arcs = patchworkFighter().getCostBreakdown().steps.filter((step) => step.id === "af.cost.armor.patchwork");
+        expect(arcs.map((step) => [step.label, step.detail, step.value])).toEqual([
+            ["Armor, Nose (Ferro-Aluminum)", "20,000 x 4.5 tons", 90000],
+            ["Armor, Left Wing (Heavy Ferro-Aluminum)", "25,000 x 3.5 tons", 87500],
+            ["Armor, Right Wing (Standard Armor (Aerospace))", "10,000 x 4 tons", 40000],
+            ["Armor, Aft (Light Ferro-Aluminum)", "15,000 x 2.5 tons", 37500],
+        ]);
     });
 
     it("offers a Clan fighter only the Clan armor the table lists", () => {

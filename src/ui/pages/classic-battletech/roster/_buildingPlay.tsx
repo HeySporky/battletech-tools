@@ -159,7 +159,7 @@ export default class BuildingPlayPanel extends React.Component<IBuildingPlayPane
                             {hexMounts.length > 0 ? (
                                 <table className="table" data-testid="building-play-equipment">
                                     <thead>
-                                        <tr><th>Item</th><th>Heat</th><th>Damage</th><th>Min</th><th>Short</th><th>Medium</th><th>Long</th><th>Status</th><th></th></tr>
+                                        <tr><th>Item</th><th>Heat</th><th>Damage</th><th>Min</th><th>Short</th><th>Medium</th><th>Long</th><th>Status</th><th><span className="visually-hidden">Actions</span></th></tr>
                                     </thead>
                                     <tbody>
                                         {hexMounts.map((mount) => {
@@ -212,7 +212,7 @@ export default class BuildingPlayPanel extends React.Component<IBuildingPlayPane
                             {building.getLightWeapons().some((mount) => mount.hex === hex) ? (
                                 <table className="table" data-testid="building-play-light-weapons">
                                     <thead>
-                                        <tr><th>Light or Medium Weapon</th><th>Damage</th><th>Short</th><th>Medium</th><th>Long</th><th>Shots Left</th><th>Status</th><th></th></tr>
+                                        <tr><th>Light or Medium Weapon</th><th>Damage</th><th>Short</th><th>Medium</th><th>Long</th><th>Shots Left</th><th>Status</th><th><span className="visually-hidden">Actions</span></th></tr>
                                     </thead>
                                     <tbody>
                                         {building.getLightWeapons().filter((mount) => mount.hex === hex).map((mount) => {

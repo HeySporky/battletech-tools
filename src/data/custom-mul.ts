@@ -1,5 +1,6 @@
 import type { IASMULUnit } from "../classes/alpha-strike-unit";
 import { generateUUID } from "../utils/generateUUID";
+import { stringifyTable, untabulate } from "../utils/packed-json";
 
 // Curated non-canonical units live in src/data/mul/custom/custom-units.json (the shared list). The
 // developer-menu Custom MUL Editor (/custom-mul-editor) saves new entries in the browser first
@@ -21,6 +22,8 @@ export const CUSTOM_UNIT_TYPES: { name: string; typeId: number; bfType: string }
     { name: "Infantry", typeId: 21, bfType: "CI" },
     { name: "Fighter Craft", typeId: 17, bfType: "AF" },
     { name: "Aerospace Craft", typeId: 17, bfType: "AF" },
+    // Not a MUL type: the MUL lists no buildings. Type id 0 keeps them out of the Classic roster's unit kinds.
+    { name: "Emplacement", typeId: 0, bfType: "BD" },
 ];
 
 export const CUSTOM_TECHNOLOGIES: { name: string; id: number }[] = [
@@ -182,7 +185,8 @@ export function validateCustomMULForm(form: ICustomMULForm, context: ICustomMULV
     }
     requireInt("Battle Value", form.battleValue || "0", 0, 1_000_000);
     requireInt("Point Value", form.pointValue, 1, 1000);
-    requireInt("Size", form.size, 1, 4);
+    // An emplacement card prints SZ "-", kept as 0.
+    requireInt("Size", form.size, form.unitType === "Emplacement" ? 0 : 1, 4);
     requireInt("TMM", form.tmm, 0, 5);
     requireInt("Armor", form.armor, 0, 200);
     requireInt("Structure", form.structure, 1, 200);
@@ -311,19 +315,34 @@ export function toSharedCustomMULRecord(record: IASMULUnit): IASMULUnit {
     return shared;
 }
 
-// Stable, review-friendly file contents: sorted by name/variant, loader/browser-only fields stripped.
+// Stable, review-friendly file contents: sorted by name/variant, loader/browser-only fields stripped, stored as a
+// table (packed-json.ts) with one record a line.
 export function serializeCustomMULRecords(records: IASMULUnit[]): string {
     const sorted = records
         .map(toSharedCustomMULRecord)
         .sort((a, b) => mulIdentity(a.Name, a.Variant).localeCompare(mulIdentity(b.Name, b.Variant)));
-    return `${JSON.stringify(sorted, null, 2)}\n`;
+    return stringifyTable(sorted);
 }
 
-// Adds or replaces (by MulUnitKey) `entries` in the shared list's current file text. An entry whose
-// Id is already used by a different unit (someone else's entry merged since this one was created)
-// gets the next free Id. Returns the new file text.
+// What makes two fan-made entries the same unit: name, variant and game values, whoever entered them and whatever Id
+// and key each was given.
+function customMULContent(record: IASMULUnit): string {
+    const keys = Object.keys(record).filter((key) => !["Id", "MulUnitKey", "CustomInfo", "MulSource"].includes(key)).sort();
+    return mulIdentity(record.Name, record.Variant) + "\u001f" + JSON.stringify(keys.map((key) => [key, record[key as keyof IASMULUnit]]));
+}
+
+/** Whether `entry` is the same unit as a record under another key: two people entering it and sharing it (#241). */
+export function isDuplicateCustomMULEntry(entry: IASMULUnit, records: IASMULUnit[]): boolean {
+    const content = customMULContent(entry);
+    return records.some((record) => record.MulUnitKey !== entry.MulUnitKey && customMULContent(record) === content);
+}
+
+// Adds or replaces (by MulUnitKey) `entries` in the shared list's current file text. An entry is first checked for a
+// duplicate of a unit already listed under another key, and left out if it is one; then an entry whose Id is already
+// used by a different unit (someone else's entry merged since this one was created) gets the next free Id. Returns
+// the new file text.
 export function mergeCustomMULEntries(currentFileText: string | null, entries: IASMULUnit[]): string {
-    const parsed = currentFileText ? JSON.parse(currentFileText) : [];
+    const parsed = currentFileText ? untabulate(JSON.parse(currentFileText)) : [];
     const records: IASMULUnit[] = Array.isArray(parsed) ? parsed : [];
 
     for (const entry of entries.map(toSharedCustomMULRecord)) {
@@ -332,9 +351,27 @@ export function mergeCustomMULEntries(currentFileText: string | null, entries: I
             records[index] = { ...entry, Id: records[index].Id };
             continue;
         }
+        if (isDuplicateCustomMULEntry(entry, records)) continue;
         const idTaken = records.some((record) => record.Id === entry.Id);
         records.push(idTaken ? { ...entry, Id: nextCustomMULId(records) } : entry);
     }
 
     return serializeCustomMULRecords(records);
+}
+
+/**
+ * This browser's own entries beside the shared list: a duplicate of a shared unit is left out of `shown`, and an
+ * entry whose Id a different shared unit has since taken gets the next Id free in this browser. `records` is every
+ * local entry, Ids corrected, for saving back; `changed` says whether an Id moved.
+ */
+export function reconcileLocalCustomMUL(local: IASMULUnit[], shared: IASMULUnit[]): { records: IASMULUnit[]; shown: IASMULUnit[]; changed: boolean } {
+    const records: IASMULUnit[] = [];
+    let changed = false;
+    for (const entry of local) {
+        const clash = shared.some((record) => record.Id === entry.Id && record.MulUnitKey !== entry.MulUnitKey)
+            || records.some((record) => record.Id === entry.Id);
+        changed ||= clash;
+        records.push(clash ? { ...entry, Id: nextCustomMULId([...shared, ...local, ...records]) } : entry);
+    }
+    return { records, shown: records.filter((entry) => !isDuplicateCustomMULEntry(entry, shared)), changed };
 }

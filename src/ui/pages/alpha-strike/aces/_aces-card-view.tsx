@@ -6,11 +6,12 @@ import {
     IAcesBehaviorColumn,
     IAcesCard,
     IAcesCommandCard,
+    IAcesEdgeCard,
     IAcesPriorityRule,
     IAcesScenario,
     IAcesSpecialOrder,
 } from '../../../../data/aces-cards';
-import { acesBehaviorLabel } from '../../../../classes/aces-engine';
+import { acesBehaviorLabel, isAcesNoOrder } from '../../../../classes/aces-engine';
 import AcesText from './_aces-text';
 
 /*
@@ -36,18 +37,19 @@ export const AcesRuleList = ( props: { rules: IAcesPriorityRule[], numbered?: bo
 
 export const AcesColumnView = ( props: { title: string, column: IAcesBehaviorColumn } ): JSX.Element => {
     const column = props.column;
+    // The target row in card order: range or line-of-sight icon, then moved, then nearest or the list.
     const chips: string[] = [];
     if( column.targetInAttackRange ) chips.push( "⌖ in attack range" );
+    if( column.targetInLOS ) chips.push( "👁 in line of sight" );
+    if( column.targetNoLOS ) chips.push( "⊘ out of line of sight" );
     if( column.targetMoved ) chips.push( "✔ moved" );
     if( column.targetSelect ) chips.push( column.targetSelect === "nearest" ? "nearest" : column.targetSelect.toUpperCase() + " list" );
     return (
         <div className="aces-card-column">
             <h5>{props.title}</h5>
             {column.condition ? <p className="aces-condition"><AcesText text={column.condition} /></p> : null}
-            <p>
-                <strong>Zone:</strong> {zoneText( column.zoneRings, column.zoneKeyword ) || "-"}
-                {chips.length > 0 ? <> · {chips.join( ", " )}</> : null}
-            </p>
+            <p><strong>Zone:</strong> {zoneText( column.zoneRings, column.zoneKeyword ) || "-"}</p>
+            {chips.length > 0 ? <p><strong>Target:</strong> {chips.join( ", " )}</p> : null}
             <p>
                 <strong>Move:</strong> {moveLabels[column.moveType]}
                 {column.altMoveType ? <> ({moveLabels[column.altMoveType]} <AcesText text={column.altMoveWhen} />)</> : null}
@@ -77,6 +79,7 @@ export const AcesCardView = ( props: { card: IAcesCard } ): JSX.Element => {
                 <h5>Combat <span className="aces-priority">{card.combatPriority === null ? "---" : String( card.combatPriority ).padStart( 3, "0" )}</span></h5>
                 <p><strong>Zone:</strong> {zoneText( card.combat.zoneRings, card.combat.zoneKeyword ) || "-"}</p>
                 <AcesRuleList rules={card.combat.filters} />
+                {card.combat.indirectIfNoLOS ? <p>If there are no enemies in 👁 line of sight: use the Indirect Fire special order card.</p> : null}
                 {card.combat.overheat.length > 0 ? (
                     <>
                         <strong>Overheat</strong>
@@ -92,6 +95,7 @@ export const AcesCardView = ( props: { card: IAcesCard } ): JSX.Element => {
 
 export const AcesCommandCardView = ( props: { card: IAcesCommandCard } ): JSX.Element => {
     const card = props.card;
+    const orders = card.orders.filter( ( order ) => !isAcesNoOrder( order.text ) );
     return (
         <div className="aces-card-view">
             <div className="aces-card-head">
@@ -99,17 +103,17 @@ export const AcesCommandCardView = ( props: { card: IAcesCommandCard } ): JSX.El
                 <span className="aces-priority">{card.letter}</span>
                 {card.sample ? <span className="aces-muted"> sample</span> : null}
             </div>
-            {card.orders.length > 0 ? (
-                <ul>{card.orders.map( ( order, index ) => <li key={index}><em>{order.phase}:</em> <AcesText text={order.text} /></li> )}</ul>
+            {orders.length > 0 ? (
+                <ul>{orders.map( ( order, index ) => <li key={index}><em>{order.phase}:</em> <AcesText text={order.text} />{order.filter ? <> <AcesText text={order.filter} /></> : null}</li> )}</ul>
             ) : null}
             <div className="aces-card-columns">
                 <div className="aces-card-column aces-red"><h5>Red</h5><AcesRuleList rules={card.red} /></div>
                 <div className="aces-card-column aces-yellow"><h5>Yellow</h5><AcesRuleList rules={card.yellow} /></div>
                 <div className="aces-card-column aces-blue"><h5>Blue</h5><AcesRuleList rules={card.blue} /></div>
             </div>
-            {card.supportOrders || card.emplacements.length > 0 || card.artillery.length > 0 || card.bsp.length > 0 ? (
+            {card.supportOrders ? <p className="aces-condition"><AcesText text={card.supportOrders} /></p> : null}
+            {card.emplacements.length > 0 || card.artillery.length > 0 || card.bsp.length > 0 ? (
                 <div className="aces-card-columns">
-                    {card.supportOrders ? <p className="aces-condition">{card.supportOrders}</p> : null}
                     {card.emplacements.length > 0 ? (
                         <div className="aces-card-column"><h5>Emplacements {formatAcesZone( card.emplacementZoneRings, "" ) ? "(" + zoneText( card.emplacementZoneRings, "" ) + ")" : ""}</h5><AcesRuleList rules={card.emplacements} /></div>
                     ) : null}
@@ -148,6 +152,28 @@ export const AcesSpecialOrderView = ( props: { order: IAcesSpecialOrder } ): JSX
             ) : null}
             {order.source ? <p className="aces-muted">{order.source.book} p.{order.source.page}</p> : null}
             {order.notes ? <p className="aces-muted">{order.notes}</p> : null}
+        </div>
+    );
+}
+
+const edgePhaseLabels: { [key: string]: string } = { initiative: "Initiative", movement: "Movement", combat: "Combat", end: "End", any: "Any phase" };
+const edgeTriggerLabels: { [key: string]: string } = { moving: "Moving", attacking: "Attacking", attacked: "Being attacked", "critical-hit": "Critical hit", "enemy-rear": "Enemy in the rear", damaged: "Damaged", other: "Other" };
+
+export const AcesEdgeCardView = ( props: { card: IAcesEdgeCard } ): JSX.Element => {
+    const card = props.card;
+    const timing = [ edgePhaseLabels[card.phase] || "", edgeTriggerLabels[card.trigger] || "" ].filter( ( item ) => item ).join( " · " );
+    return (
+        <div className="aces-card-view">
+            <div className="aces-card-head">
+                <strong>{card.name || "Edge card?"}</strong> {card.cardNumber}
+                {card.cost !== null ? <span className="aces-priority">{card.cost} Edge</span> : null}
+                {card.sample ? <span className="aces-muted"> sample</span> : null}
+            </div>
+            {card.category || timing ? <p className="aces-muted">{[ card.category, timing ].filter( ( item ) => item ).join( " · " )}</p> : null}
+            {card.condition ? <p><em><AcesText text={card.condition} /></em></p> : null}
+            {card.text ? <p><AcesText text={card.text} /></p> : null}
+            {card.source ? <p className="aces-muted">{card.source.book} p.{card.source.page}</p> : null}
+            {card.notes ? <p className="aces-muted">{card.notes}</p> : null}
         </div>
     );
 }

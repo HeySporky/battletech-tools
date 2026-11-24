@@ -52,6 +52,9 @@ export default class InputNumeric extends React.Component<IInputNumericProps, II
         let label = "";
         if( this.props.label && this.props.label.trim() )
             label = this.props.label;
+        // Without label text of its own, a <label> here would steal the input from a <label> around it, leaving the input
+        // unnamed; a span lets the outer label (or the title) name it.
+        const Wrapper: "label" | "span" = label ? "label" : "span";
 
         if(
             typeof(this.props.min) !== "undefined"
@@ -61,7 +64,7 @@ export default class InputNumeric extends React.Component<IInputNumericProps, II
             this.props.step === 1
         ) {
             return (
-                <label title={this.props.title} className={this.props.className}>
+                <Wrapper title={this.props.title} className={this.props.className}>
 
                     {label ? (
                         <><strong>{label}</strong>:
@@ -89,6 +92,7 @@ export default class InputNumeric extends React.Component<IInputNumericProps, II
                         value={this.props.value}
                         name={this.props.name}
                         title={this.props.title}
+                        aria-label={this.props.ariaLabel}
                         onFocus={this.onSelectFocus}
                         onBlur={this.onSelectBlur}
                         className={this.props.inline ? "auto-width" : ""}
@@ -110,11 +114,11 @@ export default class InputNumeric extends React.Component<IInputNumericProps, II
                             {this.props.children}
                         </div>
                     ) : ( <></> )}
-                </label>
+                </Wrapper>
             )
         } else {
             return (
-                <label title={this.props.title} className={this.props.className}>
+                <Wrapper title={this.props.title} className={this.props.className}>
                     {label ? (
                         <><strong>{label}</strong>:
                         {this.props.inline ? <>&nbsp;</> : <br />}
@@ -135,6 +139,7 @@ export default class InputNumeric extends React.Component<IInputNumericProps, II
                         type="number"
                         name={this.props.name}
                         title={this.props.title}
+                        aria-label={this.props.ariaLabel}
                         autoFocus={this.props.autoFocus}
                         onChange={this.onInputChange}
                         value={this.props.value}
@@ -157,7 +162,7 @@ export default class InputNumeric extends React.Component<IInputNumericProps, II
                             {this.props.children}
                         </div>
                     ) : ( <></> )}
-                </label>
+                </Wrapper>
 
             )
         }
@@ -173,6 +178,8 @@ interface IInputNumericProps {
     description?: string;
     name?: string;
     title?: string;
+    // Names the control where no label text is shown, as in a table cell under a column heading.
+    ariaLabel?: string;
     inline?: boolean;
     className?: string;
     inputClassName?: string;

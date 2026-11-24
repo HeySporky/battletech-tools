@@ -1,8 +1,10 @@
-import { FaSave, FaTimesCircle } from "react-icons/fa";
+import { FaPrint, FaSave, FaTimesCircle } from "react-icons/fa";
 import * as React from 'react';
 import { Modal } from 'react-bootstrap';
 import InputCheckbox from './form_elements/input_checkbox';
+import { printModalContents } from './print-modal';
 import type { JSX } from "react";
+const PrintIcon = FaPrint as any;
 const SaveIcon = FaSave as any;
 const TimesCircleIcon = FaTimesCircle as any;
 
@@ -24,7 +26,7 @@ export default class StandardModal extends React.Component<IStandardModalProps, 
             labelSaveAsNew = this.props.labelSaveAsNew;
 
         let closeClass = "btn btn-secondary";
-        let addClass  = "btn btn-primary";
+        const addClass  = "btn btn-primary";
         if( !this.props.onAdd && !this.props.onSave && !this.props.onSaveAsNew ) {
             closeClass = addClass
         }
@@ -45,6 +47,19 @@ export default class StandardModal extends React.Component<IStandardModalProps, 
             {this.props.topButton}
 
             <div className="text-right no-wrap">
+            {this.props.printable ? (
+                <>
+                &nbsp;
+            <button
+                onClick={(e) => printModalContents( e.currentTarget )}
+                className="btn btn-secondary"
+                title="Print"
+            >
+                <PrintIcon />
+            </button>
+
+                </>
+            ) : null}
             {this.props.onClose ? (
                 <>
                 &nbsp;
@@ -165,6 +180,8 @@ interface IStandardModalProps {
     onSave?( e: React.FormEvent<HTMLButtonElement> ): void;
     onAdd?( e: React.FormEvent<HTMLButtonElement> ): void;
     onSaveAsNew?( e: React.FormEvent<HTMLButtonElement> ): void;
+    /** Adds a Print button that prints the modal's contents alone (#372). */
+    printable?: boolean;
 
     labelAdd?: string;
     labelClose?: string;

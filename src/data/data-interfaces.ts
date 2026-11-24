@@ -36,14 +36,44 @@ export interface IEditionStats {
     /** Artillery: damage to each hex adjacent to the target hex. */
     damageAdjacent?: number;
     range?: { min: number; short: number; medium: number; long: number };
+    /** Capital and sub-capital weapons: the range bracket (ICapitalWeapon.range). */
+    rangeBracket?: "short" | "medium" | "long" | "extreme";
+    /** Capital and sub-capital weapons: tons of one shot (a missile's own weight). */
+    tonsPerShot?: number;
+    /** Capital and sub-capital weapons: the ammunition price, by the unit the record's ammo.cbillsPer says. */
+    ammoCbills?: number;
+    /**
+     * BattleSpace's Maintenance Point Value (Master Weapons Table pp.70-71), the upkeep its campaign rules charge
+     * (pp.57-58). Not a combat value: BattleSpace has no Battle Value.
+     */
+    maintenancePointValue?: number;
     /** Artillery: maximum range in mapsheets. */
     rangeMapsheets?: number;
     /** Tons. */
     weight?: number;
     criticals?: number;
+    /**
+     * A universal record whose book prints the Clan version apart: the Clan figures where they differ from the fields
+     * above (Maximum Tech pp.85-86 Angel ECM). getEquipmentForEdition applies them for a unit of the Clan technology
+     * base (a pure Clan 'Mech); a Mixed Tech unit picks the Clan entry equipment-registry.ts derives from it (tag: the record's clan- alias).
+     */
+    clan?: { weight?: number; criticals?: number; cbills?: number };
+    /**
+     * A universal record the edition prints for the Inner Sphere only (Maximum Tech's heavy flamer and artillery cannons are on
+     * its Inner Sphere tables alone, pp.85-86, 116-118): a pure Clan unit is not offered it there. Mixed Tech still is (MT p.57).
+     */
+    innerSphereOnly?: true;
     shotsPerTon?: number;
     /** Price in C-bills; for ammunition, the price of a ton. */
     cbills?: number;
+    /** Battle Value (BV1 in the Master Rules), and a weapon's ammo BV per ton, as the edition's table prints them. */
+    battleValue?: number;
+    ammoBattleValue?: number;
+    /**
+     * The edition prints no Battle Value for the item: `battleValue` and `ammoBattleValue` above are inferred, and this says how
+     * (NGCFells ruling D14: the 1998 Master Rules' Clan ATMs carry BMR(R)'s figures back). The BV1 log marks the step inferred.
+     */
+    battleValueInferred?: string;
     /** Jump jets: tons per jump movement point for 'Mechs up to each tonnage. */
     weightByTonnage?: { upTo: number; tons: number }[];
     /**
@@ -67,8 +97,8 @@ export interface IEditionStats {
 }
 
 /**
- * A record's history through the rules editions before the one the catalogs cite. One key per edition that
- * includes the record (tags from rules-editions.ts): the stats that edition prints, or `null` when they are the
+ * A record's stats in the rules editions before the one the catalogs cite. One key per earlier edition in the
+ * record's `editions` (tags from rules-editions.ts): the stats that edition prints, or `null` when they are the
  * same as in the previous edition that lists the record. A record's first edition is never `null`.
  */
 export type IEditionStatsTable = { [editionTag: string]: IEditionStats | null };
@@ -82,9 +112,31 @@ export interface IEditionHistory {
      * the rulebook, keyed by edition tag.
      */
     apocryphalIn?: { [editionTag: string]: { source: string; notes: string } };
+    /**
+     * Every edition the record is canon in, empty when never canon: the source of each edition's contents. Optional in
+     * the type; catalog-editions.test.ts requires it on official records.
+     */
+    editions?: string[];
+    /** Level of rules in each edition this record is canon in. */
+    editionLevels?: { [editionTag: string]: number };
 }
 
-export interface IArmorType extends IEditionHistory {
+export type CatalogTechBase = "is" | "clan" | "universal";
+
+/** The standing every catalog record carries (design 2026-10-24-catalog-consolidation §1). */
+export interface ICatalogStanding extends IEditionHistory {
+    tag: string;
+    name: string;
+    /** Earlier tags for this record, so old saves still resolve (see tag-match.ts). */
+    altTags?: string[];
+    techBase?: CatalogTechBase;
+    /** Clan dates where they differ from the record's own (Inner Sphere or universal) dates. */
+    clanDates?: ITechDates;
+    rulesLevel?: number;
+    book?: string;
+}
+
+export interface IArmorType extends ICatalogStanding {
 	tag: string;
 	/** Earlier tags for this record, so old saves still resolve (see tag-match.ts). */
 	altTags?: string[];
@@ -119,6 +171,9 @@ export interface IArmorType extends IEditionHistory {
     book?: string;
     page?: number | null;
     notes?: string;
+    /** In-character Technical Readout text, and how it plays (custom records). */
+    lore?: string;
+    rules?: string;
     critLocs?: ArmorCriticalLocationsByChassis;
     /**
      * Patchwork Armor: the critical slots this armor takes in each 'Mech location that carries it, and its
@@ -170,7 +225,7 @@ export interface ICriticalLocations {
     frl?: number,
 }
 
-export interface IEngineType extends IEditionHistory {
+export interface IEngineType extends ICatalogStanding {
 	tag: string;
 	/** Earlier tags for this record, so old saves still resolve (see tag-match.ts). */
 	altTags?: string[];
@@ -199,6 +254,11 @@ export interface IEngineType extends IEditionHistory {
     page?: number;
     /** Large engine records only: tag of the engine type this is the over-400 form of. */
     largeOf?: string;
+    /** Source, credit and anything not printed (custom records). */
+    notes?: string;
+    /** In-character Technical Readout text, and how it plays (custom records). */
+    lore?: string;
+    rules?: string;
 }
 
 export interface IDamagePerRange {
@@ -232,25 +292,85 @@ export interface ISplitLocation {
 }
 
 export interface IAmmoProfile {
-    damagePerMissile: number;
+    /** Damage of each missile or cluster; absent for a round that changes the weapon's reach, not its damage. */
+    damagePerMissile?: number;
     range: IRangeNumbers;
-    alphaStrikeDamage: {
+    alphaStrikeDamage?: {
         short: number;
         medium: number;
         long: number;
         extreme: number;
     };
+    /** Heat the weapon makes on top of its own when it fires from this bin (Boosted Autocannon Rounds, #641). */
+    extraHeat?: number;
 }
 
 /** An engine an item needs (`IEquipmentItem.requiresEngine`). */
 export type EngineRequirement = "fusion" | "fusion-or-fission" | "ice-or-fuel-cell";
 
-export interface IEquipmentItem {
+/** The 'Mech locations a spread item's slots go in (see IEquipmentItem.spreadLocations). */
+export type SpreadLocations = "all" | "all-but-head" | "limbs-and-side-torsos" | "legs" | "side-torsos" | "torsos" | "one-side";
+
+/**
+ * A Best of Future Wars (1991) item that changes another (#172): a weapon converted to rapid fire (Pom-Pom) or a swivel
+ * (Swing Fire), or a Power Booster hooked to a weapon, the legs or the jump jets. Play reads it; construction uses the
+ * record's own stats.
+ */
+export interface IEquipmentConversion {
+    kind: "pom-pom" | "swing-fire" | "power-booster";
+    /** The canon weapon the record is built from. */
+    baseTag?: string;
+    /** Pom-Pom: shots a turn, each rolled on its own. */
+    shotsPerTurn?: number;
+    /** Pom-Pom: rolls on the weapons malfunction table, the worse taken. */
+    malfunctionRolls?: number;
+    /** Swing Fire: how far the rack turns. */
+    arcDegrees?: number;
+    booster?: {
+        target: "weapon" | "running" | "jumping";
+        extraHeat?: number;
+        extraDamage?: number;
+        extraDamagePerHit?: number;
+        addedRange?: number;
+        extraRunMP?: number;
+        runHeatPerHex?: number;
+        jumpMultiplier?: number;
+        jumpHeatMultiplier?: number;
+    };
+}
+
+/**
+ * The fixed list of reasons a Custom Homebrew, Munchkin or unresolved record has no Alpha Strike conversion
+ * (#647 spec, "The rule this enforces").
+ */
+export type AlphaStrikeNoConversionReason =
+    | "standard-ammunition"
+    | "feeds-special"
+    | "carried-by-linked-weapons"
+    | "carried-by-weapon"
+    | "explosive-component-only"
+    | "no-alpha-strike-rule"
+    | "no-alpha-strike-munition";
+
+export interface IEquipmentItem extends ICatalogStanding {
+    conversion?: IEquipmentConversion;
+    /** Ammunition whose explosion the source sets per shot, in place of the weapon's damage (VHE Gauss shell: 30). */
+    explosionDamagePerShot?: number;
     catalog?: "is" | "clan" | "custom" | "universal";
+    /**
+     * Tech base of the record itself: Inner Sphere, Clan, or universal (identical for both). Stated on every bundled
+     * record so that catalogs can hold both tech bases in one file. `catalog` says which list an item came from at
+     * run time (including "custom"); this does not change with the list.
+     */
+    techBase?: "is" | "clan" | "universal";
     /** First rules edition that includes this item (a tag from rules-editions.ts); the default edition when absent. */
     introducedInEdition?: string;
     /** Stats in each earlier rules edition that includes this record; see IEditionStatsTable. */
     editionStats?: IEditionStatsTable;
+    /** Every edition the item is canon in, empty when never canon (see IEditionHistory). */
+    editions?: string[];
+    /** Level of rules in each edition this item is canon in. */
+    editionLevels?: { [editionTag: string]: number };
     metadata?: IEquipmentMetadata;
     split_location?: ISplitLocation[];
     isRotary?: boolean;
@@ -269,7 +389,12 @@ export interface IEquipmentItem {
     count?: number;
     allocationIndex?: number;
     allocationLocation?: string;
+    /** Source and credit line ("Inspired by ..."), plus anything not printed. */
     notes?: string;
+    /** In-character Technical Readout text: who builds it, where it is fielded, how it came about. */
+    lore?: string;
+    /** Out-of-character play text: how the item works at the table. */
+    rules?: string;
     target?: string;
     name: string;
     isEquipment?: boolean;
@@ -294,6 +419,15 @@ export interface IEquipmentItem {
     damageClusters?: number;
     ammoPerShot?: number;
     ammoTypes?: string[];
+    /**
+     * Ammunition families whose special munitions, but not whose standard round, the weapon also fires: improved
+     * launchers and autocannon take every special munition of their standard counterpart (IO:AE p.90).
+     */
+    munitionTypes?: string[];
+    /** Towed equipment: mounts only on a Support Vehicle with the Trailer chassis modification. */
+    trailerOnly?: boolean;
+    /** Vehicle motive tags (vehicle-motive-types.ts) this equipment cannot be mounted on, e.g. ["vtol"]. */
+    excludedMotives?: string[];
     ammoProfile?: IAmmoProfile;
     accuracyModifier?: number | IAccuracyModifier;
     accuracyModifiier?: number;
@@ -303,8 +437,14 @@ export interface IEquipmentItem {
     extinct: number | null;
     reintroduced: number | null;
     battleValue?: number;
+    /** Battle Value of a Clan unit carrying this item, where it differs from `battleValue` (TO:AUE p.197 lists Clan artillery apart). */
+    battleValueClan?: number;
+    /** A mounted item built to the other tech base than its unit's, which prices `battleValueClan` items by their maker. */
+    builtTechBase?: "is" | "clan";
     battleValueDefensive?: boolean;
     battleValueOneShot?: number;
+    /** Heat counted for Battle Value heat efficiency in place of its heat (IO:AE p.189: Prototype ER Large Laser 13). */
+    battleValueHeat?: number;
     heat: number;
     heatAero: number;
     weight: number;
@@ -331,10 +471,14 @@ export interface IEquipmentItem {
     battleValueByLauncher?: Record<string, number>;
     /** Minefield munitions: BV per ton comes from the launcher's rack size and shots (TO:AUE pp.185, 197-198). */
     minefieldBattleValue?: "thunder" | "thunder-augmented" | "thunder-inferno" | "thunder-vibrabomb" | "thunder-active" | "fascam";
+    /** Points of minefield one shot lays, where it is not the launcher's rack size (artillery FASCAM, TO:AR p.152). */
+    minefieldPoints?: number;
     /** Weapon arrays (MG Array): tags of the weapons it links in its own location; its BV derives from them. */
     linkedWeaponTags?: string[];
     /** Ammunition bins in a unit: tag of the weapon this bin is loaded for. */
     feedsWeaponTag?: string;
+    /** A DropShip bin: rounds carried when fewer than its whole tons hold; its mass still rounds up (TM p.194). */
+    carriedShots?: number;
     /** @deprecated Legacy field; read only to import older records. Use roundsPerTon (ammo) or shotsPerTon (weapons). */
     ammoPerTon?: number;
     minAmmoTons?: number;
@@ -344,12 +488,16 @@ export interface IEquipmentItem {
     gauss?: boolean;
     /**
      * Slots that take the -1 explosive component BV penalty, when not all of them:
-     * an HVAC counts as a Gauss weapon "with one critical slot" (TO:AUE p.195, footnote Q).
+     * an HVAC counts as a Gauss weapon "with one critical slot" (TO:AUE p.195, footnote Q). 0 for an item that
+     * explodes in play but that the BV rules don't count. The B-Pod counts all its slots: "Treat as Gauss weapon
+     * when calculating defensive battle rating" (TM errata v8.0 item 8, #608).
      */
     explosiveBattleValueSlots?: number;
     weaponType?: string[];
     techRating?: string;
     unique?: boolean;
+    /** Editions that include the record only at the Apocryphal rules level and above, from a licensed source outside the rulebook, keyed by edition tag. */
+    apocryphalIn?: { [editionTag: string]: { source: string; notes: string } };
     book: string;
     /** Rulebook page; null when the page has not been verified in the book. */
     page: number | null;
@@ -363,9 +511,29 @@ export interface IEquipmentItem {
         rangeExtreme: number;
         tc: boolean;
         notes: string[];
+        /**
+         * Why the record has no Alpha Strike special, damage or munition of its own (#647 spec, "The rule this
+         * enforces"). Every Custom Homebrew and Munchkin record converts or states one of these reasons.
+         */
+        noConversion?: AlphaStrikeNoConversionReason;
+        /**
+         * The Alpha Strike Alternate Munition this round plays as (an ASMunitionKey from alpha-strike-munitions.ts;
+         * a string here so the interface does not depend on that table). #647 spec, "Munitions".
+         */
+        munition?: string;
+        /**
+         * Our extrapolated conversion of a canon or Apocryphal item that no book converts. It stays at the item's own
+         * rules level: its codes are not gated and do not raise the card's level. #647 spec, "Rules level".
+         */
+        inferred?: boolean;
     };
     battleValuePerItemDamage?: number;
+    /** 'Mech arm weapons: the arm needs lower arm and hand actuators (TM pp.220, 237; TO:AUE p.100). */
     requiresHandActuator?: boolean;
+    /** 'Mech arm weapons: the arm needs a lower arm actuator, with or without a hand (Lance, Retractable Blade). */
+    requiresLowerArmActuator?: boolean;
+    /** 'Mech arm weapons that take the hand actuator's place: the arm has a lower arm actuator and no hand (Claws, Flail). */
+    replacesHandActuator?: boolean;
 
     weightDivisor?: number;
     damageDivisor?: number;
@@ -374,33 +542,73 @@ export interface IEquipmentItem {
     variableSize?: boolean;
     /** Sizing rule for variable equipment (see variable-equipment.ts); implies variableSize. */
     variableFormula?: VariableEquipmentFormula;
+    /** A power dial the firer sets before the attack (the Bombast Laser, TO:AUE p.132). Heat, to-hit and effect follow the setting (src/utils/dial-weapons.ts). */
+    dial?: { min: number; max: number; kind: "bombast" };
+    /** A sonic projector (#645): never lethal, needs Thin atmosphere or denser. */
+    sonic?: boolean;
     /** Drones a mounted Drone Carrier Control System controls (TO:AUE p.117); 1 when unset. */
     controlledDrones?: number;
+    /** Tons of cargo a mounted Dumper dumps: it weighs 5 percent of them (TM p.243). */
+    dumpedCargo?: number;
     /** Each critical slot is placed on its own (spread across locations), e.g. Null Signature System. */
     spreadSlots?: boolean;
+    /**
+     * Where a spread item's slots go on a 'Mech, shared out evenly among those locations: every location, every one but
+     * the head, the limbs and side torsos, the legs, or the side torsos. A Tripod adds its third leg's share (IO:AE p.159).
+     * "one-side" is not shared out: one side torso and the arm on that side, as many slots in each as fit.
+     */
+    spreadLocations?: SpreadLocations;
     /** Label for a user-chosen size on the installed item (e.g. "Jump MP"); its value is `size`. */
     sizeLabel?: string;
     /** Largest size the picker offers. */
     sizeMax?: number;
+    /** Steps the picker offers, from one step up to sizeMax (cargo bays: 0.5 tons); 1 when unset. */
+    sizeStep?: number;
     /** Size chosen for this installed item (see sizeLabel). */
     size?: number;
+    /** Heat it dissipates beside the unit's heat sinks (Double Heat Sinks (Freezers): 2, IO:AE p.65). */
+    heatDissipation?: number;
+    /** Set on an installed laser mated to a Laser Insulator in its location (TO:AUE p.134); see laser-insulator.ts. */
+    insulated?: boolean;
     isMelee?: boolean;
     costPerItemTon?: number;
     location?: string;
     rear?: boolean;
     /** On a Small Support Vehicle: mounted on a pintle on its location's side (TM p.234). */
     pintle?: boolean;
+    /** On a Combat Vehicle with sponson turrets: a side weapon in that side's sponson (TO p. 348). */
+    sponson?: boolean;
     criticals?: number;
     available?: boolean;
     rulesLevel?: number;
     /** OmniMech base-chassis (fixed) equipment; everything else on an OmniMech is pod-mounted. */
     omniFixed?: boolean;
+    /** An armored component: each slot ignores its first critical hit (TO:AUE p.95). */
+    armored?: boolean;
+    /** On a 'Mech: mounted in its location's BattleMech Turret (TO:AUE p.159). */
+    turret?: boolean;
     /** 'Mech chassis types (mech-type tags) this item may be mounted on, e.g. ["lam"]; unset = any. */
     chassisTypes?: string[];
+    /**
+     * Aerospace units this item may be mounted on, the book's "Available To" line where the space columns cannot say
+     * it (capital ships share the DropShip column; a satellite is one kind of Support Vehicle); unset = any.
+     */
+    aerospaceUnitTypes?: ("satellite" | "smallCraft" | "dropShip" | "jumpShip" | "warShip" | "spaceStation")[];
     /** Most copies of this item one unit may mount (e.g. LAM Bomb Bays, 20). */
     maxPerUnit?: number;
     /** Items sharing a group count together against `maxPerUnit` (the two RISC Viral Jammers: one of any type). */
     maxPerUnitGroup?: string;
+    /** A targeting and tracking system's to-hit effects (Maximum Tech p.59). */
+    targetingSystem?: {
+        /** Short / Medium / Long range modifiers in place of +0 / +2 / +4. */
+        ranges?: [number, number, number];
+        /** Modifier on attacks against airborne targets, then against the rest. */
+        airborne?: [number, number];
+        /** No secondary-target modifier; this one against targets outside the front arc. */
+        offFrontArc?: number;
+        /** Set in the End Phase to the long- or short-range system's modifiers, or to normal. */
+        variableRange?: true;
+    };
     /**
      * HarJel repair systems: multiplier on the armor Battle Value of the location the item sits in,
      * stacking with the armor type's own (IO:AE p.185). Each slot also takes 1 off the Defensive BV.
@@ -410,6 +618,10 @@ export interface IEquipmentItem {
     industrialMechOnly?: boolean;
     /** 'Mech locations (short keys, e.g. "hd") the item must be placed in; unset = anywhere. */
     allowedLocations?: string[];
+    /** Vehicle locations the item must be placed in (a trailer hitch: front or rear, TM p.98); unset = anywhere. */
+    vehicleLocations?: string[];
+    /** Vehicle motive types that may mount the item (a trailer hitch: tracked or wheeled, TM p.98); unset = any. */
+    vehicleMotives?: string[];
     /** An industrial tool: arms only on a humanoid 'Mech, side torsos only on a four-legged one (TM pp.241-249). */
     armTool?: boolean;
     /** Only one item of this group may be mounted in a location (HarJel repair systems, IO:AE p.83). */
@@ -426,6 +638,21 @@ export interface IEquipmentItem {
     kgPerShot?: number;
     /** Bombs: bomb bay (or fighter bomb) slots one bomb occupies. Bombs are loaded, not mounted. */
     bombBaySlots?: number;
+    /** Offered only to a design that ticks this Special Ruleset (an id from special-rulesets.ts), e.g. nuclear ordnance. */
+    requiresRuleset?: string;
+    /** Nuclear ordnance (IO:AE p.164 Standard Nuclear Weaponry Table): impact damage, a hex's loss, and the radii, ground burst / air burst. */
+    nuclearBlast?: {
+        yieldKt: number;
+        impactDamage: number;
+        damageReduction: { ground: number; air: number };
+        blastRadius: { ground: number; air: number };
+        secondaryRadius: { ground: number; air: number };
+        /** Capital-scale damage in space, and the 2D6 roll of the special critical (IO:AE p.164). */
+        capitalDamage: number;
+        capitalCritical: number;
+    };
+    /** A bomb that is a rocket launcher pod: the launcher's size and its modifier on the Cluster Hits Table. */
+    rocketPod?: { size: number; clusterModifier: number };
 }
 
 export interface IEquipmentMetadata {
@@ -462,7 +689,7 @@ export interface ICriticalSpace {
     dropShip: number;
 }
 
-export interface IGyro extends IEditionHistory {
+export interface IGyro extends ICatalogStanding {
     name: string;
     alternateName?: string;
     tag: string;
@@ -497,16 +724,23 @@ export interface ITechDates {
     editionStats?: IEditionStatsTable;
 }
 
-export interface ICockpitType extends IEditionHistory {
+export interface ICockpitType extends ICatalogStanding {
     name: string;
+    /** Other printings of the name, MegaMek's among them. */
+    altNames?: string[];
     tag: string;
     /** Tons. For an add-on (Command Console) this is the weight added to the base cockpit. */
     weight: number;
     cost: number;
     /** Multiplier on the final BV (Small: TM p.304; Torso-Mounted: TO:AUE p.193). */
     bvMultiplier?: number;
-    /** Only this technology base builds it. */
-    techBase?: "is" | "clan";
+    /** Lowest rules level that mounts it, when above Standard (Torso-Mounted: Experimental, TO:AUE p.112). */
+    rulesLevel?: number;
+    /** Custom Homebrew cockpits: what it does in play, and its background. */
+    rules?: string;
+    lore?: string;
+    /** Only this technology base builds it; "universal" for both. */
+    techBase?: CatalogTechBase;
     /** Mounted alongside another cockpit instead of replacing it. */
     addOn?: boolean;
     /** "implemented": the 'Mech builder mounts it; "deferred": catalogued for reference only. */
@@ -527,7 +761,7 @@ export interface ICockpitType extends IEditionHistory {
     availableAsPrototype?: boolean;
 }
 
-export interface IHeatSync extends IEditionHistory {
+export interface IHeatSync extends ICatalogStanding {
     name: string;
     tag: string;
     /** Earlier tags for this record, so old saves still resolve (see tag-match.ts). */
@@ -541,8 +775,8 @@ export interface IHeatSync extends IEditionHistory {
     cost: number;
     /** Heat sinks that cost nothing (single-type sinks: the first 10); double-type sinks pay for all. */
     freeSinks?: number;
-    /** Only this technology base builds it (Laser: Clan; prototypes: Inner Sphere). */
-    techBase?: "is" | "clan";
+    /** Only this technology base builds it (Laser: Clan; prototypes: Inner Sphere); "universal" for both. */
+    techBase?: CatalogTechBase;
     /** Tons per heat sink beyond the free ones (default 1; Compact 1.5). */
     weightEach?: number;
     /** Heat sinks that share one critical slot (default 1; Compact 2). */
@@ -603,7 +837,7 @@ export interface IMechTonnage extends IEditionHistory {
     type: string;
 }
 
-export interface IInternalStructure extends IEditionHistory {
+export interface IInternalStructure extends ICatalogStanding {
     name: string;
     tag: string;
     /** Earlier tags for this record, so old saves still resolve (see tag-match.ts). */
@@ -643,7 +877,7 @@ export interface IInternalStructure extends IEditionHistory {
     availableAsPrototype?: boolean;
 }
 
-export interface IJumpJet extends IEditionHistory {
+export interface IJumpJet extends ICatalogStanding {
     name: string;
     tag: string;
     /** Earlier tags for this record, so old saves still resolve (see tag-match.ts). */
@@ -664,11 +898,17 @@ export interface IJumpJet extends IEditionHistory {
     underwater?: boolean;
     /** Jump MP may reach Running MP instead of Walking MP (improved and prototype improved jump jets). */
     jumpAsRun?: boolean;
+    /** A critical hit to a jet explodes inside the 'Mech, costing Battle Value like other explosive components. */
+    explosive?: boolean;
     /** Heat per hex jumped and the least heat a jump costs, when not the standard 1 and 3. */
     heatPerHex?: number;
     minimumHeat?: number;
     /** Not available to a Clan tech base. */
     innerSphereOnly?: boolean;
+    /** Jump pack: Jumping MP and fuel points per pack ton for units up to each tonnage (TO:AUE p.105). */
+    packByTonnage?: { upTo: number; mpPerTon: number; fuelPerTon: number }[];
+    /** Jump pack: the heaviest pack that can be built. */
+    maxPackTons?: number;
     /** IO prototype year, when it precedes `introduced`; offered at the Experimental rules level. */
     prototype?: number;
     introduced: number | null;
@@ -680,7 +920,7 @@ export interface IJumpJet extends IEditionHistory {
     availableAsPrototype?: boolean;
 }
 
-export interface IMyomerType extends IEditionHistory {
+export interface IMyomerType extends ICatalogStanding {
     name: string;
     tag: string;
     /** Earlier tags for this record, so old saves still resolve (see tag-match.ts). */
@@ -695,7 +935,7 @@ export interface IMyomerType extends IEditionHistory {
     bvWeightMultiplier: number;
     /** Doubles physical weapon damage when hot (TSM and its prototype). */
     tripleStrength: boolean;
-    techBase?: "is" | "clan";
+    techBase?: CatalogTechBase;
     book: string;
     page: number | null;
     notes?: string;
@@ -752,7 +992,7 @@ export interface IRulesLevelOption {
 }
 
 // Combat Vehicle domain (Phase 2) - shared with BattleMech via the same engine/armor/heat sink/equipment catalogs.
-export interface IVehicleMotiveType {
+export interface IVehicleMotiveType extends ICatalogStanding {
     id: number;
     tag: string;
     /** Earlier tags for this record, so old saves still resolve (see tag-match.ts). */
@@ -834,7 +1074,7 @@ export type VehicleLocation = "front" | "left" | "right" | "rear" | "frontLeft" 
  * A capital-scale or sub-capital weapon for large craft (capital-weapons.ts, sub-capital-weapons.ts).
  * Kept apart from IEquipmentItem: these are never mounted on a 'Mech or offered by the equipment registry.
  */
-export interface ICapitalWeapon extends IEditionHistory {
+export interface ICapitalWeapon extends ICatalogStanding {
     name: string;
     altNames: string[];
     tag: string;
@@ -842,7 +1082,7 @@ export interface ICapitalWeapon extends IEditionHistory {
     category: "Naval Autocannon" | "Naval Gauss" | "Naval Laser" | "Naval PPC" | "Capital Missile" | "Screen Launcher" | "Mass Driver"
         | "Sub-Capital Cannon" | "Sub-Capital Laser" | "Sub-Capital Missile";
     scale: "capital" | "sub-capital";
-    techBase: "is" | "clan" | "both";
+    techBase: CatalogTechBase;
     notes: string;
     /** Aerospace heat per shot; null when the launcher takes it from the missile it fires (AR-10). */
     heat: number | null;
@@ -889,7 +1129,7 @@ export interface ICapitalWeapon extends IEditionHistory {
      * What another book of the same rules edition prints where it differs from this record, which follows the
      * newest publication. Earlier rules editions go in editionStats instead.
      */
-    sourceVariants?: { book: string; page: number; introduced?: number; techRating?: string; techBase?: "is" | "clan" | "both" }[];
+    sourceVariants?: { book: string; page: number; introduced?: number; techRating?: string; techBase?: CatalogTechBase }[];
     /** 2 = Standard, 3 = Advanced, 4 = Experimental. */
     rulesLevel: number;
     book: string;
@@ -897,7 +1137,7 @@ export interface ICapitalWeapon extends IEditionHistory {
 }
 
 /** Support Vehicle armor of one Barrier Armor Rating (support-vehicle-armor.ts). */
-export interface ISupportVehicleArmor {
+export interface ISupportVehicleArmor extends ICatalogStanding {
     name: string;
     tag: string;
     /** Barrier Armor Rating, 2 to 10. */
@@ -925,10 +1165,10 @@ export interface ISupportVehicleArmor {
 }
 
 /** Armor for fighters, small craft, DropShips and larger craft (aerospace-armor-types.ts). */
-export interface IAerospaceArmorType {
+export interface IAerospaceArmorType extends ICatalogStanding {
     name: string;
     tag: string;
-    techBase: "is" | "clan" | "both";
+    techBase: CatalogTechBase;
     /** "capital": points are capital-scale (JumpShips, WarShips, space stations), each worth 10 standard points. */
     scale: "standard" | "capital";
     /**
@@ -942,6 +1182,11 @@ export interface IAerospaceArmorType {
         clan: number | null;
         is: number | null;
     }[];
+    /**
+     * On an Inner Sphere record the Clans carried over from the Star League: the tag of their own version. A Clan
+     * unit may mount this record, at its Inner Sphere figures, until the Clan version is in production (#168).
+     */
+    clanVersion?: string;
     /** Weapon slots a fighter gives up for the armor, and where; null for armor fighters cannot mount. */
     fighterSlots: { is: number | null; clan: number | null; placement: string } | null;
     /**
@@ -966,11 +1211,11 @@ export interface IAerospaceArmorType {
 }
 
 /** A ProtoMech cockpit, heat sink, jump jet system or internal structure (protomech-components.ts). */
-export interface IProtoMechComponent {
+export interface IProtoMechComponent extends ICatalogStanding {
     name: string;
     tag: string;
     kind: "cockpit" | "heat-sink" | "jump-jet" | "structure";
-    techBase: "is" | "clan" | "both";
+    techBase: CatalogTechBase;
     /** Fixed weight in kilograms; null when it depends on the ProtoMech (see the two fields below). */
     weightKg: number | null;
     /** Jump jets: kilograms per Jumping MP by ProtoMech tonnage band. */
@@ -999,10 +1244,12 @@ export interface IProtoMechComponent {
 }
 
 /** Battle armor armor (battle-armor-armor-types.ts). */
-export interface IBattleArmorArmorType {
+export interface IBattleArmorArmorType extends ICatalogStanding {
     name: string;
+    /** Other printings of the name, MegaMek's among them. */
+    altNames?: string[];
     tag: string;
-    techBase: "is" | "clan" | "both";
+    techBase: CatalogTechBase;
     /** Kilograms per armor point by tech base; null where that tech base cannot use the armor. */
     kgPerPoint: { clan: number | null; is: number | null };
     /** Weapon slots the armor takes; they may be spread over the suit's locations. */

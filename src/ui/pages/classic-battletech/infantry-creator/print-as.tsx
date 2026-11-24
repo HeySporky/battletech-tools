@@ -2,6 +2,7 @@ import React, { type JSX } from 'react';
 import { IAppGlobals } from '../../../app-router';
 import PrintablePage from '../../../components/printable-page';
 import AlphaStrikeUnitSVG from '../../../components/svg/alpha-strike-unit-svg';
+import { unitRulesLevel } from '../../../components/game-settings-block';
 
 export default class InfantryCreatorPrintAS extends React.Component<IPrintASProps> {
     constructor(props: IPrintASProps) {
@@ -14,7 +15,7 @@ export default class InfantryCreatorPrintAS extends React.Component<IPrintASProp
         if (!platoon) return <></>;
 
         return (
-            <PrintablePage backTo={`${process.env.PUBLIC_URL}/classic-battletech/infantry-creator/summary`} appGlobals={this.props.appGlobals}
+            <PrintablePage backTo={`${process.env.PUBLIC_URL}/classic-battletech/infantry-creator/summary`} appGlobals={this.props.appGlobals} rulesLevel={unitRulesLevel(platoon, this.props.appGlobals.appSettings)}
                 requiredRulesLevel={platoon.getRequiredRulesLevel()}
             >
                 <div className="print-page">

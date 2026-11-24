@@ -1,9 +1,10 @@
 import { describe, expect, it } from "vitest";
-import { getSmallCraftFireControlWeight, getSmallCraftFreeHeatSinks } from "../data/small-craft-construction";
+import { DROPSHIP_COST_MULTIPLIER, getSmallCraftFireControlWeight, getSmallCraftFreeHeatSinks } from "../data/small-craft-construction";
 import { getSmallCraftHitLocation } from "../data/small-craft-hit-tables";
 import SmallCraft, { normalizeSmallCraftExport } from "./small-craft";
 import { importSmallCraftBlk } from "./small-craft-blk";
 import { BattleMechGroup } from "./battlemech-group";
+
 
 /** The Astrolux Star Yacht, the TechManual's worked Small Craft (pp.184-197). */
 const buildAstrolux = (): SmallCraft => {
@@ -164,6 +165,17 @@ describe("Small Craft construction (TechManual pp.180-197)", () => {
         expect(other.getIssues().some((issue) => issue.includes("door"))).toBe(false);
         expect(other.getBaysWeight()).toBe(15);
     });
+
+    it("gives a battle armor bay a door, or lets it use another unit bay's", () => {
+        const craft = new SmallCraft();
+        craft.addBay("battle-armor-clan", 2);
+        expect(craft.getBays()[0].doors).toBe(1);
+        craft.setBay(0, 2, 0);
+        expect(craft.getIssues().some((issue) => issue.includes("Battle Armor Bay (5 troopers): needs a door"))).toBe(true);
+        // The troopers can leave through a vehicle bay's door instead.
+        craft.addBay("vehicle-light", 1);
+        expect(craft.getIssues().some((issue) => issue.includes("door"))).toBe(false);
+    });
 });
 
 describe("Small Craft Battle Value and cost", () => {
@@ -258,6 +270,73 @@ describe("Small Craft in play (Total Warfare pp.237-240)", () => {
         expect(craft.getInPlay().heat).toBe(12);
         expect(log.join(" ")).toContain("Random movement");
     });
+
+    it("explodes its most destructive ammunition on a failed heat Avoid Roll, as a fighter does (TW p.161)", () => {
+        const craft = buildAquarius();
+        // SRM 6 (12 a shot) beats LRM 10: 15 shots x 12 / 10 = 18 against SI 8; both SRM bins are lost.
+        const log = craft.explodeAmmunition();
+        expect(log.join(" ")).toContain("SRM");
+        expect(craft.getInPlay().structureDamage).toBe(18);
+        expect(craft.getInPlay().crewHits).toBe(1);
+        expect(craft.getInPlay().explodedAmmo).toHaveLength(2);
+        expect(craft.isDestroyed()).toBe(true);
+        // A DropShip is Large Craft: zero net heat, so no heat explosion (TW p.161).
+        const dropShip = buildAquarius();
+        dropShip.setCraftType("dropShip");
+        expect(dropShip.explodeAmmunition()).toEqual(["Large Craft run at zero net heat: no ammunition explodes from heat (TW p.161)"]);
+        expect(dropShip.getInPlay().structureDamage).toBe(0);
+    });
+
+    it("runs a DropShip at zero net heat: a fired arc adds all its heat, and going over allows one arc and a Control Roll (TW p.161)", () => {
+        const ship = buildAquarius();
+        ship.setCraftType("dropShip");
+        ship.setWeaponFired(ship.getArcFiringBays("nose")[0].items[0].uuid ?? "", true);
+        expect(ship.getHeatGeneratedThisTurn()).toBe(ship.getArcHeat("nose"));
+        expect(ship.applyHeatPhase().join(" ")).not.toContain("Avoid Roll");
+        expect(ship.getInPlay().heat).toBe(0);
+        ship.setAdditionalHeatSinks(0);
+        for (const item of ship.getEquipmentList()) ship.setWeaponFired(item.uuid ?? "", true);
+        const over = ship.getHeatGeneratedThisTurn() - ship.getHeatDissipation();
+        expect(over).toBeGreaterThan(0);
+        expect(ship.applyHeatPhase()[1]).toBe(`${over} heat over what the heat sinks dissipate: it may fire only one arc this turn, with a Control Roll at +${Math.ceil(over / 100)} (TW p.161)`);
+        expect(ship.getInPlay().heat).toBe(0);
+    });
+});
+
+describe("Small Craft fire full weapon bays (TM pp.195, 199; user ruling 2026-10-22)", () => {
+    const craft = (): SmallCraft => {
+        const built = new SmallCraft();
+        built.addEquipmentFromTag("large-laser", "nose");
+        built.addEquipmentFromTag("medium-laser", "nose");
+        built.addEquipmentFromTag("srm-6", "nose");
+        return built;
+    };
+
+    it("groups an arc's weapons into the bays it fires", () => {
+        const bays = craft().getArcFiringBays("nose");
+        expect(bays.map((bay) => bay.weapons)).toEqual([2, 1]);
+        expect(bays[0].items.map((item) => item.name)).toEqual(["Large Laser", "Medium Laser"]);
+    });
+
+    it("fires every working weapon of a bay together, and its heat with them", () => {
+        const built = craft();
+        const [lasers] = built.getArcFiringBays("nose");
+        built.setWeaponDestroyed(lasers.items[1].uuid ?? "", true);
+        built.setBayFired("nose", 0, true);
+        expect(built.isBayFired("nose", 0)).toBe(true);
+        expect(built.getHeatGeneratedThisTurn()).toBe(lasers.items[0].heatAero ?? lasers.items[0].heat);
+        expect(built.isBayFired("nose", 1)).toBe(false);
+        built.setBayFired("nose", 0, false);
+        expect(built.getHeatGeneratedThisTurn()).toBe(0);
+    });
+
+    it("cannot fire a bay whose weapons are all destroyed", () => {
+        const built = craft();
+        const srms = built.getArcFiringBays("nose")[1];
+        built.setWeaponDestroyed(srms.items[0].uuid ?? "", true);
+        built.setBayFired("nose", 1, true);
+        expect(built.isBayFired("nose", 1)).toBe(false);
+    });
 });
 
 describe("Small Craft saves and imports", () => {
@@ -311,8 +390,34 @@ describe("Small Craft saves and imports", () => {
         expect(craft.getCrew()).toBe(10);
         expect(result.issues).toEqual(["\"No Such Gun\" has no match in this catalog and was left off."]);
         expect(importSmallCraftBlk(blk.replace("200.0", "5.0")).craft).toBeNull();
+        const quirked = importSmallCraftBlk(`${blk}\n<quirks>\nlow_profile\n</quirks>`);
+        expect((quirked.craft as SmallCraft).quirks.getAll()).toEqual([{ tag: "quirk-narrow-low-profile" }]);
         // A DropShip weighs 200 tons or more (TM p.184).
         expect(importSmallCraftBlk(blk.replace("SmallCraft", "Dropship").replace("200.0", "150.0")).craft).toBeNull();
+        // The file's Technical Readout fields come across too (TRO fields, #78).
+        const fluffed = importSmallCraftBlk(`${blk}\n<manufacturer>\nWangker Aerospace\n</manufacturer>\n<systemManufacturers>\nENGINE:Rawlings\n</systemManufacturers>\n<history>\n<p>Built for the Periphery trade.</p>\n</history>`);
+        const troCraft = fluffed.craft as SmallCraft;
+        expect(troCraft.tro.getProduction("manufacturer")).toBe("Wangker Aerospace");
+        expect(troCraft.tro.getComponent("engine")).toBe("Rawlings");
+        expect(troCraft.tro.getText("battleHistory")).toBe("Built for the Periphery trade.");
+    });
+
+    it("reads a small BLK file in well under a second (#86)", () => {
+        const blk = [
+            "<UnitType>", "SmallCraft", "</UnitType>", "<Name>", "Test Shuttle", "</Name>", "<type>", "IS Level 2", "</type>",
+            "<transporters>", "steeragequarters:20.0:0:-1::-1:0", "cargobay:10.0:1:1::-1:0", "</transporters>",
+            "<SafeThrust>", "5", "</SafeThrust>", "<heatsinks>", "12", "</heatsinks>", "<fuel>", "800", "</fuel>", "<armor>", "100", "80", "80", "60", "</armor>",
+            "<Nose Equipment>", "LRM 15", "LRM 15", "ISArtemisIV", "ISArtemisIV", "IS Ammo LRM-15", "</Nose Equipment>",
+            "<Left Side Equipment>", "LRM 10", "ISArtemisIV", "(R) Medium Laser", "</Left Side Equipment>",
+            "<structural_integrity>", "8", "</structural_integrity>", "<tonnage>", "200.0", "</tonnage>", "<crew>", "10", "</crew>",
+        ].join("\n");
+        importSmallCraftBlk(blk);
+        const start = performance.now();
+        const result = importSmallCraftBlk(blk);
+        const elapsed = performance.now() - start;
+        expect(result.craft?.getEquipmentList().filter((item) => item.tag.endsWith("-artemis-iv"))).toHaveLength(3);
+        // Every setter recalculates Battle Value; it took about 5 s here while each Artemis launcher copied the whole catalog.
+        expect(elapsed).toBeLessThan(1000);
     });
 });
 
@@ -322,7 +427,7 @@ describe("Small Craft in a roster group", () => {
         const craft = buildAquarius();
         craft.resolveAttack(7, "nose", 12, { criticalRolls: [2] });
         group.smallCraft.push(craft);
-        expect(group.getTotaBV2()).toBe(2233);
+        expect(group.getTotalBattleValue()).toBe(2233);
         expect(group.getTotalTons()).toBe(200);
         expect(group.getTotalUnits()).toBe(1);
         expect(group.isUnderStrength()).toBe(true);
@@ -331,5 +436,499 @@ describe("Small Craft in a roster group", () => {
         expect(new BattleMechGroup(JSON.parse(JSON.stringify(group.export(true)))).smallCraft[0].isDamaged()).toBe(false);
         // A group saved before Small Craft has none, and a group without them saves no list.
         expect(new BattleMechGroup().export().smallCraft).toBeUndefined();
+    });
+});
+
+describe("DropShip weapon bays", () => {
+    it("groups an arc's weapons of one class into a bay and sums their heat and damage (TM pp.194-195)", () => {
+        const ship = new SmallCraft();
+        ship.setCraftType("dropShip");
+        ship.setTonnage(3000);
+        for (const tag of ["large-laser", "large-laser", "medium-laser", "medium-laser", "medium-laser"]) ship.addEquipmentFromTag(tag, "nose");
+        ship.addEquipmentFromTag("lrm-10", "nose");
+        const bays = ship.getArcWeaponBays("nose");
+        // TechManual's own example: 2 large lasers and 3 medium lasers deliver 31 at Short and 16 at Medium.
+        expect(bays.find((bay) => bay.weaponNames.includes("Large Laser"))).toMatchObject({ weapons: 5, heat: 25, values: [31, 16, 0, 0], capital: false });
+        expect(bays).toHaveLength(2);
+        expect(ship.getArcWeaponBays("aft")).toEqual([]);
+        expect(ship.getArcHeat("nose")).toBe(25 + 4);
+    });
+});
+
+describe("DropShip ammunition by the round (TM p.194)", () => {
+    const build = (carried?: number) => {
+        const ship = new SmallCraft();
+        ship.setCraftType("dropShip");
+        ship.setTonnage(3000);
+        ship.addEquipmentFromTag("autocannon-standard-d", "nose");
+        const bin = ship.addEquipmentFromTag("ammo-ac-20-standard", "nose")!;
+        if (carried !== undefined) ship.setAmmoBinCarriedShots(bin.uuid, carried);
+        return { ship, bin: ship.getEquipmentList().find((item) => item.uuid === bin.uuid)! };
+    };
+
+    it("rounds the mass up to the whole ton but keeps the rounds carried, for the sheet and the Battle Value", () => {
+        const full = build();
+        const { ship, bin } = build(2);
+        // "Must round up the mass of any ammunition to the nearest ton regardless of the number of rounds carried."
+        expect(bin.weight).toBe(1);
+        expect(ship.getAmmoBinShots(bin)).toBe(2);
+        expect(ship.getAmmoSheetLines().join()).toMatch(/ 2$/);
+        // AC/20 ammunition is 22 BV a ton (TM p.317): 2 of 5 rounds count 8.8 of it.
+        expect(full.ship.getBattleValueLog()).toMatch(/= 22\.00/);
+        expect(ship.getBattleValueLog()).toMatch(/= 8\.80/);
+    });
+
+    it("saves the rounds, and a whole-ton change of the bin fills it", () => {
+        const { ship, bin } = build(2);
+        const copy = new SmallCraft();
+        copy.importJSON(ship.exportJSON());
+        expect(copy.getAmmoBinShots(copy.getEquipmentList().find((item) => item.isAmmo)!)).toBe(2);
+        ship.setAmmoBinTons(bin.uuid, 2);
+        expect(ship.getAmmoBinShots(bin)).toBe(10);
+    });
+});
+
+describe("Small Craft quirk targets: weapon bays (CO p.225)", () => {
+    it("offers its bays, not its single weapons, as quirk targets", () => {
+        const craft = new SmallCraft();
+        craft.addEquipmentFromTag("large-laser", "nose");
+        craft.addEquipmentFromTag("medium-laser", "nose");
+        const targets = craft.getQuirkTargets();
+        expect(targets.weapons).toEqual([]);
+        expect(targets.bays).toHaveLength(1);
+        expect(targets.bays![0].uuids).toHaveLength(2);
+        expect(targets.bays![0].maxDamage).toBe(13);
+        expect(targets.bays![0].label).toBe("Lasers: 1 Large Laser, 1 Medium Laser (Nose)");
+        // Unit-wide costs still count every weapon.
+        expect(targets.unitMaxDamage).toBe(13);
+    });
+});
+
+describe("Small Craft capital weapon dates (design 2026-10-24-catalog-consolidation §2)", () => {
+    it("offers a Clan DropShip the Light SCC on its Clan dates, not the Inner Sphere's", () => {
+        const ship = new SmallCraft();
+        ship.setCraftType("dropShip");
+        ship.setTech("clan");
+        ship.setEra("jihad");
+        // Light SCC: Inner Sphere 3073, Clan 3091 (TO:AUE p.155).
+        expect(ship.getAvailableCapitalWeapons(3).some((weapon) => weapon.tag === "light-scc")).toBe(false);
+        ship.setTech("is");
+        expect(ship.getAvailableCapitalWeapons(3).some((weapon) => weapon.tag === "light-scc")).toBe(true);
+    });
+});
+
+describe("Primitive Small Craft and DropShips (IO:AE pp.119-121)", () => {
+    it("builds a Primitive DropShip to the rules of its year", () => {
+        const ship = new SmallCraft();
+        ship.setCraftType("dropShip");
+        ship.setShape("spheroid");
+        ship.setMilitary(true);
+        ship.setHeatSinkType("double");
+        expect(ship.setPrimitiveYear(2243)).toBe(2243);
+        ship.setTonnage(1200);
+        ship.setSafeThrust(5);
+        // 1,200 x 5 x 0.104 = 624; 1,200 x 0.012 = 14.4, to the half ton; the square root of 624 x 1.3, rounded down.
+        expect(ship.getEngineWeight()).toBe(624);
+        expect(ship.getControlsWeight()).toBe(14.5);
+        expect(ship.getFreeHeatSinks()).toBe(28);
+        expect(ship.getHeatSinkType().tag).toBe("single");
+        expect(ship.getAvailableHeatSinkTypes(4).find((sink) => sink.tag === "double")?.available).toBe(false);
+        // Civilian rules: 50 points a ton / 1.6; 2.82 tons a day x 1.6 = 4.512, rounded up to 0.01.
+        expect(ship.isMilitary()).toBe(false);
+        expect(ship.getFuelPointsPerTon()).toBe(31.25);
+        expect(ship.getStrategicFuelPerDay()).toBe(4.52);
+        // 15,000 tons for a spheroid of 2200-2249; 6,000 for an aerodyne.
+        expect(ship.getMaxTonnage()).toBe(15000);
+        ship.setShape("aerodyne");
+        expect(ship.getMaxTonnage()).toBe(6000);
+        expect(ship.getKFBoom()).toBe("none");
+        ship.setStructuralIntegrity(15);
+        ship.setArmorTons(10);
+        expect(ship.getAvailableArmorPoints()).toBe(Math.floor((ship.getPurchasedArmorPoints() + 60) * 0.66));
+        ship.setPrimitiveYear(null);
+        expect(ship.isMilitary()).toBe(true);
+        expect(ship.getMaxTonnage()).toBe(35000);
+    });
+
+    it("builds a Primitive Small Craft, Inner Sphere only", () => {
+        const craft = new SmallCraft();
+        craft.setTonnage(200);
+        craft.setSafeThrust(5);
+        craft.setPrimitiveYear(2120);
+        // 1,000 x 0.143 = 143; 200 x 0.01575 = 3.15 → 3.5; 80 / 2.2 points a ton; 1.84 x 2.2 = 4.048 → 4.05.
+        expect(craft.getEngineWeight()).toBe(143);
+        expect(craft.getControlsWeight()).toBe(3.5);
+        expect(craft.getFuelPointsPerTon()).toBeCloseTo(36.36, 2);
+        expect(craft.getStrategicFuelPerDay()).toBe(4.05);
+        expect(craft.getNotes().some((note) => note.includes("+1 to-hit"))).toBe(true);
+        expect(craft.setPrimitiveYear(1900)).toBe(2100);
+        craft.setTech("clan");
+        expect(craft.isPrimitive()).toBe(false);
+        expect(craft.setPrimitiveYear(2200)).toBeNull();
+    });
+
+    it("keeps the Primitive year and the K-F boom in a save", () => {
+        const ship = new SmallCraft();
+        ship.setCraftType("dropShip");
+        ship.setPrimitiveYear(2460);
+        ship.setKFBoom("prototype");
+        expect(ship.getIssues(2).some((issue) => issue.includes("Advanced"))).toBe(true);
+        expect(ship.getIssues(3).some((issue) => issue.includes("K-F"))).toBe(false);
+        expect(ship.getCBillCostLog()).toContain("Docking Collar (Prototype K-F Boom): 1,010,000");
+        const copy = new SmallCraft(ship.exportJSON());
+        expect(copy.getPrimitiveYear()).toBe(2460);
+        expect(copy.getKFBoom()).toBe("prototype");
+        ship.setKFBoom("standard");
+        expect(ship.getIssues(3).some((issue) => issue.includes("2470"))).toBe(true);
+    });
+
+    it("imports MegaMek primitive armor as a Primitive DropShip (the Saturn Patrol Ship)", () => {
+        const blk = [
+            "<UnitType>", "Dropship", "</UnitType>", "<Name>", "Saturn Patrol Ship", "</Name>", "<year>", "2243", "</year>",
+            "<type>", "IS Level 4", "</type>", "<motion_type>", "Spheroid", "</motion_type>", "<collartype>", "2", "</collartype>",
+            "<SafeThrust>", "5", "</SafeThrust>", "<heatsinks>", "29", "</heatsinks>", "<sink_type>", "0", "</sink_type>", "<fuel>", "4687", "</fuel>",
+            "<armor_type>", "40", "</armor_type>", "<armor>", "110", "95", "95", "82", "</armor>",
+            "<structural_integrity>", "15", "</structural_integrity>", "<tonnage>", "1200.0", "</tonnage>", "<designtype>", "1", "</designtype>",
+        ].join("\n");
+        const result = importSmallCraftBlk(blk);
+        const ship = result.craft as SmallCraft;
+        expect(result.issues).toEqual([]);
+        expect(ship.getPrimitiveYear()).toBe(2243);
+        expect(ship.getKFBoom()).toBe("none");
+        expect(ship.getFreeHeatSinks() + ship.getAdditionalHeatSinks()).toBe(29);
+        expect(ship.getFuelPoints()).toBe(4687);
+        expect(ship.getTotalArmorPoints()).toBe(382);
+        expect(ship.getUnallocatedArmorPoints()).toBeGreaterThanOrEqual(0);
+    });
+});
+
+// Star League Ferro-Aluminum on a Clan Small Craft or DropShip, at Inner Sphere points per ton (#168).
+describe("Star League Ferro-Aluminum on a Clan Small Craft", () => {
+    const clanCraft = (era: string): SmallCraft => {
+        const craft = new SmallCraft();
+        craft.setTech("clan");
+        craft.setEra(era);
+        craft.setTonnage(200);
+        return craft;
+    };
+    const offered = (craft: SmallCraft, tag: string) => craft.getAvailableArmorTypes().find((armor) => armor.tag === tag);
+
+    it("offers it while the era holds the Star League version, at the Inner Sphere factor", () => {
+        const craft = clanCraft("clan-founding-years");
+        expect(offered(craft, "ferro-aluminum")?.available).toBe(true);
+        expect(craft.setArmorType("ferro-aluminum").tag).toBe("ferro-aluminum");
+        expect(craft.getArmorPointsPerTon()).toBe(17.92);
+        craft.setArmorType("clan-ferro-aluminum");
+        expect(craft.getArmorPointsPerTon()).toBe(24);
+    });
+
+    it("drops it once the Clan version is the only one in the era", () => {
+        expect(offered(clanCraft("clan-golden-years"), "ferro-aluminum")).toBeUndefined();
+    });
+});
+
+describe("E-War carrier (#642)", () => {
+    const build = () => {
+        const unit = new SmallCraft();
+        unit.setTonnage(100);
+        unit.addEquipmentFromTag("is-ams", "nose");
+        unit.addEquipmentFromTag("ecm-suite");
+        unit.addEquipmentFromTag("medium-laser", "nose");
+        return unit;
+    };
+
+    it("lists its E-War gear", () => {
+        const gear = build().getEWarGear();
+        expect(gear.map((item) => item.kind).sort()).toEqual(["ams", "ecm-guardian"]);
+        for (const item of gear) {
+            expect(item.name).toBeTruthy();
+            expect(item.uuid).toBeTruthy();
+            expect(item.destroyed).toBe(false);
+        }
+    });
+
+    it("reports destroyed E-War gear", () => {
+        const unit = build();
+        const ecm = unit.getEWarGear().find((item) => item.kind === "ecm-guardian")!;
+        unit.setWeaponDestroyed(ecm.uuid!, true);
+        expect(unit.getEWarGear().map((item) => [item.kind, item.destroyed]).sort()).toEqual([["ams", false], ["ecm-guardian", true]]);
+    });
+
+    // No stealth armor test: the aerospace armor catalog (aerospace-armor-types.ts) has no stealth type for small craft, so there is no armor entry to list.
+
+    it("saves E-War state and loads old saves without it", () => {
+        const unit = build();
+        expect(unit.export().ewarPlay).toBeUndefined();
+        unit.ewarPlay.inHostileEcm = true;
+        const saved = JSON.parse(JSON.stringify(unit.export()));
+        expect(saved.ewarPlay).toEqual({ inHostileEcm: true });
+        expect(unit.export(true).ewarPlay).toBeUndefined();
+        const loaded = new SmallCraft(JSON.stringify(saved));
+        expect(loaded.ewarPlay).toEqual({ inHostileEcm: true });
+        delete saved.ewarPlay;
+        expect(new SmallCraft(JSON.stringify(saved)).ewarPlay).toEqual({});
+    });
+});
+
+describe("DropShip Flotation Hull and Well Deck (#643)", () => {
+    const buildShip = (shape: "aerodyne" | "spheroid" = "aerodyne"): SmallCraft => {
+        const ship = new SmallCraft();
+        ship.setCraftType("dropShip");
+        ship.setShape(shape);
+        ship.setTonnage(4000);
+        return ship;
+    };
+
+    it("the hull weighs 5% and costs x1.25", () => {
+        const ship = buildShip();
+        const plainCost = ship.getCBillCost();
+        expect(ship.canHaveFlotationHull()).toBe(true);
+        ship.setFlotationHull(true);
+        expect(ship.hasFlotationHull()).toBe(true);
+        expect(ship.getWeights().find((line) => line.name.startsWith("Flotation Hull"))?.weight).toBe(200);
+        expect(ship.getCBillCost()).toBe(Math.round(plainCost * 1.25));
+        expect(ship.getRequiredRulesLevel()).toBe(6);
+    });
+
+    it("spheroids and small craft are not offered the hull", () => {
+        const sphere = buildShip("spheroid");
+        expect(sphere.canHaveFlotationHull()).toBe(false);
+        expect(sphere.setFlotationHull(true)).toBe(false);
+        const small = new SmallCraft();
+        expect(small.canHaveFlotationHull()).toBe(false);
+        expect(small.setFlotationHull(true)).toBe(false);
+    });
+
+    it("a well deck needs the hull, is 65 tons, and the issue clears with the hull", () => {
+        const ship = buildShip();
+        ship.addBay("well-deck", 1);
+        expect(ship.getBayWeight(ship.getBays()[0])).toBe(65);
+        expect(ship.getIssues(6).join(" ")).toContain("A well deck needs the Flotation Hull");
+        ship.setFlotationHull(true);
+        expect(ship.getIssues(6).join(" ")).not.toContain("A well deck needs the Flotation Hull");
+    });
+
+    it("old saves load without the hull, and a saved hull round-trips", () => {
+        const ship = buildShip();
+        expect(ship.export().flotationHull).toBeUndefined();
+        ship.setFlotationHull(true);
+        const saved = JSON.parse(ship.exportJSON());
+        expect(saved.flotationHull).toBe(true);
+        expect(new SmallCraft(JSON.stringify(saved)).hasFlotationHull()).toBe(true);
+        delete saved.flotationHull;
+        expect(new SmallCraft(JSON.stringify(saved)).hasFlotationHull()).toBe(false);
+    });
+});
+
+describe("Small Craft leftovers: hyperspectral imager, space mine dispenser, booby trap (#145; TO:AUE pp.109, 138, 151)", () => {
+    const offered = (tag: string, level: number) => buildAstrolux().getAvailableEquipment(false, level).find((item) => item.tag === tag);
+
+    it("offers each at its rules level with its weight, cost and Battle Value", () => {
+        const imager = offered("hyperspectral-imager", 3);
+        expect(imager).toMatchObject({ weight: 7.5, cbills: 550000, battleValue: 0 });
+        const mines = offered("space-mine-dispenser", 3);
+        expect(mines).toMatchObject({ weight: 10, battleValue: 10 });
+        const trap = offered("booby-trap", 4);
+        expect(trap).toMatchObject({ cbills: 100000, battleValue: 0, rulesLevel: 4 });
+        // The booby trap is Experimental: not offered below it.
+        expect(offered("booby-trap", 3)).toBeUndefined();
+    });
+
+    // ASC p.123: a booby trap is an explosive component, so the craft loses ENE.
+    it("takes ENE away from a craft that carries a booby trap", () => {
+        const craft = buildAstrolux();
+        craft.addEquipmentFromTag("medium-laser", "nose");
+        expect(craft.getAlphaStrikeStats().specialAbilities).toContain("ENE");
+        craft.addEquipmentFromTag("booby-trap", "aft");
+        expect(craft.getAlphaStrikeStats().specialAbilities).not.toContain("ENE");
+    });
+
+    it("sizes a booby trap at 10 percent of the craft and keeps it to one", () => {
+        const craft = buildAstrolux();
+        craft.addEquipmentFromTag("booby-trap", "aft");
+        const trap = craft.getEquipmentList().find((item) => item.tag === "booby-trap");
+        expect(trap?.weight).toBe(20);
+        const again = craft.getAvailableEquipment(false, 4).find((item) => item.tag === "booby-trap");
+        expect(again?.available).toBe(false);
+    });
+
+    it("carries a Space Mine Dispenser and a Hyperspectral Imager in the equipment list and the weight", () => {
+        const craft = buildAstrolux();
+        craft.addEquipmentFromTag("space-mine-dispenser", "nose");
+        craft.addEquipmentFromTag("hyperspectral-imager", "aft");
+        expect(craft.getEquipmentList().map((item) => item.tag)).toEqual(expect.arrayContaining(["space-mine-dispenser", "hyperspectral-imager"]));
+        const weights = craft.getWeights().filter((entry) => entry.item && "tag" in entry.item && ["space-mine-dispenser", "hyperspectral-imager"].includes(entry.item.tag));
+        expect(weights.map((entry) => entry.weight).sort((a, b) => a - b)).toEqual([7.5, 10]);
+    });
+});
+
+describe("The 5-ton Escape Pod and Life Boat sample files (#145)", () => {
+    const sample = (name: string, tonnage: number): string =>
+        `<UnitType>\nSmallCraft\n</UnitType>\n\n<Name>\n${name}\n</Name>\n\n<year>\n2647\n</year>\n\n<type>\nIS Level 2\n</type>\n\n<tonnage>\n${tonnage}\n</tonnage>\n\n<motion_type>\nAerodyne\n</motion_type>\n`;
+
+    it("reports a stand-alone pod or boat as equipment carried by a large craft, not a unit", () => {
+        const pod = importSmallCraftBlk(sample("Escape Pod", 5));
+        expect(pod.craft).toBeNull();
+        expect(pod.issues.join(" ")).toContain("an escape pod, not a unit");
+        const boat = importSmallCraftBlk(sample("Life Boat", 5));
+        expect(boat.craft).toBeNull();
+        expect(boat.issues.join(" ")).toContain("a life boat, not a unit");
+        // Any other file under 100 tons still gets the tonnage message.
+        expect(importSmallCraftBlk(sample("Tiny Hopper", 5)).issues.join(" ")).toContain("not a Small Craft");
+    });
+
+    it("imports the pods and boats a carrying ship names as its Escape Pod and Life Boat lines", () => {
+        const craft = buildAstrolux();
+        craft.setEscapePods(4);
+        craft.setLifeBoats(2);
+        expect(craft.getEscapePods()).toBe(4);
+        expect(craft.getLifeBoats()).toBe(2);
+    });
+});
+
+describe("Small Craft play: space minefields and the booby trap (#145; TO:AUE pp.109, 138, 178)", () => {
+    it("lays a minefield marker at attack capacity 6 and counts it down as craft pass through", () => {
+        const craft = buildAstrolux();
+        expect(craft.layMinefield()).toBeNull();
+        craft.addEquipmentFromTag("space-mine-dispenser", "nose");
+        expect(craft.layMinefield()).toBe(0);
+        expect(craft.getInPlay().minefields).toEqual([6]);
+        // A fighter fails the Control Roll by 3: 15 damage, capacity 5.
+        expect(craft.attackWithMinefield(0, "fighter", 3)).toBe(15);
+        expect(craft.getInPlay().minefields).toEqual([5]);
+        // A WarShip fails by 6: 100 (the table maximum), capacity 2.
+        expect(craft.attackWithMinefield(0, "large", 6)).toBe(100);
+        expect(craft.getInPlay().minefields).toEqual([2]);
+        // The next WarShip spends it: damage still done, the marker removed.
+        expect(craft.attackWithMinefield(0, "large", 1)).toBe(20);
+        expect(craft.getInPlay().minefields).toEqual([]);
+        expect(craft.attackWithMinefield(0, "fighter", 1)).toBe(0);
+    });
+
+    it("keeps a laid minefield through a save, and drops a bad one", () => {
+        const craft = buildAstrolux();
+        craft.addEquipmentFromTag("space-mine-dispenser", "nose");
+        craft.layMinefield();
+        craft.layMinefield();
+        craft.attackWithMinefield(1, "dropship", 2);
+        const loaded = new SmallCraft(craft.exportJSON());
+        expect(loaded.getInPlay().minefields).toEqual([6, 4]);
+        const saved = JSON.parse(craft.exportJSON());
+        saved.inPlay.minefields = [9, "x", -2, 3];
+        expect(new SmallCraft(JSON.stringify(saved)).getInPlay().minefields).toEqual([6, 3]);
+    });
+
+    it("fires a booby trap once: it destroys the craft and blasts the hexes around it", () => {
+        const craft = buildAstrolux();
+        expect(craft.fireBoobyTrap()).toBeNull();
+        craft.addEquipmentFromTag("booby-trap", "aft");
+        // Safe Thrust 5 x 200 tons = 1,000, held to 500 (TO:AUE p.109).
+        const blast = craft.fireBoobyTrap();
+        expect(blast).toEqual({ ground: [500, 250, 125, 63], airborne: 125 });
+        expect(craft.getInPlay().boobyTrapFired).toBe(true);
+        expect(craft.isDestroyed()).toBe(true);
+        expect(craft.fireBoobyTrap()).toBeNull();
+    });
+
+    it("does not fire a booby trap that a critical hit disarmed", () => {
+        const craft = buildAstrolux();
+        craft.addEquipmentFromTag("booby-trap", "aft");
+        const trap = craft.getEquipmentList().find((item) => item.tag === "booby-trap");
+        craft.setWeaponDestroyed(trap?.uuid ?? "", true);
+        expect(craft.fireBoobyTrap()).toBeNull();
+    });
+});
+
+describe("SDS (Caspar) drone control on Small Craft and DropShips (IO:AE pp.134, 141) (#150)", () => {
+    it("adds 5 percent (Small Craft) or 4 percent (DropShip) on top of the controls, 2 or 4 percent more for 4/5 skills", () => {
+        const craft = buildAstrolux();
+        const before = craft.getRemainingTonnage();
+        expect(craft.setSds("standard")).toBe(true);
+        expect(craft.getSdsControlWeight()).toBe(10);
+        expect(craft.getSdsSkills()).toEqual({ gunnery: 5, piloting: 6 });
+        expect(craft.getRemainingTonnage()).toBeLessThan(before - 10);
+        craft.setSds("improved");
+        expect(craft.getSdsControlWeight()).toBe(14);
+        expect(craft.getSdsSkills()).toEqual({ gunnery: 4, piloting: 5 });
+        const ship = new SmallCraft();
+        ship.setCraftType("dropShip");
+        ship.setTonnage(4000);
+        ship.setSds("standard");
+        expect(ship.getSdsControlWeight()).toBe(160);
+        ship.setSds("improved");
+        expect(ship.getSdsControlWeight()).toBe(320);
+        expect(ship.getSdsSkills()).toEqual({ gunnery: 4, piloting: 5 });
+    });
+
+    // IO:AE p.215 (page image) and the IO:AE cost rules: 500,000 + (50,000 x IT), IT = the default controls plus the Caspar
+    // share, in place of the cockpit/crew systems (the Bridge line); the SDS Self-Destruct System costs 1,000,000.
+    it("prices the drone control in place of the bridge, and the self-destruct, as printed", () => {
+        const craft = buildAstrolux();
+        const plain = craft.getCBillCost();
+        craft.setSds("standard");
+        const tons = craft.getControlsWeight() + craft.getSdsControlWeight();
+        expect(craft.getSdsCost()).toBe(500000 + 50000 * tons);
+        const log = craft.getCBillCostLog();
+        expect(log).not.toContain("Bridge");
+        expect(log).toContain("SDS (Caspar) Drone Control System");
+        const multiplier = 1 + 200 / 50;
+        const withSds = craft.getCBillCost();
+        expect(withSds - plain).toBe(Math.round((500000 + 50000 * tons - (200000 + 10 * 200)) * multiplier));
+        craft.setSdsSelfDestruct(true);
+        expect(craft.getCBillCost() - withSds).toBe(1000000 * multiplier);
+    });
+
+    it("needs steerage quarters for half the minimum crew, rounded up, and takes the Experimental rules level", () => {
+        const craft = buildAstrolux();
+        craft.setSds("standard");
+        expect(craft.getSdsSupportQuarters()).toBe(Math.ceil(craft.getMinimumCrew() / 2));
+        expect(craft.getSdsSupportWeight()).toBe(craft.getSdsSupportQuarters() * 5);
+        expect(craft.getWeights().map((entry) => entry.name).join(" | ")).toContain("SDS Crew Support Quarters");
+        expect(craft.getIssues(3).join(" ")).toContain("Experimental");
+        expect(craft.getIssues(4).join(" ")).not.toContain("SDS");
+    });
+
+    it("self-destruct: 10 percent of the craft, at most 10,000 tons, no critical slot; no jammer on a Small Craft", () => {
+        const craft = buildAstrolux();
+        expect(craft.setSdsSelfDestruct(true)).toBe(true);
+        expect(craft.getSdsSelfDestructWeight()).toBe(20);
+        const ship = new SmallCraft();
+        ship.setCraftType("dropShip");
+        ship.setTonnage(4000);
+        expect(ship.getSdsSelfDestructWeight()).toBe(0);
+        ship.setSdsSelfDestruct(true);
+        // A DropShip is at most 35,000 tons, so the 10,000-ton cap is never reached here.
+        expect(ship.getSdsSelfDestructWeight()).toBe(400);
+        expect(ship.getSdsNotes().join(" ")).toContain("98 percent");
+    });
+
+    it("saves and loads the control system level and the self-destruct", () => {
+        const craft = buildAstrolux();
+        craft.setSds("improved");
+        craft.setSdsSelfDestruct(true);
+        const loaded = new SmallCraft(craft.exportJSON());
+        expect(loaded.getSds()).toBe("improved");
+        expect(loaded.hasSdsSelfDestruct()).toBe(true);
+        expect(buildAstrolux().getSds()).toBe("none");
+    });
+});
+
+describe("Custom rule: a price for extra fire control on a Small Craft (#152; Ours, NGCFells)", () => {
+    it("costs 10,000 a ton at Custom Homebrew and Munchkin only", () => {
+        const craft = buildAstrolux();
+        for (let index = 0; index < 14; index++) craft.addEquipmentFromTag("large-laser", "nose");
+        const tons = craft.getFireControlWeight();
+        expect(tons).toBeGreaterThan(0);
+        craft.gameSettings.set(4, []);
+        const canon = craft.getCBillCost();
+        expect(craft.getFireControlPrice()).toBe(0);
+        expect(craft.getCBillCostLog()).toContain("the books give no price");
+        craft.gameSettings.set(6, []);
+        // SO:AA p.147: the fire control price is summed with the components, then the type multiplier applies to the whole.
+        const multiplier = craft.isDropShip() ? DROPSHIP_COST_MULTIPLIER[craft.getShape()] : 1 + craft.getTonnage() / 50;
+        expect(Math.abs(craft.getCBillCost() - canon - 10000 * tons * multiplier)).toBeLessThanOrEqual(1);
+        expect(craft.getCBillCostLog()).toContain("Ours (NGCFells, 2026-11-22): the books price none");
+        craft.gameSettings.set(7, []);
+        expect(Math.abs(craft.getCBillCost() - canon - 10000 * tons * multiplier)).toBeLessThanOrEqual(1);
     });
 });

@@ -8,10 +8,12 @@ import { CUSTOM_HOMEBREW_RULES_LEVEL } from '../../../../data/equipment-registry
 import { INFANTRY_WEAPON_CATEGORIES } from '../../../../data/infantry-weapons';
 import { IAppGlobals } from '../../../app-router';
 import AvailableEquipment from '../../../components/available-equipment';
-import BuildingCreatorSideMenu from '../../../components/building-creator-side-menu';
+import { BuildingCreatorSideMenu } from '../../../components/creator-side-menus';
 import InputNumeric from "../../../components/form_elements/input_numeric";
 import TextSection from '../../../components/text-section';
+import TonnageBar from '../../../components/tonnage-bar';
 import UIPage from '../../../components/ui-page';
+import { unitRulesLevel } from '../../../components/game-settings-block';
 const ArrowCircleLeft = FaArrowCircleLeft as any;
 const ArrowCircleRight = FaArrowCircleRight as any;
 const Trash = FaTrash as any;
@@ -44,7 +46,7 @@ export default class BuildingCreatorEquipment extends React.Component<IEquipment
     render = (): JSX.Element => {
         const building = this.props.appGlobals.currentBuilding;
         if (!building) return <></>;
-        const rulesLevel = this.props.appGlobals.appSettings.mechRulesFilter;
+        const rulesLevel = unitRulesLevel(this.props.appGlobals.currentBuilding, this.props.appGlobals.appSettings);
         const loads = building.getHexLoads();
         const worst = loads.reduce((least, load) => Math.min(least, load.remaining), Number.POSITIVE_INFINITY);
         const heat = building.getEnergyWeaponHeat();
@@ -185,6 +187,7 @@ export default class BuildingCreatorEquipment extends React.Component<IEquipment
                                         <AvailableEquipment
                                             appGlobals={this.props.appGlobals}
                                             equipment={available}
+                                            mounted={building.getEquipment().map((mount) => mount.item)}
                                             addFunction={this.addEquipment}
                                         />
                                     </>
@@ -194,7 +197,7 @@ export default class BuildingCreatorEquipment extends React.Component<IEquipment
 
                                 <div className="clear-both overflow-hidden">
                                     <hr />
-                                    <Link to={`${process.env.PUBLIC_URL}/classic-battletech/building-creator/summary`} className="btn btn-primary pull-right btn-sm">Next: Summary <ArrowCircleRight /></Link>
+                                    <Link to={`${process.env.PUBLIC_URL}/classic-battletech/building-creator/technical-readout`} className="btn btn-primary pull-right btn-sm">Next: Technical Readout <ArrowCircleRight /></Link>
                                     <div className="inline-block text-left">
                                         <Link to={`${process.env.PUBLIC_URL}/classic-battletech/building-creator/structure`} className="btn btn-primary btn-sm"><ArrowCircleLeft /> Previous Step</Link>
                                     </div>
@@ -210,7 +213,7 @@ export default class BuildingCreatorEquipment extends React.Component<IEquipment
                                 </p>
                                 <table className="table" data-testid="building-equipment">
                                     <thead>
-                                        <tr><th>Name</th><th>Tons</th>{building.getHexes() > 1 ? <th>Hex</th> : null}<th>Turret</th><th>Automated</th><th></th></tr>
+                                        <tr><th>Name</th><th>Tons</th>{building.getHexes() > 1 ? <th>Hex</th> : null}<th>Turret</th><th>Automated</th><th><span className="visually-hidden">Actions</span></th></tr>
                                     </thead>
                                     <tbody>
                                         {building.getEquipment().map((mount) => (
@@ -289,7 +292,7 @@ export default class BuildingCreatorEquipment extends React.Component<IEquipment
                                     </div>
                                     <table className="table" data-testid="building-light-weapons">
                                         <thead>
-                                            <tr><th>Name</th><th>Class</th><th>Kg</th>{building.getHexes() > 1 ? <th>Hex</th> : null}<th>Mount</th><th>Extra Clips</th><th>Shots</th><th>Crew</th><th></th></tr>
+                                            <tr><th>Name</th><th>Class</th><th>Kg</th>{building.getHexes() > 1 ? <th>Hex</th> : null}<th>Mount</th><th>Extra Clips</th><th>Shots</th><th>Crew</th><th><span className="visually-hidden">Actions</span></th></tr>
                                         </thead>
                                         <tbody>
                                             {building.getLightWeapons().map((mount) => (
@@ -377,7 +380,7 @@ export default class BuildingCreatorEquipment extends React.Component<IEquipment
                                     </label>
                                     <table className="table" data-testid="building-capital-weapons">
                                         <thead>
-                                            <tr><th>Name</th><th>Tons</th><th>Fire Control</th><th>Heat</th><th>Damage</th><th>Range</th>{building.getHexes() > 1 ? <th>Hex</th> : null}{building.getHexes() > 1 ? <th>Shared With Hexes</th> : null}<th>Shots</th><th>Ammo Tons</th>{showBunkers ? <th>Ammo Bunker</th> : null}<th></th></tr>
+                                            <tr><th>Name</th><th>Tons</th><th>Fire Control</th><th>Heat</th><th>Damage</th><th>Range</th>{building.getHexes() > 1 ? <th>Hex</th> : null}{building.getHexes() > 1 ? <th>Shared With Hexes</th> : null}<th>Shots</th><th>Ammo Tons</th>{showBunkers ? <th>Ammo Bunker</th> : null}<th><span className="visually-hidden">Actions</span></th></tr>
                                         </thead>
                                         <tbody>
                                             {building.getCapitalWeapons().map((mount) => (
@@ -492,6 +495,7 @@ export default class BuildingCreatorEquipment extends React.Component<IEquipment
                         </div>
                     </div>
                 </div>
+                <TonnageBar used={building.getTotalWeight()} total={building.getTotalCapacity()} />
             </UIPage>
         );
     }

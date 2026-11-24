@@ -23,8 +23,26 @@ Not gaps (checked):
 - BAR 2-10 armor is in `support-vehicle-armor.ts`.
 - The RISC Repeating TSEMP is in the catalog.
 - B-Pod, M-Pod, Coolant and Chaff Pods, HarJel II/III, the Collapsible Command Module and Communications Equipment
-  are in the catalog, so TODO.md's older "no catalog record yet" list is out of date.
+  are in the catalog, so the retired TODO.md's (issue #80) older "no catalog record yet" list is out of date.
 - Prototype Double Heat Sinks, Freezers and Prototype Ferro-Fibrous are in the catalog.
+
+## Round 6 cross-check (2026-10-24)
+
+Catalog consolidation round 6 (design `docs/superpowers/specs/2026-10-24-catalog-consolidation-design.md` §4)
+re-ran the cross-check from MegaMek's full equipment export (`-eqe_db`, 3,830 official items with the construction
+components added) and wrote it to `tools/coverage-checklist.md` (`tools/coverage_checklist.py`). Ammunition is
+matched by weapon family and munition, because MegaMek keeps one bin per launcher size and we keep one record per
+munition. ProtoMech and battle armor launcher sizes are built by the tube models. Round 7 works through it family by
+family, reading each row in its book first.
+
+The latest three books were swept by hand:
+- Core Rulebook (2026), weapons and equipment tables pp.249-255: every item is in a catalog (some under other
+  spellings: "Blazer" is the Binary Laser Cannon, and "ER Pulse Large Laser" is the ER Large Pulse Laser).
+- BattleTech: Gothic (2025), tables pp.92-93: all the 'Mech weapons are in. The Light, Medium and Heavy AntiMech
+  Rifles are mounted only on Abominations (Gothic p.92), and no builder makes those.
+- XTRO: RISC (2025): every RISC item is in (Hyper Laser, Laser Pulse Module, Repeating TSEMP, Emergency Coolant
+  System, Super-Cooled Myomer, Viral Jammer, Heat Sink Override Kit, APDS), and so are the hybrid-tech items (Void
+  Signature System, Chameleon LPS, Radical Heat Sink System, Laser heat sinks, Endo-Composite, Ferro-Lamellor).
 
 ## Batch A: weapons and fire control
 

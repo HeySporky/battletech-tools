@@ -2,9 +2,10 @@ import React, { type JSX } from 'react';
 import { Link } from 'react-router';
 import { FaArrowCircleLeft } from "react-icons/fa";
 import { IAppGlobals } from '../../../app-router';
-import BuildingCreatorSideMenu from '../../../components/building-creator-side-menu';
+import { BuildingCreatorSideMenu } from '../../../components/creator-side-menus';
 import TextSection from '../../../components/text-section';
 import UIPage from '../../../components/ui-page';
+import { unitRulesLevel } from '../../../components/game-settings-block';
 const ArrowCircleLeft = FaArrowCircleLeft as any;
 
 export default class BuildingCreatorSummary extends React.Component<ISummaryProps> {
@@ -16,11 +17,10 @@ export default class BuildingCreatorSummary extends React.Component<ISummaryProp
     render = (): JSX.Element => {
         const building = this.props.appGlobals.currentBuilding;
         if (!building) return <></>;
-        const rulesLevel = this.props.appGlobals.appSettings.mechRulesFilter;
+        const rulesLevel = unitRulesLevel(this.props.appGlobals.currentBuilding, this.props.appGlobals.appSettings);
         const issues = building.getIssues(rulesLevel);
         const notes = building.getNotes();
         const classification = building.getClassification();
-        const type = building.getType();
         const generator = building.getGenerator();
         const weights = building.getWeights();
 
@@ -44,11 +44,11 @@ export default class BuildingCreatorSummary extends React.Component<ISummaryProp
                             )}
 
                             <p data-testid="building-summary">
-                                <strong>Type</strong>: {type.tag === "none" ? "" : `${type.name} `}{classification.name} &nbsp;|&nbsp;
+                                <strong>Type</strong>: {building.getTypeName()} &nbsp;|&nbsp;
                                 <strong>Tech</strong>: {building.getTech().name} &nbsp;|&nbsp;
                                 <strong>CF</strong>: {building.getCF()}{building.isCapitalScale() ? " (capital scale)" : ""} &nbsp;|&nbsp;
                                 <strong>Armor Factor</strong>: {building.getArmorPoints()} &nbsp;|&nbsp;
-                                <strong>Size</strong>: {building.getHexes()} {building.getHexLabel(building.getHexes() !== 1)}, {building.getLevels()} {building.getLevels() === 1 ? "level" : "levels"} &nbsp;|&nbsp;
+                                <strong>Size</strong>: {building.getSizeText()} &nbsp;|&nbsp;
                                 <strong>Cost</strong>: {building.getCBillCost().toLocaleString("en-US")} C-bills
                             </p>
                             <p>
@@ -72,7 +72,7 @@ export default class BuildingCreatorSummary extends React.Component<ISummaryProp
                             <table className="table" data-testid="building-weights">
                                 <tbody>
                                     {weights.map((entry, index) => (
-                                        <tr key={index}><td>{entry.name}</td><td className="text-right">{entry.weight}</td></tr>
+                                        <tr key={index}><td>{entry.name}{entry.location && building.getHexes() > 1 ? `, ${entry.location.toLowerCase()}` : ""}</td><td className="text-right">{entry.weight}</td></tr>
                                     ))}
                                     {weights.length === 0 ? <tr><td colSpan={2}>Nothing installed.</td></tr> : null}
                                     <tr><td><strong>Total</strong></td><td className="text-right"><strong>{building.getTotalWeight()}</strong></td></tr>
@@ -91,7 +91,8 @@ export default class BuildingCreatorSummary extends React.Component<ISummaryProp
                             <div className="clear-both overflow-hidden">
                                 <hr />
                                 <Link to={`${process.env.PUBLIC_URL}/classic-battletech/building-creator/record-sheet`} className="btn btn-primary pull-right btn-sm">View Record Sheet</Link>
-                                <Link to={`${process.env.PUBLIC_URL}/classic-battletech/building-creator/equipment`} className="btn btn-primary btn-sm"><ArrowCircleLeft /> Previous Step</Link>
+                                <Link to={`${process.env.PUBLIC_URL}/classic-battletech/building-creator/print-tro`} className="btn btn-primary pull-right btn-sm">Print the TRO sheet</Link>
+                                <Link to={`${process.env.PUBLIC_URL}/classic-battletech/building-creator/technical-readout`} className="btn btn-primary btn-sm"><ArrowCircleLeft /> Previous Step</Link>
                             </div>
                         </TextSection>
                     </div>

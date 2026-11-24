@@ -5,24 +5,32 @@ import TextSection from '../../../components/text-section';
 import UIPage from '../../../components/ui-page';
 import AlphaStrikeUnitSVG from '../../../components/svg/alpha-strike-unit-svg';
 import AlphaStrikeMPMaps from '../../../components/svg/alpha-strike-mp-maps';
+import { AcesEdgeReminderList, getAcesGameEdgeReminders } from './_edge-reminders';
+import { IAcesNamedPilotExport } from '../../../../classes/aces-campaign';
 import { AcesGame, acesPhases, getAcesAbilityValue, TAcesPhase } from '../../../../classes/aces-game';
 import {
     applyAcesCriticalToUnit,
     chooseAcesTokenUnit,
+    acesSupportOnlyIfStructure,
+    getAcesSupportSpendLimit,
     evaluateAcesStrategy,
     getAcesDestroyObjectiveStats,
     getAcesOrdersForPhase,
     getAcesUnitStats,
     newAcesRngState,
+    findAcesCommandCard,
+    getAcesIdealTargets,
     rollAcesCriticalHit,
     rollAcesMotiveDamage,
     TAcesRuleset,
 } from '../../../../classes/aces-engine';
-import { TAcesPriorityToken, TAcesSide } from '../../../../classes/aces-helpers';
+import AcesIdealTargets from './_ideal-targets';
+import AcesAddAutomatedUnits from './_add-automated-units';
+import { getAcesCrippledReasonsForUnit, getAcesUnitLabels, TAcesPriorityToken, TAcesSide } from '../../../../classes/aces-helpers';
 import { IAcesCardLibrary, IAcesCommandCard, IAcesSpecialOrder, newAcesCardLibrary, TAcesSpecialOrderKind } from '../../../../data/aces-cards';
 import AlphaStrikeForce from '../../../../classes/alpha-strike-force';
 import AlphaStrikeGroup from '../../../../classes/alpha-strike-group';
-import { AlphaStrikeUnit } from '../../../../classes/alpha-strike-unit';
+import { AlphaStrikeUnit, IASMULUnit } from '../../../../classes/alpha-strike-unit';
 import {
     acesCombatSteps,
     acesDecks,
@@ -31,6 +39,7 @@ import {
     acesNonCampaignDifficulty,
     getAcesDeck,
     TAcesDeckId,
+    getAcesRulesType,
 } from '../../../../data/aces-rules';
 import { generateScenarioDeployments, getDeploymentById } from '../../../../data/alpha-strike-mp-deployments';
 import { generateAvailableScenarios, getScenarioById } from '../../../../data/alpha-strike-mp-scenarios';
@@ -38,8 +47,10 @@ import { generateScenarioTerrains, getTerrainById } from '../../../../data/alpha
 import { getAcesCampaigns, getAcesCardLibrary, getAcesGame, saveAcesGame } from '../../../../dataSaves';
 import AcesToHitCalculator from './_to-hit-calculator';
 import AcesCardReader, { IAcesReaderEnemy, IAcesReaderUnit } from './_card-reader';
+import AcesPlayerForceCards, { applyAcesPlayerForceRound } from './_player-force-cards';
 import { AcesCommandCardView } from './_aces-card-view';
 import AcesText from './_aces-text';
+import AcesSupportCards from './_support-cards';
 import './aces.scss';
 
 const phaseLabels: { [phase in TAcesPhase]: string } = {
@@ -54,10 +65,6 @@ const deploymentSet = { name: "Match Play", deploymentIds: [1, 2, 3, 4], deploym
 const scenarioSet = { name: "Match Play", scenarioIds: [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12], scenarioWeights: [2, 2, 2, 2, 2, 2, 1, 1, 1, 1, 1, 1] };
 const terrainSet = { name: "Match Play", terrainIds: [1, 2, 3, 4, 5, 6, 7, 8, 9, 10], terrainWeights: [1, 2, 3, 6, 5, 6, 5, 4, 3, 1] };
 
-const unitName = ( unit: AlphaStrikeUnit ): string => {
-    return unit.customName ? unit.customName + " (" + unit.name + ")" : unit.name;
-}
-
 export default class AcesGamePage extends React.Component<IAcesGamePageProps, IAcesGamePageState> {
     constructor(props: IAcesGamePageProps) {
         super(props);
@@ -66,6 +73,7 @@ export default class AcesGamePage extends React.Component<IAcesGamePageProps, IA
             campaigns: [],
             forceSource: "current",
             showCards: false,
+            showPlayerCards: false,
             showSetup: true,
             showToHit: false,
             library: newAcesCardLibrary(),
@@ -100,9 +108,19 @@ export default class AcesGamePage extends React.Component<IAcesGamePageProps, IA
         this.setState({
             game: game,
             library: library,
-            campaigns: campaigns.map( ( campaign ) => ( { id: campaign.id, name: campaign.name || "Unnamed campaign" } ) ),
+            campaigns: campaigns.map( ( campaign ) => ( { id: campaign.id, name: campaign.name || "Unnamed campaign", pilots: Array.isArray( campaign.pilots ) ? campaign.pilots : [] } ) ),
             showSetup: game.getAutomatedUnits().length === 0,
         });
+    }
+
+    /** A unit name for the page. Same-name units are numbered in force order, on the automated side and on the roster. */
+    private _name = ( unit: AlphaStrikeUnit ): string => {
+        const game = this.state.game;
+        const roster: AlphaStrikeUnit[] = [];
+        const force = this.props.appGlobals.currentASForce;
+        if( force ) for( const group of force.groups ) roster.push( ...group.members );
+        const side = game && game.getUnit( unit.uuid ) ? game.getAutomatedUnits() : roster;
+        return getAcesUnitLabels( side ).get( unit.uuid ) || ( unit.customName ? unit.customName + " (" + unit.name + ")" : unit.name );
     }
 
     private _save = () => {
@@ -127,14 +145,17 @@ export default class AcesGamePage extends React.Component<IAcesGamePageProps, IA
 
     /* ----- card library ----- */
 
+    /** Edge abilities of the linked campaign living Named Pilots for a phase (campaign games only). */
+    private _renderEdge = ( phase: TAcesPhase ): JSX.Element | null => {
+        const game = this.state.game!;
+        const reminders = getAcesGameEdgeReminders( game.campaignId, this.state.campaigns, this.state.library.edgeCards, phase );
+        return reminders ? <AcesEdgeReminderList reminders={reminders} /> : null;
+    }
+
     /** The face-up Command card, when the players entered their Command deck in the library. */
     private _commandCard = (): IAcesCommandCard | null => {
         const game = this.state.game!;
-        const cards = this.state.library.commandCards;
-        const byId = game.commandCardId ? cards.find( ( card ) => card.id === game.commandCardId ) : null;
-        if( byId && byId.letter === game.commandCard ) return byId;
-        const deck = game.commandDeck.trim().toLowerCase();
-        return cards.find( ( card ) => card.letter === game.commandCard && ( !deck || card.deck.toLowerCase() === deck ) ) || null;
+        return findAcesCommandCard( this.state.library.commandCards, game.commandCard, game.commandDeck, game.commandCardId );
     }
 
     private _specialOrder = ( kind: TAcesSpecialOrderKind ): IAcesSpecialOrder | null => {
@@ -149,7 +170,7 @@ export default class AcesGamePage extends React.Component<IAcesGamePageProps, IA
             for( const group of force.groups ) {
                 for( const unit of group.members ) {
                     if( unit.isWrecked() ) continue;
-                    rv.push( { id: unit.uuid, name: unitName( unit ), stats: getAcesUnitStats( unit ) } );
+                    rv.push( { id: unit.uuid, name: this._name( unit ), stats: getAcesUnitStats( unit ) } );
                 }
             }
         }
@@ -158,14 +179,16 @@ export default class AcesGamePage extends React.Component<IAcesGamePageProps, IA
 
     private _readerUnit = ( unit: AlphaStrikeUnit ): IAcesReaderUnit => {
         return {
-            name: unitName( unit ),
-            isBattleMech: unit.type.toUpperCase() === "BM",
+            name: this._name( unit ),
+            isBattleMech: getAcesRulesType( unit.type ) === "BM",
             canJump: unit.jumpMove > 0 || unit.move.some( ( move ) => move.type.toLowerCase() === "j" ),
             canIndirectFire: getAcesAbilityValue( unit, "IF" ) !== null,
             // The Overheat Value is the card's own field; the ability list only carries OVL.
             ovRating: unit.overheat || getAcesAbilityValue( unit, "OV" ) || 0,
             currentHeat: unit.currentHeat,
+            damage: { short: unit.currentDamage.short, medium: unit.currentDamage.medium, long: unit.currentDamage.long, extreme: unit.currentDamage.extreme },
             fireControlHits: unit.fireControlHits.filter( ( hit ) => hit ).length,
+            crippled: getAcesCrippledReasonsForUnit( unit ).length > 0,
         };
     }
 
@@ -185,6 +208,7 @@ export default class AcesGamePage extends React.Component<IAcesGamePageProps, IA
             warnings = game.loadScenario( scenario, this.state.library.cards.length > 0 ? this.state.library : null );
             const command = this._commandCard();
             game.commandCardId = command ? command.id : "";
+            game.applyCommandTokens( command );
         } );
         this.setState({ warnings: warnings });
     }
@@ -192,10 +216,18 @@ export default class AcesGamePage extends React.Component<IAcesGamePageProps, IA
     private _rollCritical = ( unit: AlphaStrikeUnit ) => {
         this._update( ( game ) => {
             const state = game.getUnitState( unit.uuid );
-            const result = rollAcesCriticalHit( game.ruleset, unit.type, state.isEmplacement, game.rng );
-            let message = unitName( unit ) + " critical hit" + ( result.roll !== null ? " (" + result.roll + ")" : "" ) + ": " + result.label + ".";
-            if( result.effect !== "use-asce-table" && !applyAcesCriticalToUnit( unit, result.effect ) ) {
-                message += " Mark it on the card by hand.";
+            // A Micro-Mech's Engine Hit reads by MCR: whether it has ENE, and the Engine Hits it already took.
+            const micro = {
+                energy: unit.abilities.some( ( ability ) => ability.trim().toUpperCase() === "ENE" ),
+                engineHits: unit.engineHits.filter( ( hit ) => hit ).length + unit.roundEngineHits.filter( ( hit ) => hit ).length,
+            };
+            const result = rollAcesCriticalHit( game.ruleset, unit.type, state.isEmplacement, game.rng, micro );
+            let message = this._name( unit ) + " critical hit" + ( result.roll !== null ? " (" + result.roll + ")" : "" ) + ": " + result.label + ".";
+            // "none" needs no marking; results the card has no box for (ammo, crew, destroyed) are marked by hand.
+            const mark = ( effect: string ): string => effect === "use-asce-table" || effect === "none" || applyAcesCriticalToUnit( unit, effect ) ? "" : " Mark it on the card by hand.";
+            message += mark( result.effect );
+            if( result.also ) {
+                message += ( result.also.roll !== null ? " Second roll (" + result.also.roll + "): " : " Also: " ) + result.also.label + "." + mark( result.also.effect );
             }
             game.addLog( message );
             this.setState({ critMessage: message });
@@ -206,7 +238,7 @@ export default class AcesGamePage extends React.Component<IAcesGamePageProps, IA
     private _rollMotive = ( unit: AlphaStrikeUnit ) => {
         this._update( ( game ) => {
             const motive = rollAcesMotiveDamage( unit.move.length > 0 ? unit.move[0].type : "", game.rng );
-            let message = unitName( unit ) + " motive roll " + motive.roll + ": " + motive.label + ".";
+            let message = this._name( unit ) + " motive roll " + motive.roll + ": " + motive.label + ".";
             if( motive.effect !== "none" && !applyAcesCriticalToUnit( unit, motive.effect ) ) message += " Mark it on the card by hand.";
             game.addLog( message );
             this.setState({ critMessage: message });
@@ -224,6 +256,14 @@ export default class AcesGamePage extends React.Component<IAcesGamePageProps, IA
         const force = new AlphaStrikeForce();
         force.groups = [ new AlphaStrikeGroup( group.export() ) ];
         return force;
+    }
+
+    private _addUnit = ( record: IASMULUnit, skill: number, groupIndex: number ) => {
+        const unit = new AlphaStrikeUnit();
+        unit.importMUL( record );
+        unit.setPilotSkill( skill );
+        unit.calcCurrentValues();
+        this._update( ( game ) => { game.addAutomatedUnit( unit, groupIndex ); } );
     }
 
     private _loadForce = () => {
@@ -294,6 +334,9 @@ export default class AcesGamePage extends React.Component<IAcesGamePageProps, IA
                         The automated force is copied, so the Alpha Strike roster stays free for your own force.
                         Currently {game.getAutomatedUnits().length} units, {automatedPV} PV.
                     </p>
+                    <AcesAddAutomatedUnits
+                        groups={game.automatedForce.groups.map( ( group ) => group.getName( 0 ) )}
+                        onAdd={this._addUnit} />
                     <div className="aces-inline">
                         <label>Game name:{" "}
                             <input type="text" value={game.name} onChange={( e ) => { const value = e.currentTarget.value; this._update( ( g ) => { g.name = value; } ); }} />
@@ -301,7 +344,7 @@ export default class AcesGamePage extends React.Component<IAcesGamePageProps, IA
                         <label>Automated force commander:{" "}
                             <select value={game.automatedCommanderUUID} onChange={( e ) => { const value = e.currentTarget.value; this._update( ( g ) => { g.automatedCommanderUUID = value; } ); }}>
                                 <option value="">None</option>
-                                {game.getAutomatedUnits().map( ( unit ) => <option key={unit.uuid} value={unit.uuid}>{unitName( unit )}</option> )}
+                                {game.getAutomatedUnits().map( ( unit ) => <option key={unit.uuid} value={unit.uuid}>{this._name( unit )}</option> )}
                             </select>
                         </label>
                     </div>
@@ -330,7 +373,7 @@ export default class AcesGamePage extends React.Component<IAcesGamePageProps, IA
                     <legend>Card library and sortie</legend>
                     <p className="aces-muted">
                         Your library holds {this.state.library.cards.length} Aces cards, {this.state.library.commandCards.length} Command
-                        cards, {this.state.library.specialOrders.length} Special Orders and {this.state.library.scenarios.length} sorties.
+                        cards, {this.state.library.specialOrders.length} Special Orders, {this.state.library.edgeCards.length} Edge cards and {this.state.library.scenarios.length} sorties.
                         {" "}<Link to={`${process.env.PUBLIC_URL}/alpha-strike/aces/library`}>Open the Card Library</Link>
                     </p>
                     <div className="aces-inline">
@@ -391,36 +434,39 @@ export default class AcesGamePage extends React.Component<IAcesGamePageProps, IA
                             <input type="text" placeholder="Name on your Command card" value={game.commandDeck} onChange={( e ) => { const value = e.currentTarget.value; this._update( ( g ) => { g.commandDeck = value; } ); }} />
                         </label>
                     </div>
-                    <table className="table tighter-padding">
-                        <thead>
-                            <tr><th>Deck</th><th>Copies owned</th><th>Units using it</th><th>Cards each</th></tr>
-                        </thead>
-                        <tbody>
-                            {acesDecks.filter( ( deck ) => deck.product === "Aces" || game.hasScouringSands ).map( ( deck ) => {
-                                const units = game.getUnitsUsingDeck( deck.id );
-                                const cards = units.length > 0 ? game.getUnitState( units[0].uuid ).cardsInDeck : null;
-                                return (
-                                    <tr key={deck.id}>
-                                        <td>{deck.name}</td>
-                                        <td>
-                                            <input
-                                                type="number"
-                                                className="aces-number"
-                                                min={0}
-                                                value={game.getDecksOwned( deck.id )}
-                                                onChange={( e ) => {
-                                                    const value = Math.max( 0, +e.currentTarget.value || 0 );
-                                                    this._update( ( g ) => { g.decksOwned[deck.id] = value; g.dealDeck( deck.id ); } );
-                                                }}
-                                            />
-                                        </td>
-                                        <td>{units.length}</td>
-                                        <td>{cards === null ? "-" : cards}</td>
-                                    </tr>
-                                );
-                            } )}
-                        </tbody>
-                    </table>
+                    <div className="table-responsive">
+                        <table className="table tighter-padding">
+                            <thead>
+                                <tr><th>Deck</th><th>Copies owned</th><th>Units using it</th><th>Cards each</th></tr>
+                            </thead>
+                            <tbody>
+                                {acesDecks.filter( ( deck ) => deck.product === "Aces" || game.hasScouringSands ).map( ( deck ) => {
+                                    const units = game.getUnitsUsingDeck( deck.id );
+                                    const cards = units.length > 0 ? game.getUnitState( units[0].uuid ).cardsInDeck : null;
+                                    return (
+                                        <tr key={deck.id}>
+                                            <td>{deck.name}</td>
+                                            <td>
+                                                <input
+                                                    type="number"
+                                                    className="aces-number"
+                                                    aria-label={`${deck.name} decks owned`}
+                                                    min={0}
+                                                    value={game.getDecksOwned( deck.id )}
+                                                    onChange={( e ) => {
+                                                        const value = Math.max( 0, +e.currentTarget.value || 0 );
+                                                        this._update( ( g ) => { g.decksOwned[deck.id] = value; g.dealDeck( deck.id ); } );
+                                                    }}
+                                                />
+                                            </td>
+                                            <td>{units.length}</td>
+                                            <td>{cards === null ? "-" : cards}</td>
+                                        </tr>
+                                    );
+                                } )}
+                            </tbody>
+                        </table>
+                    </div>
                 </fieldset>
 
                 <fieldset className="fieldset">
@@ -496,7 +542,12 @@ export default class AcesGamePage extends React.Component<IAcesGamePageProps, IA
                     <span key={phase} className={"aces-phase" + ( phase === game.phase ? " current" : "" )}>{phaseLabels[phase]}</span>
                 ) )}
                 <button className="btn btn-primary btn-sm" onClick={() => this._update( ( g ) => {
+                    if( g.phase === "combat" ) applyAcesPlayerForceRound( this.props.appGlobals );
                     g.nextPhase();
+                    // The player's count follows the roster each time Movement starts; it stays editable.
+                    if( g.phase === "movement" ) g.setPlayerUnitsFromForce( this.props.appGlobals.currentASForce );
+                    // A new turn starts with the Command card handing out its Move First / Move Last token.
+                    if( g.phase === "initiative" ) g.applyCommandTokens( this._commandCard() );
                     // Damage lands at the start of the End Phase; carried infantry go down with their transport (Aces p.5).
                     for( const unit of g.getAutomatedUnits() ) {
                         if( unit.isWrecked() && g.getPassengers( unit.uuid ).length > 0 ) g.handleTransportDestroyed( unit.uuid );
@@ -517,7 +568,7 @@ export default class AcesGamePage extends React.Component<IAcesGamePageProps, IA
             <>
                 <div className="row">
                     {sides.map( ( side ) => {
-                        const modifiers = game.getInitiativeModifiers( side );
+                        const modifiers = game.getInitiativeModifiers( side, this._commandCard() );
                         return (
                             <div className="col-6" key={side}>
                                 <h4>{side === "player" ? "Players" : "Automated force"}</h4>
@@ -546,13 +597,14 @@ export default class AcesGamePage extends React.Component<IAcesGamePageProps, IA
                         {" "}Automated commander destroyed (set automatically when that unit is destroyed)
                     </label>
                     <label>Command card:{" "}
-                        <select value={game.commandCard} onChange={( e ) => { const value = e.currentTarget.value; this._update( ( g ) => { g.commandCard = value; } ); }}>
+                        <select value={game.commandCard} onChange={( e ) => { const value = e.currentTarget.value; this._update( ( g ) => { g.commandCard = value; g.commandCardId = ""; g.applyCommandTokens( this._commandCard() ); } ); }}>
                             {[ "A", "B", "C", "D", "E" ].map( ( letter ) => <option key={letter} value={letter}>{letter}</option> )}
                         </select>
                     </label>
-                    <button className="btn btn-primary btn-sm" onClick={() => this._update( ( g ) => { g.rollInitiative(); } )}>Roll Initiative</button>
+                    <button className="btn btn-primary btn-sm" onClick={() => this._update( ( g ) => { g.rollInitiative( this._commandCard() ); } )}>Roll Initiative</button>
                 </div>
                 {this._renderCommandOrders( "initiative" )}
+                {this._renderEdge( "initiative" )}
                 <p className="aces-muted">
                     Draw each automated unit's top Aces card and enter its movement priority below. Move First and Move
                     Last tokens override the number (<em>Aces</em> p.8).
@@ -566,13 +618,20 @@ export default class AcesGamePage extends React.Component<IAcesGamePageProps, IA
     private _renderCommandOrders = ( phase: TAcesPhase ): JSX.Element | null => {
         const game = this.state.game!;
         const card = this._commandCard();
-        if( !card ) return null;
+        if( !card ) {
+            if( !game.commandDeck.trim() ) return null;
+            return (
+                <div className="aces-command-orders alert alert-warning">
+                    No Command card {game.commandCard} in the card library matches the deck "{game.commandDeck}". Enter that card in the library, or fix the Command deck name in setup. The red, yellow and blue lists are skipped until then.
+                </div>
+            );
+        }
         const orders = getAcesOrdersForPhase( card, phase );
         const units = game.getLiveAutomatedUnits().map( ( unit ) => {
             const state = game.getUnitState( unit.uuid );
             return {
                 id: unit.uuid,
-                name: unitName( unit ),
+                name: this._name( unit ),
                 stats: getAcesUnitStats( unit ),
                 eligible: !state.cannotMove && !state.forcedWithdrawal && !state.fleeing && !state.isEmplacement && !state.transportedBy,
             };
@@ -580,6 +639,7 @@ export default class AcesGamePage extends React.Component<IAcesGamePageProps, IA
         return (
             <div className="aces-command-orders">
                 <p><strong>Command card {card.deck} {card.letter}</strong></p>
+                <AcesIdealTargets targets={getAcesIdealTargets( this._enemies().map( ( enemy ) => ( { id: enemy.id, name: enemy.name, stats: enemy.stats } ) ), card )} />
                 {orders.length > 0 ? (
                     <ul>
                         {orders.map( ( order, index ) => {
@@ -587,6 +647,7 @@ export default class AcesGamePage extends React.Component<IAcesGamePageProps, IA
                             return (
                                 <li key={index}>
                                     <AcesText text={order.text} />
+                                    {order.filter ? <>{" "}<strong><AcesText text={order.filter} /></strong></> : null}
                                     {choice ? (
                                         <>
                                             {" "}<span className="aces-muted">{choice.trace[choice.trace.length - 1]}</span>
@@ -636,6 +697,8 @@ export default class AcesGamePage extends React.Component<IAcesGamePageProps, IA
                 behaviorOrder={behaviorOrder}
                 behaviorOverride={override ? override.behavior : null}
                 preFilters={movementObjective ? movementObjective.preFilters : []}
+                movedIds={game.playerUnitsMoved}
+                onMovedChange={( id, moved ) => this._update( ( g ) => g.setPlayerUnitMoved( id, moved ) )}
                 resetKey={phase + unit.uuid + ( card ? card.id : "" ) + game.turn}
                 onLog={( message ) => this._update( ( g ) => g.addLog( message ) )}
                 onDone={() => {
@@ -679,13 +742,14 @@ export default class AcesGamePage extends React.Component<IAcesGamePageProps, IA
                     </p>
                 ) : <p className="aces-muted">Set the Initiative winner to see the move order.</p>}
                 {queue.length > 0 ? (
-                    <p>Next automated unit to move: <strong>{unitName( queue[0] )}</strong></p>
+                    <p>Next automated unit to move: <strong>{this._name( queue[0] )}</strong></p>
                 ) : <p>Every automated unit has moved.</p>}
                 <details>
                     <summary>Activation steps (<em>Aces</em> p.11)</summary>
                     <ol>{acesMovementSteps.map( ( step, index ) => <li key={index}>{step}</li> )}</ol>
                 </details>
                 {this._renderCommandOrders( "movement" )}
+                {this._renderEdge( "movement" )}
                 {this._renderReader( "movement", queue )}
                 {this._renderUnitTable( "movement" )}
             </>
@@ -702,7 +766,7 @@ export default class AcesGamePage extends React.Component<IAcesGamePageProps, IA
                     deck; when the combat side comes back on top the deck is reshuffled (<em>Aces</em> p.19).
                 </p>
                 {queue.length > 0 ? (
-                    <p>Next automated unit to attack: <strong>{unitName( queue[0] )}</strong></p>
+                    <p>Next automated unit to attack: <strong>{this._name( queue[0] )}</strong></p>
                 ) : <p>Every automated unit has attacked.</p>}
                 <details>
                     <summary>Activation steps (<em>Aces</em> p.18)</summary>
@@ -715,6 +779,7 @@ export default class AcesGamePage extends React.Component<IAcesGamePageProps, IA
                 </p>
                 {this.state.showToHit ? <AcesToHitCalculator automatedAttacker={true} /> : null}
                 {this._renderCommandOrders( "combat" )}
+                {this._renderEdge( "combat" )}
                 {this._renderReader( "combat", queue )}
                 {this.state.critMessage ? <p><strong>{this.state.critMessage}</strong></p> : null}
                 {this._renderSupport()}
@@ -731,19 +796,20 @@ export default class AcesGamePage extends React.Component<IAcesGamePageProps, IA
                 <ol>{acesEndPhaseSteps.map( ( step, index ) => <li key={index}>{step}</li> )}</ol>
                 <p className="aces-muted">Damage and heat from this turn were applied when the End Phase began.</p>
                 {crippled.length > 0 ? (
-                    <p>Under Forced Withdrawal: {crippled.map( ( unit ) => unitName( unit ) ).join( ", " )}</p>
+                    <p>Under Forced Withdrawal: {crippled.map( ( unit ) => this._name( unit ) ).join( ", " )}</p>
                 ) : null}
                 <p>
                     <button className="btn btn-secondary btn-sm" onClick={() => this._update( ( g ) => {
                         const result = g.checkCrippled();
                         g.addLog( result.length > 0
-                            ? "Crippled: " + result.map( ( entry ) => unitName( entry.unit ) + " (" + entry.reasons.join( ", " ) + ")" ).join( "; " )
+                            ? "Crippled: " + result.map( ( entry ) => this._name( entry.unit ) + " (" + entry.reasons.join( ", " ) + ")" ).join( "; " )
                             : "No crippled automated units." );
                     } )}>
                         Check crippled units again
                     </button>
                 </p>
                 {this._renderCommandOrders( "end" )}
+                {this._renderEdge( "end" )}
                 {this._renderStrategy()}
                 {this._renderUnitTable( "end" )}
             </>
@@ -753,13 +819,28 @@ export default class AcesGamePage extends React.Component<IAcesGamePageProps, IA
     /** Support attacks after every automated unit has attacked (Aces p.20). */
     private _renderSupport = (): JSX.Element | null => {
         const card = this._commandCard();
-        if( !card || ( card.emplacements.length === 0 && card.artillery.length === 0 && card.bsp.length === 0 && !card.supportOrders ) ) return null;
+        const game = this.state.game!;
+        const holdsCards = game.supportCards.length > 0;
+        const spendLimit = card ? getAcesSupportSpendLimit( card.supportOrders ) : null;
+        if( !holdsCards && ( !card || ( card.emplacements.length === 0 && card.artillery.length === 0 && card.bsp.length === 0 && !card.supportOrders ) ) ) return null;
         return (
             <details>
                 <summary>Support attacks (<em>Aces</em> p.20)</summary>
                 <p className="aces-muted">After all automated units attack: emplacements, then artillery, then Battlefield Support cards, lowest Target Number first.</p>
-                {card.supportOrders ? <p><AcesText text={card.supportOrders} /></p> : null}
-                {card.supportOnlyIfStructure ? <p>Battlefield Support is only spent when its damage gets through the target's armor.</p> : null}
+                {card && card.supportOrders ? <p><AcesText text={card.supportOrders} /></p> : null}
+                <AcesSupportCards
+                    cards={game.supportCards}
+                    turn={game.turn}
+                    limit={spendLimit}
+                    onlyIfStructure={acesSupportOnlyIfStructure( card )}
+                    onSpend={( ids ) => {
+                        let result = { ok: true, reason: "" };
+                        this._update( ( g ) => { result = g.spendSupportCards( ids, spendLimit ); } );
+                        return result;
+                    }}
+                    onAdd={( name ) => this._update( ( g ) => { g.addSupportCard( name ); } )}
+                    onRemove={( id ) => this._update( ( g ) => { g.removeSupportCard( id ); } )}
+                />
             </details>
         );
     }
@@ -792,6 +873,7 @@ export default class AcesGamePage extends React.Component<IAcesGamePageProps, IA
                                 g.commandCard = result.letter;
                                 const next = this._commandCard();
                                 g.commandCardId = next ? next.id : "";
+                                g.applyCommandTokens( next );
                             }
                             g.addLog( result.trace[result.trace.length - 1] );
                         } );
@@ -858,104 +940,109 @@ export default class AcesGamePage extends React.Component<IAcesGamePageProps, IA
         if( phase === "combat" ) units = [ ...game.getCombatQueue(), ...units.filter( ( unit ) => game.getCombatQueue().indexOf( unit ) === -1 ) ];
 
         return (
-            <table className="table tighter-padding">
-                <thead>
-                    <tr>
-                        <th>Unit</th>
-                        <th>Deck</th>
-                        {phase === "initiative" || phase === "movement" ? <th>Move priority</th> : null}
-                        {phase === "initiative" || phase === "movement" ? <th>Token</th> : null}
-                        {phase === "combat" ? <th>Combat priority</th> : null}
-                        <th>Orders</th>
-                        <th></th>
-                    </tr>
-                </thead>
-                <tbody>
-                    {units.map( ( unit ) => {
-                        const state = game.getUnitState( unit.uuid );
-                        const wrecked = unit.isWrecked();
-                        const deck = state.deckId ? getAcesDeck( state.deckId ) : null;
-                        return (
-                            <tr key={unit.uuid} className={wrecked ? "aces-muted" : ""}>
-                                <td>
-                                    {unitName( unit )}
-                                    <br /><span className="aces-muted">{unit.type} {unit.role ? "- " + unit.role : ""} - {unit.currentPoints || unit.basePoints} PV{wrecked ? " - destroyed" : ""}</span>
-                                </td>
-                                <td>
-                                    <select value={state.deckId} onChange={( e ) => { const value = e.currentTarget.value as TAcesDeckId | ""; this._update( ( g ) => g.setUnitDeck( unit.uuid, value ) ); }}>
-                                        <option value="">None</option>
-                                        {acesDecks.filter( ( entry ) => entry.product === "Aces" || game.hasScouringSands || entry.id === state.deckId ).map( ( entry ) => (
-                                            <option key={entry.id} value={entry.id}>{entry.name}</option>
-                                        ) )}
-                                    </select>
-                                    {deck ? <><br /><span className="aces-muted">Card {Math.min( state.cardsCycled + 1, state.cardsInDeck )} of {state.cardsInDeck}</span></> : null}
-                                </td>
-                                {phase === "initiative" || phase === "movement" ? (
+            <div className="table-responsive">
+                <table className="table tighter-padding">
+                    <thead>
+                        <tr>
+                            <th>Unit</th>
+                            <th>Deck</th>
+                            {phase === "initiative" || phase === "movement" ? <th>Move priority</th> : null}
+                            {phase === "initiative" || phase === "movement" ? <th>Token</th> : null}
+                            {phase === "combat" ? <th>Combat priority</th> : null}
+                            <th>Orders</th>
+                            <th><span className="visually-hidden">Actions</span></th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {units.map( ( unit ) => {
+                            const state = game.getUnitState( unit.uuid );
+                            const wrecked = unit.isWrecked();
+                            const deck = state.deckId ? getAcesDeck( state.deckId ) : null;
+                            return (
+                                <tr key={unit.uuid} className={wrecked ? "aces-muted" : ""}>
                                     <td>
-                                        <input type="number" className="aces-number" disabled={state.cardIds.length > 0} title={state.cardIds.length > 0 ? "Taken from the unit's top card" : undefined} value={state.movePriority === null ? "" : state.movePriority} onChange={( e ) => { const value = this._number( e.currentTarget.value ); this._update( () => { state.movePriority = value; } ); }} />
+                                        {this._name( unit )}
+                                        <br /><span className="aces-muted">{unit.type} {unit.role ? "- " + unit.role : ""} - {unit.currentPoints || unit.basePoints} PV{wrecked ? " - destroyed" : ""}</span>
                                     </td>
-                                ) : null}
-                                {phase === "initiative" || phase === "movement" ? (
                                     <td>
-                                        <select value={state.token || ""} onChange={( e ) => { const value = ( e.currentTarget.value || null ) as TAcesPriorityToken | null; this._update( ( g ) => { g.assignToken( unit.uuid, value ); } ); }}>
+                                        <select aria-label={`${this._name( unit )} deck`} value={state.deckId} onChange={( e ) => { const value = e.currentTarget.value as TAcesDeckId | ""; this._update( ( g ) => g.setUnitDeck( unit.uuid, value ) ); }}>
                                             <option value="">None</option>
-                                            <option value="move-first">Move First</option>
-                                            <option value="move-last">Move Last</option>
+                                            {acesDecks.filter( ( entry ) => entry.product === "Aces" || game.hasScouringSands || entry.id === state.deckId ).map( ( entry ) => (
+                                                <option key={entry.id} value={entry.id}>{entry.name}</option>
+                                            ) )}
                                         </select>
+                                        {deck ? <><br /><span className="aces-muted">Card {Math.min( state.cardsCycled + 1, state.cardsInDeck )} of {state.cardsInDeck}</span></> : null}
                                     </td>
-                                ) : null}
-                                {phase === "combat" ? (
+                                    {phase === "initiative" || phase === "movement" ? (
+                                        <td>
+                                            <input type="number" className="aces-number" aria-label={`${this._name( unit )} movement priority`} disabled={state.cardIds.length > 0} title={state.cardIds.length > 0 ? "Taken from the unit's top card" : undefined} value={state.movePriority === null ? "" : state.movePriority} onChange={( e ) => { const value = this._number( e.currentTarget.value ); this._update( () => { state.movePriority = value; } ); }} />
+                                        </td>
+                                    ) : null}
+                                    {phase === "initiative" || phase === "movement" ? (
+                                        <td>
+                                            <select aria-label={`${this._name( unit )} priority token`} value={state.token || ""} onChange={( e ) => { const value = ( e.currentTarget.value || null ) as TAcesPriorityToken | null; this._update( ( g ) => { g.assignToken( unit.uuid, value ); } ); }}>
+                                                <option value="">None</option>
+                                                <option value="move-first">Move First</option>
+                                                <option value="move-last">Move Last</option>
+                                            </select>
+                                        </td>
+                                    ) : null}
+                                    {phase === "combat" ? (
+                                        <td>
+                                            <input type="number" className="aces-number" aria-label={`${this._name( unit )} combat priority`} disabled={state.cardIds.length > 0} title={state.cardIds.length > 0 ? "Taken from the unit's top card" : undefined} value={state.combatPriority === null ? "" : state.combatPriority} onChange={( e ) => { const value = this._number( e.currentTarget.value ); this._update( () => { state.combatPriority = value; } ); }} />
+                                        </td>
+                                    ) : null}
                                     <td>
-                                        <input type="number" className="aces-number" disabled={state.cardIds.length > 0} title={state.cardIds.length > 0 ? "Taken from the unit's top card" : undefined} value={state.combatPriority === null ? "" : state.combatPriority} onChange={( e ) => { const value = this._number( e.currentTarget.value ); this._update( () => { state.combatPriority = value; } ); }} />
+                                        <label title="Forced Withdrawal (Aces p.16)"><input type="checkbox" checked={state.forcedWithdrawal} onChange={( e ) => { const value = e.currentTarget.checked; this._update( () => { state.forcedWithdrawal = value; if( value ) state.token = null; } ); }} /> FW</label>{" "}
+                                        <label title="Fleeing"><input type="checkbox" checked={state.fleeing} onChange={( e ) => { const value = e.currentTarget.checked; this._update( () => { state.fleeing = value; if( value ) state.token = null; } ); }} /> Fleeing</label>{" "}
+                                        <label title="Can't move this turn (e.g. Crew Stunned)"><input type="checkbox" checked={state.cannotMove} onChange={( e ) => { const value = e.currentTarget.checked; this._update( () => { state.cannotMove = value; if( value ) state.token = null; } ); }} /> Can't move</label>{" "}
+                                        <label title="Emplacements don't use Aces decks (Aces p.31)"><input type="checkbox" checked={state.isEmplacement} onChange={( e ) => { const value = e.currentTarget.checked; this._update( ( g ) => { state.isEmplacement = value; g.assignDecks(); } ); }} /> Emplacement</label>
+                                        {this._renderTransport( unit, phase )}
                                     </td>
-                                ) : null}
-                                <td>
-                                    <label title="Forced Withdrawal (Aces p.16)"><input type="checkbox" checked={state.forcedWithdrawal} onChange={( e ) => { const value = e.currentTarget.checked; this._update( () => { state.forcedWithdrawal = value; if( value ) state.token = null; } ); }} /> FW</label>{" "}
-                                    <label title="Fleeing"><input type="checkbox" checked={state.fleeing} onChange={( e ) => { const value = e.currentTarget.checked; this._update( () => { state.fleeing = value; if( value ) state.token = null; } ); }} /> Fleeing</label>{" "}
-                                    <label title="Can't move this turn (e.g. Crew Stunned)"><input type="checkbox" checked={state.cannotMove} onChange={( e ) => { const value = e.currentTarget.checked; this._update( () => { state.cannotMove = value; if( value ) state.token = null; } ); }} /> Can't move</label>{" "}
-                                    <label title="Emplacements don't use Aces decks (Aces p.31)"><input type="checkbox" checked={state.isEmplacement} onChange={( e ) => { const value = e.currentTarget.checked; this._update( ( g ) => { state.isEmplacement = value; g.assignDecks(); } ); }} /> Emplacement</label>
-                                    {this._renderTransport( unit, phase )}
-                                </td>
-                                <td>
-                                    {( phase === "movement" && !state.moved ) || ( phase === "combat" && !state.attacked ) ? (
-                                        !wrecked && !state.isEmplacement && !state.transportedBy ? (
-                                            <><button className="btn btn-secondary btn-sm" onClick={() => this.setState( { readerUUID: unit.uuid } )}>Read card</button>{" "}</>
-                                        ) : null
-                                    ) : null}
-                                    {( phase === "combat" || phase === "end" ) && !wrecked ? (
-                                        <>
-                                            <button className="btn btn-secondary btn-sm" onClick={() => this._rollCritical( unit )}>Critical hit</button>{" "}
-                                            {game.ruleset === "aces" && ( unit.type.toUpperCase() === "CV" || unit.type.toUpperCase() === "SV" ) ? (
-                                                <><button className="btn btn-secondary btn-sm" onClick={() => this._rollMotive( unit )}>Motive roll</button>{" "}</>
-                                            ) : null}
-                                        </>
-                                    ) : null}
-                                    {phase === "movement" && !wrecked && !state.isEmplacement && !state.cannotMove ? (
-                                        <button className={"btn btn-sm " + ( state.moved ? "btn-secondary" : "btn-primary" )} onClick={() => this._update( ( g ) => g.markMoved( unit.uuid, !state.moved ) )}>
-                                            {state.moved ? "Undo move" : "Moved"}
-                                        </button>
-                                    ) : null}
-                                    {phase === "combat" && !wrecked ? (
-                                        state.attacked ? (
-                                            <span className="aces-muted">Attacked</span>
-                                        ) : (
-                                            <button className="btn btn-primary btn-sm" onClick={() => this._update( ( g ) => {
-                                                if( state.deckId && !state.isEmplacement ) {
-                                                    g.cycleCard( unit.uuid );
-                                                } else {
-                                                    state.attacked = true;
-                                                }
-                                            } )}>
-                                                {state.deckId && !state.isEmplacement ? "Attacked, cycle card" : "Attacked"}
+                                    <td>
+                                        {state.addedDuringPlay ? (
+                                            <><button className="btn btn-secondary btn-sm" onClick={() => this._update( ( g ) => { g.removeAutomatedUnit( unit.uuid ); } )}>Remove</button>{" "}</>
+                                        ) : null}
+                                        {( phase === "movement" && !state.moved ) || ( phase === "combat" && !state.attacked ) ? (
+                                            !wrecked && !state.isEmplacement && !state.transportedBy ? (
+                                                <><button className="btn btn-secondary btn-sm" onClick={() => this.setState( { readerUUID: unit.uuid } )}>Read card</button>{" "}</>
+                                            ) : null
+                                        ) : null}
+                                        {( phase === "combat" || phase === "end" ) && !wrecked ? (
+                                            <>
+                                                <button className="btn btn-secondary btn-sm" onClick={() => this._rollCritical( unit )}>Critical hit</button>{" "}
+                                                {game.ruleset === "aces" && ( unit.type.toUpperCase() === "CV" || unit.type.toUpperCase() === "SV" ) ? (
+                                                    <><button className="btn btn-secondary btn-sm" onClick={() => this._rollMotive( unit )}>Motive roll</button>{" "}</>
+                                                ) : null}
+                                            </>
+                                        ) : null}
+                                        {phase === "movement" && !wrecked && !state.isEmplacement && !state.cannotMove ? (
+                                            <button className={"btn btn-sm " + ( state.moved ? "btn-secondary" : "btn-primary" )} onClick={() => this._update( ( g ) => g.markMoved( unit.uuid, !state.moved ) )}>
+                                                {state.moved ? "Undo move" : "Moved"}
                                             </button>
-                                        )
-                                    ) : null}
-                                </td>
-                            </tr>
-                        );
-                    } )}
-                </tbody>
-            </table>
+                                        ) : null}
+                                        {phase === "combat" && !wrecked ? (
+                                            state.attacked ? (
+                                                <span className="aces-muted">Attacked</span>
+                                            ) : (
+                                                <button className="btn btn-primary btn-sm" onClick={() => this._update( ( g ) => {
+                                                    if( state.deckId && !state.isEmplacement ) {
+                                                        g.cycleCard( unit.uuid );
+                                                    } else {
+                                                        state.attacked = true;
+                                                    }
+                                                } )}>
+                                                    {state.deckId && !state.isEmplacement ? "Attacked, cycle card" : "Attacked"}
+                                                </button>
+                                            )
+                                        ) : null}
+                                    </td>
+                                </tr>
+                            );
+                        } )}
+                    </tbody>
+                </table>
+            </div>
         );
     }
 
@@ -968,12 +1055,12 @@ export default class AcesGamePage extends React.Component<IAcesGamePageProps, IA
             const transport = game.getUnit( state.transportedBy );
             return (
                 <div>
-                    Aboard {transport ? unitName( transport ) : "a transport"}
+                    Aboard {transport ? this._name( transport ) : "a transport"}
                     {phase === "movement" && !state.mountedThisTurn ? (
                         <>
                             {" "}<button className="btn btn-secondary btn-sm" onClick={() => this._update( ( g ) => {
                                 const result = g.dismount( unit.uuid, false );
-                                if( !result.ok ) g.addLog( unitName( unit ) + ": " + result.reason );
+                                if( !result.ok ) g.addLog( this._name( unit ) + ": " + result.reason );
                             } )}>Dismount</button>
                         </>
                     ) : null}
@@ -985,16 +1072,16 @@ export default class AcesGamePage extends React.Component<IAcesGamePageProps, IA
         if( transports.length === 0 ) return null;
         return (
             <div>
-                <select aria-label={"Mount " + unitName( unit )} value="" onChange={( e ) => {
+                <select aria-label={"Mount " + this._name( unit )} value="" onChange={( e ) => {
                     const transportUUID = e.currentTarget.value;
                     if( !transportUUID ) return;
                     this._update( ( g ) => {
                         const result = g.mount( unit.uuid, transportUUID, g.getUnitState( transportUUID ).moved );
-                        if( !result.ok ) g.addLog( unitName( unit ) + " can't mount: " + result.reason );
+                        if( !result.ok ) g.addLog( this._name( unit ) + " can't mount: " + result.reason );
                     } );
                 }}>
                     <option value="">Mount...</option>
-                    {transports.map( ( item ) => <option key={item.uuid} value={item.uuid}>{unitName( item )}</option> )}
+                    {transports.map( ( item ) => <option key={item.uuid} value={item.uuid}>{this._name( item )}</option> )}
                 </select>
             </div>
         );
@@ -1065,6 +1152,19 @@ export default class AcesGamePage extends React.Component<IAcesGamePageProps, IA
                                 ) : <p className="aces-muted">Show the cards to mark damage, heat and critical hits on the automated units.</p>}
                             </TextSection>
 
+                            <TextSection
+                                label="Your Force Cards"
+                                labelButton={
+                                    <button className="btn btn-secondary btn-sm" onClick={() => this.setState( { showPlayerCards: !this.state.showPlayerCards } )}>
+                                        {this.state.showPlayerCards ? "Hide" : "Show"}
+                                    </button>
+                                }
+                            >
+                                {this.state.showPlayerCards ? (
+                                    <AcesPlayerForceCards appGlobals={this.props.appGlobals} onChange={() => this.forceUpdate()} />
+                                ) : <p className="aces-muted">Show the cards to mark damage, heat and critical hits on your own force (the current Alpha Strike roster). Marks land at the End Phase.</p>}
+                            </TextSection>
+
                             <TextSection label="Game Log">
                                 <div className="aces-log">
                                     {game.log.length > 0 ? (
@@ -1088,9 +1188,10 @@ interface IAcesGamePageProps {
 
 interface IAcesGamePageState {
     game: AcesGame | null;
-    campaigns: { id: string, name: string }[];
+    campaigns: { id: string, name: string, pilots: IAcesNamedPilotExport[] }[];
     forceSource: string;
     showCards: boolean;
+    showPlayerCards: boolean;
     showSetup: boolean;
     showToHit: boolean;
     library: IAcesCardLibrary;

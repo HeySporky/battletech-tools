@@ -3,10 +3,13 @@ import { Link } from 'react-router';
 import { FaArrowCircleLeft } from "react-icons/fa";
 import { IAppGlobals } from '../../../app-router';
 import SanitizedHTML from '../../../components/sanitized-html';
-import CapitalShipCreatorSideMenu from '../../../components/capital-ship-creator-side-menu';
+import { CapitalShipCreatorSideMenu } from '../../../components/creator-side-menus';
 import CapitalShipAlphaStrikeCard from '../../../components/capital-ship-as-card';
+import QuirkPicker from '../../../components/quirk-picker';
 import TextSection from '../../../components/text-section';
 import UIPage from '../../../components/ui-page';
+import { unitRulesLevel } from '../../../components/game-settings-block';
+import { formatBattleValue } from '../../../../data/battle-value';
 const ArrowCircleLeft = FaArrowCircleLeft as any;
 
 export default class CapitalShipCreatorSummary extends React.Component<ISummaryProps> {
@@ -18,7 +21,7 @@ export default class CapitalShipCreatorSummary extends React.Component<ISummaryP
     render = (): JSX.Element => {
         const ship = this.props.appGlobals.currentCapitalShip;
         if (!ship) return <></>;
-        const rulesLevel = this.props.appGlobals.appSettings.mechRulesFilter;
+        const rulesLevel = unitRulesLevel(this.props.appGlobals.currentCapitalShip, this.props.appGlobals.appSettings);
         const issues = ship.getIssues(rulesLevel);
         const notes = ship.getNotes();
         const typeName = ship.getShipTypeName();
@@ -46,7 +49,7 @@ export default class CapitalShipCreatorSummary extends React.Component<ISummaryP
                                 <strong>Tech</strong>: {ship.getTech().name} &nbsp;|&nbsp;
                                 <strong>Era</strong>: {ship.getEra().name} &nbsp;|&nbsp;
                                 <strong>Cost</strong>: {ship.getCBillCost().toLocaleString("en-US")} C-bills &nbsp;|&nbsp;
-                                <strong>Battle Value</strong>: <span data-testid="cs-bv">{ship.getBattleValue().toLocaleString("en-US")}</span>
+                                <strong>Battle Value</strong>: <span data-testid="cs-bv">{formatBattleValue((edition) => ship.getBattleValue(edition), "capital-ship", ship.getRulesEdition())}</span>
                             </p>
                             <p>
                                 <strong>Thrust</strong>: {ship.isWarShip() ? `${ship.getSafeThrust()} safe / ${ship.getMaxThrust()} max` : "station-keeping"} &nbsp;|&nbsp;
@@ -71,6 +74,15 @@ export default class CapitalShipCreatorSummary extends React.Component<ISummaryP
                                     <tr><th>Total</th><th className="text-right">{ship.getCurrentTonnage().toLocaleString("en-US")} of {ship.getTonnage().toLocaleString("en-US")} tons</th></tr>
                                 </tbody>
                             </table>
+
+                            <QuirkPicker
+                                quirks={ship.quirks}
+                                unitType={ship.getQuirkUnitType()}
+                                editionTag={ship.getRulesEdition()}
+                                rulesLevel={unitRulesLevel(this.props.appGlobals.currentCapitalShip, this.props.appGlobals.appSettings)}
+                                {...ship.getQuirkTargets()}
+                                onChange={() => this.props.appGlobals.saveCurrentCapitalShip(ship)}
+                            />
 
                             <h3>Battle Value Calculation</h3>
                             <SanitizedHTML raw={true} html={ship.getBattleValueLog()} />
@@ -100,7 +112,8 @@ export default class CapitalShipCreatorSummary extends React.Component<ISummaryP
                                 <hr />
                                 <Link to={`${process.env.PUBLIC_URL}/classic-battletech/capital-ship-creator/record-sheet`} className="btn btn-primary pull-right btn-sm">View Record Sheet</Link>
                                 <Link to={`${process.env.PUBLIC_URL}/classic-battletech/capital-ship-creator/print-as`} className="btn btn-primary pull-right btn-sm">View Alpha Strike Card</Link>
-                                <Link to={`${process.env.PUBLIC_URL}/classic-battletech/capital-ship-creator/crew`} className="btn btn-primary btn-sm"><ArrowCircleLeft /> Previous Step</Link>
+                                <Link to={`${process.env.PUBLIC_URL}/classic-battletech/capital-ship-creator/print-tro`} className="btn btn-primary pull-right btn-sm">Print the TRO sheet</Link>
+                                <Link to={`${process.env.PUBLIC_URL}/classic-battletech/capital-ship-creator/technical-readout`} className="btn btn-primary btn-sm"><ArrowCircleLeft /> Previous Step</Link>
                             </div>
                         </TextSection>
                     </div>

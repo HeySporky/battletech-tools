@@ -4,9 +4,13 @@ import { FaArrowCircleLeft } from "react-icons/fa";
 import { IAppGlobals } from '../../../app-router';
 import SanitizedHTML from '../../../components/sanitized-html';
 import SmallCraftAlphaStrikeCard from '../../../components/small-craft-as-card';
-import SmallCraftCreatorSideMenu from '../../../components/small-craft-creator-side-menu';
+import { SmallCraftCreatorSideMenu } from '../../../components/creator-side-menus';
+import QuirkPicker from '../../../components/quirk-picker';
 import TextSection from '../../../components/text-section';
 import UIPage from '../../../components/ui-page';
+import { unitRulesLevel } from '../../../components/game-settings-block';
+import { formatBattleValue } from '../../../../data/battle-value';
+import { btRulesLevelOptions } from '../../../../data/rules-level-options';
 const ArrowCircleLeft = FaArrowCircleLeft as any;
 
 export default class SmallCraftCreatorSummary extends React.Component<ISummaryProps> {
@@ -18,7 +22,7 @@ export default class SmallCraftCreatorSummary extends React.Component<ISummaryPr
     render = (): JSX.Element => {
         const craft = this.props.appGlobals.currentSmallCraft;
         if (!craft) return <></>;
-        const rulesLevel = this.props.appGlobals.appSettings.mechRulesFilter;
+        const rulesLevel = unitRulesLevel(this.props.appGlobals.currentSmallCraft, this.props.appGlobals.appSettings);
         const issues = craft.getIssues(rulesLevel);
         const notes = craft.getNotes();
         const alphaStrike = craft.getAlphaStrikeStats();
@@ -31,12 +35,12 @@ export default class SmallCraftCreatorSummary extends React.Component<ISummaryPr
                         <SmallCraftCreatorSideMenu appGlobals={this.props.appGlobals} current="summary" />
                     </div>
                     <div className="col-md-9 col-lg-10">
-                        <TextSection label={`Summary: ${`${craft.getName()} ${craft.getModel()}`.trim() || "Small Craft"}`}>
+                        <TextSection label={`Summary: ${`${craft.getName()} ${craft.getModel()}`.trim() || craft.getCraftTypeName()}`}>
                             {issues.length === 0 ? (
-                                <p data-testid="sc-legal"><strong>This Small Craft is legal under the construction rules.</strong></p>
+                                <p data-testid="sc-legal"><strong>This {craft.getCraftTypeName()} is legal under the construction rules.</strong></p>
                             ) : (
                                 <>
-                                    <p className="color-red"><strong>This Small Craft is not legal yet:</strong></p>
+                                    <p className="color-red"><strong>This {craft.getCraftTypeName()} is not legal yet:</strong></p>
                                     <ul className="color-red" data-testid="sc-summary-issues">
                                         {issues.map((issue, index) => <li key={index}>{issue}</li>)}
                                     </ul>
@@ -44,10 +48,10 @@ export default class SmallCraftCreatorSummary extends React.Component<ISummaryPr
                             )}
 
                             <p data-testid="sc-summary">
-                                <strong>Type</strong>: {craft.getShapeName()} Small Craft, {craft.getTonnage()} tons &nbsp;|&nbsp;
+                                <strong>Type</strong>: {craft.getShapeName()} {craft.getCraftTypeName()}, {craft.getTonnage()} tons &nbsp;|&nbsp;
                                 <strong>Tech</strong>: {craft.getTech().name} &nbsp;|&nbsp;
                                 <strong>Era</strong>: {craft.getEra().name} &nbsp;|&nbsp;
-                                <strong>Battle Value</strong>: {craft.getBattleValue()} &nbsp;|&nbsp;
+                                <strong>Battle Value</strong>: {formatBattleValue((edition) => craft.getBattleValue(edition), "small-craft", craft.getRulesEdition())} &nbsp;|&nbsp;
                                 <strong>Cost</strong>: {craft.getCBillCost().toLocaleString("en-US")} C-bills
                             </p>
                             <p>
@@ -57,7 +61,7 @@ export default class SmallCraftCreatorSummary extends React.Component<ISummaryPr
                                 <strong>Heat sinks</strong>: {craft.getTotalHeatSinks()} {craft.getHeatSinkType().name} &nbsp;|&nbsp;
                                 <strong>Fuel</strong>: {craft.getFuelPoints()} points &nbsp;|&nbsp;
                                 <strong>Crew</strong>: {craft.getCrew()}, passengers {craft.getPassengers()} &nbsp;|&nbsp;
-                                <strong>Rules level needed</strong>: {required <= 2 ? "Standard" : required === 3 ? "Advanced" : "Experimental"}
+                                <strong>Rules level needed</strong>: {required <= 2 ? "Standard" : btRulesLevelOptions.find((option) => option.id === required)?.name ?? "Experimental"}
                             </p>
                             {notes.length > 0 ? (
                                 <ul className="smaller-text" data-testid="sc-notes">
@@ -74,6 +78,15 @@ export default class SmallCraftCreatorSummary extends React.Component<ISummaryPr
                                     <tr><th>Total</th><th className="text-right">{craft.getCurrentTonnage()} of {craft.getTonnage()} tons</th></tr>
                                 </tbody>
                             </table>
+
+                            <QuirkPicker
+                                quirks={craft.quirks}
+                                unitType={craft.getQuirkUnitType()}
+                                editionTag={craft.getRulesEdition()}
+                                rulesLevel={unitRulesLevel(this.props.appGlobals.currentSmallCraft, this.props.appGlobals.appSettings)}
+                                {...craft.getQuirkTargets()}
+                                onChange={() => this.props.appGlobals.saveCurrentSmallCraft(craft)}
+                            />
 
                             <h3>Battle Value Calculation</h3>
                             <SanitizedHTML raw={true} html={craft.getBattleValueLog()} />
@@ -101,7 +114,8 @@ export default class SmallCraftCreatorSummary extends React.Component<ISummaryPr
                                 <hr />
                                 <Link to={`${process.env.PUBLIC_URL}/classic-battletech/small-craft-creator/record-sheet`} className="btn btn-primary pull-right btn-sm">View Record Sheet</Link>
                                 <Link to={`${process.env.PUBLIC_URL}/classic-battletech/small-craft-creator/print-as`} className="btn btn-primary pull-right btn-sm">View Alpha Strike Card</Link>
-                                <Link to={`${process.env.PUBLIC_URL}/classic-battletech/small-craft-creator/crew`} className="btn btn-primary btn-sm"><ArrowCircleLeft /> Previous Step</Link>
+                                <Link to={`${process.env.PUBLIC_URL}/classic-battletech/small-craft-creator/print-tro`} className="btn btn-primary pull-right btn-sm">Print the TRO sheet</Link>
+                                <Link to={`${process.env.PUBLIC_URL}/classic-battletech/small-craft-creator/technical-readout`} className="btn btn-primary btn-sm"><ArrowCircleLeft /> Previous Step</Link>
                             </div>
                         </TextSection>
                     </div>

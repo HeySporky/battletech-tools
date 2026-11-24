@@ -52,12 +52,36 @@ test("a Small Craft joins the roster, takes damage in play and prints", async ({
     await expect(page.getByText("This Small Craft is Damaged")).toBeVisible();
 
     await page.goto("classic-battletech/roster/print");
-    await expect(page.getByRole("heading", { name: "Longboat" }).first()).toBeVisible();
+    const sheet = page.getByTestId("small-craft-record-sheet-svg").first();
+    await expect(sheet).toContainText("Longboat");
     // The printed sheet carries the damage: 5 points off the nose, none off the aft.
     await expect(page.getByTestId("armor-diagram-nose").first()).toHaveAttribute("data-damage", "5");
     await expect(page.getByTestId("armor-diagram-aft").first()).toHaveAttribute("data-damage", "0");
-    await expect(page.getByText(/Gunnery 3 \/ Piloting 5/)).toBeVisible();
-    await expect(page.getByTestId("small-craft-as-card").first()).toBeVisible();
+    await expect(sheet).toContainText(/Gunnery Skill:\s*3\s*Piloting Skill:\s*5/);
+    // The Classic print is record sheets only, as for every unit type; the creator's record sheet adds the card.
+    await expect(page.getByTestId("small-craft-as-card")).toHaveCount(0);
 
     expect(errors).toEqual([]);
+});
+
+// A DropShip is Large Craft: zero net heat, so its play panel has no Heat Scale or heat Avoid Rolls (TW p. 161).
+test("a DropShip in play runs at zero net heat", async ({ page }) => {
+    await page.goto("classic-battletech/small-craft-creator");
+    await page.getByRole("button", { name: /Start Over/ }).click();
+    await page.goto("classic-battletech/small-craft-creator/chassis");
+    await page.getByTestId("sc-craft-type").selectOption("dropShip");
+    await page.getByLabel("Name (e.g.").fill("Hauler");
+    await page.goto("classic-battletech/small-craft-creator");
+    await page.getByRole("button", { name: /Save as New/ }).click();
+
+    await page.goto("classic-battletech/roster");
+    await page.getByLabel("Saved Small Craft to add").first().selectOption({ index: 1 });
+    await page.getByRole("button", { name: "Add Small Craft" }).first().click();
+    await page.getByTitle("Click here to go into 'Play Mode'").click();
+    await page.locator(".mech-selector").getByTitle("Select Hauler").click();
+    const panel = page.getByTestId("small-craft-play");
+    await expect(panel).toContainText(/DropShip, [\d,]+ tons/);
+    await expect(panel.getByLabel("Current heat")).toHaveCount(0);
+    await panel.getByRole("button", { name: "End Turn: Apply Heat" }).click();
+    await expect(panel.getByTestId("small-craft-play-log")).toContainText("Large Craft run at zero net heat");
 });

@@ -3,15 +3,13 @@ import { Link } from 'react-router';
 import { FaArrowCircleRight } from "react-icons/fa";
 import Building from '../../../../classes/building';
 import { BUILDING_CLASSIFICATIONS } from '../../../../data/building-classifications';
-import { btTechOptions } from '../../../../data/tech-options';
 import { IAppGlobals } from '../../../app-router';
-import BuildingCreatorSideMenu from '../../../components/building-creator-side-menu';
+import { BuildingCreatorSideMenu } from '../../../components/creator-side-menus';
 import InputField from "../../../components/form_elements/input_field";
 import InputNumeric from "../../../components/form_elements/input_numeric";
-import RulesEditionSelect from '../../../components/rules-edition-select';
-import RulesLevelSelect from '../../../components/rules-level-select';
 import TextSection from '../../../components/text-section';
 import UIPage from '../../../components/ui-page';
+import { UnitGameSettingsBlock } from '../../../components/game-settings-block';
 const ArrowCircleRight = FaArrowCircleRight as any;
 
 const range = (from: number, to: number): number[] => Array.from({ length: Math.max(0, to - from + 1) }, (_unused, index) => from + index);
@@ -30,16 +28,9 @@ export default class BuildingCreatorStructure extends React.Component<IStructure
         }
     }
 
-    updateRulesLevel = (level: number): void => {
-        const appSettings = this.props.appGlobals.appSettings;
-        appSettings.mechRulesFilter = level;
-        this.props.appGlobals.saveAppSettings(appSettings);
-    }
-
     render = (): JSX.Element => {
         const building = this.props.appGlobals.currentBuilding;
         if (!building) return <></>;
-        const rulesLevel = this.props.appGlobals.appSettings.mechRulesFilter;
         const classification = building.getClassification();
         const type = building.getType();
         const hexLabel = building.getHexLabel(true);
@@ -52,34 +43,15 @@ export default class BuildingCreatorStructure extends React.Component<IStructure
                     </div>
                     <div className="col-md-9 col-lg-10">
                         <TextSection label="Step 1: Establish Superstructure">
-                            {/* The rules edition comes first: it decides what every field below offers. */}
-                            <RulesEditionSelect unitType="building" value={building.getRulesEdition()} onChange={(tag) => this.update((b) => b.setRulesEdition(tag))} />
-                            <RulesLevelSelect editionTag={building.getRulesEdition()} value={rulesLevel} onChange={this.updateRulesLevel} />
+                            {/* The shared settings block comes first: it decides what every field below offers (#324). */}
+                            <UnitGameSettingsBlock unitType="building" unit={building} appGlobals={this.props.appGlobals} onChange={() => this.update(() => undefined)} />
                             <InputField
                                 label="Building Name (e.g. Battery Kenyon, Gate Bunker)"
                                 value={building.getName()}
                                 onChange={(e) => { const value = e.currentTarget.value; this.update((b) => b.setName(value)); }}
                             />
 
-                            <label>
-                                Technology Base:
-                                <select value={building.getTech().tag} onChange={(e) => { const value = e.currentTarget.value; this.update((b) => b.setTech(value)); }}>
-                                    {btTechOptions.map((option) => (
-                                        <option key={option.tag} value={option.tag}>{option.name}</option>
-                                    ))}
-                                </select>
-                            </label>
-
                             <p className="smaller-text">Building construction is an Advanced rule (Tactical Operations: Advanced Rules p. 126).</p>
-
-                            <label>
-                                Era:
-                                <select value={building.getEra().tag} onChange={(e) => { const value = e.currentTarget.value; this.update((b) => b.setEra(value)); }}>
-                                    {building.getAvailableEras().map((option) => (
-                                        <option key={option.tag} value={option.tag}>{option.name}</option>
-                                    ))}
-                                </select>
-                            </label>
 
                             <label>
                                 Building Classification:
@@ -136,7 +108,7 @@ export default class BuildingCreatorStructure extends React.Component<IStructure
                                 </label>
                             ) : null}
                             <p data-testid="building-capacity">
-                                <strong>Size</strong>: {building.getHexes()} {building.getHexLabel(building.getHexes() !== 1)}, {building.getLevels()} {building.getLevels() === 1 ? "level" : "levels"} &nbsp;|&nbsp;
+                                <strong>Size</strong>: {building.getSizeText()} &nbsp;|&nbsp;
                                 <strong>Internal Weight Capacity</strong>: {building.getCapacityPerHex()} tons a {building.getHexLabel()}
                                 {building.getHexes() > 1 ? `, ${building.getTotalCapacity()} in all` : ""}
                             </p>

@@ -4,7 +4,7 @@ import { FaArrowCircleRight, FaFile, FaFolderOpen, FaSave, FaTrash } from "react
 import Building, { IBuildingExport } from '../../../../classes/building';
 import { findBuildingClassification } from '../../../../data/building-classifications';
 import { IAppGlobals } from '../../../app-router';
-import BuildingCreatorSideMenu from '../../../components/building-creator-side-menu';
+import { BuildingCreatorSideMenu } from '../../../components/creator-side-menus';
 import TextSection from '../../../components/text-section';
 import UIPage from '../../../components/ui-page';
 import { confirmReplaceDesign, designWouldBeLost } from '../../../components/confirm-replace-design';
@@ -136,7 +136,7 @@ export default class BuildingCreatorHome extends React.Component<IHomeProps> {
                                         <th>Name</th>
                                         <th>Classification</th>
                                         <th>CF</th>
-                                        <th></th>
+                                        <th><span className="visually-hidden">Actions</span></th>
                                     </tr>
                                 </thead>
                                 <tbody>

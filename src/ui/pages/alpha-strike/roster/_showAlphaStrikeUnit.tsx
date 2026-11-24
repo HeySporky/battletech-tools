@@ -1,6 +1,7 @@
 import * as React from 'react';
 import { AlphaStrikeUnit } from '../../../../classes/alpha-strike-unit';
-import { CONST_AS_PILOT_ABILITIES } from '../../../../data/alpha-strike-pilot-abilities';
+import { CONST_AS_PILOT_ABILITIES, getPilotAbilityForEdition } from '../../../../data/alpha-strike-pilot-abilities';
+import { DEFAULT_ALPHA_STRIKE_EDITION, getAlphaStrikeEdition } from '../../../../data/rules-editions';
 import { IAppGlobals } from '../../../app-router';
 import InputField from '../../../components/form_elements/input_field';
 import StandardModal from '../../../components/standard-modal';
@@ -33,10 +34,29 @@ export default class AlphaStrikeUnitEditViewModal extends React.Component<IAlpha
               )
             )
           );
-          console.log(this.props.appGlobals.currentASForce!.groups[i].availableFormationBonuses)
          }
         this.props.appGlobals.saveCurrentASForce( this.props.appGlobals.currentASForce );
       }
+    }
+
+    /**
+     * The pilot-ability options for the unit's edition: its offered abilities at its costs, "(apocryphal)" after a carried-forward one,
+     * and a held ability the edition does not offer kept in the list, labeled (#646).
+     */
+    renderAbilityOptions = (selectedId: number): React.ReactNode => {
+        const edition = this.props.showASUnit?.playEdition ?? DEFAULT_ALPHA_STRIKE_EDITION;
+        return CONST_AS_PILOT_ABILITIES.map((abi, abiIndex) => {
+            const forEdition = getPilotAbilityForEdition(abi, edition);
+            if (!forEdition.offered && abi.id !== selectedId) {
+                return null;
+            }
+            const label = forEdition.offered
+                ? `${abi.ability}  (${forEdition.cost})${forEdition.apocryphal ? " (apocryphal)" : ""}`
+                : `${abi.ability}  (${forEdition.cost}) - not in ${getAlphaStrikeEdition(edition).name}`;
+            return (
+                <option title={abi.summary.join("\n")} key={abiIndex} value={abi.id}>{label}</option>
+            );
+        });
     }
 
     updateUnitPilotAbility = (event: React.FormEvent<HTMLSelectElement>): void => {
@@ -62,7 +82,7 @@ export default class AlphaStrikeUnitEditViewModal extends React.Component<IAlpha
 
     renameUnit = (event: React.FormEvent<HTMLInputElement>): void => {
       if(this.props.showASUnit) {
-        let asUnit = this.props.showASUnit;
+        const asUnit = this.props.showASUnit;
         asUnit.customName = event.currentTarget.value;
         this.setState({
           updated: true,
@@ -77,6 +97,7 @@ export default class AlphaStrikeUnitEditViewModal extends React.Component<IAlpha
     onClose={this.props.closeShowUnitDialog}
     show={this.props.showASUnit !== null}
     className="modal-xl"
+    printable={!this.props.editASUnit}
     title={
       this.props.showASUnit ?
        (
@@ -138,11 +159,7 @@ export default class AlphaStrikeUnitEditViewModal extends React.Component<IAlpha
                               onChange={this.updateUnitPilotAbility}
                             >
                               <option value={0}>- None -</option>
-                              {CONST_AS_PILOT_ABILITIES.map( (abi, abiIndex) => {
-                                return (
-                                  <option title={abi.summary.join("\n")} key={abiIndex} value={abi.id}>{abi.ability}  ({abi.cost})</option>
-                                )
-                              })}
+                              {this.renderAbilityOptions(this.props.showASUnit.currentPilotAbilityID)}
                             </select>
                             {this.props.showASUnit.currentPilotAbility ? (
                               <div>{this.props.showASUnit.currentPilotAbility.summary}</div>
@@ -160,11 +177,7 @@ export default class AlphaStrikeUnitEditViewModal extends React.Component<IAlpha
                               onChange={this.updateUnitPilotAbility2}
                             >
                               <option value={0}>- None -</option>
-                              {CONST_AS_PILOT_ABILITIES.map( (abi, abiIndex) => {
-                                return (
-                                  <option title={abi.summary.join("\n")} key={abiIndex} value={abi.id}>{abi.ability}  ({abi.cost})</option>
-                                )
-                              })}
+                              {this.renderAbilityOptions(this.props.showASUnit.currentPilotAbilityID2)}
                             </select>
                             {this.props.showASUnit.currentPilotVeteranAbility ? (
                               <div>{this.props.showASUnit.currentPilotVeteranAbility.summary}</div>
@@ -182,11 +195,7 @@ export default class AlphaStrikeUnitEditViewModal extends React.Component<IAlpha
                                   onChange={this.updateUnitPilotAbility3}
                                 >
                                   <option value={0}>- None -</option>
-                                  {CONST_AS_PILOT_ABILITIES.map( (abi, abiIndex) => {
-                                    return (
-                                      <option title={abi.summary.join("\n")} key={abiIndex} value={abi.id}>{abi.ability}  ({abi.cost})</option>
-                                    )
-                                  })}
+                                  {this.renderAbilityOptions(this.props.showASUnit.currentPilotAbilityID3)}
                                 </select>
                                 {this.props.showASUnit.currentPilotHeroAbility ? (
                                   <div>{this.props.showASUnit.currentPilotHeroAbility.summary}</div>

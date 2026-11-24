@@ -1,13 +1,16 @@
 import { describe, expect, it } from "vitest";
 import { AlphaStrikeUnit } from "../classes/alpha-strike-unit";
 import { loadMULListItems } from "../data/mul-list-items";
-import { getMULASSearchResults } from "../utils";
+import { getMULASSearchResults, searchBundledMUL } from "../utils";
+import { newMULSearchFilters } from "./mulSearchFilters";
 
-// Bundled MUL 2.0 records (masterunitlist.battletech.com) have no Rules, BFThreshold or ImageUrl fields.
+// Bundled MUL 2.0 records (masterunitlist.battletech.com) take their Rules level from the legacy record they
+// replaced (#48).
 describe("Bundled MUL 2.0 search and cards", () => {
-    it("finds a 'Mech by name and model with a Rules level selected", async () => {
-        const results = await getMULASSearchResults("Atlas AS7-D", "standard", "", "", 0, 0, [], true);
-        expect(results.some((unit) => unit.Name === "Atlas" && unit.Variant === "AS7-D")).toBe(true);
+    it("finds a 'Mech by name and model at its Rules level, and not at another", async () => {
+        const isAtlas = (unit: { Name: string; Variant: string | null }) => unit.Name === "Atlas" && unit.Variant === "AS7-D";
+        expect((await getMULASSearchResults("Atlas AS7-D", "intro+standard", "", "", 0, 0, [], true)).some(isAtlas)).toBe(true);
+        expect((await getMULASSearchResults("Atlas AS7-D", "advanced", "", "", 0, 0, [], true)).some(isAtlas)).toBe(false);
     }, 30_000);
 
     it("filters by special ability code, with exclusions", async () => {
@@ -18,6 +21,26 @@ describe("Bundled MUL 2.0 search and cards", () => {
             expect(codes).toContain("ECM");
             expect(codes.some((ability) => /^IF\s?[\d*]/.test(ability))).toBe(false);
         }
+    }, 30_000);
+
+    // Classic Roster MUL search (Ideas #84): the same filters over the bundled copy, with no live-search alert.
+    it("searches the bundled copy with name, type, era and faction filters together", async () => {
+        const ilClan = 257;
+        const mercenary = 34;
+        const results = await searchBundledMUL(newMULSearchFilters({ term: "Atlas", type: 18, era: ilClan, factions: [mercenary] }));
+        expect(results.length).toBeGreaterThan(0);
+        expect(results.every((unit) => unit.Name.includes("Atlas") && unit.Type?.Id === 18)).toBe(true);
+        expect(results.every((unit) => unit.Availability?.some((entry) => entry.EraId === ilClan))).toBe(true);
+        const sameAsAlphaStrike = await getMULASSearchResults("Atlas", "", "", "", ilClan, 18, [mercenary], true);
+        expect(results.map((unit) => unit.Id).sort()).toEqual(sameAsAlphaStrike.map((unit) => unit.Id).sort());
+    }, 30_000);
+
+    it("leaves out the Clan units and ProtoMechs a ticked ruleset removes (#324)", async () => {
+        const all = await searchBundledMUL(newMULSearchFilters({ term: "Timber Wolf", type: 0 }));
+        expect(all.some((unit) => unit.Technology?.Id === 2)).toBe(true);
+        expect(await searchBundledMUL(newMULSearchFilters({ term: "Timber Wolf", type: 0, rulesets: ["sample-no-clans"] }))).toEqual([]);
+        expect((await searchBundledMUL(newMULSearchFilters({ type: 23 }))).length).toBeGreaterThan(0);
+        expect(await searchBundledMUL(newMULSearchFilters({ type: 23, rulesets: ["sample-no-clans"] }))).toEqual([]);
     }, 30_000);
 
     it("does not match an ability code inside a longer code", async () => {

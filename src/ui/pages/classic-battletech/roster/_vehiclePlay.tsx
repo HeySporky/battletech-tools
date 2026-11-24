@@ -6,6 +6,8 @@ import { IBattleArmorCarrierLoad, isCarrierWeaponBlocked } from '../../../../cla
 import TextSection from '../../../components/text-section';
 import VehicleDiagramSVG from '../../../components/svg/vehicle-diagram-svg';
 import { vehicleName } from './_vehicleGroupTable';
+import { getCarrierPlayYear, getCarrierQuirkEffects, getQuirkToHit } from '../../../../utils/quirk-effects';
+import { QuirkRangeBand } from '../../../../data/quirk-interfaces';
 
 const MOTIVE_LEVELS: { level: VehicleMotiveHit; label: string }[] = [
     { level: "minor", label: "Minor (+1 driving)" },
@@ -52,7 +54,8 @@ const SUPERHEAVY_DIRECTIONS: { value: VehicleAttackDirection; label: string }[] 
     { value: "rear", label: "Rear" },
 ];
 
-const directionsFor = (vehicle: Vehicle) => vehicle.isSuperheavy() ? SUPERHEAVY_DIRECTIONS : DIRECTIONS;
+// Six attack directions only for the six-facing vehicles; a VTOL keeps four at any weight (TO:AUE p.190).
+const directionsFor = (vehicle: Vehicle) => vehicle.hasSplitSides() ? SUPERHEAVY_DIRECTIONS : DIRECTIONS;
 
 // Turret facings in hexsides clockwise from the front; the forward turret of a dual-turret vehicle cannot
 // face the rear hexside (TO p. 347).
@@ -96,6 +99,7 @@ export default class VehiclePlayPanel extends React.Component<IVehiclePlayPanelP
             pendingRoll: null,
             pendingRollValue: "",
             log: [],
+            targetAirborne: false,
         }
     }
 
@@ -218,7 +222,14 @@ export default class VehiclePlayPanel extends React.Component<IVehiclePlayPanelP
         const status = vehicle.getWeaponStatus(weapon.uuid);
         // A weapon in a side or rear location a mechanized battle armor trooper occupies may not fire (TW p. 226).
         const blocked = !!this.props.carrierLoad && isCarrierWeaponBlocked(this.props.carrierLoad, weapon);
-        const target = (rangeModifier: number) => modifier === null || blocked ? "-" : `${gunnery + modifier + rangeModifier}+`;
+        // Design quirks, with the game's "Use design quirks" switch on; a destroyed weapon's quirk no longer counts.
+        const quirkToHit = (rangeBand: QuirkRangeBand): number => !this.props.quirksInPlay ? 0 : getQuirkToHit(
+            vehicle.quirks,
+            vehicle.getEquipmentList().filter((item) => item.uuid && vehicle.getWeaponStatus(item.uuid) !== "destroyed").map((item) => item.uuid!),
+            getCarrierPlayYear(vehicle),
+            { weaponUuid: weapon.uuid, rangeBand, vsAirborne: this.state.targetAirborne, attackerRanOrFlanked: vehicle.getInPlay().movementMode === "flank" },
+        ).modifier;
+        const target = (rangeModifier: number, rangeBand: QuirkRangeBand) => modifier === null || blocked ? "-" : `${gunnery + modifier + rangeModifier + quirkToHit(rangeBand)}+`;
         const range = weapon.range;
         return (
             <tr key={weapon.uuid} className={status === "ok" && modifier !== null && !blocked ? "" : "color-red"}>
@@ -229,9 +240,9 @@ export default class VehiclePlayPanel extends React.Component<IVehiclePlayPanelP
                 <td className="text-center no-wrap">
                     {range ? `${range.min ? range.min + " / " : ""}${range.short}/${range.medium}/${range.long}` : "-"}
                 </td>
-                <td className="text-center">{target(0)}</td>
-                <td className="text-center">{target(2)}</td>
-                <td className="text-center">{target(4)}</td>
+                <td className="text-center">{target(0, "short")}</td>
+                <td className="text-center">{target(2, "medium")}</td>
+                <td className="text-center">{target(4, "long")}</td>
                 <td className="text-center">
                     <select
                         aria-label={`${weapon.name} status`}
@@ -404,7 +415,7 @@ export default class VehiclePlayPanel extends React.Component<IVehiclePlayPanelP
                                     Leave 2D6 blank to roll. Resolve each Damage Value grouping (e.g. each 5-point LRM cluster)
                                     as its own hit. Motive, critical and Hull Integrity rolls follow the table results, any
                                     internal structure damage and naval hull hits (TW pp. 121, 192-198).
-                                    {vehicle.isSuperheavy() ? " Super-Heavy hit locations use the Tactical Operations Super-Heavy Vehicle Hit Location Table." : ""}
+                                    {vehicle.hasSplitSides() ? " Super-Heavy hit locations use the Tactical Operations Super-Heavy Vehicle Hit Location Table." : ""}
                                     {vehicle.hasDualTurret() ? " A turret hit rolls 1D6 for the turret struck (TO p. 347)." : ""}
                                 </p>
                                 {pending ? (
@@ -469,9 +480,28 @@ export default class VehiclePlayPanel extends React.Component<IVehiclePlayPanelP
                         <div className="col-md-6">
                             <fieldset className="fieldset">
                                 <legend>Movement</legend>
+                                {vehicle.hasSatelliteUplink() ? (
+                                    <label className="d-block">
+                                        <input
+                                            type="checkbox"
+                                            data-testid="vehicle-uplink-on"
+                                            checked={vehicle.isSatelliteUplinkActive()}
+                                            onChange={(e) => { vehicle.setSatelliteUplinkOn(e.currentTarget.checked); this._changed(); }}
+                                        />{" "}
+                                        Satellite uplink on (set in the End Phase; Maximum Tech p.59): +2 Initiative for the side; this vehicle takes +1 on attacks and Driving Skill Rolls and cannot spot, use a spotter or join a C3 network.
+                                    </label>
+                                ) : null}
+                                {vehicle.getHeadquartersKind() ? (
+                                    <p className="smaller-text" data-testid="vehicle-hq-status">
+                                        {vehicle.getHeadquartersKind() === "mobile" ? "Mobile HQ" : "Field HQ"} ({vehicle.getCommunicationsTons()} t of communications gear, Maximum Tech p.70):{" "}
+                                        {vehicle.isHeadquartersActive()
+                                            ? `+${vehicle.getHeadquartersKind() === "mobile" ? 2 : 1} Initiative for the side.`
+                                            : "no longer gives its Initiative bonus (Crew Killed, or a stabilizer hit after it moved last turn)."}
+                                    </p>
+                                ) : null}
                                 <select
                                     aria-label="Movement mode"
-                                    value={inPlay.movementMode}
+                                    value={movementModes.some((m) => m.mode === inPlay.movementMode) ? inPlay.movementMode : "stationary"}
                                     onChange={(e) => { vehicle.setMovement(e.currentTarget.value as VehicleMovementMode, inPlay.hexesMoved); this._changed(); }}
                                 >
                                     {movementModes.map((m) => <option key={m.mode} value={m.mode}>{m.label} ({m.mp} MP)</option>)}
@@ -697,6 +727,16 @@ export default class VehiclePlayPanel extends React.Component<IVehiclePlayPanelP
                             {this.props.carrierLoad.notes.map((note, index) => <p key={index}>{note}</p>)}
                         </div>
                     ) : null}
+                    {this.props.quirksInPlay && getCarrierQuirkEffects(this.props.vehicle).some((applied) => applied.effect?.type === "to-hit" && applied.effect.vsAirborne) ? (
+                        <label className="d-block">
+                            <input
+                                type="checkbox"
+                                aria-label="Target airborne"
+                                checked={this.state.targetAirborne}
+                                onChange={(e) => this.setState({ targetAirborne: e.currentTarget.checked })}
+                            />{" "}Target airborne (not a jumping 'Mech; CO p.225)
+                        </label>
+                    ) : null}
                     <table className="table">
                         <thead>
                             <tr>
@@ -735,9 +775,13 @@ interface IVehiclePlayPanelProps {
     /** Mechanized battle armor riding the vehicle, and what it stops the vehicle doing. */
     carrierLoad?: IBattleArmorCarrierLoad;
     onChange: (vehicle: Vehicle) => void;
+    /** The game's "Use design quirks" switch: the vehicle's quirks change its to-hit numbers. */
+    quirksInPlay?: boolean;
 }
 
 interface IVehiclePlayPanelState {
+    /** The target is airborne, for Anti-Aircraft Targeting (CO p.225). */
+    targetAirborne: boolean;
     direction: VehicleAttackDirection;
     attackerUnderwater: boolean;
     armorPiercing: 0 | 2 | 5 | 10 | 20;

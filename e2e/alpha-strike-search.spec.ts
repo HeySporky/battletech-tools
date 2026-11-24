@@ -9,7 +9,7 @@ test("a search matching the whole bundled MUL shows one page of results", async 
     await page.goto("alpha-strike/roster");
     await page.getByRole("button", { name: "Add Units" }).first().click();
     await page.getByLabel("Search Terms").fill("");
-    await page.locator("select[name=alphaStrikeMULSources]").selectOption("mul2+mul1");
+    await page.getByRole("checkbox", { name: "MUL 1.0 leftovers" }).check();
 
     await expect(page.getByRole("heading", { name: /Search Results \(\d{4,}\)/ })).toBeVisible();
     const pager = page.getByRole("navigation", { name: "Search results pages" }).first();

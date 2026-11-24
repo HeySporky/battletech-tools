@@ -17,6 +17,8 @@ import { IAbilitySource } from "./ability-source";
 export enum ESpecialAbilityType {
     Standard = 1,
     Optional = 2,
+    /** Ours, for a Custom Homebrew unit type: in no rulebook. */
+    Custom = 3,
 }
 export function getSpecialAbilityTypeName( type: ESpecialAbilityType ): string {
     switch( type ) {
@@ -24,8 +26,77 @@ export function getSpecialAbilityTypeName( type: ESpecialAbilityType ): string {
             return "Standard Special Ability";
         case ESpecialAbilityType.Optional:
             return "Optional Special Ability";
+        case ESpecialAbilityType.Custom:
+            return "Custom Homebrew Special Ability (NOT OFFICIAL)";
     }
 }
+/** What the MCR ability means on the table. One text, shown on the card popup, the creator's card page and TRO - JBT. */
+export const MICRO_MECH_AS_ABILITY_TEXT: string[] = [
+    "Every Micro-Mech (unit type MM) has this ability. It is a Custom Homebrew rule of this app, not an official one.",
+    "Low profile: the unit is 1 inch (1 level) tall, as a vehicle, for line of sight, and never has partial cover.",
+    "Stacking: it counts as a vehicle for stacking and displacement.",
+    "No heat: it has no Heat Scale and no Overheat value. A Heat (HT) attack against it does its heat points as damage.",
+    "Too small to swarm: it cannot be the target of an anti-\u2019Mech (AM) infantry attack.",
+    "Light frame: it may make a standard physical attack (damage 1) or a charge. It may not make a Death From Above or a melee attack.",
+    "Critical hits: roll on the \u2019Mech column. First Engine Hit: a unit with ENE can make no more weapon attacks; any other unit treats it as a Weapon Hit. A second Engine Hit destroys the unit.",
+    "Unsealed: without the SEAL ability it follows the IndustrialMech limits for deep water and vacuum.",
+];
+
+/**
+ * MMT#, the Micro-Mech Bay in Alpha Strike: ours, after MT# and PT# (ASC:CE pp.87-88), with Micro-Mechs 6.1.0.2's
+ * emergency rule (two in a 'Mech bay, deployment time doubled, no orbital drop) put in Alpha Strike terms.
+ */
+export const MICRO_MECH_TRANSPORT_AS_ABILITY_TEXT: string[] = [
+    "A unit with this special ability can transport, deploy, and drop the indicated number of Micro-Mechs (unit type MM), as ’Mech Transport (MT#) does for ’Mechs. It usually applies to DropShips and is always used with the Door special ability (see Transporting Non-Infantry Units and Dropping Troops). It is a Custom Homebrew rule of this app, not an official one.",
+    "Each bay holds one Micro-Mech. No other unit, ’Mechs included, may use it.",
+    "Emergency loading: a ’Mech Transport (MT#) bay may hold two Micro-Mechs in place of one ’Mech. Each such Micro-Mech counts as two units against the number its bay doors can deploy in a turn, and it may not be dropped (Dropping Troops).",
+];
+
+/**
+ * What the WLK ability means on the table: Clell Flint's walker (Future Wars #11; The Best of Future Wars, Volume One)
+ * in Alpha Strike. Ours (NGCFells's answers 2026-11-15): docs/superpowers/specs/2026-11-15-walker-alpha-strike.md.
+ */
+export const WALKER_AS_ABILITY_TEXT: string[] = [
+    "Every walker (unit type WK; IWK for an industrial walker) has this ability. It is a Custom Homebrew rule of this app, not an official one, after Clell Flint’s walker rules in Future Wars.",
+    "Unit type: wherever the rules ask a unit’s type, WK counts as a BattleMech (BM) and IWK as an IndustrialMech (IM): the ’Mech critical hit column, the Heat Scale and Overheat.",
+    "Four legs: the rules for a four-legged ’Mech apply: -2 on Control Rolls to avoid skidding, -1 on bog-down checks, no Climbing, no External Cargo.",
+    "Firing arc: the damage line is fired into the 90-degree Fore arc of a four-legged ’Mech; REAR into the rear arc; TUR all round.",
+    "Kicks only: it may make a standard physical attack (damage equal to its Size) or a charge, and a Death From Above if it jumps. It has no melee weapon.",
+    "Belly guns: a walker with AIF# may make that attack as well.",
+    "Legs: no leg is tracked. An MP Hit on the ’Mech critical hit column stands for a lost leg.",
+];
+
+/**
+ * What the PWA ability means on the table: Bill Swisher's Power Armor (Future Wars #14; The Best of Future Wars, Volume
+ * One, pp.14-16) in Alpha Strike. Ours (NGCFells's ruling 2026-11-17): the converter's BattleMech card plus this ability.
+ */
+export const POWER_ARMOR_AS_ABILITY_TEXT: string[] = [
+    "Every Power Armor suit (a 5, 10 or 15-ton suit built under Bill Swisher’s Power Armor rules from Future Wars) has this ability. It is a Custom Homebrew rule of this app, not an official one. The suit is otherwise a BattleMech (BM) of Size 1.",
+    "Hard to hit: every attack against the suit is at +1 to hit.",
+    "Low profile: the suit is 1 inch (1 level) tall, as a vehicle, for line of sight.",
+    "Stacking: on a hex map, up to 14 suits may share a hex, or 7 when they share it with one other unit.",
+    "Physical attacks: it may make a standard physical attack or a charge only against a unit on its own level, and a Death From Above; it may not make a melee attack. A failed Death From Above also wounds its pilot.",
+    "No ejection: the pilot cannot eject. Leaving the suit takes a full turn in which it neither moves nor attacks.",
+    "Point Value: the +1 to hit is priced as +1 to the unit’s movement modifier in the defense factor, as Stealth (STL) is.",
+];
+
+/** AIF#, Anti-Infantry Fire: a walker's center-torso weapons. Ours, from Flint; the two printings give the base to-hit differently. */
+export const WALKER_AIF_AS_ABILITY_TEXT: string[] = [
+    "A walker’s center-torso weapons (machine guns, small lasers, flamers) fire only at infantry and vehicles under it. It is a Custom Homebrew rule of this app, not an official one, after Clell Flint’s walker rules in Future Wars.",
+    "In addition to its other attacks, the unit may make one AIF attack on an infantry (CI, BA) or vehicle (CV, SV) unit in base contact, in any direction. It does the rating in damage (AIF0*: minimal damage). It is not a physical attack and needs no firing arc.",
+    "To-hit: Flint’s base number replaces the pilot’s Skill. The target number is 6 for a walker built under The Best of Future Wars, Volume One (8 - 2), or -2 under Future Wars #11 (0 - 2, which all but always hits), plus the target’s Target Movement Modifier and the other usual modifiers; no range modifier. The walker’s card page names its printing.",
+    "Heat: the attack builds no heat, and a flamer in the center torso gives no HT.",
+];
+
+/** The AIF text for one walker: the target number of the printing it is built under. */
+export function getWalkerAntiInfantryFireText(rules: { name: string; antiInfantryBaseToHit: number }): string[] {
+    return [
+        WALKER_AIF_AS_ABILITY_TEXT[1],
+        `To-hit: built under ${rules.name}, so the target number is ${rules.antiInfantryBaseToHit - 2} (Flint’s base ${rules.antiInfantryBaseToHit}, less 2) in place of the pilot’s Skill, plus the target’s Target Movement Modifier and the other usual modifiers; no range modifier.`,
+        WALKER_AIF_AS_ABILITY_TEXT[3],
+    ];
+}
+
 export const CONST_AS_SPECIAL_ABILITIES: IASSpecialAbility[] = [
     /* ***************************
       Standard Special Abilities
@@ -865,6 +936,16 @@ export const CONST_AS_SPECIAL_ABILITIES: IASSpecialAbility[] = [
         type: ESpecialAbilityType.Optional,
     },
     {
+        tag: "LPRB",
+        name: "Light Active Probe",
+        summary: [
+            "Light active probes function in the same way as standard active probes, but only have an effective range of 12”. As with standard probes, light probes automatically confer the Recon (RCN) special ability upon their users, and enable them to detect hidden units (see Hidden Units, p. 168), identify incoming sensor blips, or discover the capabilities of unknown hostile units that fall within this range (see Concealing Unit Data, p. 157).",
+            "Hostile ECM systems, including Angel ECM (AECM) and standard ECM (ECM) will overwhelm the light active probe’s abilities.",
+        ],
+        source: { book: "ASCE", page: 86 },
+        type: ESpecialAbilityType.Optional,
+    },
+    {
         tag: "LTAG",
         name: "Light Target Acquisition Gear",
         summary: [
@@ -1476,6 +1557,207 @@ export const CONST_AS_SPECIAL_ABILITIES: IASSpecialAbility[] = [
         ],
         source: { book: "ASCE", page: 91 },
         type: ESpecialAbilityType.Optional
+    },
+
+    /* ***************************
+      Custom Homebrew (NGCFells's; in no rulebook)
+    ***************************** */
+    {
+        // Micro-Mechs (#173): the Alpha Strike ruleset is NGCFells's, from the play rules of "Micro-Mechs" by Solarmech
+        // (version 6.1.0.2 revised by an unnamed editor with Discord). docs/superpowers/specs/2026-11-14-micro-mech-alpha-strike.md
+        tag: "MCR",
+        name: "Micro-Mech",
+        summary: MICRO_MECH_AS_ABILITY_TEXT,
+        source: { book: "TRO - JBT: Micro-Mechs (Custom Homebrew, NOT OFFICIAL)", page: 0 },
+        type: ESpecialAbilityType.Custom
+    },
+    {
+        tag: "MMT#",
+        name: "Micro-Mech Transport",
+        summary: MICRO_MECH_TRANSPORT_AS_ABILITY_TEXT,
+        source: { book: "TRO - JBT: Micro-Mechs (Custom Homebrew, NOT OFFICIAL)", page: 0 },
+        type: ESpecialAbilityType.Custom
+    },
+    {
+        // The Aces: Scouring Sands emplacement cards print these two (#191). The MUL lists no buildings.
+        tag: "IMMOBILE",
+        name: "Immobile (Emplacement)",
+        summary: [
+            "An emplacement cannot move. Attacks against it take the -4 immobile target modifier, and its own attacks and spotting take -1. It uses no Aces behavior deck.",
+            "Every critical hit is a Weapon Hit (-1 damage each). It is crippled when its damage drops to 0, and it never makes a Forced Withdrawal.",
+        ],
+        source: { book: "BattleTech: Aces", page: 6 },
+        type: ESpecialAbilityType.Standard,
+    },
+    {
+        tag: "CF#",
+        name: "Construction Factor",
+        summary: [
+            "The emplacement's Construction Factor, as printed on its Battlefield Support card.",
+        ],
+        source: { book: "BattleTech: Aces", page: 6 },
+        type: ESpecialAbilityType.Standard,
+    },
+    {
+        // Walkers (#172): the Alpha Strike ruleset is NGCFells's, from Clell Flint's walker rules (Future Wars #11; The Best
+        // of Future Wars, Volume One). docs/superpowers/specs/2026-11-15-walker-alpha-strike.md
+        tag: "WLK",
+        name: "Walker",
+        summary: WALKER_AS_ABILITY_TEXT,
+        source: { book: "TRO - JBT: Walkers (Custom Homebrew, NOT OFFICIAL)", page: 4 },
+        type: ESpecialAbilityType.Custom
+    },
+    {
+        tag: "AIF#",
+        name: "Anti-Infantry Fire",
+        summary: WALKER_AIF_AS_ABILITY_TEXT,
+        source: { book: "TRO - JBT: Walkers (Custom Homebrew, NOT OFFICIAL)", page: 4 },
+        type: ESpecialAbilityType.Custom
+    },
+    {
+        // Power Armor (#172): ours, after Bill Swisher's rules (Future Wars #14; The Best of Future Wars, Volume One).
+        tag: "PWA",
+        name: "Power Armor",
+        summary: POWER_ARMOR_AS_ABILITY_TEXT,
+        source: { book: "TRO - JBT: Power Armor (Custom Homebrew, NOT OFFICIAL)", page: 6 },
+        type: ESpecialAbilityType.Custom
+    },
+    {
+        // Chaff Pod (#642): ours, NGCFells 2026-11-21. No Alpha Strike book converts it: the Companion, its errata to v1.6
+        // and the Commander's Edition are silent (the Companion's SCR# is capital-scale screen chaff, not this pod).
+        tag: "CHF#",
+        name: "Chaff Pod",
+        summary: [
+            "Ours: no Alpha Strike rulebook or Companion printing converts the Chaff Pod (TO:AUE p.111), so this conversion is Jeff's BattleTech Tools'. The number is the pods the unit carries; each fires once per scenario.",
+            "At the end of its Movement Phase, the unit may fire one pod. Until the End Phase of that turn, a 2-inch radius around the unit (its own hex) holds a chaff cloud 2 inches high that affects friend and foe alike: it is light smoke for line of sight (see Fire and Smoke), an ECM bubble that ECCM cannot negate (as LECM), and it reduces each IF, SRM or LRM attack against a unit inside it by 1 point of damage (to a minimum of 1), as an anti-missile system working from any arc. The cloud has no effect in vacuum.",
+            "Chaff Pod 2.0 (Custom Homebrew): the cloud may be centered on the unit or on a point within 2 inches of it.",
+        ],
+        source: { book: "JBT conversion of TO:AUE p.111 (Custom Homebrew, NOT OFFICIAL)", page: 0 },
+        type: ESpecialAbilityType.Custom
+    },
+    {
+        // Flotation Hull (#643): ours, Vehrec (concept) and NGCFells, 2026-11-22.
+        tag: "FLT",
+        name: "Flotation Hull",
+        summary: [
+            "Ours (Custom Homebrew, NOT OFFICIAL; Flotation Hull by NGCFells, SeaDropship concept by Vehrec): an aerodyne DropShip with a Flotation Hull lands on and takes off from water as on a runway, and moves afloat with the n movement mode at 4 inches (Cruise 2, two hexes a turn at 2 inches a hex) and 6 inches flanking (Flank 3).",
+            "Afloat it keeps the Strategic Operations floating rules at card scale: its heat dissipates 10% better, it gets no grounded to-hit penalty, critical hits against its nose or rear get +1, and it drifts under Water Flow. A well deck can launch and recover its hover or naval vehicles only while it is afloat.",
+            "Afloat, its vehicle bays (VTM, VTH, VTS) also launch and recover hover vehicles down a bow ramp (StingerTheRaven's, BattleTech forums, Pregnant Guppy: an amphibious dropship, 2021). In a turn it moves afloat, only units with jump or VTOL movement may leave it, from any bay (TO:AUE p.25 at card scale).",
+        ],
+        source: { book: "JBT conversion of the DropShip Flotation Hull (Custom Homebrew, NOT OFFICIAL)", page: 0 },
+        type: ESpecialAbilityType.Custom
+    },
+    {
+        // Large Well Deck (#643): ours, from Chaeronea and The_Caveman (BattleTech forums, Black and Blue - DropShips and
+        // Wet Navy Ships, December 2015), 2026-11-23. No Alpha Strike book carries a Large Naval Vessel in a transport bay.
+        tag: "NVT#",
+        name: "Naval Vessel Transport",
+        summary: [
+            "Ours (Custom Homebrew, NOT OFFICIAL; Large Well Deck from Chaeronea and The_Caveman, BattleTech forums): the DropShip carries one Large Naval Vessel in each Large Well Deck, written NVT#-D# as the other transport specials are: the number is the vessels, the D number the doors of those bays.",
+            "It launches or recovers a vessel only while afloat on its Flotation Hull (FLT), and not in a turn it moves. The vessel leaves over the stern into the DropShip's own area and acts from the next turn.",
+        ],
+        source: { book: "JBT conversion of the Large Well Deck (Custom Homebrew, NOT OFFICIAL)", page: 0 },
+        type: ESpecialAbilityType.Custom
+    },
+    {
+        // Improved 'Mech Taser (#647): ours, NGCFells 2026-11-22.
+        tag: "ITAS#",
+        name: "Improved 'Mech Taser",
+        summary: [
+            "Ours (Custom Homebrew, NOT OFFICIAL; Improved 'Mech Taser by VoiceOfAN): as MTAS#, with three differences. The -2 against a BattleMech does not apply. A hit adds 1 heat to a target that tracks heat. Against conventional infantry or battle armor it deals 1 damage instead of the Taser effect. Heat 6, 0.1 short. Summed per unit.",
+        ],
+        source: { book: "JBT conversion of the Improved 'Mech Taser (Custom Homebrew, NOT OFFICIAL)", page: 0 },
+        type: ESpecialAbilityType.Custom
+    },
+    {
+        // Blue Saviour Dispersion Field (#647): ours, NGCFells 2026-11-22.
+        tag: "BSF#/#/#/#",
+        name: "Blue Saviour Dispersion Field",
+        summary: [
+            "Ours (Custom Homebrew, NOT OFFICIAL; Blue Saviour Dispersion Field by u/PleiadesMechworks): switch it on or off in the End Phase; it is 'Mech-only. While it is on: (a) the unit attacks with the BSF damage values, its standard damage with every energy weapon's share halved, computed when the card is converted. (b) An incoming attack the player marks as energy is halved (round down, minimum 1). An incoming missile attack (IF, SRM, LRM) takes -1, minimum 1, as an AMS gives; this does not stack with the unit's own AMS. (c) The unit counts as inside hostile ECM it cannot negate, and STL gives no benefit. (d) +1 heat in each End Phase it is on. (e) From the seventh turn on, roll 2D6 at the start of each turn; a roll below 2 + (turns on - 6) fails the field for the scenario. (f) Any critical hit while it is on deals +1 damage and kills the field for the scenario.",
+        ],
+        source: { book: "JBT conversion of the Blue Saviour Dispersion Field (Custom Homebrew, NOT OFFICIAL)", page: 0 },
+        type: ESpecialAbilityType.Custom
+    },
+    {
+        // Nuclear Pulse Cannon (#647): ours, NGCFells 2026-11-22.
+        tag: "NPC",
+        name: "Nuclear Pulse Cannon",
+        summary: [
+            "Ours (Custom Homebrew, NOT OFFICIAL; Nuclear Pulse Cannon by Prince, Munchkin): a direct-fire artillery cannon attack under the Artillery Cannon rules, out to Long range. Damage is 4 to a 2-inch area of effect and 2 to units within 2 inches of that template's edge. AMS, RAMS and chaff do not reduce it. A target that tracks heat also takes +1 heat; any other target takes +1 damage. Firing adds 2 heat to the firer. This scales the Long Tom Cannon's 20 (ART-LTC 2) up to 35 (4) and 18 (2).",
+        ],
+        source: { book: "JBT conversion of the Nuclear Pulse Cannon (Custom Homebrew, NOT OFFICIAL)", page: 0 },
+        type: ESpecialAbilityType.Custom
+    },
+    {
+        // Hailstorm Artillery (#647): ours, NGCFells 2026-11-22.
+        tag: "HAIL",
+        name: "Hailstorm Artillery",
+        summary: [
+            "Ours (NOT OFFICIAL; the Apocryphal Hailstorm of MechWarrior 5): an artillery attack as ART-LT, damage 5/3 (the Long Tom's 20/10 scaled to 35 and 25), 6-inch area of effect. It takes the ART-LT munitions (Cluster, Copperhead, Flechette, Illumination, Smoke). Inferred: it stays at its own level, Apocryphal 5, and does not raise a card to Custom Homebrew.",
+        ],
+        source: { book: "JBT conversion of the Hailstorm Artillery (Custom Homebrew, NOT OFFICIAL)", page: 0 },
+        type: ESpecialAbilityType.Custom
+    },
+    {
+        // 'Mech Periscope (#647): ours, NGCFells 2026-11-22.
+        tag: "PSC",
+        name: "'Mech Periscope",
+        summary: [
+            "Ours (Custom Homebrew, NOT OFFICIAL; 'Mech Periscope by Thunder and Solaris7): the unit traces line of sight for spotting and indirect fire as if 1 inch higher. It cannot attack from the periscope.",
+        ],
+        source: { book: "JBT conversion of the 'Mech Periscope (Custom Homebrew, NOT OFFICIAL)", page: 0 },
+        type: ESpecialAbilityType.Custom
+    },
+    {
+        // Smoker (#647): ours, NGCFells 2026-11-22.
+        tag: "SMKT",
+        name: "Smoker",
+        summary: [
+            "Ours (Custom Homebrew, NOT OFFICIAL; Smoker from Future Wars #32): declared when it moves, light smoke fills a 2-inch-wide lane along its path until the End Phase of the next turn. No heat: 3 Classic heat a turn is below the threshold for 1 Alpha Strike heat. The fuel is assumed to last the scenario.",
+        ],
+        source: { book: "JBT conversion of the Smoker (Custom Homebrew, NOT OFFICIAL)", page: 0 },
+        type: ESpecialAbilityType.Custom
+    },
+    {
+        // Buckler Smoke Dispenser (#647): ours, NGCFells 2026-11-22.
+        tag: "SMKB#",
+        name: "Buckler Smoke Dispenser",
+        summary: [
+            "Ours (Custom Homebrew, NOT OFFICIAL; Buckler Smoke Dispenser by Gargoyle Industries, Future Wars #32): the number is its uses, 10 a dispenser, summed over the unit. A unit that did not move this turn may, after the Movement Phase, fill a 2-inch area on itself with heavy smoke that blocks line of sight, until the End Phase of the next turn. Not on VTOLs.",
+        ],
+        source: { book: "JBT conversion of the Buckler Smoke Dispenser (Custom Homebrew, NOT OFFICIAL)", page: 0 },
+        type: ESpecialAbilityType.Custom
+    },
+    {
+        // Power Booster (Running) (#647): ours, NGCFells 2026-11-22.
+        tag: "PBR",
+        name: "Power Booster (Running)",
+        summary: [
+            "Ours (Custom Homebrew, NOT OFFICIAL; Power Booster by Karl Sander, Future Wars #14): declared before it moves, +2 inches ground Move this turn and +1 heat in the End Phase. Failure roll each use, as in Classic: 2D6 of 5 or less on the first turn in a row, 9 or less on the second, 11 or less on the third, and the fourth always fails. Failure leaves the booster dead for the scenario. On a natural 2 the unit also takes an MP Hit critical.",
+        ],
+        source: { book: "JBT conversion of the Power Booster (Running) (Custom Homebrew, NOT OFFICIAL)", page: 0 },
+        type: ESpecialAbilityType.Custom
+    },
+    {
+        // Power Booster (Jump Jets) (#647): ours, NGCFells 2026-11-22.
+        tag: "PBJ",
+        name: "Power Booster (Jump Jets)",
+        summary: [
+            "Ours (Custom Homebrew, NOT OFFICIAL; Power Booster by Karl Sander, Future Wars #14): declared before it jumps, jump Move x1.5 (round down to an even inch) and +1 heat. The failure roll is as PBR. On a natural 2 the unit also loses its jump Move for the scenario.",
+        ],
+        source: { book: "JBT conversion of the Power Booster (Jump Jets) (Custom Homebrew, NOT OFFICIAL)", page: 0 },
+        type: ESpecialAbilityType.Custom
+    },
+    {
+        // Sonic projectors (#645): ours, NGCFells 2026-11-22.
+        tag: "SNC",
+        name: "Sonic Projector",
+        summary: [
+            "Ours (Custom Homebrew, NOT OFFICIAL; NGCFells 2026-11-22): Deter mode only. A conventional infantry target takes no damage and rolls 2D6 against 8; on a failure it must move away from the firer and cannot attack next turn. Never lethal, no effect on 'Mechs or vehicles, and it works only in Thin atmosphere or denser. Battle armor and sealed units are immune. The law-enforcement version differs from the military one only by its range, shown on the card.",
+        ],
+        source: { book: "JBT conversion of the Sonic Projector (Custom Homebrew, NOT OFFICIAL)", page: 0 },
+        type: ESpecialAbilityType.Custom
     }
 
 ]
@@ -1496,14 +1778,30 @@ function getAbilityCodePattern(tag: string): RegExp | null {
     const prefix = (firstNumber >= 0 ? tag.slice(0, firstNumber) : tag).trim();
     if (!prefix) return null;
     const escaped = prefix.replace(/[.*+?^${}()|[\]\\]/g, "\\$&").replace(/%/g, "[A-Z]+");
+    const oneShot = prefix === "TSEMP" ? "(?:-O)?" : ""; // TSEMP-O# counts one-shot TSEMPs (ASC p.133)
     const numbers = firstNumber >= 0 ? "\\s*[\\d*-]+(?:/[\\d*-]+)*" : "";
-    return new RegExp("^" + escaped + numbers + "$", "i");
+    return new RegExp("^" + escaped + oneShot + numbers + "$", "i");
 }
 
 /**
  * Whether a code is an Alpha Strike special ability listed in CONST_AS_SPECIAL_ABILITIES, with its numbers if it
  * takes any. TechManual weapon type codes ("DE", "DB") and descriptive notes are not.
  */
+let customAbilityCodePatterns: RegExp[] | undefined;
+
+/**
+ * Whether the code is one of ours (ESpecialAbilityType.Custom): in no rulebook, so it is present only at the Custom
+ * Homebrew and Munchkin levels (6 and 7; canon is 0-4, Apocryphal 5; NGCFells, 2026-11-21).
+ */
+export function isCustomAlphaStrikeAbilityCode(code: string): boolean {
+    customAbilityCodePatterns ??= CONST_AS_SPECIAL_ABILITIES
+        .filter(ability => ability.type === ESpecialAbilityType.Custom)
+        .map(ability => getAbilityCodePattern(ability.tag))
+        .filter((pattern): pattern is RegExp => pattern !== null);
+    const trimmed = code.trim();
+    return trimmed !== "" && customAbilityCodePatterns.some(pattern => pattern.test(trimmed));
+}
+
 export function isAlphaStrikeAbilityCode(code: string): boolean {
     abilityCodePatterns ??= CONST_AS_SPECIAL_ABILITIES
         .map(ability => getAbilityCodePattern(ability.tag))

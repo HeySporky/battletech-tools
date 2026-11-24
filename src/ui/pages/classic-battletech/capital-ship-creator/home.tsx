@@ -4,7 +4,7 @@ import { FaArrowCircleRight, FaFile, FaFolderOpen, FaSave, FaTrash } from "react
 import CapitalShip, { ICapitalShipExport } from '../../../../classes/capital-ship';
 import { getAdvancedAerospaceType } from '../../../../data/advanced-aerospace-construction';
 import { IAppGlobals } from '../../../app-router';
-import CapitalShipCreatorSideMenu from '../../../components/capital-ship-creator-side-menu';
+import { CapitalShipCreatorSideMenu } from '../../../components/creator-side-menus';
 import TextSection from '../../../components/text-section';
 import UIPage from '../../../components/ui-page';
 const ArrowCircleRight = FaArrowCircleRight as any;
@@ -124,7 +124,7 @@ export default class CapitalShipCreatorHome extends React.Component<IHomeProps> 
                                     <tr>
                                         <th>Name</th>
                                         <th>Hull</th>
-                                        <th></th>
+                                        <th><span className="visually-hidden">Actions</span></th>
                                     </tr>
                                 </thead>
                                 <tbody>

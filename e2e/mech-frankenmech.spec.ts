@@ -16,7 +16,7 @@ test("Mech Creator: the worked example FrankenMech and its lighter jump jets", a
 
     await page.goto("classic-battletech/mech-creator/step1");
     await page.getByLabel("Rules Level").selectOption("4");
-    await page.getByLabel("Mech Era").selectOption("dark-ages");
+    await page.getByLabel("Era:").selectOption("dark-ages");
     await page.getByLabel("Mech Tonnage").selectOption("60");
     await page.getByText("Is a FrankenMech").click();
     await expect(page.getByTestId("frankenmech-donors")).toBeVisible();

@@ -1,7 +1,14 @@
 import { describe, expect, it, vi } from "vitest";
-import { sswMechs } from "../data/ssw/sswMechs";
 import { sswTestFixtures } from "../data/ssw/sswTestFixtures";
-import { BattleMech } from "./battlemech";
+import { BattleMech, ITargetToHit } from "./battlemech";
+import { getBattleMechTroAdapter } from "./battlemech-tro";
+import { findSpecialRuleset, NUCLEAR_WEAPONS_RULESET } from "../data/special-rulesets";
+import { buildMech } from "../test-support/builders";
+import Pilot from "./pilot";
+import { ICalcStep } from "../data/calc-steps";
+import { getSkillMultiplier } from "../data/battle-value";
+import { getVTOLAMSamples } from "../data/vtolam-samples";
+import { getPAMSamples } from "../data/pam-samples";
 import { mechInternalStructureTypes, validateChassisCombination } from "../data/mech-internal-structure-types";
 import { getTargetToHitFromWeapon } from "../utils";
 import { mechArmorTypes } from "../data/mech-armor-types";
@@ -11,26 +18,55 @@ import { getLargeEngineType, mechEngineTypes, mechLargeEngineTypes } from "../da
 import { mechEngineOptions } from "../data/mech-engine-options";
 import { mechHeatSinkTypes } from "../data/mech-heat-sink-types";
 import { mechCockpitTypes } from "../data/mech-cockpit-types";
-import { mechCustomEquipmentEnergy } from "../data/mech-custom-equipment-weapons-energy";
-import { mechCustomEquipmentMissile } from "../data/mech-custom-equipment-weapons-missile";
-import { mechISAmmo } from "../data/mech-is-ammo";
-import { mechClanAmmo } from "../data/mech-clan-ammo";
-import { mechUniversalAmmo } from "../data/mech-universal-ammo";
+import { energyCustom } from "../data/energy-custom";
+import { missileCustom } from "../data/missile-custom";
+import { ammoCatalog } from "../data/ammo";
 import { mechJumpJetTypes } from "../data/mech-jump-jet-types";
 import { btEraOptions } from "../data/era-options";
-import { mechISEquipmentMissiles } from "../data/mech-is-equipment-weapons-missiles";
-import { mechClanEquipmentMissile } from "../data/mech-clan-equipment-weapons-missile";
-import { mechISEquipmentArtillery } from "../data/mech-is-equipment-weapons-artillery";
-import { mechClanEquipmentArtillery } from "../data/mech-clan-equipment-weapons-artillery";
-import { mechISEquipmentBallistic } from "../data/mech-is-equipment-weapons-ballistic";
-import { mechClanEquipmentBallistic } from "../data/mech-clan-equipment-weapons-ballistic";
-import { mechISEquipmentEnergy } from "../data/mech-is-equipment-weapons-energy";
-import { mechClanEquipmentEnergy } from "../data/mech-clan-equipment-weapons-energy";
-import { mechISEquipmentMisc } from "../data/mech-is-equipment-weapons-misc";
-import { mechClanEquipmentMisc } from "../data/mech-clan-equipment-weapons-misc";
-import { mechUniversalEquipment } from "../data/mech-universal-equipment";
+import { equipmentMissile } from "../data/equipment-missile";
+import { equipmentArtillery } from "../data/equipment-artillery";
+import { equipmentBallistic } from "../data/equipment-ballistic";
+import { equipmentEnergy } from "../data/equipment-energy";
+import { equipmentMisc } from "../data/equipment-misc";
+import type { IEquipmentItem } from "../data/data-interfaces";
 import { getAvailableTonnagesForMechType, getTonnageBoundsForMechType } from "../data/mech-tonnages";
-import { mechCustomEquipmentMisc } from "../data/mech-custom-equipment-weapons-misc";
+import { universalEquipment } from "../data/universal-equipment";
+
+const isAmmoList = ammoCatalog.filter((item) => item.techBase === "is");
+const universalAmmoList = ammoCatalog.filter((item) => item.techBase === "universal");
+
+const isArtilleryList = equipmentArtillery.filter((item) => item.techBase === "is");
+const clanArtilleryList = equipmentArtillery.filter((item) => item.techBase === "clan");
+const isMiscList = equipmentMisc.filter((item) => item.techBase === "is");
+const clanMiscList = equipmentMisc.filter((item) => item.techBase === "clan");
+
+// A merged IS/Clan twin (catalog consolidation §2) is one universal record: the Inner Sphere reads its own dates, the
+// Clans its clanDates in their place, and the Clan tag is an alias.
+const seenBy = (tech: "is" | "clan", records: IEquipmentItem[], tag: string): IEquipmentItem | undefined => {
+    const item = records.find((record) => record.tag === tag && record.techBase === tech)
+        ?? records.find((record) => record.techBase === "universal" && (record.tag === tag || !!record.altTags?.includes(tag)));
+    return item && tech === "clan" && item.clanDates ? { ...item, prototype: undefined, ...item.clanDates } : item;
+};
+
+const isMissileList = equipmentMissile.filter((item) => item.techBase === "is");
+const clanMissileList = equipmentMissile.filter((item) => item.techBase === "clan");
+
+const isBallisticList = equipmentBallistic.filter((item) => item.techBase === "is");
+const clanBallisticList = equipmentBallistic.filter((item) => item.techBase === "clan");
+
+const isEnergyList = equipmentEnergy.filter((item) => item.techBase === "is");
+const clanEnergyList = equipmentEnergy.filter((item) => item.techBase === "clan");
+
+// The Battle Value calculation's cited steps (#599): the tests read the numbers from them, not from the log text.
+const bvSteps = (mech: BattleMech, ...ids: string[]): ICalcStep[] => mech.getBattleValueBreakdown().steps.filter((step) => ids.length === 0 || ids.includes(step.id));
+const bvLast = (mech: BattleMech, ...ids: string[]): ICalcStep => {
+    const found = bvSteps(mech, ...ids);
+    if (found.length === 0) throw new Error(`No step ${ids.join(", ")}`);
+    return found[found.length - 1];
+};
+const bvRound2 = (value: number | undefined): number => Math.round((value ?? NaN) * 100) / 100;
+/** The Battle Value before rounding: the last multiplier or sum step of the final section. */
+const bvUnrounded = (mech: BattleMech): number => bvLast(mech, "bv2.final.sum", "bv2.final.cockpit", "bv2.final.robotic", "bv2.final.drone", "bv2.final.override-kit", "bv2.final.equipment").value!;
 
 describe("BattleMech engine availability by era", () => {
     it("shows the expected Inner Sphere engines for a Star League mech", () => {
@@ -200,7 +236,7 @@ describe("BattleMech armor technology availability", () => {
         expect(available("is", "clan-inv", 2).map(armor => armor.tag)).not.toContain("hardened");
         expect(available("is", "clan-inv", 4).find(armor => armor.tag === "hardened")?.availableAsPrototype).toBe(true);
         // Star League Ferro-Fibrous (2571) carries over to Clan designs until Clan production (2825).
-        expect(available("clan", "star-league", 2).map(armor => armor.tag)).toContain("ferro-fibrous");
+        expect(available("clan", "clan-founding-years", 2).map(armor => armor.tag)).toContain("ferro-fibrous");
         // Prototype-only armor never appears below Experimental.
         expect(available("is", "star-league", 2).map(armor => armor.tag)).not.toContain("ferro-fibrous-prototype");
         expect(available("is", "star-league", 4).map(armor => armor.tag)).toContain("ferro-fibrous-prototype");
@@ -212,12 +248,11 @@ describe("BattleMech armor technology availability", () => {
             mech.setTech("is");
             mech.setEra("ilClan");
             mech.setArmorType(tag);
-            mech.getBattleValue();
-            return mech.getBVCalcHTML();
+            return bvLast(mech, "bv2.def.armor").detail;
         };
-        expect(withArmor("hardened")).toContain("Total Armor Factor = 2 x Modifier for Hardened Armor");
-        expect(withArmor("reactive")).toContain("Total Armor Factor = 1.5 x Modifier for Reactive Armor");
-        expect(withArmor("standard")).toContain("Total Armor Factor = 1 x Modifier for Standard");
+        expect(withArmor("hardened")).toContain(" x 2.5 x 2 (Hardened Armor)");
+        expect(withArmor("reactive")).toContain(" x 2.5 x 1.5 (Reactive Armor)");
+        expect(withArmor("standard")).toContain(" x 2.5 x 1 (Standard)");
     });
 
     it("filters armor by multiplier for pure tech bases and permits both families for mixed bases", () => {
@@ -231,7 +266,10 @@ describe("BattleMech armor technology availability", () => {
         mixedClanMech.setTech("mclan");
         mixedClanMech.setEra("ilClan");
         const mixedArmorTags = mixedClanMech.getAvailableArmorTypes().filter(armor => armor.available).map(armor => armor.tag);
-        expect(mixedArmorTags).toEqual(expect.arrayContaining(["standard", "ferro-fibrous", "light-ferro-fibrous", "heavy-ferro-fibrous", "stealth-basic", "ferro-lamellor"]));
+        expect(mixedArmorTags).toEqual(expect.arrayContaining(["standard", "ferro-fibrous", "light-ferro-fibrous", "heavy-ferro-fibrous", "stealth-basic"]));
+        // Ferro-Lamellor is Experimental (TO:AUE p.92).
+        expect(mixedArmorTags).not.toContain("ferro-lamellor");
+        expect(mixedClanMech.getAvailableArmorTypes(4).filter(armor => armor.available).map(armor => armor.tag)).toContain("ferro-lamellor");
         expect(mixedArmorTags).not.toContain("modular");
         expect(mixedArmorTags).not.toContain("patchwork");
         expect(mixedArmorTags).not.toContain("ferro-aluminum");
@@ -273,7 +311,9 @@ describe("BattleMech armor technology availability", () => {
     it("keeps TechManual weapon type codes and catalog notes off the Alpha Strike card", () => {
         // A large laser's weapon type is "DE" (direct-fire energy, TM): not an Alpha Strike special ability.
         const mech = new BattleMech();
-        for (const tag of ["large-laser", "medium-laser", "lrm-10", "is-ams"]) {
+        // An LRM 20 (1.2 at medium): an LRM 10's 0.6 is under the LRM special's 10 points at medium (#378).
+        // Two tons of LRM ammunition: 12 shots, full damage (ASC p.101); a launcher with none has no damage.
+        for (const tag of ["large-laser", "medium-laser", "lrm-20", "is-ams", "ammo-lrm-standard", "ammo-lrm-standard"]) {
             mech.addEquipmentFromTag(tag, "is", "", false, undefined, "", false, [], undefined, undefined);
         }
         const abilities = mech.getAlphaStrikeForceStats().abilities;
@@ -339,7 +379,8 @@ describe("BattleMech armor allocation", () => {
                 }
             }
         }
-    });
+        // Hundreds of allocations: over 5 s when the slow build suites run beside it.
+    }, 30_000);
 
     it("keeps the chassis armor ceiling independent of selected tonnage and synchronizes Allocate Max", () => {
         const mech = new BattleMech();
@@ -448,6 +489,60 @@ describe("BattleMech Alpha Strike special ammunition", () => {
         expect(restored.getAlphaStrikeSpecialAmmoTag()).toBe("ammo-is-lrm-swarm-i");
         expect(restored.getAlphaStrikeForceStats().abilities).toContain("AOE#");
     });
+
+    // A lone Medium Laser converts to minimal damage, which the card showed as plain 0 (found with #376).
+    it("rounds a subtotal from 0.5 up to 1 (Converting Heat errata v1.3; #636 had it print 0*)", () => {
+        // A medium laser and two machine guns, as the Locust LCT-1V, whose MUL card reads 1/1/0.
+        const locust = getVTOLAMSamples(CUSTOM_HOMEBREW_RULES_LEVEL).find((sample) => sample.id === "locust-vtolam")!;
+        const damage = new BattleMech(JSON.stringify(locust.save)).calcAlphaStrike().damage;
+        expect([damage.short, damage.medium, damage.long]).toEqual([1, 1, 0]);
+        expect(damage.shortMinimal).toBeFalsy();
+        expect(damage.mediumMinimal).toBeFalsy();
+    });
+
+    const hotMech = (tags: string[]): BattleMech => {
+        const mech = new BattleMech();
+        mech.setTonnage(100);
+        tags.forEach((tag, index) => mech.addEquipmentFromTag(tag, "is", index % 2 ? "rt" : "lt", false, undefined, "", false, [], undefined, undefined));
+        return mech;
+    };
+
+    it("gives a hot 'Mech its Overheat (Converting Heat errata v1.3; #636 had it always 0)", () => {
+        // 4 Large Lasers, 10 sinks: 2 + 32 - 4 = 30. 3.2 x 10 / 30 = 1.07 -> 1.1 -> 2; 4 before the heat: Overheat 2.
+        const unit = hotMech(["large-laser", "large-laser", "large-laser", "large-laser"]).calcAlphaStrike();
+        expect([unit.damage.short, unit.damage.medium, unit.damage.long]).toEqual([2, 2, 0]);
+        expect(unit.overheat).toBe(2);
+    });
+
+    it("checks OVL with the Long output, then scales Long with the full output; prints plain OVL (errata v1.3)", () => {
+        // 4 PPCs (0.75/1/1), 4 Medium Lasers (0.5/0.5/0), 10 sinks: 2 + 52 - 4 = 50. Long output 2 + 40 - 4 = 38:
+        // 4 x 10 / 38 = 1.05 -> 1.1 -> 2, 2 under 4: OVL. Long 4 x 10 / 50 = 0.8 -> 1. Short 5 -> 1; Medium 6 -> 1.2 -> 2;
+        // Overheat 6 - 2 = 4.
+        const unit = hotMech(["standard-ppc", "standard-ppc", "standard-ppc", "standard-ppc", "medium-laser", "medium-laser", "medium-laser", "medium-laser"]).calcAlphaStrike();
+        expect([unit.damage.short, unit.damage.medium, unit.damage.long]).toEqual([1, 2, 1]);
+        expect(unit.overheat).toBe(4);
+        expect(unit.abilities).toContain("OVL");
+    });
+
+    it("adds AMS heat: +1 an AMS, +7 an Inner Sphere Laser AMS (errata v1.3)", () => {
+        // 3 Large Lasers, 10 sinks: 2 + 24 = 26, less 4 = 22: 2.4 x 10 / 22 = 1.09 -> 1.1 -> 2, Overheat 1.
+        expect(hotMech(["large-laser", "large-laser", "large-laser"]).calcAlphaStrike().overheat).toBe(1);
+        // With an IS Laser AMS: 33 - 4 = 29: 2.4 x 10 / 29 = 0.83 -> 0.9 -> 1, Overheat 2.
+        const unit = hotMech(["large-laser", "large-laser", "large-laser", "is-laser-ams"]).calcAlphaStrike();
+        expect(unit.damage.medium).toBe(1);
+        expect(unit.overheat).toBe(2);
+    });
+
+    it("keeps minimal damage, more than 0 and under 0.5, on the card as 0* (#636 had it print 1)", () => {
+        const mech = new BattleMech();
+        mech.setTonnage(20);
+        mech.addEquipmentFromTag("small-laser", "is", "ra", false, undefined, "", false, [], undefined, undefined);
+        const damage = mech.calcAlphaStrike().damage;
+        expect(damage.short).toBe(0);
+        expect(damage.shortMinimal).toBe(true);
+        expect(damage.medium).toBe(0);
+        expect(damage.mediumMinimal).toBeFalsy();
+    });
 });
 
 describe("BattleMech ATM ammunition", () => {
@@ -497,8 +592,23 @@ describe("BattleMech ATM ammunition", () => {
 });
 
 describe("LAM and QuadVee chassis rules", () => {
-    // IO via MegaMek TestMek (provisional): at least 3 Jump MP, walking-MP cap still applies;
-    // Standard, Compact, or Heavy-Duty gyros only.
+    // "Tripod 'Mechs may mount weapons and equipment in accordance with the standard rules for a 'Mech of equal
+    // weight and size" (IO:AE p.159).
+    it("offers a Tripod everything a biped of the same weight can mount", () => {
+        const available = (type: string) => {
+            const mech = new BattleMech();
+            mech.setTech("is");
+            mech.setEra("dark-ages");
+            mech.setType(type);
+            mech.setTonnage(80);
+            return mech.getAvailableEquipment(false, 4).filter(item => item.available).map(item => item.tag).sort();
+        };
+        const tripod = available("tripod");
+        expect(tripod).toEqual(expect.arrayContaining(["mml-5", "melee-hatchet"]));
+        expect(tripod).toEqual(available("biped"));
+    });
+
+    // IO:AE p.108: at least 3 Jump MP, walking-MP cap still applies; Standard, Compact, or Heavy-Duty gyros only.
     it("requires LAMs to have at least 3 jump MP and a Standard, Compact, or Heavy-Duty gyro", () => {
         const mech = new BattleMech();
         mech.setType("lam");
@@ -526,13 +636,15 @@ describe("LAM and QuadVee chassis rules", () => {
         expect(mech.getAvailableGyros(4).find(gyro => gyro.tag === "xl")?.available).toBe(false);
     });
 
-    it("restricts QuadVees to standard armor and internal structure", () => {
+    // "QuadVee follow all the same construction rules as four-legged 'Mechs" and limit neither (IO p.134, IO:AE p.128);
+    // the Arion mounts endo steel and ferro-fibrous.
+    it("lets QuadVees take any armor and internal structure a quad may", () => {
         const mech = new BattleMech();
         mech.setType("quadvee");
         mech.setArmorType("ferro-fibrous");
         mech.setInternalStructureType("endo-steel");
-        expect(mech.getArmorType()).toBe("standard");
-        expect(mech.getInternalStructureType()).toBe("standard");
+        expect(mech.getArmorType()).toBe("ferro-fibrous");
+        expect(mech.getInternalStructureType()).toBe("endo-steel");
     });
 
     it("persists the QuadVee tracked or wheeled motive selection", () => {
@@ -601,12 +713,28 @@ describe("LAM and QuadVee chassis rules", () => {
         expect(criticals.centerTorso.some(item => item?.tag === "multi-pilot-cockpit")).toBe(false);
     });
 
-    it("accounts for QuadVee conversion weight and dual cockpit weight", () => {
+    // 20 tons: conversion 2, tracks 2, and the 4-ton cockpit 1 more than the standard 3 (IO:AE p.128).
+    it("accounts for QuadVee conversion, tracks and dual cockpit weight", () => {
         const biped = new BattleMech();
         const quadvee = new BattleMech();
         quadvee.setType("quadvee");
 
-        expect(quadvee.getCurrentTonnage() - biped.getCurrentTonnage()).toBe(3);
+        expect(quadvee.getCurrentTonnage() - biped.getCurrentTonnage()).toBe(5);
+    });
+
+    // Tracks 10% and Wheels 15% of the mass, rounded up to the half ton (IO:AE p.128). Tracks cost as 'Mech Tracks
+    // (500 x ER x TT / 75, TM p.278); Wheels (750 x ER x TT) / 75 (IO:AE p.181).
+    it("weighs and prices a QuadVee's tracks or wheels", () => {
+        const quadvee = new BattleMech();
+        quadvee.setType("quadvee");
+        quadvee.setTonnage(35);
+        quadvee.setWalkSpeed(6);
+        const motive = () => quadvee.getWeightBreakdown().find(entry => /^QuadVee (Tracks|Wheels)$/.test(entry.name));
+        expect(motive()).toEqual({ name: "QuadVee Tracks", weight: 3.5 });
+        expect(quadvee.getCBillCalcHTML()).toContain(">" + (500 * 210 * 35 / 75).toLocaleString("en-US") + "<");
+        quadvee.setQuadVeeMotive("wheeled");
+        expect(motive()).toEqual({ name: "QuadVee Wheels", weight: 5.5 });
+        expect(quadvee.getCBillCalcHTML()).toContain(">" + (750 * 210 * 35 / 75).toLocaleString("en-US") + "<");
     });
 
     // IO:AE p.108 (LAM) / p.128 (QuadVee): conversion equipment is 10% of mass, rounded up to a whole ton.
@@ -764,6 +892,7 @@ describe("LAM and QuadVee chassis rules", () => {
         const lam = new BattleMech();
         lam.setType("lam");
         lam.setTransformationMode("airmech");
+        lam.currentMovementMode = "c";
         expect(lam.getAttackerMovementModifier()).toBe(3);
 
         const quadvee = new BattleMech();
@@ -892,10 +1021,9 @@ describe("BattleMech ammunition bins", () => {
         mech.setTech("is");
         mech.addEquipmentFromTag("is-laser-ams", "is", "lt", false, undefined, "", false, [], undefined, undefined);
         mech.getBattleValue();
-        const log = mech.getBVCalcHTML();
 
-        expect(log).toContain("+ Defensive Equipment: Laser AMS");
-        expect(log).not.toContain("Weapon Laser AMS");
+        expect(bvSteps(mech, "bv2.def.equipment").filter((step) => step.label.startsWith("Laser AMS"))).toHaveLength(1);
+        expect(bvSteps(mech).filter((step) => step.id.startsWith("bv2.off.weapon") && step.label.includes("Laser AMS"))).toHaveLength(0);
     });
 
     it("counts AMS ammunition defensively, capped at the AMS BV (TM p.302)", () => {
@@ -905,11 +1033,10 @@ describe("BattleMech ammunition bins", () => {
         mech.addEquipmentFromTag("ammo-clan-ams-standard", "clan", "lt", false, undefined, "", false, [], undefined, undefined);
         mech.addEquipmentFromTag("ammo-clan-ams-standard", "clan", "lt", false, undefined, "", false, [], undefined, undefined);
         mech.getBattleValue();
-        const log = mech.getBVCalcHTML();
 
-        expect(log).toContain("capped (Excessive Ammunition rule)");
-        expect(log).toContain("Total Defensive Equipment BV: 64.00"); // 32 AMS + ammo capped at 32
-        expect(log).not.toContain("+ Adding Ammunition: AMS");
+        expect(bvSteps(mech, "bv2.def.equipment.ams-ammo").filter((step) => step.label.includes("capped"))).toHaveLength(1);
+        expect(bvLast(mech, "bv2.def.equipment.total").value).toBe(64); // 32 AMS + ammo capped at 32
+        expect(bvSteps(mech, "bv2.off.ammo").filter((step) => step.label.includes("AMS"))).toHaveLength(0);
     });
 
     it("values a machine gun array at 0.67 x its linked machine guns in the same location (TM p.228)", () => {
@@ -922,7 +1049,20 @@ describe("BattleMech ammunition bins", () => {
         mech.getBattleValue();
 
         // Two linked MGs (BV 5 each) in the right arm; the left-arm MG is not linked.
-        expect(mech.getBVCalcHTML()).toMatch(/Machine Gun Array \(ra\) - Base BV: 6\.7\b/);
+        expect(bvSteps(mech).find((step) => step.label.startsWith("Machine Gun Array (ra)"))?.detail).toMatch(/^Base BV 6\.7\b/);
+    });
+
+    it("links each machine gun to one array when a location holds several arrays (TM p.228)", () => {
+        const mech = new BattleMech();
+        mech.setTech("is");
+        for (let gun = 0; gun < 7; gun++) mech.addEquipmentFromTag("machine-gun", "is", "rt", false, undefined, "", false, [], undefined, undefined);
+        mech.addEquipmentFromTag("is-machine-gun-array", "is", "rt", false, undefined, "", false, [], undefined, undefined);
+        mech.addEquipmentFromTag("is-machine-gun-array", "is", "rt", false, undefined, "", false, [], undefined, undefined);
+        mech.getBattleValue();
+
+        // Seven guns (BV 5 each) between two arrays: four and three, 7 x 5 x 0.67 in all, not 8 x 5 x 0.67.
+        const arrays = bvSteps(mech).filter((step) => step.label.startsWith("Machine Gun Array (rt)"));
+        expect(arrays.map((step) => /^Base BV ([\d.]+)/.exec(step.detail ?? "")?.[1]).sort()).toEqual(["10.05", "13.4"]);
     });
 
     it("gives one-shot launchers no ammunition and a quarter of their heat for BV (TM p.303)", () => {
@@ -1003,11 +1143,7 @@ describe("BattleMech engine construction", () => {
         mech.getCriticals()[location].filter(item => item?.tag === "engine")
             .reduce((total, item) => total + (item?.crits ?? 1), 0);
     const build = (tonnage: number, walk: number, engine: string, tech = "is", era = "jihad") => {
-        const mech = new BattleMech();
-        mech.setTech(tech);
-        mech.setEra(era);
-        mech.setTonnage(tonnage);
-        mech.setWalkSpeed(walk);
+        const mech = buildMech({ tech, era, tonnage, walk });
         mech.setEngineType(engine);
         mech.calcAlphaStrike();
         return mech;
@@ -1057,8 +1193,9 @@ describe("BattleMech engine construction", () => {
             const mech = build(50, 5, "standard", tech, era);
             return mech.getAvailableJumpJets(rulesLevel).filter(jj => jj.available).map(jj => jj.tag);
         };
-        expect(jumpJets("is", "civil-war")).toEqual(["standard", "umu"]); // UMU 3066
-        expect(jumpJets("is", "jihad")).toEqual(["standard", "improved", "umu"]);
+        expect(jumpJets("is", "civil-war")).toEqual(["standard"]);
+        expect(jumpJets("is", "civil-war", 4)).toContain("umu"); // UMU 3066, Experimental (TO:AUE p.107)
+        expect(jumpJets("is", "jihad")).toEqual(["standard", "improved"]);
         expect(jumpJets("clan", "civil-war", 4)).toEqual(["standard", "improved", "umu"]); // Clan prototype 3060
 
         const mech = build(50, 5, "standard", "is", "jihad");
@@ -1101,7 +1238,7 @@ describe("BattleMech engine construction", () => {
         const heavyDuty = build(150, 2, "standard");
         heavyDuty.setGyroTypeByName("Heavy Duty Gyro");
         expect(heavyDuty.getBattleValue()).toBe(standard.getBattleValue());
-        expect(heavyDuty.getBVCalcHTML()).toContain("Total Gyro BV = 0.5 x Tonnage");
+        expect(bvLast(heavyDuty, "bv2.def.gyro").detail).toMatch(/ tons x 0\.5$/);
     });
 
     it("gives the Superheavy Gyro two center torso slots (IO:AE p.156)", () => {
@@ -1116,12 +1253,11 @@ describe("BattleMech engine construction", () => {
         const log = (tag: string) => {
             const mech = build(50, 4, "standard", "is", "ilClan");
             mech.setInternalStructureType(tag);
-            mech.getBattleValue();
-            return mech.getBVCalcHTML();
+            return bvLast(mech, "bv2.def.structure").detail;
         };
-        expect(log("reinforced")).toContain("Total Internal Structure BV = 2 x Reinforced Modifier");
-        expect(log("composite")).toContain("Total Internal Structure BV = 0.5 x Composite Modifier");
-        expect(log("industrial")).toContain("Total Internal Structure BV = 0.5 x Industrial Modifier");
+        expect(log("reinforced")).toMatch(/ x 2 \(Reinforced\)$/);
+        expect(log("composite")).toMatch(/ x 0\.5 \(Composite\)$/);
+        expect(log("industrial")).toMatch(/ x 0\.5 \(Industrial\)$/);
 
         const clan = new BattleMech();
         clan.setTech("clan");
@@ -1171,15 +1307,16 @@ describe("BattleMech heat sink and gyro availability", () => {
         expect(heatSink("is", "clan-inv", "double").available).toBe(true);
         // Clan: the Star League double heat sink carries over until Clan production in 2827, inside the
         // Founding Years (2800-2840, IO:AE p.9).
-        expect(heatSink("clan", "star-league", "double").available).toBe(true);
+        expect(heatSink("clan", "clan-founding-years", "double").available).toBe(true);
         expect(heatSink("clan", "clan-founding-years", "double").available).toBe(true);
         expect(heatSink("clan", "clan-golden-years", "double").available).toBe(true);
         expect(heatSink("is", "late-sw-lt", "single").available).toBe(true);
     });
 
     it("offers Laser heat sinks to Clans and prototype doubles only at Experimental (TO:AUE p.129, IO:AE)", () => {
-        expect(heatSink("clan", "clan-inv", "laser").available).toBe(true);
-        expect(heatSink("is", "clan-inv", "laser").available).toBe(false);
+        expect(heatSink("clan", "clan-inv", "laser").available).toBe(false); // Advanced (TO:AUE p.129)
+        expect(heatSink("clan", "clan-inv", "laser", 3).available).toBe(true);
+        expect(heatSink("is", "clan-inv", "laser", 3).available).toBe(false);
         expect(heatSink("is", "age-of-war", "double-prototype").available).toBe(false);
         expect(heatSink("is", "age-of-war", "double-prototype", 4).availableAsPrototype).toBe(true);
         expect(heatSink("is", "late-sw-rn", "double-freezers", 4).available).toBe(true);
@@ -1194,20 +1331,17 @@ describe("BattleMech heat sink and gyro availability", () => {
         mech.setAdditionalHeatSinks(2);
         mech.getBattleValue();
         expect(mech.getHeatSyncName()).toBe("Laser Heat Sinks");
-        expect(mech.getBVCalcHTML()).toContain("Engine Sinks: 24");
-        expect(mech.getCBillCalcHTML()).toContain("6,000 x (Number of Heat Sinks [12])");
+        expect(bvLast(mech, "bv2.off.heat.efficiency").detail).toContain("6 + 24 heat sink capacity");
+        expect(mech.getCostBreakdown().steps.find((step) => step.id.startsWith("cost.heat-sinks"))?.detail).toContain("6,000 x 12 heat sinks");
     });
 
     it("weighs and slots Compact heat sinks two per slot with doubled engine capacity (TO:AUE p.128)", () => {
-        expect(heatSink("is", "jihad", "compact").available).toBe(true);
-        expect(heatSink("clan", "jihad", "compact").available).toBe(false);
+        expect(heatSink("is", "jihad", "compact").available).toBe(false); // Experimental (TO:AUE p.128)
+        expect(heatSink("is", "jihad", "compact", 4).available).toBe(true);
+        expect(heatSink("clan", "jihad", "compact", 4).available).toBe(false);
         expect(heatSink("is", "clan-inv", "compact", 4).availableAsPrototype).toBe(true);
 
-        const mech = new BattleMech();
-        mech.setTech("is");
-        mech.setEra("jihad");
-        mech.setTonnage(50);
-        mech.setWalkSpeed(4);
+        const mech = buildMech({ era: "jihad" });
         mech.setHeatSinksType("compact");
         mech.setAdditionalHeatSinks(10);
         // 200-rated engine holds floor(200 / 25) x 2 = 16 of the 20 sinks; 4 remain, two per slot.
@@ -1252,11 +1386,7 @@ describe("BattleMech internal structure availability", () => {
 
 describe("BattleMech variable-size equipment", () => {
     const build = (tonnage: number) => {
-        const mech = new BattleMech();
-        mech.setTech("is");
-        mech.setEra("jihad");
-        mech.setTonnage(tonnage);
-        mech.setWalkSpeed(4);
+        const mech = buildMech({ era: "jihad", tonnage });
         return mech;
     };
     const add = (mech: BattleMech, tag: string, location = "ra") =>
@@ -1296,11 +1426,7 @@ describe("BattleMech variable-size equipment", () => {
 
 describe("BattleMech myomer and MP boosters", () => {
     const build = (tech = "is", era = "jihad") => {
-        const mech = new BattleMech();
-        mech.setTech(tech);
-        mech.setEra(era);
-        mech.setTonnage(55);
-        mech.setWalkSpeed(5);
+        const mech = buildMech({ tech, era, tonnage: 55, walk: 5 });
         return mech;
     };
 
@@ -1319,8 +1445,8 @@ describe("BattleMech myomer and MP boosters", () => {
         tsm.setMyomerType("tsm");
         expect(tsm.hasTripleStrengthMyomer()).toBe(true);
         expect(tsm.getUnallocatedCritCount() - standard.getUnallocatedCritCount()).toBe(6);
-        expect(tsm.getBVCalcHTML()).toContain("Tonnage modified by 1.5x");
-        expect(tsm.getCBillCalcHTML()).toContain("16,000 x Unit Tonnage [55]");
+        expect(bvLast(tsm, "bv2.off.tonnage.tsm").detail).toMatch(/ x 1\.5$/);
+        expect(tsm.getCostBreakdown().steps.find((step) => step.id.startsWith("cost.musculature"))?.detail).toBe("16,000 x 55 tons");
         expect(tsm.getBattleValue()).toBeGreaterThan(standard.getBattleValue());
 
         const copy = new BattleMech();
@@ -1340,11 +1466,7 @@ describe("BattleMech myomer and MP boosters", () => {
 
 describe("BattleMech spread, movement and limb equipment", () => {
     const build = (tonnage = 50, walk = 5, tech = "is", era = "dark-age") => {
-        const mech = new BattleMech();
-        mech.setTech(tech);
-        mech.setEra(era);
-        mech.setTonnage(tonnage);
-        mech.setWalkSpeed(walk);
+        const mech = buildMech({ tech, era, tonnage, walk });
         return mech;
     };
     const add = (mech: BattleMech, tag: string, location = "", tech = "is") =>
@@ -1444,6 +1566,18 @@ describe("BattleMech spread, movement and limb equipment", () => {
         expect(mech.getAESBVMultiplier()).toBe(1.1);
     });
 
+    it("adds 10 percent of the tonnage for each limb with an AES, a tripod's three legs too (TO:AUE p.192)", () => {
+        const legs = (type: string, locations: string[]) => {
+            const mech = build(50, 5);
+            mech.setType(type);
+            for (const location of locations) add(mech, "aes-leg", location);
+            return mech.getAESBVMultiplier();
+        };
+        expect(legs("biped", ["ll", "rl"])).toBe(1.2);
+        expect(legs("quad", ["ll", "rl", "fll", "frl"])).toBe(1.4);
+        expect(legs("tripod", ["ll", "rl", "cl"])).toBe(1.3);
+    });
+
     it("shows variable equipment sized for the 'Mech in the equipment picker", () => {
         const mech = build(75, 4);
         const masc = mech.getAvailableEquipmentByCatalog("is", false, 2).find(item => item.tag === "masc")!;
@@ -1464,7 +1598,7 @@ describe("Chassis rules levels, provisional BV, and cost multipliers", () => {
         return mech.getCBillCostNumeric();
     };
 
-    // IO:AE p.44 (via MegaMek): Tripods and QuadVees are Advanced, LAMs Experimental; Standard is tournament play.
+    // IO:AE pp.214, 216: Tripods, QuadVees and superheavies are Advanced, LAMs Experimental; Standard is tournament play.
     it("reports the lowest legal rules level for each chassis", () => {
         const level = (type: string, tonnage = 50) => {
             const mech = new BattleMech();
@@ -1472,8 +1606,8 @@ describe("Chassis rules levels, provisional BV, and cost multipliers", () => {
             mech.setTonnage(tonnage);
             return mech.getRequiredRulesLevel();
         };
-        expect(level("biped")).toBe(0);
-        expect(level("quad")).toBe(0);
+        expect(level("biped")).toBe(1);
+        expect(level("quad")).toBe(1);
         expect(level("tripod")).toBe(3);
         expect(level("quadvee")).toBe(3);
         expect(level("lam")).toBe(4);
@@ -1522,49 +1656,73 @@ describe("Chassis rules levels, provisional BV, and cost multipliers", () => {
         expect(lam.getAirMechFlankMP()).toBe(23);
         expect(lam.getHeatSinks()).toBe(12);
         expect(lam.getMaxMovementHeat()).toBe(8);
-        const log = lam.getBVCalcHTML();
-        expect(log).toContain("Best Base TMM: 6");
-        expect(log).toContain("Heat Efficiency Capacity Pool:</strong> 13");
-        expect(log).toContain("x 3.0000 [Speed Factor Rating]");
+        expect(bvLast(lam, "bv2.def.tmm").value).toBe(6);
+        expect(bvLast(lam, "bv2.off.heat.efficiency").value).toBe(13);
+        expect(bvLast(lam, "bv2.off.speed").value).toBe(3);
     });
 
     it("applies the x1.25 OmniMech cost multiplier", () => {
         const standard = new BattleMech();
         const omni = new BattleMech();
         omni.toggleOmni();
-        const html = omni.getCBillCalcHTML();
-        expect(html).toContain("1.25 [OmniMech]");
+        expect(omni.getCostBreakdown().steps.find((step) => step.id === "cost.omni")).toMatchObject({ label: "OmniMech conversion", value: 1.25 });
         expect(cost(omni)).toBe(Math.round(cost(standard) * 1.25));
     });
 
     it("adds chassis cockpit, structure, and conversion equipment costs", () => {
         const quadvee = new BattleMech();
         quadvee.setType("quadvee");
-        const quadveeHTML = quadvee.getCBillCalcHTML();
-        expect(quadveeHTML).toContain("QuadVee Cockpit");
-        expect(quadveeHTML).toContain("Conversion Equipment");
+        const quadveeSteps = quadvee.getCostBreakdown().steps;
+        expect(quadveeSteps.some((step) => step.label === "QuadVee Cockpit")).toBe(true);
+        expect(quadveeSteps.some((step) => step.label === "Conversion Equipment")).toBe(true);
 
-        const tripodHTML = (() => { const tripod = new BattleMech(); tripod.setType("tripod"); return tripod.getCBillCalcHTML(); })();
-        expect(tripodHTML).toContain("Tripod 'Mech Cockpit");
-        expect(tripodHTML).toContain("x 1.2 [Tripod]");
+        const tripod = new BattleMech();
+        tripod.setType("tripod");
+        const tripodSteps = tripod.getCostBreakdown().steps;
+        expect(tripodSteps.some((step) => step.label === "Tripod 'Mech Cockpit")).toBe(true);
+        expect(tripodSteps.find((step) => step.id === "cost.structure.tripod")?.detail).toBe("structure cost x 1.2");
 
-        const lamHTML = (() => { const lam = new BattleMech(); lam.setType("lam"); return lam.getCBillCalcHTML(); })();
-        expect(lamHTML).toContain("0.75 x (Structure");
+        const conversion = quadveeSteps.find((step) => step.id === "cost.conversion");
+        expect(conversion?.detail).toContain("0.5 x structural, weapon and equipment costs");
+        expect(conversion?.cites.some((cite) => cite.source === "ioae")).toBe(true);
     });
 
-    // TM / IO via MegaMek MekCostCalculator (provisional).
+    // "WSC x 0.65 for Bimodal LAMs, and WSC x 0.75 for Standard LAMs": a 'Mech that "had run up a cost of 1,850,000
+    // C-bills in structural, weapon, and equipment costs" adds 1,387,500 (IO p.186, IO:AE p.180). QuadVees: WSC x 0.5,
+    // with the same wording (IO p.187, IO:AE p.181).
+    it("prices LAM and QuadVee conversion on the whole structural, weapon and equipment cost", () => {
+        const amount = (text: string | undefined, pattern: RegExp) => Number(text!.match(pattern)![1].replace(/,/g, ""));
+        for (const [lamType, rate] of [["standard", 0.75], ["bimodal", 0.65], ["quadvee", 0.5]] as const) {
+            const lam = new BattleMech();
+            if (lamType === "quadvee") {
+                lam.setType("quadvee");
+            } else {
+                lam.setType("lam");
+                lam.setLAMType(lamType);
+            }
+            const steps = lam.getCostBreakdown().steps;
+            const conversion = steps.find((step) => step.id === "cost.conversion");
+            const base = amount(conversion?.detail, /structural, weapon and equipment costs ([\d,.]+)/);
+            expect(conversion?.detail).toContain(`${rate} x`);
+            expect(conversion?.cites.some((cite) => cite.source === "ioae")).toBe(true);
+            expect(steps.find((step) => step.id === "cost.subtotal")?.value).toBeCloseTo(base * (1 + rate), 0);
+        }
+    });
+
+    // Superheavy gyro 500,000 x its weight (IO:AE p.217); IndustrialMech final cost (TM p.285).
     it("prices Superheavy gyros at the Heavy-Duty rate and IndustrialMechs at 1 + tonnage / 400", () => {
         const superheavy = new BattleMech();
         superheavy.setTonnage(120);
-        const superheavyHTML = superheavy.getCBillCalcHTML();
-        expect(superheavyHTML).toContain("Gyro: Superheavy");
-        expect(superheavyHTML).toContain("500,000 x Gyro Tonnage");
+        const superheavyGyro = superheavy.getCostBreakdown().steps.find((step) => step.id === "cost.gyro.superheavy");
+        expect(superheavyGyro?.label).toContain("Gyro: Superheavy");
+        expect(superheavyGyro?.detail).toContain("500,000 x");
+        expect(superheavyGyro?.detail).toContain("tons of gyro");
 
         const industrial = new BattleMech();
         industrial.setInternalStructureType("industrial");
-        const industrialHTML = industrial.getCBillCalcHTML();
-        expect(industrialHTML).toContain("/ 400) [IndustrialMech]");
-        expect(new BattleMech().getCBillCalcHTML()).toContain("/ 100)");
+        const industrialMultiplier = industrial.getCostBreakdown().steps.find((step) => step.id === "cost.tonnage-multiplier");
+        expect(industrialMultiplier?.detail).toContain("/ 400 (IndustrialMech)");
+        expect(new BattleMech().getCostBreakdown().steps.find((step) => step.id === "cost.tonnage-multiplier")?.detail).toContain("/ 100");
     });
 });
 
@@ -1662,7 +1820,7 @@ describe("Bimodal LAM", () => {
     it("uses 15% conversion weight and 65% conversion cost", () => {
         const lam = makeBimodal();
         expect(lam.getWeightBreakdown().find(entry => /Conversion/.test(entry.name))?.weight).toBe(5);
-        expect(lam.getCBillCalcHTML()).toContain("0.65 x (Structure");
+        expect(lam.getCostBreakdown().steps.find((step) => step.id === "cost.conversion")?.detail).toContain("0.65 x structural, weapon and equipment costs");
     });
 
     it("keeps the LAM type through save and load and resets it for other chassis", () => {
@@ -1670,6 +1828,242 @@ describe("Bimodal LAM", () => {
         expect(restored.getLAMType()).toBe("bimodal");
         restored.setType("biped");
         expect(restored.getLAMType()).toBe("standard");
+    });
+});
+
+// The Permanent Air 'Mech (Custom Homebrew; inspired by Red Pins, BattleTech forums topic 44833; the rules are NGCFells's).
+describe("Permanent Air 'Mech", () => {
+    const makePAM = (tonnage = 30) => {
+        const lam = new BattleMech();
+        lam.setEra("ilClan");
+        lam.setType("lam");
+        lam.setTonnage(tonnage);
+        lam.setLAMType("pam");
+        return lam;
+    };
+
+    it("is a LAM with only the AirMech mode, at the Custom Homebrew level", () => {
+        const pam = makePAM();
+        expect(pam.getLAMType()).toBe("pam");
+        expect(pam.isPermanentAirMech()).toBe(true);
+        expect(pam.hasAirMechMode()).toBe(true);
+        expect(pam.getTransformationMode()).toBe("airmech");
+        expect(pam.setTransformationMode("mech")).toBe("airmech");
+        expect(pam.setTransformationMode("aerospace")).toBe("airmech");
+        expect(pam.getRequiredRulesLevel()).toBe(CUSTOM_HOMEBREW_RULES_LEVEL);
+        expect(pam.isBattleValueProvisional()).toBe(true);
+    });
+
+    it("carries no conversion equipment, in weight or in cost", () => {
+        const pam = makePAM();
+        expect(pam.getWeightBreakdown().some(entry => /Conversion/.test(entry.name))).toBe(false);
+        expect(pam.getCostBreakdown().steps.some(step => /^cost\.conversion/.test(step.id))).toBe(false);
+    });
+
+    it("has the LAM avionics slots but no landing gear", () => {
+        const criticals = makePAM().getCriticals();
+        const count = (key: "head" | "leftTorso" | "rightTorso" | "centerTorso", tag: string) => criticals[key].filter(slot => slot?.tag === tag).length;
+        expect([count("head", "lam-avionics"), count("leftTorso", "lam-avionics"), count("rightTorso", "lam-avionics")]).toEqual([1, 1, 1]);
+        expect(["head", "leftTorso", "rightTorso", "centerTorso"].map(key => count(key as "head", "lam-landing-gear"))).toEqual([0, 0, 0, 0]);
+    });
+
+    it("moves as an AirMech on its Jump MP", () => {
+        const pam = makePAM();
+        pam.setWalkSpeed(5);
+        pam.setJumpSpeed(4);
+        expect(pam.getAirMechCruiseMP()).toBe(12);
+        expect(pam.getAirMechFlankMP()).toBe(18);
+    });
+
+    it("carries its ton of fuel as a required weight, since it has no conversion equipment to hold it", () => {
+        const pam = makePAM();
+        expect(pam.getLAMFuelPoints()).toBe(80);
+        expect(pam.getWeightBreakdown().find(entry => /Fuel/.test(entry.name))).toEqual({ name: "Fuel (required)", weight: 1 });
+        const standard = makePAM();
+        standard.setLAMType("standard");
+        expect(standard.getWeightBreakdown().some(entry => entry.name === "Fuel (required)")).toBe(false);
+        // 30 tons: the standard LAM's 3-ton conversion equipment against the PAM's 2.5 tons of wings and 1 ton of fuel.
+        expect(pam.getCurrentTonnage()).toBe(standard.getCurrentTonnage() + 0.5);
+    });
+
+    it("pays the Inner Sphere Partial Wing's 7% for its wings, rounded up to the half ton, with no slots", () => {
+        const pam = makePAM(25);
+        expect(pam.getWeightBreakdown().find(entry => /Wings/.test(entry.name))).toEqual({ name: "Permanent Air 'Mech Wings", weight: 2 });
+        expect([makePAM(50).getPermanentAirMechWingWeight(), makePAM(55).getPermanentAirMechWingWeight()]).toEqual([3.5, 4]);
+        expect(JSON.stringify(pam.getCriticals())).not.toMatch(/partial-wing/i);
+    });
+
+    it("may be a Heavy PAM of 56 to 75 tons: Jump MP x 2 and 15% wings", () => {
+        const heavy = makePAM(70);
+        expect([heavy.getTonnage(), heavy.isHeavyPermanentAirMech(), heavy.getPermanentAirMechWingWeight()]).toEqual([70, true, 10.5]);
+        heavy.setWalkSpeed(4);
+        heavy.setJumpSpeed(4);
+        expect([heavy.getAirMechCruiseMP(), heavy.getAirMechFlankMP()]).toEqual([8, 12]);
+        expect(heavy.getChassisEquipmentViolations().some(text => /weigh at most/.test(text))).toBe(false);
+        expect(makePAM(80).getTonnage()).toBe(75);
+        expect(makePAM(55).isHeavyPermanentAirMech()).toBe(false);
+        const standard = makePAM(70);
+        standard.setLAMType("standard");
+        expect(standard.getTonnage()).toBe(55);
+    });
+
+    it("mounts no bomb bays but may add Fuel Tanks", () => {
+        const tags = makePAM().getAvailableEquipment().filter(item => item.available).map(item => item.tag);
+        expect(tags).not.toContain("lam-bomb-bay");
+        expect(tags).toContain("lam-fuel-tank");
+    });
+
+    it("credits the author and says the rules are NGCFells's", () => {
+        const notes = makePAM().getLAMTypeNotes();
+        expect(notes).toContain("Inspired by: Red Pins");
+        expect(notes).toContain("topic 44833");
+        expect(notes).toMatch(/extrapolat/);
+    });
+
+    it("has LAMFAN's five Air-Slip Mechs as legal samples at the Custom Homebrew level, crediting the authors", () => {
+        expect(getPAMSamples(CUSTOM_HOMEBREW_RULES_LEVEL - 1)).toEqual([]);
+        const samples = getPAMSamples(CUSTOM_HOMEBREW_RULES_LEVEL);
+        expect(samples.map(sample => sample.id)).toEqual(["sparrow-spw-2j", "magpie-mgp-1e", "magpie-mgp-3a", "dire-hawk-drh-4k", "dire-hawk-drh-3d"]);
+        for (const sample of samples) {
+            const mech = new BattleMech(JSON.stringify(sample.save));
+            expect([sample.id, mech.isPermanentAirMech(), mech.getTransformationMode()]).toEqual([sample.id, true, "airmech"]);
+            expect([sample.id, mech.getCurrentTonnage() <= mech.getTonnage()]).toEqual([sample.id, true]);
+            expect([sample.id, mech.getChassisEquipmentViolations()]).toEqual([sample.id, []]);
+            expect([sample.id, mech.unallocatedCriticals.filter(Boolean)]).toEqual([sample.id, []]);
+            expect(JSON.stringify(sample.save)).toMatch(/LAMFAN.*topic 83239.*Inspired by: .*Red Pins/);
+        }
+        const spare = samples.map(sample => { const mech = new BattleMech(JSON.stringify(sample.save)); return mech.getTonnage() - mech.getCurrentTonnage(); });
+        expect(spare).toEqual([0, 0, 0, 1, 0]);
+        const magpie = new BattleMech(JSON.stringify(samples[1].save));
+        expect([magpie.getWalkSpeed(), magpie.getJumpSpeed(), magpie.getAirMechCruiseMP(), magpie.getHeatSinks()]).toEqual([6, 4, 12, 10]);
+    });
+
+    it("comes back in AirMech mode from a save, and an unknown type falls back to a standard LAM", () => {
+        const pam = makePAM();
+        const copy = new BattleMech(JSON.stringify({ ...JSON.parse(pam.exportJSON(true)), transformationMode: "mech" }));
+        expect(copy.getLAMType()).toBe("pam");
+        expect(copy.getTransformationMode()).toBe("airmech");
+        expect(pam.setLAMType("no-such-type")).toBe("standard");
+    });
+});
+
+// The VTOLAM (Custom Homebrew; BishopSteiner, deviantart.com/bishopsteiner/art/LOCUST-VTOLAM-concept-899660337).
+describe("VTOLAM", () => {
+    const makeVTOLAM = (tonnage = 25) => {
+        const lam = new BattleMech();
+        lam.setEra("ilClan");
+        lam.setType("lam");
+        lam.setTonnage(tonnage);
+        lam.setLAMType("vtolam");
+        return lam;
+    };
+
+    it("is a Mech / VTOL bimodal LAM at the Custom Homebrew level, at most 30 tons", () => {
+        const lam = makeVTOLAM(40);
+        expect(lam.getTonnage()).toBe(30);
+        expect(lam.hasAirMechMode()).toBe(false);
+        expect(lam.setTransformationMode("aerospace")).toBe("mech");
+        expect(lam.setTransformationMode("vehicle")).toBe("vehicle");
+        expect(lam.getRequiredRulesLevel()).toBe(CUSTOM_HOMEBREW_RULES_LEVEL);
+        expect(lam.isBattleValueProvisional()).toBe(true);
+        lam.setTonnage(35);
+        expect(lam.getChassisEquipmentViolations()).toContain("VTOLAMs weigh at most 30 tons under these rules.");
+    });
+
+    it("takes 20% conversion weight, needs no jump jets or fuel, and allows any fusion engine and gyro", () => {
+        const lam = makeVTOLAM();
+        expect(lam.getWeightBreakdown().find(entry => /Conversion/.test(entry.name))).toEqual({ name: "VTOLAM Conversion Equipment", weight: 5 });
+        expect(lam.setJumpSpeed(0)).toBe(0);
+        expect(lam.getLAMFuelPoints()).toBe(0);
+        lam.setEngineType("xl");
+        lam.setGyroType("xl");
+        expect(lam.getEngineType().tag).toBe("xl");
+        expect(lam.getGyro().tag).toBe("xl");
+        const vtolamSteps = lam.getCostBreakdown().steps;
+        expect(vtolamSteps.find((step) => step.id === "cost.conversion.homebrew")?.detail).toContain("0.65 x structural, weapon and equipment costs");
+        expect(vtolamSteps.some((step) => step.id === "cost.conversion")).toBe(false);
+        expect(vtolamSteps.find((step) => step.id === "cost.conversion.homebrew")?.cites).toEqual([]);
+        lam.setLAMType("standard");
+        expect(lam.getEngineType().tag).toBe("standard");
+        expect(lam.getGyro().tag).toBe("standard");
+        expect(lam.getJumpSpeed()).toBe(BattleMech.LAM_MIN_JUMP_MP);
+    });
+
+    it("puts its landing skids in the side torsos only and moves as a VTOL", () => {
+        const lam = makeVTOLAM();
+        lam.setWalkSpeed(8);
+        const skids = (key: "centerTorso" | "leftTorso" | "rightTorso") => lam.getCriticals()[key].filter(slot => slot?.tag === "lam-landing-gear").length;
+        expect([skids("centerTorso"), skids("leftTorso"), skids("rightTorso")]).toEqual([0, 1, 1]);
+        // The author's figures: a 200 engine at 25 tons rounds down to 13 / 20.
+        expect([lam.getVTOLAMCruiseMP(), lam.getVTOLAMFlankMP()]).toEqual([13, 20]);
+    });
+
+    it("loads every sample as built, credited to its author", () => {
+        expect(getVTOLAMSamples(CUSTOM_HOMEBREW_RULES_LEVEL - 1)).toEqual([]);
+        const samples = getVTOLAMSamples(CUSTOM_HOMEBREW_RULES_LEVEL);
+        expect(samples).toHaveLength(8);
+        for (const sample of samples) {
+            const mech = new BattleMech(JSON.stringify(sample.save));
+            expect(mech.isVTOLAM()).toBe(true);
+            expect(mech.getCurrentTonnage()).toBe(mech.getTonnage());
+            expect(mech.getChassisEquipmentViolations()).toEqual([]);
+            expect(mech.unallocatedCriticals.filter(Boolean)).toEqual([]);
+            expect(JSON.stringify(sample.save)).toMatch(mech.getLAMType() === "vtolam" ? /BishopSteiner/ : /professorheyteen/);
+        }
+        const locust = new BattleMech(JSON.stringify(samples[0].save));
+        expect([locust.getWalkSpeed(), locust.getRunSpeed()]).toEqual([8, 12]);
+    });
+});
+
+// professorheyteen's VTOLAM (Battletech Into The Future, battletechfuture.com/2024/05/28/the-vtolam/).
+describe("Battletech Into The Future VTOLAM", () => {
+    const makeVTOLAM = (tonnage = 25) => {
+        const lam = new BattleMech();
+        lam.setEra("ilClan");
+        lam.setType("lam");
+        lam.setTonnage(tonnage);
+        lam.setLAMType("vtolam-btitf");
+        lam.setWalkSpeed(6);
+        return lam;
+    };
+
+    it("takes 10% conversion to the half ton, up to 35 tons, and no OmniMech", () => {
+        expect(makeVTOLAM(40).getTonnage()).toBe(35);
+        const lam = makeVTOLAM();
+        expect(lam.getWeightBreakdown().find(entry => /Conversion/.test(entry.name))).toEqual({ name: "VTOLAM Conversion Equipment", weight: 2.5 });
+        expect(lam.canBeOmniMech(CUSTOM_HOMEBREW_RULES_LEVEL)).toBe(false);
+        expect(lam.getRequiredRulesLevel()).toBe(CUSTOM_HOMEBREW_RULES_LEVEL);
+        expect(lam.getLAMFuelPoints()).toBe(0);
+    });
+
+    it("puts rotor equipment in the side torsos and conversion equipment in the legs, with no avionics or landing gear", () => {
+        const lam = makeVTOLAM();
+        const count = (key: "head" | "leftTorso" | "rightTorso" | "leftLeg" | "rightLeg" | "centerTorso", tag: string) => lam.getCriticals()[key].filter(slot => slot?.tag === tag).length;
+        expect([count("leftTorso", "lam-rotor"), count("rightTorso", "lam-rotor"), count("leftLeg", "lam-conversion"), count("rightLeg", "lam-conversion")]).toEqual([1, 1, 1, 1]);
+        expect(count("head", "lam-avionics") + count("centerTorso", "lam-landing-gear")).toBe(0);
+    });
+
+    it("flies on its Jump MP and may use any BattleMech equipment", () => {
+        const lam = makeVTOLAM();
+        expect(lam.setJumpSpeed(0)).toBe(1);
+        lam.setJumpSpeed(6);
+        expect([lam.getVTOLAMCruiseMP(), lam.getVTOLAMFlankMP()]).toEqual([6, 9]);
+        lam.setEngineType("light");
+        lam.setInternalStructureType("endo-steel");
+        lam.removeLowerArmActuator("la");
+        expect(lam.getEngineType().tag).toBe("light");
+        expect(lam.getInternalStructureType()).toBe("endo-steel");
+        expect(lam.hasLowerArmActuator("la")).toBe(false);
+    });
+
+    it("matches the published Battle Values", () => {
+        const published: Record<string, number> = {
+            "locust-vtolam-hh": 751, "locust-vtolam-lcaf": 643, "firefly-vtolam": 984, "icestorm-vtolam": 909,
+            "flea-vtolam": 592, "spider-vtolam": 898, "valkyrie-vtolam": 989,
+        };
+        for (const sample of getVTOLAMSamples(CUSTOM_HOMEBREW_RULES_LEVEL).filter(entry => entry.id in published)) {
+            expect([sample.id, new BattleMech(JSON.stringify(sample.save)).getBattleValue()]).toEqual([sample.id, published[sample.id]]);
+        }
     });
 });
 
@@ -1731,6 +2125,11 @@ describe("LAM bombs and fuel", () => {
         const unloaded = lam.getBattleValue();
         expect(lam.setBombCount("ammo-bomb-standard", 2)).toBe(true);
         expect(lam.getBattleValue()).toBe(unloaded + 24);
+        // IO:AE p.186 is silent on loaded bombs; TM p.315 external stores applied, and the log says so (#159).
+        const bombStep = bvSteps(lam, "bv2.final.lam-bombs")[0];
+        expect(bombStep?.label).toMatch(/inferred/i);
+        expect(bombStep?.label).toMatch(/TM p\.315/);
+        expect(lam.isBattleValueProvisional()).toBe(false);
 
         const restored = new BattleMech(lam.exportJSON(true));
         expect(restored.getBombLoadout()).toEqual({ "ammo-bomb-standard": 2 });
@@ -1744,12 +2143,12 @@ describe("LAM bombs and fuel", () => {
             const lam = makeLAM();
             addTo(lam, tag, "lt", "leftTorso");
             lam.clearBombLoadout();
-            return lam.getBVCalcHTML();
+            return bvSteps(lam);
         };
         for (const tag of ["lam-bomb-bay", "lam-fuel-tank"]) {
-            const log = penalty(tag);
-            expect(log).toContain("Explosive Ammo Crit in leftTorso (Inner Sphere, -15)");
-            expect(log).not.toMatch(/Explosive Component Crit \((Bomb Bay|Fuel Tank)/);
+            const steps = penalty(tag);
+            expect(steps.filter((step) => step.id === "bv2.def.explosive.lam-store" && step.label.includes("in leftTorso (Inner Sphere)") && step.value === -15).length).toBeGreaterThan(0);
+            expect(steps.filter((step) => step.id === "bv2.def.explosive.component" && /(Bomb Bay|Fuel Tank)/.test(step.label))).toHaveLength(0);
         }
     });
 
@@ -1779,6 +2178,115 @@ describe("LAM bombs and fuel", () => {
         expect(standardTags).toContain("ammo-bomb-standard");
         expect(standardTags).not.toContain("ammo-bomb-inferno");
         expect(lam.getAvailableBombs(3).map(item => item.tag)).toContain("ammo-bomb-inferno");
+    });
+
+    // #160: the Alamo (IO:AE p.169, under the optional nuclear rules p.163) and the prototype rocket pod (IO:AE p.67).
+    const withNuclear = (lam: BattleMech, on = true) => {
+        lam.applyGameSettings({ ...lam.getGameSettings(4), rulesLevel: 4, rulesets: on ? [NUCLEAR_WEAPONS_RULESET] : [] });
+        return lam;
+    };
+    const loadBays = (lam: BattleMech, count: number) => {
+        for (let bay = 0; bay < count; bay++) addTo(lam, "lam-bomb-bay", "lt", "leftTorso");
+        lam.clearBombLoadout();
+        return lam;
+    };
+
+    it("offers the prototype rocket pod at Experimental, in one bomb slot, valued as the IO:AE prototype launcher", () => {
+        const lam = makeLAM();
+        const pod = (level: number) => lam.getAvailableBombs(level).find(item => item.tag === "ammo-bomb-prototype-rocket-launcher");
+        expect(pod(3)).toBeUndefined();
+        expect(pod(4)).toMatchObject({ bombBaySlots: 1, rulesLevel: 4, battleValue: 15, book: "IO:AE", page: 67 });
+    });
+
+    it("offers the Alamo only under the Nuclear Weapons ruleset, at Experimental, in ten bomb slots", () => {
+        const lam = makeLAM();
+        const alamo = (level: number) => lam.getAvailableBombs(level).find(item => item.tag === "ammo-is-bomb-alamo");
+        expect(findSpecialRuleset(NUCLEAR_WEAPONS_RULESET)).toMatchObject({ minRulesLevel: 4, source: { publication: "Interstellar Operations: Alternate Eras" } });
+        expect(alamo(4)).toBeUndefined();
+        withNuclear(lam);
+        expect(alamo(3)).toBeUndefined();
+        expect(alamo(4)).toMatchObject({ bombBaySlots: 10, rulesLevel: 4, battleValue: 0, book: "IO:AE", page: 169 });
+        withNuclear(lam, false);
+        expect(alamo(4)).toBeUndefined();
+    });
+
+    it("keeps a loaded Alamo and says so when the nuclear ruleset is off, rather than stripping it", () => {
+        const lam = withNuclear(loadBays(makeLAM(), 10));
+        expect(lam.setBombCount("ammo-is-bomb-alamo", 1)).toBe(true);
+        expect(lam.getBombLoadoutSlots()).toBe(10);
+        expect(lam.getChassisEquipmentViolations().filter(message => /Nuclear Weapons/.test(message))).toEqual([]);
+        withNuclear(lam, false);
+        expect(lam.getBombLoadout()).toEqual({ "ammo-is-bomb-alamo": 1 });
+        expect(lam.getChassisEquipmentViolations().find(message => /Nuclear Weapons/.test(message))).toMatch(/Alamo.*IO:AE p\.163/);
+    });
+
+    it("adds no BV for the Alamo: IO:AE p.160 gives nuclear weapons no Battle Value", () => {
+        const lam = withNuclear(loadBays(makeLAM(), 10));
+        const unloaded = lam.getBattleValue();
+        expect(lam.setBombCount("ammo-is-bomb-alamo", 1)).toBe(true);
+        expect(lam.getBattleValue()).toBe(unloaded);
+    });
+
+    it("lists the loaded bombs on the record sheet and in the Technical Readout", () => {
+        const lam = withNuclear(loadBays(makeLAM(), 10));
+        addTo(lam, "lam-bomb-bay", "rt", "rightTorso");
+        addTo(lam, "lam-bomb-bay", "rt", "rightTorso");
+        lam.setBombCount("ammo-is-bomb-alamo", 1);
+        lam.setBombCount("ammo-bomb-prototype-rocket-launcher", 2);
+        const lines = lam.getBombSheetLines();
+        expect(lines).toEqual(expect.arrayContaining([expect.stringMatching(/1 x .*Alamo.*10 slots/), expect.stringMatching(/2 x .*Prototype Rocket/)]));
+        const rows = getBattleMechTroAdapter(lam).getConstructionRows().map(row => row.label);
+        expect(rows.join("|")).toMatch(/Alamo/);
+        expect(rows.join("|")).toMatch(/Prototype Rocket/);
+    });
+
+    it("detonates the Alamo as a play action by IO:AE blast rings, in Fighter or AirMech mode only", () => {
+        const lam = withNuclear(loadBays(makeLAM(), 10));
+        lam.setBombCount("ammo-is-bomb-alamo", 1);
+        lam.setTransformationMode("mech");
+        expect(lam.useBomb("ammo-is-bomb-alamo", "ground").ok).toBe(false);
+        lam.setTransformationMode("aerospace");
+        withNuclear(lam, false);
+        expect(lam.useBomb("ammo-is-bomb-alamo", "ground").ok).toBe(false);
+        withNuclear(lam);
+        const result = lam.useBomb("ammo-is-bomb-alamo", "ground");
+        expect(result.ok).toBe(true);
+        // Type II: 1,000 impact, 23 a hex on the ground, blast radius 43, secondary radius 85 (IO:AE p.164).
+        expect(result.message).toMatch(/Ground Zero 1,000/);
+        expect(result.message).toMatch(/23 less a hex/);
+        expect(result.message).toMatch(/43 hexes/);
+        expect(result.message).toMatch(/85 hexes/);
+        expect(lam.getBombsRemaining("ammo-is-bomb-alamo")).toBe(0);
+        expect(lam.useBomb("ammo-is-bomb-alamo", "ground").ok).toBe(false);
+        expect(lam.getNuclearBlastDamage("ammo-is-bomb-alamo", "ground", 8)).toBe(1000 - 8 * 23);
+        expect(lam.getNuclearBlastDamage("ammo-is-bomb-alamo", "air", 3)).toBe(1000 - 3 * 18);
+        expect(lam.getNuclearBlastDamage("ammo-is-bomb-alamo", "ground", 44)).toBe(0);
+    });
+
+    it("fires a rocket pod in any mode, the prototype one at -1 on the Cluster Hits Table (IO:AE pp.67, 105)", () => {
+        const lam = loadBays(makeLAM(), 4);
+        lam.setBombCount("ammo-bomb-prototype-rocket-launcher", 1);
+        lam.setBombCount("ammo-is-bomb-rocket-launcher", 1);
+        lam.setTransformationMode("mech");
+        const prototype = lam.useBomb("ammo-bomb-prototype-rocket-launcher");
+        expect(prototype.ok).toBe(true);
+        expect(prototype.message).toMatch(/-1 .*Cluster Hits/);
+        expect(lam.getBombsRemaining("ammo-bomb-prototype-rocket-launcher")).toBe(0);
+        const standard = lam.useBomb("ammo-is-bomb-rocket-launcher");
+        expect(standard.ok).toBe(true);
+        expect(standard.message).not.toMatch(/-1 /);
+        // Other bombs cannot be dropped in 'Mech mode.
+        lam.setBombCount("ammo-bomb-standard", 1);
+        expect(lam.useBomb("ammo-bomb-standard").ok).toBe(false);
+    });
+
+    it("keeps spent bombs through save and load, and refills them with the loadout", () => {
+        const lam = loadBays(makeLAM(), 4);
+        lam.setBombCount("ammo-bomb-standard", 2);
+        lam.setTransformationMode("aerospace");
+        expect(lam.useBomb("ammo-bomb-standard").ok).toBe(true);
+        const restored = new BattleMech(lam.exportJSON());
+        expect(restored.getBombsRemaining("ammo-bomb-standard")).toBe(1);
     });
 });
 
@@ -1847,6 +2355,23 @@ describe("OmniMech configurations", () => {
         expect(stats[1].battleValue).toBeGreaterThan(stats[0].battleValue);
         expect(stats[1].cost).toBeGreaterThan(stats[0].cost);
         expect(omni.getActiveOmniConfiguration()).toBe("Prime");
+    });
+
+    it("counts heat sinks and jump jets above the base chassis in pod tonnage", () => {
+        const omni = makeOmni();
+        omni.setJumpSpeed(2);
+        omni.addOmniConfiguration("A", true);
+        omni.setAdditionalHeatSinks(omni.getAdditionalHeatSinks() + 2);
+        omni.setJumpSpeed(4);
+        // No base chassis given: what every configuration has is fixed.
+        const [prime, a] = omni.getOmniConfigurationStats();
+        expect(a.podTonnage).toBe(prime.podTonnage + 2 + 2 * 0.5);
+        const podSpace = omni.getOmniPodSpace().podTonnage;
+        omni.switchOmniConfiguration("Prime");
+        expect(omni.getOmniPodSpace().podTonnage).toBe(podSpace);
+
+        const restored = new BattleMech(omni.exportJSON(true));
+        expect(restored.getOmniConfigurationStats().map(entry => entry.podTonnage)).toEqual([prime.podTonnage, a.podTonnage]);
     });
 
     it("names the active configuration and clones a chosen one for the roster", () => {
@@ -1959,24 +2484,24 @@ describe("BattleMech", () => {
         expect(new BattleMech(exported).exportJSON()).toBe(exported);
     });
 
-    // Every bundled SSW 'Mech is imported and round-tripped in ssw-corpus-1..4.test.ts.
+    // Every bundled 'Mech is imported from its SSW file and round-tripped by the build (bundled-mechs-build.ts).
 
     // Regression: odd Jump MP used to produce a fractional Speed Factor table index and crash the import.
     // TechManual p. 316: MP = Run + round(Jump / 2) = 8 + round(2.5) = 11 -> Speed Factor 1.76.
     it("uses the canonical Speed Factor for odd Jump MP (Griffin GRF-1N)", () => {
-        const griffin = sswMechs.find((xml) => /name="Griffin" model="GRF-1N"/.test(xml))!;
+        const griffin = sswTestFixtures["Griffin GRF-1N"];
         const mech = new BattleMech();
         mech.importSSWXML(griffin);
 
         expect(mech.getRunSpeed()).toBe(8);
         expect(mech.getJumpSpeed()).toBe(5);
-        expect(mech.getBVCalcHTML()).toContain("x 1.7600 [Speed Factor Rating]");
+        expect(bvLast(mech, "bv2.off.speed").value).toBe(1.76);
     });
 
     // Regression: SSW names ammunition "@ SRM-6" ("Ammo (SRM-6)"); after the ammunition catalog moved to one
     // record per family ("SRM - Standard Ammo"), exact name matching dropped the ammo of most bundled 'Mechs.
     it("imports the ammunition of a bundled SSW 'Mech (Atlas AS7-D)", () => {
-        const atlas = sswMechs.find((xml) => /name="Atlas" model="AS7-D"/.test(xml))!;
+        const atlas = sswTestFixtures["Atlas AS7-D"];
         const mech = new BattleMech();
         mech.importSSWXML(atlas);
 
@@ -1992,7 +2517,7 @@ describe("BattleMech", () => {
     it("imports Artemis IV launchers and matches the Master Unit List BV (Commando COM-5S, Shogun C)", () => {
         for (const [name, model, bv] of [["Commando", "COM-5S", 557], ["Shogun", "C", 3032]] as const) {
             const mech = new BattleMech();
-            mech.importSSWXML(sswMechs.find((xml) => new RegExp(`name="${name}" model="${model}"`).test(xml))!);
+            mech.importSSWXML(sswTestFixtures[`${name} ${model}`]);
             expect(mech.getInstalledEquipment().some((item) => item.tag.endsWith("-artemis-iv")), `${name} ${model}`).toBe(true);
             expect(mech.getBattleValue(), `${name} ${model}`).toBe(bv);
         }
@@ -2039,14 +2564,14 @@ describe("BattleMech", () => {
 
     // Regression: heat sinks get a fresh UUID on every recalculation; allocation must fall back to tag + rear.
     it("places every critical of an imported SSW mech (Griffin GRF-1N)", () => {
-        const griffin = sswMechs.find((xml) => /name="Griffin" model="GRF-1N"/.test(xml))!;
+        const griffin = sswTestFixtures["Griffin GRF-1N"];
         const mech = new BattleMech();
         mech.importSSWXML(griffin);
 
         expect(mech.getUnallocatedCriticals()).toEqual([]);
     });
 
-    // The engine, gyro and structure of every bundled SSW 'Mech are checked in ssw-corpus-1..4.test.ts.
+    // The engine, gyro and structure of every bundled 'Mech are checked by the build (bundled-mechs-build.ts).
 
     // SSW's spellings of canon armor, heat sink and jump jet types (TM, TO:AUE) used to fall back to Standard armor,
     // Double heat sinks and Standard jump jets without a warning.
@@ -2058,7 +2583,7 @@ describe("BattleMech", () => {
         ["heat sinks", "<type>Single Heat Sink</type>", "<type>Compact Heat Sink</type>", "compact"],
         ["jump jets", "<type>Standard Jump Jet</type>", "<type>Mech UMU</type>", "umu"],
     ])("imports SSW %s named %s -> %s", (component, from, to, expectedTag) => {
-        const griffin = sswMechs.find((xml) => /name="Griffin" model="GRF-1N"/.test(xml))!;
+        const griffin = sswTestFixtures["Griffin GRF-1N"];
         const mech = new BattleMech();
         mech.importSSWXML(griffin.replace(from, to));
 
@@ -2072,7 +2597,7 @@ describe("BattleMech", () => {
     // (0-based 4-5) free (TM p.52). SSW writes it as <cockpit><type>Small Cockpit</type>; the Commando COM-7B puts
     // Endo-Steel in those slots.
     it("imports an SSW Small Cockpit (Commando COM-7B)", () => {
-        const xml = sswMechs.find((candidate) => /model="COM-7B"/.test(candidate))!;
+        const xml = sswTestFixtures["Commando COM-7B"];
         const mech = new BattleMech();
         mech.importSSWXML(xml);
         expect(mech.getCockpitWeight()).toBe(2);
@@ -2080,8 +2605,8 @@ describe("BattleMech", () => {
 
     it("clears an SSW Small Cockpit when the next SSW import into the same 'Mech has a standard one", () => {
         const mech = new BattleMech();
-        mech.importSSWXML(sswMechs.find((candidate) => /model="COM-7B"/.test(candidate))!);
-        mech.importSSWXML(sswMechs.find((candidate) => /name="Griffin" model="GRF-1N"/.test(candidate))!);
+        mech.importSSWXML(sswTestFixtures["Commando COM-7B"]);
+        mech.importSSWXML(sswTestFixtures["Griffin GRF-1N"]);
         expect(mech.getCockpitWeight()).toBe(3);
     });
 
@@ -2140,7 +2665,7 @@ describe("BattleMech Clan Star League XL engine", () => {
     };
 
     it("lets Clan designs keep the Star League XL until ~2850 (project decision, 2026-09-30)", () => {
-        expect(xl("clan", "star-league")?.available).toBe(true);
+        expect(xl("clan", "clan-founding-years")?.available).toBe(true);
         expect(xl("clan", "clan-founding-years")?.available).toBe(true);
         // Golden Years (2841-3049) overlap the retirement year.
         expect(xl("clan", "clan-golden-years")?.available).toBe(true);
@@ -2156,7 +2681,7 @@ describe("BattleMech Clan Star League XL engine", () => {
 // Project decision (2026-09-30): Clan designs keep Star League equipment until their own Clan version
 // enters production, and the carried version keeps its Inner Sphere slots and armor factor.
 describe("BattleMech SSW import era", () => {
-    const griffin = sswMechs.find((xml) => /name="Griffin" model="GRF-1N"/.test(xml))!;
+    const griffin = sswTestFixtures["Griffin GRF-1N"];
     const withYear = (xml: string, year: number, techbase?: string) => {
         let out = xml.replace(/(<year[^>]*>)\d+(<\/year>)/, `$1${year}$2`);
         if (techbase) {
@@ -2179,7 +2704,9 @@ describe("BattleMech SSW import era", () => {
     });
 });
 
-describe("BattleMech Clan Star League carry-over", () => {
+// The Star League carry-over (2026-09-30) no longer reaches these three: Clan designs start in the Clan Founding
+// Years (user ruling 2026-10-21), and their Clan versions are in production inside that era (2825-2827).
+describe("BattleMech Clan tech from the first Clan era", () => {
     const clanMech = (era: string) => {
         const mech = new BattleMech();
         mech.setTech("clan");
@@ -2189,34 +2716,26 @@ describe("BattleMech Clan Star League carry-over", () => {
     const slotsNamed = (mech: BattleMech, tag: string) =>
         mech.getUnallocatedCriticals().filter(item => item.tag === tag).length;
 
-    it("gives double heat sinks the IS three slots until Clan production (2827), then two", () => {
-        const starLeague = clanMech("star-league");
-        starLeague.setHeatSinksType("double");
-        expect(starLeague.getHeatSinkCriticalRequirements().slotsEach).toBe(3);
-
-        const golden = clanMech("clan-golden-years");
-        golden.setHeatSinksType("double");
-        expect(golden.getHeatSinkCriticalRequirements().slotsEach).toBe(2);
+    it("cannot build a Clan design in the Star League era", () => {
+        expect(clanMech("star-league").getEra().tag).toBe("clan-founding-years");
     });
 
-    it("gives Endo Steel fourteen IS slots until Clan production (2827), then seven", () => {
-        const starLeague = clanMech("star-league");
-        starLeague.setInternalStructureType("endo-steel");
-        expect(slotsNamed(starLeague, "endo-steel")).toBe(14);
-
-        const golden = clanMech("clan-golden-years");
-        golden.setInternalStructureType("endo-steel");
-        expect(slotsNamed(golden, "endo-steel")).toBe(7);
+    it("gives double heat sinks the Clan two slots in the Founding Years", () => {
+        const founding = clanMech("clan-founding-years");
+        founding.setHeatSinksType("double");
+        expect(founding.getHeatSinkCriticalRequirements().slotsEach).toBe(2);
     });
 
-    it("rates Ferro-Fibrous at the IS factor until Clan production (2825)", () => {
-        const starLeague = clanMech("star-league");
-        starLeague.setArmorType("ferro-fibrous");
-        expect(starLeague.getArmorTechBase()).toBe("is");
+    it("gives Endo Steel the Clan seven slots in the Founding Years", () => {
+        const founding = clanMech("clan-founding-years");
+        founding.setInternalStructureType("endo-steel");
+        expect(slotsNamed(founding, "endo-steel")).toBe(7);
+    });
 
-        const golden = clanMech("clan-golden-years");
-        golden.setArmorType("ferro-fibrous");
-        expect(golden.getArmorTechBase()).toBe("clan");
+    it("rates Ferro-Fibrous at the Clan factor in the Founding Years", () => {
+        const founding = clanMech("clan-founding-years");
+        founding.setArmorType("ferro-fibrous");
+        expect(founding.getArmorTechBase()).toBe("clan");
     });
 });
 
@@ -2224,7 +2743,7 @@ describe("saved designs with custom equipment", () => {
     // Regression: a saved design lost its custom (homebrew) equipment on reload, because restoring a save looked
     // the tag up in the canon lists only. Canon still wins when a tag exists in both.
     it("keeps custom equipment through a save and reload", () => {
-        const customTag = mechCustomEquipmentMisc[0].tag;
+        const customTag = "custom-null-signature-system";
         const mech = new BattleMech();
         mech.setTonnage(50);
         const added = mech.addEquipmentFromTag(customTag, "is", "un", false, null, "", false, [], undefined, undefined, -1, "", true);
@@ -2236,7 +2755,7 @@ describe("saved designs with custom equipment", () => {
 });
 
 describe("SSW unresolved items", () => {
-    const griffin = () => sswMechs.find((xml) => /name="Griffin" model="GRF-1N"/.test(xml))!;
+    const griffin = () => sswTestFixtures["Griffin GRF-1N"];
 
     it("reports an unknown weapon with its faction, type, location and slot", () => {
         const xml = griffin().replace('<name manufacturer="Fusigon">(IS) PPC</name>', '<name manufacturer="">(IS) Widget Cannon</name>');
@@ -2263,10 +2782,19 @@ describe("SSW unresolved items", () => {
     });
 
     it("reports an unknown cockpit", () => {
-        const xml = griffin().replace(">Standard Cockpit</type>", ">Torso-Mounted Cockpit</type>");
+        const xml = griffin().replace(">Standard Cockpit</type>", ">Widget Cockpit</type>");
         const mech = new BattleMech();
         mech.importSSWXML(xml);
-        expect(mech.getSSWUnresolved()).toEqual([expect.objectContaining({ kind: "cockpit", name: "Torso-Mounted Cockpit" })]);
+        expect(mech.getSSWUnresolved()).toEqual([expect.objectContaining({ kind: "cockpit", name: "Widget Cockpit" })]);
+    });
+
+    // Skunk Werks' "Robotic Cockpit" (Revenant UBM-1A): a standard cockpit with a Smart Robotic Control System.
+    it("reads a Robotic Cockpit as a standard cockpit with an SRCS", () => {
+        const mech = new BattleMech();
+        mech.importSSWXML(griffin().replace(">Standard Cockpit</type>", ">Robotic Cockpit</type>"));
+        expect(mech.getSSWUnresolved()).toEqual([]);
+        expect(mech.getCockpitType().tag).toBe("standard");
+        expect(mech.getRoboticControl().tag).toBe("srcs");
     });
 
     it("a clean import has no unresolved items, and occupancy marks the PPC's three slots", () => {
@@ -2287,22 +2815,14 @@ describe("SSW unresolved items", () => {
 
 describe("Batch 3 myomer catalog", () => {
     const myomer = (tag: string) => mechMyomerTypes.find(item => item.tag === tag);
-    const isMisc = (tag: string) => mechISEquipmentMisc.find(item => item.tag === tag);
-    const clanMisc = (tag: string) => mechClanEquipmentMisc.find(item => item.tag === tag);
+    const isMisc = (tag: string) => isMiscList.find(item => item.tag === tag);
+    const clanMisc = (tag: string) => clanMiscList.find(item => item.tag === tag);
 
     it("dates standard myomer per IO:AE p.42 and cites TM p.277", () => {
         const standard = myomer("standard");
         expect(standard?.page).toBe(277);
         expect(standard?.prototype).toBe(2300);
         expect(standard?.introduced).toBe(2350);
-    });
-
-    it("uses null, not 0, for unknown myomer dates", () => {
-        for (const item of mechMyomerTypes) {
-            expect(item.extinct, item.tag).not.toBe(0);
-            expect(item.reintroduced, item.tag).not.toBe(0);
-            expect(item.introduced, item.tag).not.toBe(0);
-        }
     });
 
     it("lists Super-Cooled Myomer as an experimental IS prototype (IO:AE p.88)", () => {
@@ -2324,7 +2844,7 @@ describe("Batch 3 myomer catalog", () => {
     });
 
     it("dates supercharger production 3078 (IO:AE p.29)", () => {
-        const supercharger = mechUniversalEquipment.find(item => item.tag === "supercharger");
+        const supercharger = universalEquipment.find(item => item.tag === "supercharger");
         expect(supercharger?.introduced).toBe(3078);
         expect(supercharger?.extinct).not.toBe(0);
     });
@@ -2377,13 +2897,6 @@ describe("Batch 4 engine catalog", () => {
             expect([item.book, item.page], item.tag).toEqual(pages[item.tag]);
         }
     });
-
-    it("uses null, not 0, for engines that never went extinct", () => {
-        for (const item of mechEngineTypes) {
-            expect(item.extinct, item.tag).not.toBe(0);
-            expect(item.reintroduced, item.tag).not.toBe(0);
-        }
-    });
 });
 
 describe("Batch 5 internal structure catalog", () => {
@@ -2402,25 +2915,19 @@ describe("Batch 5 internal structure catalog", () => {
         expect(structure("reinforced")?.clanDates?.prototype).toBe(3065);
         expect(structure("industrial")?.prototype).toBe(2300);
         expect(structure("industrial")?.introduced).toBe(2350);
+        // Age of War prototype 2471, ends at production in 2487, recovered as a prototype in 3035 (IO:AE pp.65, 97).
+        const prototype = structure("endo-steel-prototype");
+        expect([prototype?.prototype, prototype?.introduced, prototype?.extinct, prototype?.reintroduced]).toEqual([2471, null, 2487, 3035]);
     });
 
     it("cites a book and page for every structure", () => {
         const pages: Record<string, [string, number]> = {
             standard: ["TM", 225], "endo-steel": ["TM", 224], industrial: ["TM", 224],
             composite: ["TO:AUE", 154], "endo-composite": ["TO:AUE", 154], reinforced: ["TO:AUE", 155],
+            "endo-steel-prototype": ["IO:AE", 65],
         };
         for (const item of mechInternalStructureTypes) {
             expect([item.book, item.page], item.tag).toEqual(pages[item.tag]);
-        }
-    });
-
-    it("uses null, not 0, for structures that never went extinct", () => {
-        for (const item of mechInternalStructureTypes) {
-            expect(item.introduced, item.tag).not.toBe(0);
-            expect(item.extinct, item.tag).not.toBe(0);
-            expect(item.reintroduced, item.tag).not.toBe(0);
-            expect(item.clanDates?.extinct, item.tag).not.toBe(0);
-            expect(item.clanDates?.reintroduced, item.tag).not.toBe(0);
         }
     });
 });
@@ -2496,16 +3003,6 @@ describe("Batch 6 armor catalog", () => {
         }
     });
 
-    it("uses null, not 0, for armor that never went extinct", () => {
-        for (const item of mechArmorTypes) {
-            expect(item.introduced, item.tag).not.toBe(0);
-            expect(item.extinct, item.tag).not.toBe(0);
-            expect(item.reintroduced, item.tag).not.toBe(0);
-            expect(item.clanDates?.extinct, item.tag).not.toBe(0);
-            expect(item.clanDates?.reintroduced, item.tag).not.toBe(0);
-        }
-    });
-
     it("matches the published points per ton and cost for IndustrialMech and ProtoMech armor", () => {
         // TM p.72: Commercial armor multiplies the 16 base points by 1.5; TM p.278: 3,000 C-bills per ton.
         expect(armor("commercial")?.armorMultiplier).toEqual({ clan: 24, is: 24 });
@@ -2567,7 +3064,9 @@ describe("Batch 7 heat sink catalog", () => {
         expect(sink("single")?.introduced).toBe(2022);
         expect([sink("double")?.prototype, sink("double")?.introduced, sink("double")?.extinct, sink("double")?.reintroduced]).toEqual([2559, 2567, 2865, 3040]);
         expect(sink("double")?.clanDates).toEqual({ prototype: 2825, introduced: 2827, extinct: null, reintroduced: null });
-        expect(sink("laser")?.clanDates).toEqual({ prototype: 3040, introduced: 3051, extinct: null, reintroduced: null });
+        // A Clan record's own dates are its Clan dates (design 2026-10-24-catalog-consolidation §2).
+        expect(sink("laser")).toMatchObject({ prototype: 3040, introduced: 3051, extinct: null, reintroduced: null });
+        expect(sink("laser")?.clanDates).toBeUndefined();
         expect([sink("compact")?.prototype, sink("compact")?.introduced]).toEqual([3058, 3079]);
     });
 
@@ -2578,16 +3077,6 @@ describe("Batch 7 heat sink catalog", () => {
         };
         for (const item of mechHeatSinkTypes) {
             expect([item.book, item.page], item.tag).toEqual(pages[item.tag]);
-        }
-    });
-
-    it("uses null, not 0, for heat sinks that never went extinct", () => {
-        for (const item of mechHeatSinkTypes) {
-            expect(item.introduced, item.tag).not.toBe(0);
-            expect(item.extinct, item.tag).not.toBe(0);
-            expect(item.reintroduced, item.tag).not.toBe(0);
-            expect(item.clanDates?.extinct, item.tag).not.toBe(0);
-            expect(item.clanDates?.reintroduced, item.tag).not.toBe(0);
         }
     });
 });
@@ -2609,11 +3098,11 @@ describe("Batch 8 cockpit catalog", () => {
     });
 
     it("prices chassis cockpits from the catalog without a provisional label (IO:AE pp.215, 217)", () => {
-        const html = chassis("tripod", 150).getCBillCalcHTML();
-        expect(html).toContain("<strong>Superheavy Tripod 'Mech Cockpit</strong></td><td>500,000</td>");
-        expect(chassis("biped", 150).getCBillCalcHTML()).toContain("<strong>Superheavy BattleMech Cockpit</strong></td><td>300,000</td>");
-        expect(chassis("quadvee", 60).getCBillCalcHTML()).toContain("<strong>QuadVee Cockpit</strong></td><td>375,000</td>");
-        expect(chassis("tripod", 60).getCBillCalcHTML()).toContain("<strong>Tripod 'Mech Cockpit</strong></td><td>400,000</td>");
+        const cockpit = (mech: BattleMech) => mech.getCostBreakdown().steps.find((step) => step.id.startsWith("cost.cockpit"));
+        expect(cockpit(chassis("tripod", 150))).toMatchObject({ label: "Superheavy Tripod 'Mech Cockpit", value: 500000 });
+        expect(cockpit(chassis("biped", 150))).toMatchObject({ label: "Superheavy BattleMech Cockpit", value: 300000 });
+        expect(cockpit(chassis("quadvee", 60))).toMatchObject({ label: "QuadVee Cockpit", value: 375000 });
+        expect(cockpit(chassis("tripod", 60))).toMatchObject({ label: "Tripod 'Mech Cockpit", value: 400000 });
     });
 
     it("lists every 'Mech cockpit with its published weight and cost", () => {
@@ -2689,7 +3178,7 @@ describe("Batch 8 cockpit catalog", () => {
             expect([item.book, item.page], item.tag).toEqual(pages[item.tag]);
         }
         expect(mechCockpitTypes.filter(item => item.constructionStatus === "implemented").map(item => item.tag).sort())
-            .toEqual(["industrial", "industrial-advanced-fire-control", "primitive", "primitive-industrial", "primitive-industrial-advanced-fire-control", "quadvee", "small", "standard", "superheavy", "superheavy-industrial", "superheavy-tripod", "tripod"]);
+            .toEqual(["command-console", "enhanced-imaging-interface", "industrial", "industrial-advanced-fire-control", "interface", "primitive", "primitive-industrial", "primitive-industrial-advanced-fire-control", "quadvee", "small", "standard", "superheavy", "superheavy-industrial", "superheavy-tripod", "torso-mounted", "tripod"]);
         // Small (TM p.304) and Torso-Mounted (TO:AUE p.193) cockpits multiply the final BV by 0.95.
         expect(cockpit("small")?.bvMultiplier).toBe(0.95);
         expect(cockpit("torso-mounted")?.bvMultiplier).toBe(0.95);
@@ -2750,17 +3239,8 @@ describe("Batch 9a misc equipment catalogs", () => {
             "remote-sensor-dispenser-prototype": [2586, null, 2590, null, "IO:AE", 67],
         };
         for (const [tag, want] of Object.entries(expected)) {
-            const item = mechISEquipmentMisc.find(record => record.tag === tag);
+            const item = seenBy("is", equipmentMisc, tag);
             expect([item?.prototype, item?.introduced, item?.extinct, item?.reintroduced, item?.book, item?.page], tag).toEqual(want);
-        }
-    });
-
-    it("uses null, not 0, for unknown dates in the is records", () => {
-        for (const item of mechISEquipmentMisc) {
-            expect(item.introduced, item.tag).not.toBe(0);
-            expect(item.extinct, item.tag).not.toBe(0);
-            expect(item.reintroduced, item.tag).not.toBe(0);
-            expect(typeof item.page, item.tag).toBe("number");
         }
     });
 
@@ -2789,22 +3269,13 @@ describe("Batch 9a misc equipment catalogs", () => {
             "clan-protomech-myomer-booster": [3066, 3068, null, null, "TM", 232],
         };
         for (const [tag, want] of Object.entries(expected)) {
-            const item = mechClanEquipmentMisc.find(record => record.tag === tag);
+            const item = seenBy("clan", equipmentMisc, tag);
             expect([item?.prototype, item?.introduced, item?.extinct, item?.reintroduced, item?.book, item?.page], tag).toEqual(want);
         }
     });
 
-    it("uses null, not 0, for unknown dates in the clan records", () => {
-        for (const item of mechClanEquipmentMisc) {
-            expect(item.introduced, item.tag).not.toBe(0);
-            expect(item.extinct, item.tag).not.toBe(0);
-            expect(item.reintroduced, item.tag).not.toBe(0);
-            expect(typeof item.page, item.tag).toBe("number");
-        }
-    });
-
     it("prices Modular Armor at 10,000 C-bills per ton (TO:AUE p.217)", () => {
-        expect(mechISEquipmentMisc.find(item => item.tag === "modular-armor")?.cbills).toBe(10000);
+        expect(seenBy("is", equipmentMisc, "modular-armor")?.cbills).toBe(10000);
     });
 });
 
@@ -2841,17 +3312,8 @@ describe("Batch 9b universal equipment catalog", () => {
             "lam-fuel-tank": [undefined, 2100, null, null, "IO:AE", 215],
         };
         for (const [tag, want] of Object.entries(expected)) {
-            const item = mechUniversalEquipment.find(record => record.tag === tag);
+            const item = universalEquipment.find(record => record.tag === tag);
             expect([item?.prototype, item?.introduced, item?.extinct, item?.reintroduced, item?.book, item?.page], tag).toEqual(want);
-        }
-    });
-
-    it("uses null, not 0, for unknown dates in the universal records", () => {
-        for (const item of mechUniversalEquipment) {
-            expect(item.introduced, item.tag).not.toBe(0);
-            expect(item.extinct, item.tag).not.toBe(0);
-            expect(item.reintroduced, item.tag).not.toBe(0);
-            expect(typeof item.page, item.tag).toBe("number");
         }
     });
 });
@@ -2908,17 +3370,8 @@ describe("Batch 10a energy weapon catalogs", () => {
             "prototype-small-pulse-laser": [2595, null, 2609, null, "IO:AE", 67],
         };
         for (const [tag, want] of Object.entries(expected)) {
-            const item = mechISEquipmentEnergy.find(record => record.tag === tag);
+            const item = isEnergyList.find(record => record.tag === tag) ?? seenBy("is", equipmentEnergy, tag);
             expect([item?.prototype, item?.introduced, item?.extinct, item?.reintroduced, item?.book, item?.page], tag).toEqual(want);
-        }
-    });
-
-    it("uses null, not 0, for unknown dates in the isEnergy records", () => {
-        for (const item of mechISEquipmentEnergy) {
-            expect(item.introduced, item.tag).not.toBe(0);
-            expect(item.extinct, item.tag).not.toBe(0);
-            expect(item.reintroduced, item.tag).not.toBe(0);
-            expect(typeof item.page, item.tag).toBe("number");
         }
     });
 
@@ -2965,17 +3418,8 @@ describe("Batch 10a energy weapon catalogs", () => {
             "clan-prototype-er-small-laser": [2819, null, 2825, null, "IO:AE", 91],
         };
         for (const [tag, want] of Object.entries(expected)) {
-            const item = mechClanEquipmentEnergy.find(record => record.tag === tag);
+            const item = clanEnergyList.find(record => record.tag === tag) ?? seenBy("clan", equipmentEnergy, tag);
             expect([item?.prototype, item?.introduced, item?.extinct, item?.reintroduced, item?.book, item?.page], tag).toEqual(want);
-        }
-    });
-
-    it("uses null, not 0, for unknown dates in the clanEnergy records", () => {
-        for (const item of mechClanEquipmentEnergy) {
-            expect(item.introduced, item.tag).not.toBe(0);
-            expect(item.extinct, item.tag).not.toBe(0);
-            expect(item.reintroduced, item.tag).not.toBe(0);
-            expect(typeof item.page, item.tag).toBe("number");
         }
     });
 });
@@ -3031,17 +3475,8 @@ describe("Batch 10b ballistic weapon catalogs", () => {
             "is-risc-apds": [3134, 3137, null, null, "IO:AE", 85],
         };
         for (const [tag, want] of Object.entries(expected)) {
-            const item = mechISEquipmentBallistic.find(record => record.tag === tag);
+            const item = isBallisticList.find(record => record.tag === tag);
             expect([item?.prototype, item?.introduced, item?.extinct, item?.reintroduced, item?.book, item?.page], tag).toEqual(want);
-        }
-    });
-
-    it("uses null, not 0, for unknown dates in the isBallistic records", () => {
-        for (const item of mechISEquipmentBallistic) {
-            expect(item.introduced, item.tag).not.toBe(0);
-            expect(item.extinct, item.tag).not.toBe(0);
-            expect(item.reintroduced, item.tag).not.toBe(0);
-            expect(typeof item.page, item.tag).toBe("number");
         }
     });
 
@@ -3091,17 +3526,8 @@ describe("Batch 10b ballistic weapon catalogs", () => {
             "clan-prototype-ultra-ac-20": [2820, null, 2825, null, "IO:AE", 92],
         };
         for (const [tag, want] of Object.entries(expected)) {
-            const item = mechClanEquipmentBallistic.find(record => record.tag === tag);
+            const item = clanBallisticList.find(record => record.tag === tag);
             expect([item?.prototype, item?.introduced, item?.extinct, item?.reintroduced, item?.book, item?.page], tag).toEqual(want);
-        }
-    });
-
-    it("uses null, not 0, for unknown dates in the clanBallistic records", () => {
-        for (const item of mechClanEquipmentBallistic) {
-            expect(item.introduced, item.tag).not.toBe(0);
-            expect(item.extinct, item.tag).not.toBe(0);
-            expect(item.reintroduced, item.tag).not.toBe(0);
-            expect(typeof item.page, item.tag).toBe("number");
         }
     });
 });
@@ -3234,18 +3660,17 @@ describe("Batch 10c missile and artillery catalogs", () => {
             "prototype-rocket-launcher-20": [1950, null, 3064, null, "IO:AE", 67],
         };
         for (const [tag, want] of Object.entries(expected)) {
-            const item = mechISEquipmentMissiles.find(record => record.tag === tag);
+            const item = isMissileList.find(record => record.tag === tag);
             expect([item?.prototype, item?.introduced, item?.extinct, item?.reintroduced, item?.book, item?.page], tag).toEqual(want);
         }
     });
 
-    it("uses null, not 0, for unknown dates in the isMissile records", () => {
-        for (const item of mechISEquipmentMissiles) {
-            expect(item.introduced, item.tag).not.toBe(0);
-            expect(item.extinct, item.tag).not.toBe(0);
-            expect(item.reintroduced, item.tag).not.toBe(0);
-            expect(typeof item.page, item.tag).toBe("number");
-        }
+    // User ruling 2026-10-27: the Klondike-era BV the MUL and the Operation Klondike record sheets use (seven units:
+    // Carbine CON-1 (RL) 296, Crosscut ED-X2 (RL) 422, Daedalus GTX2 (Militarized) 849, Flatbed Truck (RL) 232, Rotunda
+    // (RL) 320, Galleon GAL-200 (RL) 443), not IO:AE p.189's later 15/18/19, until BV is kept per edition (#590).
+    it("values prototype rocket launchers as the MUL and the Klondike sheets do", () => {
+        const bv = (tag: string) => isMissileList.find(record => record.tag === tag)?.battleValue;
+        expect([bv("prototype-rocket-launcher-10"), bv("prototype-rocket-launcher-15"), bv("prototype-rocket-launcher-20")]).toEqual([17, 21, 22]);
     });
 
     it("dates and cites the clanMissile records (IO:AE pp.31-40)", () => {
@@ -3362,17 +3787,8 @@ describe("Batch 10c missile and artillery catalogs", () => {
             "clan-prototype-streak-srm-6": [2819, null, 2826, null, "IO:AE", 91],
         };
         for (const [tag, want] of Object.entries(expected)) {
-            const item = mechClanEquipmentMissile.find(record => record.tag === tag);
+            const item = clanMissileList.find(record => record.tag === tag);
             expect([item?.prototype, item?.introduced, item?.extinct, item?.reintroduced, item?.book, item?.page], tag).toEqual(want);
-        }
-    });
-
-    it("uses null, not 0, for unknown dates in the clanMissile records", () => {
-        for (const item of mechClanEquipmentMissile) {
-            expect(item.introduced, item.tag).not.toBe(0);
-            expect(item.extinct, item.tag).not.toBe(0);
-            expect(item.reintroduced, item.tag).not.toBe(0);
-            expect(typeof item.page, item.tag).toBe("number");
         }
     });
 
@@ -3383,17 +3799,8 @@ describe("Batch 10c missile and artillery catalogs", () => {
             "prototype-arrow-iv": [2593, null, 2600, null, "IO:AE", 64],
         };
         for (const [tag, want] of Object.entries(expected)) {
-            const item = mechISEquipmentArtillery.find(record => record.tag === tag);
+            const item = isArtilleryList.find(record => record.tag === tag);
             expect([item?.prototype, item?.introduced, item?.extinct, item?.reintroduced, item?.book, item?.page], tag).toEqual(want);
-        }
-    });
-
-    it("uses null, not 0, for unknown dates in the isArtillery records", () => {
-        for (const item of mechISEquipmentArtillery) {
-            expect(item.introduced, item.tag).not.toBe(0);
-            expect(item.extinct, item.tag).not.toBe(0);
-            expect(item.reintroduced, item.tag).not.toBe(0);
-            expect(typeof item.page, item.tag).toBe("number");
         }
     });
 
@@ -3403,17 +3810,8 @@ describe("Batch 10c missile and artillery catalogs", () => {
             "clan-arrow-iv-system": [undefined, 2844, null, null, "TO:AUE", 96],
         };
         for (const [tag, want] of Object.entries(expected)) {
-            const item = mechClanEquipmentArtillery.find(record => record.tag === tag);
+            const item = clanArtilleryList.find(record => record.tag === tag);
             expect([item?.prototype, item?.introduced, item?.extinct, item?.reintroduced, item?.book, item?.page], tag).toEqual(want);
-        }
-    });
-
-    it("uses null, not 0, for unknown dates in the clanArtillery records", () => {
-        for (const item of mechClanEquipmentArtillery) {
-            expect(item.introduced, item.tag).not.toBe(0);
-            expect(item.extinct, item.tag).not.toBe(0);
-            expect(item.reintroduced, item.tag).not.toBe(0);
-            expect(typeof item.page, item.tag).toBe("number");
         }
     });
 });
@@ -3432,7 +3830,9 @@ describe("Batch 11 jump jet catalog", () => {
     });
 
     it("cites a book and page for every jump jet and uses null for unknown dates", () => {
-        const pages: Record<string, [string, number]> = { standard: ["TM", 225], improved: ["TM", 225], umu: ["TO:AUE", 107], "prototype-improved": ["IO:AE", 97] };
+        const pages: Record<string, [string, number]> = {
+            standard: ["TM", 225], improved: ["TM", 225], umu: ["TO:AUE", 107], "prototype-improved": ["IO:AE", 97], "primitive-prototype": ["IO:AE", 114],
+        };
         for (const item of mechJumpJetTypes) {
             expect([item.book, item.page], item.tag).toEqual(pages[item.tag]);
             // The recovered prototype ends when the improved jump jet enters production (Batch 40).
@@ -3444,7 +3844,7 @@ describe("Batch 11 jump jet catalog", () => {
 
 describe("Batch 9c pods added from TechManual and TO:AUE", () => {
     it("lists the B-Pod as universal equipment (TM pp.205, 291, 317, 342)", () => {
-        const pod = mechUniversalEquipment.find(item => item.tag === "b-pod");
+        const pod = universalEquipment.find(item => item.tag === "b-pod");
         expect(pod).toMatchObject({ name: "B-Pod", weight: 1, cbills: 2500, battleValue: 2, battleValueDefensive: true, explosive: true, book: "TM", page: 205 });
         expect(pod?.space).toMatchObject({ battlemech: 1, protomech: -1, combatVehicle: 1, supportVehicle: 1 });
         // IO:AE p.34: ~3065 prototype (Wolf-in-Exile and Lyran), 3068 production for both tech bases.
@@ -3452,7 +3852,7 @@ describe("Batch 9c pods added from TechManual and TO:AUE", () => {
     });
 
     it("lists the M-Pod as Inner Sphere equipment (TO:AUE pp.143, 195, 221)", () => {
-        const pod = mechISEquipmentMisc.find(item => item.tag === "m-pod");
+        const pod = isMiscList.find(item => item.tag === "m-pod");
         expect(pod).toMatchObject({ name: "M-Pod", weight: 1, cbills: 6000, battleValue: 5, battleValueDefensive: true, explosive: true, accuracyModifier: -1, book: "TO:AUE", page: 143 });
         expect(pod?.range).toEqual({ min: 0, short: 1, medium: 2, long: 3 });
         expect(pod?.space).toMatchObject({ battlemech: 1, protomech: -1, combatVehicle: 1, supportVehicle: 1, aerospaceFighter: -1 });
@@ -3461,7 +3861,7 @@ describe("Batch 9c pods added from TechManual and TO:AUE", () => {
     });
 
     it("lists the Chaff Pod as Inner Sphere equipment (TO:AUE pp.111, 195, 219)", () => {
-        const pod = mechISEquipmentMisc.find(item => item.tag === "chaff-pod");
+        const pod = isMiscList.find(item => item.tag === "chaff-pod");
         expect(pod).toMatchObject({ name: "Chaff Pod", weight: 1, cbills: 2000, battleValue: 19, battleValueDefensive: true, explosive: true, book: "TO:AUE", page: 111 });
         expect(pod?.space).toMatchObject({ battlemech: 1, protomech: -1, combatVehicle: 1, supportVehicle: 1, aerospaceFighter: 1, smallCraft: 1, dropShip: 1 });
         // IO:AE p.39: 3069 prototype, 3079 production.
@@ -3488,7 +3888,7 @@ describe("Batch 12b standard ammunition follows its launcher", () => {
             "ammo-is-arrow-iv-standard": [2593, 2600, 2830, 3044, "TO:AUE", 96],
             "ammo-is-enhanced-lrm-standard": [3058, 3082, null, null, "TO:AUE", 139],
             "ammo-is-inarc-standard": [3054, 3062, null, null, "TM", 233],
-            "ammo-is-mech-mortar-standard": [2526, 2531, 2819, 3043, "TO:AUE", 136],
+            "ammo-mech-mortar-standard": [2526, 2531, 2819, 3043, "TO:AUE", 136],
             "ammo-is-mrm-standard": [3052, 3058, null, null, "TM", 231],
             "ammo-is-narc-standard": [2580, 2587, 2795, 3035, "TM", 233],
             "ammo-is-plasma-rifle-standard": [3061, 3068, null, null, "TM", 235],
@@ -3498,9 +3898,9 @@ describe("Batch 12b standard ammunition follows its launcher", () => {
             "ammo-is-thunderbolt-20-standard": [3052, 3072, null, null, "TO:AUE", 159],
             "ammo-is-heavy-machine-gun-standard": [3063, 3068, null, null, "TM", 228],
             "ammo-is-light-machine-gun-standard": [3064, 3068, null, null, "TM", 228],
-            "ammo-is-lrt-standard": [2370, 2380, null, null, "TM", 231],
+            "ammo-lrt-standard": [2370, 2380, null, null, "TM", 231],
             "ammo-is-enhanced-lrt-standard": [3058, 3082, null, null, "TO:AUE", 139],
-            "ammo-is-srt-standard": [2370, 2380, null, null, "TM", 231],
+            "ammo-srt-standard": [2370, 2380, null, null, "TM", 231],
             "ammo-is-rotary-ac-2-standard": [3060, 3062, null, null, "TM", 208],
             "ammo-is-rotary-ac-5-standard": [3060, 3062, null, null, "TM", 208],
             "ammo-is-ultra-ac-2-standard": [3055, 3057, null, null, "TM", 208],
@@ -3508,14 +3908,14 @@ describe("Batch 12b standard ammunition follows its launcher", () => {
             "ammo-is-ultra-ac-10-standard": [3055, 3057, null, null, "TM", 208],
             "ammo-is-ultra-ac-20-standard": [3057, 3060, null, null, "TM", 208],
             "ammo-is-gauss-rifle-standard": [2587, 2590, 2865, 3040, "TM", 219],
-            "ammo-is-heavy-flamer-standard": [undefined, 3068, null, null, "TO:AUE", 124],
-            "ammo-is-ac-2-standard": [2290, 2300, null, null, "TM", 208],
+            "ammo-heavy-flamer-standard": [undefined, 3068, null, null, "TO:AUE", 124],
+            "ammo-ac-2-standard": [2290, 2300, null, null, "TM", 208],
             "ammo-is-lb-2x-standard": [3055, 3058, null, null, "TM", 208],
-            "ammo-is-ac-5-standard": [2240, 2250, null, null, "TM", 208],
+            "ammo-ac-5-standard": [2240, 2250, null, null, "TM", 208],
             "ammo-is-lb-5x-standard": [3055, 3058, null, null, "TM", 208],
-            "ammo-is-ac-10-standard": [2443, 2460, null, null, "TM", 208],
+            "ammo-ac-10-standard": [2443, 2460, null, null, "TM", 208],
             "ammo-is-lb-10x-standard": [2590, 2595, 2840, 3035, "TM", 208],
-            "ammo-is-ac-20-standard": [2488, 2500, null, null, "TM", 208],
+            "ammo-ac-20-standard": [2488, 2500, null, null, "TM", 208],
             "ammo-is-lb-20x-standard": [3055, 3058, null, null, "TM", 208],
             "ammo-is-light-ac-2-standard": [3062, 3068, null, null, "TM", 208],
             "ammo-is-light-ac-5-standard": [3062, 3068, null, null, "TM", 208],
@@ -3536,17 +3936,8 @@ describe("Batch 12b standard ammunition follows its launcher", () => {
             "ammo-is-risc-apds-standard": [3134, 3137, null, null, "IO:AE", 85],
         };
         for (const [tag, want] of Object.entries(expected)) {
-            const item = mechISAmmo.find(record => record.tag === tag);
+            const item = seenBy("is", ammoCatalog, tag);
             expect([item?.prototype, item?.introduced, item?.extinct, item?.reintroduced, item?.book, item?.page], tag).toEqual(want);
-        }
-    });
-
-    it("uses null, not 0, for unknown dates in the isAmmo records", () => {
-        for (const item of mechISAmmo) {
-            expect(item.introduced, item.tag).not.toBe(0);
-            expect(item.extinct, item.tag).not.toBe(0);
-            expect(item.reintroduced, item.tag).not.toBe(0);
-            expect(typeof item.page, item.tag).toBe("number");
         }
     });
 
@@ -3600,17 +3991,8 @@ describe("Batch 12b standard ammunition follows its launcher", () => {
             "ammo-clan-ap-gauss-rifle-standard": [3065, 3069, null, null, "TM", 219],
         };
         for (const [tag, want] of Object.entries(expected)) {
-            const item = mechClanAmmo.find(record => record.tag === tag);
+            const item = seenBy("clan", ammoCatalog, tag);
             expect([item?.prototype, item?.introduced, item?.extinct, item?.reintroduced, item?.book, item?.page], tag).toEqual(want);
-        }
-    });
-
-    it("uses null, not 0, for unknown dates in the clanAmmo records", () => {
-        for (const item of mechClanAmmo) {
-            expect(item.introduced, item.tag).not.toBe(0);
-            expect(item.extinct, item.tag).not.toBe(0);
-            expect(item.reintroduced, item.tag).not.toBe(0);
-            expect(typeof item.page, item.tag).toBe("number");
         }
     });
 
@@ -3632,30 +4014,21 @@ describe("Batch 12b standard ammunition follows its launcher", () => {
             "ammo-bomb-standard": [undefined, 1950, null, null, "TW", 246],
         };
         for (const [tag, want] of Object.entries(expected)) {
-            const item = mechUniversalAmmo.find(record => record.tag === tag);
+            const item = universalAmmoList.find(record => record.tag === tag);
             expect([item?.prototype, item?.introduced, item?.extinct, item?.reintroduced, item?.book, item?.page], tag).toEqual(want);
-        }
-    });
-
-    it("uses null, not 0, for unknown dates in the universalAmmo records", () => {
-        for (const item of mechUniversalAmmo) {
-            expect(item.introduced, item.tag).not.toBe(0);
-            expect(item.extinct, item.tag).not.toBe(0);
-            expect(item.reintroduced, item.tag).not.toBe(0);
-            expect(typeof item.page, item.tag).toBe("number");
         }
     });
 });
 
 describe("Batch 13 records without a canon source", () => {
     it("keeps Enhanced ER Large Laser and Enhanced Clan LRM 10 out of the canon Clan catalogs", () => {
-        expect(mechClanEquipmentEnergy.some(item => item.tag === "enhanced_er_large_laser")).toBe(false);
-        expect(mechClanEquipmentMissile.some(item => item.tag === "enhanced_clan_lrm_10")).toBe(false);
+        expect(clanEnergyList.some(item => item.tag === "enhanced_er_large_laser")).toBe(false);
+        expect(clanMissileList.some(item => item.tag === "enhanced_clan_lrm_10")).toBe(false);
     });
 
     it("lists them as Custom Homebrew, with the old tags, until a source is found", () => {
-        const laser = mechCustomEquipmentEnergy.find(item => item.tag === "enhanced_er_large_laser");
-        const lrm = mechCustomEquipmentMissile.find(item => item.tag === "enhanced_clan_lrm_10");
+        const laser = energyCustom.find(item => item.tag === "enhanced_er_large_laser");
+        const lrm = missileCustom.find(item => item.tag === "enhanced_clan_lrm_10");
         for (const item of [laser, lrm]) {
             expect(item).toMatchObject({ catalog: "custom", book: "Custom", page: null, rulesLevel: CUSTOM_HOMEBREW_RULES_LEVEL });
             expect(item?.notes).toContain("No canon source found");
@@ -3669,40 +4042,40 @@ describe("Batch 13 records without a canon source", () => {
 describe("Batch 14 prototype weapon statistics", () => {
     it("match the IO:AE construction, game data and Battle Value tables (pp.189, 210-213)", () => {
         const expected: [{ tag: string }[], string, Record<string, unknown>][] = [
-            [mechISEquipmentBallistic, "primitive-prototype-ac-2", { weight: 6, space: { battlemech: 1, protomech: -1, combatVehicle: 1, supportVehicle: 1, aerospaceFighter: 1, smallCraft: 1, dropShip: 1 }, cbills: 75000, battleValue: 37, range: { min: 4, short: 8, medium: 16, long: 24 }, shotsPerTon: 34, ammoBattleValue: 4, ammoTypes: ["ammo-is-ac-2-standard"], techRating: "c", rangeAero: "l" }],
-            [mechISEquipmentBallistic, "primitive-prototype-ac-5", { weight: 8, space: { battlemech: 4, protomech: -1, combatVehicle: 1, supportVehicle: 4, aerospaceFighter: 1, smallCraft: 1, dropShip: 1 }, cbills: 125000, battleValue: 70, range: { min: 3, short: 6, medium: 12, long: 18 }, shotsPerTon: 15, ammoBattleValue: 7, ammoTypes: ["ammo-is-ac-5-standard"], techRating: "c", rangeAero: "m" }],
-            [mechISEquipmentBallistic, "primitive-prototype-ac-10", { weight: 12, space: { battlemech: 7, protomech: -1, combatVehicle: 1, supportVehicle: 7, aerospaceFighter: 1, smallCraft: 1, dropShip: 1 }, cbills: 200000, battleValue: 123, range: { min: 0, short: 5, medium: 10, long: 15 }, shotsPerTon: 8, ammoBattleValue: 12, ammoTypes: ["ammo-is-ac-10-standard"], techRating: "c", rangeAero: "m" }],
-            [mechISEquipmentBallistic, "primitive-prototype-ac-20", { weight: 14, space: { battlemech: 10, protomech: -1, combatVehicle: 1, supportVehicle: 10, aerospaceFighter: 1, smallCraft: 1, dropShip: 1 }, cbills: 300000, battleValue: 178, range: { min: 0, short: 3, medium: 6, long: 9 }, shotsPerTon: 4, ammoBattleValue: 17, ammoTypes: ["ammo-is-ac-20-standard"], techRating: "c", rangeAero: "s" }],
-            [mechISEquipmentBallistic, "prototype-autocannon-lbx-10", { weight: 11, space: { battlemech: 7, protomech: -1, combatVehicle: 1, supportVehicle: 7, aerospaceFighter: 1, smallCraft: 1, dropShip: 1 }, cbills: 1600000, battleValue: 148, ammoBattleValue: 15 }],
-            [mechISEquipmentBallistic, "prototype-gauss-rifle", { weight: 15, space: { battlemech: 8, protomech: -1, combatVehicle: 1, supportVehicle: 8, aerospaceFighter: 1, smallCraft: 1, dropShip: 1 }, cbills: 1200000, battleValue: 320, ammoBattleValue: 40 }],
-            [mechISEquipmentBallistic, "prototype-autocannon-uac-5", { weight: 9, space: { battlemech: 6, protomech: -1, combatVehicle: 1, supportVehicle: 6, aerospaceFighter: 1, smallCraft: 1, dropShip: 1 }, cbills: 1000000, battleValue: 112, ammoBattleValue: 14 }],
-            [mechISEquipmentEnergy, "primitive-prototype-small-laser", { weight: 0.5, cbills: 11250, battleValue: 9, heat: 2, range: { min: 0, short: 1, medium: 2, long: 3 }, techRating: "c", rangeAero: "s" }],
-            [mechISEquipmentEnergy, "primitive-prototype-medium-laser", { weight: 1, cbills: 40000, battleValue: 46, heat: 5, range: { min: 0, short: 3, medium: 6, long: 9 }, techRating: "c", rangeAero: "s" }],
-            [mechISEquipmentEnergy, "primitive-prototype-large-laser", { weight: 5, cbills: 100000, battleValue: 123, heat: 12, range: { min: 0, short: 5, medium: 10, long: 15 }, techRating: "c", rangeAero: "m" }],
-            [mechISEquipmentEnergy, "primitive-prototype-ppc", { weight: 7, cbills: 200000, battleValue: 176, heat: 15, range: { min: 3, short: 6, medium: 12, long: 18 }, techRating: "d", rangeAero: "m" }],
-            [mechISEquipmentMissiles, "primitive-prototype-lrm-15", { weight: 7, cbills: 175000, battleValue: 132, shotsPerTon: 6, ammoBattleValue: 13 }],
-            [mechISEquipmentMissiles, "primitive-prototype-lrm-20", { weight: 10, cbills: 250000, battleValue: 168, shotsPerTon: 5, ammoBattleValue: 16 }],
-            [mechISEquipmentMissiles, "primitive-prototype-srm-2", { weight: 1, cbills: 10000, battleValue: 10, shotsPerTon: 38, ammoBattleValue: 1 }],
-            [mechISEquipmentMissiles, "primitive-prototype-srm-4", { weight: 2, cbills: 60000, battleValue: 21, shotsPerTon: 19, ammoBattleValue: 3 }],
-            [mechISEquipmentMissiles, "primitive-prototype-lrm-5", { name: "Primitive Prototype LRM 5", weight: 2, space: { battlemech: 1, protomech: -1, combatVehicle: 1, supportVehicle: 1, aerospaceFighter: 1, smallCraft: 1, dropShip: 1 }, cbills: 30000, battleValue: 38, heat: 2, shotsPerTon: 18, ammoBattleValue: 4, damageClusters: 5, prototype: 2295, introduced: null, extinct: 2300, book: "IO:AE", page: 112 }],
-            [mechISEquipmentMissiles, "primitive-prototype-lrm-10", { name: "Primitive Prototype LRM 10", weight: 5, space: { battlemech: 2, protomech: -1, combatVehicle: 1, supportVehicle: 2, aerospaceFighter: 1, smallCraft: 1, dropShip: 1 }, cbills: 100000, battleValue: 78, heat: 4, shotsPerTon: 9, ammoBattleValue: 8, damageClusters: 10, prototype: 2295, introduced: null, extinct: 2300, book: "IO:AE", page: 112 }],
-            [mechISEquipmentMissiles, "primitive-prototype-srm-6", { name: "Primitive Prototype SRM 6", weight: 3, space: { battlemech: 2, protomech: -1, combatVehicle: 1, supportVehicle: 2, aerospaceFighter: 1, smallCraft: 1, dropShip: 1 }, cbills: 80000, battleValue: 41, heat: 4, shotsPerTon: 11, ammoBattleValue: 4, damageClusters: 6, prototype: 2365, introduced: null, extinct: 2370, book: "IO:AE", page: 112 }],
-            [mechClanEquipmentMissile, "clan-improved-srm-2", { cbills: 15000, battleValue: 28, ammoBattleValue: 4 }],
-            [mechClanEquipmentMissile, "clan-improved-srm-4", { cbills: 90000, battleValue: 52, ammoBattleValue: 7 }],
-            [mechClanEquipmentMissile, "clan-improved-srm-6", { cbills: 120000, battleValue: 79, ammoBattleValue: 10 }],
-            [mechClanEquipmentMissile, "clan-prototype-streak-srm-4", { cbills: 90000, battleValue: 59, ammoBattleValue: 7 }],
-            [mechClanEquipmentMissile, "clan-prototype-streak-srm-6", { cbills: 120000, battleValue: 89, ammoBattleValue: 11 }],
-            [mechClanEquipmentBallistic, "clan-prototype-lb-2-x-ac", { battleValue: 42, ammoBattleValue: 5 }],
-            [mechClanEquipmentBallistic, "clan-prototype-lb-5-x-ac", { battleValue: 83, ammoBattleValue: 10 }],
-            [mechClanEquipmentBallistic, "clan-prototype-lb-20-x-ac", { battleValue: 237, ammoBattleValue: 30 }],
-            [mechClanEquipmentBallistic, "clan-prototype-ultra-ac-2", { battleValue: 56, ammoBattleValue: 7 }],
-            [mechClanEquipmentBallistic, "clan-prototype-ultra-ac-10", { battleValue: 210, ammoBattleValue: 26 }],
-            [mechClanEquipmentBallistic, "clan-prototype-ultra-ac-20", { battleValue: 281, ammoBattleValue: 35 }],
-            [mechClanEquipmentEnergy, "enhanced_er_ppc", { name: "Enhanced PPC", altNames: ["Enhanced ER PPC"], weight: 7, cbills: 300000, battleValue: 329 }],
-            [mechClanEquipmentMisc, "clan-nova-cews", { cbills: 1110000 }],
+            [isBallisticList, "primitive-prototype-ac-2", { weight: 6, space: { battlemech: 1, protomech: -1, combatVehicle: 1, supportVehicle: 1, aerospaceFighter: 1, smallCraft: 1, dropShip: 1 }, cbills: 75000, battleValue: 37, range: { min: 4, short: 8, medium: 16, long: 24 }, shotsPerTon: 34, ammoBattleValue: 4, ammoTypes: ["ammo-ac-2-standard"], techRating: "c", rangeAero: "l" }],
+            [isBallisticList, "primitive-prototype-ac-5", { weight: 8, space: { battlemech: 4, protomech: -1, combatVehicle: 1, supportVehicle: 4, aerospaceFighter: 1, smallCraft: 1, dropShip: 1 }, cbills: 125000, battleValue: 70, range: { min: 3, short: 6, medium: 12, long: 18 }, shotsPerTon: 15, ammoBattleValue: 7, ammoTypes: ["ammo-ac-5-standard"], techRating: "c", rangeAero: "m" }],
+            [isBallisticList, "primitive-prototype-ac-10", { weight: 12, space: { battlemech: 7, protomech: -1, combatVehicle: 1, supportVehicle: 7, aerospaceFighter: 1, smallCraft: 1, dropShip: 1 }, cbills: 200000, battleValue: 123, range: { min: 0, short: 5, medium: 10, long: 15 }, shotsPerTon: 8, ammoBattleValue: 12, ammoTypes: ["ammo-ac-10-standard"], techRating: "c", rangeAero: "m" }],
+            [isBallisticList, "primitive-prototype-ac-20", { weight: 14, space: { battlemech: 10, protomech: -1, combatVehicle: 1, supportVehicle: 10, aerospaceFighter: 1, smallCraft: 1, dropShip: 1 }, cbills: 300000, battleValue: 178, range: { min: 0, short: 3, medium: 6, long: 9 }, shotsPerTon: 4, ammoBattleValue: 17, ammoTypes: ["ammo-ac-20-standard"], techRating: "c", rangeAero: "s" }],
+            [isBallisticList, "prototype-autocannon-lbx-10", { weight: 11, space: { battlemech: 7, protomech: -1, combatVehicle: 1, supportVehicle: 7, aerospaceFighter: 1, smallCraft: 1, dropShip: 1 }, cbills: 1600000, battleValue: 148, ammoBattleValue: 15 }],
+            [isBallisticList, "prototype-gauss-rifle", { weight: 15, space: { battlemech: 8, protomech: -1, combatVehicle: 1, supportVehicle: 8, aerospaceFighter: 1, smallCraft: 1, dropShip: 1 }, cbills: 1200000, battleValue: 320, ammoBattleValue: 40 }],
+            [isBallisticList, "prototype-autocannon-uac-5", { weight: 9, space: { battlemech: 6, protomech: -1, combatVehicle: 1, supportVehicle: 6, aerospaceFighter: 1, smallCraft: 1, dropShip: 1 }, cbills: 1000000, battleValue: 112, ammoBattleValue: 14 }],
+            [isEnergyList, "primitive-prototype-small-laser", { weight: 0.5, cbills: 11250, battleValue: 9, heat: 2, range: { min: 0, short: 1, medium: 2, long: 3 }, techRating: "c", rangeAero: "s" }],
+            [isEnergyList, "primitive-prototype-medium-laser", { weight: 1, cbills: 40000, battleValue: 46, heat: 5, range: { min: 0, short: 3, medium: 6, long: 9 }, techRating: "c", rangeAero: "s" }],
+            [isEnergyList, "primitive-prototype-large-laser", { weight: 5, cbills: 100000, battleValue: 123, heat: 12, range: { min: 0, short: 5, medium: 10, long: 15 }, techRating: "c", rangeAero: "m" }],
+            [isEnergyList, "primitive-prototype-ppc", { weight: 7, cbills: 200000, battleValue: 176, heat: 15, range: { min: 3, short: 6, medium: 12, long: 18 }, techRating: "d", rangeAero: "m" }],
+            [isMissileList, "primitive-prototype-lrm-15", { weight: 7, cbills: 175000, battleValue: 132, shotsPerTon: 6, ammoBattleValue: 13 }],
+            [isMissileList, "primitive-prototype-lrm-20", { weight: 10, cbills: 250000, battleValue: 168, shotsPerTon: 5, ammoBattleValue: 16 }],
+            [isMissileList, "primitive-prototype-srm-2", { weight: 1, cbills: 10000, battleValue: 10, shotsPerTon: 38, ammoBattleValue: 1 }],
+            [isMissileList, "primitive-prototype-srm-4", { weight: 2, cbills: 60000, battleValue: 21, shotsPerTon: 19, ammoBattleValue: 3 }],
+            [isMissileList, "primitive-prototype-lrm-5", { name: "Primitive Prototype LRM 5", weight: 2, space: { battlemech: 1, protomech: -1, combatVehicle: 1, supportVehicle: 1, aerospaceFighter: 1, smallCraft: 1, dropShip: 1 }, cbills: 30000, battleValue: 38, heat: 2, shotsPerTon: 18, ammoBattleValue: 4, damageClusters: 5, prototype: 2295, introduced: null, extinct: 2300, book: "IO:AE", page: 112 }],
+            [isMissileList, "primitive-prototype-lrm-10", { name: "Primitive Prototype LRM 10", weight: 5, space: { battlemech: 2, protomech: -1, combatVehicle: 1, supportVehicle: 2, aerospaceFighter: 1, smallCraft: 1, dropShip: 1 }, cbills: 100000, battleValue: 78, heat: 4, shotsPerTon: 9, ammoBattleValue: 8, damageClusters: 10, prototype: 2295, introduced: null, extinct: 2300, book: "IO:AE", page: 112 }],
+            [isMissileList, "primitive-prototype-srm-6", { name: "Primitive Prototype SRM 6", weight: 3, space: { battlemech: 2, protomech: -1, combatVehicle: 1, supportVehicle: 2, aerospaceFighter: 1, smallCraft: 1, dropShip: 1 }, cbills: 80000, battleValue: 41, heat: 4, shotsPerTon: 11, ammoBattleValue: 4, damageClusters: 6, prototype: 2365, introduced: null, extinct: 2370, book: "IO:AE", page: 112 }],
+            [clanMissileList, "clan-improved-srm-2", { cbills: 15000, battleValue: 28, ammoBattleValue: 4 }],
+            [clanMissileList, "clan-improved-srm-4", { cbills: 90000, battleValue: 52, ammoBattleValue: 7 }],
+            [clanMissileList, "clan-improved-srm-6", { cbills: 120000, battleValue: 79, ammoBattleValue: 10 }],
+            [clanMissileList, "clan-prototype-streak-srm-4", { cbills: 90000, battleValue: 59, ammoBattleValue: 7 }],
+            [clanMissileList, "clan-prototype-streak-srm-6", { cbills: 120000, battleValue: 89, ammoBattleValue: 11 }],
+            [clanBallisticList, "clan-prototype-lb-2-x-ac", { battleValue: 42, ammoBattleValue: 5 }],
+            [clanBallisticList, "clan-prototype-lb-5-x-ac", { battleValue: 83, ammoBattleValue: 10 }],
+            [clanBallisticList, "clan-prototype-lb-20-x-ac", { battleValue: 237, ammoBattleValue: 30 }],
+            [clanBallisticList, "clan-prototype-ultra-ac-2", { battleValue: 56, ammoBattleValue: 7 }],
+            [clanBallisticList, "clan-prototype-ultra-ac-10", { battleValue: 210, ammoBattleValue: 26 }],
+            [clanBallisticList, "clan-prototype-ultra-ac-20", { battleValue: 281, ammoBattleValue: 35 }],
+            [clanEnergyList, "enhanced_er_ppc", { name: "Enhanced PPC", altNames: ["Enhanced ER PPC", "CLWERPPC"], weight: 7, cbills: 300000, battleValue: 329 }],
+            [clanMiscList, "clan-nova-cews", { cbills: 1110000 }],
         ];
         for (const [catalog, tag, fields] of expected) {
-            const item = catalog.find(entry => entry.tag === tag);
+            const item = catalog.find(entry => entry.tag === tag) ?? seenBy("is", [...equipmentMisc, ...equipmentEnergy, ...equipmentArtillery, ...ammoCatalog], tag);
             expect(item, tag).toBeDefined();
             expect(item, tag).toMatchObject(fields);
         }
@@ -3711,7 +4084,7 @@ describe("Batch 14 prototype weapon statistics", () => {
 
 describe("Batch 14 Star League ER PPC in Clan space", () => {
     it("stays available in every era and says why the original tool listed an extinction", () => {
-        const erPPC = mechClanEquipmentEnergy.find(item => item.tag === "clan-sl-er-ppc");
+        const erPPC = clanEnergyList.find(item => item.tag === "clan-sl-er-ppc");
         expect(erPPC).toMatchObject({ prototype: 2740, introduced: 2751, extinct: null, reintroduced: null });
         // IO:AE p.40: the ER PPC extinction applies to the Inner Sphere only.
         expect(erPPC?.notes).toContain("2860");
@@ -3720,7 +4093,7 @@ describe("Batch 14 Star League ER PPC in Clan space", () => {
 });
 
 describe("Batch 15 tech-base splits", () => {
-    const universalTags = mechUniversalEquipment.map(item => item.tag);
+    const universalTags = universalEquipment.map(item => item.tag);
 
     it("splits 'Mech Mortars: Clan launchers are lighter and were never lost (TO:AUE pp.136, 221; IO:AE p.40)", () => {
         // size: [tons, slots] (TO:AUE p.221); BV and ammo BV per ton (TO:AUE p.194)
@@ -3731,8 +4104,8 @@ describe("Batch 15 tech-base splits", () => {
             [8, [10, 5], [5, 3], 50, 6],
         ];
         for (const [size, [isTons, isSlots], [clanTons, clanSlots], bv, ammoBV] of sizes) {
-            const is = mechISEquipmentMissiles.find(item => item.tag === `mech-mortar-${size}`);
-            const clan = mechClanEquipmentMissile.find(item => item.tag === `clan-mech-mortar-${size}`);
+            const is = isMissileList.find(item => item.tag === `mech-mortar-${size}`);
+            const clan = clanMissileList.find(item => item.tag === `clan-mech-mortar-${size}`);
             expect(is, `mech-mortar-${size}`).toMatchObject({
                 catalog: "is", weight: isTons, battleValue: bv, ammoBattleValue: ammoBV, techRating: "b",
                 prototype: 2526, introduced: 2531, extinct: 2819, reintroduced: 3043, book: "TO:AUE", page: 136,
@@ -3749,33 +4122,30 @@ describe("Batch 15 tech-base splits", () => {
         }
     });
 
-    it("splits Artillery Cannons: the Clan prototype is 3032, twenty years after the Lyran one (IO:AE p.31)", () => {
+    // The cannons differ only in dates, so they are one record again (catalog consolidation §2).
+    it("keeps one record per Artillery Cannon: the Clan prototype is 3032, twenty years after the Lyran one (IO:AE p.31)", () => {
         for (const cannon of ["long-tom-cannon", "sniper-cannon", "thumper-cannon"]) {
-            const is = mechISEquipmentArtillery.find(item => item.tag === cannon);
-            const clan = mechClanEquipmentArtillery.find(item => item.tag === `clan-${cannon}`);
-            expect(is, cannon).toMatchObject({ catalog: "is", prototype: 3012, introduced: 3079, extinct: null, book: "TO:AUE", page: 97 });
-            expect(clan, `clan-${cannon}`).toMatchObject({ catalog: "clan", prototype: 3032, introduced: 3079, extinct: null, book: "TO:AUE", page: 97 });
-            expect([clan?.weight, clan?.space, clan?.battleValue, clan?.ammoBattleValue, clan?.cbills, clan?.heat, clan?.damage, clan?.range, clan?.shotsPerTon])
-                .toEqual([is?.weight, is?.space, is?.battleValue, is?.ammoBattleValue, is?.cbills, is?.heat, is?.damage, is?.range, is?.shotsPerTon]);
-            expect(universalTags).not.toContain(cannon);
+            const record = equipmentArtillery.find(item => item.tag === cannon);
+            expect(record, cannon).toMatchObject({ techBase: "universal", prototype: 3012, introduced: 3079, extinct: null, book: "TO:AUE", page: 97 });
+            expect(record?.clanDates, cannon).toEqual({ prototype: 3032, introduced: 3079, extinct: null, reintroduced: null });
+            expect(record?.altTags, cannon).toContain(`clan-${cannon}`);
+            expect(equipmentArtillery.some(item => item.tag === `clan-${cannon}`), cannon).toBe(false);
         }
     });
 
-    it("splits the Laser Insulator: lost in the Inner Sphere in 2820, never in Clan space (IO:AE p.38)", () => {
-        const is = mechISEquipmentMisc.find(item => item.tag === "laser-insulator");
-        const clan = mechClanEquipmentMisc.find(item => item.tag === "clan-laser-insulator");
-        expect(is).toMatchObject({ catalog: "is", prototype: 2575, introduced: null, extinct: 2820, reintroduced: null, book: "TO:AUE", page: 134 });
-        expect(clan).toMatchObject({ catalog: "clan", prototype: 2575, introduced: null, extinct: null, reintroduced: null, book: "TO:AUE", page: 134 });
-        expect([clan?.weight, clan?.space, clan?.cbills, clan?.battleValue]).toEqual([is?.weight, is?.space, is?.cbills, is?.battleValue]);
-        expect(universalTags).not.toContain("laser-insulator");
+    it("keeps one Laser Insulator, lost in the Inner Sphere in 2820 and never in Clan space (IO:AE p.38)", () => {
+        const record = equipmentMisc.find(item => item.tag === "laser-insulator");
+        expect(record).toMatchObject({ techBase: "universal", prototype: 2575, introduced: null, extinct: 2820, reintroduced: null, book: "TO:AUE", page: 134 });
+        expect(record?.clanDates).toEqual({ prototype: 2575, introduced: null, extinct: null, reintroduced: null });
+        expect(record?.altTags).toContain("clan-laser-insulator");
+        expect(equipmentMisc.some(item => item.tag === "clan-laser-insulator")).toBe(false);
     });
 
-    it("gives the Clans their own Modular Armor record: prototype 3074 (IO:AE p.29)", () => {
-        const is = mechISEquipmentMisc.find(item => item.tag === "modular-armor");
-        const clan = mechClanEquipmentMisc.find(item => item.tag === "clan-modular-armor");
-        expect(is).toMatchObject({ prototype: 3072, introduced: 3096, isModularArmor: true });
-        expect(clan).toMatchObject({ catalog: "clan", prototype: 3074, introduced: 3096, extinct: null, book: "TO:AUE", page: 93, isModularArmor: true });
-        expect([clan?.weight, clan?.space, clan?.cbills, clan?.additionalArmor]).toEqual([is?.weight, is?.space, is?.cbills, is?.additionalArmor]);
+    it("keeps one Modular Armor record, with the Clan prototype in 3074 (IO:AE p.29)", () => {
+        const record = equipmentMisc.find(item => item.tag === "modular-armor");
+        expect(record).toMatchObject({ techBase: "universal", prototype: 3072, introduced: 3096, isModularArmor: true, book: "TO:AUE", page: 93 });
+        expect(record?.clanDates).toEqual({ prototype: 3074, introduced: 3096, extinct: null, reintroduced: null });
+        expect(record?.altTags).toContain("clan-modular-armor");
     });
 
     it("loads designs saved with the old universal tags: each side gets its own record", () => {
@@ -3790,12 +4160,17 @@ describe("Batch 15 tech-base splits", () => {
         const oldTags: [string, string][] = [
             ["mech-mortar-1", "clan-mech-mortar-1"], ["mech-mortar-2", "clan-mech-mortar-2"],
             ["mech-mortar-4", "clan-mech-mortar-4"], ["mech-mortar-8", "clan-mech-mortar-8"],
-            ["long-tom-cannon", "clan-long-tom-cannon"], ["sniper-cannon", "clan-sniper-cannon"],
-            ["thumper-cannon", "clan-thumper-cannon"], ["laser-insulator", "clan-laser-insulator"],
         ];
         for (const [oldTag, clanTag] of oldTags) {
             expect(load("is", oldTag)?.tag, `is ${oldTag}`).toBe(oldTag);
             expect(load("clan", oldTag)?.tag, `clan ${oldTag}`).toBe(clanTag);
+        }
+        // The Laser Insulator and the Artillery Cannons merged back into one record each (catalog consolidation §2):
+        // both old tags load it on either side.
+        for (const tech of ["is", "clan"]) {
+            for (const record of ["laser-insulator", "long-tom-cannon", "sniper-cannon", "thumper-cannon"]) {
+                for (const tag of [record, `clan-${record}`]) expect(load(tech, tag)?.tag, `${tech} ${tag}`).toBe(record);
+            }
         }
         expect(load("clan", "mech-mortar-8")?.weight).toBe(5);
         expect(load("is", "mech-mortar-8")?.weight).toBe(10);
@@ -3845,11 +4220,7 @@ describe("Batch 15 saved designs keep custom-catalog equipment", () => {
 
 describe("Batch 16 large engines", () => {
     const build = (tonnage: number, walk: number, engine: string, tech = "is", era = "late-rep") => {
-        const mech = new BattleMech();
-        mech.setTech(tech);
-        mech.setEra(era);
-        mech.setTonnage(tonnage);
-        mech.setWalkSpeed(walk);
+        const mech = buildMech({ tech, era, tonnage, walk });
         mech.setEngineType(engine);
         return mech;
     };
@@ -3954,9 +4325,9 @@ describe("Batch 16 large engines", () => {
         expect(build(100, 4, "xl").getLargeEngineType()).toBeNull();
         expect(mech.getEngineName()).toBe("Large XL Fusion");
         expect(build(100, 4, "xl").getEngineName()).toBe("XL Fusion");
-        const html = mech.getCBillCalcHTML();
-        expect(html).toContain("Engine: Large XL Fusion");
-        expect(html).toContain("40,000 [Multiplier] x Engine Rating [500]");
+        const engineStep = mech.getCostBreakdown().steps.find((step) => step.id.startsWith("cost.engine"));
+        expect(engineStep?.label).toBe("Engine: Large XL Fusion");
+        expect(engineStep?.detail).toContain("40,000 x rating 500");
         const slots = (location: "centerTorso" | "leftTorso" | "rightTorso") =>
             mech.getCriticals()[location].filter(item => item?.tag === "engine").reduce((total, item) => total + (item?.crits ?? 1), 0);
         expect([slots("centerTorso"), slots("leftTorso"), slots("rightTorso")]).toEqual([8, 3, 3]);
@@ -3965,22 +4336,18 @@ describe("Batch 16 large engines", () => {
 
 describe("Batch 17 explosive weapons in Battle Value (TO:AUE pp.194-195)", () => {
     const mount = (tag: string) => {
-        const mech = new BattleMech();
-        mech.setTech("is");
-        mech.setEra("dark-ages");
-        mech.setTonnage(75);
-        mech.setWalkSpeed(4);
+        const mech = buildMech({ tonnage: 75 });
         const item = mech.addEquipmentFromTag(tag, "is", "", false, undefined, "", false, [], undefined, undefined)!;
         const from = mech.unallocatedCriticals.findIndex(critical => critical?.uuid === item.uuid);
         const slot = mech.getCriticals().rightArm.findIndex(critical => !critical);
         expect(mech.moveCritical("un", from, "ra", slot), tag).toBe(true);
         return mech;
     };
-    // Points taken off for the named item: the log prints one line per item per location, "(Inner Sphere, -N)".
+    // Points taken off for the named item: one step per item per location, valued -N.
     const penalties = (mech: BattleMech, name: string) =>
-        mech.getBVCalcHTML().split("<br />")
-            .filter(line => line.startsWith(`Explosive Component Crit (${name}) in `))
-            .reduce((total, line) => total + Number(/-(\d+)\)$/.exec(line)?.[1] ?? 0), 0);
+        bvSteps(mech, "bv2.def.explosive.component")
+            .filter(step => step.label.startsWith(`Explosive component: ${name} in `))
+            .reduce((total, step) => total - (step.value ?? 0), 0);
 
     it("gives a PPC with a Capacitor its combined Battle Value and marks it explosive", () => {
         // tag: BV (TO:AUE p.194, "Treat as Gauss weapon when calculating defensive battle rating")
@@ -3989,7 +4356,7 @@ describe("Batch 17 explosive weapons in Battle Value (TO:AUE pp.194-195)", () =>
             "snub-nose-ppc-capacitor": 252, "er-ppc-capacitor": 343,
         };
         for (const [tag, battleValue] of Object.entries(expected)) {
-            expect(mechISEquipmentEnergy.find(item => item.tag === tag), tag).toMatchObject({ battleValue, explosive: true, book: "TO:AUE", page: 149 });
+            expect(isEnergyList.find(item => item.tag === tag), tag).toMatchObject({ battleValue, explosive: true, book: "TO:AUE", page: 149 });
         }
     });
 
@@ -4001,7 +4368,7 @@ describe("Batch 17 explosive weapons in Battle Value (TO:AUE pp.194-195)", () =>
 
     it("takes a single point off for an HVAC, whatever its size (footnote Q)", () => {
         for (const tag of ["is-hvac-2", "is-hvac-5", "is-hvac-10"]) {
-            expect(mechISEquipmentBallistic.find(item => item.tag === tag), tag).toMatchObject({ explosive: true, explosiveBattleValueSlots: 1 });
+            expect(isBallisticList.find(item => item.tag === tag), tag).toMatchObject({ explosive: true, explosiveBattleValueSlots: 1 });
         }
         expect(penalties(mount("is-hvac-10"), "HVAC/10")).toBe(1);
         expect(penalties(mount("is-hvac-2"), "HVAC/2")).toBe(1);
@@ -4012,11 +4379,7 @@ describe("Batch 17 explosive weapons in Battle Value (TO:AUE pp.194-195)", () =>
 
 describe("Batch 17 Battle Value follows critical slot moves", () => {
     it("recalculates when an explosive item is placed, without waiting for another change", () => {
-        const mech = new BattleMech();
-        mech.setTech("is");
-        mech.setEra("dark-ages");
-        mech.setTonnage(75);
-        mech.setWalkSpeed(4);
+        const mech = buildMech({ tonnage: 75 });
         const gauss = mech.addEquipmentFromTag("standard-gauss-rifle", "is", "", false, undefined, "", false, [], undefined, undefined)!;
         const unplaced = mech.getBattleValue();
         const from = mech.unallocatedCriticals.findIndex(critical => critical?.uuid === gauss.uuid);
@@ -4031,48 +4394,48 @@ describe("Batch 17 Battle Value follows critical slot moves", () => {
 describe("Batch 18 TechManual table audit", () => {
     it("matches the TechManual tech ratings (pp.341-343), costs (pp.290-294) and the Nail/Rivet Gun rows (pp.317, 344)", () => {
         const expected: [{ tag: string }[], string, Record<string, unknown>][] = [
-            [mechISEquipmentBallistic, "autocannon-light-2", { techRating: "d" }],
-            [mechISEquipmentBallistic, "autocannon-light-5", { techRating: "d" }],
-            [mechISEquipmentBallistic, "rotary-ac-2", { techRating: "e" }],
-            [mechISEquipmentBallistic, "rotary-ac-5", { techRating: "e" }],
-            [mechISEquipmentEnergy, "standard-flamer", { techRating: "c" }],
-            [mechISEquipmentEnergy, "er-large-laser", { techRating: "e" }],
-            [mechISEquipmentMissiles, "mrm-10", { techRating: "c" }],
-            [mechISEquipmentMissiles, "mrm-20", { techRating: "c" }],
-            [mechISEquipmentMissiles, "mrm-30", { techRating: "c" }],
-            [mechISEquipmentMissiles, "mrm-40", { techRating: "c" }],
-            [mechISEquipmentMissiles, "rocket-launcher-10", { techRating: "b" }],
-            [mechISEquipmentMissiles, "rocket-launcher-15", { techRating: "b" }],
-            [mechISEquipmentMissiles, "rocket-launcher-20", { techRating: "b" }],
-            [mechISEquipmentMissiles, "streak-srm-2", { techRating: "e" }],
-            [mechISEquipmentMissiles, "streak-srm-4", { techRating: "e" }],
-            [mechISEquipmentMissiles, "streak-srm-6", { techRating: "e" }],
-            [mechClanEquipmentBallistic, "clan-autocannon-lbx-2", { techRating: "f" }],
-            [mechClanEquipmentBallistic, "clan-autocannon-lbx-5", { techRating: "f" }],
-            [mechClanEquipmentBallistic, "clan-autocannon-lbx-10", { techRating: "f" }],
-            [mechClanEquipmentBallistic, "clan-autocannon-lbx-20", { techRating: "f" }],
-            [mechClanEquipmentBallistic, "clan-autocannon-uac-2", { techRating: "f" }],
-            [mechClanEquipmentBallistic, "clan-autocannon-uac-5", { techRating: "f" }],
-            [mechClanEquipmentBallistic, "clan-autocannon-uac-10", { techRating: "f" }],
-            [mechClanEquipmentBallistic, "clan-autocannon-uac-20", { techRating: "f" }],
-            [mechClanEquipmentBallistic, "clan-light-machine-gun", { techRating: "f" }],
-            [mechClanEquipmentBallistic, "ap-gauss-rifle", { cbills: 10000 }],
+            [isBallisticList, "autocannon-light-2", { techRating: "d" }],
+            [isBallisticList, "autocannon-light-5", { techRating: "d" }],
+            [isBallisticList, "rotary-ac-2", { techRating: "e" }],
+            [isBallisticList, "rotary-ac-5", { techRating: "e" }],
+            [isEnergyList, "standard-flamer", { techRating: "c" }],
+            [isEnergyList, "er-large-laser", { techRating: "e" }],
+            [isMissileList, "mrm-10", { techRating: "c" }],
+            [isMissileList, "mrm-20", { techRating: "c" }],
+            [isMissileList, "mrm-30", { techRating: "c" }],
+            [isMissileList, "mrm-40", { techRating: "c" }],
+            [isMissileList, "rocket-launcher-10", { techRating: "b" }],
+            [isMissileList, "rocket-launcher-15", { techRating: "b" }],
+            [isMissileList, "rocket-launcher-20", { techRating: "b" }],
+            [isMissileList, "streak-srm-2", { techRating: "e" }],
+            [isMissileList, "streak-srm-4", { techRating: "e" }],
+            [isMissileList, "streak-srm-6", { techRating: "e" }],
+            [clanBallisticList, "clan-autocannon-lbx-2", { techRating: "f" }],
+            [clanBallisticList, "clan-autocannon-lbx-5", { techRating: "f" }],
+            [clanBallisticList, "clan-autocannon-lbx-10", { techRating: "f" }],
+            [clanBallisticList, "clan-autocannon-lbx-20", { techRating: "f" }],
+            [clanBallisticList, "clan-autocannon-uac-2", { techRating: "f" }],
+            [clanBallisticList, "clan-autocannon-uac-5", { techRating: "f" }],
+            [clanBallisticList, "clan-autocannon-uac-10", { techRating: "f" }],
+            [clanBallisticList, "clan-autocannon-uac-20", { techRating: "f" }],
+            [clanBallisticList, "clan-light-machine-gun", { techRating: "f" }],
+            [clanBallisticList, "ap-gauss-rifle", { cbills: 10000 }],
             // TM p.317: Nail/Rivet Gun ammunition has no Battle Value.
-            [mechUniversalAmmo, "ammo-nail-rivet-gun-standard", { battleValue: 0, cbills: 300 }],
-            [mechClanEquipmentEnergy, "er-small-laser-clan", { techRating: "f" }],
-            [mechClanEquipmentEnergy, "small-heavy-laser", { techRating: "f" }],
-            [mechClanEquipmentEnergy, "plasma-cannon", { techRating: "f" }],
-            [mechClanEquipmentMissile, "clan-lrm-5", { techRating: "f" }],
-            [mechClanEquipmentMissile, "clan-lrm-10", { techRating: "f" }],
-            [mechClanEquipmentMissile, "clan-lrm-15", { techRating: "f" }],
-            [mechClanEquipmentMissile, "clan-lrm-20", { techRating: "f" }],
-            [mechUniversalEquipment, "nail-gun", { cbills: 7000, battleValue: 1, ammoBattleValue: 0, range: { min: 0, short: 1, medium: 0, long: 0 } }],
-            [mechUniversalEquipment, "mining-drill", { cbills: 100000 }],
-            [mechUniversalEquipment, "remote-sensor-dispenser", { cbills: 30000 }],
-            [mechUniversalEquipment, "wrecking-ball", { cbills: 80000 }],
+            [universalAmmoList, "ammo-nail-rivet-gun-standard", { battleValue: 0, cbills: 300 }],
+            [clanEnergyList, "er-small-laser-clan", { techRating: "f" }],
+            [clanEnergyList, "small-heavy-laser", { techRating: "f" }],
+            [clanEnergyList, "plasma-cannon", { techRating: "f" }],
+            [clanMissileList, "clan-lrm-5", { techRating: "f" }],
+            [clanMissileList, "clan-lrm-10", { techRating: "f" }],
+            [clanMissileList, "clan-lrm-15", { techRating: "f" }],
+            [clanMissileList, "clan-lrm-20", { techRating: "f" }],
+            [universalEquipment, "nail-gun", { cbills: 7000, battleValue: 1, ammoBattleValue: 0, range: { min: 0, short: 1, medium: 0, long: 0 } }],
+            [universalEquipment, "mining-drill", { cbills: 100000 }],
+            [universalEquipment, "remote-sensor-dispenser", { cbills: 30000 }],
+            [universalEquipment, "wrecking-ball", { cbills: 80000 }],
         ];
         for (const [catalog, tag, fields] of expected) {
-            const item = catalog.find(entry => entry.tag === tag);
+            const item = catalog.find(entry => entry.tag === tag) ?? seenBy("is", [...equipmentMisc, ...equipmentEnergy, ...equipmentArtillery, ...ammoCatalog], tag);
             expect(item, tag).toBeDefined();
             expect(item, tag).toMatchObject(fields);
         }
@@ -4082,31 +4445,31 @@ describe("Batch 18 TechManual table audit", () => {
 describe("Batch 19 TO:AUE table audit", () => {
     it("matches the TO:AUE game data, construction data and tech ratings (pp.216-223)", () => {
         const expected: [{ tag: string }[], string, Record<string, unknown>][] = [
-            [mechISEquipmentMissiles, "thunderbolt-5", { space: { battlemech: 1, protomech: -1, combatVehicle: 1, supportVehicle: 1, aerospaceFighter: 1, smallCraft: 1, dropShip: 1 }, range: { min: 5, short: 6, medium: 12, long: 18 } }],
-            [mechISEquipmentMissiles, "thunderbolt-5-os", { space: { battlemech: 1, protomech: -1, combatVehicle: 1, supportVehicle: 1, aerospaceFighter: 1, smallCraft: 1, dropShip: 1 }, range: { min: 5, short: 6, medium: 12, long: 18 } }],
-            [mechISEquipmentMissiles, "thunderbolt-5-ios", { space: { battlemech: 1, protomech: -1, combatVehicle: 1, supportVehicle: 1, aerospaceFighter: 1, smallCraft: 1, dropShip: 1 }, range: { min: 5, short: 6, medium: 12, long: 18 } }],
-            [mechISEquipmentMissiles, "thunderbolt-10", { space: { battlemech: 2, protomech: -1, combatVehicle: 1, supportVehicle: 2, aerospaceFighter: 1, smallCraft: 1, dropShip: 1 }, range: { min: 5, short: 6, medium: 12, long: 18 } }],
-            [mechISEquipmentMissiles, "thunderbolt-10-os", { space: { battlemech: 2, protomech: -1, combatVehicle: 1, supportVehicle: 2, aerospaceFighter: 1, smallCraft: 1, dropShip: 1 }, range: { min: 5, short: 6, medium: 12, long: 18 } }],
-            [mechISEquipmentMissiles, "thunderbolt-10-ios", { space: { battlemech: 2, protomech: -1, combatVehicle: 1, supportVehicle: 2, aerospaceFighter: 1, smallCraft: 1, dropShip: 1 }, range: { min: 5, short: 6, medium: 12, long: 18 } }],
-            [mechISEquipmentMissiles, "thunderbolt-15", { space: { battlemech: 3, protomech: -1, combatVehicle: 1, supportVehicle: 3, aerospaceFighter: 1, smallCraft: 1, dropShip: 1 }, range: { min: 5, short: 6, medium: 12, long: 18 } }],
-            [mechISEquipmentMissiles, "thunderbolt-15-os", { space: { battlemech: 3, protomech: -1, combatVehicle: 1, supportVehicle: 3, aerospaceFighter: 1, smallCraft: 1, dropShip: 1 }, range: { min: 5, short: 6, medium: 12, long: 18 } }],
-            [mechISEquipmentMissiles, "thunderbolt-15-ios", { space: { battlemech: 3, protomech: -1, combatVehicle: 1, supportVehicle: 3, aerospaceFighter: 1, smallCraft: 1, dropShip: 1 }, range: { min: 5, short: 6, medium: 12, long: 18 } }],
-            [mechISEquipmentMissiles, "thunderbolt-20", { space: { battlemech: 5, protomech: -1, combatVehicle: 1, supportVehicle: 5, aerospaceFighter: 1, smallCraft: 1, dropShip: 1 }, range: { min: 5, short: 6, medium: 12, long: 18 } }],
-            [mechISEquipmentMissiles, "thunderbolt-20-os", { space: { battlemech: 5, protomech: -1, combatVehicle: 1, supportVehicle: 5, aerospaceFighter: 1, smallCraft: 1, dropShip: 1 }, range: { min: 5, short: 6, medium: 12, long: 18 } }],
-            [mechISEquipmentMissiles, "thunderbolt-20-ios", { space: { battlemech: 5, protomech: -1, combatVehicle: 1, supportVehicle: 5, aerospaceFighter: 1, smallCraft: 1, dropShip: 1 }, range: { min: 5, short: 6, medium: 12, long: 18 } }],
-            [mechClanEquipmentBallistic, "protomech-autocannon-2", { space: { battlemech: 2, protomech: 1, combatVehicle: 1, supportVehicle: 2, aerospaceFighter: 1, smallCraft: 1, dropShip: 1 } }],
-            [mechClanEquipmentBallistic, "protomech-autocannon-4", { space: { battlemech: 3, protomech: 1, combatVehicle: 1, supportVehicle: 3, aerospaceFighter: 1, smallCraft: 1, dropShip: 1 } }],
-            [mechClanEquipmentBallistic, "protomech-autocannon-8", { space: { battlemech: 4, protomech: 1, combatVehicle: 1, supportVehicle: 4, aerospaceFighter: 1, smallCraft: 1, dropShip: 1 } }],
-            [mechClanEquipmentBallistic, "clan-autocannon-rac-2", { techRating: "f" }],
-            [mechClanEquipmentBallistic, "clan-autocannon-rac-5", { techRating: "f" }],
-            [mechClanEquipmentMissile, "streak-lrm-5", { techRating: "f" }],
-            [mechClanEquipmentMissile, "streak-lrm-10", { techRating: "f" }],
-            [mechClanEquipmentMissile, "streak-lrm-15", { techRating: "f" }],
-            [mechClanEquipmentMissile, "streak-lrm-20", { techRating: "f" }],
-            [mechClanEquipmentMisc, "clan-watchdog-cews", { cbills: 600000 }],
+            [isMissileList, "thunderbolt-5", { space: { battlemech: 1, protomech: -1, combatVehicle: 1, supportVehicle: 1, aerospaceFighter: 1, smallCraft: 1, dropShip: 1 }, range: { min: 5, short: 6, medium: 12, long: 18 } }],
+            [isMissileList, "thunderbolt-5-os", { space: { battlemech: 1, protomech: -1, combatVehicle: 1, supportVehicle: 1, aerospaceFighter: 1, smallCraft: 1, dropShip: 1 }, range: { min: 5, short: 6, medium: 12, long: 18 } }],
+            [isMissileList, "thunderbolt-5-ios", { space: { battlemech: 1, protomech: -1, combatVehicle: 1, supportVehicle: 1, aerospaceFighter: 1, smallCraft: 1, dropShip: 1 }, range: { min: 5, short: 6, medium: 12, long: 18 } }],
+            [isMissileList, "thunderbolt-10", { space: { battlemech: 2, protomech: -1, combatVehicle: 1, supportVehicle: 2, aerospaceFighter: 1, smallCraft: 1, dropShip: 1 }, range: { min: 5, short: 6, medium: 12, long: 18 } }],
+            [isMissileList, "thunderbolt-10-os", { space: { battlemech: 2, protomech: -1, combatVehicle: 1, supportVehicle: 2, aerospaceFighter: 1, smallCraft: 1, dropShip: 1 }, range: { min: 5, short: 6, medium: 12, long: 18 } }],
+            [isMissileList, "thunderbolt-10-ios", { space: { battlemech: 2, protomech: -1, combatVehicle: 1, supportVehicle: 2, aerospaceFighter: 1, smallCraft: 1, dropShip: 1 }, range: { min: 5, short: 6, medium: 12, long: 18 } }],
+            [isMissileList, "thunderbolt-15", { space: { battlemech: 3, protomech: -1, combatVehicle: 1, supportVehicle: 3, aerospaceFighter: 1, smallCraft: 1, dropShip: 1 }, range: { min: 5, short: 6, medium: 12, long: 18 } }],
+            [isMissileList, "thunderbolt-15-os", { space: { battlemech: 3, protomech: -1, combatVehicle: 1, supportVehicle: 3, aerospaceFighter: 1, smallCraft: 1, dropShip: 1 }, range: { min: 5, short: 6, medium: 12, long: 18 } }],
+            [isMissileList, "thunderbolt-15-ios", { space: { battlemech: 3, protomech: -1, combatVehicle: 1, supportVehicle: 3, aerospaceFighter: 1, smallCraft: 1, dropShip: 1 }, range: { min: 5, short: 6, medium: 12, long: 18 } }],
+            [isMissileList, "thunderbolt-20", { space: { battlemech: 5, protomech: -1, combatVehicle: 1, supportVehicle: 5, aerospaceFighter: 1, smallCraft: 1, dropShip: 1 }, range: { min: 5, short: 6, medium: 12, long: 18 } }],
+            [isMissileList, "thunderbolt-20-os", { space: { battlemech: 5, protomech: -1, combatVehicle: 1, supportVehicle: 5, aerospaceFighter: 1, smallCraft: 1, dropShip: 1 }, range: { min: 5, short: 6, medium: 12, long: 18 } }],
+            [isMissileList, "thunderbolt-20-ios", { space: { battlemech: 5, protomech: -1, combatVehicle: 1, supportVehicle: 5, aerospaceFighter: 1, smallCraft: 1, dropShip: 1 }, range: { min: 5, short: 6, medium: 12, long: 18 } }],
+            [clanBallisticList, "protomech-autocannon-2", { space: { battlemech: 2, protomech: 1, combatVehicle: 1, supportVehicle: 2, aerospaceFighter: 1, smallCraft: 1, dropShip: 1 } }],
+            [clanBallisticList, "protomech-autocannon-4", { space: { battlemech: 3, protomech: 1, combatVehicle: 1, supportVehicle: 3, aerospaceFighter: 1, smallCraft: 1, dropShip: 1 } }],
+            [clanBallisticList, "protomech-autocannon-8", { space: { battlemech: 4, protomech: 1, combatVehicle: 1, supportVehicle: 4, aerospaceFighter: 1, smallCraft: 1, dropShip: 1 } }],
+            [clanBallisticList, "clan-autocannon-rac-2", { techRating: "f" }],
+            [clanBallisticList, "clan-autocannon-rac-5", { techRating: "f" }],
+            [clanMissileList, "streak-lrm-5", { techRating: "f" }],
+            [clanMissileList, "streak-lrm-10", { techRating: "f" }],
+            [clanMissileList, "streak-lrm-15", { techRating: "f" }],
+            [clanMissileList, "streak-lrm-20", { techRating: "f" }],
+            [clanMiscList, "clan-watchdog-cews", { cbills: 600000 }],
         ];
         for (const [catalog, tag, fields] of expected) {
-            const item = catalog.find(entry => entry.tag === tag);
+            const item = catalog.find(entry => entry.tag === tag) ?? seenBy("is", [...equipmentMisc, ...equipmentEnergy, ...equipmentArtillery, ...ammoCatalog], tag);
             expect(item, tag).toBeDefined();
             expect(item, tag).toMatchObject(fields);
         }
@@ -4126,52 +4489,52 @@ describe("Batch 12c special munitions", () => {
             "ammo-is-inarc-explosive": [3054, 3062, null, null, "TM", 233],
             "ammo-is-inarc-haywire": [3054, 3062, null, null, "TM", 233],
             "ammo-is-inarc-nemesis": [3054, 3062, null, null, "TM", 233],
-            "ammo-is-long-tom-copperhead": [2640, 2645, 2800, 3051, "TO:AUE", 167],
-            "ammo-is-long-tom-thunder": [undefined, 2621, 2833, 3051, "TO:AUE", 169],
+            "ammo-long-tom-copperhead": [2640, 2645, 2800, 3051, "TO:AUE", 167],
+            "ammo-long-tom-thunder": [undefined, 2621, 2833, 3051, "TO:AUE", 169],
             "ammo-is-lrm-artemis-iv": [2592, 2598, 2855, 3035, "TM", 207],
             "ammo-is-lrm-ftl": [3053, null, null, null, "TO:AUE", 180],
-            "ammo-is-lrm-narc": [2520, 2587, 2795, 3035, "TW", 142],
+            "ammo-lrm-narc": [2520, 2587, 2795, 3035, "TW", 142],
             "ammo-is-lrm-swarm": [2615, 2621, 2833, 3053, "TO:AUE", 183],
             "ammo-is-lrt-artemis-iv": [2592, 2598, 2855, 3035, "TM", 207],
             "ammo-is-mech-mortar-airburst": [2540, 2544, 2819, 3043, "TO:AUE", 185],
             "ammo-is-mech-mortar-apersonnel": [2526, 2531, 2819, 3043, "TO:AUE", 186],
             "ammo-is-mech-mortar-flare": [2533, 2536, 2819, 3043, "TO:AUE", 186],
             "ammo-is-mech-mortar-smoke": [2526, 2531, 2819, 3043, "TO:AUE", 187],
-            "ammo-is-sniper-copperhead": [2640, 2645, 2800, 3051, "TO:AUE", 167],
-            "ammo-is-sniper-thunder": [undefined, 2621, 2833, 3051, "TO:AUE", 169],
+            "ammo-sniper-copperhead": [2640, 2645, 2800, 3051, "TO:AUE", 167],
+            "ammo-sniper-thunder": [undefined, 2621, 2833, 3051, "TO:AUE", 169],
             "ammo-is-srm-artemis-iv": [2592, 2598, 2855, 3035, "TM", 207],
             "ammo-is-srm-magnetic-pulse": [3055, 3057, 3065, null, "TO:AUE", 182],
             "ammo-is-srm-narc": [2520, 2587, 2795, 3035, "TW", 142],
             "ammo-is-srm-tandem-charge": [2757, 3062, null, null, "TO:AUE", 184],
             "ammo-is-srt-artemis-iv": [2592, 2598, 2855, 3035, "TM", 207],
-            "ammo-is-thumper-copperhead": [2640, 2645, 2800, 3051, "TO:AUE", 167],
-            "ammo-is-thumper-thunder": [undefined, 2621, 2833, 3051, "TO:AUE", 169],
-            "ammo-is-arrow-iv-fae": [2593, 2600, 2830, 3044, "IO:AE", 159],
-            "ammo-is-lrm-arad": [3066, null, null, null, "TO:AUE", 180],
-            "ammo-is-heavy-flamer-coolant": [undefined, 3068, null, null, "TO:AUE", 173],
-            "ammo-is-ac-2-flak": [2290, 2310, null, null, "TO:AUE", 164],
-            "ammo-is-ac-2-tracer": [2290, 2300, null, null, "TO:AUE", 165],
+            "ammo-thumper-copperhead": [2640, 2645, 2800, 3051, "TO:AUE", 167],
+            "ammo-thumper-thunder": [undefined, 2621, 2833, 3051, "TO:AUE", 169],
+            "ammo-arrow-iv-fae": [2593, 2600, 2830, 3044, "IO:AE", 159],
+            "ammo-lrm-arad": [3066, null, null, null, "TO:AUE", 180],
+            "ammo-heavy-flamer-coolant": [undefined, 3068, null, null, "TO:AUE", 173],
+            "ammo-ac-2-flak": [2290, 2310, null, null, "TO:AUE", 164],
+            "ammo-ac-2-tracer": [2290, 2300, null, null, "TO:AUE", 165],
             "ammo-is-ac-2-armor-piercing": [3055, 3059, null, null, "TM", 208],
             "ammo-is-ac-2-caseless": [3056, 3079, null, null, "TO:AUE", 164],
             "ammo-is-ac-2-flechette": [3053, 3055, null, null, "TM", 208],
             "ammo-is-ac-2-precision": [3058, 3062, null, null, "TM", 208],
             "ammo-is-lb-2x-cluster": [3055, 3058, null, null, "TM", 208],
-            "ammo-is-ac-5-flak": [2240, 2310, null, null, "TO:AUE", 164],
-            "ammo-is-ac-5-tracer": [2240, 2300, null, null, "TO:AUE", 165],
+            "ammo-ac-5-flak": [2240, 2310, null, null, "TO:AUE", 164],
+            "ammo-ac-5-tracer": [2240, 2300, null, null, "TO:AUE", 165],
             "ammo-is-ac-5-armor-piercing": [3055, 3059, null, null, "TM", 208],
             "ammo-is-ac-5-caseless": [3056, 3079, null, null, "TO:AUE", 164],
             "ammo-is-ac-5-flechette": [3053, 3055, null, null, "TM", 208],
             "ammo-is-ac-5-precision": [3058, 3062, null, null, "TM", 208],
             "ammo-is-lb-5x-cluster": [3055, 3058, null, null, "TM", 208],
-            "ammo-is-ac-10-flak": [2443, 2460, null, null, "TO:AUE", 164],
-            "ammo-is-ac-10-tracer": [2443, 2460, null, null, "TO:AUE", 165],
+            "ammo-ac-10-flak": [2443, 2460, null, null, "TO:AUE", 164],
+            "ammo-ac-10-tracer": [2443, 2460, null, null, "TO:AUE", 165],
             "ammo-is-ac-10-armor-piercing": [3055, 3059, null, null, "TM", 208],
             "ammo-is-ac-10-caseless": [3056, 3079, null, null, "TO:AUE", 164],
             "ammo-is-ac-10-flechette": [3053, 3055, null, null, "TM", 208],
             "ammo-is-ac-10-precision": [3058, 3062, null, null, "TM", 208],
             "ammo-is-lb-10x-cluster": [2590, 2595, 2840, 3035, "TM", 208],
-            "ammo-is-ac-20-flak": [2488, 2500, null, null, "TO:AUE", 164],
-            "ammo-is-ac-20-tracer": [2488, 2500, null, null, "TO:AUE", 165],
+            "ammo-ac-20-flak": [2488, 2500, null, null, "TO:AUE", 164],
+            "ammo-ac-20-tracer": [2488, 2500, null, null, "TO:AUE", 165],
             "ammo-is-ac-20-armor-piercing": [3055, 3059, null, null, "TM", 208],
             "ammo-is-ac-20-caseless": [3056, 3079, null, null, "TO:AUE", 164],
             "ammo-is-ac-20-flechette": [3053, 3055, null, null, "TM", 208],
@@ -4249,17 +4612,8 @@ describe("Batch 12c special munitions", () => {
             "ammo-is-srm-acid": [3053, null, null, null, "TO:AUE", 179],
         };
         for (const [tag, want] of Object.entries(expected)) {
-            const item = mechISAmmo.find(record => record.tag === tag);
+            const item = seenBy("is", ammoCatalog, tag);
             expect([item?.prototype, item?.introduced, item?.extinct, item?.reintroduced, item?.book, item?.page], tag).toEqual(want);
-        }
-    });
-
-    it("uses null, not 0, for unknown dates in the isAmmo records", () => {
-        for (const item of mechISAmmo) {
-            expect(item.introduced, item.tag).not.toBe(0);
-            expect(item.extinct, item.tag).not.toBe(0);
-            expect(item.reintroduced, item.tag).not.toBe(0);
-            expect(typeof item.page, item.tag).toBe("number");
         }
     });
 
@@ -4324,17 +4678,8 @@ describe("Batch 12c special munitions", () => {
             "ammo-clan-bomb-as-missile": [undefined, 3076, null, null, "TO:AUE", 170],
         };
         for (const [tag, want] of Object.entries(expected)) {
-            const item = mechClanAmmo.find(record => record.tag === tag);
+            const item = seenBy("clan", ammoCatalog, tag);
             expect([item?.prototype, item?.introduced, item?.extinct, item?.reintroduced, item?.book, item?.page], tag).toEqual(want);
-        }
-    });
-
-    it("uses null, not 0, for unknown dates in the clanAmmo records", () => {
-        for (const item of mechClanAmmo) {
-            expect(item.introduced, item.tag).not.toBe(0);
-            expect(item.extinct, item.tag).not.toBe(0);
-            expect(item.reintroduced, item.tag).not.toBe(0);
-            expect(typeof item.page, item.tag).toBe("number");
         }
     });
 
@@ -4343,6 +4688,8 @@ describe("Batch 12c special munitions", () => {
         const expected: Record<string, [number | undefined, number | null, number | null, number | null, string, number]> = {
             "ammo-long-tom-cannon-fae": [3012, 3079, null, null, "IO:AE", 159],
             "ammo-lrm-incendiary": [2341, 2342, null, null, "TO:AUE", 182],
+            // TM 2007 pp.230, 295: removed by TM errata v4.1 p.18, so no TO:AUE or IO:AE row.
+            "ammo-lrm-flare": [undefined, 2377, 2790, 3054, "TM", 230],
             "ammo-lrm-smoke": [2341, 2342, null, null, "TO:AUE", 183],
             "ammo-sniper-cannon-fae": [3012, 3079, null, null, "IO:AE", 159],
             "ammo-srm-heatseeking": [2365, 2370, null, null, "TO:AUE", 181],
@@ -4368,7 +4715,8 @@ describe("Batch 12c special munitions", () => {
             "ammo-thumper-flechette": [undefined, 2100, null, null, "TO:AUE", 167],
             "ammo-thumper-illumination": [undefined, 2100, null, null, "TO:AUE", 167],
             "ammo-thumper-smoke": [undefined, 1950, null, null, "TO:AUE", 168],
-            "ammo-lrm-heat-seeking": [2390, 2430, null, null, "TO:AUE", 181],
+            // TO:AUE p.181 and its tables print 2340; no printing gives a prototype year (the old 2390/2430 was a transposition).
+            "ammo-lrm-heat-seeking": [undefined, 2340, null, null, "TO:AUE", 181],
             "ammo-long-tom-fae": [2445, 2500, null, null, "IO:AE", 159],
             "ammo-sniper-fae": [undefined, 1950, null, null, "IO:AE", 159],
             "ammo-thumper-fae": [undefined, 1950, null, null, "IO:AE", 159],
@@ -4380,17 +4728,8 @@ describe("Batch 12c special munitions", () => {
             "ammo-bomb-aaa-missile": [3069, 3072, null, null, "TO:AUE", 169],
         };
         for (const [tag, want] of Object.entries(expected)) {
-            const item = mechUniversalAmmo.find(record => record.tag === tag);
+            const item = universalAmmoList.find(record => record.tag === tag);
             expect([item?.prototype, item?.introduced, item?.extinct, item?.reintroduced, item?.book, item?.page], tag).toEqual(want);
-        }
-    });
-
-    it("uses null, not 0, for unknown dates in the universalAmmo records", () => {
-        for (const item of mechUniversalAmmo) {
-            expect(item.introduced, item.tag).not.toBe(0);
-            expect(item.extinct, item.tag).not.toBe(0);
-            expect(item.reintroduced, item.tag).not.toBe(0);
-            expect(typeof item.page, item.tag).toBe("number");
         }
     });
 });
@@ -4420,11 +4759,7 @@ describe("Batch 12d saved designs keep equipment from the other tech base", () =
 
 describe("Batch 21 Superheavy 'Mech equipment limits (IO:AE p.156)", () => {
     const build = (tonnage: number) => {
-        const mech = new BattleMech();
-        mech.setTech("is");
-        mech.setEra("late-rep");
-        mech.setTonnage(tonnage);
-        mech.setWalkSpeed(2);
+        const mech = buildMech({ era: "late-rep", tonnage, walk: 2 });
         return mech;
     };
     const offered = (mech: BattleMech) => new Map(mech.getAvailableEquipment(false, 4).map(item => [item.tag, !!item.available]));
@@ -4448,6 +4783,17 @@ describe("Batch 21 Superheavy 'Mech equipment limits (IO:AE p.156)", () => {
         const superheavy = myomer(build(150));
         expect([superheavy.get("standard"), superheavy.get("tsm"), superheavy.get("industrial-tsm"), superheavy.get("prototype-tsm")])
             .toEqual([true, false, false, false]);
+    });
+
+    // Super-Cooled Myomer is not TSM, so a superheavy may mount it; like other equipment it takes half its 6 slots,
+    // rounded up (IO:AE pp.88, 156-157).
+    it("gives Super-Cooled Myomer 3 slots on a superheavy, 6 on a standard 'Mech", () => {
+        const myomerSlots = (mech: BattleMech) => {
+            mech.setMyomerType("risc-super-cooled-myomer");
+            return mech.getUnallocatedCriticals().filter((crit) => crit.tag === "risc-super-cooled-myomer").length;
+        };
+        expect(myomerSlots(build(100))).toBe(6);
+        expect(myomerSlots(build(150))).toBe(3);
     });
 
     it("cannot jump: no jump jets, improved jump jets or UMUs", () => {
@@ -4545,7 +4891,7 @@ describe("Batch 22 Superheavy 'Mech structure types (IO:AE p.155)", () => {
     const available = (mech: BattleMech) => mech.getAvailableInternalStructures(4).filter(item => item.available).map(item => item.tag).sort();
 
     it("offers only standard, endo steel, endo-composite and industrial structure above 100 tons", () => {
-        expect(available(build(100))).toEqual(["composite", "endo-composite", "endo-steel", "industrial", "reinforced", "standard"]);
+        expect(available(build(100))).toEqual(["composite", "endo-composite", "endo-steel", "endo-steel-prototype", "industrial", "reinforced", "standard"]);
         expect(available(build(150))).toEqual(["endo-composite", "endo-steel", "industrial", "standard"]);
     });
 
@@ -4621,11 +4967,7 @@ describe("Batch 24 cockpit critical slots (IO:AE record sheets, pp.128, 156, 159
 
 describe("Batch 24 Superheavy 'Mech critical space (IO:AE pp.155-157)", () => {
     const build = (tonnage: number) => {
-        const mech = new BattleMech();
-        mech.setTech("is");
-        mech.setEra("dark-ages");
-        mech.setTonnage(tonnage);
-        mech.setWalkSpeed(2);
+        const mech = buildMech({ tonnage, walk: 2 });
         return mech;
     };
     const add = (mech: BattleMech, tag: string) =>
@@ -4794,11 +5136,11 @@ describe("Batch 26 explosive ammunition penalty by location (TM p.302, TO:AUE p.
             expect(mech.moveCritical("un", from, location, slot), `${tag} in ${location}`).toBe(true);
         };
         for (const [tag, location] of options.items ?? []) place(tag, location);
-        for (const location of options.ammo) place(tech === "clan" ? "ammo-clan-lb-10x-standard" : "ammo-is-ac-10-standard", location);
-        const log = mech.getBVCalcHTML().split("<br />");
+        for (const location of options.ammo) place(tech === "clan" ? "ammo-clan-lb-10x-standard" : "ammo-ac-10-standard", location);
+        const steps = bvSteps(mech);
         return {
-            locations: log.filter(line => /^Explosive Ammo Crit in /.test(line)).map(line => /in (\w+)/.exec(line)![1]).sort(),
-            log,
+            locations: steps.filter(step => step.id === "bv2.def.explosive.ammo" || step.id === "bv2.def.explosive.lam-store").map(step => / in (\w+) \([^)]*\)$/.exec(step.label)![1]).sort(),
+            steps,
             mech,
         };
     };
@@ -4814,6 +5156,21 @@ describe("Batch 26 explosive ammunition penalty by location (TM p.302, TO:AUE p.
     it("spares side torso ammunition behind CASE, and arm ammunition when the torso inward has CASE", () => {
         expect(penalised({ ammo: ["lt", "la", "rt", "ra"], items: [["case", "lt"]] }).locations).toEqual(["rightArm", "rightTorso"]);
         expect(penalised({ ammo: ["lt", "la"] }).locations).toEqual(["leftArm", "leftTorso"]);
+    });
+
+    it("prices ammunition behind prototype CASE at 8 a slot, not 15 (IO:AE p.189)", () => {
+        const { locations, steps } = penalised({ ammo: ["lt", "la", "rt"], items: [["case-prototype", "lt"]] });
+        expect(locations).toEqual(["rightTorso"]);
+        const proto = steps.filter(step => step.id === "bv2.def.explosive.prototype-case");
+        // The side torso it sits in, and the arm that transfers into it.
+        expect(proto.map(step => step.value)).toEqual([-8, -8]);
+        expect(proto.map(step => / in (\w+) /.exec(step.label)![1]).sort()).toEqual(["leftArm", "leftTorso"]);
+    });
+
+    it("gives prototype CASE no relief where CASE gives none (Inner Sphere XL side torso)", () => {
+        const { locations, steps } = penalised({ engine: "xl", ammo: ["lt"], items: [["case-prototype", "lt"]] });
+        expect(locations).toEqual(["leftTorso"]);
+        expect(steps.filter(step => step.id === "bv2.def.explosive.prototype-case")).toEqual([]);
     });
 
     it("treats a Light engine like a standard one", () => {
@@ -4841,21 +5198,17 @@ describe("Batch 26 explosive ammunition penalty by location (TM p.302, TO:AUE p.
         // 20 tons, no armor: structure and gyro are worth 59.5, six tons of ammunition would take off 90.
         const unarmored = penalised({ tonnage: 20, ammo: ["ct", "ct", "ll", "ll", "rl", "rl"] });
         expect(unarmored.locations).toHaveLength(6);
-        expect(unarmored.log.some(line => line.startsWith("Penalties cannot take the total below 1"))).toBe(true);
+        expect(unarmored.steps.some(step => step.id === "bv2.def.floor" && step.label.startsWith("Penalties cannot take the total below 1"))).toBe(true);
         expect(unarmored.mech.getBattleValue()).toBeGreaterThan(0);
         // An ordinary design never reaches the floor.
-        expect(penalised({ ammo: ["ct"] }).log.some(line => line.startsWith("Penalties cannot take the total below 1"))).toBe(false);
+        expect(penalised({ ammo: ["ct"] }).steps.some(step => step.id === "bv2.def.floor")).toBe(false);
     });
 });
 
 describe("Batch 27 Weapon Battle Rating order (TM p.303)", () => {
     // 75 tons, Walk 4 (Run 6: 2 heat), ten single heat sinks: Heat Efficiency 6 + 10 - 2 = 14.
     const build = () => {
-        const mech = new BattleMech();
-        mech.setTech("is");
-        mech.setEra("dark-ages");
-        mech.setTonnage(75);
-        mech.setWalkSpeed(4);
+        const mech = buildMech({ tonnage: 75 });
         return mech;
     };
     const add = (mech: BattleMech, tag: string, rear = false) =>
@@ -4864,7 +5217,7 @@ describe("Batch 27 Weapon Battle Rating order (TM p.303)", () => {
         const from = mech.unallocatedCriticals.findIndex(critical => critical?.uuid === item.uuid);
         expect(mech.moveCritical("un", from, location, mech.getCriticals()[key].findIndex(critical => !critical))).toBe(true);
     };
-    const weaponBV = (mech: BattleMech) => Number(/<strong>Total Weapon BV:<\/strong> ([\d.]+)/.exec(mech.getBVCalcHTML())?.[1]);
+    const weaponBV = (mech: BattleMech) => bvRound2(bvLast(mech, "bv2.off.weapons.total").value);
 
     it("takes the cooler of two weapons with the same Battle Value first", () => {
         const mech = build();
@@ -4899,7 +5252,7 @@ describe("Batch 27 Weapon Battle Rating order (TM p.303)", () => {
         const mech = build();
         for (const tag of ["medium-laser", "standard-ppc", "small-laser", "large-laser"]) add(mech, tag);
         mech.getBattleValue();
-        mech.getBVCalcHTML();
+        mech.getBattleValueBreakdown();
         const bySortKey = [...mech.equipmentList].sort((a, b) => a.sort > b.sort ? 1 : a.sort < b.sort ? -1 : 0);
         expect(mech.equipmentList.map(item => item.tag)).toEqual(bySortKey.map(item => item.tag));
         expect(mech.equipmentList.map(item => item.tag)).not.toEqual(["standard-ppc", "large-laser", "medium-laser", "small-laser"]);
@@ -4909,22 +5262,22 @@ describe("Batch 27 Weapon Battle Rating order (TM p.303)", () => {
 describe("Batch 28 Industrial Equipment Table (TM pp.344-345, errata v8.0)", () => {
     it("gives industrial equipment its vehicle and aerospace slot counts and tech ratings", () => {
         const expected: [{ tag: string }[], string, Record<string, unknown>][] = [
-            [mechUniversalEquipment, "backhoe", { space: { battlemech: 6, protomech: -1, combatVehicle: 1, supportVehicle: 1, aerospaceFighter: -1, smallCraft: -1, dropShip: -1 } }],
-            [mechUniversalEquipment, "chainsaw", { space: { battlemech: 5, protomech: -1, combatVehicle: 1, supportVehicle: 1, aerospaceFighter: -1, smallCraft: -1, dropShip: -1 } }],
-            [mechUniversalEquipment, "combine", { space: { battlemech: 4, protomech: -1, combatVehicle: 1, supportVehicle: 1, aerospaceFighter: -1, smallCraft: -1, dropShip: -1 } }],
-            [mechUniversalEquipment, "dual-saw", { space: { battlemech: 7, protomech: -1, combatVehicle: 1, supportVehicle: 1, aerospaceFighter: -1, smallCraft: -1, dropShip: -1 } }],
-            [mechUniversalEquipment, "pile-driver", { space: { battlemech: 8, protomech: -1, combatVehicle: 1, supportVehicle: 1, aerospaceFighter: -1, smallCraft: -1, dropShip: -1 } }],
-            [mechUniversalEquipment, "lift-hoist", { space: { battlemech: 3, protomech: -1, combatVehicle: 1, supportVehicle: 1, aerospaceFighter: -1, smallCraft: -1, dropShip: -1 } }],
-            [mechUniversalEquipment, "mining-drill", { space: { battlemech: 4, protomech: -1, combatVehicle: 1, supportVehicle: 1, aerospaceFighter: -1, smallCraft: -1, dropShip: -1 }, techRating: "b" }],
-            [mechUniversalEquipment, "nail-gun", { space: { battlemech: 1, protomech: -1, combatVehicle: 1, supportVehicle: 1, aerospaceFighter: -1, smallCraft: -1, dropShip: -1 }, techRating: "c" }],
-            [mechUniversalEquipment, "remote-sensor-dispenser", { space: { battlemech: 1, protomech: -1, combatVehicle: 1, supportVehicle: 1, aerospaceFighter: 1, smallCraft: 1, dropShip: 0 } }],
-            [mechUniversalEquipment, "rock-cutter", { space: { battlemech: 5, protomech: -1, combatVehicle: 1, supportVehicle: 1, aerospaceFighter: -1, smallCraft: -1, dropShip: -1 } }],
-            [mechUniversalEquipment, "salvage-arm", { space: { battlemech: 2, protomech: -1, combatVehicle: -1, supportVehicle: -1, aerospaceFighter: -1, smallCraft: -1, dropShip: -1 } }],
-            [mechUniversalEquipment, "searchlight", { space: { battlemech: 1, protomech: -1, combatVehicle: 1, supportVehicle: 1, aerospaceFighter: 0, smallCraft: 0, dropShip: 0 } }],
-            [mechUniversalEquipment, "wrecking-ball", { space: { battlemech: 5, protomech: -1, combatVehicle: 1, supportVehicle: 1, aerospaceFighter: -1, smallCraft: -1, dropShip: -1 } }],
+            [universalEquipment, "backhoe", { space: { battlemech: 6, protomech: -1, combatVehicle: 1, supportVehicle: 1, aerospaceFighter: -1, smallCraft: -1, dropShip: -1 } }],
+            [universalEquipment, "chainsaw", { space: { battlemech: 5, protomech: -1, combatVehicle: 1, supportVehicle: 1, aerospaceFighter: -1, smallCraft: -1, dropShip: -1 } }],
+            [universalEquipment, "combine", { space: { battlemech: 4, protomech: -1, combatVehicle: 1, supportVehicle: 1, aerospaceFighter: -1, smallCraft: -1, dropShip: -1 } }],
+            [universalEquipment, "dual-saw", { space: { battlemech: 7, protomech: -1, combatVehicle: 1, supportVehicle: 1, aerospaceFighter: -1, smallCraft: -1, dropShip: -1 } }],
+            [universalEquipment, "pile-driver", { space: { battlemech: 8, protomech: -1, combatVehicle: 1, supportVehicle: 1, aerospaceFighter: -1, smallCraft: -1, dropShip: -1 } }],
+            [universalEquipment, "lift-hoist", { space: { battlemech: 3, protomech: -1, combatVehicle: 1, supportVehicle: 1, aerospaceFighter: -1, smallCraft: -1, dropShip: -1 } }],
+            [universalEquipment, "mining-drill", { space: { battlemech: 4, protomech: -1, combatVehicle: 1, supportVehicle: 1, aerospaceFighter: -1, smallCraft: -1, dropShip: -1 }, techRating: "b" }],
+            [universalEquipment, "nail-gun", { space: { battlemech: 1, protomech: -1, combatVehicle: 1, supportVehicle: 1, aerospaceFighter: -1, smallCraft: -1, dropShip: -1 }, techRating: "c" }],
+            [universalEquipment, "remote-sensor-dispenser", { space: { battlemech: 1, protomech: -1, combatVehicle: 1, supportVehicle: 1, aerospaceFighter: 1, smallCraft: 1, dropShip: 0 } }],
+            [universalEquipment, "rock-cutter", { space: { battlemech: 5, protomech: -1, combatVehicle: 1, supportVehicle: 1, aerospaceFighter: -1, smallCraft: -1, dropShip: -1 } }],
+            [universalEquipment, "salvage-arm", { space: { battlemech: 2, protomech: -1, combatVehicle: -1, supportVehicle: -1, aerospaceFighter: -1, smallCraft: -1, dropShip: -1 } }],
+            [universalEquipment, "searchlight", { space: { battlemech: 1, protomech: -1, combatVehicle: 1, supportVehicle: 1, aerospaceFighter: 0, smallCraft: 0, dropShip: 0 } }],
+            [universalEquipment, "wrecking-ball", { space: { battlemech: 5, protomech: -1, combatVehicle: 1, supportVehicle: 1, aerospaceFighter: -1, smallCraft: -1, dropShip: -1 } }],
         ];
         for (const [catalog, tag, fields] of expected) {
-            const item = catalog.find(entry => entry.tag === tag);
+            const item = catalog.find(entry => entry.tag === tag) ?? seenBy("is", [...equipmentMisc, ...equipmentEnergy, ...equipmentArtillery, ...ammoCatalog], tag);
             expect(item, tag).toBeDefined();
             expect(item, tag).toMatchObject(fields);
         }
@@ -4934,58 +5287,60 @@ describe("Batch 28 Industrial Equipment Table (TM pp.344-345, errata v8.0)", () 
 describe("Batch 28 unit slot columns of the Weapons and Equipment Tables (TM pp.341-343)", () => {
     it("gives weapons and equipment their ProtoMech, vehicle and aerospace slot counts", () => {
         const expected: [{ tag: string }[], string, Record<string, unknown>][] = [
-            [mechISEquipmentBallistic, "autocannon-light-5", { space: { battlemech: 2, protomech: -1, combatVehicle: 1, supportVehicle: 2, aerospaceFighter: 1, smallCraft: 1, dropShip: 1 } }],
-            [mechISEquipmentBallistic, "machine-gun-heavy", { space: { battlemech: 1, protomech: -1, combatVehicle: 1, supportVehicle: 1, aerospaceFighter: 1, smallCraft: 1, dropShip: 1 } }],
-            [mechISEquipmentBallistic, "is-machine-gun-array", { space: { battlemech: 1, protomech: -1, combatVehicle: 1, supportVehicle: 1, aerospaceFighter: 1, smallCraft: 1, dropShip: 0 } }],
-            [mechISEquipmentMissiles, "mrm-10", { space: { battlemech: 2, protomech: -1, combatVehicle: 1, supportVehicle: 2, aerospaceFighter: 1, smallCraft: 1, dropShip: 1 } }],
-            [mechISEquipmentMissiles, "mrm-20", { space: { battlemech: 3, protomech: -1, combatVehicle: 1, supportVehicle: 3, aerospaceFighter: 1, smallCraft: 1, dropShip: 1 } }],
-            [mechISEquipmentMissiles, "mrm-30", { space: { battlemech: 5, protomech: -1, combatVehicle: 1, supportVehicle: 5, aerospaceFighter: 1, smallCraft: 1, dropShip: 1 } }],
-            [mechISEquipmentMissiles, "mrm-40", { space: { battlemech: 7, protomech: -1, combatVehicle: 1, supportVehicle: 7, aerospaceFighter: 1, smallCraft: 1, dropShip: 1 } }],
-            [mechISEquipmentMissiles, "rocket-launcher-15", { space: { battlemech: 2, protomech: -1, combatVehicle: 1, supportVehicle: 2, aerospaceFighter: 1, smallCraft: 1, dropShip: 1 } }],
-            [mechISEquipmentMissiles, "rocket-launcher-20", { space: { battlemech: 3, protomech: -1, combatVehicle: 1, supportVehicle: 3, aerospaceFighter: 1, smallCraft: 1, dropShip: 1 } }],
-            [mechISEquipmentMissiles, "mml-3", { space: { battlemech: 2, protomech: -1, combatVehicle: 1, supportVehicle: 2, aerospaceFighter: 1, smallCraft: 1, dropShip: 1 } }],
-            [mechISEquipmentMissiles, "mml-5", { space: { battlemech: 3, protomech: -1, combatVehicle: 1, supportVehicle: 3, aerospaceFighter: 1, smallCraft: 1, dropShip: 1 } }],
-            [mechISEquipmentMissiles, "mml-7", { space: { battlemech: 4, protomech: -1, combatVehicle: 1, supportVehicle: 4, aerospaceFighter: 1, smallCraft: 1, dropShip: 1 } }],
-            [mechISEquipmentMissiles, "mml-9", { space: { battlemech: 5, protomech: -1, combatVehicle: 1, supportVehicle: 5, aerospaceFighter: 1, smallCraft: 1, dropShip: 1 } }],
-            [mechISEquipmentMissiles, "mml-3-artemis-iv", { space: { battlemech: 3, protomech: -1, combatVehicle: 1, supportVehicle: 3, aerospaceFighter: 1, smallCraft: 1, dropShip: 1 } }],
-            [mechISEquipmentMissiles, "mml-5-artemis-iv", { space: { battlemech: 4, protomech: -1, combatVehicle: 1, supportVehicle: 4, aerospaceFighter: 1, smallCraft: 1, dropShip: 1 } }],
-            [mechISEquipmentMissiles, "mml-7-artemis-iv", { space: { battlemech: 5, protomech: -1, combatVehicle: 1, supportVehicle: 5, aerospaceFighter: 1, smallCraft: 1, dropShip: 1 } }],
-            [mechISEquipmentMissiles, "mml-9-artemis-iv", { space: { battlemech: 6, protomech: -1, combatVehicle: 1, supportVehicle: 6, aerospaceFighter: 1, smallCraft: 1, dropShip: 1 } }],
-            [mechISEquipmentMisc, "beagle-active-probe", { space: { battlemech: 2, protomech: -1, combatVehicle: 1, supportVehicle: 2, aerospaceFighter: 1, smallCraft: 1, dropShip: -1 } }],
-            [mechISEquipmentMisc, "ecm-suite", { space: { battlemech: 2, protomech: -1, combatVehicle: 1, supportVehicle: 2, aerospaceFighter: 1, smallCraft: 1, dropShip: -1 } }],
-            [mechISEquipmentMisc, "masc", { space: { battlemech: 1, protomech: -1, combatVehicle: -1, supportVehicle: -1, aerospaceFighter: -1, smallCraft: -1, dropShip: -1 } }],
-            [mechISEquipmentMisc, "targeting-computer", { space: { battlemech: 1, protomech: -1, combatVehicle: 1, supportVehicle: 1, aerospaceFighter: 0, smallCraft: -1, dropShip: -1 } }],
-            [mechISEquipmentMisc, "c3-computer-master", { space: { battlemech: 5, protomech: -1, combatVehicle: 1, supportVehicle: 1, aerospaceFighter: -1, smallCraft: -1, dropShip: -1 } }],
-            [mechISEquipmentMisc, "c3-computer-slave", { space: { battlemech: 1, protomech: -1, combatVehicle: 1, supportVehicle: 1, aerospaceFighter: -1, smallCraft: -1, dropShip: -1 } }],
-            [mechISEquipmentMisc, "c3i-computer", { space: { battlemech: 2, protomech: -1, combatVehicle: 1, supportVehicle: 1, aerospaceFighter: -1, smallCraft: -1, dropShip: -1 } }],
-            [mechClanEquipmentBallistic, "clan-autocannon-lbx-5", { space: { battlemech: 4, protomech: 1, combatVehicle: 1, supportVehicle: 4, aerospaceFighter: 1, smallCraft: 1, dropShip: 1 } }],
-            [mechClanEquipmentBallistic, "clan-machine-gun-array", { space: { battlemech: 1, protomech: 1, combatVehicle: 1, supportVehicle: 1, aerospaceFighter: 1, smallCraft: 1, dropShip: 0 } }],
-            [mechClanEquipmentBallistic, "hyper-assault-gauss-20", { space: { battlemech: 6, protomech: 1, combatVehicle: 1, supportVehicle: 6, aerospaceFighter: 1, smallCraft: 1, dropShip: 1 } }],
-            [mechClanEquipmentBallistic, "hyper-assault-gauss-30", { space: { battlemech: 8, protomech: -1, combatVehicle: 1, supportVehicle: 8, aerospaceFighter: 1, smallCraft: 1, dropShip: 1 } }],
-            [mechClanEquipmentBallistic, "hyper-assault-gauss-40", { space: { battlemech: 10, protomech: -1, combatVehicle: 1, supportVehicle: 10, aerospaceFighter: 1, smallCraft: 1, dropShip: 1 } }],
-            [mechUniversalEquipment, "vehicle-flamer", { space: { battlemech: 1, protomech: 1, combatVehicle: 1, supportVehicle: 1, aerospaceFighter: 1, smallCraft: 1, dropShip: 1 } }],
-            [mechClanEquipmentEnergy, "medium-heavy-laser", { space: { battlemech: 2, protomech: 1, combatVehicle: 1, supportVehicle: 2, aerospaceFighter: 1, smallCraft: 1, dropShip: 1 } }],
-            [mechClanEquipmentEnergy, "large-heavy-laser", { space: { battlemech: 3, protomech: 1, combatVehicle: 1, supportVehicle: 3, aerospaceFighter: 1, smallCraft: 1, dropShip: 1 } }],
+            [isBallisticList, "autocannon-light-5", { space: { battlemech: 2, protomech: -1, combatVehicle: 1, supportVehicle: 2, aerospaceFighter: 1, smallCraft: 1, dropShip: 1 } }],
+            [isBallisticList, "machine-gun-heavy", { space: { battlemech: 1, protomech: -1, combatVehicle: 1, supportVehicle: 1, aerospaceFighter: 1, smallCraft: 1, dropShip: 1 } }],
+            [isBallisticList, "is-machine-gun-array", { space: { battlemech: 1, protomech: -1, combatVehicle: 1, supportVehicle: 1, aerospaceFighter: 1, smallCraft: 1, dropShip: 0 } }],
+            [isMissileList, "mrm-10", { space: { battlemech: 2, protomech: -1, combatVehicle: 1, supportVehicle: 2, aerospaceFighter: 1, smallCraft: 1, dropShip: 1 } }],
+            [isMissileList, "mrm-20", { space: { battlemech: 3, protomech: -1, combatVehicle: 1, supportVehicle: 3, aerospaceFighter: 1, smallCraft: 1, dropShip: 1 } }],
+            [isMissileList, "mrm-30", { space: { battlemech: 5, protomech: -1, combatVehicle: 1, supportVehicle: 5, aerospaceFighter: 1, smallCraft: 1, dropShip: 1 } }],
+            [isMissileList, "mrm-40", { space: { battlemech: 7, protomech: -1, combatVehicle: 1, supportVehicle: 7, aerospaceFighter: 1, smallCraft: 1, dropShip: 1 } }],
+            [isMissileList, "rocket-launcher-15", { space: { battlemech: 2, protomech: -1, combatVehicle: 1, supportVehicle: 2, aerospaceFighter: 1, smallCraft: 1, dropShip: 1 } }],
+            [isMissileList, "rocket-launcher-20", { space: { battlemech: 3, protomech: -1, combatVehicle: 1, supportVehicle: 3, aerospaceFighter: 1, smallCraft: 1, dropShip: 1 } }],
+            [isMissileList, "mml-3", { space: { battlemech: 2, protomech: -1, combatVehicle: 1, supportVehicle: 2, aerospaceFighter: 1, smallCraft: 1, dropShip: 1 } }],
+            [isMissileList, "mml-5", { space: { battlemech: 3, protomech: -1, combatVehicle: 1, supportVehicle: 3, aerospaceFighter: 1, smallCraft: 1, dropShip: 1 } }],
+            [isMissileList, "mml-7", { space: { battlemech: 4, protomech: -1, combatVehicle: 1, supportVehicle: 4, aerospaceFighter: 1, smallCraft: 1, dropShip: 1 } }],
+            [isMissileList, "mml-9", { space: { battlemech: 5, protomech: -1, combatVehicle: 1, supportVehicle: 5, aerospaceFighter: 1, smallCraft: 1, dropShip: 1 } }],
+            [isMissileList, "mml-3-artemis-iv", { space: { battlemech: 3, protomech: -1, combatVehicle: 1, supportVehicle: 3, aerospaceFighter: 1, smallCraft: 1, dropShip: 1 } }],
+            [isMissileList, "mml-5-artemis-iv", { space: { battlemech: 4, protomech: -1, combatVehicle: 1, supportVehicle: 4, aerospaceFighter: 1, smallCraft: 1, dropShip: 1 } }],
+            [isMissileList, "mml-7-artemis-iv", { space: { battlemech: 5, protomech: -1, combatVehicle: 1, supportVehicle: 5, aerospaceFighter: 1, smallCraft: 1, dropShip: 1 } }],
+            [isMissileList, "mml-9-artemis-iv", { space: { battlemech: 6, protomech: -1, combatVehicle: 1, supportVehicle: 6, aerospaceFighter: 1, smallCraft: 1, dropShip: 1 } }],
+            // NGCFells's ECM precedent (2026-11-19) applied to active probes: TM p.204 "Unit Restrictions: None", AT2R p.25 and TO (2008) Bloodhound "Available To: ... DS" allow them; the TM p.342 table prints NA.
+            [isMiscList, "beagle-active-probe", { space: { battlemech: 2, protomech: -1, combatVehicle: 1, supportVehicle: 2, aerospaceFighter: 1, smallCraft: 1, dropShip: 1 } }],
+            // NGCFells's ruling (2026-11-19): DropShips may mount ECM, as TM p.213 says ("Unit Restrictions: None") and AT2R p.25; the p.342 table prints NA.
+            [isMiscList, "ecm-suite", { space: { battlemech: 2, protomech: -1, combatVehicle: 1, supportVehicle: 2, aerospaceFighter: 1, smallCraft: 1, dropShip: 1 } }],
+            [isMiscList, "masc", { space: { battlemech: 1, protomech: -1, combatVehicle: -1, supportVehicle: -1, aerospaceFighter: -1, smallCraft: -1, dropShip: -1 } }],
+            [isMiscList, "targeting-computer", { space: { battlemech: 1, protomech: -1, combatVehicle: 1, supportVehicle: 1, aerospaceFighter: 0, smallCraft: -1, dropShip: -1 } }],
+            [isMiscList, "c3-computer-master", { space: { battlemech: 5, protomech: -1, combatVehicle: 1, supportVehicle: 1, aerospaceFighter: -1, smallCraft: -1, dropShip: -1 } }],
+            [isMiscList, "c3-computer-slave", { space: { battlemech: 1, protomech: -1, combatVehicle: 1, supportVehicle: 1, aerospaceFighter: -1, smallCraft: -1, dropShip: -1 } }],
+            [isMiscList, "c3i-computer", { space: { battlemech: 2, protomech: -1, combatVehicle: 1, supportVehicle: 1, aerospaceFighter: -1, smallCraft: -1, dropShip: -1 } }],
+            [clanBallisticList, "clan-autocannon-lbx-5", { space: { battlemech: 4, protomech: 1, combatVehicle: 1, supportVehicle: 4, aerospaceFighter: 1, smallCraft: 1, dropShip: 1 } }],
+            [clanBallisticList, "clan-machine-gun-array", { space: { battlemech: 1, protomech: 1, combatVehicle: 1, supportVehicle: 1, aerospaceFighter: 1, smallCraft: 1, dropShip: 0 } }],
+            [clanBallisticList, "hyper-assault-gauss-20", { space: { battlemech: 6, protomech: 1, combatVehicle: 1, supportVehicle: 6, aerospaceFighter: 1, smallCraft: 1, dropShip: 1 } }],
+            [clanBallisticList, "hyper-assault-gauss-30", { space: { battlemech: 8, protomech: -1, combatVehicle: 1, supportVehicle: 8, aerospaceFighter: 1, smallCraft: 1, dropShip: 1 } }],
+            [clanBallisticList, "hyper-assault-gauss-40", { space: { battlemech: 10, protomech: -1, combatVehicle: 1, supportVehicle: 10, aerospaceFighter: 1, smallCraft: 1, dropShip: 1 } }],
+            [universalEquipment, "vehicle-flamer", { space: { battlemech: 1, protomech: 1, combatVehicle: 1, supportVehicle: 1, aerospaceFighter: 1, smallCraft: 1, dropShip: 1 } }],
+            [clanEnergyList, "medium-heavy-laser", { space: { battlemech: 2, protomech: 1, combatVehicle: 1, supportVehicle: 2, aerospaceFighter: 1, smallCraft: 1, dropShip: 1 } }],
+            [clanEnergyList, "large-heavy-laser", { space: { battlemech: 3, protomech: 1, combatVehicle: 1, supportVehicle: 3, aerospaceFighter: 1, smallCraft: 1, dropShip: 1 } }],
             // The table's ProtoMech column reads NA, but the ProtoMech Ammunition Weight Table lists the plasma cannon
             // (TM p.88) and the Boggart mounts one (Wars of Reaving): entered as mountable, with MegaMek.
-            [mechClanEquipmentEnergy, "plasma-cannon", { space: { battlemech: 1, protomech: 1, combatVehicle: 1, supportVehicle: 1, aerospaceFighter: 1, smallCraft: 1, dropShip: 1 } }],
-            [mechClanEquipmentMissile, "atm-3", { space: { battlemech: 2, protomech: -1, combatVehicle: 1, supportVehicle: 2, aerospaceFighter: 1, smallCraft: 1, dropShip: 1 } }],
-            [mechClanEquipmentMissile, "atm-6", { space: { battlemech: 3, protomech: -1, combatVehicle: 1, supportVehicle: 3, aerospaceFighter: 1, smallCraft: 1, dropShip: 1 } }],
-            [mechClanEquipmentMissile, "atm-9", { space: { battlemech: 4, protomech: -1, combatVehicle: 1, supportVehicle: 4, aerospaceFighter: 1, smallCraft: 1, dropShip: 1 } }],
-            [mechClanEquipmentMissile, "atm-12", { space: { battlemech: 5, protomech: -1, combatVehicle: 1, supportVehicle: 5, aerospaceFighter: 1, smallCraft: 1, dropShip: 1 } }],
-            [mechClanEquipmentMissile, "clan-lrm-10", { space: { battlemech: 1, protomech: 1, combatVehicle: 1, supportVehicle: 1, aerospaceFighter: 1, smallCraft: 1, dropShip: 1 } }],
-            [mechClanEquipmentMissile, "clan-lrm-15", { space: { battlemech: 2, protomech: 1, combatVehicle: 1, supportVehicle: 2, aerospaceFighter: 1, smallCraft: 1, dropShip: 1 } }],
-            [mechClanEquipmentMissile, "clan-lrm-20", { space: { battlemech: 4, protomech: 1, combatVehicle: 1, supportVehicle: 4, aerospaceFighter: 1, smallCraft: 1, dropShip: 1 } }],
-            [mechClanEquipmentMissile, "clan-srm-6", { space: { battlemech: 1, protomech: 1, combatVehicle: 1, supportVehicle: 1, aerospaceFighter: 1, smallCraft: 1, dropShip: 1 } }],
-            [mechClanEquipmentMissile, "clan-streak-srm-6", { space: { battlemech: 2, protomech: 1, combatVehicle: 1, supportVehicle: 2, aerospaceFighter: 1, smallCraft: 1, dropShip: 1 } }],
-            [mechClanEquipmentMisc, "clan-active-probe", { space: { battlemech: 1, protomech: 1, combatVehicle: 1, supportVehicle: 1, aerospaceFighter: 1, smallCraft: 1, dropShip: -1 } }],
-            [mechClanEquipmentMisc, "clan-light-active-probe", { space: { battlemech: 1, protomech: 1, combatVehicle: 1, supportVehicle: 1, aerospaceFighter: 1, smallCraft: 1, dropShip: 0 } }],
-            [mechClanEquipmentMisc, "clan-ecm-system", { space: { battlemech: 1, protomech: 1, combatVehicle: 1, supportVehicle: 1, aerospaceFighter: 1, smallCraft: 1, dropShip: -1 } }],
-            [mechClanEquipmentMisc, "clan-masc", { space: { battlemech: 1, protomech: -1, combatVehicle: -1, supportVehicle: -1, aerospaceFighter: -1, smallCraft: -1, dropShip: -1 } }],
-            [mechClanEquipmentMisc, "clan-targeting-computer", { space: { battlemech: 1, protomech: -1, combatVehicle: 1, supportVehicle: 1, aerospaceFighter: 0, smallCraft: -1, dropShip: -1 } }],
+            [clanEnergyList, "plasma-cannon", { space: { battlemech: 1, protomech: 1, combatVehicle: 1, supportVehicle: 1, aerospaceFighter: 1, smallCraft: 1, dropShip: 1 } }],
+            [clanMissileList, "atm-3", { space: { battlemech: 2, protomech: -1, combatVehicle: 1, supportVehicle: 2, aerospaceFighter: 1, smallCraft: 1, dropShip: 1 } }],
+            [clanMissileList, "atm-6", { space: { battlemech: 3, protomech: -1, combatVehicle: 1, supportVehicle: 3, aerospaceFighter: 1, smallCraft: 1, dropShip: 1 } }],
+            [clanMissileList, "atm-9", { space: { battlemech: 4, protomech: -1, combatVehicle: 1, supportVehicle: 4, aerospaceFighter: 1, smallCraft: 1, dropShip: 1 } }],
+            [clanMissileList, "atm-12", { space: { battlemech: 5, protomech: -1, combatVehicle: 1, supportVehicle: 5, aerospaceFighter: 1, smallCraft: 1, dropShip: 1 } }],
+            [clanMissileList, "clan-lrm-10", { space: { battlemech: 1, protomech: 1, combatVehicle: 1, supportVehicle: 1, aerospaceFighter: 1, smallCraft: 1, dropShip: 1 } }],
+            [clanMissileList, "clan-lrm-15", { space: { battlemech: 2, protomech: 1, combatVehicle: 1, supportVehicle: 2, aerospaceFighter: 1, smallCraft: 1, dropShip: 1 } }],
+            [clanMissileList, "clan-lrm-20", { space: { battlemech: 4, protomech: 1, combatVehicle: 1, supportVehicle: 4, aerospaceFighter: 1, smallCraft: 1, dropShip: 1 } }],
+            [clanMissileList, "clan-srm-6", { space: { battlemech: 1, protomech: 1, combatVehicle: 1, supportVehicle: 1, aerospaceFighter: 1, smallCraft: 1, dropShip: 1 } }],
+            [clanMissileList, "clan-streak-srm-6", { space: { battlemech: 2, protomech: 1, combatVehicle: 1, supportVehicle: 2, aerospaceFighter: 1, smallCraft: 1, dropShip: 1 } }],
+            [clanMiscList, "clan-active-probe", { space: { battlemech: 1, protomech: 1, combatVehicle: 1, supportVehicle: 1, aerospaceFighter: 1, smallCraft: 1, dropShip: 1 } }],
+            [clanMiscList, "clan-light-active-probe", { space: { battlemech: 1, protomech: 1, combatVehicle: 1, supportVehicle: 1, aerospaceFighter: 1, smallCraft: 1, dropShip: 1 } }],
+            [clanMiscList, "clan-ecm-system", { space: { battlemech: 1, protomech: 1, combatVehicle: 1, supportVehicle: 1, aerospaceFighter: 1, smallCraft: 1, dropShip: 1 } }],
+            [clanMiscList, "clan-masc", { space: { battlemech: 1, protomech: -1, combatVehicle: -1, supportVehicle: -1, aerospaceFighter: -1, smallCraft: -1, dropShip: -1 } }],
+            [clanMiscList, "clan-targeting-computer", { space: { battlemech: 1, protomech: -1, combatVehicle: 1, supportVehicle: 1, aerospaceFighter: 0, smallCraft: -1, dropShip: -1 } }],
         ];
         for (const [catalog, tag, fields] of expected) {
-            const item = catalog.find(entry => entry.tag === tag);
+            const item = catalog.find(entry => entry.tag === tag) ?? seenBy("is", [...equipmentMisc, ...equipmentEnergy, ...equipmentArtillery, ...ammoCatalog], tag);
             expect(item, tag).toBeDefined();
             expect(item, tag).toMatchObject(fields);
         }
@@ -4995,49 +5350,50 @@ describe("Batch 28 unit slot columns of the Weapons and Equipment Tables (TM pp.
 describe("Batch 29 unit slot columns of the TO:AUE construction tables (pp.217-223)", () => {
     it("gives advanced weapons and equipment their ProtoMech, vehicle and aerospace slot counts", () => {
         const expected: [{ tag: string }[], string, Record<string, unknown>][] = [
-            [mechISEquipmentMisc, "bloodhound-active-probe", { space: { battlemech: 3, protomech: -1, combatVehicle: 1, supportVehicle: 3, aerospaceFighter: 1, smallCraft: 1, dropShip: 0 } }],
-            [mechISEquipmentMisc, "angel-ecm", { space: { battlemech: 2, protomech: -1, combatVehicle: 1, supportVehicle: 2, aerospaceFighter: 1, smallCraft: 1, dropShip: 0 } }],
-            [mechISEquipmentMisc, "modular-armor", { space: { battlemech: 1, protomech: -1, combatVehicle: 1, supportVehicle: 1, aerospaceFighter: 2, smallCraft: -1, dropShip: -1 } }],
-            [mechISEquipmentMisc, "c3-boosted-master", { space: { battlemech: 6, protomech: -1, combatVehicle: 1, supportVehicle: 6, aerospaceFighter: -1, smallCraft: -1, dropShip: -1 } }],
-            [mechISEquipmentMisc, "case-ii", { space: { battlemech: 1, protomech: -1, combatVehicle: -1, supportVehicle: -1, aerospaceFighter: 0, smallCraft: -1, dropShip: -1 } }],
-            [mechISEquipmentMisc, "null-signature-system", { space: { battlemech: 7, protomech: -1, combatVehicle: -1, supportVehicle: -1, aerospaceFighter: -1, smallCraft: -1, dropShip: -1 } }],
-            [mechISEquipmentMisc, "void-signature-system", { space: { battlemech: 7, protomech: -1, combatVehicle: -1, supportVehicle: -1, aerospaceFighter: -1, smallCraft: -1, dropShip: -1 } }],
-            [mechClanEquipmentMisc, "clan-watchdog-cews", { space: { battlemech: 2, protomech: 1, combatVehicle: 1, supportVehicle: 2, aerospaceFighter: 1, smallCraft: 1, dropShip: 0 } }],
-            [mechClanEquipmentMisc, "clan-angel-ecm", { space: { battlemech: 2, protomech: 1, combatVehicle: 1, supportVehicle: 2, aerospaceFighter: 1, smallCraft: 1, dropShip: 0 } }],
-            [mechClanEquipmentMisc, "clan-modular-armor", { space: { battlemech: 1, protomech: -1, combatVehicle: 1, supportVehicle: 1, aerospaceFighter: 2, smallCraft: -1, dropShip: -1 } }],
-            [mechClanEquipmentMisc, "clan-case-ii", { space: { battlemech: 1, protomech: -1, combatVehicle: -1, supportVehicle: -1, aerospaceFighter: 0, smallCraft: -1, dropShip: -1 } }],
-            [mechUniversalEquipment, "thumper-artillery", { space: { battlemech: 15, protomech: -1, combatVehicle: 1, supportVehicle: 7, aerospaceFighter: 1, smallCraft: 1, dropShip: 1 } }],
-            [mechUniversalEquipment, "long-tom-artillery", { space: { battlemech: 30, protomech: -1, combatVehicle: 1, supportVehicle: 15, aerospaceFighter: -1, smallCraft: 1, dropShip: 1 } }],
-            [mechUniversalEquipment, "fluid-gun", { space: { battlemech: 2, protomech: -1, combatVehicle: 1, supportVehicle: 1, aerospaceFighter: 1, smallCraft: 1, dropShip: 1 } }],
-            [mechClanEquipmentBallistic, "clan-autocannon-rac-5", { space: { battlemech: 8, protomech: -1, combatVehicle: 1, supportVehicle: 8, aerospaceFighter: 1, smallCraft: 1, dropShip: 1 } }],
-            [mechISEquipmentEnergy, "heavy-flamer", { space: { battlemech: 1, protomech: -1, combatVehicle: 1, supportVehicle: 1, aerospaceFighter: -1, smallCraft: -1, dropShip: -1 } }],
-            [mechISEquipmentEnergy, "is-laser-ams", { space: { battlemech: 2, protomech: -1, combatVehicle: 1, supportVehicle: 2, aerospaceFighter: 1, smallCraft: 1, dropShip: 1 } }],
-            [mechClanEquipmentEnergy, "clan-heavy-flamer", { space: { battlemech: 1, protomech: 1, combatVehicle: 1, supportVehicle: 1, aerospaceFighter: -1, smallCraft: -1, dropShip: -1 } }],
-            [mechClanEquipmentEnergy, "clan-improved-heavy-medium-laser", { space: { battlemech: 2, protomech: 1, combatVehicle: 1, supportVehicle: 2, aerospaceFighter: 1, smallCraft: 1, dropShip: 1 } }],
-            [mechClanEquipmentEnergy, "clan-improved-heavy-large-laser", { space: { battlemech: 3, protomech: 1, combatVehicle: 1, supportVehicle: 3, aerospaceFighter: 1, smallCraft: 1, dropShip: 1 } }],
-            [mechISEquipmentMissiles, "mech-mortar-1", { space: { battlemech: 1, protomech: -1, combatVehicle: 1, supportVehicle: 1, aerospaceFighter: -1, smallCraft: -1, dropShip: -1 } }],
-            [mechISEquipmentMissiles, "mech-mortar-2", { space: { battlemech: 2, protomech: -1, combatVehicle: 1, supportVehicle: 2, aerospaceFighter: -1, smallCraft: -1, dropShip: -1 } }],
-            [mechISEquipmentMissiles, "mech-mortar-4", { space: { battlemech: 3, protomech: -1, combatVehicle: 1, supportVehicle: 3, aerospaceFighter: -1, smallCraft: -1, dropShip: -1 } }],
-            [mechISEquipmentMissiles, "mech-mortar-8", { space: { battlemech: 5, protomech: -1, combatVehicle: 1, supportVehicle: 5, aerospaceFighter: -1, smallCraft: -1, dropShip: -1 } }],
-            [mechISEquipmentMissiles, "enhanced-lrm-10", { space: { battlemech: 4, protomech: -1, combatVehicle: 1, supportVehicle: 4, aerospaceFighter: 1, smallCraft: 1, dropShip: 1 } }],
-            [mechISEquipmentMissiles, "enhanced-lrm-15", { space: { battlemech: 6, protomech: -1, combatVehicle: 1, supportVehicle: 6, aerospaceFighter: 1, smallCraft: 1, dropShip: 1 } }],
-            [mechISEquipmentMissiles, "enhanced-lrm-20", { space: { battlemech: 9, protomech: -1, combatVehicle: 1, supportVehicle: 9, aerospaceFighter: 1, smallCraft: 1, dropShip: 1 } }],
-            [mechISEquipmentMissiles, "extended-lrm-10", { space: { battlemech: 4, protomech: -1, combatVehicle: 1, supportVehicle: 4, aerospaceFighter: 1, smallCraft: 1, dropShip: 1 } }],
-            [mechISEquipmentMissiles, "extended-lrm-15", { space: { battlemech: 6, protomech: -1, combatVehicle: 1, supportVehicle: 6, aerospaceFighter: 1, smallCraft: 1, dropShip: 1 } }],
-            [mechISEquipmentMissiles, "extended-lrm-20", { space: { battlemech: 8, protomech: -1, combatVehicle: 1, supportVehicle: 8, aerospaceFighter: 1, smallCraft: 1, dropShip: 1 } }],
-            [mechClanEquipmentMissile, "clan-mech-mortar-1", { space: { battlemech: 1, protomech: -1, combatVehicle: 1, supportVehicle: 1, aerospaceFighter: -1, smallCraft: -1, dropShip: -1 } }],
-            [mechClanEquipmentMissile, "clan-mech-mortar-2", { space: { battlemech: 1, protomech: -1, combatVehicle: 1, supportVehicle: 1, aerospaceFighter: -1, smallCraft: -1, dropShip: -1 } }],
-            [mechClanEquipmentMissile, "clan-mech-mortar-4", { space: { battlemech: 2, protomech: -1, combatVehicle: 1, supportVehicle: 2, aerospaceFighter: -1, smallCraft: -1, dropShip: -1 } }],
-            [mechClanEquipmentMissile, "clan-mech-mortar-8", { space: { battlemech: 3, protomech: -1, combatVehicle: 1, supportVehicle: 3, aerospaceFighter: -1, smallCraft: -1, dropShip: -1 } }],
-            [mechClanEquipmentMissile, "streak-lrm-10", { space: { battlemech: 2, protomech: 1, combatVehicle: 1, supportVehicle: 2, aerospaceFighter: 1, smallCraft: 1, dropShip: 1 } }],
-            [mechClanEquipmentMissile, "streak-lrm-15", { space: { battlemech: 3, protomech: 1, combatVehicle: 1, supportVehicle: 3, aerospaceFighter: 1, smallCraft: 1, dropShip: 1 } }],
-            [mechClanEquipmentMissile, "streak-lrm-20", { space: { battlemech: 5, protomech: 1, combatVehicle: 1, supportVehicle: 5, aerospaceFighter: 1, smallCraft: 1, dropShip: 1 } }],
-            [mechISEquipmentBallistic, "light-rifle", { space: { battlemech: 1, protomech: -1, combatVehicle: 1, supportVehicle: 1, aerospaceFighter: 1, smallCraft: 1, dropShip: 1 } }],
-            [mechISEquipmentBallistic, "medium-rifle", { space: { battlemech: 2, protomech: -1, combatVehicle: 1, supportVehicle: 2, aerospaceFighter: 1, smallCraft: 1, dropShip: 1 } }],
-            [mechISEquipmentBallistic, "heavy-rifle", { space: { battlemech: 3, protomech: -1, combatVehicle: 1, supportVehicle: 3, aerospaceFighter: 1, smallCraft: 1, dropShip: 1 } }],
+            [isMiscList, "bloodhound-active-probe", { space: { battlemech: 3, protomech: -1, combatVehicle: 1, supportVehicle: 3, aerospaceFighter: 1, smallCraft: 1, dropShip: 1 } }],
+            // A merged IS/Clan twin takes the Clan ProtoMech column (catalog consolidation §2): ProtoMechs are Clan units.
+            [isMiscList, "angel-ecm", { space: { battlemech: 2, protomech: 1, combatVehicle: 1, supportVehicle: 2, aerospaceFighter: 1, smallCraft: 1, dropShip: 0 } }],
+            [isMiscList, "modular-armor", { space: { battlemech: 1, protomech: -1, combatVehicle: 1, supportVehicle: 1, aerospaceFighter: 2, smallCraft: -1, dropShip: -1 } }],
+            [isMiscList, "c3-boosted-master", { space: { battlemech: 6, protomech: -1, combatVehicle: 1, supportVehicle: 6, aerospaceFighter: -1, smallCraft: -1, dropShip: -1 } }],
+            [isMiscList, "case-ii", { space: { battlemech: 1, protomech: -1, combatVehicle: -1, supportVehicle: -1, aerospaceFighter: 0, smallCraft: -1, dropShip: -1 } }],
+            [isMiscList, "null-signature-system", { space: { battlemech: 7, protomech: -1, combatVehicle: -1, supportVehicle: -1, aerospaceFighter: -1, smallCraft: -1, dropShip: -1 } }],
+            [isMiscList, "void-signature-system", { space: { battlemech: 7, protomech: -1, combatVehicle: -1, supportVehicle: -1, aerospaceFighter: -1, smallCraft: -1, dropShip: -1 } }],
+            [clanMiscList, "clan-watchdog-cews", { space: { battlemech: 2, protomech: 1, combatVehicle: 1, supportVehicle: 2, aerospaceFighter: 1, smallCraft: 1, dropShip: 0 } }],
+            [clanMiscList, "clan-angel-ecm", { space: { battlemech: 2, protomech: 1, combatVehicle: 1, supportVehicle: 2, aerospaceFighter: 1, smallCraft: 1, dropShip: 0 } }],
+            [clanMiscList, "clan-modular-armor", { space: { battlemech: 1, protomech: -1, combatVehicle: 1, supportVehicle: 1, aerospaceFighter: 2, smallCraft: -1, dropShip: -1 } }],
+            [clanMiscList, "clan-case-ii", { space: { battlemech: 1, protomech: -1, combatVehicle: -1, supportVehicle: -1, aerospaceFighter: 0, smallCraft: -1, dropShip: -1 } }],
+            [universalEquipment, "thumper-artillery", { space: { battlemech: 15, protomech: -1, combatVehicle: 1, supportVehicle: 7, aerospaceFighter: 1, smallCraft: 1, dropShip: 1 } }],
+            [universalEquipment, "long-tom-artillery", { space: { battlemech: 30, protomech: -1, combatVehicle: 1, supportVehicle: 15, aerospaceFighter: -1, smallCraft: 1, dropShip: 1 } }],
+            [universalEquipment, "fluid-gun", { space: { battlemech: 2, protomech: -1, combatVehicle: 1, supportVehicle: 1, aerospaceFighter: 1, smallCraft: 1, dropShip: 1 } }],
+            [clanBallisticList, "clan-autocannon-rac-5", { space: { battlemech: 8, protomech: -1, combatVehicle: 1, supportVehicle: 8, aerospaceFighter: 1, smallCraft: 1, dropShip: 1 } }],
+            [isEnergyList, "heavy-flamer", { space: { battlemech: 1, protomech: 1, combatVehicle: 1, supportVehicle: 1, aerospaceFighter: -1, smallCraft: -1, dropShip: -1 } }],
+            [isEnergyList, "is-laser-ams", { space: { battlemech: 2, protomech: -1, combatVehicle: 1, supportVehicle: 2, aerospaceFighter: 1, smallCraft: 1, dropShip: 1 } }],
+            [clanEnergyList, "clan-heavy-flamer", { space: { battlemech: 1, protomech: 1, combatVehicle: 1, supportVehicle: 1, aerospaceFighter: -1, smallCraft: -1, dropShip: -1 } }],
+            [clanEnergyList, "clan-improved-heavy-medium-laser", { space: { battlemech: 2, protomech: 1, combatVehicle: 1, supportVehicle: 2, aerospaceFighter: 1, smallCraft: 1, dropShip: 1 } }],
+            [clanEnergyList, "clan-improved-heavy-large-laser", { space: { battlemech: 3, protomech: 1, combatVehicle: 1, supportVehicle: 3, aerospaceFighter: 1, smallCraft: 1, dropShip: 1 } }],
+            [isMissileList, "mech-mortar-1", { space: { battlemech: 1, protomech: -1, combatVehicle: 1, supportVehicle: 1, aerospaceFighter: -1, smallCraft: -1, dropShip: -1 } }],
+            [isMissileList, "mech-mortar-2", { space: { battlemech: 2, protomech: -1, combatVehicle: 1, supportVehicle: 2, aerospaceFighter: -1, smallCraft: -1, dropShip: -1 } }],
+            [isMissileList, "mech-mortar-4", { space: { battlemech: 3, protomech: -1, combatVehicle: 1, supportVehicle: 3, aerospaceFighter: -1, smallCraft: -1, dropShip: -1 } }],
+            [isMissileList, "mech-mortar-8", { space: { battlemech: 5, protomech: -1, combatVehicle: 1, supportVehicle: 5, aerospaceFighter: -1, smallCraft: -1, dropShip: -1 } }],
+            [isMissileList, "enhanced-lrm-10", { space: { battlemech: 4, protomech: -1, combatVehicle: 1, supportVehicle: 4, aerospaceFighter: 1, smallCraft: 1, dropShip: 1 } }],
+            [isMissileList, "enhanced-lrm-15", { space: { battlemech: 6, protomech: -1, combatVehicle: 1, supportVehicle: 6, aerospaceFighter: 1, smallCraft: 1, dropShip: 1 } }],
+            [isMissileList, "enhanced-lrm-20", { space: { battlemech: 9, protomech: -1, combatVehicle: 1, supportVehicle: 9, aerospaceFighter: 1, smallCraft: 1, dropShip: 1 } }],
+            [isMissileList, "extended-lrm-10", { space: { battlemech: 4, protomech: -1, combatVehicle: 1, supportVehicle: 4, aerospaceFighter: 1, smallCraft: 1, dropShip: 1 } }],
+            [isMissileList, "extended-lrm-15", { space: { battlemech: 6, protomech: -1, combatVehicle: 1, supportVehicle: 6, aerospaceFighter: 1, smallCraft: 1, dropShip: 1 } }],
+            [isMissileList, "extended-lrm-20", { space: { battlemech: 8, protomech: -1, combatVehicle: 1, supportVehicle: 8, aerospaceFighter: 1, smallCraft: 1, dropShip: 1 } }],
+            [clanMissileList, "clan-mech-mortar-1", { space: { battlemech: 1, protomech: -1, combatVehicle: 1, supportVehicle: 1, aerospaceFighter: -1, smallCraft: -1, dropShip: -1 } }],
+            [clanMissileList, "clan-mech-mortar-2", { space: { battlemech: 1, protomech: -1, combatVehicle: 1, supportVehicle: 1, aerospaceFighter: -1, smallCraft: -1, dropShip: -1 } }],
+            [clanMissileList, "clan-mech-mortar-4", { space: { battlemech: 2, protomech: -1, combatVehicle: 1, supportVehicle: 2, aerospaceFighter: -1, smallCraft: -1, dropShip: -1 } }],
+            [clanMissileList, "clan-mech-mortar-8", { space: { battlemech: 3, protomech: -1, combatVehicle: 1, supportVehicle: 3, aerospaceFighter: -1, smallCraft: -1, dropShip: -1 } }],
+            [clanMissileList, "streak-lrm-10", { space: { battlemech: 2, protomech: 1, combatVehicle: 1, supportVehicle: 2, aerospaceFighter: 1, smallCraft: 1, dropShip: 1 } }],
+            [clanMissileList, "streak-lrm-15", { space: { battlemech: 3, protomech: 1, combatVehicle: 1, supportVehicle: 3, aerospaceFighter: 1, smallCraft: 1, dropShip: 1 } }],
+            [clanMissileList, "streak-lrm-20", { space: { battlemech: 5, protomech: 1, combatVehicle: 1, supportVehicle: 5, aerospaceFighter: 1, smallCraft: 1, dropShip: 1 } }],
+            [isBallisticList, "light-rifle", { space: { battlemech: 1, protomech: -1, combatVehicle: 1, supportVehicle: 1, aerospaceFighter: 1, smallCraft: 1, dropShip: 1 } }],
+            [isBallisticList, "medium-rifle", { space: { battlemech: 2, protomech: -1, combatVehicle: 1, supportVehicle: 2, aerospaceFighter: 1, smallCraft: 1, dropShip: 1 } }],
+            [isBallisticList, "heavy-rifle", { space: { battlemech: 3, protomech: -1, combatVehicle: 1, supportVehicle: 3, aerospaceFighter: 1, smallCraft: 1, dropShip: 1 } }],
         ];
         for (const [catalog, tag, fields] of expected) {
-            const item = catalog.find(entry => entry.tag === tag);
+            const item = catalog.find(entry => entry.tag === tag) ?? seenBy("is", [...equipmentMisc, ...equipmentEnergy, ...equipmentArtillery, ...ammoCatalog], tag);
             expect(item, tag).toBeDefined();
             expect(item, tag).toMatchObject(fields);
         }
@@ -5046,11 +5402,7 @@ describe("Batch 29 unit slot columns of the TO:AUE construction tables (pp.217-2
 
 describe("Batch 29 Long Tom artillery on 'Mechs (TO:AUE p.217, IO:AE p.157)", () => {
     const build = (tonnage: number) => {
-        const mech = new BattleMech();
-        mech.setTech("is");
-        mech.setEra("dark-ages");
-        mech.setTonnage(tonnage);
-        mech.setWalkSpeed(2);
+        const mech = buildMech({ tonnage, walk: 2 });
         return mech;
     };
     const offered = (mech: BattleMech, tag: string) => mech.getAvailableEquipment(false, 4).find(item => item.tag === tag)?.available;
@@ -5078,11 +5430,7 @@ describe("Batch 30 Superheavy ammunition shares critical slots (IO:AE p.157)", (
         hd: "head", ct: "centerTorso", lt: "leftTorso", rt: "rightTorso", la: "leftArm", ra: "rightArm", ll: "leftLeg", rl: "rightLeg",
     };
     const build = (tonnage: number) => {
-        const mech = new BattleMech();
-        mech.setTech("is");
-        mech.setEra("dark-ages");
-        mech.setTonnage(tonnage);
-        mech.setWalkSpeed(2);
+        const mech = buildMech({ tonnage, walk: 2 });
         return mech;
     };
     const add = (mech: BattleMech, tag: string) =>
@@ -5158,7 +5506,7 @@ describe("Batch 30 Superheavy ammunition shares critical slots (IO:AE p.157)", (
         // Gauss ammunition does not explode; autocannon ammunition does.
         move(mech, add(mech, "ammo-is-lb-10x-standard"), "ct", slot);
         move(mech, add(mech, "ammo-is-lb-10x-standard"), "ct", slot);
-        expect(mech.getBVCalcHTML().split("<br />").filter(line => /^Explosive Ammo Crit in /.test(line))).toHaveLength(1);
+        expect(bvSteps(mech, "bv2.def.explosive.ammo", "bv2.def.explosive.lam-store")).toHaveLength(1);
     });
 
     it("fits the SHP-4X Omega as the book allocates it", () => {
@@ -5213,7 +5561,7 @@ describe("Batch 30 Superheavy ammunition shares critical slots (IO:AE p.157)", (
 });
 
 describe("Batch 31 Vehicular Grenade Launcher and Recon Camera (TO:AUE pp.127, 150)", () => {
-    const record = (tag: string) => mechUniversalEquipment.find(item => item.tag === tag);
+    const record = (tag: string) => universalEquipment.find(item => item.tag === tag);
 
     it("lists the Vehicular Grenade Launcher with its table values (pp.195, 218, 219)", () => {
         expect(record("vehicular-grenade-launcher")).toMatchObject({
@@ -5244,16 +5592,11 @@ describe("Batch 31 Vehicular Grenade Launcher and Recon Camera (TO:AUE pp.127, 1
     });
 
     it("counts the launcher as an offensive weapon worth 15, at a quarter of its heat", () => {
-        const mech = new BattleMech();
-        mech.setTech("is");
-        mech.setEra("clan-inv");
-        mech.setTonnage(50);
-        mech.setWalkSpeed(4);
+        const mech = buildMech({ era: "clan-inv" });
         const before = mech.getBattleValue();
         mech.addEquipmentFromTag("vehicular-grenade-launcher", "is", "", false, undefined, "", false, [], undefined, undefined);
-        const log = mech.getBVCalcHTML();
-        expect(/<strong>Total Weapon BV:<\/strong> ([\d.]+)/.exec(log)?.[1]).toBe("15.00");
-        expect(log).toContain("Total Weapon Heat Breakdown:</strong> 0.25 = 0.25");
+        expect(bvRound2(bvLast(mech, "bv2.off.weapons.total").value)).toBe(15);
+        expect(bvLast(mech, "bv2.off.heat.weapons")).toMatchObject({ detail: "0.25", value: 0.25 });
         expect(mech.getBattleValue()).toBeGreaterThan(before);
     });
 });
@@ -5261,29 +5604,29 @@ describe("Batch 31 Vehicular Grenade Launcher and Recon Camera (TO:AUE pp.127, 1
 describe("Batch 32 physical weapon to-hit modifiers (TW p.146, TO:AUE p.216)", () => {
     it("stores each physical weapon's to-hit modifier and the Pile Driver's damage of 9", () => {
         const expected: [{ tag: string }[], string, Record<string, unknown>][] = [
-            [mechISEquipmentBallistic, "melee-hatchet", { accuracyModifier: -1 }],
-            [mechISEquipmentBallistic, "melee-sword", { accuracyModifier: -2 }],
-            [mechISEquipmentMisc, "melee-retractable-blade", { accuracyModifier: -2 }],
-            [mechISEquipmentMisc, "melee-mace", { accuracyModifier: 1 }],
-            [mechISEquipmentMisc, "melee-claw", { accuracyModifier: 1 }],
-            [mechISEquipmentMisc, "melee-lance", { accuracyModifier: 1 }],
-            [mechISEquipmentMisc, "melee-vibroblade-small", { accuracyModifier: -2 }],
-            [mechISEquipmentMisc, "melee-vibroblade-medium", { accuracyModifier: -2 }],
-            [mechISEquipmentMisc, "melee-vibroblade-large", { accuracyModifier: -2 }],
-            [mechISEquipmentMisc, "melee-chain-whip", { accuracyModifier: -2 }],
-            [mechISEquipmentMisc, "shield-small", { accuracyModifier: -2 }],
-            [mechISEquipmentMisc, "shield-medium", { accuracyModifier: -3 }],
-            [mechISEquipmentMisc, "shield-large", { accuracyModifier: -4 }],
-            [mechClanEquipmentMisc, "clan-melee-claw", { accuracyModifier: 1 }],
-            [mechUniversalEquipment, "backhoe", { accuracyModifier: 1 }],
-            [mechUniversalEquipment, "combine", { accuracyModifier: -2 }],
-            [mechUniversalEquipment, "pile-driver", { accuracyModifier: 2, damage: 9 }],
-            [mechUniversalEquipment, "mining-drill", { accuracyModifier: -1 }],
-            [mechUniversalEquipment, "rock-cutter", { accuracyModifier: 1 }],
-            [mechUniversalEquipment, "wrecking-ball", { accuracyModifier: 1 }],
+            [isBallisticList, "melee-hatchet", { accuracyModifier: -1 }],
+            [isBallisticList, "melee-sword", { accuracyModifier: -2 }],
+            [isMiscList, "melee-retractable-blade", { accuracyModifier: -2 }],
+            [isMiscList, "melee-mace", { accuracyModifier: 1 }],
+            [isMiscList, "melee-claw", { accuracyModifier: 1 }],
+            [isMiscList, "melee-lance", { accuracyModifier: 1 }],
+            [isMiscList, "melee-vibroblade-small", { accuracyModifier: -2 }],
+            [isMiscList, "melee-vibroblade-medium", { accuracyModifier: -2 }],
+            [isMiscList, "melee-vibroblade-large", { accuracyModifier: -2 }],
+            [isMiscList, "melee-chain-whip", { accuracyModifier: -2 }],
+            [isMiscList, "shield-small", { accuracyModifier: -2 }],
+            [isMiscList, "shield-medium", { accuracyModifier: -3 }],
+            [isMiscList, "shield-large", { accuracyModifier: -4 }],
+            [clanMiscList, "clan-melee-claw", { accuracyModifier: 1 }],
+            [universalEquipment, "backhoe", { accuracyModifier: 1 }],
+            [universalEquipment, "combine", { accuracyModifier: -2 }],
+            [universalEquipment, "pile-driver", { accuracyModifier: 2, damage: 9 }],
+            [universalEquipment, "mining-drill", { accuracyModifier: -1 }],
+            [universalEquipment, "rock-cutter", { accuracyModifier: 1 }],
+            [universalEquipment, "wrecking-ball", { accuracyModifier: 1 }],
         ];
         for (const [catalog, tag, fields] of expected) {
-            const item = catalog.find(entry => entry.tag === tag);
+            const item = catalog.find(entry => entry.tag === tag) ?? seenBy("is", [...equipmentMisc, ...equipmentEnergy, ...equipmentArtillery, ...ammoCatalog], tag);
             expect(item, tag).toBeDefined();
             expect(item, tag).toMatchObject(fields);
         }
@@ -5303,8 +5646,8 @@ describe("Batch 34 Primitive Prototype Long Tom and torpedo launchers (IO:AE p.1
             "primitive-prototype-srt-6": ["primitive-prototype-srm-6", "ammo-srt-standard"],
         };
         for (const [tag, [missileTag, ammo]] of Object.entries(pairs)) {
-            const torpedo = mechISEquipmentMissiles.find(item => item.tag === tag);
-            const missile = mechISEquipmentMissiles.find(item => item.tag === missileTag)!;
+            const torpedo = isMissileList.find(item => item.tag === tag);
+            const missile = isMissileList.find(item => item.tag === missileTag)!;
             expect(torpedo, tag).toMatchObject({
                 prototype: 2370, introduced: null, extinct: 2380, reintroduced: null, techRating: "c", book: "IO:AE", page: 112, ammoTypes: [ammo],
                 weight: missile.weight, cbills: missile.cbills, heat: missile.heat, range: missile.range, space: missile.space,
@@ -5316,8 +5659,8 @@ describe("Batch 34 Primitive Prototype Long Tom and torpedo launchers (IO:AE p.1
     });
 
     it("lists the Primitive Prototype Long Tom: the Long Tom with four shots a ton and the BV of p.189", () => {
-        const longTom = mechUniversalEquipment.find(item => item.tag === "long-tom-artillery")!;
-        expect(mechISEquipmentArtillery.find(item => item.tag === "primitive-prototype-long-tom")).toMatchObject({
+        const longTom = universalEquipment.find(item => item.tag === "long-tom-artillery")!;
+        expect(isArtilleryList.find(item => item.tag === "primitive-prototype-long-tom")).toMatchObject({
             name: "Primitive Prototype Long Tom", prototype: 2445, introduced: null, extinct: 2500, reintroduced: null,
             battleValue: 368, ammoBattleValue: 35, shotsPerTon: 4, techRating: "c", book: "IO:AE", page: 112,
             weight: longTom.weight, cbills: longTom.cbills, heat: longTom.heat, range: longTom.range, space: longTom.space,
@@ -5332,8 +5675,8 @@ describe("Batch 34 Primitive Prototype Long Tom and torpedo launchers (IO:AE p.1
 
 describe("Batch 34 Clan ER PPC with PPC Capacitor (IO:AE pp.40, 190, 197)", () => {
     it("adds a ton, a slot and 150,000 C-bills to the Clan ER PPC, from 3101", () => {
-        const erPPC = mechClanEquipmentEnergy.find(item => item.tag === "er-ppc-clan")!;
-        expect(mechClanEquipmentEnergy.find(item => item.tag === "clan-er-ppc-capacitor")).toMatchObject({
+        const erPPC = clanEnergyList.find(item => item.tag === "er-ppc-clan")!;
+        expect(clanEnergyList.find(item => item.tag === "clan-er-ppc-capacitor")).toMatchObject({
             name: "ER PPC w/ Capacitor (Clan)", weight: erPPC.weight + 1, cbills: erPPC.cbills + 150000,
             space: { battlemech: 3, protomech: -1, combatVehicle: 1, supportVehicle: 3, aerospaceFighter: 1, smallCraft: 1, dropShip: 1 },
             heat: erPPC.heat, range: erPPC.range, damage: erPPC.damage, explosive: true,
@@ -5342,7 +5685,7 @@ describe("Batch 34 Clan ER PPC with PPC Capacitor (IO:AE pp.40, 190, 197)", () =
             battleValue: 548,
         });
         // It was a Custom record while no source was known; the tag is unchanged, so saved designs load.
-        expect(mechCustomEquipmentEnergy.some(item => item.tag === "clan-er-ppc-capacitor")).toBe(false);
+        expect(energyCustom.some(item => item.tag === "clan-er-ppc-capacitor")).toBe(false);
     });
 
     it("is offered to Clan designs only once the Clans have the capacitor", () => {
@@ -5368,7 +5711,7 @@ describe("Batch 35 TSEMP weapons and RISC Viral Jammers (IO:AE pp.84, 88, 190, 2
                 space: { battlemech: 7, protomech: 1, combatVehicle: 1, supportVehicle: 7, aerospaceFighter: 1, smallCraft: 1, dropShip: -1 } },
         };
         for (const [tag, fields] of Object.entries(expected)) {
-            expect(mechISEquipmentEnergy.find(item => item.tag === tag), tag).toMatchObject({
+            expect(isEnergyList.find(item => item.tag === tag), tag).toMatchObject({
                 ...fields, heat: 10, range: { min: 0, short: 5, medium: 10, long: 15 }, explosive: true, book: "IO:AE", reintroduced: null,
             });
         }
@@ -5380,7 +5723,7 @@ describe("Batch 35 TSEMP weapons and RISC Viral Jammers (IO:AE pp.84, 88, 190, 2
             "risc-viral-jammer-homing": ["RISC Viral Jammer (Homing Beacon)", 3137],
         };
         for (const [tag, [name, prototype]] of Object.entries(expected)) {
-            expect(mechISEquipmentMisc.find(item => item.tag === tag), tag).toMatchObject({
+            expect(isMiscList.find(item => item.tag === tag), tag).toMatchObject({
                 name, prototype, introduced: null, extinct: 3142, reintroduced: null, cbills: 990000, weight: 2.5, heat: 12,
                 battleValue: 284, battleValueDefensive: true, maxPerUnit: 1, techRating: "f", book: "IO:AE", page: 88,
                 space: { battlemech: 1, protomech: 1, combatVehicle: 1, supportVehicle: 1, aerospaceFighter: -1, smallCraft: -1, dropShip: -1 },
@@ -5389,25 +5732,30 @@ describe("Batch 35 TSEMP weapons and RISC Viral Jammers (IO:AE pp.84, 88, 190, 2
     });
 
     it("marks the RISC Hyper Laser explosive (IO:AE p.87)", () => {
-        expect(mechISEquipmentEnergy.find(item => item.tag === "risc-hyper-laser")).toMatchObject({ explosive: true, battleValue: 596 });
+        expect(isEnergyList.find(item => item.tag === "risc-hyper-laser")).toMatchObject({ explosive: true, battleValue: 596 });
     });
 
     it("counts a TSEMP Cannon like a Gauss weapon for the defensive rating: one point a slot", () => {
-        const mech = new BattleMech();
-        mech.setTech("is");
-        mech.setEra("dark-ages");
-        mech.setTonnage(75);
-        mech.setWalkSpeed(4);
+        const mech = buildMech({ tonnage: 75 });
         const item = mech.addEquipmentFromTag("tsemp-cannon", "is", "", false, undefined, "", false, [], undefined, undefined)!;
         const from = mech.unallocatedCriticals.findIndex(critical => critical?.uuid === item.uuid);
         expect(mech.moveCritical("un", from, "ra", mech.getCriticals().rightArm.findIndex(critical => !critical))).toBe(true);
-        expect(mech.getBVCalcHTML()).toContain("Explosive Component Crit (TSEMP Cannon) in rightArm (Inner Sphere, -5)");
+        expect(bvSteps(mech, "bv2.def.explosive.component").filter(step => step.label === "Explosive component: TSEMP Cannon in rightArm (Inner Sphere)" && step.value === -5)).toHaveLength(1);
+    });
+
+    it("counts a RISC Emergency Coolant System like a Gauss weapon for the defensive rating: one point a slot (IO:AE p.190)", () => {
+        // A critical hit on it is a 5-point explosion (IO:AE p.86); the Battle Value table marks the row.
+        const mech = buildMech({ tonnage: 75 });
+        const item = mech.addEquipmentFromTag("risc-emergency-coolant-system", "is", "", false, undefined, "", false, [], undefined, undefined)!;
+        const from = mech.unallocatedCriticals.findIndex(critical => critical?.uuid === item.uuid);
+        expect(mech.moveCritical("un", from, "lt", mech.getCriticals().leftTorso.findIndex(critical => !critical))).toBe(true);
+        expect(bvSteps(mech, "bv2.def.explosive.component").filter(step => step.label === "Explosive component: RISC Emergency Coolant System in leftTorso (Inner Sphere)" && step.value === -1)).toHaveLength(1);
     });
 });
 
 describe("Batch 36 BattleMech Taser (TO:AUE pp.157-158)", () => {
     it("lists the weapon with the table values (pp.195, 222, 223)", () => {
-        expect(mechISEquipmentBallistic.find(item => item.tag === "mech-taser")).toMatchObject({
+        expect(isBallisticList.find(item => item.tag === "mech-taser")).toMatchObject({
             name: "BattleMech Taser", cbills: 200000, weight: 4, heat: 6, damage: 1, accuracyModifier: 1,
             range: { min: 0, short: 1, medium: 2, long: 4 },
             space: { battlemech: 3, protomech: -1, combatVehicle: 1, supportVehicle: 3, aerospaceFighter: -1, smallCraft: -1, dropShip: -1 },
@@ -5417,34 +5765,25 @@ describe("Batch 36 BattleMech Taser (TO:AUE pp.157-158)", () => {
     });
 
     it("lists its ammunition: five shots a ton, 2,000 C-bills, explosive", () => {
-        expect(mechISAmmo.find(item => item.tag === "ammo-is-mech-taser-standard")).toMatchObject({
+        expect(isAmmoList.find(item => item.tag === "ammo-is-mech-taser-standard")).toMatchObject({
             name: "BattleMech Taser - Standard Ammo (IS)", isSpecialAmmo: false, cbills: 2000, roundsPerTon: 5, battleValue: 5, explosive: true,
             prototype: 3065, introduced: 3084, extinct: null, reintroduced: null, techRating: "e", book: "TO:AUE", page: 158,
         });
     });
 
     it("feeds the weapon and counts both in Battle Value", () => {
-        const mech = new BattleMech();
-        mech.setTech("is");
-        mech.setEra("dark-ages");
-        mech.setTonnage(75);
-        mech.setWalkSpeed(4);
+        const mech = buildMech({ tonnage: 75 });
         const add = (tag: string) => mech.addEquipmentFromTag(tag, "is", "", false, undefined, "", false, [], undefined, undefined);
         expect(add("mech-taser")).not.toBeNull();
         expect(add("ammo-is-mech-taser-standard")).not.toBeNull();
-        const log = mech.getBVCalcHTML();
-        expect(/<strong>Total Weapon BV:<\/strong> ([\d.]+)/.exec(log)?.[1]).toBe("40.00");
-        expect(/<strong>Total Capped Ammo BV:<\/strong> ([\d.]+)/.exec(log)?.[1]).toBe("5.00");
+        expect(bvRound2(bvLast(mech, "bv2.off.weapons.total").value)).toBe(40);
+        expect(bvRound2(bvLast(mech, "bv2.off.ammo.total").value)).toBe(5);
     });
 });
 
 describe("Batch 37 engine requirements and the one-jammer limit (IO:AE pp.85, 88; TO:AUE p.158)", () => {
     const build = (engine: string) => {
-        const mech = new BattleMech();
-        mech.setTech("is");
-        mech.setEra("dark-ages");
-        mech.setTonnage(50);
-        mech.setWalkSpeed(3);
+        const mech = buildMech({ walk: 3 });
         mech.setEngineType(engine);
         expect(mech.getEngineType().tag).toBe(engine);
         return mech;
@@ -5502,31 +5841,24 @@ describe("Batch 37 engine requirements and the one-jammer limit (IO:AE pp.85, 88
 describe("Batch 38 Coolant Pod (TO:AUE pp.116, 193)", () => {
     const space = { battlemech: 1, protomech: -1, combatVehicle: -1, supportVehicle: -1, aerospaceFighter: 1, smallCraft: -1, dropShip: -1 };
 
-    it("lists an Inner Sphere and a Clan record with the table values and IO:AE dates", () => {
-        expect(mechISEquipmentMisc.find(item => item.tag === "coolant-pod")).toMatchObject({
-            name: "Coolant Pod", cbills: 50000, weight: 1, space, battleValue: 0, explosive: true,
+    it("lists one record with the table values and the IO:AE dates of each tech base", () => {
+        expect(seenBy("is", equipmentMisc, "coolant-pod")).toMatchObject({
+            name: "Coolant Pod", techBase: "universal", cbills: 50000, weight: 1, space, battleValue: 0, explosive: true,
             prototype: 3049, introduced: 3079, extinct: null, reintroduced: null, techRating: "d", book: "TO:AUE", page: 116,
         });
-        const clan = mechClanEquipmentMisc.find(item => item.tag === "clan-coolant-pod");
-        expect(clan).toMatchObject({
-            name: "Coolant Pod (Clan)", cbills: 50000, weight: 1, space, battleValue: 0, explosive: true,
-            introduced: 3079, extinct: null, reintroduced: null, techRating: "d", book: "TO:AUE", page: 116,
-        });
+        const clan = seenBy("clan", equipmentMisc, "clan-coolant-pod");
+        expect(clan).toMatchObject({ tag: "coolant-pod", introduced: 3079, extinct: null, reintroduced: null });
         expect(clan?.prototype).toBeUndefined();
     });
 
     // Heat Efficiency from the Battle Value log.
     const efficiency = (pods: number, additionalHeatSinks = 0) => {
-        const mech = new BattleMech();
-        mech.setTech("is");
-        mech.setEra("dark-ages");
-        mech.setTonnage(75);
-        mech.setWalkSpeed(4);
+        const mech = buildMech({ tonnage: 75 });
         mech.setAdditionalHeatSinks(additionalHeatSinks);
         for (let pod = 0; pod < pods; pod++) {
             mech.addEquipmentFromTag("coolant-pod", "is", "", false, undefined, "", false, [], undefined, undefined);
         }
-        return Number(/<strong>Heat Efficiency Capacity Pool:<\/strong> (-?[\d.]+)/.exec(mech.getBVCalcHTML())?.[1]);
+        return bvLast(mech, "bv2.off.heat.efficiency").value!;
     };
 
     it("adds heat sinks x pods / 5, rounded up, to the heat sink capacity for Battle Value", () => {
@@ -5542,32 +5874,24 @@ describe("Batch 38 Coolant Pod (TO:AUE pp.116, 193)", () => {
     });
 
     it("takes one point off the defensive rating for each unprotected pod slot", () => {
-        const mech = new BattleMech();
-        mech.setTech("is");
-        mech.setEra("dark-ages");
-        mech.setTonnage(75);
-        mech.setWalkSpeed(4);
+        const mech = buildMech({ tonnage: 75 });
         const pod = mech.addEquipmentFromTag("coolant-pod", "is", "", false, undefined, "", false, [], undefined, undefined)!;
         const from = mech.unallocatedCriticals.findIndex(critical => critical?.uuid === pod.uuid);
         expect(mech.moveCritical("un", from, "ct", mech.getCriticals().centerTorso.findIndex(critical => !critical))).toBe(true);
-        expect(mech.getBVCalcHTML()).toContain("Explosive Component Crit (Coolant Pod) in centerTorso (Inner Sphere, -1)");
+        expect(bvSteps(mech, "bv2.def.explosive.component").filter(step => step.label === "Explosive component: Coolant Pod in centerTorso (Inner Sphere)" && step.value === -1)).toHaveLength(1);
     });
 });
 
 describe("Batch 39 RISC Heat Sink Override Kit (IO:AE pp.86, 190, 215)", () => {
     const build = () => {
-        const mech = new BattleMech();
-        mech.setTech("is");
-        mech.setEra("dark-ages");
-        mech.setTonnage(75);
-        mech.setWalkSpeed(4);
+        const mech = buildMech({ tonnage: 75 });
         mech.addEquipmentFromTag("standard-ppc", "is", "", false, undefined, "", false, [], undefined, undefined);
         return mech;
     };
     const addKit = (mech: BattleMech) => mech.addEquipmentFromTag("risc-heat-sink-override-kit", "is", "", false, undefined, "", false, [], undefined, undefined);
 
     it("lists the kit: 500 C-bills, no weight, no slots, 'Mechs only", () => {
-        expect(mechISEquipmentMisc.find(item => item.tag === "risc-heat-sink-override-kit")).toMatchObject({
+        expect(isMiscList.find(item => item.tag === "risc-heat-sink-override-kit")).toMatchObject({
             name: "RISC Heat Sink Override Kit", cbills: 500, weight: 0, battleValue: 0, battleValueFinalMultiplier: 1.01,
             space: { battlemech: 0, protomech: -1, combatVehicle: -1, supportVehicle: -1, aerospaceFighter: -1, smallCraft: -1, dropShip: -1 },
             prototype: 3134, introduced: null, extinct: 3139, reintroduced: null, techRating: "d", book: "IO:AE", page: 86,
@@ -5584,7 +5908,7 @@ describe("Batch 39 RISC Heat Sink Override Kit (IO:AE pp.86, 190, 215)", () => {
 
     it("multiplies the final Battle Value by 1.01, once", () => {
         const plain = build();
-        const unrounded = Number(/Rounded from ([\d.]+)/.exec(plain.getBVCalcHTML())?.[1]);
+        const unrounded = bvUnrounded(plain);
         const one = build();
         addKit(one);
         expect(one.getBattleValue()).toBe(Math.round(unrounded * 1.01));
@@ -5598,11 +5922,7 @@ describe("Batch 39 RISC Heat Sink Override Kit (IO:AE pp.86, 190, 215)", () => {
 
 describe("Batch 40 Prototype Improved Jump Jets (IO:AE p.97)", () => {
     const build = (tech = "is", era = "succession-wars") => {
-        const mech = new BattleMech();
-        mech.setTech(tech);
-        mech.setEra(era);
-        mech.setTonnage(55);
-        mech.setWalkSpeed(5);
+        const mech = buildMech({ tech, era, tonnage: 55, walk: 5 });
         return mech;
     };
     const offered = (mech: BattleMech, rulesLevel: number) =>
@@ -5658,9 +5978,9 @@ describe("Batch 41 cockpit selection and IndustrialMech fire control (TM pp.69, 
     const add = (mech: BattleMech, tag: string) => mech.addEquipmentFromTag(tag, "is", "", false, undefined, "", false, [], undefined, undefined);
 
     it("offers the cockpits the chassis may mount", () => {
-        expect(choices(build())).toEqual(["standard", "small"]);
+        expect(choices(build())).toEqual(["standard", "small", "torso-mounted", "interface"]);
         // The Small Cockpit is a 3060 prototype, in production from 3067 (Inner Sphere).
-        expect(choices(build({ era: "late-sw-rn" }))).toEqual(["standard", "small (no)"]);
+        expect(choices(build({ era: "late-sw-rn" }))).toEqual(["standard", "small (no)", "torso-mounted (no)", "interface (no)"]);
         expect(choices(build({ structure: "industrial" }))).toEqual(["industrial", "industrial-advanced-fire-control"]);
         expect(choices(build({ type: "tripod" }))).toEqual(["tripod"]);
         expect(choices(build({ type: "quadvee", tech: "clan" }))).toEqual(["quadvee"]);
@@ -5670,7 +5990,7 @@ describe("Batch 41 cockpit selection and IndustrialMech fire control (TM pp.69, 
     it("switches between the Standard and Small cockpits", () => {
         const mech = build();
         expect(mech.getCockpitType().tag).toBe("standard");
-        const standard = Number(/Rounded from ([\d.]+)/.exec(mech.getBVCalcHTML())?.[1]);
+        const standard = bvUnrounded(mech);
         expect(mech.setCockpitType("small").tag).toBe("small");
         expect(mech.getCockpitWeight()).toBe(2);
         expect(mech.getBattleValue()).toBe(Math.round(standard * 0.95));
@@ -5679,6 +5999,61 @@ describe("Batch 41 cockpit selection and IndustrialMech fire control (TM pp.69, 
         // A cockpit the chassis cannot mount is refused.
         expect(mech.setCockpitType("tripod").tag).toBe("standard");
         expect(mech.setCockpitType("industrial").tag).toBe("standard");
+    });
+
+    it("mounts the interface cockpit, and only it may go without a gyro (IO:AE p.110)", () => {
+        const mech = build();
+        const noGyro = () => mech.getAvailableGyros(4).find(gyro => gyro.tag === "none")?.available;
+        expect(noGyro()).toBe(false);
+        const standard = bvUnrounded(mech);
+        expect(mech.setCockpitType("interface")).toMatchObject({ tag: "interface", weight: 4, cost: 1500000 });
+        expect(mech.getBattleValue()).toBe(Math.round(standard * 1.3));
+        expect(mech.canMountCommandConsole()).toBe(false);
+        expect(noGyro()).toBe(true);
+        mech.setGyroType("none");
+        expect(mech.getGyroWeight()).toBe(0);
+        expect(mech.getChassisEquipmentViolations()).toEqual([]);
+        // Saved and loaded again.
+        const copy = new BattleMech();
+        copy.importJSON(mech.exportJSON());
+        expect([copy.getCockpitType().tag, copy.getGyro().tag]).toEqual(["interface", "none"]);
+        expect(mech.setCockpitType("standard").tag).toBe("standard");
+        expect(mech.getChassisEquipmentViolations()).toContain("Only a 'Mech with an interface cockpit may be built without a gyro.");
+    });
+
+    // IO:AE pp.134-135 (weight, Skills), p.187 (BV x0.85), p.215 (cost). JFR pp.142-143, 147 printed it first (quads
+    // only, BV x0.95); IO, the newer book in the same edition, supersedes it.
+    it("fits a Smart Robotic Control System on top of the cockpit", () => {
+        const mech = build();
+        const systems = () => mech.getAvailableRoboticControls(3).map(system => system.tag);
+        expect(systems()).toEqual(["none", "srcs", "srcs-improved"]);
+        expect(mech.getAvailableRoboticControls(2).map(system => system.tag)).toEqual(["none"]);
+        const standard = bvUnrounded(mech);
+        const tons = mech.getCurrentTonnage();
+        expect(mech.setRoboticControl("srcs").tag).toBe("srcs");
+        // 5 percent of 50 tons, on top of the 3-ton cockpit; the 'Mech fights at Gunnery 5, Piloting 9.
+        expect(mech.getRoboticControlWeight()).toBe(2.5);
+        expect(mech.getCockpitWeight()).toBe(3);
+        expect(mech.getCurrentTonnage()).toBe(tons + 2.5);
+        expect(mech.getRoboticSkills()).toEqual({ gunnery: 5, piloting: 9 });
+        expect(mech.getBattleValue()).toBe(Math.round(standard * 0.85));
+        expect(mech.getRequiredRulesLevel()).toBeGreaterThanOrEqual(3);
+        expect(mech.getCBillCalcHTML()).toContain("30,000");
+        // The Improved grade: another 2 percent, and 1 better at each Skill.
+        mech.setRoboticControl("srcs-improved");
+        expect(mech.getRoboticControlWeight()).toBe(3.5);
+        expect(mech.getRoboticSkills()).toEqual({ gunnery: 4, piloting: 8 });
+        // Saved and loaded again.
+        const copy = new BattleMech();
+        copy.importJSON(mech.exportJSON());
+        expect(copy.getRoboticControl().tag).toBe("srcs-improved");
+        // An IndustrialMech has no Improved grade, and worse Skills.
+        const industrial = build({ structure: "industrial" });
+        expect(industrial.getAvailableRoboticControls(3).map(system => system.tag)).toEqual(["none", "srcs"]);
+        industrial.setRoboticControl("srcs-improved");
+        expect(industrial.getRoboticControl().tag).toBe("none");
+        industrial.setRoboticControl("srcs");
+        expect(industrial.getRoboticSkills()).toEqual({ gunnery: 7, piloting: 9 });
     });
 
     it("gives an IndustrialMech its own cockpit, with Advanced Fire Control as the 200,000 C-bill option", () => {
@@ -5696,14 +6071,14 @@ describe("Batch 41 cockpit selection and IndustrialMech fire control (TM pp.69, 
     });
 
     it("multiplies the Offensive Battle Rating by 0.9 without Advanced Fire Control", () => {
-        const offensive = (mech: BattleMech) => Number(/<strong>Final Offensive Battle Rating:<\/strong> ([\d.]+)/.exec(mech.getBVCalcHTML())?.[1]);
+        const offensive = (mech: BattleMech) => bvRound2(bvLast(mech, "bv2.off.rating", "bv2.off.industrial").value);
         const mech = build({ structure: "industrial" });
         add(mech, "medium-laser");
         const plain = offensive(mech);
-        expect(mech.getBVCalcHTML()).toContain("IndustrialMech without Advanced Fire Control: Offensive Battle Rating x 0.9");
+        expect(bvLast(mech, "bv2.off.industrial").detail).toMatch(/ x 0\.9$/);
         mech.setCockpitType("industrial-advanced-fire-control");
         expect(plain).toBeCloseTo(offensive(mech) * 0.9, 1);
-        expect(mech.getBVCalcHTML()).not.toContain("without Advanced Fire Control");
+        expect(bvSteps(mech, "bv2.off.industrial")).toHaveLength(0);
     });
 
     it("keeps Artemis IV, active probes, C3 and targeting computers off an IndustrialMech without Advanced Fire Control", () => {
@@ -5741,11 +6116,7 @@ describe("Batch 41 cockpit selection and IndustrialMech fire control (TM pp.69, 
 describe("Batch 43 HarJel II and III repair systems (IO:AE pp.82-83, 185, 215)", () => {
     const space = { battlemech: 1, protomech: -1, combatVehicle: -1, supportVehicle: -1, aerospaceFighter: -1, smallCraft: -1, dropShip: -1 };
     const build = (options: { armor?: string, structure?: string } = {}) => {
-        const mech = new BattleMech();
-        mech.setTech("clan");
-        mech.setEra("dark-ages");
-        mech.setTonnage(75);
-        mech.setWalkSpeed(4);
+        const mech = buildMech({ tech: "clan", tonnage: 75 });
         if (options.structure) mech.setInternalStructureType(options.structure);
         if (options.armor) mech.setArmorType(options.armor);
         mech.setArmorWeight(10);
@@ -5756,14 +6127,14 @@ describe("Batch 43 HarJel II and III repair systems (IO:AE pp.82-83, 185, 215)",
     const place = (mech: BattleMech, item: { uuid?: string }, loc: string, key: string) =>
         mech.moveCritical("un", mech.unallocatedCriticals.findIndex(critical => critical?.uuid === item.uuid), loc, (mech.getCriticals() as any)[key].findIndex((critical: unknown) => !critical));
     const offered = (mech: BattleMech, tag: string) => !!mech.getAvailableEquipment(false, 4).find(item => item.tag === tag)?.available;
-    const subtotal = (mech: BattleMech) => Number(/Defensive Subtotal[^:]*: (-?[\d.]+) =/.exec(mech.getBVCalcHTML())?.[1]);
+    const subtotal = (mech: BattleMech) => bvLast(mech, "bv2.def.subtotal").value!;
 
     it("lists both Clan records with the table values and IO:AE dates", () => {
-        expect(mechClanEquipmentMisc.find(item => item.tag === "clan-harjel-ii")).toMatchObject({
+        expect(clanMiscList.find(item => item.tag === "clan-harjel-ii")).toMatchObject({
             name: "HarJel II Self-Repair System", cbills: 240000, weight: 2, space, battleValue: 0, armorRepairBVMultiplier: 1.1,
             prototype: 3120, introduced: 3136, extinct: null, reintroduced: null, techRating: "f", book: "IO:AE", page: 82,
         });
-        expect(mechClanEquipmentMisc.find(item => item.tag === "clan-harjel-iii")).toMatchObject({
+        expect(clanMiscList.find(item => item.tag === "clan-harjel-iii")).toMatchObject({
             name: "HarJel III Self-Repair System", cbills: 360000, weight: 3, space: { ...space, battlemech: 2 }, battleValue: 0, armorRepairBVMultiplier: 1.2,
             prototype: 3137, introduced: 3139, extinct: null, reintroduced: null, techRating: "f", book: "IO:AE", page: 82,
         });
@@ -5819,7 +6190,7 @@ describe("Batch 43 HarJel II and III repair systems (IO:AE pp.82-83, 185, 215)",
         const protectedArmor = armor.leftTorso + armor.leftTorsoRear;
         expect(protectedArmor).toBeGreaterThan(0);
         expect(subtotal(mech)).toBeCloseTo(plain + 2.5 * protectedArmor * 0.1 - 1, 5);
-        expect(mech.getBVCalcHTML()).toContain("HarJel II Self-Repair System in leftTorso: armor x 1.1");
+        expect(bvSteps(mech, "bv2.def.armor.harjel").filter(step => step.label === "HarJel II Self-Repair System in leftTorso" && step.detail?.startsWith("armor x 1.1 on "))).toHaveLength(1);
 
         const three = build();
         const harjelIII = add(three, "clan-harjel-iii");
@@ -5838,8 +6209,8 @@ describe("Batch 43 HarJel II and III repair systems (IO:AE pp.82-83, 185, 215)",
     });
 
     it("is always fixed equipment on an OmniMech", () => {
-        expect(isOmniFixedOnly(mechClanEquipmentMisc.find(item => item.tag === "clan-harjel-ii")!)).toBe(true);
-        expect(isOmniFixedOnly(mechClanEquipmentMisc.find(item => item.tag === "clan-harjel-iii")!)).toBe(true);
+        expect(isOmniFixedOnly(clanMiscList.find(item => item.tag === "clan-harjel-ii")!)).toBe(true);
+        expect(isOmniFixedOnly(clanMiscList.find(item => item.tag === "clan-harjel-iii")!)).toBe(true);
     });
 });
 
@@ -5856,10 +6227,10 @@ describe("Batch 44 RISC Laser Pulse Module (IO:AE pp.87, 190, 215)", () => {
 
     it("lists each Inner Sphere standard and ER laser with the module attached", () => {
         for (const [tag, name, cost, battleValue, heat, weight, slots] of lasers) {
-            const base = mechISEquipmentEnergy.find(item => item.tag === tag)!;
+            const base = isEnergyList.find(item => item.tag === tag)!;
             expect(base, tag).toMatchObject({ cbills: cost, battleValue, heat, weight });
             expect(base.space.battlemech, tag).toBe(slots);
-            const modified = mechISEquipmentEnergy.find(item => item.tag === `${tag}-risc-pulse-module`);
+            const modified = isEnergyList.find(item => item.tag === `${tag}-risc-pulse-module`);
             expect(modified, tag).toMatchObject({
                 name: `${name} w/ RISC Laser Pulse Module`,
                 // +200,000 C-bills, +1 ton, +1 slot; +2 heat and -2 to hit in pulse mode; damage and range unchanged
@@ -5892,24 +6263,20 @@ describe("Batch 44 RISC Laser Pulse Module (IO:AE pp.87, 190, 215)", () => {
 
     it("counts the weapon at x1.15 and one explosive slot in the Battle Value", () => {
         const build = (tag: string) => {
-            const mech = new BattleMech();
-            mech.setTech("is");
-            mech.setEra("dark-ages");
-            mech.setTonnage(50);
-            mech.setWalkSpeed(4);
+            const mech = buildMech();
             const laser = mech.addEquipmentFromTag(tag, "is", "", false, undefined, "", false, [], undefined, undefined)!;
             const from = mech.unallocatedCriticals.findIndex(critical => critical?.uuid === laser.uuid);
             expect(mech.moveCritical("un", from, "la", mech.getCriticals().leftArm.findIndex(critical => !critical))).toBe(true);
             return mech;
         };
-        const weaponBV = (mech: BattleMech) => Number(/<strong>Total Weapon BV:<\/strong> ([\d.]+)/.exec(mech.getBVCalcHTML())?.[1]);
+        const weaponBV = (mech: BattleMech) => bvRound2(bvLast(mech, "bv2.off.weapons.total").value);
         const plain = build("large-laser");
         const modified = build("large-laser-risc-pulse-module");
         expect(weaponBV(modified)).toBeCloseTo(weaponBV(plain) * 1.15, 2);
         // Three slots in the arm, one of them the module.
         expect(modified.getCriticals().leftArm.find(critical => critical?.obj?.tag === "large-laser-risc-pulse-module")?.crits).toBe(3);
-        expect(modified.getBVCalcHTML()).toContain("Explosive Component Crit (Large Laser w/ RISC Laser Pulse Module) in leftArm (Inner Sphere, -1)");
-        expect(plain.getBVCalcHTML()).not.toContain("Explosive Component Crit");
+        expect(bvSteps(modified, "bv2.def.explosive.component").filter(step => step.label === "Explosive component: Large Laser w/ RISC Laser Pulse Module in leftArm (Inner Sphere)" && step.value === -1)).toHaveLength(1);
+        expect(bvSteps(plain, "bv2.def.explosive.component")).toHaveLength(0);
     });
 });
 
@@ -5917,7 +6284,7 @@ describe("Batch 45 MRM Apollo Fire Control System (TO:AUE pp.143, 195, 221)", ()
     const sizes = [10, 20, 30, 40];
 
     it("gives every standard MRM launcher its +1 to-hit modifier (TW p.303)", () => {
-        const launchers = mechISEquipmentMissiles.filter(item => /^mrm-\d+(-i?os)?$/.test(item.tag));
+        const launchers = isMissileList.filter(item => /^mrm-\d+(-i?os)?$/.test(item.tag));
         expect(launchers.length).toBe(12);
         for (const launcher of launchers) {
             expect(launcher.accuracyModifier, launcher.tag).toBe(1);
@@ -5926,8 +6293,8 @@ describe("Batch 45 MRM Apollo Fire Control System (TO:AUE pp.143, 195, 221)", ()
 
     it("lists each MRM launcher with the Apollo attached", () => {
         for (const size of sizes) {
-            const base = mechISEquipmentMissiles.find(item => item.tag === `mrm-${size}`)!;
-            const apollo = mechISEquipmentMissiles.find(item => item.tag === `mrm-${size}-apollo`);
+            const base = isMissileList.find(item => item.tag === `mrm-${size}`)!;
+            const apollo = isMissileList.find(item => item.tag === `mrm-${size}-apollo`);
             expect(apollo, `mrm-${size}`).toMatchObject({
                 name: `MRM ${size} + Apollo FCS`,
                 // +1 ton, +1 slot, +125,000 C-bills; the +1 to-hit modifier is negated
@@ -5942,8 +6309,8 @@ describe("Batch 45 MRM Apollo Fire Control System (TO:AUE pp.143, 195, 221)", ()
     });
 
     it("feeds from ordinary MRM ammunition", () => {
-        const apollo = mechISEquipmentMissiles.find(item => item.tag === "mrm-20-apollo")!;
-        expect(getWeaponAmmoFamilies(apollo)).toEqual(getWeaponAmmoFamilies(mechISEquipmentMissiles.find(item => item.tag === "mrm-20")!));
+        const apollo = isMissileList.find(item => item.tag === "mrm-20-apollo")!;
+        expect(getWeaponAmmoFamilies(apollo)).toEqual(getWeaponAmmoFamilies(isMissileList.find(item => item.tag === "mrm-20")!));
     });
 
     it("must be fitted to every standard MRM launcher on the unit", () => {
@@ -5980,11 +6347,7 @@ describe("Batch 45 MRM Apollo Fire Control System (TO:AUE pp.143, 195, 221)", ()
 
 describe("Batch 46 C3 Remote Sensor Launcher (TO:AUE pp.110, 195, 217)", () => {
     const build = (structure?: string) => {
-        const mech = new BattleMech();
-        mech.setTech("is");
-        mech.setEra("dark-ages");
-        mech.setTonnage(55);
-        mech.setWalkSpeed(5);
+        const mech = buildMech({ tonnage: 55, walk: 5 });
         if (structure) mech.setInternalStructureType(structure);
         return mech;
     };
@@ -5992,7 +6355,7 @@ describe("Batch 46 C3 Remote Sensor Launcher (TO:AUE pp.110, 195, 217)", () => {
     const offered = (mech: BattleMech, tag: string, rulesLevel = 4) => !!mech.getAvailableEquipment(false, rulesLevel).find(item => item.tag === tag)?.available;
 
     it("lists the launcher and its sensor pods", () => {
-        const launcher = mechISEquipmentMissiles.find(item => item.tag === "c3-remote-sensor-launcher");
+        const launcher = isMissileList.find(item => item.tag === "c3-remote-sensor-launcher");
         expect(launcher).toMatchObject({
             name: "C3 Remote Sensor Launcher", cbills: 400000, weight: 4, battleValue: 30, heat: 0, damage: 0,
             range: { min: 0, short: 3, medium: 6, long: 9 },
@@ -6000,7 +6363,7 @@ describe("Batch 46 C3 Remote Sensor Launcher (TO:AUE pp.110, 195, 217)", () => {
             shotsPerTon: 4, ammoBattleValue: 6, ammoTypes: ["ammo-is-c3-remote-sensor-standard"],
             prototype: 3072, introduced: 3093, extinct: null, reintroduced: null, techRating: "e", book: "TO:AUE", page: 110,
         });
-        expect(mechISAmmo.find(item => item.tag === "ammo-is-c3-remote-sensor-standard")).toMatchObject({
+        expect(isAmmoList.find(item => item.tag === "ammo-is-c3-remote-sensor-standard")).toMatchObject({
             name: "C3 Remote Sensors (IS)", isAmmo: true, cbills: 100000, battleValue: 6, weight: 1, roundsPerTon: 4, explosive: true,
             prototype: 3072, introduced: 3093, techRating: "e", book: "TO:AUE", page: 110,
         });
@@ -6048,21 +6411,17 @@ describe("Batch 46 C3 Remote Sensor Launcher (TO:AUE pp.110, 195, 217)", () => {
     it("counts the launcher at 30 and each ton of sensors at 6 in the Battle Value", () => {
         const mech = build();
         add(mech, "c3-remote-sensor-launcher");
-        const weaponBV = (unit: BattleMech) => Number(/<strong>Total Weapon BV:<\/strong> ([\d.]+)/.exec(unit.getBVCalcHTML())?.[1]);
+        const weaponBV = (unit: BattleMech) => bvRound2(bvLast(unit, "bv2.off.weapons.total").value);
         expect(weaponBV(mech)).toBe(30);
         add(mech, "ammo-is-c3-remote-sensor-standard");
-        expect(mech.getBVCalcHTML()).toContain("for C3 Remote Sensor Launcher = 6.00");
+        expect(bvSteps(mech, "bv2.off.ammo").filter(step => step.detail?.startsWith("for C3 Remote Sensor Launcher") && bvRound2(step.value) === 6)).toHaveLength(1);
     });
 });
 
 describe("Batch 47 Collapsible Command Module, Full-Head Ejection System, IndustrialMech Ejection Seat", () => {
     const mechOnly = { protomech: -1, combatVehicle: -1, supportVehicle: -1, aerospaceFighter: -1, smallCraft: -1, dropShip: -1 };
     const build = (options: { tech?: string, era?: string, structure?: string } = {}) => {
-        const mech = new BattleMech();
-        mech.setTech(options.tech ?? "is");
-        mech.setEra(options.era ?? "dark-ages");
-        mech.setTonnage(75);
-        mech.setWalkSpeed(4);
+        const mech = buildMech({ tech: options.tech ?? "is", era: options.era ?? "dark-ages", tonnage: 75 });
         if (options.structure) mech.setInternalStructureType(options.structure);
         return mech;
     };
@@ -6072,7 +6431,7 @@ describe("Batch 47 Collapsible Command Module, Full-Head Ejection System, Indust
     const offered = (mech: BattleMech, tag: string, rulesLevel = 4) => !!mech.getAvailableEquipment(false, rulesLevel).find(item => item.tag === tag)?.available;
 
     it("lists the Collapsible Command Module (TO:AUE pp.113, 219)", () => {
-        expect(mechUniversalEquipment.find(item => item.tag === "collapsible-command-module")).toMatchObject({
+        expect(universalEquipment.find(item => item.tag === "collapsible-command-module")).toMatchObject({
             name: "Collapsible Command Module (CCM)", cbills: 500000, weight: 16, battleValue: 0, space: { battlemech: 12, ...mechOnly },
             prototype: 2700, introduced: 2710, extinct: null, reintroduced: null, techRating: "d", book: "TO:AUE", page: 113,
         });
@@ -6092,17 +6451,17 @@ describe("Batch 47 Collapsible Command Module, Full-Head Ejection System, Indust
             cbills: 1725000, weight: 0, battleValue: 0, space: { battlemech: 0, ...mechOnly }, maxPerUnit: 1, maxPerUnitGroup: "full-head-ejection-system",
             extinct: null, reintroduced: null, techRating: "d", book: "TO:AUE", page: 122,
         };
-        expect(mechISEquipmentMisc.find(item => item.tag === "full-head-ejection-system")).toMatchObject({ name: "Full-Head Ejection System", prototype: 3020, introduced: 3023, ...common });
-        const clan = mechClanEquipmentMisc.find(item => item.tag === "clan-full-head-ejection-system");
-        expect(clan).toMatchObject({ name: "Full-Head Ejection System (Clan)", introduced: 3052, ...common });
+        expect(seenBy("is", equipmentMisc, "full-head-ejection-system")).toMatchObject({ name: "Full-Head Ejection System", prototype: 3020, introduced: 3023, ...common });
+        const clan = seenBy("clan", equipmentMisc, "clan-full-head-ejection-system");
+        expect(clan).toMatchObject({ name: "Full-Head Ejection System", introduced: 3052, ...common });
         expect(clan?.prototype).toBeUndefined();
     });
 
     it("offers the Full-Head Ejection System from 3023 (Inner Sphere) and 3052 (Clan)", () => {
         expect(offered(build({ era: "late-sw-rn" }), "full-head-ejection-system", 3)).toBe(true);
         expect(offered(build({ era: "late-sw-lt" }), "full-head-ejection-system", 4)).toBe(false);
-        expect(offered(build({ tech: "clan", era: "clan-inv" }), "clan-full-head-ejection-system", 3)).toBe(true);
-        expect(offered(build({ tech: "clan", era: "political-century" }), "clan-full-head-ejection-system", 4)).toBe(false);
+        expect(offered(build({ tech: "clan", era: "clan-inv" }), "full-head-ejection-system", 3)).toBe(true);
+        expect(offered(build({ tech: "clan", era: "political-century" }), "full-head-ejection-system", 4)).toBe(false);
     });
 
     it("mounts one Full-Head Ejection System at no tonnage or critical space", () => {
@@ -6117,7 +6476,7 @@ describe("Batch 47 Collapsible Command Module, Full-Head Ejection System, Indust
     });
 
     it("lists the IndustrialMech Ejection Seat (TM pp.69, 213, 292, 344)", () => {
-        expect(mechUniversalEquipment.find(item => item.tag === "industrialmech-ejection-seat")).toMatchObject({
+        expect(universalEquipment.find(item => item.tag === "industrialmech-ejection-seat")).toMatchObject({
             name: "Ejection Seat (IndustrialMech)", cbills: 25000, weight: 0.5, battleValue: 0, space: { battlemech: 1, ...mechOnly },
             industrialMechOnly: true, allowedLocations: ["hd"],
             prototype: 2430, introduced: 2445, extinct: null, reintroduced: null, techRating: "b", book: "TM", page: 213,
@@ -6140,11 +6499,7 @@ describe("Batch 47 Collapsible Command Module, Full-Head Ejection System, Indust
 
 describe("Batch 48 superheavy IndustrialMechs and superheavy engines (IO:AE pp.155-156, 215)", () => {
     const build = (structure?: string) => {
-        const mech = new BattleMech();
-        mech.setTech("is");
-        mech.setEra("dark-ages");
-        mech.setTonnage(150);
-        mech.setWalkSpeed(2);
+        const mech = buildMech({ tonnage: 150, walk: 2 });
         if (structure) mech.setInternalStructureType(structure);
         return mech;
     };
@@ -6162,12 +6517,12 @@ describe("Batch 48 superheavy IndustrialMechs and superheavy engines (IO:AE pp.1
     });
 
     it("lets it take the superheavy BattleMech cockpit for Advanced Fire Control", () => {
-        const offensive = (unit: BattleMech) => Number(/<strong>Final Offensive Battle Rating:<\/strong> ([\d.]+)/.exec(unit.getBVCalcHTML())?.[1]);
+        const offensive = (unit: BattleMech) => bvRound2(bvLast(unit, "bv2.off.rating", "bv2.off.industrial").value);
         const mech = build("industrial");
         mech.addEquipmentFromTag("medium-laser", "is", "", false, undefined, "", false, [], undefined, undefined);
         const plain = offensive(mech);
         const plainCost = mech.getCBillCostNumeric();
-        expect(mech.getBVCalcHTML()).toContain("IndustrialMech without Advanced Fire Control: Offensive Battle Rating x 0.9");
+        expect(bvLast(mech, "bv2.off.industrial").detail).toMatch(/ x 0\.9$/);
         expect(mech.setCockpitType("superheavy")).toMatchObject({ tag: "superheavy", weight: 4, cost: 300000 });
         expect(mech.hasAdvancedFireControl()).toBe(true);
         expect(plain).toBeCloseTo(offensive(mech) * 0.9, 1);
@@ -6213,11 +6568,7 @@ describe("Batch 48 superheavy IndustrialMechs and superheavy engines (IO:AE pp.1
 
 describe("Batch 50 IndustrialMech armor (TM pp.72, 205, 278, 315)", () => {
     const build = (structure?: string, tech = "is") => {
-        const mech = new BattleMech();
-        mech.setTech(tech);
-        mech.setEra("dark-ages");
-        mech.setTonnage(75);
-        mech.setWalkSpeed(4);
+        const mech = buildMech({ tech: tech, tonnage: 75 });
         if (structure) mech.setInternalStructureType(structure);
         return mech;
     };
@@ -6241,22 +6592,27 @@ describe("Batch 50 IndustrialMech armor (TM pp.72, 205, 278, 315)", () => {
         expect(mechArmorTypes.some(armor => armor.tag === "heavy-industrial")).toBe(false);
     });
 
-    it("offers an IndustrialMech Commercial, Industrial and Standard (Heavy Industrial) armor only", () => {
+    it("offers an IndustrialMech Commercial, Industrial and Standard (Heavy Industrial) armor only, below Experimental", () => {
         // Patchwork Armor mixes these by location (TO:AUE p.189).
-        expect(armors(build("industrial")).sort()).toEqual(["commercial", "industrial", "patchwork", "standard"]);
-        expect(armors(build("industrial", "clan")).sort()).toEqual(["commercial", "industrial", "patchwork", "standard"]);
+        const advanced = (mech: BattleMech) => mech.getAvailableArmorTypes(3).filter(armor => armor.available).map(armor => armor.tag);
+        expect(advanced(build("industrial")).sort()).toEqual(["commercial", "industrial", "patchwork", "standard"]);
+        expect(advanced(build("industrial", "clan")).sort()).toEqual(["commercial", "industrial", "patchwork", "standard"]);
+        // "Experimental-rules IndustrialMechs may also make use of all other BattleMech-legal armor types" (TO:AUE p.92).
+        expect(armors(build("industrial"))).toEqual(expect.arrayContaining(["commercial", "industrial", "standard", "ferro-fibrous", "laser-reflective"]));
         const battlemech = armors(build());
         expect(battlemech).toEqual(expect.arrayContaining(["standard", "ferro-fibrous", "light-ferro-fibrous"]));
         expect(battlemech).not.toContain("industrial");
         expect(battlemech).not.toContain("commercial");
     });
 
-    it("refuses a BattleMech the industrial grades and an IndustrialMech ferro-fibrous", () => {
+    it("refuses a BattleMech the industrial grades; an IndustrialMech with ferro-fibrous is Experimental", () => {
         const battlemech = build();
         expect(battlemech.setArmorType("industrial").tag).toBe("standard");
         expect(battlemech.setArmorType("commercial").tag).toBe("standard");
         const industrial = build("industrial");
-        expect(industrial.setArmorType("ferro-fibrous").tag).toBe("standard");
+        expect(industrial.getRequiredRulesLevel()).toBeLessThan(4);
+        expect(industrial.setArmorType("ferro-fibrous").tag).toBe("ferro-fibrous");
+        expect(industrial.getRequiredRulesLevel()).toBe(4);
         expect(industrial.setArmorType("industrial").tag).toBe("industrial");
         expect(industrial.setArmorType("commercial").tag).toBe("commercial");
     });
@@ -6280,10 +6636,12 @@ describe("Batch 50 IndustrialMech armor (TM pp.72, 205, 278, 315)", () => {
         expect(mech.getChassisEquipmentViolations()).toEqual([]);
         mech.setInternalStructureType("standard");
         expect(mech.getChassisEquipmentViolations()).toEqual(["Commercial Armor can only be mounted on an IndustrialMech."]);
-        const other = build();
-        other.setArmorType("ferro-fibrous");
+        // A Dark Age armor needs a mixed tech base on an IndustrialMech (IO:AE p.82).
+        const other = build(undefined, "mis");
+        other.setArmorType("ballistic-reinforced");
+        other.setTech("is");
         other.setInternalStructureType("industrial");
-        expect(other.getChassisEquipmentViolations()).toEqual(["IndustrialMechs may mount only Commercial, Industrial or Standard (Heavy Industrial) armor."]);
+        expect(other.getChassisEquipmentViolations()).toEqual(["IndustrialMechs mount Ballistic-Reinforced Armor only under Experimental Mixed-Tech rules (IO:AE p.82)."]);
     });
 });
 
@@ -6303,11 +6661,7 @@ describe("Batch 54 industrial equipment on 'Mechs (TM pp.344-345)", () => {
     });
 
     it("mounts a 10-ton Cargo Container in one slot", () => {
-        const mech = new BattleMech();
-        mech.setTech("is");
-        mech.setEra("dark-ages");
-        mech.setTonnage(50);
-        mech.setWalkSpeed(4);
+        const mech = buildMech();
         const tons = mech.getRemainingTonnage();
         const slots = mech.getUnallocatedCritCount();
         mech.addEquipmentFromTag("cargo-container", "is", "", false, undefined, "", false, [], undefined, undefined);
@@ -6342,14 +6696,14 @@ describe("Batch 55 placement limits (TM pp.207, 210, 219, 220, 237, 241-249; TO:
 
     it("keeps Heavy Gauss rifles in the torso and on fusion or fission engines", () => {
         for (const tag of ["gauss-rifle-heavy", "gauss-rifle-heavy-improved"]) {
-            expect(mechISEquipmentBallistic.find(item => item.tag === tag), tag).toMatchObject({ allowedLocations: ["ct", "lt", "rt"], requiresEngine: "fusion-or-fission" });
+            expect(isBallisticList.find(item => item.tag === tag), tag).toMatchObject({ allowedLocations: ["ct", "lt", "rt"], requiresEngine: "fusion-or-fission" });
             expect(offered(build(), tag), tag).toBe(true);
             expect(offered(build(undefined, "fission"), tag), tag).toBe(true);
             expect(offered(build(undefined, "ice"), tag), tag).toBe(false);
         }
     });
 
-    it("mounts hatchets, swords and retractable blades in the arms, one hatchet or sword to an arm", () => {
+    it("mounts hatchets, swords and retractable blades in the arms, one physical weapon to an arm", () => {
         const mech = build();
         const first = add(mech, "melee-hatchet");
         const second = add(mech, "melee-hatchet");
@@ -6358,7 +6712,7 @@ describe("Batch 55 placement limits (TM pp.207, 210, 219, 220, 237, 241-249; TO:
         expect(place(mech, second, "la", "leftArm")).toBe(false);
         expect(place(mech, second, "ra", "rightArm")).toBe(true);
         const sword = add(build(), "melee-sword");
-        expect(mechISEquipmentBallistic.find(item => item.tag === "melee-sword")).toMatchObject({ allowedLocations: ["la", "ra"], onePerLocationGroup: "sword" });
+        expect(isBallisticList.find(item => item.tag === "melee-sword")).toMatchObject({ allowedLocations: ["la", "ra"], onePerLocationGroup: "physical-weapon" });
         expect(sword).toBeTruthy();
         const other = build();
         const blade = add(other, "melee-retractable-blade");
@@ -6469,5 +6823,455 @@ describe("Artemis fire control records (TM p.303, TO:AUE pp.95, 197, 217)", () =
         expect(artemis.space.battlemech).toBe(plain.space.battlemech + 2);
         expect(artemis.range.min).toBe(0);
         expect(tagged("clan-lrm-15-artemis-iv").range.min).toBe(0);
+    });
+});
+
+// BV v4.1 pp.3-7 (= TM pp.304-305) worked examples, built from each example's own inputs (plan gap 4).
+describe("Battle Value worked examples (BV v4.1 pp.3-7)", () => {
+    const build = (tonnage: number, walk: number, armorTag: string, armorTons: number, armor: number[], structure: string, engine = "standard", tech = "is") => {
+        const mech = new BattleMech();
+        mech.setTech(tech);
+        mech.setEra("dark-ages");
+        mech.setTonnage(tonnage);
+        mech.setInternalStructureType(structure);
+        mech.setEngineType(engine);
+        mech.setWalkSpeed(walk);
+        mech.setArmorType(armorTag);
+        mech.setArmorWeight(armorTons);
+        // Head, CT, CT rear, LT, LT rear, RT, RT rear, LA, RA, LL, RL.
+        const [hd, ct, ctr, lt, ltr, rt, rtr, la, ra, ll, rl] = armor;
+        mech.setHeadArmor(hd);
+        mech.setCenterTorsoArmor(ct);
+        mech.setCenterTorsoRearArmor(ctr);
+        mech.setLeftTorsoArmor(lt);
+        mech.setLeftTorsoRearArmor(ltr);
+        mech.setRightTorsoArmor(rt);
+        mech.setRightTorsoRearArmor(rtr);
+        mech.setLeftArmArmor(la);
+        mech.setRightArmArmor(ra);
+        mech.setLeftLegArmor(ll);
+        mech.setRightLegArmor(rl);
+        return mech;
+    };
+    const add = (mech: BattleMech, tag: string, tech = "is") => mech.addEquipmentFromTag(tag, tech, "", false, undefined, "", false, [], undefined, undefined)!;
+    const placeIn = (mech: BattleMech, tag: string, location: string, key: string, tech = "is") => {
+        const item = add(mech, tag, tech);
+        const from = mech.unallocatedCriticals.findIndex(critical => critical?.uuid === item.uuid);
+        expect(mech.moveCritical("un", from, location, mech.getCriticals()[key].findIndex(critical => !critical))).toBe(true);
+    };
+
+    it("values the MON-66 Mongoose at 758: Defensive 433.3 + Offensive 325.08", () => {
+        // 89 points of ferro-fibrous armor, 43 of endo steel, a Beagle, 10 single heat sinks, Running MP 12.
+        const mech = build(25, 8, "ferro-fibrous", 5, [9, 12, 4, 9, 3, 9, 3, 8, 8, 12, 12], "endo-steel");
+        for (const tag of ["medium-laser", "medium-laser", "medium-laser", "small-laser", "beagle-active-probe"]) add(mech, tag);
+        expect(mech.getTotalArmor()).toBe(89);
+        expect(mech.getBattleValue()).toBe(758);
+    });
+
+    it("values the TDR-10SE Thunderbolt at 2,008: Defensive 954.85 + Offensive 1,052.98", () => {
+        // 200 points of standard armor, 104 of endo steel, 12 double heat sinks, MASC, Jumping MP 4, a targeting computer.
+        const mech = build(65, 4, "standard", 12.5, [9, 29, 12, 22, 8, 22, 8, 20, 20, 25, 25], "endo-steel");
+        mech.setHeatSinksType("double");
+        mech.setAdditionalHeatSinks(2);
+        mech.setJumpSpeed(4);
+        for (const tag of ["lrm-10", "er-ppc", "er-medium-laser", "er-medium-laser", "er-medium-laser", "ecm-suite", "masc", "targeting-computer"]) add(mech, tag);
+        // The ton of LRM 10 ammunition sits in the left torso without CASE: -15.
+        placeIn(mech, "ammo-lrm-standard", "lt", "leftTorso");
+        expect(mech.getTotalArmor()).toBe(200);
+        expect(mech.getBattleValue()).toBe(2008);
+    });
+
+    it("values the WI-DM DemolitionMech at 380: Defensive 328.2 + Offensive 58 x 0.9", () => {
+        // 85 points of industrial armor, 58 of industrial structure, a fuel cell engine, 1 heat sink, Running MP 5.
+        const mech = build(35, 3, "industrial", 8, [9, 14, 4, 10, 3, 10, 3, 8, 8, 8, 8], "industrial", "cell");
+        mech.setAdditionalHeatSinks(1);
+        for (const tag of ["small-laser", "rock-cutter", "wrecking-ball"]) add(mech, tag);
+        expect(mech.getTotalArmor()).toBe(85);
+        expect(mech.getBattleValue()).toBe(380);
+    });
+
+    it("values the Goshawk at BV1 2,243 (BMR p.145 = BMR(R) p.159): Defensive 602.3875 + Offensive 1,640.72667", () => {
+        // The example's own inputs: 173 points of armor, 91 of structure on a Clan XL engine, 11 double heat sinks [22],
+        // Running MP 9, Jumping MP 6 (TRO 3055 prints 182 points of armor).
+        const mech = build(55, 6, "standard", 11, [9, 24, 8, 18, 6, 18, 6, 18, 18, 24, 24], "standard", "clan_xl", "clan");
+        mech.setHeatSinksType("double");
+        mech.setAdditionalHeatSinks(1);
+        mech.setJumpSpeed(6);
+        for (const tag of ["clan_large-pulse-laser", "clan_medium-pulse-laser", "clan_medium-pulse-laser", "clan_medium-pulse-laser",
+            "clan-machine-gun", "clan-machine-gun", "clan-machine-gun", "clan-machine-gun", "clan-streak-srm-2", "clan-streak-srm-2",
+            "clan-targeting-computer"]) add(mech, tag, "clan");
+        placeIn(mech, "ammo-clan-streak-srm-standard", "lt", "leftTorso", "clan");
+        // Half a ton of machine gun ammunition.
+        const bin = add(mech, "ammo-machine-gun-standard", "clan");
+        bin.weight = 0.5;
+        expect(mech.getTotalArmor()).toBe(173);
+        expect(mech.getHeatSinks()).toBe(11);
+        expect(mech.getBattleValue("master-rules-revised")).toBe(2243);
+        expect(mech.getBattleValue("master-rules")).toBe(2243);
+        // The box set reads BMR(R)'s BV1; under its own edition the cached skill-adjusted BV is the BV1 one.
+        expect(mech.getBattleValue("classic-battletech-box-set")).toBe(2243);
+        mech.setRulesEdition("master-rules-revised");
+        expect(mech.getPilotAdjustedBattleValue()).toBe(2243);
+        expect(mech.calcLogBV).toContain("BMR(R) p.152");
+        // Max Tech p.91, the Goshawk with an EI cockpit: the targeting computer's 598 linked weapons now add 25% (149.5),
+        // base 853, heat 22 of 30: X 625.53, Y 113.73, x 2.3 = 1,700.31; defensive (463.375 - 25) x 1.3 = 569.89.
+        expect(mech.setEnhancedImaging(true)).toBe(true);
+        expect(mech.getBattleValue("master-rules-revised")).toBe(2270);
+        // Piloting reads 1 better for skill: 4/5 reads the 4/4 column, 2,270 x 1.05.
+        expect(mech.getPilotAdjustedBattleValue()).toBe(2384);
+        expect(mech.getPilotAdjustedBattleValue("master-rules-revised", 10)).toBe(Math.round(2280 * 1.05));
+
+        // IO:AE p.184: under TW the interface alone changes no skill; EI implants read Gunnery and Piloting 1 better,
+        // but only in a 'Mech with the interface. A 4/5 implanted pilot reads the 3/4 column.
+        mech.setRulesEdition("total-warfare");
+        const bv2 = mech.getBattleValue("total-warfare");
+        expect(mech.getPilotAdjustedBattleValue()).toBe(bv2);
+        mech.setPilotEIImplants(true);
+        expect(mech.getPilotAdjustedBattleValue()).toBe(Math.round(bv2 * getSkillMultiplier(3, 4, "mech", "total-warfare")!));
+        // Max Tech has no implants: BMR(R) keeps the cockpit read alone.
+        expect(mech.getPilotAdjustedBattleValue("master-rules-revised")).toBe(2384);
+        mech.setEnhancedImaging(false);
+        expect(mech.getPilotAdjustedBattleValue()).toBe(mech.getBattleValue("total-warfare"));
+        // Implants save with the pilot; old saves without the field load without them.
+        const copy = new BattleMech();
+        copy.importJSON(mech.exportJSON());
+        expect(copy.getPilot().eiImplants).toBe(true);
+        expect(new Pilot({ name: "", piloting: 5, gunnery: 4, wounds: 0, alphaStrikeAbilities: [] }).eiImplants).toBe(false);
+    });
+
+    // Maximum Tech's BV1 lists (pp.94 on) follow BMR(R) to the point; loadouts from TRO 3025 / TRO 3060.
+    it("values the Enforcer ENF-4R at BV1 895 (Maximum Tech): one ton of ammo in a side torso without CASE", () => {
+        const mech = build(50, 4, "standard", 9, [9, 23, 4, 17, 3, 17, 3, 14, 14, 20, 20], "standard");
+        mech.setAdditionalHeatSinks(2);
+        mech.setJumpSpeed(4);
+        for (const tag of ["large-laser", "autocannon-standard-c", "small-laser"]) add(mech, tag);
+        placeIn(mech, "ammo-ac-10-standard", "rt", "rightTorso");
+        expect(mech.getBattleValue("master-rules-revised")).toBe(895);
+    });
+
+    it("values the Enforcer III ENF-6M at BV1 1,427 (Maximum Tech p.103): the printed IS Ultra AC/10 253", () => {
+        const mech = build(50, 5, "standard", 10, [9, 24, 7, 19, 5, 19, 5, 16, 16, 20, 20], "endo-steel", "xl");
+        mech.setHeatSinksType("double");
+        mech.setAdditionalHeatSinks(2);
+        mech.setJumpSpeed(5);
+        for (const tag of ["er-large-laser", "autocannon-ultra-c", "er-small-laser"]) add(mech, tag);
+        // Two tons in the right torso: an Inner Sphere XL engine costs -20 a ton anywhere.
+        placeIn(mech, "ammo-is-ultra-ac-10-standard", "rt", "rightTorso");
+        placeIn(mech, "ammo-is-ultra-ac-10-standard", "rt", "rightTorso");
+        expect(mech.getBattleValue("master-rules-revised")).toBe(1427);
+    });
+
+    // Maximum Tech's Level 3 BV1 (pp.90-92) on the Enforcer III above: Defensive 377.25 x 1.3, Offensive 936.71889. The
+    // Each Master Rules edition has its own printing of Maximum Tech, and both print the same Level 3 rules (NGCFells
+    // ruling 2026-11-10; read 2026-11-11), so the 'Mech reads the same under BMR and BMR(R).
+    describe("Maximum Tech Level 3 BV1 (pp.90-92)", () => {
+        const enforcer3 = (structure = "endo-steel", engine = "xl", armor = "standard") => {
+            const mech = build(50, 5, armor, 10, [9, 24, 7, 19, 5, 19, 5, 16, 16, 20, 20], structure, engine);
+            mech.setHeatSinksType("double");
+            mech.setAdditionalHeatSinks(2);
+            mech.setJumpSpeed(5);
+            for (const tag of ["er-large-laser", "autocannon-ultra-c", "er-small-laser"]) add(mech, tag);
+            placeIn(mech, "ammo-is-ultra-ac-10-standard", "rt", "rightTorso");
+            placeIn(mech, "ammo-is-ultra-ac-10-standard", "rt", "rightTorso");
+            return mech;
+        };
+
+        it("takes 5 a ton for ammo behind CASE II: (377.25 + 30) x 1.3", () => {
+            const mech = enforcer3();
+            placeIn(mech, "case-ii", "rt", "rightTorso");
+            expect(mech.getBattleValue("master-rules-revised")).toBe(1466);
+            expect(mech.getBattleValue("master-rules")).toBe(1466);
+        });
+
+        it("adds 30 for a heavy-duty gyro and 25 for a command console: (377.25 + 55) x 1.3", () => {
+            const mech = enforcer3();
+            mech.setGyroTypeByName("Heavy Duty Gyro");
+            mech.setCommandConsole(true);
+            expect(mech.getBattleValue("master-rules-revised")).toBe(1499);
+        });
+
+        it("doubles reinforced structure and reads the engine table: XXL 83 x 0.5", () => {
+            expect(enforcer3("reinforced").getBattleValue("master-rules-revised")).toBe(1508);
+            // The XXL also doubles the jumping heat (5 -> 10): max heat 32, so 331.5 x 1.3 + 429.625 x 2.02.
+            expect(enforcer3("endo-steel", "xxl").getBattleValue("master-rules-revised")).toBe(1299);
+        });
+
+        it("counts hardened armor x 4 with 1 Running MP less: 697.25 x 1.3 + 463.72 x 1.89", () => {
+            expect(enforcer3("endo-steel", "xl", "hardened").getBattleValue("master-rules-revised")).toBe(1783);
+        });
+
+        it("adds the center torso armor x 2 for a torso-mounted cockpit, and reads Piloting 1 worse for skill", () => {
+            const mech = enforcer3();
+            mech.setCockpitType("torso-mounted");
+            expect(mech.getBattleValue("master-rules-revised")).toBe(1508);
+            mech.setRulesEdition("master-rules-revised");
+            // 4/5 reads the 4/6 column: 1,508 x 0.95.
+            expect(mech.getPilotAdjustedBattleValue()).toBe(1433);
+        });
+
+        it("adds 1 to the heat sink capacity for each coolant pod", () => {
+            const mech = enforcer3();
+            add(mech, "coolant-pod");
+            expect(mech.getBattleValue("master-rules-revised")).toBe(1452);
+        });
+
+        it("multiplies special ammo BV: armor-piercing x 6 (Enforcer ENF-4R, ammo 15 -> 90)", () => {
+            const mech = build(50, 4, "standard", 9, [9, 23, 4, 17, 3, 17, 3, 14, 14, 20, 20], "standard");
+            mech.setAdditionalHeatSinks(2);
+            mech.setJumpSpeed(4);
+            for (const tag of ["large-laser", "autocannon-standard-c", "small-laser"]) add(mech, tag);
+            placeIn(mech, "ammo-is-ac-10-armor-piercing", "rt", "rightTorso");
+            expect(mech.getBattleValue("master-rules-revised")).toBe(1002);
+            expect(mech.getBattleValue("master-rules")).toBe(1002);
+        });
+
+        // An LRM 5 in the left torso feeds on a ton of flare missiles: ammo 6 x .05 at Level 3, under BMR and BMR(R).
+        it("multiplies flare LRM ammo BV by .05 at Level 3 (Max Tech p.91) under both Master Rules editions", () => {
+            const enforcer = (ammo: string) => {
+                const mech = build(50, 4, "standard", 9, [9, 23, 4, 17, 3, 17, 3, 14, 14, 20, 20], "standard");
+                mech.setAdditionalHeatSinks(2);
+                mech.setJumpSpeed(4);
+                for (const tag of ["large-laser", "autocannon-standard-c", "small-laser"]) add(mech, tag);
+                placeIn(mech, "lrm-5", "lt", "leftTorso");
+                placeIn(mech, ammo, "lt", "leftTorso");
+                return mech;
+            };
+            const [standard, flare] = [enforcer("ammo-lrm-standard"), enforcer("ammo-lrm-flare")];
+            expect([standard.getBattleValue("master-rules"), flare.getBattleValue("master-rules")]).toEqual([913, 906]);
+            // Defensive 412.5 x 1.2 = 495. Weapons 302 + ammo 0.3, heat 12 of 18: X 201.53, Y 50.38, x 1.63 = 410.62.
+            expect([standard.getBattleValue("master-rules-revised"), flare.getBattleValue("master-rules-revised")]).toEqual([913, 906]);
+        });
+
+        // p.87: Sensors cost tonnage x 10,000 with VRTS and x 5,000 with Multi-Trac II, so the record carries the rest.
+        it("prices VRTS sensors at tonnage x 10,000 (Max Tech p.87)", () => {
+            const mech = enforcer3();
+            placeIn(mech, "targeting-variable-range", "hd", "head");
+            const vrts = mech.getInstalledEquipment().find(item => item.tag === "targeting-variable-range")!;
+            expect([vrts.weight, vrts.cbills + 2000 * 50]).toEqual([0.5, 500000]);
+            const multiTrac = enforcer3();
+            placeIn(multiTrac, "targeting-multi-trac-ii", "hd", "head");
+            expect(multiTrac.getInstalledEquipment().find(item => item.tag === "targeting-multi-trac-ii")!.cbills + 2000 * 50).toBe(250000);
+        });
+
+        // p.91: VRTS adds 10% of the weapons as a targeting computer does. Weapons 433 + 43.3 + ammo 58 = 534.3; heat 27
+        // of 24: X 474.93, Y 29.68, x 2.02 = 1,019.33; + 490.425 = 1,509.75.
+        it("adds 10% of the weapons for VRTS (ENF-6M hand-worked)", () => {
+            const mech = enforcer3();
+            placeIn(mech, "targeting-variable-range", "hd", "head");
+            expect(mech.getBattleValue("master-rules-revised")).toBe(1510);
+            expect(mech.getBattleValue("master-rules")).toBe(1510);
+            // Built under BMR(R), the design needs Level 3, the system's grade there (it read 0 before 2b-3).
+            mech.setRulesEdition("master-rules-revised");
+            expect(mech.getRequiredRulesLevel()).toBe(3);
+        });
+
+        // p.91: with Multi-Trac II a rear medium laser counts whole (46, not 23) and in the heat (27 + 3). Defensive
+        // (377.25 - 15) x 1.3 = 470.925; weapons 479 + ammo 58 = 537, heat 30 of 24: X 429.6, Y 53.7, x 2.02 = 976.27.
+        // Without it: defensive 490.425, weapons 456 + 58 = 514, X 456.89, Y 28.56, x 2.02 = 980.60.
+        it("counts rear weapons whole for Multi-Trac II (hand-worked rear-laser 'Mech)", () => {
+            const mech = enforcer3();
+            mech.addEquipmentFromTag("medium-laser", "is", "", true, undefined, "", false, [], undefined, undefined);
+            const before = mech.getBattleValue("master-rules-revised");
+            placeIn(mech, "targeting-multi-trac-ii", "hd", "head");
+            expect([before, mech.getBattleValue("master-rules-revised")]).toEqual([1471, 1447]);
+        });
+    });
+});
+
+describe("E-War carrier (#642)", () => {
+    const place = (mech: BattleMech, tag: string, location: string, key: string) => {
+        const item = mech.addEquipmentFromTag(tag, "is", "", false, undefined, "", false, [], undefined, undefined)!;
+        const from = mech.unallocatedCriticals.findIndex(critical => critical?.uuid === item.uuid);
+        expect(mech.moveCritical("un", from, location, mech.getCriticals()[key].findIndex(critical => !critical))).toBe(true);
+        return item;
+    };
+    const build = () => {
+        const mech = buildMech({ tonnage: 50 });
+        place(mech, "is-ams", "rt", "rightTorso");
+        place(mech, "ecm-suite", "lt", "leftTorso");
+        place(mech, "medium-laser", "la", "leftArm");
+        return mech;
+    };
+
+    it("lists its E-War gear", () => {
+        const gear = build().getEWarGear();
+        expect(gear.map(item => item.kind).sort()).toEqual(["ams", "ecm-guardian"]);
+        for (const item of gear) {
+            expect(item.name).toBeTruthy();
+            expect(item.uuid).toBeTruthy();
+            expect(item.destroyed).toBe(false);
+        }
+    });
+
+    it("reports destroyed E-War gear", () => {
+        const mech = build();
+        const index = mech.getCriticals().leftTorso.findIndex(critical => critical?.tag === "ecm-suite");
+        mech.toggleCritical("lt", index);
+        const gear = mech.getEWarGear();
+        expect(gear.map(item => [item.kind, item.destroyed]).sort()).toEqual([["ams", false], ["ecm-guardian", true]]);
+    });
+
+    it("reports a spread item (uuid:n slots) destroyed the same way isEquipmentDamaged does", () => {
+        const mech = buildMech({ tonnage: 50 });
+        const item = mech.addEquipmentFromTag("null-signature-system", "is", "", false, undefined, "", false, [], undefined, undefined)!;
+        const from = mech.unallocatedCriticals.findIndex(critical => critical?.uuid === item.uuid + ":0");
+        expect(from).toBeGreaterThanOrEqual(0);
+        expect(mech.moveCritical("un", from, "ct", mech.getCriticals().centerTorso.findIndex(critical => !critical))).toBe(true);
+        const slot = mech.getCriticals().centerTorso.findIndex(critical => critical?.uuid === item.uuid + ":0");
+        expect(mech.getEWarGear().find(gear => gear.kind === "null-sig")?.destroyed).toBe(false);
+        mech.toggleCritical("ct", slot);
+        expect(mech.isEquipmentDamaged(item.uuid!, "ct")).toBe(true);
+        expect(mech.getEWarGear().find(gear => gear.kind === "null-sig")?.destroyed).toBe(true);
+    });
+
+    it("lists stealth armor", () => {
+        const mech = buildMech({ tonnage: 50 });
+        mech.setArmorType("stealth-basic");
+        const armor = mech.getEWarGear().find(item => item.kind === "stealth-armor");
+        expect(armor).toMatchObject({ tag: "stealth-basic", location: "armor", destroyed: false });
+        expect(armor?.uuid).toBeUndefined();
+    });
+
+    it("saves E-War state and loads old saves without it", () => {
+        const mech = build();
+        expect(mech.export().ewarPlay).toBeUndefined();
+        mech.ewarPlay.inHostileEcm = true;
+        const saved = JSON.parse(JSON.stringify(mech.export()));
+        expect(saved.ewarPlay).toEqual({ inHostileEcm: true });
+        expect(mech.export(true).ewarPlay).toBeUndefined();
+        mech.importJSON(JSON.stringify(saved));
+        expect(mech.ewarPlay).toEqual({ inHostileEcm: true });
+        delete saved.ewarPlay;
+        mech.importJSON(JSON.stringify(saved));
+        expect(mech.ewarPlay).toEqual({});
+    });
+
+    it("loads a pre-Phase-2 save with stealthOn true as the system on, and re-exports the map", () => {
+        const mech = build();
+        const saved = JSON.parse(JSON.stringify(mech.export()));
+        saved.ewarPlay = { stealthOn: true };
+        mech.importJSON(JSON.stringify(saved));
+        expect(mech.ewarPlay.stealthOn).toEqual({ "*": true });
+        expect(JSON.parse(JSON.stringify(mech.export())).ewarPlay).toEqual({ stealthOn: { "*": true } });
+    });
+});
+
+describe("BattleMech E-War to-hit ticks (#642)", () => {
+    const toHit = (edition: string, ticks: Partial<ITargetToHit>) => {
+        const mech = buildMech();
+        mech.setRulesEdition(edition);
+        mech.addEquipmentFromTag("medium-laser", "is", "rt", false, undefined, "", false, [], undefined, undefined);
+        const index = mech.equipmentList.findIndex(item => item.tag === "medium-laser");
+        mech.equipmentList[index].target = "a";
+        const target: ITargetToHit = { name: "A", active: true, range: 2, movement: 0, otherMods: 0, jumped: false, primary: true, inRearArc: false, ...ticks };
+        mech.setTargets(target, { ...target, name: "B" }, { ...target, name: "C" });
+        return getTargetToHitFromWeapon(mech, index, target);
+    };
+    it("a homing iNarc pod on the target changes nothing for a laser: only Narc-capable missiles home on it", () => {
+        expect(toHit("total-warfare", { narcPods: ["homing"] }).finalToHit).toBe(toHit("total-warfare", {}).finalToHit);
+        expect(toHit("core-rulebook", { narcPods: ["narc"] }).finalToHit).toBe(toHit("core-rulebook", {}).finalToHit);
+    });
+    it("the same pod changes nothing under the Master Rules, which print no homing pod, nor with hostile ECM on the line", () => {
+        expect(toHit("master-rules", { narcPods: ["homing"] }).finalToHit).toBe(toHit("master-rules", {}).finalToHit);
+        expect(toHit("total-warfare", { narcPods: ["homing"], hostileEcm: true }).finalToHit).toBe(toHit("total-warfare", {}).finalToHit);
+    });
+    it("a target with Null-Signature adds 1 at medium range under TW, and Chameleon with it adds 2", () => {
+        const base = toHit("total-warfare", { range: 5 }).finalToHit;
+        const sig = toHit("total-warfare", { range: 5, stealthSystems: ["null-sig"] });
+        expect(sig.finalToHit).toBe(base + 1);
+        expect(sig.otherModifiersExplanation).toContain("Null-Signature (+1 medium)");
+        expect(toHit("total-warfare", { range: 5, stealthSystems: ["null-sig", "chameleon"] }).finalToHit).toBe(base + 2);
+        expect(toHit("total-warfare", { range: 2, stealthSystems: ["null-sig"] }).finalToHit).toBe(toHit("total-warfare", { range: 2 }).finalToHit);
+    });
+    it("the same target under the Master Rules adds the part of the Maximum Tech +3 above the standard medium modifier, and an edition without the system adds nothing", () => {
+        const base = toHit("master-rules", { range: 5 }).finalToHit;
+        expect(toHit("master-rules", { range: 5, stealthSystems: ["null-sig"] }).finalToHit).toBe(base + 1);
+        const early = toHit("battletech-compendium", { range: 5, stealthSystems: ["null-sig"] });
+        expect(early.finalToHit).toBe(toHit("battletech-compendium", { range: 5 }).finalToHit);
+        expect(early.otherModifiersExplanation).toContain("Null-Signature: not in");
+    });
+    it("hostile ECM counts decide whether it cancels Artemis: equal ECCM cancels it under TW", () => {
+        const works = toHit("total-warfare", { range: 5, hostileEcmCount: 1, friendlyEccmCount: 0 }).otherModifiersExplanation ?? "";
+        expect(works).toContain("Hostile ECM cancels");
+        const cancelled = toHit("total-warfare", { range: 5, hostileEcmCount: 1, friendlyEccmCount: 1 }).otherModifiersExplanation ?? "";
+        expect(cancelled).not.toContain("Hostile ECM cancels");
+    });
+    it("C2: a stealth target never turns an out-of-range shot into a valid one", () => {
+        const far = toHit("total-warfare", { range: 60, stealthSystems: ["void-sig"], targetMoved: 0 });
+        expect(far.finalToHit).toBe(-1);
+        expect(far.explanation).toContain("out of this weapon");
+    });
+    it("a target tick set that is absent loads and exports as before", () => {
+        const mech = buildMech();
+        mech.setTargets({ name: "A", active: true, range: 2, movement: 0, otherMods: 0, jumped: false, primary: true, inRearArc: false }, mech.getTarget("b"), mech.getTarget("c"));
+        expect(JSON.stringify(mech.export())).not.toContain("narcPods");
+    });
+});
+
+describe("BattleMech E-War semi-guided terrain (#642 Phase 1 minors)", () => {
+    const toHit = (edition: string, ticks: Partial<ITargetToHit>) => {
+        const mech = buildMech({ tonnage: 60 });
+        mech.setRulesEdition(edition);
+        mech.addEquipmentFromTag("lrm-15", "is", "rt", false, undefined, "", false, [], undefined, undefined);
+        mech.addEquipmentFromTag("ammo-is-lrm-semi-guided", "is", "rt", false, undefined, "", false, [], undefined, undefined);
+        const index = mech.equipmentList.findIndex(item => item.tag === "lrm-15");
+        const bin = mech.equipmentList.find(item => item.tag === "ammo-is-lrm-semi-guided");
+        mech.selectAmmoBin(mech.equipmentList[index].uuid!, bin!.uuid!);
+        mech.equipmentList[index].target = "a";
+        const target: ITargetToHit = { name: "A", active: true, range: 8, movement: 0, otherMods: 0, jumped: false, primary: true, inRearArc: false, ...ticks };
+        mech.setTargets(target, { ...target, name: "B" }, { ...target, name: "C" });
+        return getTargetToHitFromWeapon(mech, index, target);
+    };
+    it("the Core Rulebook takes up to 2 off the woods modifier of a TAG-designated target, and no more than the woods hold", () => {
+        const open = toHit("core-rulebook", { tagged: true }).finalToHit;
+        expect(toHit("core-rulebook", { tagged: true, heavyWoodsHexes: 1 }).finalToHit).toBe(open);
+        expect(toHit("core-rulebook", { tagged: true, lightWoodsHexes: 1 }).finalToHit).toBe(open);
+        expect(toHit("core-rulebook", { tagged: true, heavyWoodsHexes: 2 }).finalToHit).toBe(open + 2);
+        expect(toHit("core-rulebook", { tagged: true, heavyWoodsHexes: 1 }).otherModifiersExplanation).toContain("woods or smoke modifier reduced by 2");
+    });
+    it("an undesignated target keeps its woods modifier, and Total Warfare semi-guided leaves woods alone", () => {
+        const open = toHit("core-rulebook", {}).finalToHit;
+        expect(toHit("core-rulebook", { heavyWoodsHexes: 1 }).finalToHit).toBeGreaterThan(open);
+        expect(toHit("total-warfare", { tagged: true, heavyWoodsHexes: 1 }).finalToHit).toBe(toHit("total-warfare", { tagged: true }).finalToHit + 2);
+    });
+});
+
+
+describe("BattleMech C3 range tick (E-War Phase 3)", () => {
+    const toHit = (edition: string, ticks: Partial<ITargetToHit>, status?: { linked: boolean; degrade: number; labels: string[] }) => {
+        const mech = buildMech();
+        mech.setRulesEdition(edition);
+        mech.addEquipmentFromTag("medium-laser", "is", "rt", false, undefined, "", false, [], undefined, undefined);
+        mech.addEquipmentFromTag("c3-computer-slave", "is", "ct", false, undefined, "", false, [], undefined, undefined);
+        if (status) mech.c3StatusProvider = () => status;
+        const index = mech.equipmentList.findIndex(item => item.tag === "medium-laser");
+        mech.equipmentList[index].target = "a";
+        const target: ITargetToHit = { name: "A", active: true, range: 8, movement: 0, otherMods: 0, jumped: false, primary: true, inRearArc: false, ...ticks };
+        mech.setTargets(target, { ...target, name: "B" }, { ...target, name: "C" });
+        return getTargetToHitFromWeapon(mech, index, target);
+    };
+    const linked = { linked: true, degrade: 0, labels: [] };
+
+    it("takes the range from the nearest networked unit under Total Warfare, with a label", () => {
+        const base = toHit("total-warfare", {}, linked).finalToHit;
+        const shared = toHit("total-warfare", { c3NearestHexes: 3 }, linked);
+        expect(shared.finalToHit).toBe(base - 4);
+        expect(shared.otherModifiersExplanation).toContain("C3:");
+        // The bracket comes from the hex distance against this weapon: 5 hexes is medium for a Medium Laser (short 3, medium 6), so -2 not -4.
+        expect(toHit("total-warfare", { c3NearestHexes: 5 }, linked).finalToHit).toBe(base - 2);
+        expect(toHit("total-warfare", { c3NearestHexes: 12 }, linked).finalToHit).toBe(base);
+        // Under the Core Rulebook hostile ECM on the nearest unit adds a TN penalty for the bracket gained.
+        const crbBase = toHit("core-rulebook", {}, linked).finalToHit;
+        expect(toHit("core-rulebook", { c3NearestHexes: 3, c3NearestInEcm: true }, linked).finalToHit).toBe(crbBase - 4 + 2);
+    });
+
+    it("does nothing when the unit is cut off, and says so; and names an edition that has no C3", () => {
+        const base = toHit("total-warfare", {}, linked).finalToHit;
+        const cut = toHit("total-warfare", { c3NearestHexes: 3 }, { linked: false, degrade: 0, labels: ["C3: cut off by hostile ECM (Total Warfare)."] });
+        expect(cut.finalToHit).toBe(base);
+        expect(cut.otherModifiersExplanation).toContain("C3 cut off");
+        const early = toHit("battletech-3rd-edition", { c3NearestHexes: 3 }, linked);
+        expect(early.finalToHit).toBe(toHit("battletech-3rd-edition", {}, linked).finalToHit);
+        expect(early.otherModifiersExplanation).toContain("not in");
     });
 });

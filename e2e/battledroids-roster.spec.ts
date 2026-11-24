@@ -69,9 +69,10 @@ test("a Battledroids tank joins the roster, takes hits in play and prints", asyn
     await expect(page.getByText("This Unit is Destroyed")).toBeVisible();
 
     await page.goto("classic-battletech/roster/print");
-    const sheet = page.getByTestId("battledroids-unit-record-sheet").first();
-    await expect(sheet.getByRole("heading", { name: "VDE-3T Vedette" })).toBeVisible();
-    await expect(sheet).toContainText("Hit: the tank cannot move");
+    const sheet = page.getByTestId("battledroids-unit").first();
+    await expect(sheet).toContainText("VDE-3T Vedette");
+    // The tracks box is marked, and the auto cannon has fired once.
+    await expect(sheet).toContainText("Tracks:XHit: the tank cannot move");
     await expect(sheet).toContainText("39 of 40");
 
     expect(errors).toEqual([]);
@@ -92,8 +93,8 @@ test("a battledroid in play mode shows the Battledroids helpers", async ({ page 
     await page.getByTitle("Click here to save a a new 'mech row").click();
 
     await page.goto("classic-battletech/roster");
-    await page.getByTitle("Click here to open the add 'mech dialog").first().click();
-    await page.locator(".modal button.btn-xs.btn-primary").nth(1).click();
+    await page.getByTitle("Add 'Mechs, or search the Master Unit List for any unit type").first().click();
+    await page.locator(".modal tr", { hasText: "Saved" }).getByRole("button", { name: /^Add / }).first().click();
     await page.goto("classic-battletech/roster/play");
     const helper = page.getByTestId("battledroids-droid-helper");
     if (!(await helper.isVisible().catch(() => false))) {

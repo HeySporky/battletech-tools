@@ -78,9 +78,13 @@ test("a ProtoMech Point joins the roster, takes damage in play and prints", asyn
     await expect(page.getByText("This Point is Damaged")).toBeVisible();
 
     await page.goto("classic-battletech/roster/print");
-    await expect(page.getByRole("heading", { name: "Delphyne Point" })).toBeVisible();
-    await expect(page.getByTestId("protomech-sheet-unit-3")).toBeVisible();
-    await expect(page.getByTestId("protomech-sheet-unit-4")).toHaveCount(0);
+    await expect(page.getByTestId("proto-unit-1")).toContainText("Delphyne Point");
+    // Four ProtoMechs; the fifth block is left blank.
+    await expect(page.getByTestId("proto-unit-4")).toHaveAttribute("data-blank", "false");
+    await expect(page.getByTestId("proto-unit-5")).toHaveAttribute("data-blank", "true");
+    // The first ProtoMech's left arm is gone, 4 armor and 2 structure; the second has fired one SRM volley.
+    await expect(page.getByTestId("proto-unit-1-la").locator("[data-hit='filled']")).toHaveCount(6);
+    await expect(page.getByTestId("proto-unit-2")).toContainText("(9 of 10 shots)");
 
     expect(errors).toEqual([]);
 });

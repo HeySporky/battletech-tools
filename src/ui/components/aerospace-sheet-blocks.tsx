@@ -1,9 +1,17 @@
 import React, { type JSX } from 'react';
 import { IEquipmentItem } from '../../data/data-interfaces';
 import { AEROSPACE_HEAT_SCALE, AEROSPACE_PILOT_HITS, getAerospaceDamageByBracket, toCapitalScale } from '../../data/aerospace-record-sheet';
+import { BattleValueUnitType, formatBattleValue } from '../../data/battle-value';
 
 // Blocks the aerospace record sheets share (TM pp.336-339; SO:AA pp.9-11): the Weapons and Equipment Inventory with
 // Attack Values by range bracket, pilot or crew hits, critical damage boxes, the Heat Scale and the Velocity Record.
+
+/** The sheet's BV under the unit's edition, "base (adjusted adj.)" when the pilot is shown. */
+export const aerospaceSheetBattleValue = (unit: { getBattleValue(edition?: string): number; getPilotAdjustedBattleValue(edition?: string): number; getRulesEdition(): string }, unitType: BattleValueUnitType, showPilot?: boolean): string => {
+    const text = (battleValue: (edition: string) => number) => formatBattleValue(battleValue, unitType, unit.getRulesEdition());
+    const base = text((edition) => unit.getBattleValue(edition));
+    return showPilot ? `${base} (${text((edition) => unit.getPilotAdjustedBattleValue(edition))} adj.)` : base;
+};
 
 export interface IAerospaceInventoryRow {
     quantity: number;

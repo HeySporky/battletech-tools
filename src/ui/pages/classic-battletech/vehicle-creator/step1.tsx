@@ -2,21 +2,20 @@ import React, { type JSX } from 'react';
 import { Link } from 'react-router';
 import { IAppGlobals } from '../../../app-router';
 import Vehicle, { IFrankenVehicle } from '../../../../classes/vehicle';
-import VehicleCreatorSideMenu from '../../../components/vehicle-creator-side-menu';
+import { VehicleCreatorSideMenu } from '../../../components/creator-side-menus';
 import VehicleBays from './_vehicle-bays';
-import RulesEditionSelect from '../../../components/rules-edition-select';
-import RulesLevelSelect from '../../../components/rules-level-select';
+import { UnitGameSettingsBlock, unitRulesLevel } from '../../../components/game-settings-block';
 import TextSection from '../../../components/text-section';
 import UIPage from '../../../components/ui-page';
 import InputField from "../../../components/form_elements/input_field";
 import InputCheckbox from "../../../components/form_elements/input_checkbox";
 import InputNumeric from "../../../components/form_elements/input_numeric";
-import { btTechOptions } from '../../../../data/tech-options';
 import { getRulesLevelOptions } from '../../../../data/rules-level-options';
 import { vehicleMotiveTypes } from '../../../../data/vehicle-motive-types';
 import { getVehicleTonnageBounds } from '../../../../data/vehicle-motive-types';
 import { SRCS_RULES_LEVEL } from '../../../../data/robotic-control-systems';
 import { FaArrowCircleRight } from "react-icons/fa";
+import { SUPER_HEAVY_VTOL_FACINGS, TURRET_WEAPON_ARC, getVehiclePrintedRule } from '../../../../data/vehicle-printings';
 import { availabilityOptionLabel, isOptionShown } from '../../../components/availability-options';
 import { SUPPORT_VEHICLE_CHASSIS_MODIFICATIONS, SUPPORT_VEHICLE_FIRE_CONTROL, SUPPORT_VEHICLE_TECH_RATINGS } from '../../../../data/support-vehicle-construction';
 const ArrowCircleRight = FaArrowCircleRight as any;
@@ -41,7 +40,7 @@ export default class VehicleCreatorStep1 extends React.Component<IStep1Props, IS
         if (vehicle) {
             vehicle.setWeightAccounting(
                 vehicle.usesFractionalAccounting() ? "standard" : "fractional",
-                this.props.appGlobals.appSettings.mechRulesFilter,
+                this.rulesLevel(),
             );
             this.props.appGlobals.saveCurrentVehicle(vehicle);
         }
@@ -55,30 +54,14 @@ export default class VehicleCreatorStep1 extends React.Component<IStep1Props, IS
         }
     }
 
-    updateTech = (e: React.FormEvent<HTMLSelectElement>): void => {
+    // The design's own rules level, or the app-wide one for a save from before designs kept one (#324).
+    private rulesLevel = (): number => unitRulesLevel(this.props.appGlobals.currentVehicle, this.props.appGlobals.appSettings);
+
+    // The settings block changed the design: a lower level or another tech base may take away its tonnage.
+    updateGameSettings = (): void => {
         const vehicle = this.props.appGlobals.currentVehicle;
         if (vehicle) {
-            vehicle.setTech(e.currentTarget.value);
-            this.props.appGlobals.saveCurrentVehicle(vehicle);
-        }
-    }
-
-    updateEra = (e: React.FormEvent<HTMLSelectElement>): void => {
-        const vehicle = this.props.appGlobals.currentVehicle;
-        if (vehicle) {
-            vehicle.setEra(e.currentTarget.value);
-            this.props.appGlobals.saveCurrentVehicle(vehicle);
-        }
-    }
-
-    updateRulesLevel = (level: number): void => {
-        const appSettings = this.props.appGlobals.appSettings;
-        appSettings.mechRulesFilter = level;
-        this.props.appGlobals.saveAppSettings(appSettings);
-
-        const vehicle = this.props.appGlobals.currentVehicle;
-        if (vehicle) {
-            this.clampTonnage(vehicle, appSettings.mechRulesFilter);
+            this.clampTonnage(vehicle, this.rulesLevel());
             this.props.appGlobals.saveCurrentVehicle(vehicle);
         }
     }
@@ -87,7 +70,7 @@ export default class VehicleCreatorStep1 extends React.Component<IStep1Props, IS
         const vehicle = this.props.appGlobals.currentVehicle;
         if (vehicle) {
             vehicle.setMotiveType(e.currentTarget.value);
-            this.clampTonnage(vehicle, this.props.appGlobals.appSettings.mechRulesFilter);
+            this.clampTonnage(vehicle, this.rulesLevel());
             this.props.appGlobals.saveCurrentVehicle(vehicle);
         }
     }
@@ -96,7 +79,7 @@ export default class VehicleCreatorStep1 extends React.Component<IStep1Props, IS
         const vehicle = this.props.appGlobals.currentVehicle;
         if (vehicle) {
             vehicle.setTonnage(+e.currentTarget.value);
-            this.clampTonnage(vehicle, this.props.appGlobals.appSettings.mechRulesFilter);
+            this.clampTonnage(vehicle, this.rulesLevel());
             this.props.appGlobals.saveCurrentVehicle(vehicle);
         }
     }
@@ -113,6 +96,30 @@ export default class VehicleCreatorStep1 extends React.Component<IStep1Props, IS
         const vehicle = this.props.appGlobals.currentVehicle;
         if (vehicle) {
             vehicle.setEngineType(e.currentTarget.value);
+            this.props.appGlobals.saveCurrentVehicle(vehicle);
+        }
+    }
+
+    updateVtolFacings = (e: React.FormEvent<HTMLSelectElement>): void => {
+        const vehicle = this.props.appGlobals.currentVehicle;
+        if (vehicle) {
+            vehicle.setPrinting(SUPER_HEAVY_VTOL_FACINGS, e.currentTarget.value);
+            this.props.appGlobals.saveCurrentVehicle(vehicle);
+        }
+    }
+
+    updateTurretWeaponArc = (e: React.FormEvent<HTMLSelectElement>): void => {
+        const vehicle = this.props.appGlobals.currentVehicle;
+        if (vehicle) {
+            vehicle.setPrinting(TURRET_WEAPON_ARC, e.currentTarget.value);
+            this.props.appGlobals.saveCurrentVehicle(vehicle);
+        }
+    }
+
+    updateUnpoweredTrailer =(e: React.FormEvent<HTMLInputElement>): void => {
+        const vehicle = this.props.appGlobals.currentVehicle;
+        if (vehicle) {
+            vehicle.setUnpoweredTrailer(e.currentTarget.checked);
             this.props.appGlobals.saveCurrentVehicle(vehicle);
         }
     }
@@ -144,7 +151,7 @@ export default class VehicleCreatorStep1 extends React.Component<IStep1Props, IS
     updateFrankenVehicle = (e: React.FormEvent<HTMLInputElement>): void => {
         const vehicle = this.props.appGlobals.currentVehicle;
         if (vehicle) {
-            vehicle.setFrankenVehicle(e.currentTarget.checked, this.props.appGlobals.appSettings.mechRulesFilter);
+            vehicle.setFrankenVehicle(e.currentTarget.checked, this.rulesLevel());
             this.props.appGlobals.saveCurrentVehicle(vehicle);
         }
     }
@@ -210,14 +217,14 @@ export default class VehicleCreatorStep1 extends React.Component<IStep1Props, IS
         const support = e.currentTarget.value === "support";
         this.changeVehicle((vehicle) => {
             vehicle.setSupportVehicle(support);
-            this.clampTonnage(vehicle, this.props.appGlobals.appSettings.mechRulesFilter);
+            this.clampTonnage(vehicle, this.rulesLevel());
         });
     }
 
     updateSupportTonnage = (tons: number): void => {
         this.changeVehicle((vehicle) => {
             vehicle.setTonnage(tons);
-            this.clampTonnage(vehicle, this.props.appGlobals.appSettings.mechRulesFilter);
+            this.clampTonnage(vehicle, this.rulesLevel());
         });
     }
 
@@ -259,6 +266,15 @@ export default class VehicleCreatorStep1 extends React.Component<IStep1Props, IS
 
     updateTurretCount = (count: number): void => {
         this.changeVehicle((vehicle) => vehicle.setTurretCount(count));
+    }
+
+    updateOmniTurretWeight = (tons: number): void => {
+        this.changeVehicle((vehicle) => vehicle.setOmniTurretWeight(tons));
+    }
+
+    updateClanCASE = (e: React.FormEvent<HTMLInputElement>): void => {
+        const clanCASE = e.currentTarget.checked;
+        this.changeVehicle((vehicle) => vehicle.setClanCASE(clanCASE));
     }
 
     // Keeps tonnage within the Standard/Superheavy bounds for the selected motive type and rules level,
@@ -340,6 +356,17 @@ export default class VehicleCreatorStep1 extends React.Component<IStep1Props, IS
                     </>
                 ) : null}
                 {installed.includes("hydrofoil") ? <p className="smaller-text">Hydrofoil: Cruising MP x 1.25 = {vehicle.getCruiseMP()} (TM p.123).</p> : null}
+                {/* Vehicular jump jets: Experimental, "Available To: CV, SV" (TO:AUE p.161); a Support Vehicle may not jump otherwise (TM p.131). */}
+                {vehicle.getMotiveType().allowsJumpJets && (this.rulesLevel() >= 4 || vehicle.getJumpMP() > 0) ? (
+                    <label>
+                        Jump MP (vehicular jump jets, Experimental, TO:AUE p.161):
+                        <select value={vehicle.getJumpMP()} onChange={this.updateJumpMP}>
+                            {Array.from({ length: vehicle.getCruiseMP() + 1 }, (_, mp) => (
+                                <option key={mp} value={mp}>{mp}</option>
+                            ))}
+                        </select>
+                    </label>
+                ) : null}
                 <p>
                     <strong>Engine Rating</strong>: {vehicle.getEngineRating()} (Cruising MP x weight, at most 500) &nbsp;|&nbsp;
                     <strong>Engine Weight</strong>: {vehicle.getEngineWeight()} t
@@ -404,7 +431,8 @@ export default class VehicleCreatorStep1 extends React.Component<IStep1Props, IS
         const vehicle = this.props.appGlobals.currentVehicle;
         if (!vehicle) return <></>;
 
-        const rulesLevel = this.props.appGlobals.appSettings.mechRulesFilter;
+        const rulesLevel = this.rulesLevel();
+        const chassisOptions = vehicle.getChassisModificationOptions(rulesLevel);
         const { min, max } = getVehicleTonnageBounds(vehicle.getMotiveType().tag, rulesLevel);
         const tonnageOptions: number[] = [];
         for (let tons = min; tons <= max; tons++) {
@@ -419,7 +447,7 @@ export default class VehicleCreatorStep1 extends React.Component<IStep1Props, IS
         }
         const motive = vehicle.getMotiveType();
         // The chin turret is Advanced (3079 prototype, 3080 production; as implemented by MegaMek).
-        const turretAllowed = support ? vehicle.canHaveTurret() || vehicle.hasTurret() : motive.turret !== "chin" || rulesLevel >= 3 || vehicle.hasTurret();
+        const turretAllowed = (support ? vehicle.canHaveTurret() : true) && (motive.turret !== "chin" || rulesLevel >= 3) || vehicle.hasTurret();
 
         return (
             <>
@@ -430,9 +458,8 @@ export default class VehicleCreatorStep1 extends React.Component<IStep1Props, IS
                         </div>
                         <div className="col-md-9 col-lg-10">
                             <TextSection label="Step 1: Design the Chassis">
-                                {/* The rules edition comes first: it decides what every field below offers. */}
-                                <RulesEditionSelect unitType="vehicle" value={vehicle.getRulesEdition()} onChange={(tag) => { vehicle.setRulesEdition(tag); this.props.appGlobals.saveCurrentVehicle(vehicle); }} />
-                                <RulesLevelSelect editionTag={vehicle.getRulesEdition()} value={rulesLevel} onChange={this.updateRulesLevel} />
+                                {/* The shared settings block comes first: it decides what every field below offers (#324). */}
+                                <UnitGameSettingsBlock unitType="vehicle" unit={vehicle} appGlobals={this.props.appGlobals} onChange={this.updateGameSettings} />
                                 <InputField
                                     label="Vehicle Model # (e.g. SRT-1, Vedette)"
                                     value={vehicle.getModel()}
@@ -452,16 +479,6 @@ export default class VehicleCreatorStep1 extends React.Component<IStep1Props, IS
                                         <option value="support">Support Vehicle (TM pp.116-139)</option>
                                     </select>
                                 </label>
-
-                                <label>
-                                    Technology Base:
-                                    <select value={vehicle.getTech().tag} onChange={this.updateTech}>
-                                        {btTechOptions.map((option) => (
-                                            <option key={option.tag} value={option.tag}>{option.name}</option>
-                                        ))}
-                                    </select>
-                                </label>
-
 
                                 <label>
                                     Motive Type:
@@ -493,18 +510,6 @@ export default class VehicleCreatorStep1 extends React.Component<IStep1Props, IS
                                         </select>
                                     </label>
                                 )}
-
-                                <label>
-                                    Vehicle Era:
-                                    <select value={vehicle.getEra().tag} onChange={this.updateEra}>
-                                        {vehicle.getAvailableEras().map((option) => (
-                                            <option key={option.tag} value={option.tag}>{option.name}</option>
-                                        ))}
-                                    </select>
-                                </label>
-                                {vehicle.getEra().description ? (
-                                    <p className="smaller-text">{vehicle.getEra().description}</p>
-                                ) : null}
 
                                 <InputCheckbox
                                     label="OmniVehicle (one base chassis; weapons and equipment may be pod-mounted; cost x 1.25, TM pp. 97, 285)"
@@ -546,6 +551,35 @@ export default class VehicleCreatorStep1 extends React.Component<IStep1Props, IS
                                     />
                                 ) : null}
                                 {vehicle.getSponsonIssue() ? <p className="color-red smaller-text">{vehicle.getSponsonIssue()} (TO p. 411).</p> : null}
+                                {vehicle.isOmni() && vehicle.hasTurret() ? (
+                                    <div data-testid="omni-turret-weight">
+                                        <InputNumeric
+                                            label="Base chassis turret weight (tons; 0 sizes it by what it holds)"
+                                            value={vehicle.getOmniTurretWeight()}
+                                            min={0}
+                                            max={vehicle.getTonnage()}
+                                            step={0.5}
+                                            setValue={this.updateOmniTurretWeight}
+                                        />
+                                        <p className="smaller-text">
+                                            An OmniVehicle&apos;s turret weighs the same in every configuration, and holds up to 10 times its
+                                            weight in equipment, ammunition aside (TM p.108).
+                                        </p>
+                                        {vehicle.getOmniTurretIssue() ? <p className="color-red smaller-text">{vehicle.getOmniTurretIssue()}</p> : null}
+                                    </div>
+                                ) : null}
+                                {vehicle.canChooseClanCASE() ? (
+                                    <div data-testid="vehicle-clan-case-option">
+                                        <InputCheckbox
+                                            label="Clan CASE"
+                                            checked={vehicle.hasClanCASE()}
+                                            onChange={this.updateClanCASE}
+                                        />
+                                        <p className="smaller-text">
+                                            Clan CASE is weightless and takes no item slot, and protects the ammunition (TM p.210).
+                                        </p>
+                                    </div>
+                                ) : null}
                                 {vehicle.canUseFractionalAccounting(rulesLevel) || vehicle.usesFractionalAccounting() ? (
                                     <div data-testid="fractional-accounting-option">
                                         <InputCheckbox
@@ -635,6 +669,36 @@ export default class VehicleCreatorStep1 extends React.Component<IStep1Props, IS
 
                                 {support ? this.renderSupportVehicle(vehicle, cruiseOptions) : (<>
                                 <h3>Movement and Engine</h3>
+                                {motive.hasRotor && vehicle.isSuperheavy() ? (
+                                    <label>
+                                        Super-Heavy VTOL facings:
+                                        <select value={vehicle.getPrinting(SUPER_HEAVY_VTOL_FACINGS).tag} onChange={this.updateVtolFacings}>
+                                            {getVehiclePrintedRule(SUPER_HEAVY_VTOL_FACINGS)?.printings.map((printing) => (
+                                                <option key={printing.tag} value={printing.tag}>
+                                                    {printing.name}, {printing.cites}{printing.apocryphal ? " (apocryphal)" : ""}
+                                                </option>
+                                            ))}
+                                        </select>
+                                    </label>
+                                ) : null}
+                                {vehicle.hasTurret() || vehicle.hasChinTurret() || vehicle.hasDualTurret() ? (
+                                    <label>
+                                        Turret weapons in Battle Value:
+                                        <select value={vehicle.getPrinting(TURRET_WEAPON_ARC).tag} onChange={this.updateTurretWeaponArc}>
+                                            {getVehiclePrintedRule(TURRET_WEAPON_ARC)?.printings.map((printing) => (
+                                                <option key={printing.tag} value={printing.tag}>
+                                                    {printing.name}, {printing.cites}{printing.apocryphal ? " (apocryphal)" : ""}
+                                                </option>
+                                            ))}
+                                        </select>
+                                    </label>
+                                ) : null}
+                                {motive.tag === "tracked" || motive.tag === "wheeled" ? (
+                                    <label>
+                                        <input type="checkbox" checked={vehicle.isUnpoweredTrailer()} onChange={this.updateUnpoweredTrailer} />
+                                        {" "}Unpowered Trailer (no engine, control systems or crew; towed on a hitch, TM pp.98-99)
+                                    </label>
+                                ) : null}
                                 <label>
                                     Engine Type:
                                     <select value={vehicle.getEngineType().tag} onChange={this.updateEngineType}>
@@ -724,21 +788,24 @@ export default class VehicleCreatorStep1 extends React.Component<IStep1Props, IS
                                     </div>
                                 ) : null}
 
-                                {vehicle.getAvailableChassisModifications().length > 0 && (rulesLevel >= 3 || vehicle.getChassisModifications().length > 0) ? (
+                                {chassisOptions.length > 0 && (rulesLevel >= 3 || vehicle.getChassisModifications().length > 0) ? (
                                     <fieldset data-testid="chassis-modifications">
-                                        <legend>Chassis Modifications (Advanced, TO:AUE pp.114-115)</legend>
-                                        {vehicle.getAvailableChassisModifications().map((mod) => (
+                                        <legend>Chassis Modifications (TO:AUE pp.94-95, 114-115; the Armored Motive System is Experimental)</legend>
+                                        {chassisOptions.map((mod) => (
                                             <label key={mod.tag} title={mod.description}>
                                                 <input
                                                     type="checkbox"
                                                     checked={vehicle.hasChassisModification(mod.tag)}
                                                     onChange={(e) => {
                                                         const on = e.currentTarget.checked;
-                                                        this.changeVehicle((current) => current.setChassisModification(mod.tag, on));
+                                                        this.changeVehicle((current) => current.setChassisModification(mod.tag, on, rulesLevel));
                                                     }}
                                                 />{" "}
                                                 {mod.name}{vehicle.getChassisModificationWeight(mod) > 0 ? ` (${vehicle.getChassisModificationWeight(mod)} t)` : ""}
                                             </label>
+                                        ))}
+                                        {vehicle.getChassisModificationIssues().map((issue) => (
+                                            <p key={issue} className="smaller-text color-red" data-testid="chassis-modification-issue">{issue}</p>
                                         ))}
                                     </fieldset>
                                 ) : null}

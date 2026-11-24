@@ -2,10 +2,16 @@
 import React, { type JSX } from 'react';
 import { BattleMech, IGATOR } from '../../../classes/battlemech';
 import { CONST_HIGHLIGHT_COLOR } from '../../../configVars';
+import { formatBattleValue, getBattleValueRules } from '../../../data/battle-value';
 import { editionHasPrices } from '../../../data/rules-editions';
 import { breakLines } from '../../../utils/breakLines';
+import { armlessMechOption } from '../../../data/mech-type-options';
 import BattleTechLogo from '../battletech-logo';
+import { NOT_ENDORSED, TRADEMARK_NOTICE } from './record-sheet-svg-kit';
+import { drawnBubble } from './armor-bubble-layouts';
+import { renderStructureBubbles } from './armor-bubbles';
 import BattleMechHeatEffectsBoxSVG from './battlemech-heat-effects-box-svg';
+import BattledroidsMechRecordSheetSVG from './battledroids-mech-record-sheet-svg';
 import BipedArmorCircles from './biped-armor-circles';
 import BipedArmorDiagramSVG from './biped-armor-diagram';
 import BipedDamageTransferDiagramSVG from './biped-damage-transfer-diagram-svg';
@@ -13,11 +19,13 @@ import BipedInternalStructureDiagramSVG from './biped-internal-structure-diagram
 import BipedRearArmorDiagramSVG from './biped-rear-armor-diagram-svg';
 import ComponentDamageSVG from './component-damage-svg';
 import CritAllocationTableSVG from './crit-allocation-table-svg';
+import { getCriticalTables } from '../../../utils/critical-tables';
 import DamageCircleSVG from './damage-circle-svg';
 import DieSVG from './die-svg';
 import HeatSinksSVG from './heat-sink-svg';
 import HeatTrackSVG from './heat-track-svg';
 import PilotHitTrackSVG from './pilot-hit-track-svg';
+import PowerArmorRulesBoxSVG, { powerArmorRulesBoxHeight } from './power-armor-rules-box-svg';
 import QuadArmorCircles from './quad-armor-circles';
 import QuadArmorDiagramSVG from './quad-armor-diagram-svg';
 import QuadDamageTransferDiagramSVG from './quad-damage-transfer-diagram-svg';
@@ -27,10 +35,67 @@ import RecordSheetEquipmentTable from './record-sheet-equipment-table';
 import RecordSheetGATORTable from './record-sheet-gator-table';
 import RecordSheetGroupBoxSVG from './record-sheet-group-box-svg';
 import ShieldDiagramSVG from './shield-diagram-svg';
+import { BIPED_STRUCTURE_BUBBLES, QUAD_STRUCTURE_BUBBLES } from './structure-bubble-layouts';
+import { rulesetsAttributionSvg } from '../rulesets-attribution';
 import TakeDamageButtonSVG from './take-damage-button';
 import TargetSelectSVG from './target-select-svg';
 import TripodArmorCircles from './tripod-armor-circles';
-import TripodDiagramSVG, { TRIPOD_CENTER_LEG_BUBBLES } from './tripod-diagram-svg';
+import { TripodArmorDiagramSVG, TripodDamageTransferDiagramSVG, TripodInternalStructureDiagramSVG, TRIPOD_INTERNAL_CENTER_LEG_LAYOUT, tripodCenterLegBubbles } from './tripod-diagram-svg';
+
+export interface ICritTablePlacement {
+    /** Baseline of the location's name, from the top of the Critical Hit Table box. */
+    labelY: number;
+    /** First line of its slots, from the top of the box. */
+    tableY: number;
+    /** Type size against the standard sheet's. */
+    scale: number;
+}
+
+type CritSheetLocation = "la" | "ra" | "hd" | "ct" | "lt" | "rt" | "ll" | "rl";
+
+/** The standard sheet's places: arms and head at the top, center torso under the head, side torsos, legs at the foot. */
+const STANDARD_CRIT_PLACEMENTS: Record<CritSheetLocation, ICritTablePlacement> = {
+    la: { labelY: 100, tableY: 140, scale: 1 }, ra: { labelY: 100, tableY: 140, scale: 1 }, hd: { labelY: 100, tableY: 140, scale: 1 },
+    ct: { labelY: 350, tableY: 375, scale: 1 },
+    lt: { labelY: 550, tableY: 575, scale: 1 }, rt: { labelY: 550, tableY: 575, scale: 1 },
+    ll: { labelY: 1010, tableY: 1050, scale: 1 }, rl: { labelY: 1010, tableY: 1050, scale: 1 },
+};
+
+/**
+ * Where each location's critical table goes in the Critical Hit Table box. A standard 'Mech keeps the sheet's fixed
+ * places. Under Clell Flint's construction rules (#172) a location can run to 20 slots, so each column is stacked
+ * (left: arm, torso, leg; middle: head, center torso, above the Component Damage box; right as the left) and its type
+ * shrunk until the column fits. Ours: Flint prints no record sheet.
+ */
+export function getCritSheetLayout(mech: BattleMech): Record<CritSheetLocation, ICritTablePlacement> {
+    if (!mech.usesFutureWarsConstruction()) return STANDARD_CRIT_PLACEMENTS;
+    const line = 31, labelGap = 40, blockGap = 15, top = 100;
+    const lines = (slots: number) => slots + Math.max(0, getCriticalTables(slots).length - 1);
+    const layout = {} as Record<CritSheetLocation, ICritTablePlacement>;
+    const stack = (column: CritSheetLocation[], bottom: number, reserveTop: number) => {
+        const blocks = column.map(location => ({ location, lines: lines(mech.getLocationSlotCount(location)) }));
+        // From the first name's baseline to the last line's.
+        const needed = reserveTop + blocks.reduce((sum, block) => sum + labelGap + block.lines * line, 0) + blockGap * (blocks.length - 1) - line;
+        const scale = Math.min(1, (bottom - top) / needed);
+        let y = top + reserveTop * scale;
+        for (const block of blocks) {
+            const tableY = y + labelGap * scale;
+            layout[block.location] = { labelY: y, tableY, scale };
+            y = tableY + (block.lines * line + blockGap) * scale;
+        }
+    };
+    // An armless 'Mech's arm column holds the ARMLESS note instead (Maximum Tech p.62).
+    const armless = mech.isArmless();
+    const armReserve = STANDARD_CRIT_PLACEMENTS.lt.labelY - top;
+    stack(armless ? ["lt", "ll"] : ["la", "lt", "ll"], 1200, armless ? armReserve : 0);
+    stack(armless ? ["rt", "rl"] : ["ra", "rt", "rl"], 1200, armless ? armReserve : 0);
+    stack(["hd", "ct"], 735, 0);
+    if (armless) {
+        layout.la = STANDARD_CRIT_PLACEMENTS.la;
+        layout.ra = STANDARD_CRIT_PLACEMENTS.ra;
+    }
+    return layout;
+}
 
 export default class BattleMechSVG extends React.Component<IBattleMechSVGProps, IBattleMechSVGState> {
 
@@ -68,10 +133,19 @@ export default class BattleMechSVG extends React.Component<IBattleMechSVGProps, 
     }
 
     render = (): JSX.Element => {
+        const mech = this.props.mechData;
+        // A Battledroids biped prints on the book's own droid record sheet; play mode keeps this sheet's trackers.
+        if( !this.props.inPlay && mech.getRulesEdition() === "battledroids" && !mech.isQuad() && !mech.isTripod() && !mech.isLAM() && !mech.isQuadVee() ) {
+            return <BattledroidsMechRecordSheetSVG mechData={mech} />;
+        }
+        // The footer band's notice lines; with Special Rulesets to credit (#324) they close up to make room on top.
+        const rulesets = mech.getRulesets();
+        const noticeY = rulesets.length > 0 ? [58, 36, 14] : [75, 45, 15];
 
         // Biped/LAM use the Biped anatomy; Tripod extends that base with a Center Leg overlay.
         // QuadVee correctly reuses the Quad diagram (same 4-leg, no-arm anatomy).
         const hasArms = !this.props.mechData.isQuad() && !this.props.mechData.isQuadVee();
+        const armless = this.props.mechData.isArmless();
 
         let bgColor = "rgb(255,255,255)";
         let strokeColor = "rgb(0,0,0)";
@@ -97,16 +171,16 @@ export default class BattleMechSVG extends React.Component<IBattleMechSVGProps, 
             (_, index) => modularArmorLabels.slice(index * 4, index * 4 + 4).join("   ")
         );
 
-        let currentPhaseGroupColor = "#00a";
+        const currentPhaseGroupColor = "#00a";
 
-        let generalDataBoxX = 10;
-        let generalDataBoxY = 10;
+        const generalDataBoxX = 10;
+        const generalDataBoxY = 10;
 
-        let pilotBoxX = 725;
-        let pilotBoxY = 160;
+        const pilotBoxX = 725;
+        const pilotBoxY = 160;
 
-        let eraString = this.props.mechData.getEra().name;
-        let eraArray = eraString.split("(");
+        const eraString = this.props.mechData.getEra().name;
+        const eraArray = eraString.split("(");
         let eraLine1 = eraArray[0];
         let eraLine2 = "";
         if( eraArray[1] ) {
@@ -117,22 +191,26 @@ export default class BattleMechSVG extends React.Component<IBattleMechSVGProps, 
         eraLine1 = eraLine1.trim();
         eraLine2 = eraLine2.trim();
 
-        let battleValue = this.props.mechData.getBattleValue().toString();
-        let adjustedBattleValue = this.props.mechData.getPilotAdjustedBattleValue().toString();
-        let battleValueLabel = "BattleValue (BV2)"
+        // The 'Mech's edition's BV; a BV1 edition prints BV2 beside it (plan ruling 1).
+        const bvEdition = mech.getRulesEdition();
+        let battleValue = formatBattleValue((edition) => mech.getBattleValue(edition), "mech", bvEdition);
+        const adjustedBattleValue = formatBattleValue((edition) => mech.getPilotAdjustedBattleValue(edition), "mech", bvEdition);
+        const scheme = getBattleValueRules(bvEdition, "mech").scheme === "bv2" ? " (BV2)" : "";
+        let battleValueLabel = "BattleValue" + scheme;
         if( battleValue !== adjustedBattleValue ) {
-            battleValueLabel = "Adjusted / Base BV (BV2)"
+            battleValueLabel = "Adjusted / Base BV" + scheme;
             battleValue = "with pilot: " + adjustedBattleValue + " / base: " + battleValue + "";
         }
 
-        let critBoxTop = 1250;
-        let critBoxLeft = 10;
-        let critBoxWidth = 1225;
-        let damageTransferWidth = 150;
+        const critBoxTop = 1250;
+        const critBoxLeft = 10;
+        const critBoxWidth = 1225;
+        const damageTransferWidth = 150;
 
-        let critCol1Start = 125;
-        let critCol2Start = 513;
-        let critCol3Start = 925;
+        const critCol1Start = 125;
+        const critCol2Start = 513;
+        const critCol3Start = 925;
+        const critLayout = getCritSheetLayout( this.props.mechData );
 
         let currentMoveColor = "white";
         let currentMoveBackground = "#009";
@@ -155,6 +233,12 @@ export default class BattleMechSVG extends React.Component<IBattleMechSVGProps, 
         if( this.props.mechData.currentMovementMode === "j" ) {
             currentMoveColor = "white";
             currentMoveBackground = "red";
+        }
+
+        // AirMech Cruise and Flank (IO:AE p.102).
+        if( this.props.mechData.currentMovementMode === "c" || this.props.mechData.currentMovementMode === "f" ) {
+            currentMoveColor = "white";
+            currentMoveBackground = this.props.mechData.currentMovementMode === "c" ? "#38c" : "#036";
         }
 
         return (
@@ -307,8 +391,14 @@ export default class BattleMechSVG extends React.Component<IBattleMechSVGProps, 
                         style={{fontWeight: 500}}
                         fontSize={30}
                     >
-                        {this.props.mechData.getJumpSpeed()}
+                        {this.props.mechData.getJumpingText()}
                     </text>
+                    {breakLines(this.props.mechData.getJumpPackNote(), 80).map((line, lineIndex) => (
+                        <text key={lineIndex} data-testid="jump-pack-note" x={generalDataBoxX + 20} y={generalDataBoxY + 303 + lineIndex * 15} fontFamily="sans-serif" fill={strokeColor} fontSize={15}>{line}</text>
+                    ))}
+                    {breakLines(this.props.mechData.getHandheldSheetLine(), 90).map((line, lineIndex) => (
+                        <text key={lineIndex} data-testid="handheld-note" x={generalDataBoxX + 20} y={generalDataBoxY + 303 + (breakLines(this.props.mechData.getJumpPackNote(), 80).length + lineIndex) * 15} fontFamily="sans-serif" fill={strokeColor} fontSize={13}>{line}</text>
+                    ))}
 
                     <DieSVG
                         posY={ generalDataBoxY + 280 - 25}
@@ -455,7 +545,7 @@ export default class BattleMechSVG extends React.Component<IBattleMechSVGProps, 
         style={{fontWeight: 700}}
         fontSize={65}
     >
-        BATTLEMECH
+        {this.props.mechData.usesPowerArmorConstruction() ? "POWER ARMOR" : "BATTLEMECH"}
     </text>
     <text
         x={this.docWidth / 2 - 25}
@@ -501,7 +591,7 @@ export default class BattleMechSVG extends React.Component<IBattleMechSVGProps, 
                 style={{fontWeight: 500}}
                 fontSize={35}
             >
-                Piloting: {this.props.mechData.getPilot().piloting}
+                Piloting: {this.props.mechData.getPilot().piloting}{this.props.mechData.usesAerospaceSkills() && this.props.mechData.getPilot().aeroPiloting !== undefined ? ` / Aero ${this.props.mechData.getPilot().aeroPiloting}` : ""}
             </text>
 
 	        {/* Gunnery */}
@@ -514,8 +604,50 @@ export default class BattleMechSVG extends React.Component<IBattleMechSVGProps, 
                 style={{fontWeight: 500}}
                 fontSize={35}
             >
-                Gunnery: {this.props.mechData.getPilot().gunnery}
+                Gunnery: {this.props.mechData.getPilot().gunnery}{this.props.mechData.usesAerospaceSkills() && this.props.mechData.getPilot().aeroGunnery !== undefined ? ` / Aero ${this.props.mechData.getPilot().aeroGunnery}` : ""}
             </text>
+
+            {/* Enhanced Imaging: the box is marked in play while it is active; on paper the player marks it. */}
+            {this.props.mechData.hasEnhancedImaging() ? (
+                <g fontFamily="sans-serif" fill={strokeColor}>
+                    <text x={pilotBoxX + 10} y={pilotBoxY + 106} style={{fontWeight: 700}} fontSize={20}>EI</text>
+                    <rect
+                        data-testid="ei-box"
+                        fill={this.props.inPlay && this.props.mechData.isEnhancedImagingActive() ? strokeColor : bgColor}
+                        stroke={strokeColor}
+                        strokeWidth={2}
+                        x={pilotBoxX + 40}
+                        y={pilotBoxY + 91}
+                        width={16}
+                        height={16}
+                    />
+                    <text x={pilotBoxX + 62} y={pilotBoxY + 106} fontSize={18}>On</text>
+                    {breakLines("Structure damage: " + this.props.mechData.getEnhancedImagingFeedback(), 40).map((line, lineIndex) => (
+                        <text key={lineIndex} x={pilotBoxX + 10} y={pilotBoxY + 122 + lineIndex * 15} fontSize={13}>{line}</text>
+                    ))}
+                </g>
+            ) : null}
+
+            {/* Enhanced satellite uplink (Maximum Tech p.59): a switch box, marked in play while it is on; on paper the player marks it. */}
+            {this.props.mechData.hasSatelliteUplink() ? (
+                <g fontFamily="sans-serif" fill={strokeColor}>
+                    <text x={pilotBoxX + 170} y={pilotBoxY + 106} style={{fontWeight: 700}} fontSize={20}>Uplink</text>
+                    <rect
+                        data-testid="uplink-box"
+                        fill={this.props.inPlay && this.props.mechData.isSatelliteUplinkActive() ? strokeColor : bgColor}
+                        stroke={strokeColor}
+                        strokeWidth={2}
+                        x={pilotBoxX + 245}
+                        y={pilotBoxY + 91}
+                        width={16}
+                        height={16}
+                    />
+                    <text x={pilotBoxX + 267} y={pilotBoxY + 106} fontSize={18}>On</text>
+                    {breakLines("Side +2 Initiative; this unit +1 attacks and Piloting, no spotting or C3 (MT p.59)", 40).map((line, lineIndex) => (
+                        <text key={lineIndex} x={pilotBoxX + 170} y={pilotBoxY + 122 + lineIndex * 15} fontSize={13}>{line}</text>
+                    ))}
+                </g>
+            ) : null}
 
             <PilotHitTrackSVG
                 width={500}
@@ -532,16 +664,30 @@ export default class BattleMechSVG extends React.Component<IBattleMechSVGProps, 
     <RecordSheetEquipmentTable
         width={1215}
         height={645}
+        reservedBottom={this.props.mechData.usesPowerArmorConstruction() ? powerArmorRulesBoxHeight(this.props.mechData) + 10 : 0}
         xLoc={10}
         yLoc={440}
         bgColor={bgColor}
         mechData={this.props.mechData}
         inPlay={this.props.inPlay}
+        quirksInPlay={this.props.quirksInPlay}
         onChange={this.props.onChange}
         viewGATOR={this.props.viewGATOR}
         boxStrokeColor={this.props.currentPhase === 2 ? currentPhaseGroupColor : undefined}
         openSetTargetDialog={this.props.openSetTargetDialog}
     />
+
+    {/* Power Armor (#172): the Building Effects Table and the play rules at the foot of the Weapons and Equipment box. */}
+    {this.props.mechData.usesPowerArmorConstruction() ? (
+        <PowerArmorRulesBoxSVG
+            mech={this.props.mechData}
+            xLoc={20}
+            bottom={1075}
+            width={1195}
+            strokeColor={strokeColor}
+            bgColor={bgColor}
+        />
+    ) : null}
 
     {this.props.inPlay ? (
         <>
@@ -711,16 +857,13 @@ export default class BattleMechSVG extends React.Component<IBattleMechSVGProps, 
     {hasArms ? (
         <>
             {this.props.mechData.isTripod() ? (
-                <TripodDiagramSVG kind="armor" xLoc={1263} yLoc={-10} width={700} bgColor={bgColor} strokeColor={strokeColor} />
+                <TripodArmorDiagramSVG xLoc={1263} yLoc={-10} width={700} bgColor={bgColor} armless={armless} />
             ) : (
-                <BipedArmorDiagramSVG xLoc={1263} yLoc={-10} width={700} bgColor={bgColor} />
+                <BipedArmorDiagramSVG xLoc={1263} yLoc={-10} width={700} bgColor={bgColor} armless={armless} />
             )}
 
-            {this.props.mechData.isTripod() ? (
-                <TripodDiagramSVG kind="rear" xLoc={1413} yLoc={875} width={400} bgColor={bgColor} strokeColor={strokeColor} />
-            ) : (
-                <BipedRearArmorDiagramSVG xLoc={1413} yLoc={875} width={400} bgColor={bgColor} />
-            )}
+            {/* A Tripod's rear armor is the Biped's: the Center Leg has none. */}
+            <BipedRearArmorDiagramSVG xLoc={1413} yLoc={875} width={400} bgColor={bgColor} />
 
             {/* Each arm's shield beside the arm, as the Gundam RX-78-2 sheet draws it (TO:AUE p.103). */}
             {this.props.mechData.getShields().filter(shield => shield.location === "la" || shield.location === "ra").map(shield => (
@@ -745,11 +888,13 @@ export default class BattleMechSVG extends React.Component<IBattleMechSVGProps, 
 		<text x={this.armorBoxLeft + this.armorBoxWidth / 2 + 55} y={this.armorBoxTop + 95} textAnchor="start" fontFamily="sans-serif" fill={strokeColor} style={{fontWeight: 700}} fontSize={20}>RIGHT TORSO</text>
 		<text x={this.armorBoxLeft + this.armorBoxWidth / 2 + 85} y={this.armorBoxTop + 115} textAnchor="start" fontFamily="sans-serif" fill={strokeColor} style={{fontWeight: 700}} fontSize={20}>[{this.props.mechData.getArmorAllocation().rightTorso }]</text>
 
+        {armless ? null : <>
 		<text x={this.armorBoxLeft +  20} y={this.armorBoxTop + 620} textAnchor="start" fontFamily="sans-serif" fill={strokeColor} style={{fontWeight: 700}} fontSize={20}>LEFT</text>
 		<text x={this.armorBoxLeft +  20} y={this.armorBoxTop + 640} textAnchor="start" fontFamily="sans-serif" fill={strokeColor} style={{fontWeight: 700}} fontSize={20}>ARM [{this.props.mechData.getArmorAllocation().leftArm }]</text>
 
 		<text x={this.armorBoxLeft + this.armorBoxWidth - 40} y={this.armorBoxTop + 620} textAnchor="end" fontFamily="sans-serif" fill={strokeColor} style={{fontWeight: 700}} fontSize={20}>RIGHT</text>
 		<text x={this.armorBoxLeft + this.armorBoxWidth - 40} y={this.armorBoxTop + 640} textAnchor="end" fontFamily="sans-serif" fill={strokeColor} style={{fontWeight: 700}} fontSize={20}>ARM [{this.props.mechData.getArmorAllocation().rightArm }]</text>
+        </>}
 
 		<text x={this.armorBoxLeft +  20} y={this.armorBoxTop + 890} textAnchor="start" fontFamily="sans-serif" fill={strokeColor} style={{fontWeight: 700}} fontSize={20}>LEFT</text>
 		<text x={this.armorBoxLeft +  20} y={this.armorBoxTop + 910} textAnchor="start" fontFamily="sans-serif" fill={strokeColor} style={{fontWeight: 700}} fontSize={20}>LEG [{this.props.mechData.getArmorAllocation().leftLeg }]</text>
@@ -759,7 +904,7 @@ export default class BattleMechSVG extends React.Component<IBattleMechSVGProps, 
 
 		<text x={this.armorBoxLeft + this.armorBoxWidth / 2  } y={this.armorBoxTop + 600} textAnchor="middle" fontFamily="sans-serif" fill={strokeColor} style={{fontWeight: 700}} fontSize={20}>CENTER</text>
 		<text x={this.armorBoxLeft + this.armorBoxWidth / 2 } y={this.armorBoxTop + 620} textAnchor="middle" fontFamily="sans-serif" fill={strokeColor} style={{fontWeight: 700}} fontSize={20}>TORSO</text>
-		<text x={this.armorBoxLeft + this.armorBoxWidth / 2 } y={this.armorBoxTop + 640} textAnchor="middle" fontFamily="sans-serif" fill={strokeColor} style={{fontWeight: 700}} fontSize={20}>[{this.props.mechData.getArmorAllocation().centerTorso })</text>
+		<text x={this.armorBoxLeft + this.armorBoxWidth / 2 } y={this.armorBoxTop + 640} textAnchor="middle" fontFamily="sans-serif" fill={strokeColor} style={{fontWeight: 700}} fontSize={20}>[{this.props.mechData.getArmorAllocation().centerTorso }]</text>
 
 		<text x={this.armorBoxLeft + this.armorBoxWidth / 2 } y={this.armorBoxTop + 1215} textAnchor="middle" fontFamily="sans-serif" fill={strokeColor} style={{fontWeight: 700}} fontSize={20}>CENTER TORSO (REAR) [{this.props.mechData.getArmorAllocation().centerTorsoRear }]</text>
 
@@ -823,11 +968,11 @@ export default class BattleMechSVG extends React.Component<IBattleMechSVGProps, 
 
 		<text x={this.armorBoxLeft +  this.armorBoxWidth / 2 - 280 } y={this.armorBoxTop + 970} textAnchor="start" fontFamily="sans-serif" fill={strokeColor} style={{fontWeight: 700}} fontSize={20}>FRONT</text>
 		<text x={this.armorBoxLeft +  this.armorBoxWidth / 2 - 280 } y={this.armorBoxTop + 990} textAnchor="start" fontFamily="sans-serif" fill={strokeColor} style={{fontWeight: 700}} fontSize={20}>LEFT</text>
-		<text x={this.armorBoxLeft +  this.armorBoxWidth / 2 - 280 } y={this.armorBoxTop + 1010} textAnchor="start" fontFamily="sans-serif" fill={strokeColor} style={{fontWeight: 700}} fontSize={20}>LEG [{ this.props.mechData.getArmorAllocation().leftArm }]</text>
+		<text x={this.armorBoxLeft +  this.armorBoxWidth / 2 - 280 } y={this.armorBoxTop + 1010} textAnchor="start" fontFamily="sans-serif" fill={strokeColor} style={{fontWeight: 700}} fontSize={20}>LEG [{ this.props.mechData.getArmorAllocation().frontLeftLeg }]</text>
 
 		<text x={this.armorBoxLeft + this.armorBoxWidth / 2 + 280 } y={this.armorBoxTop + 970} textAnchor="end" fontFamily="sans-serif" fill={strokeColor} style={{fontWeight: 700}} fontSize={20}>FRONT</text>
 		<text x={this.armorBoxLeft + this.armorBoxWidth / 2 + 280 } y={this.armorBoxTop + 990} textAnchor="end" fontFamily="sans-serif" fill={strokeColor} style={{fontWeight: 700}} fontSize={20}>RIGHT</text>
-		<text x={this.armorBoxLeft + this.armorBoxWidth / 2 + 280 } y={this.armorBoxTop + 1010} textAnchor="end" fontFamily="sans-serif" fill={strokeColor} style={{fontWeight: 700}} fontSize={20}>LEG [{ this.props.mechData.getArmorAllocation().rightArm }]</text>
+		<text x={this.armorBoxLeft + this.armorBoxWidth / 2 + 280 } y={this.armorBoxTop + 1010} textAnchor="end" fontFamily="sans-serif" fill={strokeColor} style={{fontWeight: 700}} fontSize={20}>LEG [{ this.props.mechData.getArmorAllocation().frontRightLeg }]</text>
 
 		<text x={this.armorBoxLeft +  this.armorBoxWidth / 2 - 110 } y={this.armorBoxTop + 935} textAnchor="start" fontFamily="sans-serif" fill={strokeColor} style={{fontWeight: 700}} fontSize={20}>REAR</text>
 		<text x={this.armorBoxLeft +  this.armorBoxWidth / 2 - 110 } y={this.armorBoxTop + 955} textAnchor="start" fontFamily="sans-serif" fill={strokeColor} style={{fontWeight: 700}} fontSize={20}>LEFT</text>
@@ -839,7 +984,7 @@ export default class BattleMechSVG extends React.Component<IBattleMechSVGProps, 
 
 		<text x={this.armorBoxLeft + this.armorBoxWidth / 2 + 10  } y={this.armorBoxTop + 600} textAnchor="middle" fontFamily="sans-serif" fill={strokeColor} style={{fontWeight: 700}} fontSize={17}>CENTER</text>
 		<text x={this.armorBoxLeft + this.armorBoxWidth / 2 + 10  } y={this.armorBoxTop + 620} textAnchor="middle" fontFamily="sans-serif" fill={strokeColor} style={{fontWeight: 700}} fontSize={17}>TORSO</text>
-		<text x={this.armorBoxLeft + this.armorBoxWidth / 2 + 10  } y={this.armorBoxTop + 640} textAnchor="middle" fontFamily="sans-serif" fill={strokeColor} style={{fontWeight: 700}} fontSize={17}>[{ this.props.mechData.getArmorAllocation().centerTorso })</text>
+		<text x={this.armorBoxLeft + this.armorBoxWidth / 2 + 10  } y={this.armorBoxTop + 640} textAnchor="middle" fontFamily="sans-serif" fill={strokeColor} style={{fontWeight: 700}} fontSize={17}>[{ this.props.mechData.getArmorAllocation().centerTorso }]</text>
 
 		<text x={this.armorBoxLeft + this.armorBoxWidth / 2  } y={this.armorBoxTop + 1210} textAnchor="middle" fontFamily="sans-serif" fill={strokeColor} style={{fontWeight: 700}} fontSize={20}>CENTER TORSO (REAR) [{ this.props.mechData.getArmorAllocation().centerTorsoRear }]</text>
 
@@ -890,9 +1035,9 @@ export default class BattleMechSVG extends React.Component<IBattleMechSVGProps, 
     {hasArms ? (
         <>
             {this.props.mechData.isTripod() ? (
-                <TripodDiagramSVG kind="internal" xLoc={1350} yLoc={1275} width={420} bgColor={bgColor} strokeColor={strokeColor} />
+                <TripodInternalStructureDiagramSVG xLoc={1350} yLoc={1275} width={420} armless={armless} />
             ) : (
-                <BipedInternalStructureDiagramSVG xLoc={1350} yLoc={1275} width={420} />
+                <BipedInternalStructureDiagramSVG xLoc={1350} yLoc={1275} width={420} armless={armless} />
             )}
 
         {/* // Main Structure Labels */}
@@ -904,11 +1049,13 @@ export default class BattleMechSVG extends React.Component<IBattleMechSVGProps, 
 		<text x={this.isBoxLeft + this.isBoxWidth / 2 + 65} y={this.isBoxTop + 85} textAnchor="start" fontFamily="sans-serif" fill={strokeColor} style={{fontWeight: 700}} fontSize={15}>RIGHT TORSO</text>
 		<text x={this.isBoxLeft + this.isBoxWidth / 2 + 65} y={this.isBoxTop + 105} textAnchor="start" fontFamily="sans-serif" fill={strokeColor} style={{fontWeight: 700}} fontSize={15}>[{this.props.mechData.getInternalStructure().rightTorso }]</text>
 
+        {armless ? null : <>
 		<text x={this.isBoxLeft +  this.isBoxWidth / 2 - 200} y={this.isBoxTop + 310} textAnchor="end" fontFamily="sans-serif" fill={strokeColor} style={{fontWeight: 700}} fontSize={15}>LEFT</text>
 		<text x={this.isBoxLeft +  this.isBoxWidth / 2 - 200} y={this.isBoxTop + 330} textAnchor="end" fontFamily="sans-serif" fill={strokeColor} style={{fontWeight: 700}} fontSize={15}>ARM [{this.props.mechData.getInternalStructure().leftArm }]</text>
 
 		<text x={this.isBoxLeft + this.isBoxWidth / 2 + 200} y={this.isBoxTop + 310} textAnchor="start" fontFamily="sans-serif" fill={strokeColor} style={{fontWeight: 700}} fontSize={15}>RIGHT</text>
 		<text x={this.isBoxLeft + this.isBoxWidth / 2 + 200} y={this.isBoxTop + 330} textAnchor="start" fontFamily="sans-serif" fill={strokeColor} style={{fontWeight: 700}} fontSize={15}>ARM [{this.props.mechData.getInternalStructure().rightArm }]</text>
+        </>}
 
 		<text x={this.isBoxLeft +  this.isBoxWidth / 2 - 150} y={this.isBoxTop + 570} textAnchor="end" fontFamily="sans-serif" fill={strokeColor} style={{fontWeight: 700}} fontSize={15}>LEFT</text>
 		<text x={this.isBoxLeft +  this.isBoxWidth / 2 - 150} y={this.isBoxTop + 590} textAnchor="end" fontFamily="sans-serif" fill={strokeColor} style={{fontWeight: 700}} fontSize={15}>LEG [{this.props.mechData.getInternalStructure().leftLeg }]</text>
@@ -918,252 +1065,30 @@ export default class BattleMechSVG extends React.Component<IBattleMechSVGProps, 
 
 		<text x={this.isBoxLeft + this.isBoxWidth / 2 } y={this.isBoxTop + 400} textAnchor="middle" fontFamily="sans-serif" fill={strokeColor} style={{fontWeight: 700}} fontSize={15}>CENTER</text>
 		<text x={this.isBoxLeft + this.isBoxWidth / 2 } y={this.isBoxTop + 420} textAnchor="middle" fontFamily="sans-serif" fill={strokeColor} style={{fontWeight: 700}} fontSize={15}>TORSO</text>
-		<text x={this.isBoxLeft + this.isBoxWidth / 2 } y={this.isBoxTop + 440} textAnchor="middle" fontFamily="sans-serif" fill={strokeColor} style={{fontWeight: 700}} fontSize={15}>[{this.props.mechData.getInternalStructure().centerTorso })</text>
+		<text x={this.isBoxLeft + this.isBoxWidth / 2 } y={this.isBoxTop + 440} textAnchor="middle" fontFamily="sans-serif" fill={strokeColor} style={{fontWeight: 700}} fontSize={15}>[{this.props.mechData.getInternalStructure().centerTorso }]</text>
 
-        {/* Head IS */}
-        {this.props.mechData.getInternalStructure().head > 0 ? (<><DamageCircleSVG isFilled={this.props.mechData.structureDamaged("hd", 0)} xLoc={this.isBoxLeft + this.isBoxWidth / 2 + 15 } yLoc={this.isBoxTop + 120} radius={10} inPlay={this.props.inPlay} clickLocation="hd" clickIndex={0} clickFunction={this.toggleISBubble}/></>) : (<></>)}
-        {this.props.mechData.getInternalStructure().head > 1 ? (<><DamageCircleSVG isFilled={this.props.mechData.structureDamaged("hd", 1)} xLoc={this.isBoxLeft + this.isBoxWidth / 2 - 15 } yLoc={this.isBoxTop + 120} radius={10} inPlay={this.props.inPlay} clickLocation="hd" clickIndex={1} clickFunction={this.toggleISBubble} /></>) : (<></>)}
-        {this.props.mechData.getInternalStructure().head > 2 ? (<><DamageCircleSVG isFilled={this.props.mechData.structureDamaged("hd", 2)} xLoc={this.isBoxLeft + this.isBoxWidth / 2} yLoc={this.isBoxTop + 140} radius={10} inPlay={this.props.inPlay} clickLocation="hd" clickIndex={2} clickFunction={this.toggleISBubble} /></>) : (<></>)}
-
-        {/* Left Arm IS */}
-        {this.props.mechData.getInternalStructure().leftArm > 0 ? (<><DamageCircleSVG isFilled={this.props.mechData.structureDamaged("la", 0)} xLoc={this.isBoxLeft + this.isBoxWidth / 2 - 135} yLoc={this.isBoxTop + 150} radius={10} inPlay={this.props.inPlay} clickLocation="la" clickIndex={0} clickFunction={this.toggleISBubble} /></>) : (<></>)}
-        {this.props.mechData.getInternalStructure().leftArm > 1 ? (<><DamageCircleSVG isFilled={this.props.mechData.structureDamaged("la", 1)} xLoc={this.isBoxLeft + this.isBoxWidth / 2 - 137} yLoc={this.isBoxTop + 165} radius={10} inPlay={this.props.inPlay} clickLocation="la" clickIndex={1} clickFunction={this.toggleISBubble} /></>) : (<></>)}
-        {this.props.mechData.getInternalStructure().leftArm > 2 ? (<><DamageCircleSVG isFilled={this.props.mechData.structureDamaged("la", 2)} xLoc={this.isBoxLeft + this.isBoxWidth / 2 - 140} yLoc={this.isBoxTop + 180} radius={10} inPlay={this.props.inPlay} clickLocation="la" clickIndex={2} clickFunction={this.toggleISBubble} /></>) : (<></>)}
-        {this.props.mechData.getInternalStructure().leftArm > 3 ? (<><DamageCircleSVG isFilled={this.props.mechData.structureDamaged("la", 3)} xLoc={this.isBoxLeft + this.isBoxWidth / 2 - 142} yLoc={this.isBoxTop + 195} radius={10} inPlay={this.props.inPlay} clickLocation="la" clickIndex={3} clickFunction={this.toggleISBubble} /></>) : (<></>)}
-        {this.props.mechData.getInternalStructure().leftArm > 4 ? (<><DamageCircleSVG isFilled={this.props.mechData.structureDamaged("la", 4)} xLoc={this.isBoxLeft + this.isBoxWidth / 2 - 145} yLoc={this.isBoxTop + 210} radius={10} inPlay={this.props.inPlay} clickLocation="la" clickIndex={4} clickFunction={this.toggleISBubble} /></>) : (<></>)}
-
-        {this.props.mechData.getInternalStructure().leftArm > 5 ? (<><DamageCircleSVG isFilled={this.props.mechData.structureDamaged("la", 5)} xLoc={this.isBoxLeft + this.isBoxWidth / 2 - 147} yLoc={this.isBoxTop + 235} radius={10} inPlay={this.props.inPlay} clickLocation="la" clickIndex={5} clickFunction={this.toggleISBubble} /></>) : (<></>)}
-        {this.props.mechData.getInternalStructure().leftArm > 6 ? (<><DamageCircleSVG isFilled={this.props.mechData.structureDamaged("la", 6)} xLoc={this.isBoxLeft + this.isBoxWidth / 2 - 148} yLoc={this.isBoxTop + 250} radius={10} inPlay={this.props.inPlay} clickLocation="la" clickIndex={6} clickFunction={this.toggleISBubble} /></>) : (<></>)}
-        {this.props.mechData.getInternalStructure().leftArm > 7 ? (<><DamageCircleSVG isFilled={this.props.mechData.structureDamaged("la", 7)} xLoc={this.isBoxLeft + this.isBoxWidth / 2 - 149} yLoc={this.isBoxTop + 265} radius={10} inPlay={this.props.inPlay} clickLocation="la" clickIndex={7} clickFunction={this.toggleISBubble} /></>) : (<></>)}
-        {this.props.mechData.getInternalStructure().leftArm > 8 ? (<><DamageCircleSVG isFilled={this.props.mechData.structureDamaged("la", 8)} xLoc={this.isBoxLeft + this.isBoxWidth / 2 - 150} yLoc={this.isBoxTop + 280} radius={10} inPlay={this.props.inPlay} clickLocation="la" clickIndex={8} clickFunction={this.toggleISBubble} /></>) : (<></>)}
-        {this.props.mechData.getInternalStructure().leftArm > 9 ? (<><DamageCircleSVG isFilled={this.props.mechData.structureDamaged("la", 9)} xLoc={this.isBoxLeft + this.isBoxWidth / 2 - 151} yLoc={this.isBoxTop + 295} radius={10} inPlay={this.props.inPlay} clickLocation="la" clickIndex={9} clickFunction={this.toggleISBubble} /></>) : (<></>)}
-
-        {this.props.mechData.getInternalStructure().leftArm > 10 ? (<><DamageCircleSVG isFilled={this.props.mechData.structureDamaged("la", 10)} xLoc={this.isBoxLeft + this.isBoxWidth / 2 - 152} yLoc={this.isBoxTop + 150} radius={10} inPlay={this.props.inPlay} clickLocation="la" clickIndex={10} clickFunction={this.toggleISBubble} /></>) : (<></>)}
-        {this.props.mechData.getInternalStructure().leftArm > 11 ? (<><DamageCircleSVG isFilled={this.props.mechData.structureDamaged("la", 11)} xLoc={this.isBoxLeft + this.isBoxWidth / 2 - 155} yLoc={this.isBoxTop + 165} radius={10} inPlay={this.props.inPlay} clickLocation="la" clickIndex={11} clickFunction={this.toggleISBubble} /></>) : (<></>)}
-        {this.props.mechData.getInternalStructure().leftArm > 12 ? (<><DamageCircleSVG isFilled={this.props.mechData.structureDamaged("la", 12)} xLoc={this.isBoxLeft + this.isBoxWidth / 2 - 158} yLoc={this.isBoxTop + 180} radius={10} inPlay={this.props.inPlay} clickLocation="la" clickIndex={12} clickFunction={this.toggleISBubble} /></>) : (<></>)}
-        {this.props.mechData.getInternalStructure().leftArm > 13 ? (<><DamageCircleSVG isFilled={this.props.mechData.structureDamaged("la", 13)} xLoc={this.isBoxLeft + this.isBoxWidth / 2 - 160} yLoc={this.isBoxTop + 195} radius={10} inPlay={this.props.inPlay} clickLocation="la" clickIndex={13} clickFunction={this.toggleISBubble} /></>) : (<></>)}
-        {this.props.mechData.getInternalStructure().leftArm > 14 ? (<><DamageCircleSVG isFilled={this.props.mechData.structureDamaged("la", 14)} xLoc={this.isBoxLeft + this.isBoxWidth / 2 - 163} yLoc={this.isBoxTop + 210} radius={10} inPlay={this.props.inPlay} clickLocation="la" clickIndex={14} clickFunction={this.toggleISBubble} /></>) : (<></>)}
-
-        {this.props.mechData.getInternalStructure().leftArm > 15 ? (<><DamageCircleSVG isFilled={this.props.mechData.structureDamaged("la", 15)} xLoc={this.isBoxLeft + this.isBoxWidth / 2 - 154} yLoc={this.isBoxTop + 315} radius={10} inPlay={this.props.inPlay} clickLocation="la" clickIndex={15} clickFunction={this.toggleISBubble} /></>) : (<></>)}
-        {this.props.mechData.getInternalStructure().leftArm > 16 ? (<><DamageCircleSVG isFilled={this.props.mechData.structureDamaged("la", 16)} xLoc={this.isBoxLeft + this.isBoxWidth / 2 - 157} yLoc={this.isBoxTop + 330} radius={10} inPlay={this.props.inPlay} clickLocation="la" clickIndex={16} clickFunction={this.toggleISBubble} /></>) : (<></>)}
-        {this.props.mechData.getInternalStructure().leftArm > 17 ? (<><DamageCircleSVG isFilled={this.props.mechData.structureDamaged("la", 17)} xLoc={this.isBoxLeft + this.isBoxWidth / 2 - 160} yLoc={this.isBoxTop + 345} radius={10} inPlay={this.props.inPlay} clickLocation="la" clickIndex={17} clickFunction={this.toggleISBubble} /></>) : (<></>)}
-        {this.props.mechData.getInternalStructure().leftArm > 18 ? (<><DamageCircleSVG isFilled={this.props.mechData.structureDamaged("la", 18)} xLoc={this.isBoxLeft + this.isBoxWidth / 2 - 162} yLoc={this.isBoxTop + 360} radius={10} inPlay={this.props.inPlay} clickLocation="la" clickIndex={18} clickFunction={this.toggleISBubble} /></>) : (<></>)}
-        {this.props.mechData.getInternalStructure().leftArm > 19 ? (<><DamageCircleSVG isFilled={this.props.mechData.structureDamaged("la", 19)} xLoc={this.isBoxLeft + this.isBoxWidth / 2 - 165} yLoc={this.isBoxTop + 375} radius={10} inPlay={this.props.inPlay} clickLocation="la" clickIndex={19} clickFunction={this.toggleISBubble} /></>) : (<></>)}
-
-        {/* Right Arm IS */}
-        {this.props.mechData.getInternalStructure().rightArm > 0 ? (<><DamageCircleSVG isFilled={this.props.mechData.structureDamaged("ra", 0)} xLoc={this.isBoxLeft + this.isBoxWidth / 2 + 135} yLoc={this.isBoxTop + 150} radius={10} inPlay={this.props.inPlay} clickLocation="ra" clickIndex={0} clickFunction={this.toggleISBubble} /></>) : (<></>)}
-        {this.props.mechData.getInternalStructure().rightArm > 1 ? (<><DamageCircleSVG isFilled={this.props.mechData.structureDamaged("ra", 1)} xLoc={this.isBoxLeft + this.isBoxWidth / 2 + 137} yLoc={this.isBoxTop + 165} radius={10} inPlay={this.props.inPlay} clickLocation="ra" clickIndex={1} clickFunction={this.toggleISBubble} /></>) : (<></>)}
-        {this.props.mechData.getInternalStructure().rightArm > 2 ? (<><DamageCircleSVG isFilled={this.props.mechData.structureDamaged("ra", 2)} xLoc={this.isBoxLeft + this.isBoxWidth / 2 + 140} yLoc={this.isBoxTop + 180} radius={10} inPlay={this.props.inPlay} clickLocation="ra" clickIndex={2} clickFunction={this.toggleISBubble} /></>) : (<></>)}
-        {this.props.mechData.getInternalStructure().rightArm > 3 ? (<><DamageCircleSVG isFilled={this.props.mechData.structureDamaged("ra", 3)} xLoc={this.isBoxLeft + this.isBoxWidth / 2 + 142} yLoc={this.isBoxTop + 195} radius={10} inPlay={this.props.inPlay} clickLocation="ra" clickIndex={3} clickFunction={this.toggleISBubble} /></>) : (<></>)}
-        {this.props.mechData.getInternalStructure().rightArm > 4 ? (<><DamageCircleSVG isFilled={this.props.mechData.structureDamaged("ra", 4)} xLoc={this.isBoxLeft + this.isBoxWidth / 2 + 145} yLoc={this.isBoxTop + 210} radius={10} inPlay={this.props.inPlay} clickLocation="ra" clickIndex={4} clickFunction={this.toggleISBubble} /></>) : (<></>)}
-
-        {this.props.mechData.getInternalStructure().rightArm > 5 ? (<><DamageCircleSVG isFilled={this.props.mechData.structureDamaged("ra", 5)} xLoc={this.isBoxLeft + this.isBoxWidth / 2 + 147} yLoc={this.isBoxTop + 235} radius={10} inPlay={this.props.inPlay} clickLocation="ra" clickIndex={5} clickFunction={this.toggleISBubble}  /></>) : (<></>)}
-        {this.props.mechData.getInternalStructure().rightArm > 6 ? (<><DamageCircleSVG isFilled={this.props.mechData.structureDamaged("ra", 6)} xLoc={this.isBoxLeft + this.isBoxWidth / 2 + 148} yLoc={this.isBoxTop + 250} radius={10} inPlay={this.props.inPlay} clickLocation="ra" clickIndex={6} clickFunction={this.toggleISBubble}  /></>) : (<></>)}
-        {this.props.mechData.getInternalStructure().rightArm > 7 ? (<><DamageCircleSVG isFilled={this.props.mechData.structureDamaged("ra", 7)} xLoc={this.isBoxLeft + this.isBoxWidth / 2 + 149} yLoc={this.isBoxTop + 265} radius={10} inPlay={this.props.inPlay} clickLocation="ra" clickIndex={7} clickFunction={this.toggleISBubble}  /></>) : (<></>)}
-        {this.props.mechData.getInternalStructure().rightArm > 8 ? (<><DamageCircleSVG isFilled={this.props.mechData.structureDamaged("ra", 8)} xLoc={this.isBoxLeft + this.isBoxWidth / 2 + 150} yLoc={this.isBoxTop + 280} radius={10} inPlay={this.props.inPlay} clickLocation="ra" clickIndex={8} clickFunction={this.toggleISBubble}  /></>) : (<></>)}
-        {this.props.mechData.getInternalStructure().rightArm > 9 ? (<><DamageCircleSVG isFilled={this.props.mechData.structureDamaged("ra", 9)} xLoc={this.isBoxLeft + this.isBoxWidth / 2 + 151} yLoc={this.isBoxTop + 295} radius={10} inPlay={this.props.inPlay} clickLocation="ra" clickIndex={9} clickFunction={this.toggleISBubble}  /></>) : (<></>)}
-
-        {this.props.mechData.getInternalStructure().rightArm > 10 ? (<><DamageCircleSVG isFilled={this.props.mechData.structureDamaged("ra", 10)} xLoc={this.isBoxLeft + this.isBoxWidth / 2 + 152} yLoc={this.isBoxTop + 150} radius={10} inPlay={this.props.inPlay} clickLocation="ra" clickIndex={10} clickFunction={this.toggleISBubble}  /></>) : (<></>)}
-        {this.props.mechData.getInternalStructure().rightArm > 11 ? (<><DamageCircleSVG isFilled={this.props.mechData.structureDamaged("ra", 11)} xLoc={this.isBoxLeft + this.isBoxWidth / 2 + 155} yLoc={this.isBoxTop + 165} radius={10} inPlay={this.props.inPlay} clickLocation="ra" clickIndex={11} clickFunction={this.toggleISBubble}  /></>) : (<></>)}
-        {this.props.mechData.getInternalStructure().rightArm > 12 ? (<><DamageCircleSVG isFilled={this.props.mechData.structureDamaged("ra", 12)} xLoc={this.isBoxLeft + this.isBoxWidth / 2 + 158} yLoc={this.isBoxTop + 180} radius={10} inPlay={this.props.inPlay} clickLocation="ra" clickIndex={12} clickFunction={this.toggleISBubble}  /></>) : (<></>)}
-        {this.props.mechData.getInternalStructure().rightArm > 13 ? (<><DamageCircleSVG isFilled={this.props.mechData.structureDamaged("ra", 13)} xLoc={this.isBoxLeft + this.isBoxWidth / 2 + 160} yLoc={this.isBoxTop + 195} radius={10} inPlay={this.props.inPlay} clickLocation="ra" clickIndex={13} clickFunction={this.toggleISBubble}  /></>) : (<></>)}
-        {this.props.mechData.getInternalStructure().rightArm > 14 ? (<><DamageCircleSVG isFilled={this.props.mechData.structureDamaged("ra", 14)} xLoc={this.isBoxLeft + this.isBoxWidth / 2 + 163} yLoc={this.isBoxTop + 210} radius={10} inPlay={this.props.inPlay} clickLocation="ra" clickIndex={14} clickFunction={this.toggleISBubble}  /></>) : (<></>)}
-
-        {this.props.mechData.getInternalStructure().rightArm > 15 ? (<><DamageCircleSVG isFilled={this.props.mechData.structureDamaged("ra", 15)} xLoc={this.isBoxLeft + this.isBoxWidth / 2 + 154} yLoc={this.isBoxTop + 315} radius={10} inPlay={this.props.inPlay} clickLocation="ra" clickIndex={15} clickFunction={this.toggleISBubble} /></>) : (<></>)}
-        {this.props.mechData.getInternalStructure().rightArm > 16 ? (<><DamageCircleSVG isFilled={this.props.mechData.structureDamaged("ra", 16)} xLoc={this.isBoxLeft + this.isBoxWidth / 2 + 157} yLoc={this.isBoxTop + 330} radius={10} inPlay={this.props.inPlay} clickLocation="ra" clickIndex={16} clickFunction={this.toggleISBubble} /></>) : (<></>)}
-        {this.props.mechData.getInternalStructure().rightArm > 17 ? (<><DamageCircleSVG isFilled={this.props.mechData.structureDamaged("ra", 17)} xLoc={this.isBoxLeft + this.isBoxWidth / 2 + 160} yLoc={this.isBoxTop + 345} radius={10} inPlay={this.props.inPlay} clickLocation="ra" clickIndex={17} clickFunction={this.toggleISBubble} /></>) : (<></>)}
-        {this.props.mechData.getInternalStructure().rightArm > 18 ? (<><DamageCircleSVG isFilled={this.props.mechData.structureDamaged("ra", 18)} xLoc={this.isBoxLeft + this.isBoxWidth / 2 + 162} yLoc={this.isBoxTop + 360} radius={10} inPlay={this.props.inPlay} clickLocation="ra" clickIndex={18} clickFunction={this.toggleISBubble} /></>) : (<></>)}
-        {this.props.mechData.getInternalStructure().rightArm > 19 ? (<><DamageCircleSVG isFilled={this.props.mechData.structureDamaged("ra", 19)} xLoc={this.isBoxLeft + this.isBoxWidth / 2 + 165} yLoc={this.isBoxTop + 375} radius={10} inPlay={this.props.inPlay} clickLocation="ra" clickIndex={19} clickFunction={this.toggleISBubble} /></>) : (<></>)}
-
-        {/* Center Torso IS */}
-        {this.props.mechData.getInternalStructure().centerTorso > 0 ? (<><DamageCircleSVG isFilled={this.props.mechData.structureDamaged("ct", 0)} xLoc={this.isBoxLeft + this.isBoxWidth / 2 + 0} yLoc={this.isBoxTop + 175} radius={10} inPlay={this.props.inPlay} clickLocation="ct" clickIndex={0} clickFunction={this.toggleISBubble} /></>) : (<></>)}
-        {this.props.mechData.getInternalStructure().centerTorso > 1 ? (<><DamageCircleSVG isFilled={this.props.mechData.structureDamaged("ct", 1)} xLoc={this.isBoxLeft + this.isBoxWidth / 2 + 0} yLoc={this.isBoxTop + 190} radius={10} inPlay={this.props.inPlay} clickLocation="ct" clickIndex={1} clickFunction={this.toggleISBubble} /></>) : (<></>)}
-        {this.props.mechData.getInternalStructure().centerTorso > 2 ? (<><DamageCircleSVG isFilled={this.props.mechData.structureDamaged("ct", 2)} xLoc={this.isBoxLeft + this.isBoxWidth / 2 + 0} yLoc={this.isBoxTop + 205} radius={10} inPlay={this.props.inPlay} clickLocation="ct" clickIndex={2} clickFunction={this.toggleISBubble} /></>) : (<></>)}
-        {this.props.mechData.getInternalStructure().centerTorso > 3 ? (<><DamageCircleSVG isFilled={this.props.mechData.structureDamaged("ct", 3)} xLoc={this.isBoxLeft + this.isBoxWidth / 2 + 0} yLoc={this.isBoxTop + 220} radius={10} inPlay={this.props.inPlay} clickLocation="ct" clickIndex={3} clickFunction={this.toggleISBubble} /></>) : (<></>)}
-        {this.props.mechData.getInternalStructure().centerTorso > 4 ? (<><DamageCircleSVG isFilled={this.props.mechData.structureDamaged("ct", 4)} xLoc={this.isBoxLeft + this.isBoxWidth / 2 + 0} yLoc={this.isBoxTop + 235} radius={10} inPlay={this.props.inPlay} clickLocation="ct" clickIndex={4} clickFunction={this.toggleISBubble} /></>) : (<></>)}
-
-        {this.props.mechData.getInternalStructure().centerTorso > 5 ? (<><DamageCircleSVG isFilled={this.props.mechData.structureDamaged("ct", 5)} xLoc={this.isBoxLeft + this.isBoxWidth / 2 + 0} yLoc={this.isBoxTop + 255} radius={10} inPlay={this.props.inPlay} clickLocation="ct" clickIndex={5} clickFunction={this.toggleISBubble} /></>) : (<></>)}
-        {this.props.mechData.getInternalStructure().centerTorso > 6 ? (<><DamageCircleSVG isFilled={this.props.mechData.structureDamaged("ct", 6)} xLoc={this.isBoxLeft + this.isBoxWidth / 2 + 0} yLoc={this.isBoxTop + 270} radius={10} inPlay={this.props.inPlay} clickLocation="ct" clickIndex={6} clickFunction={this.toggleISBubble} /></>) : (<></>)}
-        {this.props.mechData.getInternalStructure().centerTorso > 7 ? (<><DamageCircleSVG isFilled={this.props.mechData.structureDamaged("ct", 7)} xLoc={this.isBoxLeft + this.isBoxWidth / 2 + 0} yLoc={this.isBoxTop + 285} radius={10} inPlay={this.props.inPlay} clickLocation="ct" clickIndex={7} clickFunction={this.toggleISBubble} /></>) : (<></>)}
-        {this.props.mechData.getInternalStructure().centerTorso > 8 ? (<><DamageCircleSVG isFilled={this.props.mechData.structureDamaged("ct", 8)} xLoc={this.isBoxLeft + this.isBoxWidth / 2 + 0} yLoc={this.isBoxTop + 300} radius={10} inPlay={this.props.inPlay} clickLocation="ct" clickIndex={8} clickFunction={this.toggleISBubble} /></>) : (<></>)}
-        {this.props.mechData.getInternalStructure().centerTorso > 9 ? (<><DamageCircleSVG isFilled={this.props.mechData.structureDamaged("ct", 9)} xLoc={this.isBoxLeft + this.isBoxWidth / 2 + 0} yLoc={this.isBoxTop + 315} radius={10} inPlay={this.props.inPlay} clickLocation="ct" clickIndex={9} clickFunction={this.toggleISBubble} /></>) : (<></>)}
-
-        {this.props.mechData.getInternalStructure().centerTorso > 10 ? (<><DamageCircleSVG isFilled={this.props.mechData.structureDamaged("ct", 10)} xLoc={this.isBoxLeft + this.isBoxWidth / 2 + 20} yLoc={this.isBoxTop + 175} radius={10} inPlay={this.props.inPlay} clickLocation="ct" clickIndex={10} clickFunction={this.toggleISBubble} /></>) : (<></>)}
-        {this.props.mechData.getInternalStructure().centerTorso > 11 ? (<><DamageCircleSVG isFilled={this.props.mechData.structureDamaged("ct", 11)} xLoc={this.isBoxLeft + this.isBoxWidth / 2 + 20} yLoc={this.isBoxTop + 190} radius={10} inPlay={this.props.inPlay} clickLocation="ct" clickIndex={11} clickFunction={this.toggleISBubble} /></>) : (<></>)}
-        {this.props.mechData.getInternalStructure().centerTorso > 12 ? (<><DamageCircleSVG isFilled={this.props.mechData.structureDamaged("ct", 12)} xLoc={this.isBoxLeft + this.isBoxWidth / 2 + 20} yLoc={this.isBoxTop + 205} radius={10} inPlay={this.props.inPlay} clickLocation="ct" clickIndex={12} clickFunction={this.toggleISBubble} /></>) : (<></>)}
-        {this.props.mechData.getInternalStructure().centerTorso > 13 ? (<><DamageCircleSVG isFilled={this.props.mechData.structureDamaged("ct", 13)} xLoc={this.isBoxLeft + this.isBoxWidth / 2 + 20} yLoc={this.isBoxTop + 220} radius={10} inPlay={this.props.inPlay} clickLocation="ct" clickIndex={13} clickFunction={this.toggleISBubble} /></>) : (<></>)}
-        {this.props.mechData.getInternalStructure().centerTorso > 14 ? (<><DamageCircleSVG isFilled={this.props.mechData.structureDamaged("ct", 14)} xLoc={this.isBoxLeft + this.isBoxWidth / 2 + 20} yLoc={this.isBoxTop + 235} radius={10} inPlay={this.props.inPlay} clickLocation="ct" clickIndex={14} clickFunction={this.toggleISBubble} /></>) : (<></>)}
-
-        {this.props.mechData.getInternalStructure().centerTorso > 15 ? (<><DamageCircleSVG isFilled={this.props.mechData.structureDamaged("ct", 15)} xLoc={this.isBoxLeft + this.isBoxWidth / 2 - 20} yLoc={this.isBoxTop + 175} radius={10} inPlay={this.props.inPlay} clickLocation="ct" clickIndex={15} clickFunction={this.toggleISBubble} /></>) : (<></>)}
-        {this.props.mechData.getInternalStructure().centerTorso > 16 ? (<><DamageCircleSVG isFilled={this.props.mechData.structureDamaged("ct", 16)} xLoc={this.isBoxLeft + this.isBoxWidth / 2 - 20} yLoc={this.isBoxTop + 190} radius={10} inPlay={this.props.inPlay} clickLocation="ct" clickIndex={16} clickFunction={this.toggleISBubble} /></>) : (<></>)}
-        {this.props.mechData.getInternalStructure().centerTorso > 17 ? (<><DamageCircleSVG isFilled={this.props.mechData.structureDamaged("ct", 17)} xLoc={this.isBoxLeft + this.isBoxWidth / 2 - 20} yLoc={this.isBoxTop + 205} radius={10} inPlay={this.props.inPlay} clickLocation="ct" clickIndex={17} clickFunction={this.toggleISBubble} /></>) : (<></>)}
-        {this.props.mechData.getInternalStructure().centerTorso > 18 ? (<><DamageCircleSVG isFilled={this.props.mechData.structureDamaged("ct", 18)} xLoc={this.isBoxLeft + this.isBoxWidth / 2 - 20} yLoc={this.isBoxTop + 220} radius={10} inPlay={this.props.inPlay} clickLocation="ct" clickIndex={18} clickFunction={this.toggleISBubble} /></>) : (<></>)}
-        {this.props.mechData.getInternalStructure().centerTorso > 19 ? (<><DamageCircleSVG isFilled={this.props.mechData.structureDamaged("ct", 19)} xLoc={this.isBoxLeft + this.isBoxWidth / 2 - 20} yLoc={this.isBoxTop + 235} radius={10} inPlay={this.props.inPlay} clickLocation="ct" clickIndex={19} clickFunction={this.toggleISBubble} /></>) : (<></>)}
-
-        {this.props.mechData.getInternalStructure().centerTorso > 20 ? (<><DamageCircleSVG isFilled={this.props.mechData.structureDamaged("ct", 20)} xLoc={this.isBoxLeft + this.isBoxWidth / 2 + 20} yLoc={this.isBoxTop + 255} radius={10} inPlay={this.props.inPlay} clickLocation="ct" clickIndex={20} clickFunction={this.toggleISBubble} /></>) : (<></>)}
-        {this.props.mechData.getInternalStructure().centerTorso > 21 ? (<><DamageCircleSVG isFilled={this.props.mechData.structureDamaged("ct", 21)} xLoc={this.isBoxLeft + this.isBoxWidth / 2 + 20} yLoc={this.isBoxTop + 270} radius={10} inPlay={this.props.inPlay} clickLocation="ct" clickIndex={21} clickFunction={this.toggleISBubble} /></>) : (<></>)}
-        {this.props.mechData.getInternalStructure().centerTorso > 22 ? (<><DamageCircleSVG isFilled={this.props.mechData.structureDamaged("ct", 22)} xLoc={this.isBoxLeft + this.isBoxWidth / 2 + 20} yLoc={this.isBoxTop + 285} radius={10} inPlay={this.props.inPlay} clickLocation="ct" clickIndex={22} clickFunction={this.toggleISBubble} /></>) : (<></>)}
-        {this.props.mechData.getInternalStructure().centerTorso > 23 ? (<><DamageCircleSVG isFilled={this.props.mechData.structureDamaged("ct", 23)} xLoc={this.isBoxLeft + this.isBoxWidth / 2 + 20} yLoc={this.isBoxTop + 300} radius={10} inPlay={this.props.inPlay} clickLocation="ct" clickIndex={23} clickFunction={this.toggleISBubble} /></>) : (<></>)}
-        {this.props.mechData.getInternalStructure().centerTorso > 24 ? (<><DamageCircleSVG isFilled={this.props.mechData.structureDamaged("ct", 24)} xLoc={this.isBoxLeft + this.isBoxWidth / 2 + 20} yLoc={this.isBoxTop + 315} radius={10} inPlay={this.props.inPlay} clickLocation="ct" clickIndex={24} clickFunction={this.toggleISBubble} /></>) : (<></>)}
-
-        {this.props.mechData.getInternalStructure().centerTorso > 25 ? (<><DamageCircleSVG isFilled={this.props.mechData.structureDamaged("ct", 25)} xLoc={this.isBoxLeft + this.isBoxWidth / 2 - 20} yLoc={this.isBoxTop + 255} radius={10} inPlay={this.props.inPlay} clickLocation="ct" clickIndex={25} clickFunction={this.toggleISBubble} /></>) : (<></>)}
-        {this.props.mechData.getInternalStructure().centerTorso > 26 ? (<><DamageCircleSVG isFilled={this.props.mechData.structureDamaged("ct", 26)} xLoc={this.isBoxLeft + this.isBoxWidth / 2 - 20} yLoc={this.isBoxTop + 270} radius={10} inPlay={this.props.inPlay} clickLocation="ct" clickIndex={26} clickFunction={this.toggleISBubble} /></>) : (<></>)}
-        {this.props.mechData.getInternalStructure().centerTorso > 27 ? (<><DamageCircleSVG isFilled={this.props.mechData.structureDamaged("ct", 27)} xLoc={this.isBoxLeft + this.isBoxWidth / 2 - 20} yLoc={this.isBoxTop + 285} radius={10} inPlay={this.props.inPlay} clickLocation="ct" clickIndex={27} clickFunction={this.toggleISBubble} /></>) : (<></>)}
-        {this.props.mechData.getInternalStructure().centerTorso > 28 ? (<><DamageCircleSVG isFilled={this.props.mechData.structureDamaged("ct", 28)} xLoc={this.isBoxLeft + this.isBoxWidth / 2 - 20} yLoc={this.isBoxTop + 300} radius={10} inPlay={this.props.inPlay} clickLocation="ct" clickIndex={28} clickFunction={this.toggleISBubble} /></>) : (<></>)}
-        {this.props.mechData.getInternalStructure().centerTorso > 29 ? (<><DamageCircleSVG isFilled={this.props.mechData.structureDamaged("ct", 29)} xLoc={this.isBoxLeft + this.isBoxWidth / 2 - 20} yLoc={this.isBoxTop + 315} radius={10} inPlay={this.props.inPlay} clickLocation="ct" clickIndex={29} clickFunction={this.toggleISBubble} /></>) : (<></>)}
-
-        {this.props.mechData.getInternalStructure().centerTorso > 31 ? (<><DamageCircleSVG isFilled={this.props.mechData.structureDamaged("ct", 31)} xLoc={this.isBoxLeft + this.isBoxWidth / 2 - 20} yLoc={this.isBoxTop + 335} radius={10} inPlay={this.props.inPlay} clickLocation="ct" clickIndex={31} clickFunction={this.toggleISBubble} /></>) : (<></>)}
-        {this.props.mechData.getInternalStructure().centerTorso > 30 ? (<><DamageCircleSVG isFilled={this.props.mechData.structureDamaged("ct", 30)} xLoc={this.isBoxLeft + this.isBoxWidth / 2 - 0} yLoc={this.isBoxTop + 335} radius={10} inPlay={this.props.inPlay} clickLocation="ct" clickIndex={30} clickFunction={this.toggleISBubble}/></>) : (<></>)}
-        {this.props.mechData.getInternalStructure().centerTorso > 32 ? (<><DamageCircleSVG isFilled={this.props.mechData.structureDamaged("ct", 32)} xLoc={this.isBoxLeft + this.isBoxWidth / 2 + 20} yLoc={this.isBoxTop + 335} radius={10} inPlay={this.props.inPlay} clickLocation="ct" clickIndex={32} clickFunction={this.toggleISBubble} /></>) : (<></>)}
-
-        {/* Left Torso IS */}
-        {this.props.mechData.getInternalStructure().leftTorso > 0 ? (<><DamageCircleSVG isFilled={this.props.mechData.structureDamaged("lt", 0)} xLoc={this.isBoxLeft + this.isBoxWidth / 2 - 50} yLoc={this.isBoxTop + 145} radius={10} inPlay={this.props.inPlay} clickLocation="lt" clickIndex={0} clickFunction={this.toggleISBubble} /></>) : (<></>)}
-        {this.props.mechData.getInternalStructure().leftTorso > 1 ? (<><DamageCircleSVG isFilled={this.props.mechData.structureDamaged("lt", 1)} xLoc={this.isBoxLeft + this.isBoxWidth / 2 - 50} yLoc={this.isBoxTop + 160} radius={10} inPlay={this.props.inPlay} clickLocation="lt" clickIndex={1} clickFunction={this.toggleISBubble} /></>) : (<></>)}
-        {this.props.mechData.getInternalStructure().leftTorso > 2 ? (<><DamageCircleSVG isFilled={this.props.mechData.structureDamaged("lt", 2)} xLoc={this.isBoxLeft + this.isBoxWidth / 2 - 50} yLoc={this.isBoxTop + 175} radius={10} inPlay={this.props.inPlay} clickLocation="lt" clickIndex={2} clickFunction={this.toggleISBubble} /></>) : (<></>)}
-        {this.props.mechData.getInternalStructure().leftTorso > 3 ? (<><DamageCircleSVG isFilled={this.props.mechData.structureDamaged("lt", 3)} xLoc={this.isBoxLeft + this.isBoxWidth / 2 - 50} yLoc={this.isBoxTop + 190} radius={10} inPlay={this.props.inPlay} clickLocation="lt" clickIndex={3} clickFunction={this.toggleISBubble} /></>) : (<></>)}
-        {this.props.mechData.getInternalStructure().leftTorso > 4 ? (<><DamageCircleSVG isFilled={this.props.mechData.structureDamaged("lt", 4)} xLoc={this.isBoxLeft + this.isBoxWidth / 2 - 50} yLoc={this.isBoxTop + 205} radius={10} inPlay={this.props.inPlay} clickLocation="lt" clickIndex={4} clickFunction={this.toggleISBubble} /></>) : (<></>)}
-
-        {this.props.mechData.getInternalStructure().leftTorso > 5 ? (<><DamageCircleSVG isFilled={this.props.mechData.structureDamaged("lt", 5)} xLoc={this.isBoxLeft + this.isBoxWidth / 2 - 70} yLoc={this.isBoxTop + 145} radius={10} inPlay={this.props.inPlay} clickLocation="lt" clickIndex={5} clickFunction={this.toggleISBubble} /></>) : (<></>)}
-        {this.props.mechData.getInternalStructure().leftTorso > 6 ? (<><DamageCircleSVG isFilled={this.props.mechData.structureDamaged("lt", 6)} xLoc={this.isBoxLeft + this.isBoxWidth / 2 - 70} yLoc={this.isBoxTop + 160} radius={10} inPlay={this.props.inPlay} clickLocation="lt" clickIndex={6} clickFunction={this.toggleISBubble} /></>) : (<></>)}
-        {this.props.mechData.getInternalStructure().leftTorso > 7 ? (<><DamageCircleSVG isFilled={this.props.mechData.structureDamaged("lt", 7)} xLoc={this.isBoxLeft + this.isBoxWidth / 2 - 70} yLoc={this.isBoxTop + 175} radius={10} inPlay={this.props.inPlay} clickLocation="lt" clickIndex={7} clickFunction={this.toggleISBubble} /></>) : (<></>)}
-        {this.props.mechData.getInternalStructure().leftTorso > 8 ? (<><DamageCircleSVG isFilled={this.props.mechData.structureDamaged("lt", 8)} xLoc={this.isBoxLeft + this.isBoxWidth / 2 - 70} yLoc={this.isBoxTop + 190} radius={10} inPlay={this.props.inPlay} clickLocation="lt" clickIndex={8} clickFunction={this.toggleISBubble} /></>) : (<></>)}
-        {this.props.mechData.getInternalStructure().leftTorso > 9 ? (<><DamageCircleSVG isFilled={this.props.mechData.structureDamaged("lt", 9)} xLoc={this.isBoxLeft + this.isBoxWidth / 2 - 70} yLoc={this.isBoxTop + 205} radius={10} inPlay={this.props.inPlay} clickLocation="lt" clickIndex={9} clickFunction={this.toggleISBubble} /></>) : (<></>)}
-
-        {this.props.mechData.getInternalStructure().leftTorso > 10 ? (<><DamageCircleSVG isFilled={this.props.mechData.structureDamaged("lt", 10)} xLoc={this.isBoxLeft + this.isBoxWidth / 2 - 90} yLoc={this.isBoxTop + 145} radius={10} inPlay={this.props.inPlay} clickLocation="lt" clickIndex={10} clickFunction={this.toggleISBubble} /></>) : (<></>)}
-        {this.props.mechData.getInternalStructure().leftTorso > 11 ? (<><DamageCircleSVG isFilled={this.props.mechData.structureDamaged("lt", 11)} xLoc={this.isBoxLeft + this.isBoxWidth / 2 - 90} yLoc={this.isBoxTop + 160} radius={10} inPlay={this.props.inPlay} clickLocation="lt" clickIndex={11} clickFunction={this.toggleISBubble} /></>) : (<></>)}
-        {this.props.mechData.getInternalStructure().leftTorso > 12 ? (<><DamageCircleSVG isFilled={this.props.mechData.structureDamaged("lt", 12)} xLoc={this.isBoxLeft + this.isBoxWidth / 2 - 90} yLoc={this.isBoxTop + 175} radius={10} inPlay={this.props.inPlay} clickLocation="lt" clickIndex={12} clickFunction={this.toggleISBubble} /></>) : (<></>)}
-        {this.props.mechData.getInternalStructure().leftTorso > 13 ? (<><DamageCircleSVG isFilled={this.props.mechData.structureDamaged("lt", 13)} xLoc={this.isBoxLeft + this.isBoxWidth / 2 - 90} yLoc={this.isBoxTop + 190} radius={10} inPlay={this.props.inPlay} clickLocation="lt" clickIndex={13} clickFunction={this.toggleISBubble} /></>) : (<></>)}
-        {this.props.mechData.getInternalStructure().leftTorso > 14 ? (<><DamageCircleSVG isFilled={this.props.mechData.structureDamaged("lt", 14)} xLoc={this.isBoxLeft + this.isBoxWidth / 2 - 90} yLoc={this.isBoxTop + 205} radius={10} inPlay={this.props.inPlay} clickLocation="lt" clickIndex={14} clickFunction={this.toggleISBubble} /></>) : (<></>)}
-
-        {this.props.mechData.getInternalStructure().leftTorso > 15 ? (<><DamageCircleSVG isFilled={this.props.mechData.structureDamaged("lt", 15)} xLoc={this.isBoxLeft + this.isBoxWidth / 2 - 53} yLoc={this.isBoxTop + 230} radius={10} inPlay={this.props.inPlay} clickLocation="lt" clickIndex={15} clickFunction={this.toggleISBubble} /></>) : (<></>)}
-        {this.props.mechData.getInternalStructure().leftTorso > 16 ? (<><DamageCircleSVG isFilled={this.props.mechData.structureDamaged("lt", 16)} xLoc={this.isBoxLeft + this.isBoxWidth / 2 - 52} yLoc={this.isBoxTop + 245} radius={10} inPlay={this.props.inPlay} clickLocation="lt" clickIndex={16} clickFunction={this.toggleISBubble} /></>) : (<></>)}
-        {this.props.mechData.getInternalStructure().leftTorso > 17 ? (<><DamageCircleSVG isFilled={this.props.mechData.structureDamaged("lt", 17)} xLoc={this.isBoxLeft + this.isBoxWidth / 2 - 50} yLoc={this.isBoxTop + 260} radius={10} inPlay={this.props.inPlay} clickLocation="lt" clickIndex={17} clickFunction={this.toggleISBubble} /></>) : (<></>)}
-        {this.props.mechData.getInternalStructure().leftTorso > 18 ? (<><DamageCircleSVG isFilled={this.props.mechData.structureDamaged("lt", 18)} xLoc={this.isBoxLeft + this.isBoxWidth / 2 - 49} yLoc={this.isBoxTop + 275} radius={10} inPlay={this.props.inPlay} clickLocation="lt" clickIndex={18} clickFunction={this.toggleISBubble} /></>) : (<></>)}
-        {this.props.mechData.getInternalStructure().leftTorso > 19 ? (<><DamageCircleSVG isFilled={this.props.mechData.structureDamaged("lt", 19)} xLoc={this.isBoxLeft + this.isBoxWidth / 2 - 48} yLoc={this.isBoxTop + 290} radius={10} inPlay={this.props.inPlay} clickLocation="lt" clickIndex={19} clickFunction={this.toggleISBubble} /></>) : (<></>)}
-
-        {this.props.mechData.getInternalStructure().leftTorso > 20 ? (<><DamageCircleSVG isFilled={this.props.mechData.structureDamaged("lt", 20)} xLoc={this.isBoxLeft + this.isBoxWidth / 2 - 50} yLoc={this.isBoxTop + 310} radius={10} inPlay={this.props.inPlay} clickLocation="lt" clickIndex={20} clickFunction={this.toggleISBubble} /></>) : (<></>)}
-        {this.props.mechData.getInternalStructure().leftTorso > 21 ? (<><DamageCircleSVG isFilled={this.props.mechData.structureDamaged("lt", 21)} xLoc={this.isBoxLeft + this.isBoxWidth / 2 - 70} yLoc={this.isBoxTop + 310} radius={10} inPlay={this.props.inPlay} clickLocation="lt" clickIndex={21} clickFunction={this.toggleISBubble} /></>) : (<></>)}
-        {this.props.mechData.getInternalStructure().leftTorso > 22 ? (<><DamageCircleSVG isFilled={this.props.mechData.structureDamaged("lt", 22)} xLoc={this.isBoxLeft + this.isBoxWidth / 2 - 50} yLoc={this.isBoxTop + 325} radius={10} inPlay={this.props.inPlay} clickLocation="lt" clickIndex={22} clickFunction={this.toggleISBubble} /></>) : (<></>)}
-        {this.props.mechData.getInternalStructure().leftTorso > 23 ? (<><DamageCircleSVG isFilled={this.props.mechData.structureDamaged("lt", 23)} xLoc={this.isBoxLeft + this.isBoxWidth / 2 - 70} yLoc={this.isBoxTop + 325} radius={10} inPlay={this.props.inPlay} clickLocation="lt" clickIndex={23} clickFunction={this.toggleISBubble} /></>) : (<></>)}
-        {this.props.mechData.getInternalStructure().leftTorso > 24 ? (<><DamageCircleSVG isFilled={this.props.mechData.structureDamaged("lt", 24)} xLoc={this.isBoxLeft + this.isBoxWidth / 2 - 90} yLoc={this.isBoxTop + 325} radius={10} inPlay={this.props.inPlay} clickLocation="lt" clickIndex={24} clickFunction={this.toggleISBubble} /></>) : (<></>)}
-
-        {/* Right Torso IS */}
-        {this.props.mechData.getInternalStructure().rightTorso > 0 ? (<><DamageCircleSVG isFilled={this.props.mechData.structureDamaged("rt", 0)} xLoc={this.isBoxLeft + this.isBoxWidth / 2 + 50} yLoc={this.isBoxTop + 145} radius={10} inPlay={this.props.inPlay} clickLocation="rt" clickIndex={0} clickFunction={this.toggleISBubble} /></>) : (<></>)}
-        {this.props.mechData.getInternalStructure().rightTorso > 1 ? (<><DamageCircleSVG isFilled={this.props.mechData.structureDamaged("rt", 1)} xLoc={this.isBoxLeft + this.isBoxWidth / 2 + 50} yLoc={this.isBoxTop + 160} radius={10} inPlay={this.props.inPlay} clickLocation="rt" clickIndex={1} clickFunction={this.toggleISBubble} /></>) : (<></>)}
-        {this.props.mechData.getInternalStructure().rightTorso > 2 ? (<><DamageCircleSVG isFilled={this.props.mechData.structureDamaged("rt", 2)} xLoc={this.isBoxLeft + this.isBoxWidth / 2 + 50} yLoc={this.isBoxTop + 175} radius={10} inPlay={this.props.inPlay} clickLocation="rt" clickIndex={2} clickFunction={this.toggleISBubble} /></>) : (<></>)}
-        {this.props.mechData.getInternalStructure().rightTorso > 3 ? (<><DamageCircleSVG isFilled={this.props.mechData.structureDamaged("rt", 3)} xLoc={this.isBoxLeft + this.isBoxWidth / 2 + 50} yLoc={this.isBoxTop + 190} radius={10} inPlay={this.props.inPlay} clickLocation="rt" clickIndex={3} clickFunction={this.toggleISBubble} /></>) : (<></>)}
-        {this.props.mechData.getInternalStructure().rightTorso > 4 ? (<><DamageCircleSVG isFilled={this.props.mechData.structureDamaged("rt", 4)} xLoc={this.isBoxLeft + this.isBoxWidth / 2 + 50} yLoc={this.isBoxTop + 205} radius={10} inPlay={this.props.inPlay} clickLocation="rt" clickIndex={4} clickFunction={this.toggleISBubble} /></>) : (<></>)}
-
-        {this.props.mechData.getInternalStructure().rightTorso > 5 ? (<><DamageCircleSVG isFilled={this.props.mechData.structureDamaged("rt", 5)} xLoc={this.isBoxLeft + this.isBoxWidth / 2 + 70} yLoc={this.isBoxTop + 145} radius={10} inPlay={this.props.inPlay} clickLocation="rt" clickIndex={5} clickFunction={this.toggleISBubble} /></>) : (<></>)}
-        {this.props.mechData.getInternalStructure().rightTorso > 6 ? (<><DamageCircleSVG isFilled={this.props.mechData.structureDamaged("rt", 6)} xLoc={this.isBoxLeft + this.isBoxWidth / 2 + 70} yLoc={this.isBoxTop + 160} radius={10} inPlay={this.props.inPlay} clickLocation="rt" clickIndex={6} clickFunction={this.toggleISBubble} /></>) : (<></>)}
-        {this.props.mechData.getInternalStructure().rightTorso > 7 ? (<><DamageCircleSVG isFilled={this.props.mechData.structureDamaged("rt", 7)} xLoc={this.isBoxLeft + this.isBoxWidth / 2 + 70} yLoc={this.isBoxTop + 175} radius={10} inPlay={this.props.inPlay} clickLocation="rt" clickIndex={7} clickFunction={this.toggleISBubble} /></>) : (<></>)}
-        {this.props.mechData.getInternalStructure().rightTorso > 8 ? (<><DamageCircleSVG isFilled={this.props.mechData.structureDamaged("rt", 8)} xLoc={this.isBoxLeft + this.isBoxWidth / 2 + 70} yLoc={this.isBoxTop + 190} radius={10} inPlay={this.props.inPlay} clickLocation="rt" clickIndex={8} clickFunction={this.toggleISBubble} /></>) : (<></>)}
-        {this.props.mechData.getInternalStructure().rightTorso > 9 ? (<><DamageCircleSVG isFilled={this.props.mechData.structureDamaged("rt", 9)} xLoc={this.isBoxLeft + this.isBoxWidth / 2 + 70} yLoc={this.isBoxTop + 205} radius={10} inPlay={this.props.inPlay} clickLocation="rt" clickIndex={9} clickFunction={this.toggleISBubble} /></>) : (<></>)}
-
-        {this.props.mechData.getInternalStructure().rightTorso > 10 ? (<><DamageCircleSVG isFilled={this.props.mechData.structureDamaged("rt", 10)} xLoc={this.isBoxLeft + this.isBoxWidth / 2 + 90} yLoc={this.isBoxTop + 145} radius={10} inPlay={this.props.inPlay} clickLocation="rt" clickIndex={10} clickFunction={this.toggleISBubble} /></>) : (<></>)}
-        {this.props.mechData.getInternalStructure().rightTorso > 11 ? (<><DamageCircleSVG isFilled={this.props.mechData.structureDamaged("rt", 11)} xLoc={this.isBoxLeft + this.isBoxWidth / 2 + 90} yLoc={this.isBoxTop + 160} radius={10} inPlay={this.props.inPlay} clickLocation="rt" clickIndex={11} clickFunction={this.toggleISBubble} /></>) : (<></>)}
-        {this.props.mechData.getInternalStructure().rightTorso > 12 ? (<><DamageCircleSVG isFilled={this.props.mechData.structureDamaged("rt", 12)} xLoc={this.isBoxLeft + this.isBoxWidth / 2 + 90} yLoc={this.isBoxTop + 175} radius={10} inPlay={this.props.inPlay} clickLocation="rt" clickIndex={12} clickFunction={this.toggleISBubble} /></>) : (<></>)}
-        {this.props.mechData.getInternalStructure().rightTorso > 13 ? (<><DamageCircleSVG isFilled={this.props.mechData.structureDamaged("rt", 13)} xLoc={this.isBoxLeft + this.isBoxWidth / 2 + 90} yLoc={this.isBoxTop + 190} radius={10} inPlay={this.props.inPlay} clickLocation="rt" clickIndex={13} clickFunction={this.toggleISBubble} /></>) : (<></>)}
-        {this.props.mechData.getInternalStructure().rightTorso > 14 ? (<><DamageCircleSVG isFilled={this.props.mechData.structureDamaged("rt", 14)} xLoc={this.isBoxLeft + this.isBoxWidth / 2 + 90} yLoc={this.isBoxTop + 205} radius={10} inPlay={this.props.inPlay} clickLocation="rt" clickIndex={14} clickFunction={this.toggleISBubble} /></>) : (<></>)}
-
-        {this.props.mechData.getInternalStructure().rightTorso > 15 ? (<><DamageCircleSVG isFilled={this.props.mechData.structureDamaged("rt", 15)} xLoc={this.isBoxLeft + this.isBoxWidth / 2 + 53} yLoc={this.isBoxTop + 230} radius={10} inPlay={this.props.inPlay} clickLocation="rt" clickIndex={15} clickFunction={this.toggleISBubble} /></>) : (<></>)}
-        {this.props.mechData.getInternalStructure().rightTorso > 16 ? (<><DamageCircleSVG isFilled={this.props.mechData.structureDamaged("rt", 16)} xLoc={this.isBoxLeft + this.isBoxWidth / 2 + 52} yLoc={this.isBoxTop + 245} radius={10} inPlay={this.props.inPlay} clickLocation="rt" clickIndex={16} clickFunction={this.toggleISBubble} /></>) : (<></>)}
-        {this.props.mechData.getInternalStructure().rightTorso > 17 ? (<><DamageCircleSVG isFilled={this.props.mechData.structureDamaged("rt", 17)} xLoc={this.isBoxLeft + this.isBoxWidth / 2 + 50} yLoc={this.isBoxTop + 260} radius={10} inPlay={this.props.inPlay} clickLocation="rt" clickIndex={17} clickFunction={this.toggleISBubble} /></>) : (<></>)}
-        {this.props.mechData.getInternalStructure().rightTorso > 18 ? (<><DamageCircleSVG isFilled={this.props.mechData.structureDamaged("rt", 18)} xLoc={this.isBoxLeft + this.isBoxWidth / 2 + 49} yLoc={this.isBoxTop + 275} radius={10} inPlay={this.props.inPlay} clickLocation="rt" clickIndex={18} clickFunction={this.toggleISBubble} /></>) : (<></>)}
-        {this.props.mechData.getInternalStructure().rightTorso > 19 ? (<><DamageCircleSVG isFilled={this.props.mechData.structureDamaged("rt", 19)} xLoc={this.isBoxLeft + this.isBoxWidth / 2 + 48} yLoc={this.isBoxTop + 290} radius={10} inPlay={this.props.inPlay} clickLocation="rt" clickIndex={19} clickFunction={this.toggleISBubble} /></>) : (<></>)}
-
-        {this.props.mechData.getInternalStructure().rightTorso > 20 ? (<><DamageCircleSVG isFilled={this.props.mechData.structureDamaged("rt", 20)} xLoc={this.isBoxLeft + this.isBoxWidth / 2 + 50} yLoc={this.isBoxTop + 310} radius={10} inPlay={this.props.inPlay} clickLocation="rt" clickIndex={20} clickFunction={this.toggleISBubble} /></>) : (<></>)}
-        {this.props.mechData.getInternalStructure().rightTorso > 21 ? (<><DamageCircleSVG isFilled={this.props.mechData.structureDamaged("rt", 21)} xLoc={this.isBoxLeft + this.isBoxWidth / 2 + 70} yLoc={this.isBoxTop + 310} radius={10} inPlay={this.props.inPlay} clickLocation="rt" clickIndex={21} clickFunction={this.toggleISBubble} /></>) : (<></>)}
-        {this.props.mechData.getInternalStructure().rightTorso > 22 ? (<><DamageCircleSVG isFilled={this.props.mechData.structureDamaged("rt", 22)} xLoc={this.isBoxLeft + this.isBoxWidth / 2 + 50} yLoc={this.isBoxTop + 325} radius={10} inPlay={this.props.inPlay} clickLocation="rt" clickIndex={22} clickFunction={this.toggleISBubble} /></>) : (<></>)}
-        {this.props.mechData.getInternalStructure().rightTorso > 23 ? (<><DamageCircleSVG isFilled={this.props.mechData.structureDamaged("rt", 23)} xLoc={this.isBoxLeft + this.isBoxWidth / 2 + 70} yLoc={this.isBoxTop + 325} radius={10} inPlay={this.props.inPlay} clickLocation="rt" clickIndex={23} clickFunction={this.toggleISBubble} /></>) : (<></>)}
-        {this.props.mechData.getInternalStructure().rightTorso > 24 ? (<><DamageCircleSVG isFilled={this.props.mechData.structureDamaged("rt", 24)} xLoc={this.isBoxLeft + this.isBoxWidth / 2 + 90} yLoc={this.isBoxTop + 325} radius={10} inPlay={this.props.inPlay} clickLocation="rt" clickIndex={24} clickFunction={this.toggleISBubble} /></>) : (<></>)}
-
-        {/* Left Leg IS */}
-        {this.props.mechData.getInternalStructure().leftLeg > 0 ? (<><DamageCircleSVG isFilled={this.props.mechData.structureDamaged("ll", 0)} xLoc={this.isBoxLeft + this.isBoxWidth / 2 - 53} yLoc={this.isBoxTop + 340} radius={10} inPlay={this.props.inPlay} clickLocation="ll" clickIndex={0} clickFunction={this.toggleISBubble} /></>) : (<></>)}
-        {this.props.mechData.getInternalStructure().leftLeg > 1 ? (<><DamageCircleSVG isFilled={this.props.mechData.structureDamaged("ll", 1)} xLoc={this.isBoxLeft + this.isBoxWidth / 2 - 55} yLoc={this.isBoxTop + 355} radius={10} inPlay={this.props.inPlay} clickLocation="ll" clickIndex={1} clickFunction={this.toggleISBubble} /></>) : (<></>)}
-        {this.props.mechData.getInternalStructure().leftLeg > 2 ? (<><DamageCircleSVG isFilled={this.props.mechData.structureDamaged("ll", 2)} xLoc={this.isBoxLeft + this.isBoxWidth / 2 - 57} yLoc={this.isBoxTop + 370} radius={10} inPlay={this.props.inPlay} clickLocation="ll" clickIndex={2} clickFunction={this.toggleISBubble} /></>) : (<></>)}
-        {this.props.mechData.getInternalStructure().leftLeg > 3 ? (<><DamageCircleSVG isFilled={this.props.mechData.structureDamaged("ll", 3)} xLoc={this.isBoxLeft + this.isBoxWidth / 2 - 59} yLoc={this.isBoxTop + 385} radius={10} inPlay={this.props.inPlay} clickLocation="ll" clickIndex={3} clickFunction={this.toggleISBubble} /></>) : (<></>)}
-        {this.props.mechData.getInternalStructure().leftLeg > 4 ? (<><DamageCircleSVG isFilled={this.props.mechData.structureDamaged("ll", 4)} xLoc={this.isBoxLeft + this.isBoxWidth / 2 - 60} yLoc={this.isBoxTop + 400} radius={10} inPlay={this.props.inPlay} clickLocation="ll" clickIndex={4} clickFunction={this.toggleISBubble} /></>) : (<></>)}
-
-        {this.props.mechData.getInternalStructure().leftLeg > 5 ? (<><DamageCircleSVG isFilled={this.props.mechData.structureDamaged("ll", 5)} xLoc={this.isBoxLeft + this.isBoxWidth / 2 - 68} yLoc={this.isBoxTop + 420} radius={10} inPlay={this.props.inPlay} clickLocation="ll" clickIndex={5} clickFunction={this.toggleISBubble} /></>) : (<></>)}
-        {this.props.mechData.getInternalStructure().leftLeg > 6 ? (<><DamageCircleSVG isFilled={this.props.mechData.structureDamaged("ll", 6)} xLoc={this.isBoxLeft + this.isBoxWidth / 2 - 70} yLoc={this.isBoxTop + 435} radius={10} inPlay={this.props.inPlay} clickLocation="ll" clickIndex={6} clickFunction={this.toggleISBubble} /></>) : (<></>)}
-        {this.props.mechData.getInternalStructure().leftLeg > 7 ? (<><DamageCircleSVG isFilled={this.props.mechData.structureDamaged("ll", 7)} xLoc={this.isBoxLeft + this.isBoxWidth / 2 - 72} yLoc={this.isBoxTop + 450} radius={10} inPlay={this.props.inPlay} clickLocation="ll" clickIndex={7} clickFunction={this.toggleISBubble} /></>) : (<></>)}
-        {this.props.mechData.getInternalStructure().leftLeg > 8 ? (<><DamageCircleSVG isFilled={this.props.mechData.structureDamaged("ll", 8)} xLoc={this.isBoxLeft + this.isBoxWidth / 2 - 74} yLoc={this.isBoxTop + 465} radius={10} inPlay={this.props.inPlay} clickLocation="ll" clickIndex={8} clickFunction={this.toggleISBubble} /></>) : (<></>)}
-        {this.props.mechData.getInternalStructure().leftLeg > 9 ? (<><DamageCircleSVG isFilled={this.props.mechData.structureDamaged("ll", 9)} xLoc={this.isBoxLeft + this.isBoxWidth / 2 - 76} yLoc={this.isBoxTop + 480} radius={10} inPlay={this.props.inPlay} clickLocation="ll" clickIndex={9} clickFunction={this.toggleISBubble} /></>) : (<></>)}
-
-        {this.props.mechData.getInternalStructure().leftLeg > 10 ? (<><DamageCircleSVG isFilled={this.props.mechData.structureDamaged("ll", 10)} xLoc={this.isBoxLeft + this.isBoxWidth / 2 - 73} yLoc={this.isBoxTop + 340} radius={10} inPlay={this.props.inPlay} clickLocation="ll" clickIndex={10} clickFunction={this.toggleISBubble} /></>) : (<></>)}
-        {this.props.mechData.getInternalStructure().leftLeg > 11 ? (<><DamageCircleSVG isFilled={this.props.mechData.structureDamaged("ll", 11)} xLoc={this.isBoxLeft + this.isBoxWidth / 2 - 75} yLoc={this.isBoxTop + 355} radius={10} inPlay={this.props.inPlay} clickLocation="ll" clickIndex={11} clickFunction={this.toggleISBubble} /></>) : (<></>)}
-        {this.props.mechData.getInternalStructure().leftLeg > 12 ? (<><DamageCircleSVG isFilled={this.props.mechData.structureDamaged("ll", 12)} xLoc={this.isBoxLeft + this.isBoxWidth / 2 - 77} yLoc={this.isBoxTop + 370} radius={10} inPlay={this.props.inPlay} clickLocation="ll" clickIndex={12} clickFunction={this.toggleISBubble} /></>) : (<></>)}
-        {this.props.mechData.getInternalStructure().leftLeg > 13 ? (<><DamageCircleSVG isFilled={this.props.mechData.structureDamaged("ll", 13)} xLoc={this.isBoxLeft + this.isBoxWidth / 2 - 79} yLoc={this.isBoxTop + 385} radius={10} inPlay={this.props.inPlay} clickLocation="ll" clickIndex={13} clickFunction={this.toggleISBubble} /></>) : (<></>)}
-        {this.props.mechData.getInternalStructure().leftLeg > 14 ? (<><DamageCircleSVG isFilled={this.props.mechData.structureDamaged("ll", 14)} xLoc={this.isBoxLeft + this.isBoxWidth / 2 - 80} yLoc={this.isBoxTop + 400} radius={10} inPlay={this.props.inPlay} clickLocation="ll" clickIndex={14} clickFunction={this.toggleISBubble} /></>) : (<></>)}
-
-        {this.props.mechData.getInternalStructure().leftLeg > 15 ? (<><DamageCircleSVG isFilled={this.props.mechData.structureDamaged("ll", 15)} xLoc={this.isBoxLeft + this.isBoxWidth / 2 - 88} yLoc={this.isBoxTop + 420} radius={10} inPlay={this.props.inPlay} clickLocation="ll" clickIndex={15} clickFunction={this.toggleISBubble} /></>) : (<></>)}
-        {this.props.mechData.getInternalStructure().leftLeg > 16 ? (<><DamageCircleSVG isFilled={this.props.mechData.structureDamaged("ll", 16)} xLoc={this.isBoxLeft + this.isBoxWidth / 2 - 90} yLoc={this.isBoxTop + 435} radius={10} inPlay={this.props.inPlay} clickLocation="ll" clickIndex={16} clickFunction={this.toggleISBubble} /></>) : (<></>)}
-        {this.props.mechData.getInternalStructure().leftLeg > 17 ? (<><DamageCircleSVG isFilled={this.props.mechData.structureDamaged("ll", 17)} xLoc={this.isBoxLeft + this.isBoxWidth / 2 - 92} yLoc={this.isBoxTop + 450} radius={10} inPlay={this.props.inPlay} clickLocation="ll" clickIndex={17} clickFunction={this.toggleISBubble} /></>) : (<></>)}
-        {this.props.mechData.getInternalStructure().leftLeg > 18 ? (<><DamageCircleSVG isFilled={this.props.mechData.structureDamaged("ll", 18)} xLoc={this.isBoxLeft + this.isBoxWidth / 2 - 94} yLoc={this.isBoxTop + 465} radius={10} inPlay={this.props.inPlay} clickLocation="ll" clickIndex={18} clickFunction={this.toggleISBubble} /></>) : (<></>)}
-        {this.props.mechData.getInternalStructure().leftLeg > 19 ? (<><DamageCircleSVG isFilled={this.props.mechData.structureDamaged("ll", 19)} xLoc={this.isBoxLeft + this.isBoxWidth / 2 - 96} yLoc={this.isBoxTop + 480} radius={10} inPlay={this.props.inPlay} clickLocation="ll" clickIndex={19} clickFunction={this.toggleISBubble} /></>) : (<></>)}
-
-        {this.props.mechData.getInternalStructure().leftLeg > 20 ? (<><DamageCircleSVG isFilled={this.props.mechData.structureDamaged("ll", 20)} xLoc={this.isBoxLeft + this.isBoxWidth / 2 - 80} yLoc={this.isBoxTop + 500} radius={10} inPlay={this.props.inPlay} clickLocation="ll" clickIndex={20} clickFunction={this.toggleISBubble} /></>) : (<></>)}
-        {this.props.mechData.getInternalStructure().leftLeg > 21 ? (<><DamageCircleSVG isFilled={this.props.mechData.structureDamaged("ll", 21)} xLoc={this.isBoxLeft + this.isBoxWidth / 2 - 82} yLoc={this.isBoxTop + 515} radius={10} inPlay={this.props.inPlay} clickLocation="ll" clickIndex={21} clickFunction={this.toggleISBubble} /></>) : (<></>)}
-        {this.props.mechData.getInternalStructure().leftLeg > 22 ? (<><DamageCircleSVG isFilled={this.props.mechData.structureDamaged("ll", 22)} xLoc={this.isBoxLeft + this.isBoxWidth / 2 - 84} yLoc={this.isBoxTop + 530} radius={10} inPlay={this.props.inPlay} clickLocation="ll" clickIndex={22} clickFunction={this.toggleISBubble} /></>) : (<></>)}
-        {this.props.mechData.getInternalStructure().leftLeg > 23 ? (<><DamageCircleSVG isFilled={this.props.mechData.structureDamaged("ll", 23)} xLoc={this.isBoxLeft + this.isBoxWidth / 2 - 86} yLoc={this.isBoxTop + 545} radius={10} inPlay={this.props.inPlay} clickLocation="ll" clickIndex={23} clickFunction={this.toggleISBubble} /></>) : (<></>)}
-        {this.props.mechData.getInternalStructure().leftLeg > 24 ? (<><DamageCircleSVG isFilled={this.props.mechData.structureDamaged("ll", 24)} xLoc={this.isBoxLeft + this.isBoxWidth / 2 - 88} yLoc={this.isBoxTop + 560} radius={10} inPlay={this.props.inPlay} clickLocation="ll" clickIndex={24} clickFunction={this.toggleISBubble} /></>) : (<></>)}
-
-        {this.props.mechData.getInternalStructure().leftLeg > 25 ? (<><DamageCircleSVG isFilled={this.props.mechData.structureDamaged("ll", 25)} xLoc={this.isBoxLeft + this.isBoxWidth / 2 - 100} yLoc={this.isBoxTop + 500} radius={10} inPlay={this.props.inPlay} clickLocation="ll" clickIndex={25} clickFunction={this.toggleISBubble} /></>) : (<></>)}
-        {this.props.mechData.getInternalStructure().leftLeg > 26 ? (<><DamageCircleSVG isFilled={this.props.mechData.structureDamaged("ll", 26)} xLoc={this.isBoxLeft + this.isBoxWidth / 2 - 102} yLoc={this.isBoxTop + 515} radius={10} inPlay={this.props.inPlay} clickLocation="ll" clickIndex={26} clickFunction={this.toggleISBubble} /></>) : (<></>)}
-        {this.props.mechData.getInternalStructure().leftLeg > 27 ? (<><DamageCircleSVG isFilled={this.props.mechData.structureDamaged("ll", 27)} xLoc={this.isBoxLeft + this.isBoxWidth / 2 - 104} yLoc={this.isBoxTop + 530} radius={10} inPlay={this.props.inPlay} clickLocation="ll" clickIndex={27} clickFunction={this.toggleISBubble} /></>) : (<></>)}
-        {this.props.mechData.getInternalStructure().leftLeg > 28 ? (<><DamageCircleSVG isFilled={this.props.mechData.structureDamaged("ll", 28)} xLoc={this.isBoxLeft + this.isBoxWidth / 2 - 106} yLoc={this.isBoxTop + 545} radius={10} inPlay={this.props.inPlay} clickLocation="ll" clickIndex={28} clickFunction={this.toggleISBubble} /></>) : (<></>)}
-        {this.props.mechData.getInternalStructure().leftLeg > 29 ? (<><DamageCircleSVG isFilled={this.props.mechData.structureDamaged("ll", 29)} xLoc={this.isBoxLeft + this.isBoxWidth / 2 - 108} yLoc={this.isBoxTop + 560} radius={10} inPlay={this.props.inPlay} clickLocation="ll" clickIndex={29} clickFunction={this.toggleISBubble} /></>) : (<></>)}
-
-        {/* Right Leg IS */}
-        {this.props.mechData.getInternalStructure().rightLeg > 0 ? (<><DamageCircleSVG isFilled={this.props.mechData.structureDamaged("rl", 0)} xLoc={this.isBoxLeft + this.isBoxWidth / 2 + 53} yLoc={this.isBoxTop + 340} radius={10} inPlay={this.props.inPlay} clickLocation="rl" clickIndex={0} clickFunction={this.toggleISBubble} /></>) : (<></>)}
-        {this.props.mechData.getInternalStructure().rightLeg > 1 ? (<><DamageCircleSVG isFilled={this.props.mechData.structureDamaged("rl", 1)} xLoc={this.isBoxLeft + this.isBoxWidth / 2 + 55} yLoc={this.isBoxTop + 355} radius={10} inPlay={this.props.inPlay} clickLocation="rl" clickIndex={1} clickFunction={this.toggleISBubble} /></>) : (<></>)}
-        {this.props.mechData.getInternalStructure().rightLeg > 2 ? (<><DamageCircleSVG isFilled={this.props.mechData.structureDamaged("rl", 2)} xLoc={this.isBoxLeft + this.isBoxWidth / 2 + 57} yLoc={this.isBoxTop + 370} radius={10} inPlay={this.props.inPlay} clickLocation="rl" clickIndex={2} clickFunction={this.toggleISBubble} /></>) : (<></>)}
-        {this.props.mechData.getInternalStructure().rightLeg > 3 ? (<><DamageCircleSVG isFilled={this.props.mechData.structureDamaged("rl", 3)} xLoc={this.isBoxLeft + this.isBoxWidth / 2 + 59} yLoc={this.isBoxTop + 385} radius={10} inPlay={this.props.inPlay} clickLocation="rl" clickIndex={3} clickFunction={this.toggleISBubble} /></>) : (<></>)}
-        {this.props.mechData.getInternalStructure().rightLeg > 4 ? (<><DamageCircleSVG isFilled={this.props.mechData.structureDamaged("rl", 4)} xLoc={this.isBoxLeft + this.isBoxWidth / 2 + 60} yLoc={this.isBoxTop + 400} radius={10} inPlay={this.props.inPlay} clickLocation="rl" clickIndex={4} clickFunction={this.toggleISBubble} /></>) : (<></>)}
-
-        {this.props.mechData.getInternalStructure().rightLeg > 5 ? (<><DamageCircleSVG isFilled={this.props.mechData.structureDamaged("rl", 5)} xLoc={this.isBoxLeft + this.isBoxWidth / 2 + 68} yLoc={this.isBoxTop + 420} radius={10} inPlay={this.props.inPlay} clickLocation="rl" clickIndex={5} clickFunction={this.toggleISBubble} /></>) : (<></>)}
-        {this.props.mechData.getInternalStructure().rightLeg > 6 ? (<><DamageCircleSVG isFilled={this.props.mechData.structureDamaged("rl", 6)} xLoc={this.isBoxLeft + this.isBoxWidth / 2 + 70} yLoc={this.isBoxTop + 435} radius={10} inPlay={this.props.inPlay} clickLocation="rl" clickIndex={6} clickFunction={this.toggleISBubble} /></>) : (<></>)}
-        {this.props.mechData.getInternalStructure().rightLeg > 7 ? (<><DamageCircleSVG isFilled={this.props.mechData.structureDamaged("rl", 7)} xLoc={this.isBoxLeft + this.isBoxWidth / 2 + 72} yLoc={this.isBoxTop + 450} radius={10} inPlay={this.props.inPlay} clickLocation="rl" clickIndex={7} clickFunction={this.toggleISBubble} /></>) : (<></>)}
-        {this.props.mechData.getInternalStructure().rightLeg > 8 ? (<><DamageCircleSVG isFilled={this.props.mechData.structureDamaged("rl", 8)} xLoc={this.isBoxLeft + this.isBoxWidth / 2 + 74} yLoc={this.isBoxTop + 465} radius={10} inPlay={this.props.inPlay} clickLocation="rl" clickIndex={8} clickFunction={this.toggleISBubble} /></>) : (<></>)}
-        {this.props.mechData.getInternalStructure().rightLeg > 9 ? (<><DamageCircleSVG isFilled={this.props.mechData.structureDamaged("rl", 9)} xLoc={this.isBoxLeft + this.isBoxWidth / 2 + 76} yLoc={this.isBoxTop + 480} radius={10} inPlay={this.props.inPlay} clickLocation="rl" clickIndex={9} clickFunction={this.toggleISBubble} /></>) : (<></>)}
-
-        {this.props.mechData.getInternalStructure().rightLeg > 10 ? (<><DamageCircleSVG isFilled={this.props.mechData.structureDamaged("rl", 10)} xLoc={this.isBoxLeft + this.isBoxWidth / 2 + 73} yLoc={this.isBoxTop + 340} radius={10} inPlay={this.props.inPlay} clickLocation="rl" clickIndex={10} clickFunction={this.toggleISBubble} /></>) : (<></>)}
-        {this.props.mechData.getInternalStructure().rightLeg > 11 ? (<><DamageCircleSVG isFilled={this.props.mechData.structureDamaged("rl", 11)} xLoc={this.isBoxLeft + this.isBoxWidth / 2 + 75} yLoc={this.isBoxTop + 355} radius={10} inPlay={this.props.inPlay} clickLocation="rl" clickIndex={11} clickFunction={this.toggleISBubble} /></>) : (<></>)}
-        {this.props.mechData.getInternalStructure().rightLeg > 12 ? (<><DamageCircleSVG isFilled={this.props.mechData.structureDamaged("rl", 12)} xLoc={this.isBoxLeft + this.isBoxWidth / 2 + 77} yLoc={this.isBoxTop + 370} radius={10} inPlay={this.props.inPlay} clickLocation="rl" clickIndex={12} clickFunction={this.toggleISBubble} /></>) : (<></>)}
-        {this.props.mechData.getInternalStructure().rightLeg > 13 ? (<><DamageCircleSVG isFilled={this.props.mechData.structureDamaged("rl", 13)} xLoc={this.isBoxLeft + this.isBoxWidth / 2 + 79} yLoc={this.isBoxTop + 385} radius={10} inPlay={this.props.inPlay} clickLocation="rl" clickIndex={13} clickFunction={this.toggleISBubble} /></>) : (<></>)}
-        {this.props.mechData.getInternalStructure().rightLeg > 14 ? (<><DamageCircleSVG isFilled={this.props.mechData.structureDamaged("rl", 14)} xLoc={this.isBoxLeft + this.isBoxWidth / 2 + 80} yLoc={this.isBoxTop + 400} radius={10} inPlay={this.props.inPlay} clickLocation="rl" clickIndex={14} clickFunction={this.toggleISBubble} /></>) : (<></>)}
-
-        {this.props.mechData.getInternalStructure().rightLeg > 15 ? (<><DamageCircleSVG isFilled={this.props.mechData.structureDamaged("rl", 15)} xLoc={this.isBoxLeft + this.isBoxWidth / 2 + 88} yLoc={this.isBoxTop + 420} radius={10} inPlay={this.props.inPlay} clickLocation="rl" clickIndex={15} clickFunction={this.toggleISBubble} /></>) : (<></>)}
-        {this.props.mechData.getInternalStructure().rightLeg > 16 ? (<><DamageCircleSVG isFilled={this.props.mechData.structureDamaged("rl", 16)} xLoc={this.isBoxLeft + this.isBoxWidth / 2 + 90} yLoc={this.isBoxTop + 435} radius={10} inPlay={this.props.inPlay} clickLocation="rl" clickIndex={16} clickFunction={this.toggleISBubble} /></>) : (<></>)}
-        {this.props.mechData.getInternalStructure().rightLeg > 17 ? (<><DamageCircleSVG isFilled={this.props.mechData.structureDamaged("rl", 17)} xLoc={this.isBoxLeft + this.isBoxWidth / 2 + 92} yLoc={this.isBoxTop + 450} radius={10} inPlay={this.props.inPlay} clickLocation="rl" clickIndex={17} clickFunction={this.toggleISBubble} /></>) : (<></>)}
-        {this.props.mechData.getInternalStructure().rightLeg > 18 ? (<><DamageCircleSVG isFilled={this.props.mechData.structureDamaged("rl", 18)} xLoc={this.isBoxLeft + this.isBoxWidth / 2 + 94} yLoc={this.isBoxTop + 465} radius={10} inPlay={this.props.inPlay} clickLocation="rl" clickIndex={18} clickFunction={this.toggleISBubble} /></>) : (<></>)}
-        {this.props.mechData.getInternalStructure().rightLeg > 19 ? (<><DamageCircleSVG isFilled={this.props.mechData.structureDamaged("rl", 19)} xLoc={this.isBoxLeft + this.isBoxWidth / 2 + 96} yLoc={this.isBoxTop + 480} radius={10} inPlay={this.props.inPlay} clickLocation="rl" clickIndex={19} clickFunction={this.toggleISBubble} /></>) : (<></>)}
-
-        {this.props.mechData.getInternalStructure().rightLeg > 20 ? (<><DamageCircleSVG isFilled={this.props.mechData.structureDamaged("rl", 20)} xLoc={this.isBoxLeft + this.isBoxWidth / 2 + 80} yLoc={this.isBoxTop + 500} radius={10} inPlay={this.props.inPlay} clickLocation="rl" clickIndex={20} clickFunction={this.toggleISBubble} /></>) : (<></>)}
-        {this.props.mechData.getInternalStructure().rightLeg > 21 ? (<><DamageCircleSVG isFilled={this.props.mechData.structureDamaged("rl", 21)} xLoc={this.isBoxLeft + this.isBoxWidth / 2 + 82} yLoc={this.isBoxTop + 515} radius={10} inPlay={this.props.inPlay} clickLocation="rl" clickIndex={21} clickFunction={this.toggleISBubble} /></>) : (<></>)}
-        {this.props.mechData.getInternalStructure().rightLeg > 22 ? (<><DamageCircleSVG isFilled={this.props.mechData.structureDamaged("rl", 22)} xLoc={this.isBoxLeft + this.isBoxWidth / 2 + 84} yLoc={this.isBoxTop + 530} radius={10} inPlay={this.props.inPlay} clickLocation="rl" clickIndex={22} clickFunction={this.toggleISBubble} /></>) : (<></>)}
-        {this.props.mechData.getInternalStructure().rightLeg > 23 ? (<><DamageCircleSVG isFilled={this.props.mechData.structureDamaged("rl", 23)} xLoc={this.isBoxLeft + this.isBoxWidth / 2 + 86} yLoc={this.isBoxTop + 545} radius={10} inPlay={this.props.inPlay} clickLocation="rl" clickIndex={23} clickFunction={this.toggleISBubble} /></>) : (<></>)}
-        {this.props.mechData.getInternalStructure().rightLeg > 24 ? (<><DamageCircleSVG isFilled={this.props.mechData.structureDamaged("rl", 24)} xLoc={this.isBoxLeft + this.isBoxWidth / 2 + 88} yLoc={this.isBoxTop + 560} radius={10} inPlay={this.props.inPlay} clickLocation="rl" clickIndex={24} clickFunction={this.toggleISBubble} /></>) : (<></>)}
-
-        {this.props.mechData.getInternalStructure().rightLeg > 25 ? (<><DamageCircleSVG isFilled={this.props.mechData.structureDamaged("rl", 25)} xLoc={this.isBoxLeft + this.isBoxWidth / 2 + 100} yLoc={this.isBoxTop + 500} radius={10} inPlay={this.props.inPlay} clickLocation="rl" clickIndex={25} clickFunction={this.toggleISBubble} /></>) : (<></>)}
-        {this.props.mechData.getInternalStructure().rightLeg > 26 ? (<><DamageCircleSVG isFilled={this.props.mechData.structureDamaged("rl", 26)} xLoc={this.isBoxLeft + this.isBoxWidth / 2 + 102} yLoc={this.isBoxTop + 515} radius={10} inPlay={this.props.inPlay} clickLocation="rl" clickIndex={26} clickFunction={this.toggleISBubble} /></>) : (<></>)}
-        {this.props.mechData.getInternalStructure().rightLeg > 27 ? (<><DamageCircleSVG isFilled={this.props.mechData.structureDamaged("rl", 27)} xLoc={this.isBoxLeft + this.isBoxWidth / 2 + 104} yLoc={this.isBoxTop + 530} radius={10} inPlay={this.props.inPlay} clickLocation="rl" clickIndex={27} clickFunction={this.toggleISBubble} /></>) : (<></>)}
-        {this.props.mechData.getInternalStructure().rightLeg > 28 ? (<><DamageCircleSVG isFilled={this.props.mechData.structureDamaged("rl", 28)} xLoc={this.isBoxLeft + this.isBoxWidth / 2 + 106} yLoc={this.isBoxTop + 545} radius={10} inPlay={this.props.inPlay} clickLocation="rl" clickIndex={28} clickFunction={this.toggleISBubble} /></>) : (<></>)}
-        {this.props.mechData.getInternalStructure().rightLeg > 29 ? (<><DamageCircleSVG isFilled={this.props.mechData.structureDamaged("rl", 29)} xLoc={this.isBoxLeft + this.isBoxWidth / 2 + 108} yLoc={this.isBoxTop + 560} radius={10} inPlay={this.props.inPlay} clickLocation="rl" clickIndex={29} clickFunction={this.toggleISBubble} /></>) : (<></>)}
+        {renderStructureBubbles( BIPED_STRUCTURE_BUBBLES, {
+            mechData: this.props.mechData,
+            inPlay: this.props.inPlay,
+            isBoxTop: this.isBoxTop,
+            isBoxLeft: this.isBoxLeft,
+            isBoxWidth: this.isBoxWidth,
+            onClick: this.toggleISBubble,
+        })}
 
         {this.props.mechData.isTripod() ? (
-            // No dedicated Tripod diagram exists yet (see TODO.md) - Center Leg structure pips
-            // are placed below the main legs so the location remains trackable in play.
+            // The Center Leg's structure, inside the leg TripodInternalStructureDiagramSVG draws (issue 77).
             <>
-                {TRIPOD_CENTER_LEG_BUBBLES.slice(0, this.props.mechData.getInternalStructure().centerLeg ?? 0).map((position, index) => {
+                <text x={this.isBoxLeft + this.isBoxWidth / 2} y={this.isBoxTop + TRIPOD_INTERNAL_CENTER_LEG_LAYOUT.labelY} textAnchor="middle" fontFamily="sans-serif" fill={strokeColor} style={{fontWeight: 700}} fontSize={11}>CTR LEG</text>
+                <text x={this.isBoxLeft + this.isBoxWidth / 2} y={this.isBoxTop + TRIPOD_INTERNAL_CENTER_LEG_LAYOUT.labelY + 13} textAnchor="middle" fontFamily="sans-serif" fill={strokeColor} style={{fontWeight: 700}} fontSize={11}>[{this.props.mechData.getInternalStructure().centerLeg ?? 0}]</text>
+                {tripodCenterLegBubbles(this.props.mechData.getInternalStructure().centerLeg ?? 0, TRIPOD_INTERNAL_CENTER_LEG_LAYOUT).map((position, index) => {
                     return (
                         <DamageCircleSVG
                             key={`cl-${index}`}
                             isFilled={this.props.mechData.structureDamaged("cl", index)}
-                            xLoc={this.isBoxLeft + this.isBoxWidth / 2 + position.x * 0.88}
-                            yLoc={this.isBoxTop + 480 + position.y * 0.88}
-                            radius={10}
+                            xLoc={this.isBoxLeft + this.isBoxWidth / 2 + position.x}
+                            yLoc={this.isBoxTop + TRIPOD_INTERNAL_CENTER_LEG_LAYOUT.firstRowY + position.y}
+                            {...drawnBubble(position.radius)}
                             inPlay={this.props.inPlay}
                             clickLocation="cl"
                             clickIndex={index}
@@ -1175,9 +1100,10 @@ export default class BattleMechSVG extends React.Component<IBattleMechSVGProps, 
         ) : null}
 
         {this.props.inPlay && (this.props.currentPhase === 2 ||  this.props.currentPhase === 3) ?
+            // A Tripod's Center Leg fills the gap between the legs, so its button goes on the left.
             <TakeDamageButtonSVG
-                x={this.isBoxLeft + this.isBoxWidth / 2 - 50}
-                y={this.isBoxTop + 500}
+                x={this.props.mechData.isTripod() ? this.isBoxLeft + 20 : this.isBoxLeft + this.isBoxWidth / 2 - 50}
+                y={this.props.mechData.isTripod() ? this.isBoxTop + 420 : this.isBoxTop + 500}
                 height={100}
                 width={100}
                 onClick={this.props.openTakeDamageDialog}
@@ -1218,253 +1144,16 @@ export default class BattleMechSVG extends React.Component<IBattleMechSVGProps, 
 
             <text x={ this.isBoxLeft + this.isQuadCenterAdjust + this.isBoxWidth / 2  } y={this.isBoxTop + 360} textAnchor="middle" fontFamily="sans-serif" fill={strokeColor} style={{fontWeight: 700}} fontSize={13}>CENTER</text>
             <text x={ this.isBoxLeft + this.isQuadCenterAdjust + this.isBoxWidth / 2  } y={this.isBoxTop + 380} textAnchor="middle" fontFamily="sans-serif" fill={strokeColor} style={{fontWeight: 700}} fontSize={13}>TORSO</text>
-            <text x={ this.isBoxLeft + this.isQuadCenterAdjust + this.isBoxWidth / 2  } y={this.isBoxTop + 400} textAnchor="middle" fontFamily="sans-serif" fill={strokeColor} style={{fontWeight: 700}} fontSize={13}>[{ this.props.mechData.getInternalStructure().centerTorso })</text>
+            <text x={ this.isBoxLeft + this.isQuadCenterAdjust + this.isBoxWidth / 2  } y={this.isBoxTop + 400} textAnchor="middle" fontFamily="sans-serif" fill={strokeColor} style={{fontWeight: 700}} fontSize={13}>[{ this.props.mechData.getInternalStructure().centerTorso }]</text>
 
-            {/* Head IS */}
-            {this.props.mechData.getInternalStructure().head > 0 ? (<><DamageCircleSVG isFilled={this.props.mechData.structureDamaged("hd", 0)} xLoc={this.isBoxLeft + this.isBoxWidth / 2 + 15 } yLoc={this.isBoxTop + 105} radius={10} inPlay={this.props.inPlay} clickLocation="hd" clickIndex={0} clickFunction={this.toggleISBubble} /></>) : (<></>)}
-            {this.props.mechData.getInternalStructure().head > 1 ? (<><DamageCircleSVG isFilled={this.props.mechData.structureDamaged("hd", 1)} xLoc={this.isBoxLeft + this.isBoxWidth / 2 - 15 } yLoc={this.isBoxTop + 105} radius={10} inPlay={this.props.inPlay} clickLocation="hd" clickIndex={1} clickFunction={this.toggleISBubble} /></>) : (<></>)}
-            {this.props.mechData.getInternalStructure().head > 2 ? (<><DamageCircleSVG isFilled={this.props.mechData.structureDamaged("hd", 2)} xLoc={this.isBoxLeft + this.isBoxWidth / 2} yLoc={this.isBoxTop + 125} radius={10} inPlay={this.props.inPlay} clickLocation="hd" clickIndex={2} clickFunction={this.toggleISBubble} /></>) : (<></>)}
-
-        {/* Center Torso IS */}
-
-        {this.props.mechData.getInternalStructure().centerTorso > 0 ? (<><DamageCircleSVG isFilled={this.props.mechData.structureDamaged("ct", 0)} xLoc={this.isBoxLeft + this.isBoxWidth / 2 - 40} yLoc={this.isBoxTop + 170} radius={10} inPlay={this.props.inPlay} clickLocation="ct" clickIndex={0} clickFunction={this.toggleISBubble} /></>) : (<></>)}
-        {this.props.mechData.getInternalStructure().centerTorso > 1 ? (<><DamageCircleSVG isFilled={this.props.mechData.structureDamaged("ct", 1)} xLoc={this.isBoxLeft + this.isBoxWidth / 2 - 20} yLoc={this.isBoxTop + 170} radius={10} inPlay={this.props.inPlay} clickLocation="ct" clickIndex={1} clickFunction={this.toggleISBubble} /></>) : (<></>)}
-        {this.props.mechData.getInternalStructure().centerTorso > 2 ? (<><DamageCircleSVG isFilled={this.props.mechData.structureDamaged("ct", 2)} xLoc={this.isBoxLeft + this.isBoxWidth / 2 + 0} yLoc={this.isBoxTop + 170} radius={10} inPlay={this.props.inPlay}  clickLocation="ct" clickIndex={2} clickFunction={this.toggleISBubble} /></>) : (<></>)}
-        {this.props.mechData.getInternalStructure().centerTorso > 3 ? (<><DamageCircleSVG isFilled={this.props.mechData.structureDamaged("ct", 3)} xLoc={this.isBoxLeft + this.isBoxWidth / 2 + 20} yLoc={this.isBoxTop + 170} radius={10} inPlay={this.props.inPlay} clickLocation="ct" clickIndex={3} clickFunction={this.toggleISBubble} /></>) : (<></>)}
-        {this.props.mechData.getInternalStructure().centerTorso > 4 ? (<><DamageCircleSVG isFilled={this.props.mechData.structureDamaged("ct", 4)} xLoc={this.isBoxLeft + this.isBoxWidth / 2 + 40} yLoc={this.isBoxTop + 170} radius={10} inPlay={this.props.inPlay} clickLocation="ct" clickIndex={4} clickFunction={this.toggleISBubble} /></>) : (<></>)}
-
-        {this.props.mechData.getInternalStructure().centerTorso > 5 ? (<><DamageCircleSVG isFilled={this.props.mechData.structureDamaged("ct", 5)} xLoc={this.isBoxLeft + this.isBoxWidth / 2 - 40} yLoc={this.isBoxTop + 185} radius={10} inPlay={this.props.inPlay} clickLocation="ct" clickIndex={5} clickFunction={this.toggleISBubble} /></>) : (<></>)}
-        {this.props.mechData.getInternalStructure().centerTorso > 6 ? (<><DamageCircleSVG isFilled={this.props.mechData.structureDamaged("ct", 6)} xLoc={this.isBoxLeft + this.isBoxWidth / 2 - 20} yLoc={this.isBoxTop + 185} radius={10} inPlay={this.props.inPlay} clickLocation="ct" clickIndex={6} clickFunction={this.toggleISBubble} /></>) : (<></>)}
-        {this.props.mechData.getInternalStructure().centerTorso > 7 ? (<><DamageCircleSVG isFilled={this.props.mechData.structureDamaged("ct", 7)} xLoc={this.isBoxLeft + this.isBoxWidth / 2 + 0} yLoc={this.isBoxTop + 185} radius={10} inPlay={this.props.inPlay}  clickLocation="ct" clickIndex={7} clickFunction={this.toggleISBubble} /></>) : (<></>)}
-        {this.props.mechData.getInternalStructure().centerTorso > 8 ? (<><DamageCircleSVG isFilled={this.props.mechData.structureDamaged("ct", 8)} xLoc={this.isBoxLeft + this.isBoxWidth / 2 + 20} yLoc={this.isBoxTop + 185} radius={10} inPlay={this.props.inPlay} clickLocation="ct" clickIndex={8} clickFunction={this.toggleISBubble} /></>) : (<></>)}
-        {this.props.mechData.getInternalStructure().centerTorso > 9 ? (<><DamageCircleSVG isFilled={this.props.mechData.structureDamaged("ct", 9)} xLoc={this.isBoxLeft + this.isBoxWidth / 2 + 40} yLoc={this.isBoxTop + 185} radius={10} inPlay={this.props.inPlay} clickLocation="ct" clickIndex={9} clickFunction={this.toggleISBubble} /></>) : (<></>)}
-
-        {this.props.mechData.getInternalStructure().centerTorso > 10 ? (<><DamageCircleSVG isFilled={this.props.mechData.structureDamaged("ct", 10)} xLoc={this.isBoxLeft + this.isBoxWidth / 2 - 40} yLoc={this.isBoxTop + 200} radius={10} inPlay={this.props.inPlay} clickLocation="ct" clickIndex={10} clickFunction={this.toggleISBubble} /></>) : (<></>)}
-        {this.props.mechData.getInternalStructure().centerTorso > 11 ? (<><DamageCircleSVG isFilled={this.props.mechData.structureDamaged("ct", 11)} xLoc={this.isBoxLeft + this.isBoxWidth / 2 - 20} yLoc={this.isBoxTop + 200} radius={10} inPlay={this.props.inPlay} clickLocation="ct" clickIndex={11} clickFunction={this.toggleISBubble} /></>) : (<></>)}
-        {this.props.mechData.getInternalStructure().centerTorso > 12 ? (<><DamageCircleSVG isFilled={this.props.mechData.structureDamaged("ct", 12)} xLoc={this.isBoxLeft + this.isBoxWidth / 2 + 0} yLoc={this.isBoxTop + 200} radius={10} inPlay={this.props.inPlay}  clickLocation="ct" clickIndex={12} clickFunction={this.toggleISBubble} /></>) : (<></>)}
-        {this.props.mechData.getInternalStructure().centerTorso > 13 ? (<><DamageCircleSVG isFilled={this.props.mechData.structureDamaged("ct", 13)} xLoc={this.isBoxLeft + this.isBoxWidth / 2 + 20} yLoc={this.isBoxTop + 200} radius={10} inPlay={this.props.inPlay} clickLocation="ct" clickIndex={13} clickFunction={this.toggleISBubble} /></>) : (<></>)}
-        {this.props.mechData.getInternalStructure().centerTorso > 14 ? (<><DamageCircleSVG isFilled={this.props.mechData.structureDamaged("ct", 14)} xLoc={this.isBoxLeft + this.isBoxWidth / 2 + 40} yLoc={this.isBoxTop + 200} radius={10} inPlay={this.props.inPlay} clickLocation="ct" clickIndex={14} clickFunction={this.toggleISBubble} /></>) : (<></>)}
-
-        {this.props.mechData.getInternalStructure().centerTorso > 15 ? (<><DamageCircleSVG isFilled={this.props.mechData.structureDamaged("ct", 15)} xLoc={this.isBoxLeft + this.isBoxWidth / 2 - 40} yLoc={this.isBoxTop + 215} radius={10} inPlay={this.props.inPlay} clickLocation="ct" clickIndex={15} clickFunction={this.toggleISBubble} /></>) : (<></>)}
-        {this.props.mechData.getInternalStructure().centerTorso > 16 ? (<><DamageCircleSVG isFilled={this.props.mechData.structureDamaged("ct", 16)} xLoc={this.isBoxLeft + this.isBoxWidth / 2 - 20} yLoc={this.isBoxTop + 215} radius={10} inPlay={this.props.inPlay} clickLocation="ct" clickIndex={16} clickFunction={this.toggleISBubble} /></>) : (<></>)}
-        {this.props.mechData.getInternalStructure().centerTorso > 17 ? (<><DamageCircleSVG isFilled={this.props.mechData.structureDamaged("ct", 17)} xLoc={this.isBoxLeft + this.isBoxWidth / 2 + 0} yLoc={this.isBoxTop + 215} radius={10} inPlay={this.props.inPlay}  clickLocation="ct" clickIndex={17} clickFunction={this.toggleISBubble} /></>) : (<></>)}
-        {this.props.mechData.getInternalStructure().centerTorso > 18 ? (<><DamageCircleSVG isFilled={this.props.mechData.structureDamaged("ct", 18)} xLoc={this.isBoxLeft + this.isBoxWidth / 2 + 20} yLoc={this.isBoxTop + 215} radius={10} inPlay={this.props.inPlay} clickLocation="ct" clickIndex={18} clickFunction={this.toggleISBubble} /></>) : (<></>)}
-        {this.props.mechData.getInternalStructure().centerTorso > 19 ? (<><DamageCircleSVG isFilled={this.props.mechData.structureDamaged("ct", 19)} xLoc={this.isBoxLeft + this.isBoxWidth / 2 + 40} yLoc={this.isBoxTop + 215} radius={10} inPlay={this.props.inPlay} clickLocation="ct" clickIndex={19} clickFunction={this.toggleISBubble} /></>) : (<></>)}
-
-        {this.props.mechData.getInternalStructure().centerTorso > 20 ? (<><DamageCircleSVG isFilled={this.props.mechData.structureDamaged("ct", 20)} xLoc={this.isBoxLeft + this.isBoxWidth / 2 - 40} yLoc={this.isBoxTop + 230} radius={10} inPlay={this.props.inPlay} clickLocation="ct" clickIndex={20} clickFunction={this.toggleISBubble} /></>) : (<></>)}
-        {this.props.mechData.getInternalStructure().centerTorso > 21 ? (<><DamageCircleSVG isFilled={this.props.mechData.structureDamaged("ct", 21)} xLoc={this.isBoxLeft + this.isBoxWidth / 2 - 20} yLoc={this.isBoxTop + 230} radius={10} inPlay={this.props.inPlay} clickLocation="ct" clickIndex={21} clickFunction={this.toggleISBubble} /></>) : (<></>)}
-        {this.props.mechData.getInternalStructure().centerTorso > 22 ? (<><DamageCircleSVG isFilled={this.props.mechData.structureDamaged("ct", 22)} xLoc={this.isBoxLeft + this.isBoxWidth / 2 + 0} yLoc={this.isBoxTop + 230} radius={10} inPlay={this.props.inPlay}  clickLocation="ct" clickIndex={22} clickFunction={this.toggleISBubble} /></>) : (<></>)}
-        {this.props.mechData.getInternalStructure().centerTorso > 23 ? (<><DamageCircleSVG isFilled={this.props.mechData.structureDamaged("ct", 23)} xLoc={this.isBoxLeft + this.isBoxWidth / 2 + 20} yLoc={this.isBoxTop + 230} radius={10} inPlay={this.props.inPlay} clickLocation="ct" clickIndex={23} clickFunction={this.toggleISBubble} /></>) : (<></>)}
-        {this.props.mechData.getInternalStructure().centerTorso > 24 ? (<><DamageCircleSVG isFilled={this.props.mechData.structureDamaged("ct", 24)} xLoc={this.isBoxLeft + this.isBoxWidth / 2 + 40} yLoc={this.isBoxTop + 230} radius={10} inPlay={this.props.inPlay} clickLocation="ct" clickIndex={24} clickFunction={this.toggleISBubble} /></>) : (<></>)}
-
-        {this.props.mechData.getInternalStructure().centerTorso > 25 ? (<><DamageCircleSVG isFilled={this.props.mechData.structureDamaged("ct", 25)} xLoc={this.isBoxLeft + this.isBoxWidth / 2 - 27} yLoc={this.isBoxTop + 250} radius={10} inPlay={this.props.inPlay} clickLocation="ct" clickIndex={25} clickFunction={this.toggleISBubble} /></>) : (<></>)}
-        {this.props.mechData.getInternalStructure().centerTorso > 26 ? (<><DamageCircleSVG isFilled={this.props.mechData.structureDamaged("ct", 26)} xLoc={this.isBoxLeft + this.isBoxWidth / 2 - 9} yLoc={this.isBoxTop + 250} radius={10} inPlay={this.props.inPlay}  clickLocation="ct" clickIndex={26} clickFunction={this.toggleISBubble} /></>) : (<></>)}
-        {this.props.mechData.getInternalStructure().centerTorso > 27 ? (<><DamageCircleSVG isFilled={this.props.mechData.structureDamaged("ct", 27)} xLoc={this.isBoxLeft + this.isBoxWidth / 2 + 9} yLoc={this.isBoxTop + 250} radius={10} inPlay={this.props.inPlay}  clickLocation="ct" clickIndex={27} clickFunction={this.toggleISBubble} /></>) : (<></>)}
-        {this.props.mechData.getInternalStructure().centerTorso > 28 ? (<><DamageCircleSVG isFilled={this.props.mechData.structureDamaged("ct", 28)} xLoc={this.isBoxLeft + this.isBoxWidth / 2 + 27} yLoc={this.isBoxTop + 250} radius={10} inPlay={this.props.inPlay} clickLocation="ct" clickIndex={28} clickFunction={this.toggleISBubble} /></>) : (<></>)}
-
-        {this.props.mechData.getInternalStructure().centerTorso > 29 ? (<><DamageCircleSVG isFilled={this.props.mechData.structureDamaged("ct", 29)} xLoc={this.isBoxLeft + this.isBoxWidth / 2 - 27} yLoc={this.isBoxTop + 265} radius={10} inPlay={this.props.inPlay} clickLocation="ct" clickIndex={29} clickFunction={this.toggleISBubble} /></>) : (<></>)}
-        {this.props.mechData.getInternalStructure().centerTorso > 30 ? (<><DamageCircleSVG isFilled={this.props.mechData.structureDamaged("ct", 30)} xLoc={this.isBoxLeft + this.isBoxWidth / 2 - 9} yLoc={this.isBoxTop + 265} radius={10} inPlay={this.props.inPlay}  clickLocation="ct" clickIndex={30} clickFunction={this.toggleISBubble} /></>) : (<></>)}
-        {this.props.mechData.getInternalStructure().centerTorso > 31 ? (<><DamageCircleSVG isFilled={this.props.mechData.structureDamaged("ct", 31)} xLoc={this.isBoxLeft + this.isBoxWidth / 2 + 9} yLoc={this.isBoxTop + 265} radius={10} inPlay={this.props.inPlay}  clickLocation="ct" clickIndex={31} clickFunction={this.toggleISBubble} /></>) : (<></>)}
-        {this.props.mechData.getInternalStructure().centerTorso > 32 ? (<><DamageCircleSVG isFilled={this.props.mechData.structureDamaged("ct", 32)} xLoc={this.isBoxLeft + this.isBoxWidth / 2 + 27} yLoc={this.isBoxTop + 265} radius={10} inPlay={this.props.inPlay} clickLocation="ct" clickIndex={32} clickFunction={this.toggleISBubble} /></>) : (<></>)}
-
-        {this.props.mechData.getInternalStructure().centerTorso > 33 ? (<><DamageCircleSVG isFilled={this.props.mechData.structureDamaged("ct", 33)} xLoc={this.isBoxLeft + this.isBoxWidth / 2 - 27} yLoc={this.isBoxTop + 280} radius={10} inPlay={this.props.inPlay} clickLocation="ct" clickIndex={33} clickFunction={this.toggleISBubble} /></>) : (<></>)}
-        {this.props.mechData.getInternalStructure().centerTorso > 34 ? (<><DamageCircleSVG isFilled={this.props.mechData.structureDamaged("ct", 34)} xLoc={this.isBoxLeft + this.isBoxWidth / 2 - 9} yLoc={this.isBoxTop + 280} radius={10} inPlay={this.props.inPlay}  clickLocation="ct" clickIndex={34} clickFunction={this.toggleISBubble} /></>) : (<></>)}
-        {this.props.mechData.getInternalStructure().centerTorso > 35 ? (<><DamageCircleSVG isFilled={this.props.mechData.structureDamaged("ct", 35)} xLoc={this.isBoxLeft + this.isBoxWidth / 2 + 9} yLoc={this.isBoxTop + 280} radius={10} inPlay={this.props.inPlay}  clickLocation="ct" clickIndex={35} clickFunction={this.toggleISBubble} /></>) : (<></>)}
-        {this.props.mechData.getInternalStructure().centerTorso > 36 ? (<><DamageCircleSVG isFilled={this.props.mechData.structureDamaged("ct", 36)} xLoc={this.isBoxLeft + this.isBoxWidth / 2 + 27} yLoc={this.isBoxTop + 280} radius={10} inPlay={this.props.inPlay} clickLocation="ct" clickIndex={36} clickFunction={this.toggleISBubble} /></>) : (<></>)}
-
-            {/* Right Rear Leg IS */}
-            {this.props.mechData.getInternalStructure().rightLeg > 0 ? (<><DamageCircleSVG isFilled={this.props.mechData.structureDamaged("rl", 0)} xLoc={this.isBoxLeft + this.isBoxWidth / 2 + 55} yLoc={this.isBoxTop + 340} radius={10} inPlay={this.props.inPlay} clickLocation="rl" clickIndex={0} clickFunction={this.toggleISBubble} /></>) : (<></>)}
-            {this.props.mechData.getInternalStructure().rightLeg > 1 ? (<><DamageCircleSVG isFilled={this.props.mechData.structureDamaged("rl", 1)} xLoc={this.isBoxLeft + this.isBoxWidth / 2 + 55} yLoc={this.isBoxTop + 355} radius={10} inPlay={this.props.inPlay} clickLocation="rl" clickIndex={1} clickFunction={this.toggleISBubble} /></>) : (<></>)}
-            {this.props.mechData.getInternalStructure().rightLeg > 2 ? (<><DamageCircleSVG isFilled={this.props.mechData.structureDamaged("rl", 2)} xLoc={this.isBoxLeft + this.isBoxWidth / 2 + 55} yLoc={this.isBoxTop + 370} radius={10} inPlay={this.props.inPlay} clickLocation="rl" clickIndex={2} clickFunction={this.toggleISBubble} /></>) : (<></>)}
-            {this.props.mechData.getInternalStructure().rightLeg > 3 ? (<><DamageCircleSVG isFilled={this.props.mechData.structureDamaged("rl", 3)} xLoc={this.isBoxLeft + this.isBoxWidth / 2 + 55} yLoc={this.isBoxTop + 385} radius={10} inPlay={this.props.inPlay} clickLocation="rl" clickIndex={3} clickFunction={this.toggleISBubble} /></>) : (<></>)}
-            {this.props.mechData.getInternalStructure().rightLeg > 4 ? (<><DamageCircleSVG isFilled={this.props.mechData.structureDamaged("rl", 4)} xLoc={this.isBoxLeft + this.isBoxWidth / 2 + 55} yLoc={this.isBoxTop + 400} radius={10} inPlay={this.props.inPlay} clickLocation="rl" clickIndex={4} clickFunction={this.toggleISBubble} /></>) : (<></>)}
-
-            {this.props.mechData.getInternalStructure().rightLeg > 5 ? (<><DamageCircleSVG isFilled={this.props.mechData.structureDamaged("rl", 5)} xLoc={this.isBoxLeft + this.isBoxWidth / 2 + 55} yLoc={this.isBoxTop + 420} radius={10} inPlay={this.props.inPlay} clickLocation="rl" clickIndex={5} clickFunction={this.toggleISBubble} /></>) : (<></>)}
-            {this.props.mechData.getInternalStructure().rightLeg > 6 ? (<><DamageCircleSVG isFilled={this.props.mechData.structureDamaged("rl", 6)} xLoc={this.isBoxLeft + this.isBoxWidth / 2 + 55} yLoc={this.isBoxTop + 435} radius={10} inPlay={this.props.inPlay} clickLocation="rl" clickIndex={6} clickFunction={this.toggleISBubble} /></>) : (<></>)}
-            {this.props.mechData.getInternalStructure().rightLeg > 7 ? (<><DamageCircleSVG isFilled={this.props.mechData.structureDamaged("rl", 7)} xLoc={this.isBoxLeft + this.isBoxWidth / 2 + 55} yLoc={this.isBoxTop + 450} radius={10} inPlay={this.props.inPlay} clickLocation="rl" clickIndex={7} clickFunction={this.toggleISBubble} /></>) : (<></>)}
-            {this.props.mechData.getInternalStructure().rightLeg > 8 ? (<><DamageCircleSVG isFilled={this.props.mechData.structureDamaged("rl", 8)} xLoc={this.isBoxLeft + this.isBoxWidth / 2 + 55} yLoc={this.isBoxTop + 465} radius={10} inPlay={this.props.inPlay} clickLocation="rl" clickIndex={8} clickFunction={this.toggleISBubble} /></>) : (<></>)}
-            {this.props.mechData.getInternalStructure().rightLeg > 9 ? (<><DamageCircleSVG isFilled={this.props.mechData.structureDamaged("rl", 9)} xLoc={this.isBoxLeft + this.isBoxWidth / 2 + 55} yLoc={this.isBoxTop + 480} radius={10} inPlay={this.props.inPlay} clickLocation="rl" clickIndex={9} clickFunction={this.toggleISBubble} /></>) : (<></>)}
-
-            {this.props.mechData.getInternalStructure().rightLeg > 10 ? (<><DamageCircleSVG isFilled={this.props.mechData.structureDamaged("rl", 10)} xLoc={this.isBoxLeft + this.isBoxWidth / 2 + 75} yLoc={this.isBoxTop + 340} radius={10} inPlay={this.props.inPlay} clickLocation="rl" clickIndex={10} clickFunction={this.toggleISBubble} /></>) : (<></>)}
-            {this.props.mechData.getInternalStructure().rightLeg > 11 ? (<><DamageCircleSVG isFilled={this.props.mechData.structureDamaged("rl", 11)} xLoc={this.isBoxLeft + this.isBoxWidth / 2 + 75} yLoc={this.isBoxTop + 355} radius={10} inPlay={this.props.inPlay} clickLocation="rl" clickIndex={11} clickFunction={this.toggleISBubble} /></>) : (<></>)}
-            {this.props.mechData.getInternalStructure().rightLeg > 12 ? (<><DamageCircleSVG isFilled={this.props.mechData.structureDamaged("rl", 12)} xLoc={this.isBoxLeft + this.isBoxWidth / 2 + 75} yLoc={this.isBoxTop + 370} radius={10} inPlay={this.props.inPlay} clickLocation="rl" clickIndex={12} clickFunction={this.toggleISBubble} /></>) : (<></>)}
-            {this.props.mechData.getInternalStructure().rightLeg > 13 ? (<><DamageCircleSVG isFilled={this.props.mechData.structureDamaged("rl", 13)} xLoc={this.isBoxLeft + this.isBoxWidth / 2 + 75} yLoc={this.isBoxTop + 385} radius={10} inPlay={this.props.inPlay} clickLocation="rl" clickIndex={13} clickFunction={this.toggleISBubble} /></>) : (<></>)}
-            {this.props.mechData.getInternalStructure().rightLeg > 14 ? (<><DamageCircleSVG isFilled={this.props.mechData.structureDamaged("rl", 14)} xLoc={this.isBoxLeft + this.isBoxWidth / 2 + 75} yLoc={this.isBoxTop + 400} radius={10} inPlay={this.props.inPlay} clickLocation="rl" clickIndex={14} clickFunction={this.toggleISBubble} /></>) : (<></>)}
-
-            {this.props.mechData.getInternalStructure().rightLeg > 15 ? (<><DamageCircleSVG isFilled={this.props.mechData.structureDamaged("rl", 15)} xLoc={this.isBoxLeft + this.isBoxWidth / 2 + 75} yLoc={this.isBoxTop + 420} radius={10} inPlay={this.props.inPlay} clickLocation="rl" clickIndex={15} clickFunction={this.toggleISBubble} /></>) : (<></>)}
-            {this.props.mechData.getInternalStructure().rightLeg > 16 ? (<><DamageCircleSVG isFilled={this.props.mechData.structureDamaged("rl", 16)} xLoc={this.isBoxLeft + this.isBoxWidth / 2 + 75} yLoc={this.isBoxTop + 435} radius={10} inPlay={this.props.inPlay} clickLocation="rl" clickIndex={16} clickFunction={this.toggleISBubble} /></>) : (<></>)}
-            {this.props.mechData.getInternalStructure().rightLeg > 17 ? (<><DamageCircleSVG isFilled={this.props.mechData.structureDamaged("rl", 17)} xLoc={this.isBoxLeft + this.isBoxWidth / 2 + 75} yLoc={this.isBoxTop + 450} radius={10} inPlay={this.props.inPlay} clickLocation="rl" clickIndex={17} clickFunction={this.toggleISBubble} /></>) : (<></>)}
-            {this.props.mechData.getInternalStructure().rightLeg > 18 ? (<><DamageCircleSVG isFilled={this.props.mechData.structureDamaged("rl", 18)} xLoc={this.isBoxLeft + this.isBoxWidth / 2 + 75} yLoc={this.isBoxTop + 465} radius={10} inPlay={this.props.inPlay} clickLocation="rl" clickIndex={18} clickFunction={this.toggleISBubble} /></>) : (<></>)}
-            {this.props.mechData.getInternalStructure().rightLeg > 19 ? (<><DamageCircleSVG isFilled={this.props.mechData.structureDamaged("rl", 19)} xLoc={this.isBoxLeft + this.isBoxWidth / 2 + 75} yLoc={this.isBoxTop + 480} radius={10} inPlay={this.props.inPlay} clickLocation="rl" clickIndex={19} clickFunction={this.toggleISBubble} /></>) : (<></>)}
-
-            {this.props.mechData.getInternalStructure().rightLeg > 20 ? (<><DamageCircleSVG isFilled={this.props.mechData.structureDamaged("rl", 20)} xLoc={this.isBoxLeft + this.isBoxWidth / 2 + 55} yLoc={this.isBoxTop + 500} radius={10} inPlay={this.props.inPlay} clickLocation="rl" clickIndex={20} clickFunction={this.toggleISBubble} /></>) : (<></>)}
-            {this.props.mechData.getInternalStructure().rightLeg > 21 ? (<><DamageCircleSVG isFilled={this.props.mechData.structureDamaged("rl", 21)} xLoc={this.isBoxLeft + this.isBoxWidth / 2 + 55} yLoc={this.isBoxTop + 515} radius={10} inPlay={this.props.inPlay} clickLocation="rl" clickIndex={21} clickFunction={this.toggleISBubble} /></>) : (<></>)}
-            {this.props.mechData.getInternalStructure().rightLeg > 22 ? (<><DamageCircleSVG isFilled={this.props.mechData.structureDamaged("rl", 22)} xLoc={this.isBoxLeft + this.isBoxWidth / 2 + 55} yLoc={this.isBoxTop + 530} radius={10} inPlay={this.props.inPlay} clickLocation="rl" clickIndex={22} clickFunction={this.toggleISBubble} /></>) : (<></>)}
-            {this.props.mechData.getInternalStructure().rightLeg > 23 ? (<><DamageCircleSVG isFilled={this.props.mechData.structureDamaged("rl", 23)} xLoc={this.isBoxLeft + this.isBoxWidth / 2 + 55} yLoc={this.isBoxTop + 545} radius={10} inPlay={this.props.inPlay} clickLocation="rl" clickIndex={23} clickFunction={this.toggleISBubble} /></>) : (<></>)}
-            {this.props.mechData.getInternalStructure().rightLeg > 24 ? (<><DamageCircleSVG isFilled={this.props.mechData.structureDamaged("rl", 24)} xLoc={this.isBoxLeft + this.isBoxWidth / 2 + 55} yLoc={this.isBoxTop + 560} radius={10} inPlay={this.props.inPlay} clickLocation="rl" clickIndex={24} clickFunction={this.toggleISBubble} /></>) : (<></>)}
-
-            {this.props.mechData.getInternalStructure().rightLeg > 25 ? (<><DamageCircleSVG isFilled={this.props.mechData.structureDamaged("rl", 25)} xLoc={this.isBoxLeft + this.isBoxWidth / 2 + 75} yLoc={this.isBoxTop + 500} radius={10} inPlay={this.props.inPlay} clickLocation="rl" clickIndex={25} clickFunction={this.toggleISBubble} /></>) : (<></>)}
-            {this.props.mechData.getInternalStructure().rightLeg > 26 ? (<><DamageCircleSVG isFilled={this.props.mechData.structureDamaged("rl", 26)} xLoc={this.isBoxLeft + this.isBoxWidth / 2 + 75} yLoc={this.isBoxTop + 515} radius={10} inPlay={this.props.inPlay} clickLocation="rl" clickIndex={26} clickFunction={this.toggleISBubble} /></>) : (<></>)}
-            {this.props.mechData.getInternalStructure().rightLeg > 27 ? (<><DamageCircleSVG isFilled={this.props.mechData.structureDamaged("rl", 27)} xLoc={this.isBoxLeft + this.isBoxWidth / 2 + 75} yLoc={this.isBoxTop + 530} radius={10} inPlay={this.props.inPlay} clickLocation="rl" clickIndex={27} clickFunction={this.toggleISBubble} /></>) : (<></>)}
-            {this.props.mechData.getInternalStructure().rightLeg > 28 ? (<><DamageCircleSVG isFilled={this.props.mechData.structureDamaged("rl", 28)} xLoc={this.isBoxLeft + this.isBoxWidth / 2 + 75} yLoc={this.isBoxTop + 545} radius={10} inPlay={this.props.inPlay} clickLocation="rl" clickIndex={28} clickFunction={this.toggleISBubble} /></>) : (<></>)}
-            {this.props.mechData.getInternalStructure().rightLeg > 29 ? (<><DamageCircleSVG isFilled={this.props.mechData.structureDamaged("rl", 29)} xLoc={this.isBoxLeft + this.isBoxWidth / 2 + 75} yLoc={this.isBoxTop + 560} radius={10} inPlay={this.props.inPlay} clickLocation="rl" clickIndex={29} clickFunction={this.toggleISBubble} /></>) : (<></>)}
-
-            {/* Right Rear Leg IS */}
-            {this.props.mechData.getInternalStructure().leftLeg > 0 ? (<><DamageCircleSVG isFilled={this.props.mechData.structureDamaged("ll", 0)} xLoc={this.isBoxLeft + this.isBoxWidth / 2 - 55} yLoc={this.isBoxTop + 340} radius={10} inPlay={this.props.inPlay} clickLocation="ll" clickIndex={0} clickFunction={this.toggleISBubble} /></>) : (<></>)}
-            {this.props.mechData.getInternalStructure().leftLeg > 1 ? (<><DamageCircleSVG isFilled={this.props.mechData.structureDamaged("ll", 1)} xLoc={this.isBoxLeft + this.isBoxWidth / 2 - 55} yLoc={this.isBoxTop + 355} radius={10} inPlay={this.props.inPlay} clickLocation="ll" clickIndex={1} clickFunction={this.toggleISBubble} /></>) : (<></>)}
-            {this.props.mechData.getInternalStructure().leftLeg > 2 ? (<><DamageCircleSVG isFilled={this.props.mechData.structureDamaged("ll", 2)} xLoc={this.isBoxLeft + this.isBoxWidth / 2 - 55} yLoc={this.isBoxTop + 370} radius={10} inPlay={this.props.inPlay} clickLocation="ll" clickIndex={2} clickFunction={this.toggleISBubble} /></>) : (<></>)}
-            {this.props.mechData.getInternalStructure().leftLeg > 3 ? (<><DamageCircleSVG isFilled={this.props.mechData.structureDamaged("ll", 3)} xLoc={this.isBoxLeft + this.isBoxWidth / 2 - 55} yLoc={this.isBoxTop + 385} radius={10} inPlay={this.props.inPlay} clickLocation="ll" clickIndex={3} clickFunction={this.toggleISBubble} /></>) : (<></>)}
-            {this.props.mechData.getInternalStructure().leftLeg > 4 ? (<><DamageCircleSVG isFilled={this.props.mechData.structureDamaged("ll", 4)} xLoc={this.isBoxLeft + this.isBoxWidth / 2 - 55} yLoc={this.isBoxTop + 400} radius={10} inPlay={this.props.inPlay} clickLocation="ll" clickIndex={4} clickFunction={this.toggleISBubble} /></>) : (<></>)}
-
-            {this.props.mechData.getInternalStructure().leftLeg > 5 ? (<><DamageCircleSVG isFilled={this.props.mechData.structureDamaged("ll", 5)} xLoc={this.isBoxLeft + this.isBoxWidth / 2 - 55} yLoc={this.isBoxTop + 420} radius={10} inPlay={this.props.inPlay} clickLocation="ll" clickIndex={5} clickFunction={this.toggleISBubble} /></>) : (<></>)}
-            {this.props.mechData.getInternalStructure().leftLeg > 6 ? (<><DamageCircleSVG isFilled={this.props.mechData.structureDamaged("ll", 6)} xLoc={this.isBoxLeft + this.isBoxWidth / 2 - 55} yLoc={this.isBoxTop + 435} radius={10} inPlay={this.props.inPlay} clickLocation="ll" clickIndex={6} clickFunction={this.toggleISBubble} /></>) : (<></>)}
-            {this.props.mechData.getInternalStructure().leftLeg > 7 ? (<><DamageCircleSVG isFilled={this.props.mechData.structureDamaged("ll", 7)} xLoc={this.isBoxLeft + this.isBoxWidth / 2 - 55} yLoc={this.isBoxTop + 450} radius={10} inPlay={this.props.inPlay} clickLocation="ll" clickIndex={7} clickFunction={this.toggleISBubble} /></>) : (<></>)}
-            {this.props.mechData.getInternalStructure().leftLeg > 8 ? (<><DamageCircleSVG isFilled={this.props.mechData.structureDamaged("ll", 8)} xLoc={this.isBoxLeft + this.isBoxWidth / 2 - 55} yLoc={this.isBoxTop + 465} radius={10} inPlay={this.props.inPlay} clickLocation="ll" clickIndex={8} clickFunction={this.toggleISBubble} /></>) : (<></>)}
-            {this.props.mechData.getInternalStructure().leftLeg > 9 ? (<><DamageCircleSVG isFilled={this.props.mechData.structureDamaged("ll", 9)} xLoc={this.isBoxLeft + this.isBoxWidth / 2 - 55} yLoc={this.isBoxTop + 480} radius={10} inPlay={this.props.inPlay} clickLocation="ll" clickIndex={9} clickFunction={this.toggleISBubble} /></>) : (<></>)}
-
-            {this.props.mechData.getInternalStructure().leftLeg > 10 ? (<><DamageCircleSVG isFilled={this.props.mechData.structureDamaged("ll", 10)} xLoc={this.isBoxLeft + this.isBoxWidth / 2 - 75} yLoc={this.isBoxTop + 340} radius={10} inPlay={this.props.inPlay}clickLocation="ll" clickIndex={10} clickFunction={this.toggleISBubble} /></>) : (<></>)}
-            {this.props.mechData.getInternalStructure().leftLeg > 11 ? (<><DamageCircleSVG isFilled={this.props.mechData.structureDamaged("ll", 11)} xLoc={this.isBoxLeft + this.isBoxWidth / 2 - 75} yLoc={this.isBoxTop + 355} radius={10} inPlay={this.props.inPlay}clickLocation="ll" clickIndex={11} clickFunction={this.toggleISBubble} /></>) : (<></>)}
-            {this.props.mechData.getInternalStructure().leftLeg > 12 ? (<><DamageCircleSVG isFilled={this.props.mechData.structureDamaged("ll", 12)} xLoc={this.isBoxLeft + this.isBoxWidth / 2 - 75} yLoc={this.isBoxTop + 370} radius={10} inPlay={this.props.inPlay}clickLocation="ll" clickIndex={12} clickFunction={this.toggleISBubble} /></>) : (<></>)}
-            {this.props.mechData.getInternalStructure().leftLeg > 13 ? (<><DamageCircleSVG isFilled={this.props.mechData.structureDamaged("ll", 13)} xLoc={this.isBoxLeft + this.isBoxWidth / 2 - 75} yLoc={this.isBoxTop + 385} radius={10} inPlay={this.props.inPlay}clickLocation="ll" clickIndex={13} clickFunction={this.toggleISBubble} /></>) : (<></>)}
-            {this.props.mechData.getInternalStructure().leftLeg > 14 ? (<><DamageCircleSVG isFilled={this.props.mechData.structureDamaged("ll", 14)} xLoc={this.isBoxLeft + this.isBoxWidth / 2 - 75} yLoc={this.isBoxTop + 400} radius={10} inPlay={this.props.inPlay}clickLocation="ll" clickIndex={14} clickFunction={this.toggleISBubble} /></>) : (<></>)}
-
-            {this.props.mechData.getInternalStructure().leftLeg > 15 ? (<><DamageCircleSVG isFilled={this.props.mechData.structureDamaged("ll", 15)} xLoc={this.isBoxLeft + this.isBoxWidth / 2 - 75} yLoc={this.isBoxTop + 420} radius={10} inPlay={this.props.inPlay} clickLocation="ll" clickIndex={15} clickFunction={this.toggleISBubble} /></>) : (<></>)}
-            {this.props.mechData.getInternalStructure().leftLeg > 16 ? (<><DamageCircleSVG isFilled={this.props.mechData.structureDamaged("ll", 16)} xLoc={this.isBoxLeft + this.isBoxWidth / 2 - 75} yLoc={this.isBoxTop + 435} radius={10} inPlay={this.props.inPlay} clickLocation="ll" clickIndex={16} clickFunction={this.toggleISBubble} /></>) : (<></>)}
-            {this.props.mechData.getInternalStructure().leftLeg > 17 ? (<><DamageCircleSVG isFilled={this.props.mechData.structureDamaged("ll", 17)} xLoc={this.isBoxLeft + this.isBoxWidth / 2 - 75} yLoc={this.isBoxTop + 450} radius={10} inPlay={this.props.inPlay} clickLocation="ll" clickIndex={17} clickFunction={this.toggleISBubble} /></>) : (<></>)}
-            {this.props.mechData.getInternalStructure().leftLeg > 18 ? (<><DamageCircleSVG isFilled={this.props.mechData.structureDamaged("ll", 18)} xLoc={this.isBoxLeft + this.isBoxWidth / 2 - 75} yLoc={this.isBoxTop + 465} radius={10} inPlay={this.props.inPlay} clickLocation="ll" clickIndex={18} clickFunction={this.toggleISBubble} /></>) : (<></>)}
-            {this.props.mechData.getInternalStructure().leftLeg > 19 ? (<><DamageCircleSVG isFilled={this.props.mechData.structureDamaged("ll", 19)} xLoc={this.isBoxLeft + this.isBoxWidth / 2 - 75} yLoc={this.isBoxTop + 480} radius={10} inPlay={this.props.inPlay} clickLocation="ll" clickIndex={19} clickFunction={this.toggleISBubble} /></>) : (<></>)}
-
-            {this.props.mechData.getInternalStructure().leftLeg > 20 ? (<><DamageCircleSVG isFilled={this.props.mechData.structureDamaged("ll", 20)} xLoc={this.isBoxLeft + this.isBoxWidth / 2 - 55} yLoc={this.isBoxTop + 500} radius={10} inPlay={this.props.inPlay} clickLocation="ll" clickIndex={20} clickFunction={this.toggleISBubble} /></>) : (<></>)}
-            {this.props.mechData.getInternalStructure().leftLeg > 21 ? (<><DamageCircleSVG isFilled={this.props.mechData.structureDamaged("ll", 21)} xLoc={this.isBoxLeft + this.isBoxWidth / 2 - 55} yLoc={this.isBoxTop + 515} radius={10} inPlay={this.props.inPlay} clickLocation="ll" clickIndex={21} clickFunction={this.toggleISBubble} /></>) : (<></>)}
-            {this.props.mechData.getInternalStructure().leftLeg > 22 ? (<><DamageCircleSVG isFilled={this.props.mechData.structureDamaged("ll", 22)} xLoc={this.isBoxLeft + this.isBoxWidth / 2 - 55} yLoc={this.isBoxTop + 530} radius={10} inPlay={this.props.inPlay} clickLocation="ll" clickIndex={22} clickFunction={this.toggleISBubble} /></>) : (<></>)}
-            {this.props.mechData.getInternalStructure().leftLeg > 23 ? (<><DamageCircleSVG isFilled={this.props.mechData.structureDamaged("ll", 23)} xLoc={this.isBoxLeft + this.isBoxWidth / 2 - 55} yLoc={this.isBoxTop + 545} radius={10} inPlay={this.props.inPlay} clickLocation="ll" clickIndex={23} clickFunction={this.toggleISBubble} /></>) : (<></>)}
-            {this.props.mechData.getInternalStructure().leftLeg > 24 ? (<><DamageCircleSVG isFilled={this.props.mechData.structureDamaged("ll", 24)} xLoc={this.isBoxLeft + this.isBoxWidth / 2 - 55} yLoc={this.isBoxTop + 560} radius={10} inPlay={this.props.inPlay} clickLocation="ll" clickIndex={24} clickFunction={this.toggleISBubble} /></>) : (<></>)}
-
-            {this.props.mechData.getInternalStructure().leftLeg > 25 ? (<><DamageCircleSVG isFilled={this.props.mechData.structureDamaged("ll", 25)} xLoc={this.isBoxLeft + this.isBoxWidth / 2 - 75} yLoc={this.isBoxTop + 500} radius={10} inPlay={this.props.inPlay} clickLocation="ll" clickIndex={25} clickFunction={this.toggleISBubble} /></>) : (<></>)}
-            {this.props.mechData.getInternalStructure().leftLeg > 26 ? (<><DamageCircleSVG isFilled={this.props.mechData.structureDamaged("ll", 26)} xLoc={this.isBoxLeft + this.isBoxWidth / 2 - 75} yLoc={this.isBoxTop + 515} radius={10} inPlay={this.props.inPlay} clickLocation="ll" clickIndex={26} clickFunction={this.toggleISBubble} /></>) : (<></>)}
-            {this.props.mechData.getInternalStructure().leftLeg > 27 ? (<><DamageCircleSVG isFilled={this.props.mechData.structureDamaged("ll", 27)} xLoc={this.isBoxLeft + this.isBoxWidth / 2 - 75} yLoc={this.isBoxTop + 530} radius={10} inPlay={this.props.inPlay} clickLocation="ll" clickIndex={27} clickFunction={this.toggleISBubble} /></>) : (<></>)}
-            {this.props.mechData.getInternalStructure().leftLeg > 28 ? (<><DamageCircleSVG isFilled={this.props.mechData.structureDamaged("ll", 28)} xLoc={this.isBoxLeft + this.isBoxWidth / 2 - 75} yLoc={this.isBoxTop + 545} radius={10} inPlay={this.props.inPlay} clickLocation="ll" clickIndex={28} clickFunction={this.toggleISBubble} /></>) : (<></>)}
-            {this.props.mechData.getInternalStructure().leftLeg > 29 ? (<><DamageCircleSVG isFilled={this.props.mechData.structureDamaged("ll", 29)} xLoc={this.isBoxLeft + this.isBoxWidth / 2 - 75} yLoc={this.isBoxTop + 560} radius={10} inPlay={this.props.inPlay} clickLocation="ll" clickIndex={29} clickFunction={this.toggleISBubble} /></>) : (<></>)}
-
-            {/* Right Front Leg IS */}
-            {this.props.mechData.getInternalStructure().rightArm > 0 ? (<><DamageCircleSVG isFilled={this.props.mechData.structureDamaged("ra", 0)} xLoc={this.isBoxLeft + this.isBoxWidth / 2 + 115} yLoc={this.isBoxTop + 260} radius={10} inPlay={this.props.inPlay} clickLocation="ra" clickIndex={0} clickFunction={this.toggleISBubble}  /></>) : (<></>)}
-            {this.props.mechData.getInternalStructure().rightArm > 1 ? (<><DamageCircleSVG isFilled={this.props.mechData.structureDamaged("ra", 1)} xLoc={this.isBoxLeft + this.isBoxWidth / 2 + 115} yLoc={this.isBoxTop + 275} radius={10} inPlay={this.props.inPlay} clickLocation="ra" clickIndex={1} clickFunction={this.toggleISBubble}  /></>) : (<></>)}
-            {this.props.mechData.getInternalStructure().rightArm > 2 ? (<><DamageCircleSVG isFilled={this.props.mechData.structureDamaged("ra", 2)} xLoc={this.isBoxLeft + this.isBoxWidth / 2 + 115} yLoc={this.isBoxTop + 290} radius={10} inPlay={this.props.inPlay} clickLocation="ra" clickIndex={2} clickFunction={this.toggleISBubble}  /></>) : (<></>)}
-            {this.props.mechData.getInternalStructure().rightArm > 3 ? (<><DamageCircleSVG isFilled={this.props.mechData.structureDamaged("ra", 3)} xLoc={this.isBoxLeft + this.isBoxWidth / 2 + 115} yLoc={this.isBoxTop + 305} radius={10} inPlay={this.props.inPlay} clickLocation="ra" clickIndex={3} clickFunction={this.toggleISBubble}  /></>) : (<></>)}
-            {this.props.mechData.getInternalStructure().rightArm > 4 ? (<><DamageCircleSVG isFilled={this.props.mechData.structureDamaged("ra", 4)} xLoc={this.isBoxLeft + this.isBoxWidth / 2 + 115} yLoc={this.isBoxTop + 320} radius={10} inPlay={this.props.inPlay} clickLocation="ra" clickIndex={4} clickFunction={this.toggleISBubble}  /></>) : (<></>)}
-
-            {this.props.mechData.getInternalStructure().rightArm > 5 ? (<><DamageCircleSVG isFilled={this.props.mechData.structureDamaged("ra", 5)} xLoc={this.isBoxLeft + this.isBoxWidth / 2 + 120} yLoc={this.isBoxTop + 340} radius={10} inPlay={this.props.inPlay} clickLocation="ra" clickIndex={5} clickFunction={this.toggleISBubble}  /></>) : (<></>)}
-            {this.props.mechData.getInternalStructure().rightArm > 6 ? (<><DamageCircleSVG isFilled={this.props.mechData.structureDamaged("ra", 6)} xLoc={this.isBoxLeft + this.isBoxWidth / 2 + 120} yLoc={this.isBoxTop + 355} radius={10} inPlay={this.props.inPlay} clickLocation="ra" clickIndex={6} clickFunction={this.toggleISBubble}  /></>) : (<></>)}
-            {this.props.mechData.getInternalStructure().rightArm > 7 ? (<><DamageCircleSVG isFilled={this.props.mechData.structureDamaged("ra", 7)} xLoc={this.isBoxLeft + this.isBoxWidth / 2 + 120} yLoc={this.isBoxTop + 370} radius={10} inPlay={this.props.inPlay} clickLocation="ra" clickIndex={7} clickFunction={this.toggleISBubble}  /></>) : (<></>)}
-            {this.props.mechData.getInternalStructure().rightArm > 8 ? (<><DamageCircleSVG isFilled={this.props.mechData.structureDamaged("ra", 8)} xLoc={this.isBoxLeft + this.isBoxWidth / 2 + 120} yLoc={this.isBoxTop + 385} radius={10} inPlay={this.props.inPlay} clickLocation="ra" clickIndex={8} clickFunction={this.toggleISBubble}  /></>) : (<></>)}
-            {this.props.mechData.getInternalStructure().rightArm > 9 ? (<><DamageCircleSVG isFilled={this.props.mechData.structureDamaged("ra", 9)} xLoc={this.isBoxLeft + this.isBoxWidth / 2 + 120} yLoc={this.isBoxTop + 400} radius={10} inPlay={this.props.inPlay} clickLocation="ra" clickIndex={9} clickFunction={this.toggleISBubble}  /></>) : (<></>)}
-
-            {this.props.mechData.getInternalStructure().rightArm > 10 ? (<><DamageCircleSVG isFilled={this.props.mechData.structureDamaged("ra", 10)} xLoc={this.isBoxLeft + this.isBoxWidth / 2 + 130} yLoc={this.isBoxTop + 420} radius={10} inPlay={this.props.inPlay} clickLocation="ra" clickIndex={10} clickFunction={this.toggleISBubble}  /></>) : (<></>)}
-            {this.props.mechData.getInternalStructure().rightArm > 11 ? (<><DamageCircleSVG isFilled={this.props.mechData.structureDamaged("ra", 11)} xLoc={this.isBoxLeft + this.isBoxWidth / 2 + 130} yLoc={this.isBoxTop + 435} radius={10} inPlay={this.props.inPlay} clickLocation="ra" clickIndex={11} clickFunction={this.toggleISBubble}  /></>) : (<></>)}
-            {this.props.mechData.getInternalStructure().rightArm > 12 ? (<><DamageCircleSVG isFilled={this.props.mechData.structureDamaged("ra", 12)} xLoc={this.isBoxLeft + this.isBoxWidth / 2 + 130} yLoc={this.isBoxTop + 450} radius={10} inPlay={this.props.inPlay} clickLocation="ra" clickIndex={12} clickFunction={this.toggleISBubble}  /></>) : (<></>)}
-            {this.props.mechData.getInternalStructure().rightArm > 13 ? (<><DamageCircleSVG isFilled={this.props.mechData.structureDamaged("ra", 13)} xLoc={this.isBoxLeft + this.isBoxWidth / 2 + 130} yLoc={this.isBoxTop + 465} radius={10} inPlay={this.props.inPlay} clickLocation="ra" clickIndex={13} clickFunction={this.toggleISBubble}  /></>) : (<></>)}
-            {this.props.mechData.getInternalStructure().rightArm > 14 ? (<><DamageCircleSVG isFilled={this.props.mechData.structureDamaged("ra", 14)} xLoc={this.isBoxLeft + this.isBoxWidth / 2 + 130} yLoc={this.isBoxTop + 480} radius={10} inPlay={this.props.inPlay} clickLocation="ra" clickIndex={14} clickFunction={this.toggleISBubble}  /></>) : (<></>)}
-
-            {this.props.mechData.getInternalStructure().rightArm > 15 ? (<><DamageCircleSVG isFilled={this.props.mechData.structureDamaged("ra", 15)} xLoc={this.isBoxLeft + this.isBoxWidth / 2 + 130} yLoc={this.isBoxTop + 500} radius={10} inPlay={this.props.inPlay} clickLocation="ra" clickIndex={15} clickFunction={this.toggleISBubble}  /></>) : (<></>)}
-            {this.props.mechData.getInternalStructure().rightArm > 16 ? (<><DamageCircleSVG isFilled={this.props.mechData.structureDamaged("ra", 16)} xLoc={this.isBoxLeft + this.isBoxWidth / 2 + 130} yLoc={this.isBoxTop + 515} radius={10} inPlay={this.props.inPlay} clickLocation="ra" clickIndex={16} clickFunction={this.toggleISBubble}  /></>) : (<></>)}
-            {this.props.mechData.getInternalStructure().rightArm > 17 ? (<><DamageCircleSVG isFilled={this.props.mechData.structureDamaged("ra", 17)} xLoc={this.isBoxLeft + this.isBoxWidth / 2 + 130} yLoc={this.isBoxTop + 530} radius={10} inPlay={this.props.inPlay} clickLocation="ra" clickIndex={17} clickFunction={this.toggleISBubble}  /></>) : (<></>)}
-            {this.props.mechData.getInternalStructure().rightArm > 18 ? (<><DamageCircleSVG isFilled={this.props.mechData.structureDamaged("ra", 18)} xLoc={this.isBoxLeft + this.isBoxWidth / 2 + 130} yLoc={this.isBoxTop + 545} radius={10} inPlay={this.props.inPlay} clickLocation="ra" clickIndex={18} clickFunction={this.toggleISBubble}  /></>) : (<></>)}
-            {this.props.mechData.getInternalStructure().rightArm > 19 ? (<><DamageCircleSVG isFilled={this.props.mechData.structureDamaged("ra", 19)} xLoc={this.isBoxLeft + this.isBoxWidth / 2 + 130} yLoc={this.isBoxTop + 560} radius={10} inPlay={this.props.inPlay} clickLocation="ra" clickIndex={19} clickFunction={this.toggleISBubble}  /></>) : (<></>)}
-
-            {this.props.mechData.getInternalStructure().rightArm > 20 ? (<><DamageCircleSVG isFilled={this.props.mechData.structureDamaged("ra", 20)} xLoc={this.isBoxLeft + this.isBoxWidth / 2 + 150} yLoc={this.isBoxTop + 560} radius={10} inPlay={this.props.inPlay} clickLocation="ra" clickIndex={20} clickFunction={this.toggleISBubble} /></>) : (<></>)}
-            {this.props.mechData.getInternalStructure().rightArm > 21 ? (<><DamageCircleSVG isFilled={this.props.mechData.structureDamaged("ra", 21)} xLoc={this.isBoxLeft + this.isBoxWidth / 2 + 150} yLoc={this.isBoxTop + 545} radius={10} inPlay={this.props.inPlay} clickLocation="ra" clickIndex={21} clickFunction={this.toggleISBubble} /></>) : (<></>)}
-            {this.props.mechData.getInternalStructure().rightArm > 22 ? (<><DamageCircleSVG isFilled={this.props.mechData.structureDamaged("ra", 22)} xLoc={this.isBoxLeft + this.isBoxWidth / 2 + 150} yLoc={this.isBoxTop + 530} radius={10} inPlay={this.props.inPlay} clickLocation="ra" clickIndex={22} clickFunction={this.toggleISBubble} /></>) : (<></>)}
-            {this.props.mechData.getInternalStructure().rightArm > 23 ? (<><DamageCircleSVG isFilled={this.props.mechData.structureDamaged("ra", 23)} xLoc={this.isBoxLeft + this.isBoxWidth / 2 + 150} yLoc={this.isBoxTop + 515} radius={10} inPlay={this.props.inPlay} clickLocation="ra" clickIndex={23} clickFunction={this.toggleISBubble} /></>) : (<></>)}
-            {this.props.mechData.getInternalStructure().rightArm > 24 ? (<><DamageCircleSVG isFilled={this.props.mechData.structureDamaged("ra", 24)} xLoc={this.isBoxLeft + this.isBoxWidth / 2 + 150} yLoc={this.isBoxTop + 500} radius={10} inPlay={this.props.inPlay} clickLocation="ra" clickIndex={24} clickFunction={this.toggleISBubble} /></>) : (<></>)}
-
-            {/* Left Front Leg IS */}
-            {this.props.mechData.getInternalStructure().leftArm > 0 ? (<><DamageCircleSVG isFilled={this.props.mechData.structureDamaged("la", 0)} xLoc={this.isBoxLeft + this.isBoxWidth / 2 - 115} yLoc={this.isBoxTop + 260} radius={10} inPlay={this.props.inPlay} clickLocation="la" clickIndex={0} clickFunction={this.toggleISBubble} /></>) : (<></>)}
-            {this.props.mechData.getInternalStructure().leftArm > 1 ? (<><DamageCircleSVG isFilled={this.props.mechData.structureDamaged("la", 1)} xLoc={this.isBoxLeft + this.isBoxWidth / 2 - 115} yLoc={this.isBoxTop + 275} radius={10} inPlay={this.props.inPlay} clickLocation="la" clickIndex={1} clickFunction={this.toggleISBubble} /></>) : (<></>)}
-            {this.props.mechData.getInternalStructure().leftArm > 2 ? (<><DamageCircleSVG isFilled={this.props.mechData.structureDamaged("la", 2)} xLoc={this.isBoxLeft + this.isBoxWidth / 2 - 115} yLoc={this.isBoxTop + 290} radius={10} inPlay={this.props.inPlay} clickLocation="la" clickIndex={2} clickFunction={this.toggleISBubble} /></>) : (<></>)}
-            {this.props.mechData.getInternalStructure().leftArm > 3 ? (<><DamageCircleSVG isFilled={this.props.mechData.structureDamaged("la", 3)} xLoc={this.isBoxLeft + this.isBoxWidth / 2 - 115} yLoc={this.isBoxTop + 305} radius={10} inPlay={this.props.inPlay} clickLocation="la" clickIndex={3} clickFunction={this.toggleISBubble} /></>) : (<></>)}
-            {this.props.mechData.getInternalStructure().leftArm > 4 ? (<><DamageCircleSVG isFilled={this.props.mechData.structureDamaged("la", 4)} xLoc={this.isBoxLeft + this.isBoxWidth / 2 - 115} yLoc={this.isBoxTop + 320} radius={10} inPlay={this.props.inPlay} clickLocation="la" clickIndex={4} clickFunction={this.toggleISBubble} /></>) : (<></>)}
-
-            {this.props.mechData.getInternalStructure().leftArm > 5 ? (<><DamageCircleSVG isFilled={this.props.mechData.structureDamaged("la", 5)} xLoc={this.isBoxLeft + this.isBoxWidth / 2 - 120} yLoc={this.isBoxTop + 340} radius={10} inPlay={this.props.inPlay} clickLocation="la" clickIndex={5} clickFunction={this.toggleISBubble} /></>) : (<></>)}
-            {this.props.mechData.getInternalStructure().leftArm > 6 ? (<><DamageCircleSVG isFilled={this.props.mechData.structureDamaged("la", 6)} xLoc={this.isBoxLeft + this.isBoxWidth / 2 - 120} yLoc={this.isBoxTop + 355} radius={10} inPlay={this.props.inPlay} clickLocation="la" clickIndex={6} clickFunction={this.toggleISBubble} /></>) : (<></>)}
-            {this.props.mechData.getInternalStructure().leftArm > 7 ? (<><DamageCircleSVG isFilled={this.props.mechData.structureDamaged("la", 7)} xLoc={this.isBoxLeft + this.isBoxWidth / 2 - 120} yLoc={this.isBoxTop + 370} radius={10} inPlay={this.props.inPlay} clickLocation="la" clickIndex={7} clickFunction={this.toggleISBubble} /></>) : (<></>)}
-            {this.props.mechData.getInternalStructure().leftArm > 8 ? (<><DamageCircleSVG isFilled={this.props.mechData.structureDamaged("la", 8)} xLoc={this.isBoxLeft + this.isBoxWidth / 2 - 120} yLoc={this.isBoxTop + 385} radius={10} inPlay={this.props.inPlay} clickLocation="la" clickIndex={8} clickFunction={this.toggleISBubble} /></>) : (<></>)}
-            {this.props.mechData.getInternalStructure().leftArm > 9 ? (<><DamageCircleSVG isFilled={this.props.mechData.structureDamaged("la", 9)} xLoc={this.isBoxLeft + this.isBoxWidth / 2 - 120} yLoc={this.isBoxTop + 400} radius={10} inPlay={this.props.inPlay} clickLocation="la" clickIndex={9} clickFunction={this.toggleISBubble} /></>) : (<></>)}
-
-            {this.props.mechData.getInternalStructure().leftArm > 10 ? (<><DamageCircleSVG isFilled={this.props.mechData.structureDamaged("la", 10)} xLoc={this.isBoxLeft + this.isBoxWidth / 2 - 130} yLoc={this.isBoxTop + 420} radius={10} inPlay={this.props.inPlay} clickLocation="la" clickIndex={10} clickFunction={this.toggleISBubble} /></>) : (<></>)}
-            {this.props.mechData.getInternalStructure().leftArm > 11 ? (<><DamageCircleSVG isFilled={this.props.mechData.structureDamaged("la", 11)} xLoc={this.isBoxLeft + this.isBoxWidth / 2 - 130} yLoc={this.isBoxTop + 435} radius={10} inPlay={this.props.inPlay} clickLocation="la" clickIndex={11} clickFunction={this.toggleISBubble} /></>) : (<></>)}
-            {this.props.mechData.getInternalStructure().leftArm > 12 ? (<><DamageCircleSVG isFilled={this.props.mechData.structureDamaged("la", 12)} xLoc={this.isBoxLeft + this.isBoxWidth / 2 - 130} yLoc={this.isBoxTop + 450} radius={10} inPlay={this.props.inPlay} clickLocation="la" clickIndex={12} clickFunction={this.toggleISBubble} /></>) : (<></>)}
-            {this.props.mechData.getInternalStructure().leftArm > 13 ? (<><DamageCircleSVG isFilled={this.props.mechData.structureDamaged("la", 13)} xLoc={this.isBoxLeft + this.isBoxWidth / 2 - 130} yLoc={this.isBoxTop + 465} radius={10} inPlay={this.props.inPlay} clickLocation="la" clickIndex={13} clickFunction={this.toggleISBubble} /></>) : (<></>)}
-            {this.props.mechData.getInternalStructure().leftArm > 14 ? (<><DamageCircleSVG isFilled={this.props.mechData.structureDamaged("la", 14)} xLoc={this.isBoxLeft + this.isBoxWidth / 2 - 130} yLoc={this.isBoxTop + 480} radius={10} inPlay={this.props.inPlay} clickLocation="la" clickIndex={14} clickFunction={this.toggleISBubble} /></>) : (<></>)}
-
-            {this.props.mechData.getInternalStructure().leftArm > 15 ? (<><DamageCircleSVG isFilled={this.props.mechData.structureDamaged("la", 15)} xLoc={this.isBoxLeft + this.isBoxWidth / 2 - 130} yLoc={this.isBoxTop + 500} radius={10} inPlay={this.props.inPlay} clickLocation="la" clickIndex={15} clickFunction={this.toggleISBubble} /></>) : (<></>)}
-            {this.props.mechData.getInternalStructure().leftArm > 16 ? (<><DamageCircleSVG isFilled={this.props.mechData.structureDamaged("la", 16)} xLoc={this.isBoxLeft + this.isBoxWidth / 2 - 130} yLoc={this.isBoxTop + 515} radius={10} inPlay={this.props.inPlay} clickLocation="la" clickIndex={16} clickFunction={this.toggleISBubble} /></>) : (<></>)}
-            {this.props.mechData.getInternalStructure().leftArm > 17 ? (<><DamageCircleSVG isFilled={this.props.mechData.structureDamaged("la", 17)} xLoc={this.isBoxLeft + this.isBoxWidth / 2 - 130} yLoc={this.isBoxTop + 530} radius={10} inPlay={this.props.inPlay} clickLocation="la" clickIndex={17} clickFunction={this.toggleISBubble} /></>) : (<></>)}
-            {this.props.mechData.getInternalStructure().leftArm > 18 ? (<><DamageCircleSVG isFilled={this.props.mechData.structureDamaged("la", 18)} xLoc={this.isBoxLeft + this.isBoxWidth / 2 - 130} yLoc={this.isBoxTop + 545} radius={10} inPlay={this.props.inPlay} clickLocation="la" clickIndex={18} clickFunction={this.toggleISBubble} /></>) : (<></>)}
-            {this.props.mechData.getInternalStructure().leftArm > 19 ? (<><DamageCircleSVG isFilled={this.props.mechData.structureDamaged("la", 19)} xLoc={this.isBoxLeft + this.isBoxWidth / 2 - 130} yLoc={this.isBoxTop + 560} radius={10} inPlay={this.props.inPlay} clickLocation="la" clickIndex={19} clickFunction={this.toggleISBubble} /></>) : (<></>)}
-
-            {this.props.mechData.getInternalStructure().leftArm > 20 ? (<><DamageCircleSVG isFilled={this.props.mechData.structureDamaged("la", 20)} xLoc={this.isBoxLeft + this.isBoxWidth / 2 - 150} yLoc={this.isBoxTop + 560} radius={10} inPlay={this.props.inPlay} clickLocation="la" clickIndex={20} clickFunction={this.toggleISBubble} /></>) : (<></>)}
-            {this.props.mechData.getInternalStructure().leftArm > 21 ? (<><DamageCircleSVG isFilled={this.props.mechData.structureDamaged("la", 21)} xLoc={this.isBoxLeft + this.isBoxWidth / 2 - 150} yLoc={this.isBoxTop + 545} radius={10} inPlay={this.props.inPlay} clickLocation="la" clickIndex={21} clickFunction={this.toggleISBubble} /></>) : (<></>)}
-            {this.props.mechData.getInternalStructure().leftArm > 22 ? (<><DamageCircleSVG isFilled={this.props.mechData.structureDamaged("la", 22)} xLoc={this.isBoxLeft + this.isBoxWidth / 2 - 150} yLoc={this.isBoxTop + 530} radius={10} inPlay={this.props.inPlay} clickLocation="la" clickIndex={22} clickFunction={this.toggleISBubble} /></>) : (<></>)}
-            {this.props.mechData.getInternalStructure().leftArm > 23 ? (<><DamageCircleSVG isFilled={this.props.mechData.structureDamaged("la", 23)} xLoc={this.isBoxLeft + this.isBoxWidth / 2 - 150} yLoc={this.isBoxTop + 515} radius={10} inPlay={this.props.inPlay} clickLocation="la" clickIndex={23} clickFunction={this.toggleISBubble} /></>) : (<></>)}
-            {this.props.mechData.getInternalStructure().leftArm > 24 ? (<><DamageCircleSVG isFilled={this.props.mechData.structureDamaged("la", 24)} xLoc={this.isBoxLeft + this.isBoxWidth / 2 - 150} yLoc={this.isBoxTop + 500} radius={10} inPlay={this.props.inPlay} clickLocation="la" clickIndex={24} clickFunction={this.toggleISBubble} /></>) : (<></>)}
-
-        {/* Right Torso IS */}
-        {this.props.mechData.getInternalStructure().rightTorso > 0 ? (<><DamageCircleSVG isFilled={this.props.mechData.structureDamaged("rt", 0)} xLoc={this.isBoxLeft + this.isBoxWidth / 2 + 70} yLoc={this.isBoxTop + 105} radius={10} inPlay={this.props.inPlay} clickLocation="rt" clickIndex={0} clickFunction={this.toggleISBubble} /></>) : (<></>)}
-        {this.props.mechData.getInternalStructure().rightTorso > 1 ? (<><DamageCircleSVG isFilled={this.props.mechData.structureDamaged("rt", 1)} xLoc={this.isBoxLeft + this.isBoxWidth / 2 + 70} yLoc={this.isBoxTop + 120} radius={10} inPlay={this.props.inPlay} clickLocation="rt" clickIndex={1} clickFunction={this.toggleISBubble} /></>) : (<></>)}
-        {this.props.mechData.getInternalStructure().rightTorso > 2 ? (<><DamageCircleSVG isFilled={this.props.mechData.structureDamaged("rt", 2)} xLoc={this.isBoxLeft + this.isBoxWidth / 2 + 70} yLoc={this.isBoxTop + 135} radius={10} inPlay={this.props.inPlay} clickLocation="rt" clickIndex={2} clickFunction={this.toggleISBubble} /></>) : (<></>)}
-        {this.props.mechData.getInternalStructure().rightTorso > 3 ? (<><DamageCircleSVG isFilled={this.props.mechData.structureDamaged("rt", 3)} xLoc={this.isBoxLeft + this.isBoxWidth / 2 + 70} yLoc={this.isBoxTop + 150} radius={10} inPlay={this.props.inPlay} clickLocation="rt" clickIndex={3} clickFunction={this.toggleISBubble} /></>) : (<></>)}
-        {this.props.mechData.getInternalStructure().rightTorso > 4 ? (<><DamageCircleSVG isFilled={this.props.mechData.structureDamaged("rt", 4)} xLoc={this.isBoxLeft + this.isBoxWidth / 2 + 70} yLoc={this.isBoxTop + 165} radius={10} inPlay={this.props.inPlay} clickLocation="rt" clickIndex={4} clickFunction={this.toggleISBubble} /></>) : (<></>)}
-
-        {this.props.mechData.getInternalStructure().rightTorso > 5 ? (<><DamageCircleSVG isFilled={this.props.mechData.structureDamaged("rt", 5)} xLoc={this.isBoxLeft + this.isBoxWidth / 2 + 90} yLoc={this.isBoxTop + 105} radius={10} inPlay={this.props.inPlay} clickLocation="rt" clickIndex={5} clickFunction={this.toggleISBubble} /></>) : (<></>)}
-        {this.props.mechData.getInternalStructure().rightTorso > 6 ? (<><DamageCircleSVG isFilled={this.props.mechData.structureDamaged("rt", 6)} xLoc={this.isBoxLeft + this.isBoxWidth / 2 + 90} yLoc={this.isBoxTop + 120} radius={10} inPlay={this.props.inPlay} clickLocation="rt" clickIndex={6} clickFunction={this.toggleISBubble} /></>) : (<></>)}
-        {this.props.mechData.getInternalStructure().rightTorso > 7 ? (<><DamageCircleSVG isFilled={this.props.mechData.structureDamaged("rt", 7)} xLoc={this.isBoxLeft + this.isBoxWidth / 2 + 90} yLoc={this.isBoxTop + 135} radius={10} inPlay={this.props.inPlay} clickLocation="rt" clickIndex={7} clickFunction={this.toggleISBubble} /></>) : (<></>)}
-        {this.props.mechData.getInternalStructure().rightTorso > 8 ? (<><DamageCircleSVG isFilled={this.props.mechData.structureDamaged("rt", 8)} xLoc={this.isBoxLeft + this.isBoxWidth / 2 + 90} yLoc={this.isBoxTop + 150} radius={10} inPlay={this.props.inPlay} clickLocation="rt" clickIndex={8} clickFunction={this.toggleISBubble} /></>) : (<></>)}
-        {this.props.mechData.getInternalStructure().rightTorso > 9 ? (<><DamageCircleSVG isFilled={this.props.mechData.structureDamaged("rt", 9)} xLoc={this.isBoxLeft + this.isBoxWidth / 2 + 90} yLoc={this.isBoxTop + 165} radius={10} inPlay={this.props.inPlay} clickLocation="rt" clickIndex={9} clickFunction={this.toggleISBubble} /></>) : (<></>)}
-
-        {this.props.mechData.getInternalStructure().rightTorso > 10 ? (<><DamageCircleSVG isFilled={this.props.mechData.structureDamaged("rt", 10)} xLoc={this.isBoxLeft + this.isBoxWidth / 2 + 110} yLoc={this.isBoxTop + 105} radius={10} inPlay={this.props.inPlay} clickLocation="rt" clickIndex={10} clickFunction={this.toggleISBubble} /></>) : (<></>)}
-        {this.props.mechData.getInternalStructure().rightTorso > 11 ? (<><DamageCircleSVG isFilled={this.props.mechData.structureDamaged("rt", 11)} xLoc={this.isBoxLeft + this.isBoxWidth / 2 + 110} yLoc={this.isBoxTop + 120} radius={10} inPlay={this.props.inPlay} clickLocation="rt" clickIndex={11} clickFunction={this.toggleISBubble} /></>) : (<></>)}
-        {this.props.mechData.getInternalStructure().rightTorso > 12 ? (<><DamageCircleSVG isFilled={this.props.mechData.structureDamaged("rt", 12)} xLoc={this.isBoxLeft + this.isBoxWidth / 2 + 110} yLoc={this.isBoxTop + 135} radius={10} inPlay={this.props.inPlay} clickLocation="rt" clickIndex={12} clickFunction={this.toggleISBubble} /></>) : (<></>)}
-        {this.props.mechData.getInternalStructure().rightTorso > 13 ? (<><DamageCircleSVG isFilled={this.props.mechData.structureDamaged("rt", 13)} xLoc={this.isBoxLeft + this.isBoxWidth / 2 + 110} yLoc={this.isBoxTop + 150} radius={10} inPlay={this.props.inPlay} clickLocation="rt" clickIndex={13} clickFunction={this.toggleISBubble} /></>) : (<></>)}
-        {this.props.mechData.getInternalStructure().rightTorso > 14 ? (<><DamageCircleSVG isFilled={this.props.mechData.structureDamaged("rt", 14)} xLoc={this.isBoxLeft + this.isBoxWidth / 2 + 110} yLoc={this.isBoxTop + 165} radius={10} inPlay={this.props.inPlay} clickLocation="rt" clickIndex={14} clickFunction={this.toggleISBubble} /></>) : (<></>)}
-
-        {this.props.mechData.getInternalStructure().rightTorso > 15 ? (<><DamageCircleSVG isFilled={this.props.mechData.structureDamaged("rt", 15)} xLoc={this.isBoxLeft + this.isBoxWidth / 2 + 70} yLoc={this.isBoxTop + 185} radius={10} inPlay={this.props.inPlay} clickLocation="rt" clickIndex={15} clickFunction={this.toggleISBubble} /></>) : (<></>)}
-        {this.props.mechData.getInternalStructure().rightTorso > 16 ? (<><DamageCircleSVG isFilled={this.props.mechData.structureDamaged("rt", 16)} xLoc={this.isBoxLeft + this.isBoxWidth / 2 + 70} yLoc={this.isBoxTop + 200} radius={10} inPlay={this.props.inPlay} clickLocation="rt" clickIndex={16} clickFunction={this.toggleISBubble} /></>) : (<></>)}
-        {this.props.mechData.getInternalStructure().rightTorso > 17 ? (<><DamageCircleSVG isFilled={this.props.mechData.structureDamaged("rt", 17)} xLoc={this.isBoxLeft + this.isBoxWidth / 2 + 70} yLoc={this.isBoxTop + 215} radius={10} inPlay={this.props.inPlay} clickLocation="rt" clickIndex={17} clickFunction={this.toggleISBubble} /></>) : (<></>)}
-        {this.props.mechData.getInternalStructure().rightTorso > 18 ? (<><DamageCircleSVG isFilled={this.props.mechData.structureDamaged("rt", 18)} xLoc={this.isBoxLeft + this.isBoxWidth / 2 + 70} yLoc={this.isBoxTop + 230} radius={10} inPlay={this.props.inPlay} clickLocation="rt" clickIndex={18} clickFunction={this.toggleISBubble} /></>) : (<></>)}
-
-        {this.props.mechData.getInternalStructure().rightTorso > 19 ? (<><DamageCircleSVG isFilled={this.props.mechData.structureDamaged("rt", 19)} xLoc={this.isBoxLeft + this.isBoxWidth / 2 + 90} yLoc={this.isBoxTop + 185} radius={10} inPlay={this.props.inPlay} clickLocation="rt" clickIndex={19} clickFunction={this.toggleISBubble} /></>) : (<></>)}
-        {this.props.mechData.getInternalStructure().rightTorso > 20 ? (<><DamageCircleSVG isFilled={this.props.mechData.structureDamaged("rt", 20)} xLoc={this.isBoxLeft + this.isBoxWidth / 2 + 90} yLoc={this.isBoxTop + 200} radius={10} inPlay={this.props.inPlay} clickLocation="rt" clickIndex={20} clickFunction={this.toggleISBubble} /></>) : (<></>)}
-        {this.props.mechData.getInternalStructure().rightTorso > 21 ? (<><DamageCircleSVG isFilled={this.props.mechData.structureDamaged("rt", 21)} xLoc={this.isBoxLeft + this.isBoxWidth / 2 + 90} yLoc={this.isBoxTop + 215} radius={10} inPlay={this.props.inPlay} clickLocation="rt" clickIndex={21} clickFunction={this.toggleISBubble} /></>) : (<></>)}
-        {this.props.mechData.getInternalStructure().rightTorso > 22 ? (<><DamageCircleSVG isFilled={this.props.mechData.structureDamaged("rt", 22)} xLoc={this.isBoxLeft + this.isBoxWidth / 2 + 90} yLoc={this.isBoxTop + 230} radius={10} inPlay={this.props.inPlay} clickLocation="rt" clickIndex={22} clickFunction={this.toggleISBubble} /></>) : (<></>)}
-
-        {/* Left Torso IS */}
-        {this.props.mechData.getInternalStructure().leftTorso > 0 ? (<><DamageCircleSVG isFilled={this.props.mechData.structureDamaged("lt", 0)} xLoc={this.isBoxLeft + this.isBoxWidth / 2 - 70} yLoc={this.isBoxTop + 105} radius={10} inPlay={this.props.inPlay} clickLocation="lt" clickIndex={0} clickFunction={this.toggleISBubble} /></>) : (<></>)}
-        {this.props.mechData.getInternalStructure().leftTorso > 1 ? (<><DamageCircleSVG isFilled={this.props.mechData.structureDamaged("lt", 1)} xLoc={this.isBoxLeft + this.isBoxWidth / 2 - 70} yLoc={this.isBoxTop + 120} radius={10} inPlay={this.props.inPlay} clickLocation="lt" clickIndex={1} clickFunction={this.toggleISBubble} /></>) : (<></>)}
-        {this.props.mechData.getInternalStructure().leftTorso > 2 ? (<><DamageCircleSVG isFilled={this.props.mechData.structureDamaged("lt", 2)} xLoc={this.isBoxLeft + this.isBoxWidth / 2 - 70} yLoc={this.isBoxTop + 135} radius={10} inPlay={this.props.inPlay} clickLocation="lt" clickIndex={2} clickFunction={this.toggleISBubble} /></>) : (<></>)}
-        {this.props.mechData.getInternalStructure().leftTorso > 3 ? (<><DamageCircleSVG isFilled={this.props.mechData.structureDamaged("lt", 3)} xLoc={this.isBoxLeft + this.isBoxWidth / 2 - 70} yLoc={this.isBoxTop + 150} radius={10} inPlay={this.props.inPlay} clickLocation="lt" clickIndex={3} clickFunction={this.toggleISBubble} /></>) : (<></>)}
-        {this.props.mechData.getInternalStructure().leftTorso > 4 ? (<><DamageCircleSVG isFilled={this.props.mechData.structureDamaged("lt", 4)} xLoc={this.isBoxLeft + this.isBoxWidth / 2 - 70} yLoc={this.isBoxTop + 165} radius={10} inPlay={this.props.inPlay} clickLocation="lt" clickIndex={4} clickFunction={this.toggleISBubble} /></>) : (<></>)}
-
-        {this.props.mechData.getInternalStructure().leftTorso > 5 ? (<><DamageCircleSVG isFilled={this.props.mechData.structureDamaged("lt", 5)} xLoc={this.isBoxLeft + this.isBoxWidth / 2 - 90} yLoc={this.isBoxTop + 105} radius={10} inPlay={this.props.inPlay} clickLocation="lt" clickIndex={5} clickFunction={this.toggleISBubble} /></>) : (<></>)}
-        {this.props.mechData.getInternalStructure().leftTorso > 6 ? (<><DamageCircleSVG isFilled={this.props.mechData.structureDamaged("lt", 6)} xLoc={this.isBoxLeft + this.isBoxWidth / 2 - 90} yLoc={this.isBoxTop + 120} radius={10} inPlay={this.props.inPlay} clickLocation="lt" clickIndex={6} clickFunction={this.toggleISBubble} /></>) : (<></>)}
-        {this.props.mechData.getInternalStructure().leftTorso > 7 ? (<><DamageCircleSVG isFilled={this.props.mechData.structureDamaged("lt", 7)} xLoc={this.isBoxLeft + this.isBoxWidth / 2 - 90} yLoc={this.isBoxTop + 135} radius={10} inPlay={this.props.inPlay} clickLocation="lt" clickIndex={7} clickFunction={this.toggleISBubble} /></>) : (<></>)}
-        {this.props.mechData.getInternalStructure().leftTorso > 8 ? (<><DamageCircleSVG isFilled={this.props.mechData.structureDamaged("lt", 8)} xLoc={this.isBoxLeft + this.isBoxWidth / 2 - 90} yLoc={this.isBoxTop + 150} radius={10} inPlay={this.props.inPlay} clickLocation="lt" clickIndex={8} clickFunction={this.toggleISBubble} /></>) : (<></>)}
-        {this.props.mechData.getInternalStructure().leftTorso > 9 ? (<><DamageCircleSVG isFilled={this.props.mechData.structureDamaged("lt", 9)} xLoc={this.isBoxLeft + this.isBoxWidth / 2 - 90} yLoc={this.isBoxTop + 165} radius={10} inPlay={this.props.inPlay} clickLocation="lt" clickIndex={9} clickFunction={this.toggleISBubble} /></>) : (<></>)}
-
-        {this.props.mechData.getInternalStructure().leftTorso > 10 ? (<><DamageCircleSVG isFilled={this.props.mechData.structureDamaged("lt", 10)} xLoc={this.isBoxLeft + this.isBoxWidth / 2 - 110} yLoc={this.isBoxTop + 105} radius={10} inPlay={this.props.inPlay} clickLocation="lt" clickIndex={10} clickFunction={this.toggleISBubble} /></>) : (<></>)}
-        {this.props.mechData.getInternalStructure().leftTorso > 11 ? (<><DamageCircleSVG isFilled={this.props.mechData.structureDamaged("lt", 11)} xLoc={this.isBoxLeft + this.isBoxWidth / 2 - 110} yLoc={this.isBoxTop + 120} radius={10} inPlay={this.props.inPlay} clickLocation="lt" clickIndex={11} clickFunction={this.toggleISBubble} /></>) : (<></>)}
-        {this.props.mechData.getInternalStructure().leftTorso > 12 ? (<><DamageCircleSVG isFilled={this.props.mechData.structureDamaged("lt", 12)} xLoc={this.isBoxLeft + this.isBoxWidth / 2 - 110} yLoc={this.isBoxTop + 135} radius={10} inPlay={this.props.inPlay} clickLocation="lt" clickIndex={12} clickFunction={this.toggleISBubble} /></>) : (<></>)}
-        {this.props.mechData.getInternalStructure().leftTorso > 13 ? (<><DamageCircleSVG isFilled={this.props.mechData.structureDamaged("lt", 13)} xLoc={this.isBoxLeft + this.isBoxWidth / 2 - 110} yLoc={this.isBoxTop + 150} radius={10} inPlay={this.props.inPlay} clickLocation="lt" clickIndex={13} clickFunction={this.toggleISBubble} /></>) : (<></>)}
-        {this.props.mechData.getInternalStructure().leftTorso > 14 ? (<><DamageCircleSVG isFilled={this.props.mechData.structureDamaged("lt", 14)} xLoc={this.isBoxLeft + this.isBoxWidth / 2 - 110} yLoc={this.isBoxTop + 165} radius={10} inPlay={this.props.inPlay} clickLocation="lt" clickIndex={14} clickFunction={this.toggleISBubble} /></>) : (<></>)}
-
-        {this.props.mechData.getInternalStructure().leftTorso > 15 ? (<><DamageCircleSVG isFilled={this.props.mechData.structureDamaged("lt", 15)} xLoc={this.isBoxLeft + this.isBoxWidth / 2 - 70} yLoc={this.isBoxTop + 185} radius={10} inPlay={this.props.inPlay} clickLocation="lt" clickIndex={15} clickFunction={this.toggleISBubble} /></>) : (<></>)}
-        {this.props.mechData.getInternalStructure().leftTorso > 16 ? (<><DamageCircleSVG isFilled={this.props.mechData.structureDamaged("lt", 16)} xLoc={this.isBoxLeft + this.isBoxWidth / 2 - 70} yLoc={this.isBoxTop + 200} radius={10} inPlay={this.props.inPlay} clickLocation="lt" clickIndex={16} clickFunction={this.toggleISBubble} /></>) : (<></>)}
-        {this.props.mechData.getInternalStructure().leftTorso > 17 ? (<><DamageCircleSVG isFilled={this.props.mechData.structureDamaged("lt", 17)} xLoc={this.isBoxLeft + this.isBoxWidth / 2 - 70} yLoc={this.isBoxTop + 215} radius={10} inPlay={this.props.inPlay} clickLocation="lt" clickIndex={17} clickFunction={this.toggleISBubble} /></>) : (<></>)}
-        {this.props.mechData.getInternalStructure().leftTorso > 18 ? (<><DamageCircleSVG isFilled={this.props.mechData.structureDamaged("lt", 18)} xLoc={this.isBoxLeft + this.isBoxWidth / 2 - 70} yLoc={this.isBoxTop + 230} radius={10} inPlay={this.props.inPlay} clickLocation="lt" clickIndex={18} clickFunction={this.toggleISBubble} /></>) : (<></>)}
-
-        {this.props.mechData.getInternalStructure().leftTorso > 19 ? (<><DamageCircleSVG isFilled={this.props.mechData.structureDamaged("lt", 19)} xLoc={this.isBoxLeft + this.isBoxWidth / 2 - 90} yLoc={this.isBoxTop + 185} radius={10} inPlay={this.props.inPlay} clickLocation="lt" clickIndex={19} clickFunction={this.toggleISBubble} /></>) : (<></>)}
-        {this.props.mechData.getInternalStructure().leftTorso > 20 ? (<><DamageCircleSVG isFilled={this.props.mechData.structureDamaged("lt", 20)} xLoc={this.isBoxLeft + this.isBoxWidth / 2 - 90} yLoc={this.isBoxTop + 200} radius={10} inPlay={this.props.inPlay} clickLocation="lt" clickIndex={20} clickFunction={this.toggleISBubble} /></>) : (<></>)}
-        {this.props.mechData.getInternalStructure().leftTorso > 21 ? (<><DamageCircleSVG isFilled={this.props.mechData.structureDamaged("lt", 21)} xLoc={this.isBoxLeft + this.isBoxWidth / 2 - 90} yLoc={this.isBoxTop + 215} radius={10} inPlay={this.props.inPlay} clickLocation="lt" clickIndex={21} clickFunction={this.toggleISBubble} /></>) : (<></>)}
-        {this.props.mechData.getInternalStructure().leftTorso > 22 ? (<><DamageCircleSVG isFilled={this.props.mechData.structureDamaged("lt", 22)} xLoc={this.isBoxLeft + this.isBoxWidth / 2 - 90} yLoc={this.isBoxTop + 230} radius={10} inPlay={this.props.inPlay} clickLocation="lt" clickIndex={22} clickFunction={this.toggleISBubble} /></>) : (<></>)}
+            {renderStructureBubbles( QUAD_STRUCTURE_BUBBLES, {
+                mechData: this.props.mechData,
+                inPlay: this.props.inPlay,
+                isBoxTop: this.isBoxTop,
+                isBoxLeft: this.isBoxLeft,
+                isBoxWidth: this.isBoxWidth,
+                onClick: this.toggleISBubble,
+            })}
 
 {this.props.inPlay && (this.props.currentPhase === 2 ||  this.props.currentPhase === 3 ) ?
         <TakeDamageButtonSVG
@@ -1489,15 +1178,24 @@ export default class BattleMechSVG extends React.Component<IBattleMechSVGProps, 
         strokeColor={this.props.currentPhase === 2 ? currentPhaseGroupColor : undefined}
     >
 
+        {armless ? (
+            <g fontFamily="sans-serif" fill={strokeColor}>
+                <text x={critBoxLeft + critCol1Start} y={critBoxTop + 100} style={{fontWeight: 700}} fontSize={30}>ARMLESS</text>
+                {breakLines(armlessMechOption.notes ?? "", 34).map((line, lineIndex) => (
+                    <text key={lineIndex} x={critBoxLeft + critCol1Start} y={critBoxTop + 140 + lineIndex * 26} fontSize={22}>{line}</text>
+                ))}
+            </g>
+        ) : null}
+        {armless ? null : <>
 {/* // Left Arm */}
         <text
             x={critBoxLeft + critCol1Start}
-            y={critBoxTop + 100}
+            y={critBoxTop + critLayout.la.labelY}
             textAnchor="start"
             fontFamily="sans-serif"
             fill={strokeColor}
             style={{fontWeight: 700}}
-            fontSize={30}
+            fontSize={30 * critLayout.la.scale}
         >
             {hasArms ? (
                 <>LEFT ARM</>
@@ -1508,22 +1206,24 @@ export default class BattleMechSVG extends React.Component<IBattleMechSVGProps, 
 
         <CritAllocationTableSVG
             strokeColor={strokeColor}
-            critData={this.props.mechData.getCriticals().leftArm}
+            critData={hasArms ? this.props.mechData.getCriticals().leftArm : this.props.mechData.getCriticals().frontLeftLeg}
             inPlay={inPlay}
             mechData={this.props.mechData}
             xLoc={critBoxLeft + critCol1Start}
-            yLoc={critBoxTop + 140}
+            yLoc={critBoxTop + critLayout.la.tableY}
+            scale={critLayout.la.scale}
             location="la"
         />
+        </>}
 	{/* // Head */}
         <text
             x={critBoxLeft + critCol2Start}
-            y={(critBoxTop + 100)}
+            y={critBoxTop + critLayout.hd.labelY}
             textAnchor="start"
             fontFamily="sans-serif"
             fill={strokeColor}
             style={{fontWeight: 700}}
-            fontSize={30}
+            fontSize={30 * critLayout.hd.scale}
         >
                 HEAD
         </text>
@@ -1533,18 +1233,20 @@ export default class BattleMechSVG extends React.Component<IBattleMechSVGProps, 
             inPlay={inPlay}
             mechData={this.props.mechData}
             xLoc={critBoxLeft + critCol2Start}
-            yLoc={critBoxTop + 140}
+            yLoc={critBoxTop + critLayout.hd.tableY}
+            scale={critLayout.hd.scale}
             location="hd"
         />
 
+        {armless ? null : <>
         <text
             x={critBoxLeft + critCol3Start}
-            y={critBoxTop + 100}
+            y={critBoxTop + critLayout.ra.labelY}
             textAnchor="start"
             fontFamily="sans-serif"
             fill={strokeColor}
             style={{fontWeight: 700}}
-            fontSize={30}
+            fontSize={30 * critLayout.ra.scale}
         >
             {hasArms ? (
                 <>RIGHT ARM</>
@@ -1555,22 +1257,23 @@ export default class BattleMechSVG extends React.Component<IBattleMechSVGProps, 
         <CritAllocationTableSVG
             strokeColor={strokeColor}
             mechData={this.props.mechData}
-            critData={this.props.mechData.getCriticals().rightArm}
+            critData={hasArms ? this.props.mechData.getCriticals().rightArm : this.props.mechData.getCriticals().frontRightLeg}
             inPlay={inPlay}
             xLoc={critBoxLeft + critCol3Start}
-            yLoc={critBoxTop + 140}
+            yLoc={critBoxTop + critLayout.ra.tableY}
+            scale={critLayout.ra.scale}
             location="ra"
         />
+        </>}
 
         <text
             x={critBoxLeft + critCol1Start}
-            y={critBoxTop + 550}
+            y={critBoxTop + critLayout.lt.labelY}
             textAnchor="start"
             fontFamily="sans-serif"
             fill={strokeColor}
             style={{fontWeight: 700}}
-            fontSize={30
-        }>
+            fontSize={30 * critLayout.lt.scale}>
             LEFT TORSO
         </text>
         <CritAllocationTableSVG
@@ -1579,7 +1282,8 @@ export default class BattleMechSVG extends React.Component<IBattleMechSVGProps, 
             critData={this.props.mechData.getCriticals().leftTorso}
             inPlay={inPlay}
             xLoc={critBoxLeft + critCol1Start}
-            yLoc={critBoxTop + 575}
+            yLoc={critBoxTop + critLayout.lt.tableY}
+            scale={critLayout.lt.scale}
             location="lt"
 
         />
@@ -1587,12 +1291,12 @@ export default class BattleMechSVG extends React.Component<IBattleMechSVGProps, 
 	{/* // Center Torso */}
         <text
             x={critBoxLeft + critCol2Start}
-            y={critBoxTop + 350}
+            y={critBoxTop + critLayout.ct.labelY}
             textAnchor="start"
             fontFamily="sans-serif"
             fill={strokeColor}
             style={{fontWeight: 700}}
-            fontSize={30}
+            fontSize={30 * critLayout.ct.scale}
         >
             CENTER TORSO
         </text>
@@ -1602,7 +1306,8 @@ export default class BattleMechSVG extends React.Component<IBattleMechSVGProps, 
             inPlay={inPlay}
             mechData={this.props.mechData}
             xLoc={critBoxLeft + critCol2Start}
-            yLoc={critBoxTop + 375}
+            yLoc={critBoxTop + critLayout.ct.tableY}
+            scale={critLayout.ct.scale}
             location="ct"
 
         />
@@ -1610,12 +1315,12 @@ export default class BattleMechSVG extends React.Component<IBattleMechSVGProps, 
 	{/* // Right Torso */}
         <text
             x={critBoxLeft + critCol3Start}
-            y={critBoxTop + 550}
+            y={critBoxTop + critLayout.rt.labelY}
             textAnchor="start"
             fontFamily="sans-serif"
             fill={strokeColor}
             style={{fontWeight: 700}}
-            fontSize={30}
+            fontSize={30 * critLayout.rt.scale}
         >
             RIGHT TORSO
         </text>
@@ -1626,19 +1331,20 @@ export default class BattleMechSVG extends React.Component<IBattleMechSVGProps, 
             inPlay={inPlay}
             mechData={this.props.mechData}
             xLoc={critBoxLeft + critCol3Start}
-            yLoc={critBoxTop + 575}
+            yLoc={critBoxTop + critLayout.rt.tableY}
+            scale={critLayout.rt.scale}
             location="rt"
         />
 
 	{/* // Left Leg */}
         <text
             x={critBoxLeft + critCol1Start}
-            y={critBoxTop + 1010}
+            y={critBoxTop + critLayout.ll.labelY}
             textAnchor="start"
             fontFamily="sans-serif"
             fill={strokeColor}
             style={{fontWeight: 700}}
-            fontSize={30}
+            fontSize={30 * critLayout.ll.scale}
         >
             {hasArms ? (
                 <>LEFT LEG</>
@@ -1653,18 +1359,19 @@ export default class BattleMechSVG extends React.Component<IBattleMechSVGProps, 
             critData={this.props.mechData.getCriticals().leftLeg}
             inPlay={inPlay}
             xLoc={critBoxLeft + critCol1Start}
-            yLoc={critBoxTop + 1050}
+            yLoc={critBoxTop + critLayout.ll.tableY}
+            scale={critLayout.ll.scale}
             location="ll"
         />
         {/* // Right Leg */}
         <text
             x={critBoxLeft + critCol3Start}
-            y={critBoxTop + 1010}
+            y={critBoxTop + critLayout.rl.labelY}
             textAnchor="start"
             fontFamily="sans-serif"
             fill={strokeColor}
             style={{fontWeight: 700}}
-            fontSize={30}
+            fontSize={30 * critLayout.rl.scale}
         >
             {hasArms ? (
                 <>RIGHT LEG</>
@@ -1678,7 +1385,8 @@ export default class BattleMechSVG extends React.Component<IBattleMechSVGProps, 
             mechData={this.props.mechData}
             inPlay={inPlay}
             xLoc={critBoxLeft + critCol3Start}
-            yLoc={critBoxTop + 1050}
+            yLoc={critBoxTop + critLayout.rl.tableY}
+            scale={critLayout.rl.scale}
             location="rl"
         />
 
@@ -1695,8 +1403,8 @@ export default class BattleMechSVG extends React.Component<IBattleMechSVGProps, 
     {hasArms ? (
         <>
             {this.props.mechData.isTripod() ? (
-                <TripodDiagramSVG
-                    kind="transfer"
+                <TripodDamageTransferDiagramSVG
+                    armless={armless}
                     xLoc={critBoxLeft + critBoxWidth / 2 - damageTransferWidth / 2}
                     yLoc={critBoxTop + 950}
                     width={damageTransferWidth}
@@ -1704,6 +1412,7 @@ export default class BattleMechSVG extends React.Component<IBattleMechSVGProps, 
                 />
             ) : (
                 <BipedDamageTransferDiagramSVG
+                    armless={armless}
                     xLoc={critBoxLeft + critBoxWidth / 2 - damageTransferWidth / 2}
                     yLoc={critBoxTop + 950}
                     width={damageTransferWidth}
@@ -1860,49 +1569,64 @@ export default class BattleMechSVG extends React.Component<IBattleMechSVGProps, 
     >
     CLASSIC BATTLETECH
     </text> */}
+    {/* The Special Rulesets the 'Mech is built under (#324), above the notices. */}
+    {rulesetsAttributionSvg(450, this.docHeight - 80, rulesets, { fill: this.colorTan, size: 14, maxWidth: 1000 })}
     <text
         x={450}
-        y={this.docHeight - 75}
+        y={this.docHeight - noticeY[0]}
         textAnchor="start"
         fontFamily="sans-serif"
         fill={this.colorTan}
         style={{fontWeight: 100}}
-        fontSize={15}
+        fontSize={14}
     >
-    MechWarrior, BattleMech, ‘Mech and AeroTech are registered trademarks of The Topps Company, Inc. All Rights Reserved.
+    {TRADEMARK_NOTICE( new Date().getFullYear() )[0]}
     </text>
     <text
         x={450}
-        y={this.docHeight - 45}
+        y={this.docHeight - noticeY[1]}
         textAnchor="start"
         fontFamily="sans-serif"
         fill={this.colorTan}
         style={{fontWeight: 100}}
-        fontSize={15}
+        fontSize={14}
     >
-Catalyst Game Labs and the Catalyst Game Labs logo are trademarks of InMediaRes Production, LLC. Used with permission.
+    {TRADEMARK_NOTICE( new Date().getFullYear() )[1]}
     </text>
     <text
         x={450}
-        y={this.docHeight - 15}
+        y={this.docHeight - noticeY[2]}
         textAnchor="start"
         fontFamily="sans-serif"
         fill={this.colorTan}
         style={{fontWeight: 100}}
-        fontSize={15}
+        fontSize={14}
     >
-Neither Topps nor Catalyst Game Labs makes no representation or warranty as to the quality, viability, or suitability for purpose of this product.
+    {NOT_ENDORSED}
     </text>
+    {/* "Created with" on its own line and the name at 14 points: the beta site's longer name ("... ilClan Edition -
+        BETA") ran into the notices at x 450 (issue 16). */}
     <text
         x={20}
-        y={this.docHeight - 55}
+        y={this.docHeight - 72}
         textAnchor="start"
         fontFamily="sans-serif"
         fill={this.colorTan}
         style={{fontWeight: 700}}
-        fontSize={20}
+        fontSize={14}
     >
-    Created with Jeff's BattleTech Tools IIC
+    Created with
+    </text>
+    <text
+        x={20}
+        y={this.docHeight - 50}
+        textAnchor="start"
+        fontFamily="sans-serif"
+        fill={this.colorTan}
+        style={{fontWeight: 700}}
+        fontSize={14}
+    >
+    Jeff's BattleTech Tools IIC
     </text>
     <text
         x={20}
@@ -1911,7 +1635,7 @@ Neither Topps nor Catalyst Game Labs makes no representation or warranty as to t
         fontFamily="sans-serif"
         fill={this.colorTan}
         style={{fontWeight: 700}}
-        fontSize={15}
+        fontSize={14}
     >
     https://heysporky.github.io/battletech-tools/
     </text>
@@ -1932,7 +1656,7 @@ Neither Topps nor Catalyst Game Labs makes no representation or warranty as to t
                     </rect>
                     <text y={250} x={400} textAnchor='middle' fontFamily="sans-serif" transform={"rotate( 30, " + 350 + ", " + 200 + ")"} fontSize="125" stroke="rgb(255,255,255)" strokeWidth="2" fill="rgb(255,255,255)">WRECKED</text>
                     {breakLines( this.props.mechData.isWreckedBlurb(), 38 ).map( (line, lineIndex) => {
-                        let yLoc = 45 + 35 * lineIndex;
+                        const yLoc = 45 + 35 * lineIndex;
                         return(
                             <text key={lineIndex} y={250 + yLoc } x={400} textAnchor='middle' fontFamily="sans-serif" transform={"rotate( 30, " + 350 + ", " + 200 + ")"} fontSize="35" stroke="rgb(255,255,255)" strokeWidth="1" fill="rgb(255,255,255)">{line.toUpperCase()}</text>
                         )
@@ -1955,6 +1679,8 @@ interface IBattleMechSVGProps {
     strokeColor?: string;
     mechData: BattleMech;
     inPlay?: boolean;
+    /** The game's "Use design quirks" switch, for the to-hit numbers in play. */
+    quirksInPlay?: boolean;
     currentPhase?: number;
 
     onChange?( mech: BattleMech ): void;

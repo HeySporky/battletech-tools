@@ -11,8 +11,8 @@ export default class BattleTechLogo extends React.Component<IBattleTechLogoProps
         let altColor: string = "rgb(223,171,45)";
         let bottomAltColor: string = "rgb(223,171,45)";
 
-        var baseWidth = 210;
-        var baseHeight = 28;
+        const baseWidth = 210;
+        const baseHeight = 28;
         if( typeof( this.props.width ) === "undefined" || this.props.width === 0) {
             width = 210;
             height = 28;

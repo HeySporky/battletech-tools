@@ -40,7 +40,9 @@ test("an Airship Support Vehicle builds in the fighter creator, plays on the Dro
     await expect(panel.getByTestId("airship-velocity")).toBeVisible();
 
     await page.goto("classic-battletech/roster/print");
-    await expect(page.getByTestId("support-aircraft-sheet").first()).toContainText("Crew");
+    const sheet = page.getByTestId("support-aircraft-record-sheet-svg").first();
+    await expect(sheet).toContainText("CREW DATA");
+    await expect(sheet.getByTestId("airship-velocity").first()).toBeAttached();
     expect(errors).toEqual([]);
 });
 

@@ -1,4 +1,9 @@
 import { generateUUID } from "../utils/generateUUID";
+import { getEWarKind, normalizeEWarPlay, type IEWarGear, type IEWarPlayState } from "../utils/ewar-play";
+import { getAmmoExplosion } from "../data/ammo-explosion";
+import { IGameSettingsUnit, UnitGameSettings } from "./unit-game-settings";
+import { chooseEra } from "../data/era-choice";
+import { findUnitCatalogRecord, copyCatalogRecord } from "../data/equipment-lookup";
 import { DEFAULT_RULES_EDITION, getSelectableRulesEditionTag } from "../data/rules-editions";
 import {
     BUILDING_ARMOR_COST_PER_TON, BUILDING_ARMOR_POINTS_PER_TON, BUILDING_CLASSIFICATIONS, BUILDING_GENERATORS, BUILDING_MAX_UNLIMITED_HEXES,
@@ -8,13 +13,15 @@ import {
 import { mechHeatSinkTypes } from "../data/mech-heat-sink-types";
 import { btTechOptions } from "../data/tech-options";
 import { btEraOptions, findEraByTag, getClosestEraForTech, getErasForTech } from "../data/era-options";
-import { CUSTOM_HOMEBREW_RULES_LEVEL, equipmentMatchesIdentifier, getCompatibleAmmo, getEffectiveIntroduction, getEquipmentListByTech, getEquipmentRulesLevel, getWeaponShotsPerTon, isEquipmentWithinRulesLevel } from "../data/equipment-registry";
+import { CUSTOM_HOMEBREW_RULES_LEVEL, equipmentMatchesIdentifier, getCompatibleAmmo, getDatesAvailability, getEquipmentListByTech, getEquipmentRulesLevel, getEquipmentOfferIssue, getWeaponShotsPerTon, isEquipmentOffered, getTechDatesAvailability } from "../data/equipment-registry";
 import { findByTag, matchesTag } from "../data/tag-match";
 import { getWeaponExplosionDamage } from "../data/weapon-explosions";
-import { IInfantryWeapon, INFANTRY_POWER_CELL_COST, findInfantryWeapon, getInfantryClipCost, infantryWeapons, isInfantryWeaponAvailable } from "../data/infantry-weapons";
+import { IInfantryWeapon, INFANTRY_POWER_CELL_COST, findInfantryWeapon, getInfantryClipCost, infantryWeapons, isInfantryWeaponAtRulesLevel, isInfantryWeaponAvailable } from "../data/infantry-weapons";
 import { capitalWeapons } from "../data/capital-weapons";
 import { subCapitalWeapons } from "../data/sub-capital-weapons";
 import { ICapitalWeapon, IEquipmentItem, IEras, IHeatSync, ITechDates, ITechOptions } from "../data/data-interfaces";
+import type { ITechnicalReadoutExport } from "../data/technical-readout-interfaces";
+import { TechnicalReadout } from "./technical-readout";
 
 /**
  * A gun emplacement or other advanced building, built under Tactical Operations: Advanced Rules pp.126-131,
@@ -189,10 +196,13 @@ const newInPlay = (): IBuildingInPlay => ({ hexes: [], destroyed: [], malfunctio
 export interface IBuildingExport {
     /** The rules edition it is built under (rules-editions.ts); absent means Total Warfare. */
     rulesEdition?: string;
+    rulesLevel?: number;
+    rulesets?: string[];
     /** The gunners' Gunnery skill; absent in saves from before buildings joined the roster. */
     gunnery?: number;
     /** Damage and critical hits taken in play; left out of a design save. */
     inPlay?: IBuildingInPlay;
+    ewarPlay?: IEWarPlayState;
     uuid: string;
     lastUpdated: Date;
     name: string;
@@ -232,6 +242,16 @@ export interface IBuildingExport {
     lightWeapons?: IBuildingLightWeaponExport[];
     /** Capital and sub-capital weapons; absent in older saves. */
     capitalWeapons?: IBuildingCapitalWeaponExport[];
+    /** The optional Technical Readout: makes and text for the printed TRO sheet. */
+    tro?: ITechnicalReadoutExport;
+}
+
+/** One part of a building's load. Weapon and equipment lines say where they are mounted. */
+export interface IBuildingWeightLine {
+    name: string;
+    weight: number;
+    /** "Hex 2", "Hexside 1" or "Hex 1 with 2" for a capital weapon sharing its weight; equipment lines only. */
+    location?: string;
 }
 
 export interface IBuildingHexLoad {
@@ -283,12 +303,16 @@ export const normalizeBuildingExport = (raw: unknown): { building: IBuildingExpo
     return { building: loaded.export(), issues: [...loaded.getImportIssues()] };
 };
 
-export default class Building {
+export default class Building implements IGameSettingsUnit {
     private _uuid: string = generateUUID();
     public lastUpdated: Date = new Date();
+    /** The optional Technical Readout (TRO fields round 2, #78). */
+    public tro: TechnicalReadout = new TechnicalReadout();
 
     private _name: string = "";
     private _rulesEdition: string = DEFAULT_RULES_EDITION;
+    /** The rules level and Special Rulesets the design is built under (#324). */
+    public readonly gameSettings = new UnitGameSettings();
     private _tech: ITechOptions = btTechOptions[0];
     private _era: IEras = latestEra("is");
     private _classification: IBuildingClassification = BUILDING_CLASSIFICATIONS[0];
@@ -317,6 +341,8 @@ export default class Building {
     private _poweredHexes: number = 0;
     private _gunnery: number = 4;
     private _inPlay: IBuildingInPlay = newInPlay();
+    /** What the unit has switched on, been hit by or been told by the force board in E-War play (#642). */
+    public ewarPlay: IEWarPlayState = {};
     private _importIssues: string[] = [];
 
     constructor(importJSON: string = "") {
@@ -333,6 +359,9 @@ export default class Building {
         this._rulesEdition = getSelectableRulesEditionTag(editionTag, "building");
         return this._rulesEdition;
     }
+    public getTechTag(): string { return this.getTech().tag; }
+    public setTechTag(tag: string): void { this.setTech(tag); }
+    public chooseEra(tag: string): void { chooseEra(this, tag); }
 
     public setName(name: string): string {
         this._name = name.slice(0, 200);
@@ -673,6 +702,8 @@ export default class Building {
                 && ((item.space?.battlemech ?? -1) >= 0 || (item.space?.combatVehicle ?? -1) >= 0);
         }
         if (item.isAmmo) return this.canMountHeavyWeapons();
+        // Equipment for named aerospace units only (TO:AUE pp.135-146).
+        if (item.aerospaceUnitTypes) return false;
         return (item.space?.dropShip ?? -1) >= 0 || (item.space?.supportVehicle ?? -1) >= 0;
     }
 
@@ -686,7 +717,7 @@ export default class Building {
             for (const item of getEquipmentListByTech(list, includeCustom && (list === "is" || lists.length === 1))) {
                 if (!this.isEquipmentAllowed(item)) continue;
                 item.catalog = item.catalog ?? (item.category === "Custom Equipment" ? "custom" : list);
-                const availability = this._datesAvailability(item, rulesLevel);
+                const availability = this._techDatesAvailability(item, rulesLevel);
                 item.availableAsPrototype = availability.asPrototype;
                 item.available = availability.available;
                 items.push(item);
@@ -694,20 +725,18 @@ export default class Building {
         }
         items.sort((a, b) => (a.sort > b.sort ? 1 : a.sort < b.sort ? -1 : 0));
         const offeredLevel = includeCustom ? Math.max(rulesLevel, CUSTOM_HOMEBREW_RULES_LEVEL) : rulesLevel;
-        return items.filter((item) => isEquipmentWithinRulesLevel(item, offeredLevel));
+        return items.filter((item) => isEquipmentOffered(item, this._rulesEdition, offeredLevel));
     }
 
-    private _catalog(): IEquipmentItem[] {
-        const techTag = this._tech.tag;
-        const own = getEquipmentListByTech(techTag, true);
-        // A saved building keeps what it mounted, including equipment since moved to the other tech base's catalog.
-        return techTag === "is" || techTag === "clan" ? [...own, ...getEquipmentListByTech(techTag === "clan" ? "mclan" : "mis", true)] : own;
+    /** The catalog record for a tag, from the lookup every unit class shares (equipment-lookup.ts). */
+    private _findRecord(tag: unknown): IEquipmentItem | undefined {
+        return findUnitCatalogRecord(this._tech.tag, tag);
     }
 
     private _newMount(catalogItem: IEquipmentItem, hex: unknown, turret: unknown, uuid?: unknown, automated?: unknown): IBuildingMount {
         const freshId = typeof uuid !== "string" || !uuid || this._equipment.some((mount) => mount.item.uuid === uuid);
         // A deep copy: mounted items never share nested data with each other or the catalog.
-        const item: IEquipmentItem = { ...JSON.parse(JSON.stringify(catalogItem)), uuid: freshId ? generateUUID() : uuid as string };
+        const item: IEquipmentItem = { ...copyCatalogRecord(catalogItem), uuid: freshId ? generateUUID() : uuid as string };
         return {
             item,
             hex: Math.floor(savedNumber(hex, 1, 1, this._hexes)),
@@ -719,7 +748,7 @@ export default class Building {
     public getEquipment(): IBuildingMount[] { return this._equipment; }
 
     public addEquipmentFromTag(tag: string, hex: number = 1, turret: boolean = false): IBuildingMount | null {
-        const catalogItem = findByTag(this._catalog(), tag);
+        const catalogItem = this._findRecord(tag);
         if (!catalogItem || !this.isEquipmentAllowed(catalogItem) || this._equipment.length >= MAX_BUILDING_EQUIPMENT) return null;
         const mount = this._newMount(catalogItem, hex, turret);
         this._equipment.push(mount);
@@ -969,14 +998,15 @@ export default class Building {
     }
 
     public isLightWeaponAvailable(weapon: IInfantryWeapon): boolean {
-        if (weapon.techBase !== "both" && weapon.techBase !== this.getTechBase()) return false;
+        if (weapon.techBase !== "universal" && weapon.techBase !== this.getTechBase()) return false;
         return isInfantryWeaponAvailable(weapon, this.getTechBase(), this._era.yearStart, this._era.yearEnd);
     }
 
-    /** Light and Medium weapons the building's technology base and era offer; melee weapons with custom rules. */
+    /** Light and Medium weapons the building's technology base and era offer; melee and homebrew weapons with custom rules. */
     public getAvailableLightWeapons(rulesLevel: number = BUILDING_RULES_LEVEL): IInfantryWeapon[] {
         if (!this.canMountLightWeapons()) return [];
-        return infantryWeapons.filter((weapon) => (weapon.type !== "melee" || rulesLevel >= CUSTOM_HOMEBREW_RULES_LEVEL) && this.isLightWeaponAvailable(weapon));
+        return infantryWeapons.filter((weapon) => (weapon.type !== "melee" || rulesLevel >= CUSTOM_HOMEBREW_RULES_LEVEL)
+            && isInfantryWeaponAtRulesLevel(weapon, rulesLevel) && this.isLightWeaponAvailable(weapon));
     }
 
     public getLightWeapons(): IBuildingLightMount[] { return this._lightWeapons; }
@@ -1202,12 +1232,15 @@ export default class Building {
         return loads;
     }
 
-    public getTotalWeight(): number { return round3(this.getHexLoads().reduce((sum, load) => sum + load.total, 0)); }
+    /** The whole load, from the weight lines: the per-hex shares are rounded and would not add back up exactly. */
+    public getTotalWeight(): number { return round3(this.getWeights().reduce((sum, line) => sum + line.weight, 0)); }
     public getRemainingCapacity(): number { return round3(this.getTotalCapacity() - this.getTotalWeight()); }
 
     /** One line for each part of the building's load, across all hexes. */
-    public getWeights(): { name: string; weight: number }[] {
+    public getWeights(): IBuildingWeightLine[] {
         const loads = this.getHexLoads();
+        const label = this.getHexLabel();
+        const where = (hex: number, shared: number[] = []): string => `${label[0].toUpperCase()}${label.slice(1)} ${hex}${shared.length > 0 ? ` with ${shared.join(", ")}` : ""}`;
         const sum = (key: "turret" | "powerAmplifiers") => round3(loads.reduce((total, load) => total + load[key], 0));
         const pintles = round3(loads.reduce((total, load) => total + this.getPintleWeight(load.hex), 0));
         return [
@@ -1222,16 +1255,16 @@ export default class Building {
             })),
             ...(this._liquidStorage > 0 ? [{ name: `Liquid Storage (holds ${this.getLiquidCapacity()} tons)`, weight: this._liquidStorage }] : []),
             ...this._equipment.map((mount) => ({
-                name: `${mount.item.name}${mount.turret ? " (T)" : ""}${mount.automated ? " (automated)" : ""}${this._hexes > 1 ? `, hex ${mount.hex}` : ""}`, weight: mount.item.weight || 0,
+                name: `${mount.item.name}${mount.turret ? " (T)" : ""}${mount.automated ? " (automated)" : ""}`, weight: mount.item.weight || 0, location: where(mount.hex),
             })),
             ...this._lightWeapons.map((mount) => ({
-                name: `${mount.weapon.name}${mount.mount === "turret" ? " (T)" : mount.mount === "pintle" ? " (P)" : ""}${mount.clips > 0 ? `, ${mount.clips} extra ${mount.clips === 1 ? "clip" : "clips"}` : ""}${this._hexes > 1 ? `, hex ${mount.hex}` : ""}`,
-                weight: Building.getLightMountWeight(mount),
+                name: `${mount.weapon.name}${mount.mount === "turret" ? " (T)" : mount.mount === "pintle" ? " (P)" : ""}${mount.clips > 0 ? `, ${mount.clips} extra ${mount.clips === 1 ? "clip" : "clips"}` : ""}`,
+                weight: Building.getLightMountWeight(mount), location: where(mount.hex),
             })),
             ...(pintles > 0 ? [{ name: "Pintle Mounts", weight: pintles }] : []),
             ...this._capitalWeapons.map((mount) => ({
-                name: `${mount.weapon.name}${Building.getCapitalShots(mount) > 0 ? `, ${Building.getCapitalShots(mount)} ${Building.getCapitalShots(mount) === 1 ? "shot" : "shots"}${mount.ammoHex !== null ? ` in the hex ${mount.ammoHex} bunker` : ""}` : ""}${this._hexes > 1 ? `, hex ${mount.hex}${mount.sharedHexes.length > 0 ? ` with ${mount.sharedHexes.join(", ")}` : ""}` : ""}`,
-                weight: Building.getCapitalMountWeight(mount),
+                name: `${mount.weapon.name}${Building.getCapitalShots(mount) > 0 ? `, ${Building.getCapitalShots(mount)} ${Building.getCapitalShots(mount) === 1 ? "shot" : "shots"}${mount.ammoHex !== null ? ` in the hex ${mount.ammoHex} bunker` : ""}` : ""}`,
+                weight: Building.getCapitalMountWeight(mount), location: where(mount.hex, mount.sharedHexes),
             })),
             ...(this.getCapitalFireControlWeight() > 0 ? [{ name: "Capital Fire Control", weight: this.getCapitalFireControlWeight() }] : []),
         ];
@@ -1279,12 +1312,12 @@ export default class Building {
 
     /** In production in the selected era, or (where the rules level allows) a prototype. */
     private _datesAvailability(dates: ITechDates, rulesLevel: number): { available: boolean; asPrototype: boolean } {
-        const prototypeOnly = dates.introduced === null && !!dates.prototype;
-        const inProduction = !prototypeOnly && this._itemIsAvailable(dates.introduced, dates.extinct, dates.reintroduced);
-        const effectiveIntroduction = getEffectiveIntroduction(dates, rulesLevel);
-        const asPrototype = !inProduction && effectiveIntroduction !== dates.introduced
-            && this._itemIsAvailable(effectiveIntroduction, dates.extinct, dates.reintroduced);
-        return { available: inProduction || asPrototype, asPrototype };
+        return getDatesAvailability(dates, rulesLevel, (introduced, extinct, reintroduced) => this._itemIsAvailable(introduced, extinct, reintroduced));
+    }
+
+    /** Availability using the Clan window for a Clan building; mixed tech may use either (getTechDatesAvailability). */
+    private _techDatesAvailability(item: ITechDates & { clanDates?: ITechDates }, rulesLevel: number): { available: boolean; asPrototype: boolean } {
+        return getTechDatesAvailability(item, this._tech.tag, rulesLevel, (introduced, extinct, reintroduced) => this._itemIsAvailable(introduced, extinct, reintroduced));
     }
 
     /** The lowest rules level that allows everything on the design. */
@@ -1292,6 +1325,7 @@ export default class Building {
         let level = BUILDING_RULES_LEVEL;
         for (const mount of this._equipment) level = Math.max(level, getEquipmentRulesLevel(mount.item));
         if (this._lightWeapons.some((mount) => mount.weapon.type === "melee")) level = Math.max(level, CUSTOM_HOMEBREW_RULES_LEVEL);
+        for (const mount of this._lightWeapons) level = Math.max(level, mount.weapon.rulesLevel ?? 0);
         for (const mount of this._capitalWeapons) level = Math.max(level, mount.weapon.rulesLevel);
         if (this.usesAmmoBunkers()) level = Math.max(level, CUSTOM_HOMEBREW_RULES_LEVEL);
         return level;
@@ -1346,10 +1380,14 @@ export default class Building {
         if (this._generator?.noRooftopEquipment && this.hasTurret()) issues.push(`A ${this._generator.name.toLowerCase()} generator leaves no room on the roof for turrets (TO:AR p.132).`);
         for (const mount of this._equipment) {
             if (!this.isEquipmentAllowed(mount.item)) issues.push(`${mount.item.name} cannot be mounted on a ${this._classification.name.toLowerCase()}.`);
-            else if (!this._datesAvailability(mount.item, rulesLevel).available) issues.push(`${mount.item.name} is not available in the selected era.`);
-            else if (!isEquipmentWithinRulesLevel(mount.item, Math.max(rulesLevel, BUILDING_RULES_LEVEL))) issues.push(`${mount.item.name} is above the selected rules level.`);
+            else if (!this._techDatesAvailability(mount.item, rulesLevel).available) issues.push(`${mount.item.name} is not available in the selected era.`);
+            else {
+                const issue = getEquipmentOfferIssue(mount.item, this._rulesEdition, Math.max(rulesLevel, BUILDING_RULES_LEVEL));
+                if (issue === "edition") issues.push(`${mount.item.name} is not in the selected rules edition.`);
+                else if (issue === "level") issues.push(`${mount.item.name} is above the selected rules level.`);
+            }
         }
-        if (this._heatSinkType.tag !== "single" && this._heatSinks > 0 && !this._datesAvailability(this._heatSinkType, rulesLevel).available) {
+        if (this._heatSinkType.tag !== "single" && this._heatSinks > 0 && !this._techDatesAvailability(this._heatSinkType, rulesLevel).available) {
             issues.push(`${this._heatSinkType.name} heat sinks are not available in the selected era.`);
         }
         if (this._subsurface === "underground" && this.hasTurret()) issues.push("An underground building mounts no rooftop equipment or turrets (TO:AR p.138).");
@@ -1480,15 +1518,29 @@ export default class Building {
 
     // In play (TO:AR pp.115, 118-119, 124) ---------------------------------------------------------------------
 
-    public getDisplayName(): string {
-        return this._name.trim() || `${this._type.tag === "none" ? "" : this._type.name + " "}${this._classification.name}`;
-    }
+    /** "Hardened Fortress", or the classification alone when it has no types. */
+    public getTypeName(): string { return `${this._type.tag === "none" ? "" : this._type.name + " "}${this._classification.name}`; }
+    public getDisplayName(): string { return this._name.trim() || this.getTypeName(); }
+    /** "6 hexes, 5 levels". */
+    public getSizeText(): string { return `${this._hexes} ${this.getHexLabel(this._hexes !== 1)}, ${this._levels} ${this._levels === 1 ? "level" : "levels"}`; }
 
     public getGunnery(): number { return this._gunnery; }
     public setGunnery(skill: number): void { this._gunnery = Math.floor(savedNumber(skill, this._gunnery, 0, 8)); }
 
     public getInPlay(): IBuildingInPlay { return this._inPlay; }
-    public resetInPlay(): void { this._inPlay = newInPlay(); }
+    public resetInPlay(): void { this._inPlay = newInPlay(); this.ewarPlay = {}; }
+    /**
+     * Every piece of E-War gear mounted (#642). A building has no armor type, so no armor entry. Destroyed is the existing
+     * item state (isMountDestroyed), or the hex it stands in being destroyed (as getMountStatus reads it).
+     */
+    public getEWarGear(): IEWarGear[] {
+        const gear: IEWarGear[] = [];
+        for (const mount of this._equipment) {
+            const kind = getEWarKind(mount.item.tag);
+            if (kind) gear.push({ kind, tag: mount.item.tag, uuid: mount.item.uuid, name: mount.item.name, location: `hex ${mount.hex}${mount.turret ? " turret" : ""}`, destroyed: this.isMountDestroyed(mount.item.uuid || "") || this.isHexDestroyed(mount.hex) });
+        }
+        return gear;
+    }
 
     private _hexState(hex: number): IBuildingHexInPlay {
         const index = Math.min(this._hexes, Math.max(1, Math.floor(hex) || 1)) - 1;
@@ -1797,23 +1849,16 @@ export default class Building {
         else delete this._inPlay.ammoUsed[uuid];
     }
 
-    private static _damagePerShot(weapon: IEquipmentItem): number {
-        if (weapon.damageClusters && weapon.damagePerCluster) return weapon.damageClusters * weapon.damagePerCluster;
-        if (typeof weapon.damage === "number") return weapon.damage;
-        return weapon.damage?.short ?? 0;
-    }
 
     /**
-     * The damage of all the explosive ammunition left in a hex: each bin's shots times the Damage Value of one
-     * shot (TO:AR p.118; TW p.125). A bin with no weapon on the building to fire it cannot be valued.
+     * The damage of all the explosive ammunition left in a hex, by the edition's rules: each bin's shots times the
+     * Damage Value of one shot, divided by 10 with CASE (TO:AR p.118; TW p.125). A bin with no weapon on the
+     * building to fire it cannot be valued.
      */
-    public getAmmunitionExplosionDamage(hex: number): number {
-        let total = 0;
-        for (const bin of this._equipment.filter((mount) => mount.hex === hex && mount.item.isAmmo && mount.item.explosive)) {
-            const weapon = this._binWeapon(bin);
-            if (weapon) total += this.getAmmoShots(bin.item.uuid || "") * Building._damagePerShot(weapon);
-        }
-        return total;
+    public getAmmunitionExplosionDamage(hex: number, cased: boolean = false): number {
+        const bins = this._equipment.filter((mount) => mount.hex === hex);
+        return getAmmoExplosion(this._rulesEdition, "building", bins.map((mount) => mount.item), (item) => this._binWeapon(bins.find((mount) => mount.item === item)!),
+            (item) => this.getAmmoShots(item.uuid || ""), cased ? "case" : "none")?.damage ?? 0;
     }
 
     /**
@@ -1877,7 +1922,7 @@ export default class Building {
             const bins = this._equipment.filter((mount) => mount.hex === hex && mount.item.isAmmo && this.getAmmoShots(mount.item.uuid || "") > 0);
             if (bins.length === 0 || state.ammoExploded) return none("ammunition");
             const rated = this.getAmmunitionExplosionDamage(hex);
-            const damage = this.hasCASE(hex) ? Math.floor(rated / 10) : rated;
+            const damage = this.getAmmunitionExplosionDamage(hex, this.hasCASE(hex));
             state.ammoExploded = true;
             return [
                 `${head}. All the hex's ammunition is lost: ${rated} damage${damage !== rated ? `, ${damage} with CASE` : ""}`,
@@ -1957,11 +2002,14 @@ export default class Building {
         const inPlay = noInPlayVariables ? undefined : this._exportInPlay();
         return {
             ...(inPlay ? { inPlay } : {}),
+            ...(!noInPlayVariables && Object.keys(this.ewarPlay).length ? { ewarPlay: JSON.parse(JSON.stringify(this.ewarPlay)) as IEWarPlayState } : {}),
             gunnery: this._gunnery,
             uuid: this._uuid,
+            tro: this.tro.export(),
             lastUpdated: this.lastUpdated,
             name: this._name,
             ...(this._rulesEdition !== DEFAULT_RULES_EDITION ? { rulesEdition: this._rulesEdition } : {}),
+            ...this.gameSettings.export(),
             tech: this._tech.tag,
             era: this._era.tag,
             classification: this._classification.tag,
@@ -2027,11 +2075,13 @@ export default class Building {
             }
             const saved = parsed as Partial<Record<keyof IBuildingExport, unknown>>;
             this._uuid = savedString(saved.uuid).slice(0, 100) || generateUUID();
+            this.tro.import(saved.tro);
             const updated = typeof saved.lastUpdated === "string" || typeof saved.lastUpdated === "number" ? new Date(saved.lastUpdated) : new Date();
             this.lastUpdated = Number.isNaN(updated.getTime()) ? new Date() : updated;
             if (saved.name !== undefined && typeof saved.name !== "string") issue("Ignored a name that is not text");
             this.setName(savedString(saved.name));
             this._rulesEdition = getSelectableRulesEditionTag(saved.rulesEdition, "building");
+            this.gameSettings.import(saved);
             this.setTech(savedString(saved.tech));
             this.setEra(savedString(saved.era));
 
@@ -2085,13 +2135,12 @@ export default class Building {
             if (saved.equipment !== undefined && !Array.isArray(saved.equipment)) issue("Ignored an equipment list that is not a list");
             const entries = Array.isArray(saved.equipment) ? saved.equipment : [];
             if (entries.length > MAX_BUILDING_EQUIPMENT) issue(`Kept the first ${MAX_BUILDING_EQUIPMENT} of ${entries.length} equipment entries`);
-            const catalog = this._catalog();
             for (const entry of entries.slice(0, MAX_BUILDING_EQUIPMENT)) {
                 if (!isPlainObject(entry) || typeof entry.tag !== "string") {
                     issue("Skipped an equipment entry that could not be read");
                     continue;
                 }
-                const catalogItem = findByTag(catalog, entry.tag);
+                const catalogItem = this._findRecord(entry.tag);
                 if (!catalogItem) {
                     issue(`Skipped unknown equipment "${entry.tag.slice(0, 60)}"`);
                     continue;
@@ -2152,6 +2201,7 @@ export default class Building {
             if (saved.gunnery !== undefined && typeof saved.gunnery !== "number") issue("Ignored a gunnery skill that is not a number");
             this._gunnery = Math.floor(savedNumber(saved.gunnery, 4, 0, 8));
             this._importInPlay(saved.inPlay);
+            this.ewarPlay = normalizeEWarPlay(saved.ewarPlay);
         } catch (error) {
             issue("The saved building could not be read completely");
             console.error("Building importJSON failed:", error);

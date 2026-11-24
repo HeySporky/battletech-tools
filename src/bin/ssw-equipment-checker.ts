@@ -3,8 +3,8 @@ import fs from 'fs';
 async function parseFile( filePath: string ): Promise<string[]> {
 
     if( await fs.existsSync(filePath) ) {
-        let fileContents = await fs.readFileSync(filePath, 'utf8');
-        let data = JSON.parse(fileContents);
+        const fileContents = await fs.readFileSync(filePath, 'utf8');
+        const data = JSON.parse(fileContents);
 
 
         return data;

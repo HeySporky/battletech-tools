@@ -11,7 +11,7 @@ export default tseslint.config(
         ignores: [
             "build", "cli-tools", "node_modules", "battletech-tools", "coverage", "playwright-report", "test-results",
             // local-only environments/working folders that some contributors keep in the repo root
-            ".venv", "venv", "**/*_DEV/**",
+            ".venv", "venv", "**/*_DEV/**", ".superpowers", "src/zz-local", "tools-local",
         ],
     },
     js.configs.recommended,
@@ -45,10 +45,6 @@ export default tseslint.config(
             "@typescript-eslint/no-unsafe-function-type": "off",
             "no-empty": "off",
             "no-useless-assignment": "off",
-            // Enabled by typescript-eslint's recommended preset. Both are auto-fixable (`eslint --fix`) but touch
-            // ~800 lines across most of src/, so they are left for a dedicated cleanup pass rather than this PR.
-            "prefer-const": "off",
-            "no-var": "off",
             // TypeScript's own compiler already catches real undefined references and
             // understands ambient globals (JSX, process via vite define, etc.) that no-undef doesn't.
             "no-undef": "off",

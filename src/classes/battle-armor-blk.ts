@@ -1,8 +1,10 @@
+import { applyBlkQuirks, IBlkImportedItem } from "../utils/blk-quirks";
 import { battleArmorArmorTypes } from "../data/battle-armor-armor-types";
 import { BattleArmorTechBase, BattleArmorWeightClass, battleArmorManipulators } from "../data/battle-armor-construction";
 import { findBattleArmorEquipment } from "../data/battle-armor-equipment";
 import { btEraOptions } from "../data/era-options";
 import { IBlkFile, blkLines, blkValue, parseBlkFile } from "../utils/blk-file";
+import { readBlkTechnicalReadout } from "../utils/blk-technical-readout";
 import BattleArmor, { BattleArmorArm, BattleArmorLocation, IBattleArmorMountedItem } from "./battle-armor";
 
 // Reads a MegaMek battle armor ".blk" file into a suit. The file names its equipment by MegaMek's lookup names;
@@ -70,7 +72,10 @@ const EQUIPMENT: Record<string, IBlkEquipment> = {
     isbaminedispenser: either("mine-dispenser"),
     isbaremotesensordispenser: either("remote-sensor-dispenser"),
     isbaspaceoperationsadaptation: either("space-operations-adaptation"),
-    isbaheatsensor: is("heat-sensor"),
+    // Both technology bases print a heat sensor (TM p.256): the Inner Sphere name on a Clan suit is the Clan one.
+    isbaheatsensor: either("heat-sensor"),
+    isbaapds: is("advanced-point-defense-system"),
+    babattlemechniu: either("battlemech-neural-interface-unit"),
     isbc3i: is("improved-c3-system"),
     battlearmorc3: is("c3-system"),
     isimprovedsensors: is("improved-sensors"),
@@ -237,8 +242,9 @@ export const importBattleArmorBlk = (text: string): IBattleArmorBlkImport => {
     }
     const motion = blkValue(file, "motion_type").toLowerCase();
     const motiveMP = Number(blkValue(file, "jumpingMP"));
-    const motive = motion === "jump" ? "jump" : motion === "vtol" ? "vtol" : motion === "umu" ? "umu" : "none";
-    if (motive !== "none" && Number.isFinite(motiveMP) && motiveMP > 0) {
+    // A file may write "Leg" with jumping MP: the suit walks and jumps (TM p.316 footnote: the best modifier counts).
+    const motive = motion === "vtol" ? "vtol" : motion === "umu" ? "umu" : "jump";
+    if (Number.isFinite(motiveMP) && motiveMP > 0) {
         if (!suit.setMotive(motive, motiveMP)) issues.push(`This suit cannot fit ${motive === "jump" ? "jump jets" : motive.toUpperCase()}: left off.`);
         else if (suit.getMotiveMP() !== motiveMP) issues.push(`${motive === "jump" ? "Jumping" : motive.toUpperCase()} MP ${motiveMP} is over the chassis maximum: set to ${suit.getMotiveMP()}.`);
     }
@@ -266,6 +272,7 @@ export const importBattleArmorBlk = (text: string): IBattleArmorBlkImport => {
     const armorTech = blkValue(file, "armor_tech");
     let armorBase: BattleArmorTechBase | undefined = /^\d+$/.test(armorTech) ? (["2", "6", "8", "10", "12"].includes(armorTech) ? "clan" : "is") : undefined;
     const pending: IBlkLine[] = [];
+    const placed: IBlkImportedItem[] = [];
     for (const line of [...lines, ...slotless]) {
         if (IGNORED.has(line.key)) continue;
         // Armor is listed once for each slot it takes.
@@ -296,12 +303,16 @@ export const importBattleArmorBlk = (text: string): IBattleArmorBlkImport => {
             continue;
         }
         const equipment = findBattleArmorEquipment(`${known.base ?? techBase}-${known.slug}`) ?? (mixed && !known.base ? findBattleArmorEquipment(`${otherBase}-${known.slug}`) : null);
+        // A spread-slot item (the myomer booster) is written once for each location it fills: it is one item.
+        if (equipment?.spreadSlots && suit.getItems().some((entry) => entry.tag === equipment.tag)) continue;
         const location: BattleArmorLocation = line.turret && suit.getTurret() ? "turret" : line.location;
         if (!equipment || !suit.addItem(equipment.tag, suit.getLocations().includes(location) ? location : "body")) {
             issues.push(`'${line.name.slice(0, 60)}' is not on the ${(known.base ?? techBase) === "clan" ? "Clan" : "Inner Sphere"} Battle Armor Equipment Table: left off.`);
             continue;
         }
         const index = suit.getItems().length - 1;
+        const mountedItem = suit.getItems()[index];
+        if (mountedItem.uuid) placed.push({ name: line.name, location: mountedItem.location ?? "", uuid: mountedItem.uuid });
         const change: Partial<IBattleArmorMountedItem> = {};
         if (launcher?.oneShot) change.oneShot = true;
         if (line.squadSupport) change.squadSupport = true;
@@ -315,15 +326,20 @@ export const importBattleArmorBlk = (text: string): IBattleArmorBlkImport => {
 
     // Ammunition goes to the launcher it feeds; manipulators, adaptors and anti-personnel mounts to their arms.
     const arms: BattleArmorArm[] = [];
+    // A launcher takes each ammunition line it is fed by as more shots: the first line sets them, the rest add.
+    const filled = new Set<number>();
     const order = (line: IBlkLine): number => (line.apWeapon ? 1 : ammunitionFor(line.key) !== null ? 2 : 0);
     for (const line of [...pending].sort((a, b) => order(a) - order(b))) {
         const feeds = ammunitionFor(line.key);
         if (feeds !== null) {
             const items = suit.getItems();
-            const index = items.findIndex((entry) => entry.tag.endsWith(`-${feeds}`) && !suit.isOneShot(entry) && (entry.shots ?? 0) <= 1);
-            const any = index >= 0 ? index : items.findIndex((entry) => entry.tag.endsWith(`-${feeds}`) && !suit.isOneShot(entry));
+            const fed = items.map((entry, at) => (entry.tag.endsWith(`-${feeds}`) && !suit.isOneShot(entry) ? at : -1)).filter((at) => at >= 0);
+            const any = fed.find((at) => !filled.has(at)) ?? fed[0] ?? -1;
             if (!feeds || any < 0) issues.push(`Ammunition '${line.name.slice(0, 60)}' has no launcher on the suit: left off.`);
-            else suit.updateItem(any, { shots: (index >= 0 ? 0 : items[any].shots ?? 0) + (line.shots ?? 1) });
+            else {
+                suit.updateItem(any, { shots: (filled.has(any) ? items[any].shots ?? 0 : 0) + (line.shots ?? 1) });
+                filled.add(any);
+            }
             continue;
         }
         if (line.apWeapon) {
@@ -381,5 +397,8 @@ export const importBattleArmorBlk = (text: string): IBattleArmorBlkImport => {
         if (era) suit.setEra(era.tag);
     }
 
+    // MegaMek's battle armor locations are the squad and its troopers, not arms and body: weapons match by name.
+    applyBlkQuirks(file, suit, placed, issues);
+    suit.tro.import(readBlkTechnicalReadout(file));
     return { suit, issues };
 };

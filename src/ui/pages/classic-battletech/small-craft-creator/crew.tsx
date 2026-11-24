@@ -2,13 +2,14 @@ import React, { type JSX } from 'react';
 import { Link } from 'react-router';
 import { FaArrowCircleLeft, FaArrowCircleRight, FaTrash } from "react-icons/fa";
 import SmallCraft from '../../../../classes/small-craft';
-import { findTransportBayType, quartersTypes, transportBayTypes } from '../../../../data/small-craft-construction';
+import { findTransportBayType, getLargeWellDeckVesselTons, quartersTypes, transportBayTypes } from '../../../../data/small-craft-construction';
 import { IAppGlobals } from '../../../app-router';
 import InputNumeric from "../../../components/form_elements/input_numeric";
-import SmallCraftCreatorSideMenu from '../../../components/small-craft-creator-side-menu';
+import { SmallCraftCreatorSideMenu } from '../../../components/creator-side-menus';
 import TextSection from '../../../components/text-section';
 import UIPage from '../../../components/ui-page';
 import SmallCraftStatusBar from './_statusBar';
+import { unitRulesLevel } from '../../../components/game-settings-block';
 const ArrowCircleLeft = FaArrowCircleLeft as any;
 const ArrowCircleRight = FaArrowCircleRight as any;
 const Trash = FaTrash as any;
@@ -30,10 +31,14 @@ export default class SmallCraftCreatorCrew extends React.Component<ICrewProps> {
     render = (): JSX.Element => {
         const craft = this.props.appGlobals.currentSmallCraft;
         if (!craft) return <></>;
-        const rulesLevel = this.props.appGlobals.appSettings.mechRulesFilter;
+        const rulesLevel = unitRulesLevel(this.props.appGlobals.currentSmallCraft, this.props.appGlobals.appSettings);
         const people = craft.getCrew() + craft.getPassengers();
         const techBase = craft.getChassisTechBase();
-        const bayOptions = transportBayTypes.filter((type) => !type.tech || type.tech === techBase || craft.isMixedTech());
+        // A homebrew bay (the Micro-Mech Bay) is offered at its rules level. The well decks are offered only where the
+        // Flotation Hull can be had: on the hull already, or an aerodyne DropShip while the hull is offered (#643).
+        const hullReachable = craft.hasFlotationHull() || craft.canHaveFlotationHull();
+        const bayOptions = transportBayTypes.filter((type) => !type.largeCraftOnly && (!type.tech || type.tech === techBase || craft.isMixedTech())
+            && (type.rulesLevel ?? 0) <= rulesLevel && (!type.needsFlotationHull || hullReachable));
         const remaining = craft.getRemainingTonnage();
 
         return (
@@ -95,7 +100,7 @@ export default class SmallCraftCreatorCrew extends React.Component<ICrewProps> {
                         <TextSection label="Transport Bays">
                             <table className="table" data-testid="sc-bays">
                                 <thead>
-                                    <tr><th>Bay</th><th>Amount</th><th>Doors</th><th>Tons</th><th>Holds</th><th></th></tr>
+                                    <tr><th>Bay</th><th>Amount</th><th>Doors</th><th>Tons</th><th>Holds</th><th><span className="visually-hidden">Actions</span></th></tr>
                                 </thead>
                                 <tbody>
                                     {craft.getBays().map((bay, index) => {
@@ -109,7 +114,7 @@ export default class SmallCraftCreatorCrew extends React.Component<ICrewProps> {
                                                         label={byTheTon ? "Tons" : "Bays"}
                                                         value={bay.amount}
                                                         min={byTheTon ? 0.5 : 1}
-                                                        max={200}
+                                                        max={byTheTon ? Math.max(200, craft.getTonnage()) : 200}
                                                         step={byTheTon ? 0.5 : 1}
                                                         setValue={(amount) => this.update((c) => c.setBay(index, amount, bay.doors))}
                                                     />
@@ -125,7 +130,7 @@ export default class SmallCraftCreatorCrew extends React.Component<ICrewProps> {
                                                     />
                                                 </td>
                                                 <td>{craft.getBayWeight(bay)}</td>
-                                                <td>{type?.capacity}</td>
+                                                <td>{bay.tag === "well-deck-large" ? `1 Large Naval Vessel of up to ${getLargeWellDeckVesselTons(bay.amount).toLocaleString("en-US")} tons; afloat only` : type?.capacity}</td>
                                                 <td>
                                                     <button className="btn btn-danger btn-sm" title={"Remove " + craft.getBayName(bay)} onClick={() => this.update((c) => c.removeBay(index))}>
                                                         <Trash />
@@ -183,7 +188,7 @@ export default class SmallCraftCreatorCrew extends React.Component<ICrewProps> {
 
                             <div className="clear-both overflow-hidden">
                                 <hr />
-                                <Link to={`${process.env.PUBLIC_URL}/classic-battletech/small-craft-creator/summary`} className="btn btn-primary pull-right btn-sm">Next: Summary <ArrowCircleRight /></Link>
+                                <Link to={`${process.env.PUBLIC_URL}/classic-battletech/small-craft-creator/technical-readout`} className="btn btn-primary pull-right btn-sm">Next: Technical Readout <ArrowCircleRight /></Link>
                                 <Link to={`${process.env.PUBLIC_URL}/classic-battletech/small-craft-creator/equipment`} className="btn btn-primary btn-sm"><ArrowCircleLeft /> Previous Step</Link>
                             </div>
                         </TextSection>

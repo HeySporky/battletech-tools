@@ -50,8 +50,14 @@ test("an infantry platoon joins the roster, takes damage in play and prints", as
     await expect(page.getByText("This Platoon is Under Strength")).toBeVisible();
 
     await page.goto("classic-battletech/roster/print");
-    await expect(page.getByRole("heading", { name: "Home Guard" })).toBeVisible();
-    await expect(page.getByTestId("infantry-sheet-line")).toContainText("28 troopers, 5.5 tons (10 active)");
+    const sheet = page.getByTestId("inf-platoon-1");
+    await expect(sheet).toContainText("Home Guard");
+    await expect(sheet).toContainText("Troopers:28 (");
+    await expect(sheet).toContainText("Transport Wt:5.5 tons");
+    // Ten of 28 left: troopers 11 to 28 are crossed off.
+    await expect(sheet.locator("[data-hit='filled']")).toHaveCount(18);
+    await expect(page.getByTestId("inf-platoon-1-trooper-11").locator("[data-hit='filled']")).toHaveCount(1);
+    await expect(page.getByTestId("inf-platoon-1-trooper-10").locator("[data-hit='filled']")).toHaveCount(0);
 
     expect(errors).toEqual([]);
 });
@@ -88,6 +94,35 @@ test("a saved infantry platoon converts to Alpha Strike and joins an Alpha Strik
     await expect(page.getByText("Your Created Infantry")).toBeVisible();
     await page.getByTitle("Add this platoon to your current group").first().click();
     await expect(page.getByText("Cardbearers").first()).toBeVisible();
+
+    expect(errors).toEqual([]);
+});
+
+// #600 round 4c: the MegaMek infantry ship with the app, checked against the Master Unit List.
+test("a bundled MegaMek platoon opens from the Master Unit List search", async ({ page }) => {
+    const errors: string[] = [];
+    page.on("pageerror", (error) => errors.push(error.stack ?? error.message));
+    page.on("console", (message) => {
+        if (message.type() === "error") errors.push(`console.error: ${message.text()}`);
+    });
+
+    await page.goto("classic-battletech/roster");
+    await page.getByTitle("Add 'Mechs, or search the Master Unit List for any unit type").first().click();
+    const dialog = page.locator(".modal");
+    await dialog.getByLabel("Type:").selectOption({ label: "Infantry" });
+    await dialog.getByLabel("Search Terms").fill("Jump Platoon (Flamer)");
+    const row = dialog.locator("tr", { hasText: "MegaMek" }).filter({ has: page.getByRole("button", { name: "View Jump Platoon (Flamer)", exact: true }) });
+    await expect(row).toContainText("70");
+    await row.getByRole("button", { name: /^TRO / }).click();
+    await expect(page.getByText("Technical Readout: Jump Platoon (Flamer)")).toBeVisible();
+    await page.getByRole("dialog").filter({ hasText: "Technical Readout: Jump Platoon (Flamer)" }).getByTitle("Close").click();
+    await row.getByRole("button", { name: /^View / }).click();
+    const sheet = page.getByRole("dialog").filter({ hasText: "Viewing Jump Platoon (Flamer)" });
+    await expect(sheet.locator("svg").first()).toBeVisible();
+    await sheet.getByTitle("Cancel").click();
+    await row.getByRole("button", { name: /^Add / }).click();
+    await page.goto("classic-battletech/roster");
+    await expect(page.getByText("Jump Platoon (Flamer)").first()).toBeVisible();
 
     expect(errors).toEqual([]);
 });

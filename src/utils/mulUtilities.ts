@@ -137,7 +137,7 @@ export interface IMULEraAlias {
     mulEraId: number;
 }
 
-const MUL_ERA_ALIAS_OFFSET = 1000;
+export const MUL_ERA_ALIAS_OFFSET = 1000;
 
 const overlapYears = (startA: number, endA: number | null, startB: number, endB: number | null): number => {
     const end = Math.min(endA ?? 9999, endB ?? 9999);
@@ -198,10 +198,10 @@ export function getMULTypeLabel(
         return "IndustrialMech";
     }
     if( id === 23 ) {
-        return "Protomech";
+        return "ProtoMech";
     }
     if( id === 24 ) {
-        return "Support Vehicle ";
+        return "Support Vehicle";
     }
 
     return "n/a";

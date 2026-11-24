@@ -2,6 +2,9 @@ import { describe, expect, it } from "vitest";
 import CapitalShip from "./capital-ship";
 import { getCapitalShipHitLocation } from "../data/capital-ship-hit-tables";
 import { findCapitalWeapon } from "../data/capital-weapon-helpers";
+import { findTransportBayType, getTransportBaysRulesLevel } from "../data/small-craft-construction";
+import { getAdvancedAerospaceCostMultiplier } from "../data/advanced-aerospace-construction";
+import SmallCraft from "./small-craft";
 
 // The worked examples of the construction chapter (SO:AA pp.132-147), built through the class: each check is a
 // running "unspent tons" total the book prints.
@@ -204,6 +207,22 @@ describe("CapitalShip (SO:AA pp.130-149)", () => {
         expect(new CapitalShip(JSON.stringify(old)).isMonitor()).toBe(false);
     });
 
+    it("naval C3 weighs 1% of the vessel and doubles fire control; tug adaptors and NCSS by vessel type (TO:AUE pp.144-147)", () => {
+        const ship = build("warShip", 420000);
+        for (let n = 0; n < 22; n++) ship.addEquipmentFromTag("medium-laser", "nose");
+        const fireControl = ship.getArcFireControlWeight("nose");
+        expect(fireControl).toBeGreaterThan(0);
+        expect(ship.addEquipmentFromTag("naval-c3")?.weight).toBe(4200);
+        expect(ship.getArcFireControlWeight("nose")).toBe(fireControl * 2);
+        expect(ship.addEquipmentFromTag("naval-c3")).toBeNull();
+        expect(ship.addEquipmentFromTag("naval-tug-adaptor")?.weight).toBe(42100);
+        expect(ship.addEquipmentFromTag("naval-comm-scanner-suite-large")).not.toBeNull();
+        expect(ship.addEquipmentFromTag("naval-comm-scanner-suite-small")).toBeNull();
+        const jumpShip = build("jumpShip", 100000);
+        expect(jumpShip.addEquipmentFromTag("naval-tug-adaptor")).toBeNull();
+        expect(jumpShip.addEquipmentFromTag("light-sail")).toBeNull();
+    });
+
     it("saves and loads", () => {
         const ship = build("warShip", 1930000);
         ship.setName("McKenna");
@@ -373,5 +392,355 @@ describe("Dragon's Breath MCM launch system (IO:AE pp.142-143, 215)", () => {
         expect(build("warShip", 420000).isCapitalWeaponAllowed(dragon)).toBe(true);
         expect(build("spaceStation", 100000).isCapitalWeaponAllowed(dragon)).toBe(true);
         expect(build("jumpShip", 100000).isCapitalWeaponAllowed(dragon)).toBe(false);
+    });
+});
+
+describe("capital ship quirk targets: weapon bays (CO p.225)", () => {
+    it("offers a capital bay with its mounts' ids, priced at its capital damage", () => {
+        const ship = build("warShip", 420000);
+        ship.addCapitalWeapon("barracuda", "nose");
+        ship.addCapitalWeapon("barracuda", "nose");
+        const bays = ship.getQuirkTargets().bays ?? [];
+        expect(bays).toHaveLength(1);
+        expect(bays[0].uuids).toEqual(ship.getCapitalWeapons().map((mount) => mount.uuid));
+        expect(bays[0].maxDamage).toBe(4);
+    });
+});
+
+describe("capital weapon dates (design 2026-10-24-catalog-consolidation §2)", () => {
+    it("offers a Clan WarShip the Light SCC on its Clan dates, not the Inner Sphere's", () => {
+        const ship = build("warship", 500000, "clan");
+        ship.setEra("jihad");
+        // Light SCC: Inner Sphere 3073, Clan 3091 (TO:AUE p.155).
+        expect(ship.getAvailableCapitalWeapons(3).some((weapon) => weapon.tag === "light-scc")).toBe(false);
+        ship.setTech("is");
+        expect(ship.getAvailableCapitalWeapons(3).some((weapon) => weapon.tag === "light-scc")).toBe(true);
+    });
+});
+
+describe("E-War carrier (#642)", () => {
+    const build = () => {
+        const unit = new CapitalShip();
+        unit.setShipType("warShip");
+        unit.setTonnage(100000);
+        unit.addEquipmentFromTag("is-ams", "nose");
+        unit.addEquipmentFromTag("ecm-suite", "nose");
+        unit.addEquipmentFromTag("medium-laser", "nose");
+        return unit;
+    };
+
+    it("lists its E-War gear", () => {
+        const gear = build().getEWarGear();
+        expect(gear.map((item) => item.kind).sort()).toEqual(["ams", "ecm-guardian"]);
+        for (const item of gear) {
+            expect(item.name).toBeTruthy();
+            expect(item.uuid).toBeTruthy();
+            expect(item.destroyed).toBe(false);
+        }
+    });
+
+    it("reports destroyed E-War gear", () => {
+        // A ship tracks damage by weapon bay: a Narc launcher in a bay is lost with it; gear outside a bay has no damage model.
+        const unit = build();
+        unit.addEquipmentFromTag("narc", "nose");
+        const bayIndex = unit.getArcWeaponBays("nose").findIndex((bay) => bay.uuids.includes(unit.getEWarGear().find((item) => item.kind === "narc")!.uuid!));
+        expect(bayIndex).toBeGreaterThanOrEqual(0);
+        unit.setBayDestroyed("nose", bayIndex, true);
+        expect(unit.getEWarGear().map((item) => [item.kind, item.destroyed]).sort()).toEqual([["ams", false], ["ecm-guardian", false], ["narc", true]]);
+    });
+
+    // No stealth armor test: the aerospace armor catalog (aerospace-armor-types.ts) has no stealth type for capital ships, so there is no armor entry to list.
+
+    it("saves E-War state and loads old saves without it", () => {
+        const unit = build();
+        expect(unit.export().ewarPlay).toBeUndefined();
+        unit.ewarPlay.inHostileEcm = true;
+        const saved = JSON.parse(JSON.stringify(unit.export()));
+        expect(saved.ewarPlay).toEqual({ inHostileEcm: true });
+        expect(unit.export(true).ewarPlay).toBeUndefined();
+        const loaded = new CapitalShip(JSON.stringify(saved));
+        expect(loaded.ewarPlay).toEqual({ inHostileEcm: true });
+        delete saved.ewarPlay;
+        expect(new CapitalShip(JSON.stringify(saved)).ewarPlay).toEqual({});
+    });
+});
+
+describe("Naval Repair Facilities (TO:AUE pp.146-147, SO:AA p.142) (#148)", () => {
+    it("weigh 7.5 percent (pressurized), 2.5 percent (unpressurized) or 10 percent (reinforced) of the capacity, rounded up to the ton", () => {
+        const ship = build("spaceStation", 100000);
+        const before = ship.getRemainingTonnage();
+        // The Alliance example (SO:AA p.142): two pressurized bays for craft up to 50,000 tons, 3,750 tons each.
+        ship.addBay("repair-pressurized", 50000);
+        ship.addBay("repair-pressurized", 50000);
+        expect(ship.getBays().map((bay) => ship.getBayWeight(bay))).toEqual([3750, 3750]);
+        expect(ship.getRemainingTonnage()).toBe(before - 7500);
+        const other = build("jumpShip", 345000);
+        other.addBay("repair-unpressurized", 100);
+        other.addBay("repair-reinforced", 31);
+        expect(other.getBays().map((bay) => other.getBayWeight(bay))).toEqual([3, 4]);
+        other.addBay("repair-pressurized", 100);
+        expect(other.getBayWeight(other.getBays()[2])).toBe(8);
+    });
+
+    it("cost 10,000 (pressurized), 5,000 (unpressurized) or 30,000 (reinforced) a ton of capacity, and put the capacity in the weight line", () => {
+        const ship = build("warShip", 420000);
+        const plain = ship.getCBillCost();
+        ship.addBay("repair-pressurized", 1000);
+        const withBay = ship.getCBillCost();
+        expect(withBay - plain).toBeGreaterThanOrEqual(10_000_000);
+        expect(ship.getWeights().map((entry) => entry.name).join(" | ")).toContain("Pressurized Repair Facility (1,000 ton capacity, 0 doors)");
+        // Unpressurized: half the price a ton, a third the weight.
+        const ship2 = build("warShip", 420000);
+        const base2 = ship2.getCBillCost();
+        ship2.addBay("repair-unpressurized", 1000);
+        expect(ship2.getCBillCost() - base2).toBeLessThan(withBay - plain);
+        expect(ship2.getCBillCost() - base2).toBeGreaterThanOrEqual(5_000_000);
+    });
+
+    it("are offered to JumpShips, space stations and WarShips only, reinforced ones to JumpShips and WarShips, and cost rules levels", () => {
+        const pressurized = findTransportBayType("repair-pressurized");
+        const reinforced = findTransportBayType("repair-reinforced");
+        expect(pressurized).toMatchObject({ rulesLevel: 3, repair: { weightFactor: 0.075, pressurized: true } });
+        expect(reinforced).toMatchObject({ rulesLevel: 4, tech: "is", repair: { weightFactor: 0.1, pressurized: false, reinforced: true } });
+        expect(pressurized?.largeCraftOnly).toEqual(["jumpShip", "spaceStation", "warShip"]);
+        expect(reinforced?.largeCraftOnly).toEqual(["jumpShip", "warShip"]);
+        expect(getTransportBaysRulesLevel([{ tag: "repair-pressurized" }, { tag: "cargo" }])).toBe(3);
+        // A Small Craft or DropShip does not take one.
+        expect(new SmallCraft().addBay("repair-pressurized", 100)).toBeNull();
+    });
+
+    it("count two docking collars each against the maximum, and a facility needs a door", () => {
+        const ship = build("spaceStation", 100000);
+        ship.addBay("repair-pressurized", 50000);
+        expect(ship.getRepairFacilityCollars()).toBe(2);
+        ship.addBay("repair-unpressurized", 10000);
+        expect(ship.getRepairFacilityCollars()).toBe(4);
+        expect(ship.getIssues(6).join(" ")).toContain("Repair facilities use 4 docking collars");
+        expect(ship.getIssues(6).join(" ")).toContain("needs a bay door");
+        ship.setBay(0, 50000, 1);
+        ship.setBay(1, 10000, 1);
+        expect(ship.getIssues(6).join(" ")).not.toContain("needs a bay door");
+    });
+
+    it("show on the record sheet and keep their capacity through a save", () => {
+        const ship = build("spaceStation", 100000);
+        ship.addBay("repair-pressurized", 30000);
+        const loaded = new CapitalShip(ship.exportJSON());
+        expect(loaded.getBays()).toEqual([{ tag: "repair-pressurized", amount: 30000, doors: 0 }]);
+        expect(loaded.getBayDisplay(loaded.getBays()[0])).toBe("Pressurized Repair Facility (30,000 ton capacity)");
+    });
+});
+
+describe("Station jump sail with energy storage batteries (SO:AA p.136, TO:AUE p.188) (#149)", () => {
+    it("a station carries a sail only with batteries, sized like a JumpShip of the same weight", () => {
+        const ship = build("spaceStation", 150000);
+        expect(ship.setJumpSail(true)).toBe(false);
+        expect(ship.getJumpSailWeight()).toBe(0);
+        expect(ship.getIssues(6).join(" ")).not.toContain("jump sail");
+        ship.setEnergyStorageBatteries(1);
+        expect(ship.setJumpSail(true)).toBe(true);
+        // 30 + 150,000 / 7,500 = 50 tons; Integrity 1 + 50 / 20 = 3.5, up to 4.
+        expect(ship.getJumpSailWeight()).toBe(50);
+        expect(ship.getJumpSailIntegrity()).toBe(4);
+        expect(ship.getWeights().map((entry) => entry.name)).toEqual(expect.arrayContaining(["Jump Sail (Integrity 4)", "Energy Storage Batteries (1)"]));
+        // Removing the last battery takes the sail with it.
+        ship.setEnergyStorageBatteries(0);
+        expect(ship.hasJumpSail()).toBe(false);
+        expect(ship.getJumpSailIntegrity()).toBe(0);
+    });
+
+    it("weighs each battery at 100,000 tons and prices it at 1,000,000 C-bills (the sail is 50,000 a ton)", () => {
+        const ship = build("spaceStation", 300000);
+        const plain = ship.getCBillCost();
+        const tons = ship.getRemainingTonnage();
+        ship.setEnergyStorageBatteries(2);
+        expect(ship.getRemainingTonnage()).toBe(tons - 200000);
+        const withBatteries = ship.getCBillCost();
+        // The station multiplier (SO:AA p.149) applies to the whole subtotal.
+        const multiplier = getAdvancedAerospaceCostMultiplier("spaceStation");
+        expect(withBatteries - plain).toBe(2_000_000 * multiplier);
+        ship.setJumpSail(true);
+        // 30 + 300,000 / 7,500 = 70 tons of sail.
+        expect(ship.getJumpSailWeight()).toBe(70);
+        expect(ship.getCBillCost() - withBatteries).toBe(70 * 50000 * multiplier);
+    });
+
+    it("keeps batteries and the sail to space stations, and leaves the K-F boom with its cost multiplier only", () => {
+        const jump = build("jumpShip", 100000);
+        expect(jump.setEnergyStorageBatteries(1)).toBe(0);
+        expect(jump.setJumpSail(true)).toBe(true);
+        expect(jump.getJumpSailWeight()).toBe(Math.ceil(30 + 100000 / 7500));
+        const boom = build("spaceStation", 100000);
+        boom.setKFBoom(true);
+        const withBoom = boom.getRemainingTonnage();
+        boom.setEnergyStorageBatteries(1);
+        expect(boom.getRemainingTonnage()).toBe(withBoom - 100000);
+        expect(boom.getKFDriveWeight()).toBe(0);
+    });
+
+    it("fills the sheet Sail Integrity line and notes how the batteries charge a docked or distant ship", () => {
+        const ship = build("spaceStation", 150000);
+        ship.setEnergyStorageBatteries(1);
+        ship.setJumpSail(true);
+        expect(ship.getRechargeStationNotes().join(" ")).toContain("-2 modifier");
+        expect(ship.getRechargeStationNotes().join(" ")).toContain("100 hours");
+        expect(build("spaceStation", 150000).getRechargeStationNotes()).toEqual([]);
+    });
+
+    it("saves and loads the batteries and the sail, and drops a sail saved without batteries", () => {
+        const ship = build("spaceStation", 150000);
+        ship.setEnergyStorageBatteries(1);
+        ship.setJumpSail(true);
+        const loaded = new CapitalShip(ship.exportJSON());
+        expect(loaded.getEnergyStorageBatteries()).toBe(1);
+        expect(loaded.hasJumpSail()).toBe(true);
+        const saved = JSON.parse(ship.exportJSON());
+        saved.energyStorageBatteries = 0;
+        expect(new CapitalShip(JSON.stringify(saved)).hasJumpSail()).toBe(false);
+    });
+});
+
+describe("SDS (Caspar) drone control, self-destruct and jammer (IO:AE pp.134, 140-141) (#150)", () => {
+    it("adds 6 percent (WarShip) or 8 percent (station) of the vessel on top of the controls, 4 percent more for 3/4 skills", () => {
+        const warship = build("warShip", 420000);
+        const controls = warship.getRemainingTonnage();
+        expect(warship.setSds("standard")).toBe(true);
+        expect(warship.getSdsControlWeight()).toBe(25200);
+        expect(warship.getSdsSkills()).toEqual({ gunnery: 4, piloting: 5 });
+        expect(warship.getRemainingTonnage()).toBe(controls - 25200 - warship.getSdsSupportWeight());
+        warship.setSds("improved");
+        expect(warship.getSdsControlWeight()).toBe(42000);
+        expect(warship.getSdsSkills()).toEqual({ gunnery: 3, piloting: 4 });
+        const station = build("spaceStation", 100000);
+        station.setSds("standard");
+        expect(station.getSdsControlWeight()).toBe(8000);
+        expect(station.getSdsSkills()).toEqual({ gunnery: 4, piloting: 5 });
+        station.setSds("improved");
+        expect(station.getSdsControlWeight()).toBe(12000);
+        expect(station.getSdsSkills()).toEqual({ gunnery: 3, piloting: 4 });
+        // A JumpShip cannot be an SDS drone.
+        expect(build("jumpShip", 100000).setSds("standard")).toBe(false);
+    });
+
+    it("refuses a WarShip drone over 800,000 tons with the book message; it still carries a K-F drive", () => {
+        const big = build("warShip", 1930000);
+        expect(big.setSds("standard")).toBe(false);
+        expect(big.getSdsRefusal()).toContain("800,000 tons");
+        expect(big.getSds()).toBe("none");
+        const limit = build("warShip", 800000);
+        expect(limit.setSds("standard")).toBe(true);
+        expect(limit.hasKFDrive()).toBe(true);
+        expect(limit.getSdsNotes().join(" ")).toContain("can never jump while its AI is active");
+        // Raising the tonnage past the limit afterwards is reported.
+        limit.setTonnage(900000);
+        expect(limit.getIssues(6).join(" ")).toContain("800,000 tons");
+        // A station has no such limit.
+        expect(build("spaceStation", 2000000).setSds("standard")).toBe(true);
+    });
+
+    it("needs steerage quarters for half the minimum crew of the equivalent human vessel, rounded up", () => {
+        const ship = build("warShip", 420000);
+        ship.setSds("standard");
+        expect(ship.getSdsSupportQuarters()).toBe(Math.ceil(ship.getMinimumCrew() / 2));
+        expect(ship.getSdsSupportWeight()).toBe(ship.getSdsSupportQuarters() * 5);
+        expect(ship.getWeights().map((entry) => entry.name).join(" | ")).toContain("SDS Crew Support Quarters");
+        expect(build("warShip", 420000).getSdsSupportQuarters()).toBe(0);
+    });
+
+    it("self-destruct: 10 percent of the drone, at most 10,000 tons, in the engine section; ram damage is Safe Thrust x tonnage to 500", () => {
+        const ship = build("warShip", 420000);
+        // A JumpShip is no drone and takes none; the self-destruct goes on stations and WarShips, with or without the control system.
+        expect(build("jumpShip", 100000).setSdsSelfDestruct(true)).toBe(false);
+        expect(ship.setSdsSelfDestruct(true)).toBe(true);
+        expect(ship.getSdsSelfDestructWeight()).toBe(10000);
+        expect(ship.getSdsRamDamage()).toBe(500);
+        const small = build("spaceStation", 60500);
+        small.setSdsSelfDestruct(true);
+        expect(small.getSdsSelfDestructWeight()).toBe(6050);
+        expect(small.getSdsNotes().join(" ")).toContain("98 percent");
+    });
+
+    it("the SLDF jammer is 30,000 tons on a WarShip, and the drone cards carry the SDS specials in Alpha Strike", () => {
+        const ship = build("warShip", 420000);
+        expect(ship.setSdsJammer(true)).toBe(true);
+        expect(ship.getWeights().map((entry) => entry.name)).toContain("SLDF SDS Jammer");
+        expect(build("spaceStation", 100000).setSdsJammer(true)).toBe(false);
+        expect(ship.getAlphaStrikeStats().specialAbilities).toContain("JAM");
+        ship.setSds("standard");
+        expect(ship.getAlphaStrikeStats().specialAbilities).toContain("SDCS");
+    });
+
+    // IO:AE p.215 (Additional Alternate Era Weapons and Equipment, page image): SDS (Caspar) DCS 500,000 + (50,000 x IT),
+    // SDS Self-Destruct 1,000,000, SDS Jammer 800M. IO:AE cost rules: the Caspar cost replaces the normal cockpit/crew
+    // systems (the Bridge line here), and IT counts the default controls with the Caspar share added to them.
+    it("prices the drone control (replacing the bridge), the self-destruct and the jammer as printed, inside the type multiplier", () => {
+        const ship = build("warShip", 420000);
+        const plain = ship.getCBillCost();
+        expect(ship.getCBillCostLog()).toContain("Bridge");
+        ship.setSds("standard");
+        const tons = ship.getControlsWeight() + ship.getSdsControlWeight();
+        expect(ship.getSdsCost()).toBe(500000 + 50000 * tons);
+        const log = ship.getCBillCostLog();
+        expect(log).not.toContain("Bridge");
+        expect(log).toContain("SDS (Caspar) Drone Control System");
+        const withSds = ship.getCBillCost();
+        const multiplier = getAdvancedAerospaceCostMultiplier("warShip");
+        expect(withSds - plain).toBe(Math.round((500000 + 50000 * tons - (200000 + 10 * 420000)) * multiplier));
+        ship.setSdsSelfDestruct(true);
+        expect(ship.getCBillCost() - withSds).toBe(1000000 * multiplier);
+        const withDestruct = ship.getCBillCost();
+        ship.setSdsJammer(true);
+        expect(ship.getCBillCost() - withDestruct).toBe(800000000 * multiplier);
+    });
+
+    it("needs the Experimental rules level, and survives a save", () => {
+        const ship = build("warShip", 420000);
+        ship.setSds("improved");
+        ship.setSdsSelfDestruct(true);
+        ship.setSdsJammer(true);
+        expect(ship.getIssues(3).join(" ")).toContain("Experimental");
+        expect(ship.getIssues(4).join(" ")).not.toContain("SDS");
+        const loaded = new CapitalShip(ship.exportJSON());
+        expect(loaded.getSds()).toBe("improved");
+        expect(loaded.hasSdsSelfDestruct()).toBe(true);
+        expect(loaded.hasSdsJammer()).toBe(true);
+    });
+});
+
+describe("Custom rule: a price for expanded fire control (#152; Ours, NGCFells)", () => {
+    // 40 medium lasers in one arc is well over the weapons an arc holds before expanded fire control is needed (SO:AA p.133).
+    const buildCrowded = (): CapitalShip => {
+        const ship = build("warShip", 1930000);
+        for (let index = 0; index < 40; index++) ship.addEquipmentFromTag("medium-laser", "nose");
+        return ship;
+    };
+
+    it("costs 10,000 C-bills a ton at Custom Homebrew and Munchkin, with the Ours note, and nothing at the canon levels", () => {
+        const ship = buildCrowded();
+        const tons = ship.getFireControlWeight();
+        expect(tons).toBeGreaterThan(0);
+        ship.gameSettings.set(4, []);
+        const canon = ship.getCBillCost();
+        expect(ship.getFireControlPrice()).toBe(0);
+        expect(ship.getCBillCostLog()).toContain("the books give no price");
+        ship.gameSettings.set(6, []);
+        expect(ship.getFireControlPrice()).toBe(10000 * tons);
+        // SO:AA p.147: every component is summed, then the type multiplier applies to the whole, fire control included.
+        const multiplier = getAdvancedAerospaceCostMultiplier("warShip", false);
+        expect(Math.abs(ship.getCBillCost() - canon - 10000 * tons * multiplier)).toBeLessThanOrEqual(1);
+        expect(ship.getCBillCostLog()).toContain("Ours (NGCFells, 2026-11-22): the books price none");
+        ship.gameSettings.set(7, []);
+        expect(Math.abs(ship.getCBillCost() - canon - 10000 * tons * multiplier)).toBeLessThanOrEqual(1);
+        expect(ship.getCBillCostLog()).toContain("Expanded Fire Control");
+        // 12 tons of expanded fire control cost 120,000 C-bills.
+        expect(10000 * 12).toBe(120000);
+    });
+
+    it("prices nothing on a ship with no expanded fire control, at any level", () => {
+        const ship = build("warShip", 420000);
+        ship.gameSettings.set(6, []);
+        expect(ship.getFireControlWeight()).toBe(0);
+        expect(ship.getFireControlPrice()).toBe(0);
+        expect(ship.getCBillCostLog()).not.toContain("Expanded Fire Control");
     });
 });

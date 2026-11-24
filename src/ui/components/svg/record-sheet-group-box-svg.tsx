@@ -10,10 +10,10 @@ export default class RecordSheetGroupBoxSVG extends React.Component<IRecordSheet
         let theHeight = 100;
         let xLoc = 0;
         let yLoc = 0;
-        let borderRadius = 15;
-        let borderWidth = 2;
+        const borderRadius = 15;
+        const borderWidth = 2;
         let textSize = 35;
-        let labelLeft = 35;
+        const labelLeft = 35;
         let title = "";
 
         if( this.props.bgColor ) {
@@ -41,6 +41,10 @@ export default class RecordSheetGroupBoxSVG extends React.Component<IRecordSheet
 
         if( this.props.title ) {
             title = this.props.title;
+        }
+
+        if( this.props.textSize ) {
+            textSize = this.props.textSize;
         }
 
         return (
@@ -120,6 +124,8 @@ interface IRecordSheetGroupBoxSVGProps {
     yLoc: number;
 
     title?: string;
+    /** Title text size; 35 by default. */
+    textSize?: number;
     subTitle?: string;
     onClick?(): void;
     children?: React.ReactNode | React.ReactNode[];

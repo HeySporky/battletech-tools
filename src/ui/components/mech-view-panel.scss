@@ -1,0 +1,11 @@
+.mech-view-sheet {
+    display: block;
+    width: 100%;
+    padding: 0;
+    border: none;
+    background: none;
+    cursor: zoom-in;
+    &[aria-pressed="true"] {
+        cursor: zoom-out;
+    }
+}

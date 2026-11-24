@@ -4,6 +4,7 @@ import AerospaceFighter, { FIGHTER_ARCS, FIGHTER_CRITICAL_TRACKS, FIGHTER_HEAT_T
 import { FIGHTER_ATTACK_DIRECTIONS, FighterAttackDirection } from '../../../../data/fighter-hit-tables';
 import FighterDiagramSVG from '../../../components/svg/fighter-diagram-svg';
 import { fighterName } from './_fighterGroupTable';
+import { AERO_GROUND_EDITIONS, AERO_GROUND_RULES, AirToGroundAttack, IFlightStep, getControlRollTarget, getHexesToMove } from '../../../../utils/aero-ground-play';
 
 /**
  * Play panel for a fighter in the roster: resolve hits (hit location, Damage Threshold, Structural Integrity and
@@ -42,6 +43,20 @@ export default class FighterPlayPanel extends React.Component<IFighterPlayPanelP
         this._changed();
     }
 
+    explodeAmmo = (): void => {
+        const lines = this.props.fighter.explodeAmmunition();
+        this.setState({ log: [...lines, ...this.state.log].slice(0, 40) });
+        this._changed();
+    }
+
+    // Altitude and velocity on the low-altitude map (#137): the player moves the piece, this applies the book's thrust and roll rules.
+    private _flightStep = (result: IFlightStep, label: string): void => {
+        const lines = [...result.controlRolls.map((roll) => `${label}: Control Roll needed, ${roll.reason} (+${roll.modifier}), target ${getControlRollTarget(this.props.fighter.getPilot().piloting, roll.modifier, this.props.fighter.getControlRollModifier())}`),
+            ...result.notes.map((note) => `${label}: ${note}`)];
+        if (lines.length) this.setState({ log: [...lines, ...this.state.log].slice(0, 40) });
+        this._changed();
+    }
+
     // Clicking a pip marks damage up to it; clicking the last damaged pip clears it.
     toggleArmor = (arc: FighterArc, index: number): void => {
         const fighter = this.props.fighter;
@@ -55,6 +70,59 @@ export default class FighterPlayPanel extends React.Component<IFighterPlayPanelP
         const current = fighter.getInPlay().structureDamage;
         fighter.setStructureDamage(current === index + 1 ? index : index + 1);
         this._changed();
+    }
+
+    private _renderFlight = (): React.ReactNode => {
+        const fighter = this.props.fighter;
+        const flight = fighter.getFlight();
+        const rules = AERO_GROUND_RULES[fighter.getFlightRules()];
+        const attacks = (Object.keys(rules.attacks) as AirToGroundAttack[]).map((type) => ({ type, rule: rules.attacks[type]!, toHit: fighter.getAirToGroundAttack(type) }));
+        const set = (values: Partial<IFlightStep["state"]>): void => { fighter.setFlight(values); this._changed(); };
+        return (
+            <fieldset className="fieldset" data-testid="fighter-flight">
+                <legend>Altitude and Velocity ({fighter.getFlightRulesName()}, {rules.book})</legend>
+                <p className="small-text">
+                    Altitude 0 is landed or in space (the space rules apply there). The roster tracks the numbers and applies the rules; it does not draw
+                    the aerospace map. A low-altitude hex is about one ground mapsheet (500 m); on ground maps an aerodyne unit moves 16 hexes for each point of
+                    Velocity (TW pp.91-92).
+                </p>
+                <label>
+                    Rules:&nbsp;
+                    <select value={fighter.getFlightRules()} onChange={(e) => { fighter.setFlightRules(e.currentTarget.value); this._changed(); }}>
+                        {AERO_GROUND_EDITIONS.map((entry) => <option key={entry.tag} value={entry.tag}>{entry.name} ({entry.year})</option>)}
+                    </select>
+                </label>
+                &nbsp;
+                <label>Altitude:&nbsp;<input type="number" min={0} max={11} aria-label="Altitude" value={flight.altitude} onChange={(e) => set({ altitude: +e.currentTarget.value })} /></label>
+                &nbsp;
+                <label>Velocity:&nbsp;<input type="number" min={0} max={99} aria-label="Velocity" value={flight.velocity} onChange={(e) => set({ velocity: +e.currentTarget.value })} /></label>
+                <p>
+                    <strong>Thrust spent</strong>: {flight.thrustUsed} of {fighter.getCurrentSafeThrust()} safe / {fighter.getCurrentMaxThrust()} max
+                    &nbsp;|&nbsp;<strong>Hexes to move</strong>: {getHexesToMove(flight.velocity, fighter.getFlightRules())}
+                    &nbsp;|&nbsp;<strong>Control Rolls failed</strong>: {flight.controlRollsFailed}
+                </p>
+                <button className="btn btn-secondary btn-sm" onClick={() => { fighter.startFlightTurn(); this._changed(); }}>New turn (velocity loss)</button>&nbsp;
+                <button className="btn btn-secondary btn-sm" onClick={() => this._flightStep(fighter.accelerateFlight(1), "Speed up")}>+1 velocity</button>&nbsp;
+                <button className="btn btn-secondary btn-sm" onClick={() => this._flightStep(fighter.accelerateFlight(-1), "Slow down")}>-1 velocity</button>&nbsp;
+                <button className="btn btn-secondary btn-sm" onClick={() => this._flightStep(fighter.changeFlightAltitude(1), "Climb")}>Climb 1</button>&nbsp;
+                <button className="btn btn-secondary btn-sm" onClick={() => this._flightStep(fighter.changeFlightAltitude(-1), "Descend")}>Descend 1</button>&nbsp;
+                <button className="btn btn-primary btn-sm" onClick={() => this._flightStep(fighter.endFlightMovement(), "End of movement")}>End movement</button>&nbsp;
+                <button className="btn btn-secondary btn-sm" onClick={() => { fighter.recordControlRoll(true); this._changed(); }}>Control Roll failed</button>
+                <table className="table table-sm" data-testid="air-to-ground">
+                    <thead><tr><th>Air-to-ground attack</th><th>To-hit</th><th>Notes</th></tr></thead>
+                    <tbody>
+                        {attacks.map(({ type, rule, toHit }) => (
+                            <tr key={type}>
+                                <td>{rule.name}</td>
+                                <td>{toHit.allowed ? (toHit.baseToHit === null ? "unresolved" : toHit.autoMiss ? `${toHit.baseToHit} (misses)` : toHit.baseToHit) : "-"}</td>
+                                <td className="smaller-text">{toHit.allowed ? toHit.labels.join("; ") : toHit.reason}</td>
+                            </tr>
+                        ))}
+                    </tbody>
+                </table>
+                <p className="smaller-text">{rules.controlRollTriggers.join(". ")}.</p>
+            </fieldset>
+        );
     }
 
     render = (): React.ReactNode => {
@@ -105,6 +173,10 @@ export default class FighterPlayPanel extends React.Component<IFighterPlayPanelP
                         ) : null}
                     </div>
                 ) : null}
+
+                {fighter.isFlightMapAllowed() ? this._renderFlight() : (
+                    <p className="small-text" data-testid="flight-refused">Airships and VTOLs may not enter the low- or high-altitude maps (TW p.79).</p>
+                )}
 
                 <fieldset className="fieldset">
                     <legend>Resolve a Hit</legend>
@@ -220,6 +292,9 @@ export default class FighterPlayPanel extends React.Component<IFighterPlayPanelP
                                 onChange={(e) => { fighter.setHeat(+e.currentTarget.value || 0); this._changed(); }} />
                         </label>
                         <button className="btn btn-primary btn-sm" onClick={this.applyHeat}>End Turn: Apply Heat</button>
+                        {heatTriggers.some((trigger) => trigger.name === "Ammunition explosion") ? (
+                            <>&nbsp;<button className="btn btn-danger btn-sm" onClick={this.explodeAmmo} disabled={fighter.isDestroyed()}>Failed Avoid Roll: Explode Ammunition</button></>
+                        ) : null}
                         <p className="small-text">Tick the weapons fired this turn below. Each engine hit adds 2 heat a turn (TW p. 240).</p>
                     </fieldset>
                 ) : <p className="small-text">Conventional fighters have no Heat Scale (TM p. 193).</p>}

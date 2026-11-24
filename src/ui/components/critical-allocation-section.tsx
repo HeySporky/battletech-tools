@@ -24,7 +24,7 @@ export default class CriticalAllocationSection extends React.Component<ICritical
     }
 
     render = (): JSX.Element => {
-        let critItems: JSX.Element[] = [];
+        const critItems: JSX.Element[] = [];
         for( let critIndex = 0; critIndex <  this.props.crits.length; critIndex++ ) {
             let crit: ICriticalSlot | null = null;
             if( this.props.crits[ critIndex]) {

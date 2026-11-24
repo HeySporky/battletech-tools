@@ -1,6 +1,25 @@
+import { getUnitDialSetting, setUnitDialSetting } from "../utils/dial-weapons";
+import { advanceAutocannonTurn, declareClear, getAutocannonKind, isClearingAttempt, resolveClear, getMaxShots, getSelectedShots, normalizeAutocannonPlay, recordToHitRoll, canFire, type AutocannonKind, type IAutocannonPlay } from "../utils/autocannon-play";
 import { generateUUID } from "../utils/generateUUID";
-import { DEFAULT_RULES_EDITION, getSelectableRulesEditionTag } from "../data/rules-editions";
-import { getSkillMultiplier } from "../data/skill-multipliers";
+import { getEWarKind, normalizeEWarPlay, type IEWarGear, type IEWarPlayState } from "../utils/ewar-play";
+import { getAmmoExplosion, getAmmoExplosionRules } from "../data/ammo-explosion";
+import { IGameSettingsUnit, UnitGameSettings } from "./unit-game-settings";
+import { chooseEra } from "../data/era-choice";
+import { copyCatalogRecord, findUnitCatalogRecord, getUnitCatalogRecords } from "../data/equipment-lookup";
+import { TechnicalReadout } from "./technical-readout";
+import type { ITechnicalReadoutExport } from "../data/technical-readout-interfaces";
+import { IAssignedQuirk, IQuirkTargets, QuirkUnitType } from "../data/quirk-interfaces";
+import { getQuirkIssues, getQuirkTargets } from "../data/quirk-registry";
+import { QuirkList } from "./quirk-list";
+import { getAlphaStrikeQuirks } from "../utils/quirk-effects";
+import { IVehiclePrinting, SUPER_HEAVY_VTOL_FACINGS, TURRET_WEAPON_ARC, getVehiclePrinting, getVehiclePrintedRule } from "../data/vehicle-printings";
+import { CalcTrace, ICalcBreakdown, ICalcStep, ICalcStepInput, formatCalcNumber, renderCalcStepsHtml, renderCalcStepsTable } from "../data/calc-steps";
+import { NO_BATTLE_VALUE_STEPS } from "../data/calc-steps-mech-bv1";
+import { OLDER_COST_ARMOR, OLDER_COST_ENGINES, VEHICLE_BV2_STEPS, VEHICLE_COST_STEPS, getVehicleBv1Steps, getVehicleCostSteps } from "../data/calc-steps-vehicle";
+import { SUPPORT_VEHICLE_BV2_STEPS, SUPPORT_VEHICLE_COST_STEPS } from "../data/calc-steps-support-vehicle";
+import { CLAN_CASE_COST } from "../data/calc-steps-mech-cost";
+import { DEFAULT_RULES_EDITION, getRulesEdition, getSelectableRulesEditionTag } from "../data/rules-editions";
+import { BattleValueC3Type, IBattleValueC3Part, IBattleValueTagShare, getBattleValueC3Part, getBattleValueC3Type, getBattleValueFor, getBattleValueSkillEdition, getBattleValueTagShare, getSkillMultiplier, BV1_VEHICLE_TYPE_MODIFIERS, rateBattleValue1, editionHasBattleValue, getBattleValueEdition, getBattleValueRules, getSpeedFactor, isBattleValue1Defensive } from "../data/battle-value";
 import {
     getDamageGroupings, getDualTurretHit, getFacingAfterFallDirection, getLargeNavalVesselHitLocation, getSuperheavyVehicleHitLocation, getVehicleCriticalEffect,
     getVehicleHitLocation, getVehicleMotiveDamageLevel, isRearwardAttack,
@@ -9,6 +28,7 @@ import {
 } from "../data/vehicle-hit-tables";
 import Pilot, { IPilot } from "./pilot";
 import { AlphaStrikeUnit, IASMULUnit } from "./alpha-strike-unit";
+import { getASMunition } from "../data/alpha-strike-munitions";
 import { mechArmorTypes } from "../data/mech-armor-types";
 import { mechEngineOptions } from "../data/mech-engine-options";
 import { engineMeetsRequirement, FUSION_ENGINE_TAGS, getLargeEngineType, mechEngineTypes } from "../data/mech-engine-types";
@@ -38,11 +58,11 @@ import {
     getVehicleBayAlphaStrikeSpecials, getVehicleBayCost, getVehicleBaySlots, getVehicleBayType, getVehicleBayWeight, IVehicleBay,
     MAX_VEHICLE_BAY_COUNT, MAX_VEHICLE_BAYS, MAX_VEHICLE_CARGO_TONS, normalizeVehicleBays, VEHICLE_BAY_TYPES,
 } from "../data/vehicle-transport-bays";
-import { CUSTOM_HOMEBREW_RULES_LEVEL, EXPERIMENTAL_RULES_LEVEL, equipmentMatchesIdentifier, getAmmoBattleValuePerTon, getBattleArmorScaleListByTech, getCompatibleAmmo, getEffectiveIntroduction, getEquipmentListByTech, getEquipmentRulesLevel, getStarLeagueCarryOverDates, getWeaponShotsPerTon, isEquipmentWithinRulesLevel } from "../data/equipment-registry";
-import { isTargetingComputerWeapon, sizeVariableEquipment } from "../data/variable-equipment";
+import { CUSTOM_HOMEBREW_RULES_LEVEL, EXPERIMENTAL_RULES_LEVEL, getItemBattleValue, getLauncherBattleValueWithoutFireControl, equipmentMatchesIdentifier, getAmmoBattleValuePerTon, getBattleArmorScaleListByTech, getAmmoFamily, getCompatibleAmmo, getDatesAvailability, getEquipmentListByTech, getEquipmentRulesLevel, mustUseStarLeagueVersion, starLeagueVersionInEra, getWeaponShotsPerTon, isEquipmentOffered, isUnderUnitLimit, getTechDatesAvailability, getAlphaStrikeEquipmentSpecials } from "../data/equipment-registry";
+import { isTargetingComputerWeapon, sizeTargetingComputers, sizeVariableEquipment } from "../data/variable-equipment";
 import { getFractionalArmorTonsPerPoint, getFractionalEngineWeight, roundUpToKilogram } from "../data/fractional-accounting";
-import { getBattleArmorScaleExplosionDamage } from "../data/battle-armor-scale-equipment";
 import { getWeaponExplosionDamage } from "../data/weapon-explosions";
+import { getMountedHeat, mateLaserInsulators } from "../data/laser-insulator";
 import { findByTag, matchesTag } from "../data/tag-match";
 import { getMovementModifier } from "../utils";
 import {
@@ -82,10 +102,18 @@ export interface IVehicleEquipmentExport {
     size?: number;
     /** A half-ton bin of machine gun, nail gun or rivet gun ammunition (TM pp.107, 137). */
     halfTon?: boolean;
+    /** The launcher an ammunition bin is loaded for, where several mounted weapons could fire it. */
+    feedsWeaponTag?: string;
+    /** An item built to the other tech base, priced at that tech base's Battle Value (TO:AUE p.197). */
+    builtTechBase?: "is" | "clan";
     /** A Light or Medium weapon on a pintle (TM p.234). */
     pintle?: boolean;
+    /** A side weapon in that side's sponson turret (TO p. 348). */
+    sponson?: boolean;
     /** Drones a Drone Carrier Control System controls (TO:AUE p.117). */
     drones?: number;
+    /** Tons of cargo a Dumper dumps (TM p.243). */
+    dumped?: number;
     currentAmmo?: number;
     selectedAmmoBinUUID?: string;
     currentAdditionalArmor?: number;
@@ -187,6 +215,10 @@ export interface IVehicleInPlay {
     destroyedWeapons: string[];
     movementMode: VehicleMovementMode;
     hexesMoved: number;
+    /** The enhanced satellite uplink is switched off (Maximum Tech p.59: switched in the End Phase). */
+    satelliteUplinkOff: boolean;
+    /** The vehicle moved in the turn before this one: with a stabilizer hit it costs an HQ its bonus (Maximum Tech p.70). */
+    movedLastTurn: boolean;
     /** A VTOL or WiGE on the ground (not airborne). */
     landed: boolean;
     /**
@@ -237,6 +269,8 @@ const newInPlay = (): IVehicleInPlay => ({
     destroyedWeapons: [],
     movementMode: "stationary",
     hexesMoved: 0,
+    satelliteUplinkOff: false,
+    movedLastTurn: false,
     landed: false,
     overDeepWater: false,
     turretFacing: {},
@@ -259,6 +293,8 @@ export const VEHICLE_MAX_SENSOR_HITS = 4;
 export const VEHICLE_MAX_ELEVATION = 100;
 export const VEHICLE_MAX_HEXES_MOVED = 100;
 const MAX_PLAY_COUNTER = 100;
+/** Support Vehicle chassis modifications named in TO:AUE p.193's Combat Vehicle Chassis Modifiers table, by the same tag. */
+const SUPPORT_BV_CHASSIS_MODIFICATIONS = ["dune-buggy", "environmental-sealing"];
 /** Most equipment entries read from a save; far above any real design, low enough that import stays fast. */
 export const MAX_VEHICLE_EQUIPMENT = 500;
 /** Most Motive System Damage results kept from a save (every roll after Major damage changes nothing). */
@@ -274,6 +310,11 @@ export const isTurretLocation = (location: string | undefined): location is Vehi
 /** A Large Naval Vessel's crew boxes, as a DropShip's (TO:AUE p.27). */
 export const LARGE_NAVAL_CREW_BOXES = 6;
 
+/** The side locations whose weapons may go in that side's sponson turret (TO p. 348). */
+const SPONSON_SIDE_LOCATIONS: string[] = ["left", "right", "frontLeft", "frontRight", "rearLeft", "rearRight"];
+const VTOL_MAST_MOUNT = "vtol-mast-mount";
+// TAG and C3 masters may not go in a Mast Mount (TO:AUE p.162).
+const MAST_MOUNT_BARRED = ["is-tag", "clan-tag", "clan-light-tag", "prototype-tag", "c3-computer-master", "c3-boosted-master", "c3-emergency-master"];
 const VEHICLE_LOCATION_TAGS: VehicleLocation[] = ["front", "left", "right", "rear", "frontLeft", "frontRight", "rearLeft", "rearRight", "rotor", ...VEHICLE_TURRET_LOCATIONS];
 const MOTIVE_HIT_LEVELS: VehicleMotiveHit[] = ["minor", "moderate", "heavy", "immobilized"];
 const MOVEMENT_MODES: VehicleMovementMode[] = ["stationary", "cruise", "flank", "jump"];
@@ -347,6 +388,8 @@ export const normalizeVehicleInPlay = (saved: unknown): IVehicleInPlay => {
         destroyedWeapons: savedStrings(saved.destroyedWeapons).slice(0, MAX_VEHICLE_EQUIPMENT),
         movementMode: MOVEMENT_MODES.includes(saved.movementMode as VehicleMovementMode) ? saved.movementMode as VehicleMovementMode : "stationary",
         hexesMoved: Math.floor(savedNumber(saved.hexesMoved, 0, 0, VEHICLE_MAX_HEXES_MOVED)),
+        satelliteUplinkOff: flag(saved.satelliteUplinkOff, false),
+        movedLastTurn: flag(saved.movedLastTurn, false),
         landed: flag(saved.landed, defaults.landed),
         overDeepWater: flag(saved.overDeepWater, defaults.overDeepWater),
         turretFacing,
@@ -376,6 +419,8 @@ export const normalizeVehicleExport = (raw: unknown): { vehicle: IVehicleExport 
 };
 
 /** Escapes text written into the HTML calculation logs, which the summary page renders as markup. */
+const COST_NUMBER_FORMAT = new Intl.NumberFormat("en-US", { maximumFractionDigits: 3 });
+
 const escapeLogText = (value: unknown): string => String(value ?? "")
     .replace(/&/g, "&amp;")
     .replace(/</g, "&lt;")
@@ -444,7 +489,15 @@ export interface IFrankenVehicle {
 export interface IVehicleExport {
     /** The rules edition it is built under (rules-editions.ts); absent means Total Warfare. */
     rulesEdition?: string;
+    /** The printing chosen for each rule the books print differently (data/vehicle-printings.ts). */
+    printings?: Record<string, string>;
+    /** Support Vehicle items a printed Combat Vehicle lists, kept with no effect. */
+    printedSupportItems?: string[];
+    rulesLevel?: number;
+    rulesets?: string[];
     uuid: string;
+    tro?: ITechnicalReadoutExport;
+    quirks?: IAssignedQuirk[];
     lastUpdated: Date;
     name: string;
     model: string;
@@ -454,9 +507,15 @@ export interface IVehicleExport {
     hasTurret: boolean;
     dualTurret?: boolean;
     sponsonTurrets?: boolean;
+    /** Each equipment entry says whether it is in a sponson; older saves put every side weapon in one. */
+    sponsonMounts?: boolean;
     frankenVehicle?: IFrankenVehicle;
     /** An OmniVehicle: one base chassis whose pod-mounted equipment changes between configurations (TM pp.95-97). */
     omni?: boolean;
+    /** An OmniVehicle's base chassis turret weight, fixed for every configuration (TM p.108). */
+    omniTurretWeight?: number;
+    /** Inner Sphere-chassis Mixed Tech with Clan CASE (TM p.210). */
+    clanCASE?: boolean;
     jumpMP?: number;
     troopSpace?: number;
     /** Transport bays other than the troop space (TM p.239). */
@@ -469,7 +528,11 @@ export interface IVehicleExport {
     era: string;
     engineType: string;
     cruiseMP: number;
+    /** An unpowered Trailer: no engine, control systems or crew (TM pp.99, 101, 103). */
+    unpoweredTrailer?: boolean;
     armorType: string;
+    /** The armor's version (Inner Sphere / Star League or Clan) where the design chose one (#168). */
+    armorTechBase?: "is" | "clan";
     armorAllocation: IVehicleArmorAllocation;
     /** Patchwork Armor: armor type tag by location; present only when armorType is "patchwork". */
     patchworkArmor?: Partial<Record<VehicleLocation, string>>;
@@ -481,6 +544,10 @@ export interface IVehicleExport {
     supportVehicle?: IVehicleSupportExport;
     pilot?: IPilot;
     inPlay?: IVehicleInPlay;
+    ewarPlay?: IEWarPlayState;
+    autocannonPlay?: IAutocannonPlay;
+    /** Tag of the special ammunition the Alpha Strike card plays (#647). */
+    asSpecialAmmoTag?: string;
 }
 
 /** A Support Vehicle's construction choices: the parts of TM pp.116-139 that Combat Vehicles do not have. */
@@ -555,12 +622,24 @@ const ENGINE_ITEM_SLOTS: Record<string, number> = { light: 1, xl: 2, clan_xl: 1,
 /** Vehicular jump jets: Advanced (TO:AUE); prototype 2650 (TH), production ~3083 (CHH), extinct 2840 (IO p. 35). */
 export const VEHICLE_JUMP_JET_INTRODUCED = 3083;
 
-export default class Vehicle {
+export default class Vehicle implements IGameSettingsUnit {
     private _uuid: string = generateUUID();
+    public tro: TechnicalReadout = new TechnicalReadout();
+
+    /** The design quirks assigned to this unit (quirk tables, Campaign Operations pp.228 and 232). */
+    public quirks: QuirkList = new QuirkList();
+    /** The force's "Game year", set by `BattleMechForce.syncQuirkPlayYear`; not saved with the unit. */
+    public quirkPlayYear: number | null = null;
     public lastUpdated: Date = new Date();
 
     private _name: string = "";
     private _rulesEdition: string = DEFAULT_RULES_EDITION;
+    /** The printing chosen for each rule the books print differently (data/vehicle-printings.ts); absent = the default. */
+    private _printings: Record<string, string> = {};
+    /** Support Vehicle items a printed Combat Vehicle lists (Off-Road or Armored chassis, Advanced Fire Control), kept with no effect. */
+    private _printedSupportItems: string[] = [];
+    /** The rules level and Special Rulesets the design is built under (#324). */
+    public readonly gameSettings = new UnitGameSettings();
     private _model: string = "";
     private _nickname: string = "";
 
@@ -572,6 +651,10 @@ export default class Vehicle {
     private _frankenVehicle: IFrankenVehicle | null = null;
     private _sponsonTurrets: boolean = false;
     private _omni: boolean = false;
+    /** An OmniVehicle's base chassis turret weight, fixed for every configuration (TM p.108); 0 when not set. */
+    private _omniTurretWeight: number = 0;
+    /** Inner Sphere-chassis Mixed Tech: Clan CASE, weightless, protecting the ammunition (TM p.210). */
+    private _clanCASE: boolean = false;
     private _podUUIDs: Set<string> = new Set();
     private _jumpMP: number = 0;
     private _troopSpace: number = 0;
@@ -586,6 +669,34 @@ export default class Vehicle {
     // Whether battle armor items were mounted at the last recalculation: only the first one turns Fractional Accounting on.
     private _hadBattleArmorEquipment = false;
     private _inPlay: IVehicleInPlay = newInPlay();
+    /** The Flank MP of the tractor-trailer rig the roster puts this vehicle in, for Battle Value 1 (Maximum Tech p.92). */
+    private _rigFlankMP: number | null = null;
+    /** What the unit has switched on, been hit by or been told by the force board in E-War play (#642). */
+    public ewarPlay: IEWarPlayState = {};
+    /** Rotary and Ultra AC shots and jams, by uuid (#643). */
+    public autocannonPlay: IAutocannonPlay = {};
+    private _alphaStrikeSpecialAmmoTag = "";
+
+    /** Special ammunition loaded in a bin (AP, LRM and the like): the rounds the Alpha Strike card can play as a munition (#647). */
+    public getAlphaStrikeSpecialAmmoOptions(): IEquipmentItem[] {
+        const available = new Map<string, IEquipmentItem>();
+        for (const item of this._equipmentList) if (item.isAmmo && item.isSpecialAmmo) available.set(item.tag, item);
+        return Array.from(available.values());
+    }
+
+    /** Tag of the selected special ammunition, or "" when it is not (or no longer) loaded. */
+    public getAlphaStrikeSpecialAmmoTag(): string {
+        const stored = this._alphaStrikeSpecialAmmoTag;
+        if (!stored) return "";
+        return this.getAlphaStrikeSpecialAmmoOptions().find((ammo) => equipmentMatchesIdentifier(ammo, stored))?.tag ?? "";
+    }
+
+    public setAlphaStrikeSpecialAmmoTag(ammoTag: string): string {
+        const options = this.getAlphaStrikeSpecialAmmoOptions();
+        const selected = options.find((ammo) => ammo.tag === ammoTag) ?? options.find((ammo) => equipmentMatchesIdentifier(ammo, ammoTag));
+        this._alphaStrikeSpecialAmmoTag = selected?.tag ?? "";
+        return this._alphaStrikeSpecialAmmoTag;
+    }
     // Rolls the rules call for after a hit, a critical hit or another roll; not saved.
     private _followUps: VehicleFollowUpRoll[] = [];
     private _importIssues: string[] = [];
@@ -595,8 +706,12 @@ export default class Vehicle {
 
     private _engineType: IEngineType = mechEngineTypes[0];
     private _cruiseMP: number = 3;
+    /** A Combat Vehicle built as an unpowered Trailer: no engine, control systems or crew, Cruise MP 0 (TM pp.99, 101, 103). */
+    private _unpoweredTrailer = false;
 
     private _armorType: IArmorType = mechArmorTypes[0];
+    /** The chosen version of the armor where the vehicle may choose (getComponentTechBases); checked at read. */
+    private _armorTechBaseChoice: "is" | "clan" | null = null;
     private _armorAllocation: IVehicleArmorAllocation = emptyArmorAllocation();
     public static readonly PATCHWORK_ARMOR_TAG = "patchwork";
     /** Patchwork Armor: the armor type tag of each location (TO:AUE p.189); standard where none is set. */
@@ -610,11 +725,15 @@ export default class Vehicle {
     private _equipmentList: IEquipmentItem[] = [];
     private _pilot: Pilot = new Pilot();
 
-    private _weights: { name: string; weight: number }[] = [];
+    /** The tonnage breakdown; equipment lines carry their item (the TRO construction table reads it). */
+    private _weights: { name: string; weight: number; item?: IEquipmentItem }[] = [];
     private _battleValue: number = 0;
     private _calcLogBV: string = "";
+    /** The BV2 calculation as cited steps (#599). */
+    private _bv2Steps: ICalcStep[] = [];
     private _cost: number = 0;
     private _calcLogCost: string = "";
+    private _costSteps: ICalcStep[] = [];
     private _currentTonnage: number = 0;
     private _remainingTonnage: number = 0;
 
@@ -629,16 +748,56 @@ export default class Vehicle {
         return this._uuid;
     }
 
+    /** Which column of the quirk tables this unit is graded by. */
+    public getQuirkUnitType(): QuirkUnitType { return "vehicle"; }
+
+    /** What the quirk picker can attach quirks to on this unit. */
+    public getQuirkTargets(): IQuirkTargets {
+        return getQuirkTargets(this.getLocations().map((location) => ({ tag: location.tag, label: location.name })), this._equipmentList.filter((item) => !item.isAmmo).map((item) => ({ ...item, label: (item.location ? `${item.name} (${this.getLocations().find((location) => location.tag === item.location)?.name ?? item.location})` : item.name) })));
+    }
+
+    /** One line for each quirk this unit could not be given now: rules edition, rules level or unit type. */
+    public getQuirkIssues(rulesLevel: number): string[] {
+        return getQuirkIssues(this.quirks.getAll(), this.getQuirkUnitType(), this._rulesEdition, rulesLevel, undefined, this.getQuirkTargets());
+    }
+
     public getName(): string {
         return this._name;
     }
 
     /** The rules edition the design is built under. Only the editions with rules for this unit type are offered. */
     public getRulesEdition(): string { return this._rulesEdition; }
+
+    /** Support Vehicle items a printed Combat Vehicle lists: kept as printed, with no weight, cost, Battle Value or other effect. */
+    public getPrintedSupportItems(): string[] { return [...this._printedSupportItems]; }
+
+    public addPrintedSupportItem(name: string): void {
+        if (!this._printedSupportItems.includes(name)) this._printedSupportItems.push(name);
+    }
+
+    /** The printing of a rule this design follows: the one it chose, otherwise the default of the rule. */
+    public getPrinting(ruleId: string): IVehiclePrinting {
+        return getVehiclePrinting(ruleId, this._printings[ruleId]) as IVehiclePrinting;
+    }
+
+    /** Chooses a printing of a rule; an unknown printing keeps the current one. Returns the printing now followed. */
+    public setPrinting(ruleId: string, tag: string): IVehiclePrinting {
+        const rule = getVehiclePrintedRule(ruleId);
+        if (rule?.printings.some((printing) => printing.tag === tag)) {
+            if (tag === rule.printings[0].tag) delete this._printings[ruleId];
+            else this._printings[ruleId] = tag;
+            this._calc();
+        }
+        return this.getPrinting(ruleId);
+    }
+
     public setRulesEdition(editionTag: string): string {
         this._rulesEdition = getSelectableRulesEditionTag(editionTag, "vehicle");
         return this._rulesEdition;
     }
+    public getTechTag(): string { return this.getTech().tag; }
+    public setTechTag(tag: string): void { this.setTech(tag); }
+    public chooseEra(tag: string): void { chooseEra(this, tag); }
 
     public setName(name: string): string {
         this._name = name;
@@ -687,6 +846,17 @@ export default class Vehicle {
     public isSuperheavy(): boolean {
         if (this._support) return this.getSupportVehicleWeightClass()?.size === "large";
         return this._tonnage > this._motiveType.standardMaxTonnage;
+    }
+
+    /**
+     * Six facings, the sides split front and rear: Super-Heavy Combat Vehicles "apart from VTOLs" (TO:AUE p.190; the
+     * single-volume Tactical Operations of 2008 and 2012, p.378, gave VTOLs the six as well) and Large Support
+     * Vehicles. VTOLs keep Front, Left, Right, Rear and Rotor at every size (Support Vehicle Internal Locations Table,
+     * TM p.124; the Large Cascatelle, TRO Vehicle Annex).
+     */
+    public hasSplitSides(): boolean {
+        if (this._motiveType.hasRotor && !this._support) return this.isSuperheavy() && this.getPrinting(SUPER_HEAVY_VTOL_FACINGS).tag === "to-2008";
+        return this.isSuperheavy() && !this._motiveType.hasRotor;
     }
 
     // --- Support Vehicles (TM pp.116-139) ---
@@ -980,16 +1150,21 @@ export default class Vehicle {
         return crew + getSupportVehicleOfficers(crew);
     }
 
+    /** True with a Drone (Remote) Operating System installed (TO:AUE p.117). */
+    public hasDroneOperatingSystem(): boolean {
+        return this._equipmentList.some((item) => item.variableFormula === "drone-operating-system");
+    }
+
     /**
-     * Gunners on a Small Support Vehicle (TM p.131): without fire control, each weapon's own crew (a Light or
-     * Medium weapon's Crew value, TM p.137); with fire control, 1 per facing that has weapons, each pintle and the
-     * turret counting as a facing of its own; advanced fire control's count includes the driver.
+     * Gunners on a Small Support Vehicle (TM p.131): without fire control, 1 per weapon; with fire control, 1 per
+     * facing that has weapons, each pintle and the turret counting as a facing of its own; advanced fire control's
+     * count includes the driver. TM p.136's text would count a Light or Medium weapon's Crew value instead; the table,
+     * the printed designs (the Outrider, Touring the Stars: Tortuga Prime p.11) and MegaMek use 1 per weapon.
      */
     private _smallSupportVehicleGunners(): number {
         const weapons = this._equipmentList.filter((item) => this._isWeapon(item));
         if (!this._support || weapons.length === 0) return 0;
-        const crewOf = (item: IEquipmentItem) => findSupportVehicleLightWeapon(item.tag)?.crew ?? 1;
-        if (this._support.fireControl === "none") return weapons.reduce((sum, item) => sum + crewOf(item), 0);
+        if (this._support.fireControl === "none") return weapons.length;
         const facings = new Set(weapons.map((item) => `${item.location ?? ""}${item.pintle ? "-pintle" : ""}`)).size;
         return this._support.fireControl === "advanced" ? Math.max(0, facings - 1) : facings;
     }
@@ -1097,6 +1272,7 @@ export default class Vehicle {
             if (!item.isAmmo && !this._isEquipmentAllowedForVehicle(item)) issues.push(`${item.name} cannot be mounted on this Support Vehicle`);
         }
         if (this.getUsedItemSlots() > this.getTotalItemSlots()) issues.push(`${this.getUsedItemSlots()} item slots used of ${this.getTotalItemSlots()} (TM p.120)`);
+        if (this.getCurrentTonnage() > this.getTonnage()) issues.push(`${this.getCurrentTonnage()} tons used of ${this.getTonnage()}`);
         return issues;
     }
 
@@ -1112,31 +1288,67 @@ export default class Vehicle {
     }
 
     public setSponsonTurrets(sponsons: boolean): boolean {
+        const had = this._sponsonTurrets;
         this._sponsonTurrets = sponsons && this.canHaveSponsonTurrets();
+        // Fitting sponsons moves the side weapons into them, as before sponsons were placement choices; the designer can
+        // move any back out. Taking the sponsons off leaves the weapons on their sides.
+        if (this._sponsonTurrets && !had) for (const item of this._equipmentList) item.sponson = this._canBeSponsonMounted(item);
+        if (!this._sponsonTurrets) for (const item of this._equipmentList) delete item.sponson;
         this._calc();
         return this._sponsonTurrets;
+    }
+
+    /** A weapon on a side (any side facing of a superheavy) can go in that side's sponson. */
+    private _canBeSponsonMounted(item: IEquipmentItem): boolean {
+        return this.isSponsonWeapon(item) && !!item.location && this.isSponsonSide(item.location);
+    }
+
+    /** True for a weapon this vehicle could put in a sponson: it has sponson turrets and the item is a weapon. */
+    public isSponsonWeapon(item: IEquipmentItem): boolean {
+        return this._sponsonTurrets && !item.isAmmo && (item.damage !== undefined || !!item.range);
+    }
+
+    /** True for a side location, whose weapons may go in that side's sponson. */
+    public isSponsonSide(location: string): boolean {
+        return SPONSON_SIDE_LOCATIONS.includes(location);
+    }
+
+    /** True for a side weapon the designer put in its side's sponson turret (beta feedback 2026-10-21; TO p. 348). */
+    public isSponsonMounted(item: IEquipmentItem): boolean {
+        return this._sponsonTurrets && !!item.sponson;
+    }
+
+    /** Puts a side weapon in its side's sponson, or takes it out; false when it cannot go in one. */
+    public setEquipmentSponson(uuid: string, sponson: boolean): boolean {
+        const item = this._equipmentList.find((equipment) => equipment.uuid === uuid);
+        if (!item || (sponson && !this._canBeSponsonMounted(item))) return false;
+        if (sponson) item.sponson = true; else delete item.sponson;
+        this._calc();
+        return true;
     }
 
     private _sideWeaponTons(side: "left" | "right"): number {
         const locations = side === "left" ? ["left", "frontLeft", "rearLeft"] : ["right", "frontRight", "rearRight"];
         return this._equipmentList
-            .filter((item) => !item.isAmmo && !!item.location && locations.includes(item.location) && (item.damage !== undefined || !!item.range))
+            .filter((item) => this.isSponsonMounted(item) && !!item.location && locations.includes(item.location))
             .reduce((sum, item) => sum + item.weight, 0);
     }
 
-    /** Sponson weight: 10% of the weapons in both sponsons, 5% a side, each rounded up to the half ton (TO p. 411). */
+    /**
+     * Sponson weight: 10% of all sponson-mounted weapons and equipment together, rounded up to the half ton once
+     * (TO:AUE p.158, corrected 7th printing; TO 2008 p.411 had 5% a side, each rounded).
+     */
     public getSponsonWeight(): number {
         if (!this._sponsonTurrets) return 0;
-        const side = (tons: number) => this._roundWeight(tons * 0.05);
-        return side(this._sideWeaponTons("left")) + side(this._sideWeaponTons("right"));
+        return this._roundWeight((this._sideWeaponTons("left") + this._sideWeaponTons("right")) * 0.1);
     }
 
-    /** Both sponsons must carry the same tonnage of weapons, not necessarily the same weapons (TO p. 411). */
+    /**
+     * What is wrong with the sponsons; nothing now: the two "do not have to assign the same tonnage" (TO:AUE p.158,
+     * corrected 7th printing, dropping TO 2008 p.411's equal-tonnage rule).
+     */
     public getSponsonIssue(): string | null {
-        if (!this._sponsonTurrets) return null;
-        const left = this._sideWeaponTons("left");
-        const right = this._sideWeaponTons("right");
-        return left === right ? null : `Sponsons must carry the same tonnage of weapons (left ${left} t, right ${right} t)`;
+        return null;
     }
 
     /**
@@ -1260,17 +1472,57 @@ export default class Vehicle {
         return this.getFrankenVehicle();
     }
 
-    /** Keeps a FrankenVehicle legal after the chassis changes: no turret, no FrankenVehicle; no donor heavier than the chassis. */
-    /** Drops chassis modifications the motive type can no longer take, and all of them on a Support Vehicle. */
+    /**
+     * Drops chassis modifications the motive type can no longer take; a Support Vehicle keeps only those open to Support
+     * Vehicles (the Armored Motive System, TO:AUE p.94), its own being the TechManual's (getSupportVehicleChassisModifications).
+     */
     private _pruneChassisModifications(): void {
-        this._chassisModifications = this._support ? [] : this._chassisModifications
-            .filter((tag) => findCombatVehicleChassisModification(tag)?.motives.includes(this._motiveType.tag));
+        this._chassisModifications = this._chassisModifications.filter((tag) => {
+            const mod = findCombatVehicleChassisModification(tag);
+            return !!mod && mod.motives.includes(this._motiveType.tag) && (!this._support || !!mod.supportVehicles);
+        });
     }
 
-    /** Chassis modifications this Combat Vehicle's motive type may take (TO:AUE p.114). */
-    public getAvailableChassisModifications(): ICombatVehicleChassisModification[] {
-        if (this._support) return [];
-        return COMBAT_VEHICLE_CHASSIS_MODIFICATIONS.filter((mod) => mod.motives.includes(this._motiveType.tag));
+    /** Whether a dated chassis modification is allowed in the vehicle's era at this rules level; undated ones always are. */
+    private _chassisModificationInEra(mod: ICombatVehicleChassisModification, rulesLevel: number): boolean {
+        return !mod.dates || this._sidedDatesInEra(mod.dates, rulesLevel);
+    }
+
+    /** Whether either side's dates the tech base can use allow it in the vehicle's era at this rules level. */
+    private _sidedDatesInEra(dates: { is: ITechDates; clan: ITechDates }, rulesLevel: number): boolean {
+        return this._techSides(dates).some((side) => this._datesAvailability(side.dates, rulesLevel).available);
+    }
+
+    /** Chassis modifications this Combat Vehicle's motive type, era and rules level allow (TO:AUE pp.94, 114). */
+    public getAvailableChassisModifications(rulesLevel: number = 2): ICombatVehicleChassisModification[] {
+        return COMBAT_VEHICLE_CHASSIS_MODIFICATIONS.filter((mod) => (!this._support || mod.supportVehicles) && mod.motives.includes(this._motiveType.tag) && this._chassisModificationInEra(mod, rulesLevel));
+    }
+
+    /** What the chassis modification list shows: those offered plus any mounted one the era or rules level no longer offers (so it can be unticked). */
+    public getChassisModificationOptions(rulesLevel: number = 2): ICombatVehicleChassisModification[] {
+        const offered = this.getAvailableChassisModifications(rulesLevel);
+        return [...offered, ...this.getChassisModifications().filter((mod) => !offered.includes(mod))];
+    }
+
+    /** Mounted chassis modifications the current era no longer allows (a design set in one era, then moved to an earlier one). */
+    /** The tech sides whose dates apply to this vehicle: Inner Sphere, Clan, or both for mixed tech. */
+    private _techSides(dates: { is: ITechDates; clan: ITechDates }): { side: string; dates: ITechDates }[] {
+        const techTag = this._tech.tag;
+        return [
+            ...(["is", "mis", "mclan"].includes(techTag) ? [{ side: "Inner Sphere", dates: dates.is }] : []),
+            ...(["clan", "mis", "mclan"].includes(techTag) ? [{ side: "Clan", dates: dates.clan }] : []),
+        ];
+    }
+
+    public getChassisModificationIssues(): string[] {
+        const issues: string[] = [];
+        for (const mod of this.getChassisModifications()) {
+            if (!mod.dates || this._chassisModificationInEra(mod, EXPERIMENTAL_RULES_LEVEL)) continue;
+            const options = this._techSides(mod.dates);
+            const earliest = options.reduce((best, option) => (option.dates.prototype ?? Infinity) < (best.dates.prototype ?? Infinity) ? option : best);
+            issues.push(`${mod.name}: not available before ${earliest.dates.prototype} (${earliest.side} prototype, ${mod.book} p.${mod.page})`);
+        }
+        return issues;
     }
 
     public getChassisModifications(): ICombatVehicleChassisModification[] {
@@ -1283,16 +1535,16 @@ export default class Vehicle {
     }
 
     /** Fits or removes a chassis modification; Limited and Fully Amphibious replace each other. */
-    public setChassisModification(tag: string, on: boolean): void {
+    public setChassisModification(tag: string, on: boolean, rulesLevel: number = 2): void {
         const mod = findCombatVehicleChassisModification(tag);
         if (!mod) return;
         const others = this._chassisModifications.filter((existing) => existing !== mod.tag && !(on && (mod.excludes ?? []).includes(existing)));
-        this._chassisModifications = on && this.getAvailableChassisModifications().includes(mod) ? [...others, mod.tag] : others;
+        this._chassisModifications = on && this.getAvailableChassisModifications(rulesLevel).includes(mod) ? [...others, mod.tag] : others;
         this._calc();
     }
 
     public getChassisModificationWeight(mod: ICombatVehicleChassisModification): number {
-        return getCombatVehicleChassisModificationWeight(mod, this._tonnage);
+        return getCombatVehicleChassisModificationWeight(mod, this._tonnage, ["clan", "mclan"].includes(this._tech.tag) ? "clan" : "is");
     }
 
     private _pruneFrankenVehicle(): void {
@@ -1317,9 +1569,16 @@ export default class Vehicle {
      * nearest half-ton (the kilogram under Fractional Accounting), minimum half a ton.
      */
     public getTurretWeight(location: "turret" | "turret2"): number {
-        return Math.max(0.5, this._roundWeight(this._equipmentList
+        // An OmniVehicle's turret keeps its base chassis weight in every configuration (TM p.108).
+        if (location === "turret" && this.getOmniTurretWeight() > 0) return this.getOmniTurretWeight();
+        return Math.max(0.5, this._roundWeight(this._turretEquipmentTons(location) * 0.1));
+    }
+
+    /** What a turret holds, ammunition aside. */
+    private _turretEquipmentTons(location: "turret" | "turret2"): number {
+        return Math.round(this._equipmentList
             .filter((item) => item.location === location && !item.isAmmo)
-            .reduce((sum, item) => sum + item.weight, 0) * 0.1));
+            .reduce((sum, item) => sum + item.weight, 0) * 1000) / 1000;
     }
 
     /** +1 to Driving Skill Rolls when the turret is heavier than the one the chassis was built for. */
@@ -1435,6 +1694,9 @@ export default class Vehicle {
      * minimum crew plus any extra crew (TM p.131).
      */
     public getCrew(): number {
+        // "A vehicle using a remote drone operating system is always considered to have a Crew of 0 for construction
+        // purposes" (TO:AUE p.117).
+        if (this.hasDroneOperatingSystem() || this._unpoweredTrailer) return 0;
         if (this._support) return this._supportVehicleCrew(this._support.extraCrew ?? 0);
         return Math.ceil(this._tonnage / 15);
     }
@@ -1446,8 +1708,9 @@ export default class Vehicle {
     /** Vehicular jump jets: hover, wheeled, tracked and WiGE only, up to Cruise MP (TO:AUE p.161). */
     public setJumpMP(jumpMP: number): number {
         // No vehicular jump jets alongside sponson turrets (TO p. 348).
-        // Support Vehicles may not jump (TM p.131).
-        const allowed = this._motiveType.allowsJumpJets && !this._sponsonTurrets && !this._support;
+        // Support Vehicles may not jump under the standard rules (TM p.131); Vehicular Jump Jets, Experimental, are "Available
+        // To: CV, SV" (TO:AUE p.161).
+        const allowed = this._motiveType.allowsJumpJets && !this._sponsonTurrets;
         this._jumpMP = allowed ? Math.max(0, Math.min(Math.floor(jumpMP), this._cruiseMP)) : 0;
         this._calc();
         return this._jumpMP;
@@ -1522,6 +1785,50 @@ export default class Vehicle {
         return this._equipmentList.filter((item) => item.tag === "communications-equipment").length;
     }
 
+    /** Carries the enhanced satellite uplink (Maximum Tech p.59: "Many 'Mechs and vehicles"). */
+    public hasSatelliteUplink(): boolean {
+        return this._equipmentList.some((item) => item?.tag === "satellite-uplink");
+    }
+
+    /** The uplink is carried and switched on. */
+    public isSatelliteUplinkActive(): boolean {
+        return this.hasSatelliteUplink() && !this._inPlay.satelliteUplinkOff;
+    }
+
+    /** Switches the uplink on or off, as the End Phase allows (Maximum Tech p.59). */
+    public setSatelliteUplinkOn(on: boolean): void {
+        this._inPlay.satelliteUplinkOff = !on;
+    }
+
+    /** +1 on all of the vehicle's attacks while the uplink is on (p.59; a vehicle has no command console). */
+    public getSatelliteUplinkToHitModifier(): number {
+        return this.isSatelliteUplinkActive() ? 1 : 0;
+    }
+
+    /** While the uplink is on the vehicle may not spot for indirect LRM fire or artillery, use a spotter, or join a C3 network (p.59). */
+    public canSpotOrJoinC3(): boolean {
+        return !this.isSatelliteUplinkActive();
+    }
+
+    /**
+     * The field or mobile HQ still gives its bonus (Maximum Tech p.70): Crew Killed (the killed commander, the table's commander critical) ends
+     * it, a stabilizer hit leaves it only if the vehicle was stationary the turn before, and a destroyed vehicle gives none.
+     */
+    public isHeadquartersActive(): boolean {
+        const c = this._inPlay.criticals;
+        if (this.getHeadquartersKind() === null || this.isDestroyed() || c.crewKilled) return false;
+        return !(c.stabilizers.length > 0 && this._inPlay.movedLastTurn);
+    }
+
+    /**
+     * What the added communications equipment makes of the vehicle (Maximum Tech p.70): 3 to 6 tons a basic field HQ, 7 or more an
+     * advanced mobile HQ, less than 3 neither.
+     */
+    public getHeadquartersKind(): "field" | "mobile" | null {
+        const tons = this.getCommunicationsTons();
+        return tons >= 7 ? "mobile" : tons >= 3 ? "field" : null;
+    }
+
     // Half-ton ammunition bins (TM pp.107, 137) ------------------------------------------------------------------
 
     /** Machine guns, nail guns and rivet guns may carry ammunition in half-ton lots (TM pp.107, 137). */
@@ -1537,7 +1844,7 @@ export default class Vehicle {
     public setHalfTonBin(uuid: string, halfTon: boolean): void {
         const item = this._equipmentList.find((entry) => entry.uuid === uuid);
         const catalogItem = item && this.canBeHalfTonBin(item)
-            ? findByTag(getEquipmentListByTech(this._tech.tag, true), item.tag) ?? findByTag(this._otherTechBaseEquipment(), item.tag)
+            ? findUnitCatalogRecord(this._tech.tag, item.tag)
             : undefined;
         if (!item || !catalogItem) return;
         item.weight = halfTon ? catalogItem.weight / 2 : catalogItem.weight;
@@ -1587,6 +1894,14 @@ export default class Vehicle {
         this._calc();
     }
 
+    /** Sets the tons of cargo a mounted Dumper dumps (TM p.243): it weighs 5 percent of them. */
+    public setDumperCargo(uuid: string, tons: number): void {
+        const item = this._equipmentList.find((entry) => entry.uuid === uuid);
+        if (!item || item.variableFormula !== "dumper" || !Number.isFinite(tons)) return;
+        item.dumpedCargo = Math.max(0, Math.min(MAX_VEHICLE_CARGO_TONS, tons));
+        this._calc();
+    }
+
     /** Sets how many drones a mounted Drone Carrier Control System controls: 2 tons plus 0.5 a drone (TO:AUE p.117). */
     public setControlledDrones(uuid: string, drones: number): void {
         const item = this._equipmentList.find((entry) => entry.uuid === uuid);
@@ -1609,7 +1924,27 @@ export default class Vehicle {
     // Tractors and Trailers (TM pp.123, 126; TW p.205) -----------------------------------------------------------
 
     public isTractor(): boolean { return this.getSupportVehicleChassisModifications().includes("tractor"); }
-    public isTrailer(): boolean { return this.getSupportVehicleChassisModifications().includes("trailer"); }
+    public isTrailer(): boolean { return this._unpoweredTrailer || this.getSupportVehicleChassisModifications().includes("trailer"); }
+
+    /** A Combat Vehicle built as an unpowered Trailer: units built as Trailers do not require an engine, control systems or crew (TM p.99). */
+    public isUnpoweredTrailer(): boolean { return this._unpoweredTrailer; }
+
+    /**
+     * Builds the vehicle as a Trailer with no engine, control systems or crew (TM pp.99, 101, 103; MegaMek engine code 8 with
+     * no control systems). Tracked and Wheeled only, the motive types a hitch fits (TM p.98); Cruise MP and jump MP go to 0.
+     * Returns whether the vehicle is now an unpowered Trailer.
+     */
+    public setUnpoweredTrailer(on: boolean): boolean {
+        if (this._support) return false;
+        const allowed = this._motiveType.tag === "tracked" || this._motiveType.tag === "wheeled";
+        this._unpoweredTrailer = on && allowed;
+        if (this._unpoweredTrailer) {
+            this._cruiseMP = 0;
+            this._jumpMP = 0;
+        }
+        this._calc();
+        return this._unpoweredTrailer;
+    }
 
     /** A wheeled or tracked Tractor pulls up to its own weight, a naval or rail one up to 5 times it (TM p.123; TO:AUE p.17). */
     public getMaxTowTons(): number {
@@ -1633,9 +1968,8 @@ export default class Vehicle {
      * MP (rounded down), whichever is less; more than a quarter leaves half the Cruising MP, rounded down (TW
      * p.205). Applied to the Cruising MP after damage; the book gives no order.
      */
-    private _cruiseAfterTowing(cruise: number): number {
-        const towed = this._inPlay.towedTons;
-        if (!this.isTractor() || towed <= 0) return cruise;
+    private _cruiseAfterTowing(cruise: number, towed: number = this._inPlay.towedTons, anyTractor: boolean = false): number {
+        if ((!anyTractor && !this.isTractor()) || towed <= 0) return cruise;
         if (this.getSupportVehicleMotive() === "rail") {
             // A Rail Tractor: nothing up to half its weight; -3 MP or a third (round down), whichever is less, up to
             // twice it; half up to 4 times; two-thirds up to 5 times; never below 2 MP (TO:AUE p.17).
@@ -1646,6 +1980,34 @@ export default class Vehicle {
         }
         if (towed <= this._tonnage / 4) return cruise - Math.min(3, Math.floor(cruise / 2));
         return Math.floor(cruise / 2);
+    }
+
+    /**
+     * What this vehicle may pull: a Support Vehicle Tractor by its own limits (TM p.123), any other vehicle trailers up to its own
+     * weight (Maximum Tech p.79, "combined weight is less than or equal to its own weight").
+     */
+    public getTowCapacityTons(): number {
+        return this.isTractor() ? this.getMaxTowTons() : this._tonnage;
+    }
+
+    /**
+     * Cruising MP while pulling `towedTons` of trailers, as unprotected cargo slows it (BMR p.72; TW p.205), for the roster's tractor-trailer
+     * rig (Maximum Tech p.92): up to a quarter of its weight 3 MP or half the Cruising MP, whichever is less; more, half, rounded down.
+     */
+    public getCruiseMPPulling(towedTons: number): number {
+        return this._cruiseAfterTowing(this.getCruiseMP(), towedTons, true);
+    }
+
+    /**
+     * The Flank MP of the rig this vehicle is in, set by the roster: a tractor and each of its trailers take Battle Value 1 on this MP
+     * (Maximum Tech p.92); null when it is in no rig. Battle Value 2 does not read it.
+     */
+    public setRigFlankMP(flankMP: number | null): void {
+        this._rigFlankMP = flankMP === null ? null : Math.max(0, Math.floor(flankMP));
+    }
+
+    public getRigFlankMP(): number | null {
+        return this._rigFlankMP;
     }
 
     /** Large Support Vehicles ignore the multiple-targets modifier when firing at more than one unit (TW p.206). */
@@ -1687,6 +2049,7 @@ export default class Vehicle {
 
     public isFusionEngine(): boolean {
         if (this._support) return this._support.engine === "fusion";
+        if (this._unpoweredTrailer) return false;
         return FUSION_ENGINE_TAGS.includes(this._engineType.tag);
     }
 
@@ -1702,7 +2065,7 @@ export default class Vehicle {
 
     /** Support Vehicle engines never give free heat sinks (TM p.133). */
     public getFreeHeatSinks(): number {
-        if (this._support) return 0;
+        if (this._support || this._unpoweredTrailer) return 0;
         if (this.isFusionEngine()) return 10;
         if (this._engineType.tag === "fission") return 5;
         if (this._engineType.tag === "cell") return 1;
@@ -1719,6 +2082,8 @@ export default class Vehicle {
      * TestEntity.calcHeatNeutralHSRequirement).
      */
     public getRequiredHeatSinks(): number {
+        // A Laser Insulator takes 1 heat off the laser it is mated to, in its own location (TO:AUE p.134).
+        mateLaserInsulators(this._equipmentList);
         let heat = 0;
         for (const item of this._equipmentList) {
             if (item.isAmmo) continue;
@@ -1726,7 +2091,7 @@ export default class Vehicle {
             // requirements" (Ghosts of Obeedah p.54).
             const usesAmmo = !!item.ammoTypes?.length || (item.shotsPerTon ?? 0) > 0 || this._hasPowerCells(item);
             if (Vehicle._isEnergyWeapon(item)) {
-                if (!usesAmmo) heat += item.heat || 0;
+                if (!usesAmmo) heat += getMountedHeat(item);
             } else if (item.isEquipment) {
                 heat += item.heat || 0;
             }
@@ -1750,14 +2115,15 @@ export default class Vehicle {
 
     /**
      * Power amplifiers: vehicles without a fusion or fission engine need 10% of their energy weapons'
-     * weight, rounded up to the half ton (vehicle flamers and chemical lasers excepted; as
-     * implemented by MegaMek TestTank). Battle armor weapons need none: the amplifier "is integral to
-     * the weapon itself as part of its mounting system" (Ghosts of Obeedah p.54).
+     * weight, rounded up to the half ton (vehicle flamers, heavy flamers and chemical lasers, all fed by
+     * ammunition, excepted; as implemented by MegaMek TestTank, and the Sokar's printed weight table in TRO:
+     * Prototypes p.73 has no amplifier for its heavy flamers on an ICE). Battle armor weapons need none: the
+     * amplifier "is integral to the weapon itself as part of its mounting system" (Ghosts of Obeedah p.54).
      */
     public getPowerAmplifierWeight(): number {
         if (this.isFusionEngine() || this._rulesEngineTag() === "fission") return 0;
         const weight = this._equipmentList
-            .filter((item) => Vehicle._isEnergyWeapon(item) && !item.battleArmorScale && !/vehicle-flamer|chemical-laser/.test(item.tag))
+            .filter((item) => Vehicle._isEnergyWeapon(item) && !item.battleArmorScale && !/vehicle-flamer|heavy-flamer|chemical-laser/.test(item.tag))
             .reduce((sum, item) => sum + (item.weight || 0), 0);
         return this._roundWeight(weight / 10);
     }
@@ -1780,7 +2146,8 @@ export default class Vehicle {
         let used = 0;
         for (const item of this._equipmentList) {
             if (item.isAmmo) {
-                ammoTypes.add(item.tag);
+                // One bin per weapon type, whatever its munitions (TM p.136; MegaMek counts the same way).
+                ammoTypes.add(this._support ? getAmmoFamily(item) : item.tag);
             } else if (item.tag === "communications-equipment") {
                 // One slot for the whole set of communications equipment, whatever its tonnage (TM p.212).
                 continue;
@@ -1792,17 +2159,17 @@ export default class Vehicle {
         if (this.getCommunicationsTons() > 0) used += 1;
         used += getVehicleBaySlots(this._bays);
         if (this._support) {
-            // Support Vehicle engines, heat sinks, fuel and fire control take no slots; BAR 10 armor at Tech
-            // Rating E or F takes Ferro-Fibrous space, 2 slots Inner Sphere and 1 Clan (TM p.134, errata v8.0).
+            // Support Vehicle engines, heat sinks, fuel and fire control take no slots; BAR 10 armor takes Inner Sphere
+            // Ferro-Fibrous space (2 slots) at Tech Rating E and Clan (1) at F, "respectively" (TM p.134, errata v8.0).
             const ferroFibrous = supportVehicleArmor.find((armor) => armor.bar === this._support?.bar)?.ferroFibrousSlotRatings ?? [];
-            if (this._armorPoints() > 0 && ferroFibrous.includes(this._support.armorTechRating)) used += this._tech.tag === "clan" ? 1 : 2;
+            if (this._armorPoints() > 0 && ferroFibrous.includes(this._support.armorTechRating)) used += this._support.armorTechRating === "f" ? 1 : 2;
             if (this._troopSpace > 0) used += 1;
             return used;
         }
         used += this.getArmorItemSlots();
         if (this._jumpMP > 0) used += 1;
         if (this._troopSpace > 0) used += 1;
-        used += ENGINE_ITEM_SLOTS[this._engineType.tag] ?? 0;
+        if (!this._unpoweredTrailer) used += ENGINE_ITEM_SLOTS[this._engineType.tag] ?? 0;
         if (this.getEngineRating() > 400) used += 1;
         return used;
     }
@@ -1814,7 +2181,9 @@ export default class Vehicle {
     public canHaveTurret(): boolean {
         if (!this._support) return true;
         if (this.getSupportVehicleMotive() === "rail" && this.isSuperheavy()) return false;
-        return !this._motiveType.hasRotor && !this.getSupportVehicleChassisModifications().includes("convertible");
+        // TM p.124: no turret on an Airship, Fixed-Wing or VTOL Support Vehicle; the VTOL Chin Turret is the exception, an
+        // Experimental item "Available To: CV, SV" (TO:AUE p.160).
+        return (!this._motiveType.hasRotor || this._motiveType.turret === "chin") && !this.getSupportVehicleChassisModifications().includes("convertible");
     }
 
     public setHasTurret(hasTurret: boolean): boolean {
@@ -1842,9 +2211,9 @@ export default class Vehicle {
 
     /** The vehicle's locations in record-sheet order: front, sides, rear, rotor (VTOL), turret. */
     public getLocations(): { tag: VehicleLocation; name: string }[] {
-        // Super-Heavy Combat Vehicles, VTOLs included, have six facings (Front, Front-Left, Front-Right,
-        // Rear-Left, Rear-Right, Rear) plus any rotor and turrets (Tactical Operations p. 378).
-        const locations: VehicleLocation[] = this.isSuperheavy()
+        // Super-Heavy Combat Vehicles other than VTOLs have six facings (Front, Front-Left, Front-Right, Rear-Left,
+        // Rear-Right, Rear) plus any turrets (TO:AUE p.190); so do Large Support Vehicles other than VTOLs (TM p.124).
+        const locations: VehicleLocation[] = this.hasSplitSides()
             ? ["front", "frontLeft", "frontRight", "rearLeft", "rearRight", "rear"]
             : ["front", "left", "right", "rear"];
         if (this._motiveType.hasRotor) locations.push("rotor");
@@ -1909,7 +2278,7 @@ export default class Vehicle {
     }
 
     public setCruiseMP(cruiseMP: number): number {
-        this._cruiseMP = Math.max(0, cruiseMP);
+        this._cruiseMP = this._unpoweredTrailer ? 0 : Math.max(0, cruiseMP);
         this._jumpMP = Math.min(this._jumpMP, this._cruiseMP);
         this._calc();
         return this._cruiseMP;
@@ -1926,6 +2295,7 @@ export default class Vehicle {
     public getEngineRating(): number {
         // A Support Vehicle's Engine Rating is Cruising MP x tonnage, at most 500 (TM errata v8.0, p.126).
         if (this._support) return Math.min(500, Math.ceil(this.getCruiseMP() * this._tonnage));
+        if (this._unpoweredTrailer) return 0;
         return Math.max(10, Math.ceil(this._tonnage * this._cruiseMP) - this.getSuspensionFactor());
     }
 
@@ -1945,7 +2315,9 @@ export default class Vehicle {
             while (mp < 30 && (getSupportVehicleEngineWeight(weightClass, engine, this._support.engineTechRating, mp + 1, this._tonnage) ?? Infinity) <= room) mp++;
             return mp;
         }
-        const largeAllowed = rulesLevel >= 4 && !!getLargeEngineType(this._engineType.tag);
+        // The large form must also exist in the selected era (IO:AE p.38).
+        const largeEngine = getLargeEngineType(this._engineType.tag);
+        const largeAllowed = rulesLevel >= 4 && !!largeEngine && this._datesAvailability(largeEngine, rulesLevel).available;
         const maxRating = largeAllowed ? MAX_LARGE_ENGINE_RATING : MAX_STANDARD_ENGINE_RATING;
         return Math.max(0, Math.floor((maxRating + this.getSuspensionFactor()) / this._tonnage));
     }
@@ -1962,6 +2334,7 @@ export default class Vehicle {
             // An engine the Tech Rating cannot make weighs nothing here; getSupportVehicleIssues reports it.
             return getSupportVehicleEngineWeight(weightClass, engine, this._support.engineTechRating, this._cruiseMP, this._tonnage) ?? 0;
         }
+        if (this._unpoweredTrailer) return 0;
         const requiredRating = this.getEngineRating();
         const engineOption = mechEngineOptions.find((option) => option.rating >= requiredRating)
             ?? mechEngineOptions[mechEngineOptions.length - 1];
@@ -2008,9 +2381,18 @@ export default class Vehicle {
         const techTag = this.getTech().tag;
         const bases: ("is" | "clan")[] = techTag === "is" ? ["is"] : techTag === "clan" ? ["clan"] : ["is", "clan"];
         const engineTypes = mechEngineTypes.filter((engine) => bases.some((base) => engine.criticals[base])).map((engine) => ({ ...engine }));
+        const large = !this._support && this.getEngineRating() > MAX_STANDARD_ENGINE_RATING;
         for (const engine of engineTypes) {
+            // Above rating 400 the large engine's own dates apply (IO:AE p.38), as for 'Mechs; a type
+            // with no large form is not offered.
+            const largeEngine = large ? getLargeEngineType(engine.tag) : undefined;
+            if (large && !largeEngine) {
+                engine.available = false;
+                engine.availableAsPrototype = false;
+                continue;
+            }
             const availability = bases.filter((base) => engine.criticals[base])
-                .map((base) => this._datesAvailability(base === "clan" ? engine.clanDates ?? engine : engine, rulesLevel));
+                .map((base) => this._datesAvailability(largeEngine ?? (base === "clan" ? engine.clanDates ?? engine : engine), rulesLevel));
             const inProduction = availability.find((option) => option.available && !option.asPrototype);
             const chosen = inProduction ?? availability.find((option) => option.available) ?? availability[0];
             engine.available = chosen.available;
@@ -2040,13 +2422,48 @@ export default class Vehicle {
         return this._armorAllocation;
     }
 
-    /** The tech base whose version of the armor this vehicle mounts. */
+    /**
+     * The versions of an armor this vehicle may mount, its default first: either on Mixed Tech; on a Clan vehicle,
+     * the Star League version beside the Clan one while the era holds both production windows (#168).
+     */
+    private _armorTechBases(armor: IArmorType): ("is" | "clan")[] {
+        const techTag = this.getTech().tag;
+        const multiplier = armor.armorMultiplier;
+        const slots = armor.combatVehicleSlots;
+        const starLeagueVersion = techTag === "clan" && this._usesStarLeagueVersion(armor);
+        const preferredBase = !starLeagueVersion && (techTag === "clan" || techTag === "mclan") ? "clan" : "is";
+        const otherBase = preferredBase === "clan" ? "is" : "clan";
+        if (!(multiplier[preferredBase] > 0)) return [otherBase];
+        // Versions that are the same in slots and armor factor are no choice at all.
+        const versionsDiffer = multiplier[otherBase] > 0
+            && (multiplier.is !== multiplier.clan || (slots?.is ?? 0) !== (slots?.clan ?? 0));
+        if (!versionsDiffer || techTag === "is") return [preferredBase];
+        if (techTag === "clan") {
+            return !starLeagueVersion && starLeagueVersionInEra(armor, (introduced, extinct, reintroduced) => this._itemIsAvailable(introduced, extinct, reintroduced))
+                ? ["clan", "is"] : [preferredBase];
+        }
+        return [preferredBase, otherBase];
+    }
+
+    /** The versions of its armor the vehicle may mount (one = no choice); 'Mechs take structure and heat sinks too. */
+    public getComponentTechBases(_component: "armor"): ("is" | "clan")[] {
+        return this.isPatchworkArmor() || this._support ? [this.getArmorTechBase()] : this._armorTechBases(this._armorType);
+    }
+
+    public getArmorTechBase(): "is" | "clan" {
+        return this._armorTechBase(this._armorType);
+    }
+
+    public setArmorTechBase(techBase: "is" | "clan"): "is" | "clan" {
+        if (this._armorTechBases(this._armorType).includes(techBase)) this._armorTechBaseChoice = techBase;
+        return this.getArmorTechBase();
+    }
+
+    /** The tech base whose version of the armor this vehicle mounts: the chosen one for its armor, if offered. */
     private _armorTechBase(armor: IArmorType): "is" | "clan" {
-        const starLeagueVersion = this.getTech().tag === "clan" && this._usesStarLeagueVersion(armor);
-        const preferredBase = !starLeagueVersion && (this.getTech().tag === "clan" || this.getTech().tag === "mclan") ? "clan" : "is";
-        return armor.armorMultiplier[preferredBase] > 0
-            ? preferredBase
-            : preferredBase === "clan" ? "is" : "clan";
+        const choices = this._armorTechBases(armor);
+        const chosen = armor.tag === this._armorType.tag ? this._armorTechBaseChoice : null;
+        return chosen && choices.includes(chosen) ? chosen : choices[0];
     }
 
     public getArmorPointsPerTon(): number {
@@ -2358,6 +2775,83 @@ export default class Vehicle {
         return this.getWeightedHeatSinks();
     }
 
+
+    // --- Autocannon rate of fire and jams in play (#643; src/utils/autocannon-play.ts).
+
+    private _autocannonItem(uuid: string): IEquipmentItem | undefined {
+        return this._equipmentList.find((item) => item.uuid === uuid);
+    }
+
+    /** "rac" | "ultra", or undefined when the item is not a rate-of-fire autocannon. */
+    public getAutocannonKind(uuid: string): AutocannonKind | undefined {
+        return getAutocannonKind(this._autocannonItem(uuid));
+    }
+
+    /** The rotary and Ultra autocannons the unit carries (rate of fire and jams). */
+    public getRateOfFireWeapons(): IEquipmentItem[] {
+        return this._equipmentList.filter((item) => !!item.uuid && ["rac", "ultra"].includes(getAutocannonKind(item) ?? ""));
+    }
+
+    public getShots(uuid: string): number {
+        const kind = this.getAutocannonKind(uuid);
+        return kind ? getSelectedShots(kind, this.autocannonPlay[uuid]) : 1;
+    }
+
+    public setShots(uuid: string, shots: number): void {
+        const kind = this.getAutocannonKind(uuid);
+        if( !kind ) return;
+        const cap = getMaxShots(kind);
+        this.autocannonPlay = { ...this.autocannonPlay, [uuid]: { ...this.autocannonPlay[uuid], shots: Math.min(cap, Math.max(1, Math.round(shots))) } };
+    }
+
+    public isJammed(uuid: string): boolean {
+        return !!this.autocannonPlay[uuid]?.jammed;
+    }
+
+    /** Record the to-hit roll of an attack with `uuid`: the shots fire either way, and a low roll jams it for the next turn. */
+    public recordToHitRoll(uuid: string, roll: number): { jammed: boolean } {
+        const kind = this.getAutocannonKind(uuid);
+        if( !kind ) return { jammed: false };
+        const state = { ...this.autocannonPlay[uuid] };
+        const result = recordToHitRoll(kind, state, roll);
+        this.autocannonPlay = { ...this.autocannonPlay, [uuid]: state };
+        return result;
+    }
+
+    /** Declare, in an End Phase, that a jammed rotary will be cleared next turn (TW p.140). An Ultra stays jammed. */
+    public declareClear(uuid: string): boolean {
+        const kind = this.getAutocannonKind(uuid);
+        if( !kind ) return false;
+        const state = { ...this.autocannonPlay[uuid] };
+        const declared = declareClear(kind, state);
+        if( declared ) this.autocannonPlay = { ...this.autocannonPlay, [uuid]: state };
+        return declared;
+    }
+
+    /** The unit is on the clearing attempt turn: no weapon attacks. */
+    public isClearingAttempt(uuid: string): boolean {
+        return isClearingAttempt(this.autocannonPlay[uuid]);
+    }
+
+    /** The Gunnery Skill Roll at +3 at the end of the Weapon Attack Phase of the attempt turn. */
+    public resolveClear(uuid: string, success: boolean): boolean {
+        const state = { ...this.autocannonPlay[uuid] };
+        const result = resolveClear(state, success);
+        this.autocannonPlay = { ...this.autocannonPlay, [uuid]: state };
+        return result;
+    }
+
+    /** New turn: the fired flags clear. */
+    public advanceAutocannonTurn(): void {
+        advanceAutocannonTurn(this.autocannonPlay);
+    }
+
+    /** Ready, out of ammunition or jammed. */
+    public getAutocannonStatus(uuid: string): "ready" | "no-ammo" | "jammed" {
+        const left = Infinity; // ammunition is not tracked per bin on vehicles
+        return canFire(this.autocannonPlay[uuid], left);
+    }
+
     public getEquipmentList(): IEquipmentItem[] {
         return this._equipmentList;
     }
@@ -2372,20 +2866,12 @@ export default class Vehicle {
         return this._equipmentList;
     }
 
-    /** The mixed-tech catalog (both tech bases) for an Inner Sphere or Clan vehicle; empty for mixed tech, which already sees both. */
-    private _otherTechBaseEquipment(): IEquipmentItem[] {
-        const techTag = this._tech.tag;
-        return techTag === "clan" || techTag === "is" ? getEquipmentListByTech(techTag === "clan" ? "mclan" : "mis", true) : [];
-    }
-
     /**
      * `anyTechBase` is for loading a saved vehicle: it keeps whatever it mounted, including equipment
      * that has since moved to the other tech base's catalog.
      */
     public addEquipmentFromTag(tag: string, location?: string, rear?: boolean, uuid?: string, anyTechBase: boolean = false): IEquipmentItem[] {
-        const catalogItem = findByTag(getEquipmentListByTech(this._tech.tag, true), tag)
-            ?? (anyTechBase ? findByTag(this._otherTechBaseEquipment(), tag) : undefined)
-            ?? findByTag(getBattleArmorScaleListByTech(this._tech.tag), tag);
+        const catalogItem = findUnitCatalogRecord(this._tech.tag, tag, { otherTechBase: anyTechBase, battleArmorScale: true });
         if (catalogItem) {
             this._equipmentList.push(this._newEquipment(catalogItem, location, rear, uuid));
             this._calc();
@@ -2393,14 +2879,13 @@ export default class Vehicle {
         return this._equipmentList;
     }
 
-    // A mounted copy of a catalog item. Only this vehicle's own locations (never the rotor) are kept, and ids
-    // must be unique strings: saved data may hold anything.
+    // A mounted copy of a catalog item. Only this vehicle's own locations are kept (the rotor only for a Mast
+    // Mount and what it holds), and ids must be unique strings: saved data may hold anything.
     private _newEquipment(catalogItem: IEquipmentItem, location?: unknown, rear?: unknown, uuid?: unknown): IEquipmentItem {
-        const validLocation = typeof location === "string" && location !== "rotor"
-            && this.getLocations().some((loc) => loc.tag === location) ? location : undefined;
+        const validLocation = typeof location === "string" && this._canGoIn(catalogItem, location) ? location : undefined;
         const freshId = typeof uuid !== "string" || !uuid || this._equipmentList.some((item) => item.uuid === uuid);
         // A deep copy: mounted items never share nested data (ranges, Alpha Strike values) with each other.
-        const equipment: IEquipmentItem = { ...JSON.parse(JSON.stringify(catalogItem)), location: validLocation, rear: rear === true, uuid: freshId ? generateUUID() : uuid as string };
+        const equipment: IEquipmentItem = { ...copyCatalogRecord(catalogItem), location: validLocation, rear: rear === true, uuid: freshId ? generateUUID() : uuid as string };
         if (equipment.isModularArmor) {
             equipment.currentAdditionalArmor = equipment.additionalArmor ?? 10;
         }
@@ -2418,6 +2903,48 @@ export default class Vehicle {
         if (!this._omni) this._podUUIDs.clear();
         this._calc();
         return this._omni;
+    }
+
+    /** An OmniVehicle's base chassis turret weight (TM p.108), or 0 when none is set and the turret is sized by what it holds. */
+    public getOmniTurretWeight(): number {
+        return this._omni && this._hasTurret ? this._omniTurretWeight : 0;
+    }
+
+    /** Fixes the base chassis turret weight, rounded up to the half ton; 0 sizes the turret by what it holds again. */
+    public setOmniTurretWeight(weight: number): number {
+        const tons = Number.isFinite(weight) ? Math.min(Math.max(0, weight), this._tonnage) : 0;
+        this._omniTurretWeight = this._omni ? Math.ceil(tons * 2) / 2 : 0;
+        this._calc();
+        return this.getOmniTurretWeight();
+    }
+
+    /**
+     * TM p.108: the equipment in an OmniVehicle's turret, ammunition aside, may weigh no more than 10 times the base
+     * chassis turret.
+     */
+    public getOmniTurretIssue(): string | null {
+        const turret = this.getOmniTurretWeight();
+        if (!turret) return null;
+        const load = this._turretEquipmentTons("turret");
+        return load > turret * 10
+            ? `${load} tons of turret equipment; the ${turret}-ton base chassis turret holds ${turret * 10} (TM p.108).`
+            : null;
+    }
+
+    /** Inner Sphere-chassis Mixed Tech may take Clan CASE (TM p.210); a Clan chassis always has it. */
+    public canChooseClanCASE(): boolean {
+        return this._tech.tag === "mis";
+    }
+
+    /** Is the ammunition behind Clan CASE: always on a Clan chassis, by choice on an Inner Sphere-chassis Mixed Tech one. */
+    public hasClanCASE(): boolean {
+        return this._tech.tag === "clan" || this._tech.tag === "mclan" || (this._clanCASE && this._tech.tag === "mis");
+    }
+
+    public setClanCASE(clanCASE: boolean): boolean {
+        this._clanCASE = clanCASE === true && this.canChooseClanCASE();
+        this._calc();
+        return this.hasClanCASE();
     }
 
     /** On an OmniVehicle: is the item pod-mounted, and not fixed to the base chassis? */
@@ -2444,14 +2971,15 @@ export default class Vehicle {
     public removeEquipment(uuid: string): IEquipmentItem[] {
         this._podUUIDs.delete(uuid);
         this._equipmentList = this._equipmentList.filter((item) => item.uuid !== uuid);
+        this._unplaceRotorItems();
         this._calc();
         return this._equipmentList;
     }
 
     public setEquipmentLocation(uuid: string, location: string): IEquipmentItem[] {
         const item = this._equipmentList.find((equipment) => equipment.uuid === uuid);
-        // Equipment goes in the body locations or the turret, never the rotor.
-        if (location && (location === "rotor" || !this.getLocations().some((loc) => loc.tag === location))) {
+        // Equipment goes in the body locations or the turret; the rotor takes only a Mast Mount and what it holds.
+        if (location && (!item || !this._canGoIn(item, location))) {
             return this._equipmentList;
         }
         if (item) {
@@ -2461,8 +2989,11 @@ export default class Vehicle {
                 return this._equipmentList;
             }
             item.location = location;
+            this._unplaceRotorItems();
             // A pintle sits on a side; in the turret or unplaced, the weapon is off it (TM p.234).
             if (item.pintle && (!location || location === "turret")) item.pintle = false;
+            // A sponson is on its side; off the side, the weapon is out of it.
+            if (item.sponson && !this._canBeSponsonMounted(item)) delete item.sponson;
             this._calc();
         }
         return this._equipmentList;
@@ -2491,7 +3022,11 @@ export default class Vehicle {
     // hand-actuator-dependent equipment cannot be mounted on Combat Vehicles.
     private _isEquipmentAllowedForVehicle(item: IEquipmentItem): boolean {
         if (item.requiresHandActuator) return false;
+        if (item.trailerOnly && !this.isTrailer()) return false;
+        if (item.excludedMotives?.includes(this._motiveType.tag)) return false;
         if (item.metadata?.domains && !item.metadata.domains.includes("vehicle")) return false;
+        // Only for the aerospace units it names, none of them a ground vehicle (TO:AUE pp.135-146).
+        if (item.aerospaceUnitTypes) return false;
         // No combat vehicle slot value in the equipment tables: not vehicle equipment (TM pp.341-345, TO:AUE pp.217-223).
         // Support Vehicles read their own column.
         if (((this._support ? item.space?.supportVehicle : item.space?.combatVehicle) ?? 0) < 0) return false;
@@ -2506,7 +3041,8 @@ export default class Vehicle {
         const tag = item.tag.toLowerCase();
         const name = item.name.toLowerCase();
         return !(
-            item.isMelee ||
+            // Industrial equipment is vehicle equipment (1 slot on a vehicle, TM pp.241-247); 'Mech melee weapons are not.
+            (item.isMelee && item.onePerLocationGroup !== "industrial-tool") ||
             tag.includes("hatchet") || tag.includes("sword") || tag.includes("claw") || tag.includes("mace") ||
             name.includes("hatchet") || name.includes("sword") || name.includes("claw") || name.includes("mace")
         );
@@ -2526,55 +3062,24 @@ export default class Vehicle {
 
     /** In production in the selected era, or (at the Experimental rules level) a prototype. */
     private _datesAvailability(dates: ITechDates, rulesLevel: number): { available: boolean, asPrototype: boolean } {
-        // A prototype year with no production year: IO prototype only (Experimental rules).
-        const prototypeOnly = dates.introduced === null && !!dates.prototype;
-        const inProduction = !prototypeOnly && this._itemIsAvailable(dates.introduced, dates.extinct, dates.reintroduced);
-        const effectiveIntroduction = getEffectiveIntroduction(dates, rulesLevel);
-        const asPrototype = !inProduction && effectiveIntroduction !== dates.introduced
-            && this._itemIsAvailable(effectiveIntroduction, dates.extinct, dates.reintroduced);
-        return { available: inProduction || asPrototype, asPrototype };
+        return getDatesAvailability(dates, rulesLevel, (introduced, extinct, reintroduced) => this._itemIsAvailable(introduced, extinct, reintroduced));
     }
 
-    /** Availability using the Clan window for Clan designs; mixed tech may use either (as BattleMech). */
+    /** Availability using the Clan window for Clan designs; mixed tech may use either (getTechDatesAvailability). */
     private _techDatesAvailability(item: ITechDates & { clanDates?: ITechDates }, rulesLevel: number): { available: boolean, asPrototype: boolean } {
-        const techTag = this._tech.tag;
-        const innerSphere = this._datesAvailability(item, rulesLevel);
-        const clan = this._clanDatesAvailability(item, rulesLevel);
-        if (techTag === "clan") return clan;
-        if (techTag === "is") return innerSphere;
-        if (innerSphere.available && !innerSphere.asPrototype) return innerSphere;
-        if (clan.available && !clan.asPrototype) return clan;
-        return innerSphere.available ? innerSphere : clan;
+        return getTechDatesAvailability(item, this._tech.tag, rulesLevel, (introduced, extinct, reintroduced) => this._itemIsAvailable(introduced, extinct, reintroduced));
     }
 
-    /** Clan availability, including the Star League version before the Clan version replaces it (as BattleMech). */
-    private _clanDatesAvailability(item: ITechDates & { clanDates?: ITechDates }, rulesLevel: number): { available: boolean, asPrototype: boolean } {
-        const clan = this._datesAvailability(item.clanDates ?? item, rulesLevel);
-        const starLeague = getStarLeagueCarryOverDates(item);
-        if ((clan.available && !clan.asPrototype) || !starLeague) return clan;
-        const carried = this._datesAvailability(starLeague, rulesLevel);
-        return carried.available ? carried : clan;
-    }
-
-    /** Whether this Clan vehicle fields the Star League version of a component (Inner Sphere armor factor). */
+    /** Whether this Clan vehicle must field the Star League version of a component (Inner Sphere armor factor). */
     private _usesStarLeagueVersion(item: ITechDates & { clanDates?: ITechDates }): boolean {
-        const starLeague = getStarLeagueCarryOverDates(item);
-        if (!starLeague || !item.clanDates) return false;
-        const clanInProduction = !!item.clanDates.introduced
-            && this._itemIsAvailable(item.clanDates.introduced, item.clanDates.extinct, item.clanDates.reintroduced);
-        return !clanInProduction
-            && this._itemIsAvailable(starLeague.prototype ?? starLeague.introduced, starLeague.extinct, null);
+        return mustUseStarLeagueVersion(item, (introduced, extinct, reintroduced) => this._itemIsAvailable(introduced, extinct, reintroduced));
     }
 
     private _setAvailability(item: IEquipmentItem, rulesLevel: number): void {
-        // Equipment records carry side-specific IS or Clan dates, so extinction always applies.
-        const availability = this._datesAvailability(item, rulesLevel);
+        // The record's own dates, or its Clan dates on a Clan vehicle.
+        const availability = this._techDatesAvailability(item, rulesLevel);
         item.availableAsPrototype = availability.asPrototype;
-        // One unit carries at most `maxPerUnit` of an item, or of its group (one RISC Viral Jammer of any type).
-        const limitKey = item.maxPerUnitGroup ?? item.tag;
-        const underUnitLimit = !item.maxPerUnit
-            || this._equipmentList.filter(installed => (installed?.maxPerUnitGroup ?? installed?.tag) === limitKey).length < item.maxPerUnit;
-        item.available = availability.available && this._isEquipmentAllowedForVehicle(item) && underUnitLimit;
+        item.available = availability.available && this._isEquipmentAllowedForVehicle(item) && isUnderUnitLimit(item, this._equipmentList);
     }
 
     public getAvailableEquipment(includeCustom: boolean = false, rulesLevel: number = 2): IEquipmentItem[] {
@@ -2608,9 +3113,15 @@ export default class Vehicle {
             }
         }
         returnItems.sort((a, b) => (a.sort > b.sort ? 1 : a.sort < b.sort ? -1 : 0));
-        // Apocryphal, Custom Homebrew and Munchkin items are only offered at their own level or above.
+        // A custom record states its tech base: IS records go to IS and mixed vehicles, Clan records to Clan and
+        // mixed vehicles. Universal records, and records that state none, go to everyone.
+        const byTechBase = returnItems.filter((item) => (item.catalog !== "custom"
+            || (item.techBase !== "is" && item.techBase !== "clan")
+            || (item.techBase === "is" ? includeIS : includeClan))
+            && (!item.vehicleMotives || item.vehicleMotives.includes(this._motiveType.tag)));
+        // Every item is offered only in its editions and at its level or above; custom items need Custom Homebrew.
         const offeredLevel = includeCustom ? Math.max(rulesLevel, CUSTOM_HOMEBREW_RULES_LEVEL) : rulesLevel;
-        return returnItems.filter((item) => isEquipmentWithinRulesLevel(item, offeredLevel));
+        return byTechBase.filter((item) => isEquipmentOffered(item, this._rulesEdition, offeredLevel));
     }
 
     public getAvailableEquipmentByCatalog(catalog: "all" | "is" | "clan" | "custom", includeCustom: boolean = false, rulesLevel: number = 2): IEquipmentItem[] {
@@ -2627,7 +3138,7 @@ export default class Vehicle {
         return this._pilot;
     }
 
-    public getWeights(): { name: string; weight: number }[] {
+    public getWeights(): { name: string; weight: number; item?: IEquipmentItem }[] {
         return this._weights;
     }
 
@@ -2642,7 +3153,7 @@ export default class Vehicle {
     /** Control systems: 5% of tonnage, rounded up to the half ton (TM, as implemented by MegaMek). */
     public getControlSystemsWeight(): number {
         // A Support Vehicle's controls are part of its chassis (TM p.131).
-        if (this._support) return 0;
+        if (this._support || this._unpoweredTrailer) return 0;
         return this._roundWeight(this._tonnage * 0.05);
     }
 
@@ -2675,35 +3186,99 @@ export default class Vehicle {
         return this._equipmentList.some((item) => item.variableFormula?.startsWith("targeting-computer"));
     }
 
+    /** Modular armor points the vehicle carries. */
+    private _modularArmorPoints(): number {
+        return this._equipmentList.filter((item) => item.isModularArmor).reduce((sum, item) => sum + (item.currentAdditionalArmor ?? item.additionalArmor ?? 0), 0);
+    }
+
+    /** A VTOL jet booster's boosted speed, twice Cruising MP (TO:AUE pp.162, 194), or a Supercharger's (TO:AUE p.157); 0 without one. */
+    private _bvBoostedMP(): number {
+        return this._equipmentList.some((item) => item.tag === "vtol-jet-booster" || item.variableFormula === "supercharger") ? this.getCruiseMP() * 2 : 0;
+    }
+
+    /** Flank MP for BV, at `boosted` if higher. An unmotorized Trailer (a Support Vehicle with no engine, or a Combat Vehicle with no Cruising MP) counts as 1 (TM pp.308, 317). */
+    /** The Support Vehicle chassis modifications that share a Combat Vehicle one's BV type modifier (TO:AUE p.193). */
+    private _supportBvChassisModifications(): ICombatVehicleChassisModification[] {
+        // Not beside an Armored Motive System, whose +0.1 is the only one the Shackleton AESV's printed 298 carries
+        // (Interstellar Players 3 p.112; it has Environmental Sealing too).
+        if (!this._support || this.hasChassisModification("armored-motive")) return [];
+        return this.getSupportVehicleChassisModifications()
+            .filter((tag) => SUPPORT_BV_CHASSIS_MODIFICATIONS.includes(tag))
+            .map((tag) => findCombatVehicleChassisModification(tag))
+            .filter((mod): mod is ICombatVehicleChassisModification => !!mod);
+    }
+
+    private _bvFlankMP(boosted: number): number {
+        return this._support?.engine === "none" || this.getCruiseMP() === 0 ? 1 : Math.max(this.getFlankMP(), boosted);
+    }
+
+    /** Each item in a VTOL Mast Mount, which sits in the Rotor location, costs 10 BV more (TO:AUE p.194). */
+    private _mastMountBV(item: IEquipmentItem): number {
+        if (item.location !== "rotor" || item.isAmmo || item.tag === VTOL_MAST_MOUNT) return 0;
+        return this._hasMastMount() ? 10 : 0;
+    }
+
+    /** One of this vehicle's locations that takes the item: the rotor only for a Mast Mount and what it holds. */
+    private _canGoIn(item: IEquipmentItem, location: string): boolean {
+        if (!this.getLocations().some((loc) => loc.tag === location)) return false;
+        if (item.vehicleLocations && !item.vehicleLocations.includes(location)) return false;
+        return location !== "rotor" || this._canGoInRotor(item);
+    }
+
+    private _hasMastMount(): boolean {
+        return this._equipmentList.some((other) => other.tag === VTOL_MAST_MOUNT && other.location === "rotor");
+    }
+
+    /**
+     * The rotor holds a VTOL's Mast Mount and the items in it: equipment (types E and CE), but no TAG of any
+     * kind and, of C3, only slaves and C3i (TO:AUE p.162).
+     */
+    private _canGoInRotor(item: IEquipmentItem): boolean {
+        if (!this._motiveType.hasRotor) return false;
+        if (item.tag === VTOL_MAST_MOUNT) return true;
+        if (!this._hasMastMount() || item.isAmmo || !/^misc/i.test(item.category ?? "")) return false;
+        return !MAST_MOUNT_BARRED.includes(item.tag);
+    }
+
+    // Without a Mast Mount in the rotor, what it held comes off the rotor.
+    private _unplaceRotorItems(): void {
+        if (this._hasMastMount()) return;
+        for (const item of this._equipmentList) if (item.location === "rotor") item.location = undefined;
+    }
+
     private _isWeapon(item: IEquipmentItem): boolean {
         return !item.isAmmo && !item.isEquipment && !item.battleValueDefensive && (item.battleValue || 0) > 0;
     }
 
     /**
-     * Battle Value (TM Combat Vehicle BV, as implemented by MegaMek CombatVehicleBVCalculator;
-     * provisional until checked against the book):
-     * Defensive = (armor x 2.5 x armor type + structure x 1.5 x structure type + defensive
-     * equipment) x motive type modifier x (1 + best TMM / 10), where VTOLs and WiGEs are airborne
-     * (+1 TMM) and jumping adds +1.
-     * Offensive = (weapons + ammunition (capped at the weapons it feeds) + tonnage / 2) x Speed
-     * Factor (TM p.316) for Flank MP + half Jump MP. The weaker of the front and rear arcs counts
-     * half; turret and side weapons count in full. Checked against the MUL BV of published
-     * tracked, wheeled, hover, VTOL and hydrofoil designs (vehicle.test.ts).
+     * Battle Value 2 (Calculating Vehicle BV, TM pp.307-308; the worked Hephaestus Prime and CellCo Ranger on p.308),
+     * each step recorded with its page (VEHICLE_BV2_STEPS):
+     * Defensive = (armor x 2.5 x armor type + structure x 1.5 x structure type + defensive equipment) x the Unit Type
+     * Modifier (plus the chassis modifications) x (1 + the highest potential target modifier / 10), where VTOLs and
+     * WiGEs are airborne (+1) and jumping adds +1 (TM p.316 footnote, TO:AUE p.194).
+     * Offensive = (weapons + ammunition (capped at the weapons it feeds) + tonnage / 2) x the Speed Factor (TM p.316) for
+     * Flank MP + half Jump MP. The weaker of the front and rear arcs counts half. A turret weapon is in no arc and
+     * counts in full under the current text; under the 3rd and 4th printing alternate it faces forward (TM p.307, the
+     * `turret-weapon-arc` printing rule). Checked against the MUL BV of published designs (vehicle.test.ts).
      */
     private _calcBattleValue(): void {
-        let log = "<strong>DEFENSIVE BATTLE RATING</strong><br />";
+        const trace = new CalcTrace(this._support ? SUPPORT_VEHICLE_BV2_STEPS : VEHICLE_BV2_STEPS);
+        this._battleValue = this._calcBattleValue2(trace);
+        this._bv2Steps = trace.steps;
+        this._calcLogBV = renderCalcStepsHtml(trace.steps);
+    }
+
+    private _calcBattleValue2(trace: CalcTrace): number {
+        const fmt = formatCalcNumber;
         const locations = this.getLocations().map((loc) => loc.tag);
-        const modularArmor = this._equipmentList
-            .filter((item) => item.isModularArmor)
-            .reduce((sum, item) => sum + (item.currentAdditionalArmor ?? item.additionalArmor ?? 0), 0);
+        const modularArmor = this._modularArmorPoints();
         let armorBV = 0;
         if (this._support) {
             const armorPoints = locations.reduce((sum, loc) => sum + (this._armorAllocation[loc] ?? 0), 0) + modularArmor;
-            // Support Vehicles multiply their armor by BAR / 10 (TM p.307). TM p.308's CellCo Ranger example leaves out
-            // the x 2.5 (38 x 0.7 = 26.6); the rule text and MegaMek keep it, so it is read as a misprint.
+            // Support Vehicles multiply their armor by BAR / 10 (TM p.307).
             const armorMultiplier = this._support.bar / 10;
             armorBV = armorPoints * 2.5 * armorMultiplier;
-            log += `Armor: ${armorPoints} points x 2.5 x ${armorMultiplier} (BAR ${this._support.bar} / 10) = ${armorBV.toFixed(2)}<br />`;
+            trace.add("cv.bv2.def.armor.support", { label: "Armor", detail: `${armorPoints} points x 2.5 x ${armorMultiplier} (BAR ${this._support.bar} / 10)`, value: armorBV });
         } else if (this.isPatchworkArmor()) {
             // Patchwork: each location's points at its own type's modifier (TO:AUE p.189); modular armor counts at 1.
             for (const loc of locations) {
@@ -2711,88 +3286,162 @@ export default class Vehicle {
                 const points = this._armorAllocation[loc] ?? 0;
                 const multiplier = Vehicle._armorBVMultiplier(locationArmor);
                 armorBV += points * 2.5 * multiplier;
-                log += `Armor (${LOCATION_NAMES[loc]}): ${points} points x 2.5 x ${multiplier} (${locationArmor.name}) = ${(points * 2.5 * multiplier).toFixed(2)}<br />`;
+                trace.add("cv.bv2.def.armor.patchwork", { label: `Armor (${LOCATION_NAMES[loc]})`, detail: `${points} points x 2.5 x ${multiplier} (${locationArmor.name})`, value: points * 2.5 * multiplier });
             }
             if (modularArmor > 0) {
                 armorBV += modularArmor * 2.5;
-                log += `Armor (Modular): ${modularArmor} points x 2.5 = ${(modularArmor * 2.5).toFixed(2)}<br />`;
+                trace.add("cv.bv2.def.armor.modular", { label: "Armor (Modular)", detail: `${modularArmor} points x 2.5`, value: modularArmor * 2.5 });
             }
         } else {
             const armorPoints = locations.reduce((sum, loc) => sum + (this._armorAllocation[loc] ?? 0), 0) + modularArmor;
             const armorMultiplier = Vehicle._armorBVMultiplier(this._armorType);
             armorBV = armorPoints * 2.5 * armorMultiplier;
-            log += `Armor: ${armorPoints} points x 2.5 x ${armorMultiplier} (${this._armorType.name}) = ${armorBV.toFixed(2)}<br />`;
+            trace.add("cv.bv2.def.armor", { label: "Armor", detail: `${armorPoints} points x 2.5 x ${armorMultiplier} (${this._armorType.name})`, value: armorBV });
         }
 
         const structure = this.getStructureAllocation();
         const structurePoints = locations.reduce((sum, loc) => sum + (structure[loc] ?? 0), 0);
         const structureMultiplier = this._structureType === "reinforced" && !this._support ? 2 : 1;
         const structureBV = structurePoints * 1.5 * structureMultiplier;
-        log += `Internal Structure: ${structurePoints} points x 1.5 x ${structureMultiplier} = ${structureBV.toFixed(2)}<br />`;
+        trace.add(structureMultiplier === 2 ? "cv.bv2.def.structure.reinforced" : "cv.bv2.def.structure",
+            { label: "Internal Structure", detail: `${structurePoints} points x 1.5 x ${structureMultiplier}`, value: structureBV });
 
         let defensiveEquipmentBV = 0;
         let amsAmmoBV = 0;
         let amsBV = 0;
-        const weapons = this._equipmentList.filter((item) => !item.isAmmo);
         for (const item of this._equipmentList) {
             if (item.isAmmo) {
-                const fed = weapons.find((weapon) => weapon.battleValueDefensive && getCompatibleAmmo(weapon, item));
-                if (fed) amsAmmoBV += getAmmoBattleValuePerTon(fed, item) * item.weight;
+                const fed = this._binWeapon(item);
+                if (fed?.battleValueDefensive) amsAmmoBV += getAmmoBattleValuePerTon(fed, item) * item.weight;
             } else if (item.battleValueDefensive) {
-                defensiveEquipmentBV += item.battleValue || 0;
+                const mast = this._mastMountBV(item);
+                const value = (item.battleValue || 0) + mast;
+                defensiveEquipmentBV += value;
                 if (item.weaponType?.includes("AMS")) amsBV += item.battleValue || 0;
-                log += `+ Defensive Equipment: ${escapeLogText(item.name)} = ${item.battleValue || 0}<br />`;
+                trace.add(mast ? "cv.bv2.def.equipment.mast" : "cv.bv2.def.equipment",
+                    { label: `Defensive equipment: ${item.name}`, detail: mast ? "mast mount +10" : undefined, value });
             }
         }
         defensiveEquipmentBV += Math.min(amsAmmoBV, amsBV);
+        if (amsAmmoBV > 0) {
+            trace.add("cv.bv2.def.equipment.ams-ammo", { label: "Anti-missile system ammunition",
+                detail: amsAmmoBV > amsBV ? `${fmt(amsAmmoBV)}, capped at the systems' ${fmt(amsBV)}` : undefined, value: Math.min(amsAmmoBV, amsBV) });
+        }
 
         let defensive = armorBV + structureBV + defensiveEquipmentBV;
+        trace.add("cv.bv2.def.subtotal", { label: "Subtotal", value: defensive });
         // Combat Vehicle chassis modifications add to the type modifier (TO:AUE p.193).
-        const chassisModifier = this.getChassisModifications().reduce((sum, mod) => sum + mod.bvTypeModifier, 0);
+        // A Support Vehicle's Dune Buggy and Environmental Sealing chassis modifications take the same +0.1 (TO:AUE p.193):
+        // the Dromedary's printed 341 (TRO 3075 p.294) and the MUL's Burro II 247 come out only so.
+        const bvMods = [...this.getChassisModifications(), ...this._supportBvChassisModifications()];
+        const chassisModifier = bvMods.reduce((sum, mod) => sum + mod.bvTypeModifier, 0);
         const typeModifier = Math.round((this._bvTypeModifier() + chassisModifier) * 100) / 100;
-        log += `Subtotal ${defensive.toFixed(2)} x ${typeModifier} (${this._motiveType.name} type modifier${chassisModifier ? `, chassis modifications +${chassisModifier.toFixed(1)}` : ""})`;
+        if (chassisModifier) {
+            const support = this._supportBvChassisModifications().some((mod) => mod.bvTypeModifier);
+            trace.add(support ? "sv.bv2.def.chassis" : "cv.bv2.def.chassis", { label: "Chassis modifications", detail: bvMods.filter((mod) => mod.bvTypeModifier).map((mod) => `${mod.name} ${mod.bvTypeModifier > 0 ? "+" : ""}${fmt(mod.bvTypeModifier)}`).join(", "), value: chassisModifier });
+        }
+        const rail = this.getSupportVehicleMotive() === "rail";
+        const subtotal = defensive;
         defensive *= typeModifier;
-        log += ` = ${defensive.toFixed(2)}<br />`;
+        trace.add(rail ? "cv.bv2.def.type.rail" : "cv.bv2.def.type", { label: `${this._motiveType.name} type modifier`,
+            detail: `${fmt(subtotal)} x ${typeModifier}${chassisModifier ? `, chassis modifications +${chassisModifier.toFixed(1)}` : ""}`, value: defensive });
 
-        // An unmotorized Trailer counts as Flank MP 1 (TM p.308).
-        const flank = this._support?.engine === "none" ? 1 : this.getFlankMP();
+        // The boosted speed gives the Defensive and Speed Factors.
+        const boosted = this._bvBoostedMP();
+        const flank = this._bvFlankMP(boosted);
         const airborne = this._motiveType.tag === "vtol" || this._motiveType.tag === "wige";
-        const runTMM = flank > 0 ? getMovementModifier(flank) + (airborne ? 1 : 0) : 0;
-        const jumpTMM = this._jumpMP > 0 ? getMovementModifier(this._jumpMP) + 1 : 0;
+        // The highest potential target modifier includes stealth armor's +2 at long range (TM p.316).
+        const stealth = /stealth/.test(this._armorType.tag) ? 2 : 0;
+        const runTMM = flank > 0 ? getMovementModifier(flank) + (airborne ? 1 : 0) + stealth : 0;
+        const jumpTMM = this._jumpMP > 0 ? getMovementModifier(this._jumpMP) + 1 + stealth : 0;
         const defensiveFactor = 1 + Math.max(runTMM, jumpTMM) / 10;
         defensive *= defensiveFactor;
-        log += `Defensive Factor: 1 + max(Flank TMM ${runTMM}${airborne ? " incl. +1 airborne" : ""}, Jump TMM ${jumpTMM}) / 10 = ${defensiveFactor.toFixed(2)} -> ${defensive.toFixed(2)}<br />`;
+        trace.add("cv.bv2.def.factor", {
+            label: "Defensive Factor",
+            detail: `1 + max(Flank TMM ${runTMM}${airborne ? " incl. +1 airborne" : ""}, Jump TMM ${jumpTMM})${stealth ? " incl. +2 stealth armor" : ""}`
+                + `${boosted > this.getFlankMP() ? ` (jet booster, MP ${boosted})` : ""} / 10`,
+            value: defensiveFactor,
+            cites: [
+                ...(this._jumpMP > 0 ? [{ source: "toaue", page: "194" }] : []),
+                ...(stealth ? [{ source: "toaue", page: "192" }] : []),
+                ...(this._motiveType.tag === "wige" ? [{ source: "tw", page: "199" }] : []),
+            ],
+        });
+        trace.add("cv.bv2.def.rating", { label: "Defensive Battle Rating", detail: `${fmt(subtotal)} x ${typeModifier} x ${fmt(defensiveFactor)}`, value: defensive, emphasis: true });
 
-        log += "<strong>OFFENSIVE BATTLE RATING</strong><br />";
         const hasTC = this.hasTargetingComputer();
-        const baseWeaponBV = (item: IEquipmentItem) => (item.battleValue || 0) * (hasTC && isTargetingComputerWeapon(item) ? 1.25 : 1);
-        const offensiveWeapons = this._equipmentList.filter((item) => this._isWeapon(item));
-        const arcBV = (location: string) => offensiveWeapons.filter((item) => item.location === location).reduce((sum, item) => sum + baseWeaponBV(item), 0);
+        // "All weapons on a unit equipped with a Drone Remote Operating System multiply their BVs by 0.8" (TO:AUE p.193).
+        const drone = this._equipmentList.some((item) => item.variableFormula === "drone-operating-system");
+        const droneMultiplier = drone ? 0.8 : 1;
+        if (drone) trace.add("cv.bv2.off.drone", { label: "Drone Operating System: every weapon x 0.8", value: droneMultiplier });
+        const baseWeaponBV = (item: IEquipmentItem): number => {
+            // A machine gun array is worth 0.67 x the (up to four) machine guns it links in its location (TM p.228).
+            if (item.linkedWeaponTags?.length) {
+                const linked = this._equipmentList.filter((other) => other !== item && other.location === item.location
+                    && item.linkedWeaponTags!.includes(other.tag)).slice(0, 4);
+                return linked.reduce((sum, gun) => sum + getItemBattleValue(gun, this._tech.tag), 0) * 0.67 * droneMultiplier;
+            }
+            return getItemBattleValue(item, this._tech.tag) * (hasTC && isTargetingComputerWeapon(item) ? 1.25 : 1) * droneMultiplier;
+        };
+        // A vehicular grenade launcher is rated as a weapon in its arc; other equipment with a BV (industrial tools,
+        // mine dispensers) adds in full (TM p.317, as MegaMek and the MUL count it).
+        const offensiveWeapons = this._equipmentList.filter((item) => this._isWeapon(item) || (!!item.linkedWeaponTags?.length && !item.isAmmo)
+            || (item.tag === "vehicular-grenade-launcher" && !item.battleValueDefensive));
+        const offensiveEquipment = this._equipmentList.filter((item) => item.isEquipment && !item.isAmmo && !item.battleValueDefensive
+            && ((item.battleValue || 0) > 0 || this._mastMountBV(item) > 0) && !offensiveWeapons.includes(item));
+        // The arc a weapon counts in: a turret weapon is in none (TM 6th printing) or faces forward (3rd and 4th printings).
+        const forwardTurret = this.getPrinting(TURRET_WEAPON_ARC).tag === "tm-3rd-4th";
+        const arcOf = (item: IEquipmentItem): string | undefined => forwardTurret && isTurretLocation(item.location) ? "front" : item.location;
+        const arcBV = (location: string) => offensiveWeapons.filter((item) => arcOf(item) === location).reduce((sum, item) => sum + baseWeaponBV(item), 0);
         // The weaker of the front and rear arcs counts half; side and turret weapons count in full.
         // (MegaMek also halves side weapons when the rear arc is stronger, but the MUL does not:
         // Sea Skimmer Hydrofoil, BV 288.)
         const rearIsFront = arcBV("front") < arcBV("rear");
-        const isHalved = (item: IEquipmentItem) => item.location === (rearIsFront ? "front" : "rear");
+        const isHalved = (item: IEquipmentItem) => arcOf(item) === (rearIsFront ? "front" : "rear");
+        // Fire control adjusts heavy weapons and their ammunition only: "players need not adjust light and medium
+        // weapons" (TM p.316), and equipment is no weapon.
+        const isLight = (item: IEquipmentItem) => !!findSupportVehicleLightWeapon(item.tag);
         let weaponBV = 0;
+        let unadjustedBV = 0;
         const weaponBVByTag: Record<string, number> = {};
         for (const item of offensiveWeapons) {
-            const value = baseWeaponBV(item) * (isHalved(item) ? 0.5 : 1);
-            weaponBV += value;
-            weaponBVByTag[item.tag] = (weaponBVByTag[item.tag] ?? 0) + value;
-            log += `+ ${escapeLogText(item.name)} (${escapeLogText(item.location || "unallocated")}) = ${value.toFixed(2)}${isHalved(item) ? " (rear arc x 0.5)" : ""}<br />`;
+            const base = baseWeaponBV(item);
+            const value = base * (isHalved(item) ? 0.5 : 1);
+            if (isLight(item)) unadjustedBV += value;
+            else weaponBV += value;
+            // Ammunition caps at the unmodified value of its weapons: no fire control, computer or arc (TM p.307).
+            weaponBVByTag[item.tag] = (weaponBVByTag[item.tag] ?? 0)
+                + getLauncherBattleValueWithoutFireControl(item, () => getUnitCatalogRecords(this._tech.tag, { battleArmorScale: true }), this._tech.tag);
+            const turret = isTurretLocation(item.location);
+            const side = !turret && item.location !== "front" && item.location !== "rear";
+            const id = item.linkedWeaponTags?.length ? "cv.bv2.off.weapon.mga"
+                : item.tag === "vehicular-grenade-launcher" ? "cv.bv2.off.weapon.grenade"
+                : turret ? (forwardTurret ? "cv.bv2.off.weapon.turret.forward" : "cv.bv2.off.weapon.turret")
+                : side ? "cv.bv2.off.weapon.side"
+                : item.location === "rear" ? "cv.bv2.off.weapon.rear" : "cv.bv2.off.weapon";
+            let detail: string | undefined;
+            if (isHalved(item)) detail = `${fmt(base)} x 0.5 (${arcOf(item)} arc, the weaker)`;
+            else if (turret) detail = forwardTurret ? "turret weapon treated as facing forward, in the front arc" : "turret weapon in no arc, full BV";
+            trace.add(id, { label: `${item.name} (${item.location || "unallocated"})`, detail, value });
+        }
+        for (const item of offensiveEquipment) {
+            const value = (item.battleValue || 0) + this._mastMountBV(item);
+            unadjustedBV += value;
+            trace.add("cv.bv2.off.equipment", { label: `${item.name} (${item.location || "unallocated"}, equipment)`, value });
         }
 
         const ammoBVByTag: Record<string, number> = {};
         for (const ammo of this._equipmentList.filter((item) => item.isAmmo)) {
-            const fed = offensiveWeapons.find((weapon) => getCompatibleAmmo(weapon, ammo));
-            if (!fed) continue;
+            const fed = this._binWeapon(ammo);
+            if (!fed || !offensiveWeapons.includes(fed)) continue;
             ammoBVByTag[fed.tag] = (ammoBVByTag[fed.tag] ?? 0) + getAmmoBattleValuePerTon(fed, ammo) * ammo.weight;
         }
         let ammoBV = 0;
         for (const [tag, value] of Object.entries(ammoBVByTag)) {
             const capped = Math.min(value, weaponBVByTag[tag] ?? 0);
             ammoBV += capped;
-            log += `+ Ammunition for ${escapeLogText(tag)} = ${capped.toFixed(2)}${capped < value ? " (capped at weapon BV)" : ""}<br />`;
+            trace.add(capped < value ? "cv.bv2.off.ammo.cap" : "cv.bv2.off.ammo", { label: `Ammunition for ${tag}`,
+                detail: capped < value ? `${fmt(value)}, capped at the weapon BV` : undefined, value: capped });
         }
         if (this._support) {
             // Heavy weapons and their ammunition x 0.8 without fire control, x 0.9 with basic (TM pp.307, 316).
@@ -2800,34 +3449,181 @@ export default class Vehicle {
             if (fireControl.bvMultiplier !== 1) {
                 weaponBV *= fireControl.bvMultiplier;
                 ammoBV *= fireControl.bvMultiplier;
-                log += `Weapons and ammunition x ${fireControl.bvMultiplier} (${fireControl.name === "None" ? "no fire control" : escapeLogText(fireControl.name)})<br />`;
+                trace.add("cv.bv2.off.firecontrol", { label: "Heavy weapons and ammunition",
+                    detail: `x ${fireControl.bvMultiplier} (${fireControl.name === "None" ? "no fire control" : fireControl.name})`, value: fireControl.bvMultiplier });
             }
         }
+        weaponBV += unadjustedBV;
 
         const weightBV = this._tonnage / 2;
+        trace.add("cv.bv2.off.weight", { label: "Tonnage / 2", detail: `${this._tonnage} / 2`, value: weightBV });
         let offensive = weaponBV + ammoBV + weightBV;
+        trace.add("cv.bv2.off.base", { label: "Weapons + ammunition + tonnage / 2", detail: `${fmt(weaponBV)} + ${fmt(ammoBV)} + ${fmt(weightBV)}`, value: offensive });
         // Rail units find their Speed Factor from Cruise MP, not Flank MP (TO:AUE p.190).
-        const rail = this.getSupportVehicleMotive() === "rail";
-        const speedMP = (rail ? this.getCruiseMP() : flank) + Math.round(this._jumpMP / 2);
+        // A rail trailer (no engine or Cruise MP 0) counts as MP 1, as any unmotorized trailer does (TM p.308).
+        const speedMP = (rail ? (flank === 1 && (this._support?.engine === "none" || this.getCruiseMP() === 0) ? 1 : this.getCruiseMP()) : flank) + Math.round(this._jumpMP / 2);
         const speedFactor = Math.round(Math.pow(1 + (speedMP - 5) / 10, 1.2) * 100) / 100;
-        log += `(Weapons ${weaponBV.toFixed(2)} + Ammo ${ammoBV.toFixed(2)} + Tonnage / 2 ${weightBV}) x Speed Factor ${speedFactor} (MP ${speedMP})`;
+        trace.add(rail ? "cv.bv2.off.speed.rail" : "cv.bv2.off.speed", {
+            label: "Speed Factor",
+            detail: `MP ${speedMP}${rail ? " (Cruise MP)" : ""}${this._jumpMP > 0 ? `, incl. half of Jump MP ${this._jumpMP}` : ""}`,
+            value: speedFactor,
+            cites: this._jumpMP > 0 ? [{ source: "toaue", page: "194" }] : [],
+        });
+        const beforeSpeed = offensive;
         offensive *= speedFactor;
-        log += ` = ${offensive.toFixed(2)}<br />`;
+        trace.add("cv.bv2.off.rating", { label: "Offensive Battle Rating", detail: `${fmt(beforeSpeed)} x ${fmt(speedFactor)}`, value: offensive, emphasis: true });
 
         const robotic = this._roboticControl === "none" ? 1 : SRCS_BATTLE_VALUE_MULTIPLIER;
-        this._battleValue = Math.round((defensive + offensive) * robotic);
-        log += `<strong>Battle Value</strong>: ${defensive.toFixed(2)} + ${offensive.toFixed(2)}`
-            + `${robotic !== 1 ? ` x ${robotic} (Smart Robotic Control System, IO:AE p.187)` : ""} = ${this._battleValue} (provisional)<br />`;
-        this._calcLogBV = log;
+        // A drone's final BV x 0.95 (TO:AUE p.193).
+        const droneFinal = drone ? 0.95 : 1;
+        trace.add("cv.bv2.final.sum", { label: "Defensive + Offensive", detail: `${fmt(defensive)} + ${fmt(offensive)}`, value: defensive + offensive });
+        if (robotic !== 1) trace.add("cv.bv2.final.robotic", { label: "Smart Robotic Control System", detail: `x ${robotic}`, value: robotic });
+        if (drone) trace.add("cv.bv2.final.drone", { label: "Drone Operating System", detail: "x 0.95", value: droneFinal });
+        const battleValue = Math.round((defensive + offensive) * robotic * droneFinal);
+        trace.add("cv.bv2.final.round", { label: "Battle Value", value: battleValue, emphasis: true });
+        return battleValue;
     }
 
     /**
-     * C-Bill cost (TM Combat Vehicle cost, as implemented by MegaMek CombatVehicleCostCalculator;
-     * provisional): engine, armor, structure, control systems, power amplifiers, heat sinks,
-     * turrets, equipment and ammunition, lift/dive equipment, then x (1 + tonnage / motive divisor).
-     * Vehicular jump jets cost 200 x tonnage x Jump MP squared and a pair of sponson turrets 4,000 per ton of
-     * sponson (TO p. 411).
+     * BV1 (BMR pp.141-142 with the FanPro errata p.12; BMR(R) pp.154-155), from `edition`'s equipment tables, with
+     * Maximum Tech's Level 3 rules (pp.90-92) where the edition has them. Fractions are kept to the end. Each step is
+     * recorded with its page on `trace` when given (getVehicleBv1Steps); `tagged` rates semi-guided LRM ammo as beside
+     * friendly TAG (Maximum Tech p.91).
      */
+    private _calcBattleValue1(edition: string, trace?: CalcTrace, tagged = false): number {
+        const fmt = formatCalcNumber;
+        const add = (id: string, input: ICalcStepInput) => trace?.add(id, input);
+        const levelThree = getBattleValueRules(edition, "vehicle").levelThree;
+        const rate = (item: IEquipmentItem, weapon?: IEquipmentItem) => rateBattleValue1(edition, this._tech.tag, tagged, item, weapon);
+        const itemStep = (source: string, listed: string, unlisted: string) => source === "unlisted" ? unlisted : listed;
+        const binWeapon = (bin: IEquipmentItem) => this._binWeapon(bin);
+        const has = (tag: string) => !!levelThree && this._equipmentList.some((item) => matchesTag(item, tag));
+        const levelThreeEntries = (step: string) => this._equipmentList.filter((item) => levelThree?.vehicleItems[item.tag]?.[0] === step);
+        const levelThreeItems = (step: string) => this._equipmentList.reduce((sum, item) => {
+            const entry = levelThree?.vehicleItems[item.tag];
+            return sum + (entry?.[0] === step ? entry[1] : 0);
+        }, 0);
+        const ammoBins = this._equipmentList.filter((item) => item.isAmmo || item.tag.startsWith("ammo-"));
+
+        // Step 1: Defensive Battle Rating (BMR(R) p.154): Armor Factor + Internal Structure / 2 (turret and rotor
+        // included) + defensive gear. Level 3: Hardened armor points count double (Maximum Tech pp.90-91).
+        const locations = this.getLocations().map((loc) => loc.tag);
+        const armorPoints = this._armorPoints() + this._modularArmorPoints();
+        const hardened = !levelThree ? 0 : this.isPatchworkArmor()
+            ? locations.reduce((sum, loc) => sum + (this.getPatchworkArmorType(loc).tag === "hardened" ? this._armorAllocation[loc] ?? 0 : 0), 0)
+            : this._armorType.tag === "hardened" ? this._armorPoints() : 0;
+        const allocation = this.getStructureAllocation();
+        const structure = locations.reduce((sum, loc) => sum + (allocation[loc] ?? 0), 0) / 2;
+        add("cv.bv1.def.armor", { label: "Armor", detail: `${fmt(armorPoints)} points`, value: armorPoints });
+        if (hardened) add("cv.bv1.l3.def.armor.hardened", { label: "Hardened armor counts double", detail: `${fmt(hardened)} points`, value: hardened });
+        add("cv.bv1.def.structure", { label: "Internal Structure", detail: `${fmt(structure * 2)} / 2`, value: structure });
+        // What Maximum Tech rates in a step of its own counts there alone.
+        const rated = (item: IEquipmentItem) => item.isAmmo || !!levelThree?.vehicleItems[item.tag];
+        // Defensive gear: the ammunition of anti-missile systems, Maximum Tech's defensive items, then the rest.
+        let ammoGear = 0;
+        for (const bin of ammoBins) {
+            const fed = binWeapon(bin);
+            if (!fed || !isBattleValue1Defensive(fed)) continue;
+            const rating = rate(bin, fed);
+            ammoGear += rating.value * bin.weight;
+            add(itemStep(rating.source, "cv.bv1.def.equipment", "cv.bv1.def.equipment.unlisted"), { label: bin.name, detail: `${fmt(bin.weight)} tons x ${fmt(rating.value)}`, value: rating.value * bin.weight });
+        }
+        for (const item of levelThreeEntries("defensive")) {
+            add("cv.bv1.l3.def.item", { label: item.name, value: levelThree!.vehicleItems[item.tag][1] });
+        }
+        let otherGear = 0;
+        for (const item of this._equipmentList) {
+            if (rated(item) || !isBattleValue1Defensive(item)) continue;
+            const rating = rate(item);
+            otherGear += rating.value;
+            add(itemStep(rating.source, "cv.bv1.def.equipment", "cv.bv1.def.equipment.unlisted"), { label: item.name, value: rating.value });
+        }
+        const gear = ammoGear + levelThreeItems("defensive") + otherGear;
+        const subtotal = armorPoints + hardened + structure + gear;
+        add("cv.bv1.def.subtotal", { label: "Subtotal", detail: `armor ${fmt(armorPoints)}${hardened ? ` + hardened ${fmt(hardened)}` : ""} + structure ${fmt(structure)} + defensive gear ${fmt(gear)}`, value: subtotal });
+        // Level 3: chassis modifications add to the Vehicle Type Modifier (Maximum Tech p.92).
+        const chassisMods = this.getChassisModifications();
+        const chassisModifier = chassisMods.reduce((sum, mod) => sum + (levelThree?.vehicleChassis[mod.tag] ?? 0), 0);
+        const typeModifier = Math.round(((BV1_VEHICLE_TYPE_MODIFIERS[this._motiveType.tag] ?? 0.5) + chassisModifier) * 100) / 100;
+        add(this._motiveType.tag === "wige" ? "cv.bv1.def.type.wige" : "cv.bv1.def.type", { label: "Vehicle Type Modifier", detail: `${this._motiveType.name}${chassisModifier ? `, chassis modifications ${chassisModifier > 0 ? "+" : ""}${fmt(chassisModifier)}` : ""}`, value: typeModifier });
+        for (const mod of chassisMods) {
+            if (levelThree?.vehicleChassis[mod.tag]) add("cv.bv1.l3.def.chassis", { label: mod.name, value: levelThree.vehicleChassis[mod.tag] });
+        }
+        // Defensive Movement Factor: the highest potential TMM on the 'Mech table (BMR(R) p.153), +1 for a VTOL. Level 3:
+        // a supercharger or jet booster's added movement counts (Maximum Tech p.91), and jumping as for a 'Mech (p.92).
+        const boosted = levelThree ? this._bvBoostedMP() : 0;
+        const tmm = (mp: number) => Math.min(getMovementModifier(mp), 4);
+        // Level 3: a tractor and its trailers each take the MP of the combined rig (Maximum Tech p.92).
+        const rigged = !!levelThree && this._rigFlankMP !== null;
+        const flankFor = (boostedMP: number): number => rigged ? Math.max(this._rigFlankMP!, boostedMP) : this._bvFlankMP(boostedMP);
+        if (rigged) add("cv.bv1.l3.def.rig", { label: "Tractor-trailer rig", detail: `Flank ${this._rigFlankMP} MP for the whole rig`, value: this._rigFlankMP! });
+        const movementModifier = Math.max(tmm(flankFor(boosted)) + (this._motiveType.tag === "vtol" ? 1 : 0), this._jumpMP > 0 ? tmm(this._jumpMP) + 1 : 0);
+        const movementFactor = 1 + movementModifier / 10;
+        add(boosted > 0 ? "cv.bv1.l3.def.movement" : "cv.bv1.def.movement", { label: "Defensive Movement Factor", detail: `1 + ${movementModifier} / 10 (highest potential TMM +${movementModifier})`, value: movementFactor });
+        const bridge = levelThreeItems("movement");
+        const defensive = subtotal * typeModifier * movementFactor + bridge;
+        for (const item of levelThreeEntries("movement")) {
+            add("cv.bv1.l3.def.bridge", { label: item.name, value: levelThree!.vehicleItems[item.tag][1] });
+        }
+        add("cv.bv1.def.rating", { label: "Defensive Battle Rating", detail: `${fmt(subtotal)} x ${typeModifier} x ${movementFactor}${bridge ? ` + ${fmt(bridge)}` : ""}`, value: defensive, emphasis: true });
+
+        // Step 2: Offensive Battle Rating (BMR(R) pp.154-155). Rear weapons count half, unless they outweigh the other
+        // arcs: then the rear is the front and the front arc counts half. Multi-Trac II: all count in full (Maximum Tech p.91).
+        const weapons = this._equipmentList.filter((item) => !rated(item) && !isBattleValue1Defensive(item))
+            .map((item) => ({ item, rating: rate(item) })).map((entry) => ({ ...entry, bv: entry.rating.value })).filter((entry) => entry.bv > 0);
+        const rearBV = weapons.reduce((sum, entry) => sum + (entry.item.location === "rear" ? entry.bv : 0), 0);
+        const rearIsFront = rearBV > weapons.reduce((sum, entry) => sum + (entry.item.location === "rear" ? 0 : entry.bv), 0);
+        const multiTrac = has("targeting-multi-trac-ii");
+        const arc = (item: IEquipmentItem) => !multiTrac && item.location === (rearIsFront ? "front" : "rear") ? 0.5 : 1;
+        const weaponBV = weapons.reduce((sum, entry) => sum + entry.bv * arc(entry.item), 0);
+        for (const entry of weapons) {
+            const share = arc(entry.item);
+            add(entry.rating.source === "unlisted" ? "cv.bv1.off.weapon.unlisted" : share !== 1 ? "cv.bv1.off.weapon.rear" : "cv.bv1.off.weapon", {
+                label: entry.item.name, detail: share !== 1 ? `${fmt(entry.bv)} x ${share} (${rearIsFront ? "front, the rear outweighs the other arcs" : "rear"})` : undefined, value: entry.bv * share,
+            });
+        }
+        if (multiTrac) add("cv.bv1.l3.off.multi-trac", { label: "Multi-Trac II: every arc counts in full" });
+        // A targeting computer: 20% of the weapons it links (BMR(R) pp.121, 154); variable-range targeting 10% (Maximum Tech p.91).
+        const variableRange = has("targeting-variable-range");
+        const computerShare = (this.hasTargetingComputer() ? 0.2 : 0) + (variableRange ? 0.1 : 0);
+        const linkedBV = weapons.reduce((sum, entry) => sum + (isTargetingComputerWeapon(entry.item) ? entry.bv * arc(entry.item) : 0), 0);
+        const computerBV = computerShare * linkedBV;
+        if (this.hasTargetingComputer()) add("cv.bv1.off.targeting-computer", { label: "Targeting computer", detail: `${fmt(linkedBV)} of linked weapons x 0.2`, value: 0.2 * linkedBV });
+        if (variableRange) add("cv.bv1.l3.off.targeting.variable-range", { label: "Variable-range targeting", detail: `${fmt(linkedBV)} of linked weapons x 0.1`, value: 0.1 * linkedBV });
+        let ammoBV = 0;
+        for (const bin of ammoBins) {
+            const fed = binWeapon(bin);
+            if (!fed || isBattleValue1Defensive(fed)) continue;
+            const rating = rate(bin, fed);
+            ammoBV += rating.value * bin.weight;
+            add(rating.source === "unlisted" ? "cv.bv1.off.weapon.unlisted" : rating.multiplier !== 1 ? "cv.bv1.l3.off.ammo.special" : "cv.bv1.off.ammo", {
+                label: bin.name, detail: `${fmt(bin.weight)} tons x ${fmt(rating.value)}`, value: rating.value * bin.weight,
+            });
+        }
+        // Level 3: additional crew and a mast mount (Maximum Tech p.92).
+        for (const item of levelThreeEntries("weapons")) add("cv.bv1.l3.off.item", { label: item.name, value: levelThree!.vehicleItems[item.tag][1] });
+        const crew = (levelThree?.vehicleCrew ?? 0) * this.getSupportVehicleExtraCrew();
+        if (crew) add("cv.bv1.l3.off.crew", { label: "Additional crew", detail: `${this.getSupportVehicleExtraCrew()} x ${levelThree?.vehicleCrew}`, value: crew });
+        const extras = levelThreeItems("weapons") + crew;
+        const base = weaponBV + computerBV + ammoBV + extras;
+        add("cv.bv1.off.base", { label: "Base Weapon Battle Rating", detail: `weapons ${fmt(weaponBV)} + targeting computer ${fmt(computerBV)} + ammunition ${fmt(ammoBV)}${extras ? ` + Level 3 ${fmt(extras)}` : ""}`, value: base });
+        // Speed Factor MP: Flanking MP + VTOL MP, so a VTOL counts its Flank MP twice (BMR(R) p.155; Maximum Tech's Sprint
+        // and Yellow Jacket BVs fit no other reading), + Jump MP (Maximum Tech p.92), +1 with a supercharger or jet booster (p.91).
+        const speedMP = flankFor(0) * (this._motiveType.tag === "vtol" ? 2 : 1) + this._jumpMP + (boosted > 0 ? 1 : 0);
+        const speedFactor = getSpeedFactor(speedMP);
+        add("cv.bv1.off.speed", { label: "Speed Factor", detail: `MP ${fmt(speedMP)}`, value: speedFactor });
+        if (this._motiveType.tag === "vtol") add("cv.bv1.off.speed.vtol", { label: "A VTOL counts its Flank MP twice", detail: `${fmt(this._bvFlankMP(0))} x 2` });
+        if (this._jumpMP > 0) add("cv.bv1.l3.off.speed.jump", { label: "Jump MP added", detail: `${this._jumpMP}` });
+        if (boosted > 0) add("cv.bv1.l3.off.speed.booster", { label: "Supercharger or jet booster", detail: "+1 MP" });
+        const offensive = base * speedFactor;
+        add("cv.bv1.off.rating", { label: "Offensive Battle Rating", detail: `${fmt(base)} x ${speedFactor}`, value: offensive, emphasis: true });
+
+        // Step 3: Final BV, rounded (BMR(R) p.155).
+        const battleValue = Math.round(defensive + offensive);
+        add("cv.bv1.final.round", { label: "Battle Value", detail: `${fmt(defensive)} + ${fmt(offensive)}, rounded`, value: battleValue, emphasis: true });
+        return battleValue;
+    }
+
     /**
      * Support Vehicle cost (TM pp.280, 285): (chassis 2,500 x structure tons x the modifications' cost multipliers
      * + engine 5,000 x engine tons x the engine's multiplier + armor points x BAR cost) x the Structural Tech
@@ -2835,7 +3631,7 @@ export default class Vehicle {
      * percent of the weapons, TM p.293), all x (1 + tonnage / the motive divisor) x 1.25 for an OmniVehicle.
      */
     private _calcSupportVehicleCost(support: IVehicleSupportExport): void {
-        const rows: [string, number][] = [];
+        const rows: [string, string, number][] = [];
         const mods = this.getSupportVehicleChassisModifications();
         const modMultiplier = mods.reduce((product, tag) => product * (getSupportVehicleChassisModification(tag)?.costMultiplier ?? 1), 1);
         const chassis = SUPPORT_VEHICLE_CHASSIS_COST_PER_TON * this.getStructureWeight() * modMultiplier;
@@ -2844,104 +3640,217 @@ export default class Vehicle {
         const armorCost = this._armorPoints() * (supportVehicleArmor.find((armor) => armor.bar === support.bar)?.costPerPoint ?? 0);
         // Advanced Support Vehicles have no Tech Rating multiplier (TO:AUE p.229).
         const techMultiplier = this.isAdvancedSupportVehicle() ? 1 : SUPPORT_VEHICLE_COST_TECH_MULTIPLIER[support.structuralTechRating];
-        rows.push([`Chassis (${SUPPORT_VEHICLE_CHASSIS_COST_PER_TON} x ${this.getStructureWeight()} t${modMultiplier !== 1 ? ` x ${modMultiplier.toFixed(3)}` : ""})`, chassis]);
-        if (engine && engine.tag !== "none") rows.push([`${engine.name} Engine (${SUPPORT_VEHICLE_ENGINE_COST_PER_TON} x ${this.getEngineWeight()} t x ${engine.costMultiplier})`, engineCost]);
-        if (armorCost > 0) rows.push([`Armor (${this._armorPoints()} points of BAR ${support.bar})`, armorCost]);
+        rows.push(["sv.cost.chassis", `Chassis (${SUPPORT_VEHICLE_CHASSIS_COST_PER_TON} x ${this.getStructureWeight()} t${modMultiplier !== 1 ? ` x ${modMultiplier.toFixed(3)}` : ""})`, chassis]);
+        if (engine && engine.tag !== "none") rows.push(["sv.cost.engine", `${engine.name} Engine (${SUPPORT_VEHICLE_ENGINE_COST_PER_TON} x ${this.getEngineWeight()} t x ${engine.costMultiplier})`, engineCost]);
+        if (armorCost > 0) rows.push(["sv.cost.armor", `Armor (${this._armorPoints()} points of BAR ${support.bar})`, armorCost]);
         const structural = (chassis + engineCost + armorCost) * techMultiplier;
-        rows.push([`Structural subtotal x ${techMultiplier} (Structural Tech Rating ${support.structuralTechRating.toUpperCase()})`, structural - chassis - engineCost - armorCost]);
-        if (this.getWeightedHeatSinks() > 0) rows.push([`Heat Sinks (${this.getWeightedHeatSinks()})`, this.getWeightedHeatSinks() * SUPPORT_VEHICLE_HEAT_SINK_COST]);
-        if (this._hasTurret) rows.push([`Turret (${this._supportTurretWeight()} t)`, this._supportTurretWeight() * SUPPORT_VEHICLE_TURRET_COST_PER_TON]);
+        rows.push(["sv.cost.tech-rating", `Structural subtotal x ${techMultiplier} (Structural Tech Rating ${support.structuralTechRating.toUpperCase()})`, structural - chassis - engineCost - armorCost]);
+        if (this.getWeightedHeatSinks() > 0) rows.push(["sv.cost.heat-sinks", `Heat Sinks (${this.getWeightedHeatSinks()})`, this.getWeightedHeatSinks() * SUPPORT_VEHICLE_HEAT_SINK_COST]);
+        if (this._hasTurret) rows.push(["sv.cost.turret", `Turret (${this._supportTurretWeight()} t)`, this._supportTurretWeight() * SUPPORT_VEHICLE_TURRET_COST_PER_TON]);
+        // Vehicular jump jets, 200 x tonnage x Jump MP squared (TO:AUE p.223), and the Armored Motive System, 100,000 a ton
+        // (p.219): the Combat Vehicle prices, which name no other for a Support Vehicle.
+        if (this._jumpMP > 0) rows.push(["sv.cost.jump-jets", "Jump Jets", 200 * this._tonnage * this._jumpMP * this._jumpMP]);
+        for (const mod of this.getChassisModifications()) {
+            if (mod.cost) rows.push(["sv.cost.chassis-mod", mod.name, mod.cost(this._tonnage, this.getChassisModificationWeight(mod))]);
+        }
         // Pintles: 1,000 C-bills a ton (TM p.281).
-        if (this.getPintleWeight() > 0) rows.push([`Pintle Mounts (${this.getPintleWeight()} t)`, this.getPintleWeight() * 1000]);
+        if (this.getPintleWeight() > 0) rows.push(["sv.cost.pintle", `Pintle Mounts (${this.getPintleWeight()} t)`, this.getPintleWeight() * 1000]);
         const bayCost = this._bays.reduce((sum, bay) => sum + getVehicleBayCost(bay), 0);
-        if (bayCost > 0) rows.push(["Transport Bays and Doors", bayCost]);
-        if (this.getPowerAmplifierWeight() > 0) rows.push(["Power Amplifiers", this.getPowerAmplifierWeight() * SUPPORT_VEHICLE_POWER_AMPLIFIER_COST_PER_TON]);
+        if (bayCost > 0) rows.push(["sv.cost.bays", "Transport Bays and Doors", bayCost]);
+        if (this.getPowerAmplifierWeight() > 0) rows.push(["sv.cost.power-amplifiers", "Power Amplifiers", this.getPowerAmplifierWeight() * SUPPORT_VEHICLE_POWER_AMPLIFIER_COST_PER_TON]);
         const equipmentCost = this._equipmentList.reduce((sum, item) => sum + (item.isAmmo ? (item.cbills || 0) * item.weight : item.cbills || 0), 0);
-        rows.push(["Weapons, Equipment and Ammunition", equipmentCost]);
+        rows.push(["sv.cost.equipment", "Weapons, Equipment and Ammunition", equipmentCost]);
         const fireControl = SUPPORT_VEHICLE_FIRE_CONTROL[support.fireControl];
         if (fireControl.costFactor > 0) {
             const weaponCost = this._equipmentList.filter((item) => this._isWeapon(item)).reduce((sum, item) => sum + (item.cbills || 0), 0);
-            rows.push([`${fireControl.name} (${fireControl.costFactor * 100}% of weapons)`, weaponCost * fireControl.costFactor]);
+            rows.push(["sv.cost.fire-control", `${fireControl.name} (${fireControl.costFactor * 100}% of weapons)`, weaponCost * fireControl.costFactor]);
         }
         const motive = this.getSupportVehicleMotive() ?? "wheeled";
         const divisor = SUPPORT_VEHICLE_COST_TONNAGE_DIVISOR[motive];
-        const subtotal = rows.reduce((sum, [, value]) => sum + value, 0);
+        const subtotal = rows.reduce((sum, [, , value]) => sum + value, 0);
         const multiplier = 1 + this._tonnage / divisor;
         const omni = this._omni ? 1.25 : 1;
         this._cost = Math.round(subtotal * multiplier * omni);
-        this._calcLogCost = rows.map(([name, value]) => `${escapeLogText(name)}: ${(Math.round(value * 100) / 100).toLocaleString()}`).join("<br />")
+        // Each row a cited step (SUPPORT_VEHICLE_COST_STEPS).
+        const trace = new CalcTrace(SUPPORT_VEHICLE_COST_STEPS);
+        for (const [id, label, value] of rows) trace.add(id, { label, value });
+        trace.add("sv.cost.subtotal", { label: "Structure, weapons and equipment", value: subtotal, emphasis: true });
+        trace.add("sv.cost.multiplier", { label: "Tonnage multiplier", detail: `1 + ${this._tonnage} / ${divisor}`, value: multiplier });
+        if (this._omni) trace.add("sv.cost.omni", { label: "OmniVehicle conversion", value: omni });
+        trace.add("sv.cost.final", { label: "Final cost", detail: `${formatCalcNumber(Math.round(subtotal * 100) / 100)} x ${multiplier.toFixed(4)}${this._omni ? " x 1.25" : ""}, rounded`, value: this._cost, emphasis: true });
+        this._costSteps = trace.steps;
+        this._calcLogCost = rows.map(([, name, value]) => `${escapeLogText(name)}: ${(Math.round(value * 100) / 100).toLocaleString()}`).join("<br />")
             + `<br />Subtotal ${(Math.round(subtotal * 100) / 100).toLocaleString()} x ${multiplier.toFixed(4)} (1 + ${this._tonnage} / ${divisor})${this._omni ? " x 1.25 (OmniVehicle)" : ""}`
             + ` = <strong>${this._cost.toLocaleString()}</strong>`;
     }
 
+    /**
+     * The locations a Clan chassis presumes CASE in (TM p.210): those that store explosive ammunition or explosive
+     * equipment (a Gauss rifle), the body for ammunition kept there. A location with a CASE item of its own pays for that.
+     * Empty without Clan CASE.
+     */
+    private _clanCaseLocations(): string[] {
+        if (!this.hasClanCASE()) return [];
+        const caseTags = ["case", "case-prototype", "case-ii", "clan-case-ii"];
+        const holds = (item: IEquipmentItem) => item.isAmmo ? item.explosive === true : (item.gauss === true || item.explosive === true) && !item.explosiveAsAmmo;
+        const where = (item: IEquipmentItem) => item.location || "body";
+        const withCase = new Set(this._equipmentList.filter((item) => caseTags.some((tag) => matchesTag(item, tag))).map(where));
+        return Array.from(new Set(this._equipmentList.filter(holds).map(where))).filter((location) => !withCase.has(location));
+    }
+
+    /**
+     * C-bill cost (Combat Vehicle Costs, TM p.279; weapons and equipment, p.282; the Final Cost Formulas, p.285; the worked
+     * Hephaestus on pp.283-285), each step recorded with its page (VEHICLE_COST_STEPS, read as BMR p.137 or BMR(R) p.150
+     * under the Master Rules editions): engine, armor, structure, control systems, power amplifiers, heat sinks, turrets,
+     * lift and rotor equipment, equipment, then x (1 + tonnage / the motive divisor) and x 1.25 for an OmniVehicle.
+     * Ammunition need not be bought (p.282): it is left out and shown as the loaded cost. A Clan chassis is billed 50,000
+     * for each location its presumed CASE covers (TM pp.210, 292). Vehicular jump jets cost 200 x tonnage x Jump MP
+     * squared and a pair of sponson turrets 4,000 per ton of sponson (TO:AUE p.223).
+     */
     private _calcCost(): void {
         if (this._support) {
             this._calcSupportVehicleCost(this._support);
             return;
         }
-        const rows: [string, number][] = [];
+        const trace = new CalcTrace(VEHICLE_COST_STEPS);
+        const fmt = (value: number) => COST_NUMBER_FORMAT.format(value);
+        let subtotal = 0;
+        const add = (id: string, label: string, value: number, detail?: string) => {
+            subtotal += value;
+            trace.add(id, { label, ...(detail ? { detail } : {}), value });
+        };
         const engineRating = Math.ceil(this.getEngineRating() / 5) * 5;
         // Above rating 400 the large engine record gives the name and cost (twice the base type, TO:AUE p.219).
         const engineForCost = (engineRating > MAX_STANDARD_ENGINE_RATING ? getLargeEngineType(this._engineType.tag) : undefined) ?? this._engineType;
-        rows.push([`${engineForCost.name} (${engineForCost.costMultiplier} x rating ${engineRating} x ${this._tonnage} t / 75)`,
-            (engineForCost.costMultiplier || 0) * engineRating * this._tonnage / 75]);
+        if (!this._unpoweredTrailer) {
+            const printed = engineRating <= MAX_STANDARD_ENGINE_RATING;
+            add(printed && OLDER_COST_ENGINES.includes(engineForCost.tag) ? "cv.cost.engine" : printed && engineForCost.tag === "light" ? "cv.cost.engine.light" : "cv.cost.engine.later", engineForCost.name, (engineForCost.costMultiplier || 0) * engineRating * this._tonnage / 75,
+                `${fmt(engineForCost.costMultiplier || 0)} x rating ${engineRating} x ${this._tonnage} tons / 75`);
+        }
         if (this.isPatchworkArmor()) {
             // Patchwork: each location's armor at its own type's cost per ton.
             for (const location of this.getLocations()) {
                 const weight = this.getPatchworkLocationWeight(location.tag);
                 const locationArmor = this.getPatchworkArmorType(location.tag);
-                if (weight > 0) rows.push([`Armor, ${location.name} (${locationArmor.name}, ${weight} t)`, weight * (locationArmor.costMultiplier || 10000)]);
+                if (weight > 0) add("cv.cost.armor.patchwork", `Armor, ${location.name} (${locationArmor.name})`, weight * (locationArmor.costMultiplier || 10000), `${fmt(locationArmor.costMultiplier || 10000)} x ${fmt(weight)} tons`);
             }
         } else {
-            rows.push([`Armor (${this.getArmorWeight()} t)`, this.getArmorWeight() * (this._armorType.costMultiplier || 10000)]);
+            add(OLDER_COST_ARMOR.includes(this._armorType.tag) ? "cv.cost.armor" : "cv.cost.armor.later", `Armor (${this._armorType.name})`, this.getArmorWeight() * (this._armorType.costMultiplier || 10000),
+                `${fmt(this._armorType.costMultiplier || 10000)} x ${fmt(this.getArmorWeight())} tons`);
         }
-        rows.push([`Internal Structure (${this.getStructureWeight()} t)`, this.getStructureWeight() * 10000]);
-        rows.push([`Control Systems (${this.getControlSystemsWeight()} t)`, this.getControlSystemsWeight() * 10000]);
+        add("cv.cost.structure", "Internal Structure", this.getStructureWeight() * 10000, `10,000 x ${fmt(this.getStructureWeight())} tons`);
+        if (!this._unpoweredTrailer) add("cv.cost.control", "Control Systems", this.getControlSystemsWeight() * 10000, `10,000 x ${fmt(this.getControlSystemsWeight())} tons`);
         if (this._roboticControl !== "none") {
-            rows.push([`${this.getRoboticControl().name} (${this.getRoboticControlWeight()} t)`, getRoboticControlCost(this._roboticControl, this.getRoboticControlWeight())]);
+            add("cv.cost.robotic", this.getRoboticControl().name, getRoboticControlCost(this._roboticControl, this.getRoboticControlWeight()), `${fmt(this.getRoboticControlWeight())} tons`);
         }
-        if (this.getPowerAmplifierWeight() > 0) rows.push(["Power Amplifiers", this.getPowerAmplifierWeight() * 20000]);
-        if (this.getWeightedHeatSinks() > 0) rows.push([`Heat Sinks (${this.getWeightedHeatSinks()})`, this.getWeightedHeatSinks() * 2000]);
+        if (this.getPowerAmplifierWeight() > 0) add("cv.cost.power-amplifiers", "Power Amplifiers", this.getPowerAmplifierWeight() * 20000, `20,000 x ${fmt(this.getPowerAmplifierWeight())} tons`);
+        if (this.getWeightedHeatSinks() > 0) add("cv.cost.heat-sinks", "Heat Sinks", this.getWeightedHeatSinks() * 2000, `2,000 x ${fmt(this.getWeightedHeatSinks())}`);
+        // An OmniVehicle's base chassis turret is priced at its fixed weight (TM p.108).
+        const fixedTurret = this.getOmniTurretWeight();
         const turretWeaponWeight = this._equipmentList
-            .filter((item) => (item.location === "turret" || item.location === "turret2") && !item.isAmmo)
+            .filter((item) => (item.location === "turret2" || (!fixedTurret && item.location === "turret")) && !item.isAmmo)
             .reduce((sum, item) => sum + item.weight, 0) / 10;
-        if (turretWeaponWeight > 0) rows.push(["Turret", Math.ceil(turretWeaponWeight * 2) / 2 * 5000]);
-        const equipmentCost = this._equipmentList.reduce((sum, item) => sum + (item.isAmmo ? (item.cbills || 0) * item.weight : item.cbills || 0), 0);
-        rows.push(["Weapons, Equipment and Ammunition", equipmentCost]);
+        if (turretWeaponWeight > 0 || fixedTurret > 0) {
+            const turretTons = fixedTurret + Math.ceil(turretWeaponWeight * 2) / 2;
+            add("cv.cost.turret", "Turret", turretTons * 5000, `5,000 x ${fmt(turretTons)} tons`);
+        }
         const bayCost = this._bays.reduce((sum, bay) => sum + getVehicleBayCost(bay), 0);
-        if (bayCost > 0) rows.push(["Transport Bays and Doors", bayCost]);
-        if (this._sponsonTurrets) rows.push([`Sponson Turrets (${this.getSponsonWeight()} t)`, this.getSponsonWeight() * 4000]);
-        if (this._jumpMP > 0) rows.push(["Jump Jets", 200 * this._tonnage * this._jumpMP * this._jumpMP]);
+        if (bayCost > 0) add("cv.cost.bays", "Transport Bays and Doors", bayCost);
+        if (this._sponsonTurrets) add("cv.cost.sponson", "Sponson Turrets", this.getSponsonWeight() * 4000, `4,000 x ${fmt(this.getSponsonWeight())} tons`);
+        if (this._jumpMP > 0) add("cv.cost.jump-jets", "Jump Jets", 200 * this._tonnage * this._jumpMP * this._jumpMP, `200 x ${this._tonnage} tons x ${this._jumpMP} squared`);
         for (const mod of this.getChassisModifications()) {
-            if (mod.cost) rows.push([mod.name, mod.cost(this._tonnage, this.getChassisModificationWeight(mod))]);
+            if (mod.cost) add("cv.cost.chassis", mod.name, mod.cost(this._tonnage, this.getChassisModificationWeight(mod)));
         }
         if (this._motiveType.liftEquipment) {
             const liftTons = Math.ceil(this._tonnage / 5) / 2;
-            rows.push([`${this._motiveType.liftEquipment} (${liftTons} t)`, liftTons * (this._motiveType.hasRotor ? 40000 : 20000)]);
+            const rate = this._motiveType.hasRotor ? 40000 : 20000;
+            add(this._motiveType.hasRotor ? "cv.cost.rotor" : "cv.cost.lift", this._motiveType.liftEquipment, liftTons * rate, `${fmt(rate)} x ${fmt(liftTons)} tons`);
         }
-        const subtotal = rows.reduce((sum, [, value]) => sum + value, 0);
+        // Weapons and equipment (TM p.282); ammunition is left out and shown as the loaded cost.
+        let ammo = 0;
+        const formulas = ["supercharger", "drone-operating-system", "drone-carrier-control"];
+        for (const item of this._equipmentList) {
+            if (item.isAmmo) {
+                ammo += (item.cbills || 0) * item.weight;
+                continue;
+            }
+            const id = formulas.includes(item.variableFormula ?? "") || item.tag === "vtol-jet-booster" ? "cv.cost.equipment.formula"
+                : item.tag === "communications-equipment" ? "cv.cost.equipment.communications" : "cv.cost.equipment";
+            add(id, item.name, item.cbills || 0);
+        }
+        if (ammo > 0) trace.add("cv.cost.ammo", { label: "Ammunition carried (not bought for the cost)", value: ammo });
+        // Clan CASE: presumed where a Clan chassis stores ammunition or explosive equipment (TM p.210), 50,000 each (TM p.292).
+        const clanCaseLocations = this._clanCaseLocations();
+        if (clanCaseLocations.length > 0) {
+            add("cv.cost.clan-case", "Clan CASE (presumed)", CLAN_CASE_COST * clanCaseLocations.length, `${fmt(CLAN_CASE_COST)} x ${clanCaseLocations.length} (${clanCaseLocations.join(", ")})`);
+        }
+        trace.add("cv.cost.subtotal", { label: "Structure, weapons and equipment", value: subtotal, emphasis: true });
         const divisors: Record<string, number> = {
             hover: 50, "naval-sub": 50, hydrofoil: 75, "naval-surface": 200, wheeled: 200, tracked: 100, vtol: 30, wige: 25,
         };
-        const multiplier = 1 + this._tonnage / (divisors[this._motiveType.tag] ?? 100);
+        const divisor = divisors[this._motiveType.tag] ?? 100;
+        const multiplier = 1 + this._tonnage / divisor;
+        trace.add("cv.cost.multiplier", { label: "Tonnage multiplier", detail: `1 + ${this._tonnage} / ${divisor} (${this._motiveType.name})`, value: multiplier });
         // Omni Conversion Cost: x 1.25 (TM p.285).
         const omni = this._omni ? 1.25 : 1;
+        if (this._omni) trace.add("cv.cost.omni", { label: "OmniVehicle conversion", value: omni });
         // Flotation Hull and Environmental Sealing multiply the total cost by 1.25 (TO:AUE p.219).
         const chassisCost = this.getChassisModifications().filter((mod) => mod.totalCostMultiplier);
         const chassis = chassisCost.reduce((product, mod) => product * (mod.totalCostMultiplier ?? 1), 1);
+        for (const mod of chassisCost) trace.add("cv.cost.chassis-multiplier", { label: mod.name, detail: `x ${mod.totalCostMultiplier}`, value: mod.totalCostMultiplier });
         this._cost = Math.round(subtotal * multiplier * omni * chassis);
-        this._calcLogCost = rows.map(([name, value]) => `${escapeLogText(name)}: ${Math.round(value).toLocaleString()}`).join("<br />")
-            + `<br />Subtotal ${Math.round(subtotal).toLocaleString()} x ${multiplier.toFixed(3)} (1 + ${this._tonnage} / ${divisors[this._motiveType.tag] ?? 100})${this._omni ? " x 1.25 (OmniVehicle)" : ""}`
-            + chassisCost.map((mod) => ` x ${mod.totalCostMultiplier} (${mod.name})`).join("")
-            + ` = <strong>${this._cost.toLocaleString()}</strong> (provisional)`;
+        trace.add("cv.cost.final", { label: "Final cost", detail: `${fmt(subtotal)} x ${fmt(multiplier)}${this._omni ? " x 1.25" : ""}${chassis !== 1 ? ` x ${fmt(chassis)}` : ""}, rounded`, value: this._cost, emphasis: true });
+        if (ammo > 0) trace.add("cv.cost.final.loaded", { label: "Loaded cost, with the ammunition carried", value: this._cost + ammo, emphasis: true });
+        this._costSteps = trace.steps;
+        this._calcLogCost = "";
     }
 
-    public getBattleValue(): number {
-        return this._battleValue;
+    /** The C-bill cost as cited steps under `edition` (BMR p.137 and BMR(R) p.150 under the Master Rules, TM p.279 otherwise). */
+    public getCostBreakdown(edition: string = this._rulesEdition): ICalcBreakdown {
+        const defs = getVehicleCostSteps(edition);
+        const steps = this._costSteps.map((entry) => {
+            const def = defs[entry.id];
+            return def ? { ...entry, ...def, cites: [...def.cites] } : { ...entry, cites: [...entry.cites] };
+        });
+        return { kind: "cost", edition, steps, result: this._cost };
     }
 
-    public getBattleValueLog(): string {
-        return this._calcLogBV;
+    public getBattleValue(edition: string = this._rulesEdition): number {
+        return getBattleValueFor(edition, "vehicle", { bv1: () => this._calcBattleValue1(edition), bv2: () => this._battleValue });
+    }
+
+    /**
+     * The Battle Value steps under `edition`, each with its page (#599): BV2 under a Total Warfare edition, and one step
+     * with a null result under an edition older than the Battle Value system.
+     */
+    public getBattleValueBreakdown(edition: string = this._rulesEdition): ICalcBreakdown {
+        if (!editionHasBattleValue(edition, "vehicle")) {
+            const trace = new CalcTrace(NO_BATTLE_VALUE_STEPS);
+            trace.add("none.no-battle-value", { label: `${getRulesEdition(edition).name} has no Battle Value. Battle Value first appears in the BattleTech Master Rules (1998)` });
+            return { kind: "battle-value", edition, scheme: "none", steps: trace.steps, result: null };
+        }
+        return getBattleValueFor<ICalcBreakdown>(edition, "vehicle", {
+            bv1: () => {
+                const trace = new CalcTrace(getVehicleBv1Steps(edition));
+                const result = this._calcBattleValue1(edition, trace);
+                return { kind: "battle-value", edition, scheme: "bv1", result, steps: trace.steps, notes: [this._bv1Heading(edition)] };
+            },
+            bv2: () => ({ kind: "battle-value", edition, scheme: "bv2", steps: this._bv2Steps.map((entry) => ({ ...entry, cites: [...entry.cites] })), result: this._battleValue }),
+        });
+    }
+
+    private _bv1Heading(edition: string): string {
+        const levelThree = getBattleValueRules(edition, "vehicle").levelThree;
+        return `BV1 (${getRulesEdition(getBattleValueEdition(edition)).name}${levelThree ? `; ${levelThree.source}` : ""})`;
+    }
+
+    public getBattleValueLog(edition: string = this._rulesEdition): string {
+        // Under a BV1 edition its own steps come first, then the BV2 ones for comparison (plan ruling 1).
+        return getBattleValueFor(edition, "vehicle", { bv1: () => {
+            const trace = new CalcTrace(getVehicleBv1Steps(edition));
+            this._calcBattleValue1(edition, trace);
+            return `<strong>${escapeLogText(this._bv1Heading(edition))}</strong><br />${renderCalcStepsHtml(trace.steps)}<strong>BV2 (current rules), for comparison</strong><br />${this._calcLogBV}`;
+        }, bv2: () => this._calcLogBV });
     }
 
     public getCBillCost(): number {
@@ -2949,6 +3858,8 @@ export default class Vehicle {
     }
 
     public getCBillCostLog(): string {
+        // The table is drawn when asked for: a Combat Vehicle load works the cost out without it.
+        if (!this._calcLogCost && this._costSteps.length > 0) this._calcLogCost = renderCalcStepsTable(this._costSteps);
         return this._calcLogCost;
     }
 
@@ -2992,7 +3903,7 @@ export default class Vehicle {
         }
         for (const item of this._equipmentList) {
             if (!this._isSmallSupportVehicle() && (item.weight * 2) % 1 !== 0) smallItems += item.weight;
-            else this._weights.push({ name: item.name, weight: item.weight });
+            else this._weights.push({ name: item.name, weight: item.weight, item });
         }
         if (smallItems > 0) {
             this._weights.push({ name: `Items weighed in kilograms (${Math.round(smallItems * 1000)} kg)`, weight: roundSupportVehicleWeight(smallItems, false) });
@@ -3005,13 +3916,27 @@ export default class Vehicle {
      */
     private _sizeVariableEquipment(): void {
         for (const item of this._equipmentList) {
-            if (item.variableFormula !== "extended-fuel-tank" && item.variableFormula !== "drone-operating-system" && item.variableFormula !== "drone-carrier-control") continue;
-            const size = sizeVariableEquipment(item.variableFormula, { tonnage: this._tonnage, engineRating: this.getEngineRating(), engineWeight: this.getEngineWeight(), directFireWeaponWeight: 0, drones: item.controlledDrones });
+            if (item.variableFormula !== "extended-fuel-tank" && item.variableFormula !== "supercharger" && item.variableFormula !== "drone-operating-system" && item.variableFormula !== "drone-carrier-control" && item.variableFormula !== "booby-trap") continue;
+            const size = sizeVariableEquipment(item.variableFormula, { tonnage: this._tonnage, engineRating: this.getEngineRating(), engineWeight: this.getEngineWeight(), directFireWeaponWeight: 0, drones: item.controlledDrones, kilograms: !!this._support && this._isSmallSupportVehicle() });
             if (size) {
                 item.weight = size.weight;
                 item.cbills = size.cbills;
             }
         }
+        // A Support Vehicle's supercharger costs 10,000 a ton of engine, not a point of rating (MegaMek's reading of the
+        // TO:AUE p.157 cost row, whose extract is garbled; inferred).
+        if (this._support) {
+            for (const item of this._equipmentList.filter((entry) => entry.variableFormula === "supercharger")) item.cbills = Math.round(this.getEngineWeight() * 10000);
+        }
+        // A dumper weighs 5 percent of the cargo it dumps (TM p.243).
+        for (const item of this._equipmentList.filter((entry) => entry.variableFormula === "dumper")) {
+            const size = sizeVariableEquipment("dumper", { tonnage: this._tonnage, engineRating: 0, engineWeight: 0, directFireWeaponWeight: 0, size: item.dumpedCargo ?? 0, kilograms: !!this._support && this._isSmallSupportVehicle() });
+            if (size) {
+                item.weight = size.weight;
+                item.cbills = size.cbills;
+            }
+        }
+        sizeTargetingComputers(this._equipmentList, this._tonnage);
     }
 
     private _calc() {
@@ -3035,8 +3960,10 @@ export default class Vehicle {
         }
 
         this._weights.push({ name: "Internal Structure", weight: this.getStructureWeight() });
-        this._weights.push({ name: this._engineType.name, weight: this.getEngineWeight() });
-        this._weights.push({ name: "Control Systems", weight: this.getControlSystemsWeight() });
+        if (!this._unpoweredTrailer) {
+            this._weights.push({ name: this._engineType.name, weight: this.getEngineWeight() });
+            this._weights.push({ name: "Control Systems", weight: this.getControlSystemsWeight() });
+        }
         if (this.getRoboticControlWeight() > 0) {
             this._weights.push({ name: this.getRoboticControl().name, weight: this.getRoboticControlWeight() });
         }
@@ -3073,7 +4000,7 @@ export default class Vehicle {
         }
 
         for (const item of this._equipmentList) {
-            this._weights.push({ name: item.name, weight: item.weight });
+            this._weights.push({ name: item.name, weight: item.weight, item });
         }
 
         this._currentTonnage = this._weights.reduce((sum, w) => sum + w.weight, 0);
@@ -3202,7 +4129,8 @@ export default class Vehicle {
         for (const family of ["IF", "LRM", "SRM", "AC"] as const) {
             const damage = this._asSum(weapons.filter((weapon) => Vehicle._asFamily(weapon, family)));
             if (family === "IF") {
-                if (damage[2] > 0) specials.push(`IF${Vehicle._asVector([damage[2]], "normalNoMinimal").replace("-", "0")}`);
+                // Under 0.5 long-range damage is minimal: the MUL prints IF0*, never IF0.
+                if (damage[2] > 0) specials.push(`IF${Vehicle._asVector([damage[2]], "normal")}`);
             } else if (Vehicle._roundUpToTenth(damage[1]) >= 1) {
                 specials.push(`${family}${Vehicle._asVector(family === "SRM" ? damage.slice(0, 2) : damage.slice(0, 3), "normalNoMinimal")}`);
             }
@@ -3263,8 +4191,10 @@ export default class Vehicle {
 
         const specials: string[] = [];
         specials.push(...this._asFamilySpecials(standardWeapons));
-        if (rearWeapons.length) {
-            specials.push(`REAR${Vehicle._asVector(this._asSum(rearWeapons).slice(0, 3), "normal")}`);
+        const rearVector = Vehicle._asVector(this._asSum(rearWeapons).slice(0, 3), "normal");
+        // Rear-mounted gear with no damage (a searchlight) gives no REAR: the MUL never prints REAR-/-/-.
+        if (rearWeapons.length && /[^-/]/.test(rearVector)) {
+            specials.push(`REAR${rearVector}`);
         }
         if (turretWeapons.length) {
             const turretSpecials = this._asFamilySpecials(turretWeapons);
@@ -3283,6 +4213,7 @@ export default class Vehicle {
             if (this._support.fireControl === "advanced") specials.push("AFC");
             if (this._support.fireControl === "basic") specials.push("BFC");
         }
+        if (this.hasChassisModification("armored-motive")) specials.push("ARS");
         specials.push("SRCH");
         specials.push(...getVehicleBayAlphaStrikeSpecials(this._bays, this._troopSpace));
         // Communications equipment: MHQ by its tons, and RCN when it is at least a twentieth of the unit's weight
@@ -3293,14 +4224,8 @@ export default class Vehicle {
             if (commsTons >= this._tonnage / 20) specials.push("RCN");
         }
         if (this._motiveType.hasRotor) specials.push("ATMO");
-        const equipmentSpecials = new Set<string>();
-        for (const item of this._equipmentList) {
-            if (item.isAmmo) continue;
-            for (const code of item.alphaStrike?.specialAbility ?? []) {
-                if (!code.includes("#")) equipmentSpecials.add(code);
-            }
-        }
-        specials.push(...equipmentSpecials);
+        const equipmentSpecials = new Set(getAlphaStrikeEquipmentSpecials(this._equipmentList, this.getRequiredRulesLevel()));
+        specials.push(...[...equipmentSpecials].filter((code) => !specials.includes(code))); // RCN from a probe and from comms equipment lists once
         specials.sort();
 
         // Exceptionally large Support Vehicles fire by arc, like DropShips: front, the two sides (fore- and aft-side
@@ -3429,7 +4354,16 @@ export default class Vehicle {
         } as unknown as IASMULUnit;
         const unit = new AlphaStrikeUnit();
         unit.importMUL(record);
+        // The unit picture stored in the design (#95); with none, the picture the MUL record gave stays.
+        if (this.tro.getImage()) unit.imageURL = this.tro.getImage();
         unit.rulesLevel = Math.max(2, this.getRequiredRulesLevel());
+        // The selected special ammunition plays as an ASCE Alternate Munition (#647); our own rows only at levels 6-7.
+        const selectedAmmo = this.getAlphaStrikeSpecialAmmoOptions().find((ammo) => ammo.tag === this.getAlphaStrikeSpecialAmmoTag());
+        unit.munition = getASMunition(selectedAmmo?.alphaStrike?.munition, unit.rulesLevel)?.key ?? "";
+        unit.quirks = getAlphaStrikeQuirks(this);
+        unit.quirkEraStart = this.getEra().yearStart;
+        // The card credits the Special Rulesets the design is built under (#324).
+        unit.rulesets = this.gameSettings.getRulesets();
         return unit;
     }
 
@@ -3442,12 +4376,40 @@ export default class Vehicle {
         this._uuid = generateUUID();
     }
 
+    /**
+     * Every piece of E-War gear on the vehicle (#642), and its armor when that is stealth. Destroyed is the
+     * weapon status the crit rolls already set (getWeaponStatus), which any equipment uuid can carry.
+     */
+    /** The power-dial setting of the weapon `uuid` (the Bombast Laser, #645; none kept is the top, so an old save fires as it always did). */
+    public getDialSetting(uuid: string): number {
+        const item = this.getEquipmentList().find((candidate) => candidate.uuid === uuid);
+        return item ? getUnitDialSetting(this, item) : 0;
+    }
+
+    /** Set a dial weapon's setting; kept with the unit's play state. */
+    public setDialSetting(uuid: string, setting: number): void {
+        setUnitDialSetting(this, uuid, setting, this.getEquipmentList());
+    }
+
+    public getEWarGear(): IEWarGear[] {
+        const gear: IEWarGear[] = [];
+        for (const item of this._equipmentList) {
+            const kind = getEWarKind(item.tag);
+            if (kind) gear.push({ kind, tag: item.tag, name: item.name, uuid: item.uuid, location: item.location, destroyed: this.getWeaponStatus(item.uuid) === "destroyed" });
+        }
+        const armor = getEWarKind(this._armorType.tag);
+        if (armor) gear.push({ kind: armor, tag: this._armorType.tag, name: this._armorType.name, location: "armor", destroyed: false });
+        return gear;
+    }
+
     public getInPlay(): IVehicleInPlay {
         return this._inPlay;
     }
 
     public resetInPlay(): void {
         this._inPlay = newInPlay();
+        this.ewarPlay = {};
+        this.autocannonPlay = {};
         this._followUps = [];
     }
 
@@ -3622,16 +4584,15 @@ export default class Vehicle {
 
     // --- Ammunition (TW pp. 125, 194) ---
 
-    /** CASE (or CASE II) vents a vehicle's ammunition explosion through the rear armor (TW p. 194). */
+    /**
+     * CASE (or CASE II) vents a vehicle's ammunition explosion through the rear armor (TW p. 194). A Clan chassis has
+     * it built in wherever ammunition is stored (TM p.210).
+     */
     public hasCASE(): boolean {
+        if (this.hasClanCASE()) return true;
         return this._equipmentList.some((item) => ["case", "case-ii", "clan-case-ii"].some((tag) => matchesTag(item, tag)));
     }
 
-    private static _damagePerShot(weapon: IEquipmentItem): number {
-        if (weapon.damageClusters && weapon.damagePerCluster) return weapon.damageClusters * weapon.damagePerCluster;
-        if (typeof weapon.damage === "number") return weapon.damage;
-        return weapon.damage?.short ?? 0;
-    }
 
     /**
      * The damage of all explosive ammunition carried: each bin's shots left (a full bin's shots when not
@@ -3644,17 +4605,43 @@ export default class Vehicle {
             ?? weapons.find((w) => getCompatibleAmmo(w, ammo));
     }
 
+    /** Loads a bin for one launcher, as a ton of SRM rounds is loaded for an SRM 6 rather than an SRM 2 (TM p.303). */
+    public setAmmoBinWeapon(uuid: string, weaponTag: string): void {
+        const bin = this._equipmentList.find((item) => item.uuid === uuid && item.isAmmo);
+        if (!bin) return;
+        bin.feedsWeaponTag = weaponTag;
+        this._calc();
+    }
+
+    /** Marks an item as built to a tech base, as an Inner Sphere Sniper on a Clan vehicle (TO:AUE p.197). */
+    public setBuiltTechBase(uuid: string, techBase: "is" | "clan"): void {
+        const item = this._equipmentList.find((entry) => entry.uuid === uuid);
+        if (!item) return;
+        item.builtTechBase = techBase;
+        this._calc();
+    }
+
+    /** The weapon a bin feeds, for the sheet's Ammo line; undefined with no such weapon aboard. */
+    public getAmmoBinWeapon(ammo: IEquipmentItem): IEquipmentItem | undefined {
+        return ammo.isAmmo ? this._binWeapon(ammo) : undefined;
+    }
+
+    // Shots in a ton of a bin for the weapon it feeds.
+    private _binShotsPerTon(weapon: IEquipmentItem, ammo: IEquipmentItem): number {
+        return getWeaponShotsPerTon(weapon, ammo);
+    }
+
     // Shots in a full bin: the fed weapon's shots per ton times the bin's weight.
     private _fullBinShots(ammo: IEquipmentItem): number {
         const weapon = this._binWeapon(ammo);
-        return weapon ? Math.floor(getWeaponShotsPerTon(weapon, ammo) * (ammo.weight || 0) + 1e-6) : 0;
+        return weapon ? Math.floor(this._binShotsPerTon(weapon, ammo) * (ammo.weight || 0) + 1e-6) : 0;
     }
 
     /** Shots in one full ton of a bin's ammunition, for the weapon it feeds; 0 with no such weapon aboard. */
     public getAmmoBinShotsPerTon(ammo: IEquipmentItem): number {
         if (!ammo.isAmmo) return 0;
         const weapon = this._binWeapon(ammo);
-        return weapon ? getWeaponShotsPerTon(weapon, ammo) : 0;
+        return weapon ? this._binShotsPerTon(weapon, ammo) : 0;
     }
 
     /** Shots a bin holds as bought. */
@@ -3679,22 +4666,12 @@ export default class Vehicle {
     }
 
     public getAmmunitionExplosionDamage(): number {
-        if (this._inPlay.criticals.ammoExploded) return 0;
-        let total = 0;
-        for (const ammo of this._equipmentList.filter((item) => item.isAmmo && item.explosive)) {
-            const weapon = this._binWeapon(ammo);
-            if (!weapon) continue;
-            const shots = ammo.currentAmmo ?? this._fullBinShots(ammo);
-            if (ammo.battleArmorScale) {
-                // 20 points per quarter-ton left, whatever the weapon (Ghosts of Obeedah p.54).
-                total += getBattleArmorScaleExplosionDamage(Math.max(0, shots) * (ammo.kgPerShot ?? 0) / 1000);
-                continue;
-            }
-            total += Math.max(0, shots) * Vehicle._damagePerShot(weapon);
-        }
-        // Extended fuel tanks are treated as ammo bins: 40 points per ton of tank (TM p.244).
-        for (const tank of this._equipmentList.filter((item) => item.variableFormula === "extended-fuel-tank")) total += 40 * tank.weight;
-        return total;
+        return this._inPlay.criticals.ammoExploded ? 0 : this._ammoExplosionDamage(this._equipmentList);
+    }
+
+    // The explosion of `bins` (ammunition and extended fuel tanks) by the edition's rules (TW p.194).
+    private _ammoExplosionDamage(bins: IEquipmentItem[]): number {
+        return getAmmoExplosion(this._rulesEdition, "vehicle", bins, (ammo) => this._binWeapon(ammo), (ammo) => ammo.currentAmmo ?? this._fullBinShots(ammo))?.damage ?? 0;
     }
 
     public getArmorRemaining(location: VehicleLocation): number {
@@ -3808,8 +4785,10 @@ export default class Vehicle {
     public getMotiveDamageRollModifier(direction: VehicleAttackDirection, cause: VehicleMotiveRollCause = "attack", roughTerrain: boolean = false): number {
         // A jump landing disregards attack direction and uses its own type modifiers, +1 into rough, woods or
         // jungle (TO p. 349); a skid has no attack direction (TW p. 192).
-        if (cause === "jump") return (JUMP_LANDING_MODIFIER[this._motiveType.tag] ?? 0) + (roughTerrain ? 1 : 0);
-        const typeModifier = getVehicleMotiveTypeModifier(this._motiveType.tag);
+        // An Armored Motive System takes a further -2 on every roll (TO:AUE p.95).
+        const armored = this.hasChassisModification("armored-motive") ? -2 : 0;
+        if (cause === "jump") return (JUMP_LANDING_MODIFIER[this._motiveType.tag] ?? 0) + (roughTerrain ? 1 : 0) + armored;
+        const typeModifier = getVehicleMotiveTypeModifier(this._motiveType.tag) + armored;
         return cause === "skid" ? typeModifier : VEHICLE_MOTIVE_DIRECTION_MODIFIER[direction] + typeModifier;
     }
 
@@ -3840,9 +4819,10 @@ export default class Vehicle {
      */
     public resolveHitArea(area: VehicleHitArea, direction: VehicleAttackDirection): VehicleLocation {
         let attackedSide: VehicleLocation = direction;
-        if (this.isSuperheavy() && (direction === "left" || direction === "right")) {
+        const split = this.hasSplitSides();
+        if (split && (direction === "left" || direction === "right")) {
             attackedSide = direction === "left" ? "frontLeft" : "frontRight";
-        } else if (!this.isSuperheavy() && direction !== "front" && direction !== "rear") {
+        } else if (!split && direction !== "front" && direction !== "rear") {
             attackedSide = direction.endsWith("Left") || direction === "left" ? "left" : "right";
         }
         let location: VehicleLocation;
@@ -3851,7 +4831,7 @@ export default class Vehicle {
         else location = area;
         // Superheavy: a Right/Left Side result strikes the half nearest the attack (the VTOL table has no split
         // sides, so Super-Heavy VTOLs use the same reading).
-        if (this.isSuperheavy() && (location === "left" || location === "right")) {
+        if (split && (location === "left" || location === "right")) {
             const half = isRearwardAttack(direction) ? "rear" : "front";
             location = `${half}${location === "left" ? "Left" : "Right"}` as VehicleLocation;
         }
@@ -4003,7 +4983,8 @@ export default class Vehicle {
                 return `${name}: ${weapon?.name ?? "no weapon"} (spend a Weapon Attack Phase, with no attacks, to clear it)`;
             }
             case "weaponDestroyed": {
-                const weapon = pickWeapon(this.getWeaponsInLocation(location).filter((w) => this.getWeaponStatus(w.uuid) !== "destroyed"));
+                const candidates = this.getWeaponsInLocation(location).filter((w) => this.getWeaponStatus(w.uuid) !== "destroyed");
+                const weapon = pickWeapon(candidates);
                 if (weapon?.uuid) this.setWeaponStatus(weapon.uuid, "destroyed");
                 // A destroyed weapon that can explode is an ammunition explosion in its location (TW p. 195).
                 const explosion = weapon ? getWeaponExplosionDamage(weapon) : null;
@@ -4040,6 +5021,12 @@ export default class Vehicle {
             case "ammunition": {
                 const damage = this.getAmmunitionExplosionDamage();
                 const cased = this.hasCASE();
+                const rules = getAmmoExplosionRules(this._rulesEdition, "vehicle");
+                if (rules?.destroysUnit) {
+                    c.ammoExploded = true;
+                    if (cased) this._inPlay.armorDamage.rear = this._armorAllocation.rear ?? 0;
+                    return `${name}: the vehicle explodes${cased ? "; CASE blows out the rear armor and the crew survive" : ""} (${rules.cite})`;
+                }
                 this.applyAmmunitionExplosion(location, damage, cased);
                 return cased
                     ? `${name}: all ammunition explodes for ${damage} damage; CASE vents it into the rear armor (excess ignored) and stuns the crew`
@@ -4096,13 +5083,8 @@ export default class Vehicle {
                 return `${name}: roll 2D6; on 8+ it is ignored, otherwise -1 Cruising MP`;
             case "ammunition": {
                 const bins = this._ammoInLocation(location);
-                let damage = 0;
-                for (const ammo of bins.filter((item) => item.isAmmo && item.explosive)) {
-                    const weapon = this._binWeapon(ammo);
-                    if (weapon) damage += Math.max(0, ammo.currentAmmo ?? this._fullBinShots(ammo)) * Vehicle._damagePerShot(weapon);
-                    ammo.currentAmmo = 0;
-                }
-                for (const tank of bins.filter((item) => item.variableFormula === "extended-fuel-tank")) damage += 40 * tank.weight;
+                const damage = this._ammoExplosionDamage(bins);
+                for (const ammo of bins.filter((item) => item.isAmmo && item.explosive)) ammo.currentAmmo = 0;
                 c.ammoHits += 1;
                 const cased = this.hasCASE();
                 if (cased) {
@@ -4218,9 +5200,9 @@ export default class Vehicle {
             case "rear":
                 return { arc: "rear", turretRotation: null };
             case "left": case "frontLeft": case "rearLeft":
-                return this._sponsonTurrets ? { arc: "left", turretRotation: null, sponson: true } : { arc: "left", turretRotation: null };
+                return this.isSponsonMounted(weapon) ? { arc: "left", turretRotation: null, sponson: true } : { arc: "left", turretRotation: null };
             case "right": case "frontRight": case "rearRight":
-                return this._sponsonTurrets ? { arc: "right", turretRotation: null, sponson: true } : { arc: "right", turretRotation: null };
+                return this.isSponsonMounted(weapon) ? { arc: "right", turretRotation: null, sponson: true } : { arc: "right", turretRotation: null };
             default:
                 return { arc: "front", turretRotation: null };
         }
@@ -4335,6 +5317,7 @@ export default class Vehicle {
      * effect for this turn (TW pp. 194-195).
      */
     public turnReset(): void {
+        this._inPlay.movedLastTurn = this._inPlay.movementMode !== "stationary" || this._inPlay.hexesMoved > 0;
         this.setMovement("stationary", 0);
         const c = this._inPlay.criticals;
         c.crewStunned = c.crewStunnedTurns > 0;
@@ -4348,11 +5331,12 @@ export default class Vehicle {
     /**
      * Destroyed: all internal structure in one location (including a turret, never a VTOL rotor) is
      * gone (TW p. 128), a Fuel Tank explosion or Turret Blown Off (TW p. 195), a hover vehicle
-     * immobilized over deep water (TW p. 193), or Crew Killed (destroyed for victory, TW p. 194).
+     * immobilized over deep water (TW p. 193), Crew Killed (destroyed for victory, TW p. 194), or an ammunition
+     * explosion in an edition where it destroys the vehicle (CT p.30).
      */
     public isDestroyed(): boolean {
         const c = this._inPlay.criticals;
-        if (c.crewKilled || c.fuelTankHit || c.turretBlownOff) return true;
+        if (c.crewKilled || c.fuelTankHit || c.turretBlownOff || this._ammoDestroyedVehicle()) return true;
         if (this.isSunk() || this._inPlay.crashDestroyed) return true;
         // A Large Naval Vessel survives the loss of a turret (TO:AUE p.27).
         const largeNaval = this.isLargeNavalVessel();
@@ -4366,10 +5350,16 @@ export default class Vehicle {
         if (c.crewKilled) return "crew killed";
         if (c.fuelTankHit) return "fuel tank exploded";
         if (c.turretBlownOff) return "turret blown off";
+        if (this._ammoDestroyedVehicle()) return "ammunition exploded";
         if (this.isSunk()) return "sank";
         if (this._inPlay.crashDestroyed === "exploded") return "exploded";
         if (this._inPlay.crashDestroyed === "water") return "crashed into water";
         return this.isDestroyed() ? "internal structure destroyed" : null;
+    }
+
+    // An ammunition explosion destroys the vehicle in the editions before TW ("vehicle explodes", CT p.30).
+    private _ammoDestroyedVehicle(): boolean {
+        return this._inPlay.criticals.ammoExploded && !!getAmmoExplosionRules(this._rulesEdition, "vehicle")?.destroysUnit;
     }
 
     /** A hover vehicle immobilized over Depth 1 or deeper water sinks (TW p. 193). */
@@ -4409,7 +5399,7 @@ export default class Vehicle {
         const c = this._inPlay.criticals;
         if (this._inPlay.motiveHits.includes("immobilized") || c.engineHit || c.crewKilled || this._inPlay.crashed) return true;
         // A Trailer without an engine cannot move under its own power: unhitched, it is an immobile target (TW p.205).
-        if (this._support?.engine === "none" && !this._inPlay.beingTowed) return true;
+        if ((this._support?.engine === "none" || this._unpoweredTrailer) && !this._inPlay.beingTowed) return true;
         return !!this._motiveType.hasRotor && (c.rotorsDestroyed
             || ((this.getStructureAllocation().rotor ?? 0) > 0 && this.getStructureRemaining("rotor") === 0));
     }
@@ -4460,7 +5450,8 @@ export default class Vehicle {
         if (c.commanderHit) modifier += 1;
         if (c.pilotHit) modifier += 2;
         if (c.flightStabilizer) modifier += 3;
-        return modifier + this.getFrankenVehicleDrivingModifier();
+        // The satellite uplink's +1 on Piloting Skill Rolls is a vehicle's Driving Skill Roll (Maximum Tech p.59).
+        return modifier + this.getFrankenVehicleDrivingModifier() + this.getSatelliteUplinkToHitModifier();
     }
 
     /** Attacker movement modifier: stationary 0, cruise +1, flank +2, jump +3 (TW). */
@@ -4516,6 +5507,7 @@ export default class Vehicle {
         if (c.commanderHit) modifier += 1;
         if (c.coPilotHit) modifier += 1;
         if (c.flightStabilizer) modifier += 1;
+        modifier += this.getSatelliteUplinkToHitModifier();
         if (weapon.location === "turret") modifier += this.getFrankenVehicleTurretToHitModifier();
         if (weapon.location && c.stabilizers.includes(weapon.location as VehicleLocation)) {
             modifier += this.getAttackerMovementModifier();
@@ -4526,22 +5518,44 @@ export default class Vehicle {
     /**
      * Battle Value adjusted for gunnery and driving skill, by the rules edition's BV Skill Multiplier Table
      * (TechManual p. 315 by default). An edition with no table leaves the Battle Value as it is.
+     * `forceBonus` is the force adjustments (TAG) it adds before skill.
      */
-    public getPilotAdjustedBattleValue(edition?: string): number {
+    public getPilotAdjustedBattleValue(edition?: string, forceBonus: number = 0): number {
         // A robotic vehicle fights at its control system's Skills (IO:AE p.187).
         const skills = this.getRoboticSkills();
         const gunnery = skills?.gunnery ?? this._pilot?.gunnery ?? 4;
         const piloting = skills?.piloting ?? this._pilot?.piloting ?? 5;
-        const multiplier = getSkillMultiplier(gunnery, piloting, "vehicle", edition) ?? 1;
-        return Math.round(this._battleValue * multiplier);
+        const multiplier = getSkillMultiplier(gunnery, piloting, "vehicle", getBattleValueSkillEdition(edition ?? this._rulesEdition, "vehicle")) ?? 1;
+        return Math.round((this.getBattleValue(edition) + forceBonus) * multiplier);
+    }
+
+    /** This unit's part in its force's TAG adjustment under `edition` (BV v4.1 p.23; TO:AUE p.198). */
+    public getBattleValueTagShare(edition: string = this._rulesEdition): IBattleValueTagShare {
+        return getBattleValueTagShare(edition, this._equipmentList, (bin) => this.getAmmoBinWeapon(bin), [],
+            () => this._calcBattleValue1(edition, undefined, true) - this.getBattleValue(edition));
+    }
+
+    /** The C3 system this unit joins a force's C3 network with, if any (BV v4.1 p.23). */
+    public getBattleValueC3Type(): BattleValueC3Type | undefined {
+        return getBattleValueC3Type(this._equipmentList);
+    }
+
+    /** This unit's C3 systems and weapon BV for a BV1 network. */
+    public getBattleValueC3Part(edition: string = this._rulesEdition): IBattleValueC3Part {
+        return getBattleValueC3Part(edition, this._equipmentList);
     }
 
     public export(noInPlayVariables: boolean = false): IVehicleExport {
         return {
             uuid: this._uuid,
+            tro: this.tro.export(),
             lastUpdated: this.lastUpdated,
+            quirks: this.quirks.export(),
             name: this._name,
             ...(this._rulesEdition !== DEFAULT_RULES_EDITION ? { rulesEdition: this._rulesEdition } : {}),
+            ...this.gameSettings.export(),
+            ...(Object.keys(this._printings).length > 0 ? { printings: { ...this._printings } } : {}),
+            ...(this._printedSupportItems.length > 0 ? { printedSupportItems: [...this._printedSupportItems] } : {}),
             model: this._model,
             nickname: this._nickname,
             tonnage: this._tonnage,
@@ -4549,8 +5563,11 @@ export default class Vehicle {
             hasTurret: this._hasTurret,
             dualTurret: this._dualTurret,
             sponsonTurrets: this._sponsonTurrets,
+            sponsonMounts: this._sponsonTurrets || undefined,
             frankenVehicle: this.getFrankenVehicle() ?? undefined,
             omni: this._omni || undefined,
+            omniTurretWeight: this.getOmniTurretWeight() || undefined,
+            clanCASE: this.hasClanCASE() && this._tech.tag === "mis" ? true : undefined,
             jumpMP: this._jumpMP,
             troopSpace: this._troopSpace || undefined,
             bays: this._bays.length > 0 ? this._bays.map((bay) => ({ ...bay })) : undefined,
@@ -4561,7 +5578,9 @@ export default class Vehicle {
             era: this._era.tag,
             engineType: this._engineType.tag,
             cruiseMP: this._cruiseMP,
+            unpoweredTrailer: this._unpoweredTrailer || undefined,
             armorType: this._armorType.tag,
+            armorTechBase: this.getComponentTechBases("armor").length > 1 ? this.getArmorTechBase() : undefined,
             armorAllocation: this._armorAllocation,
             patchworkArmor: this.isPatchworkArmor()
                 ? Object.fromEntries(this.getLocations().map((location) => [location.tag, this.getPatchworkArmorType(location.tag).tag]))
@@ -4577,8 +5596,12 @@ export default class Vehicle {
                 pod: this.isPodMounted(item.uuid) || undefined,
                 size: findSupportVehicleLightWeapon(item.tag) ? item.size : undefined,
                 halfTon: this.isHalfTonBin(item) || undefined,
+                feedsWeaponTag: item.isAmmo ? item.feedsWeaponTag : undefined,
+                builtTechBase: item.builtTechBase,
                 pintle: item.pintle || undefined,
+                sponson: this.isSponsonMounted(item) || undefined,
                 drones: item.variableFormula === "drone-carrier-control" ? item.controlledDrones : undefined,
+                dumped: item.variableFormula === "dumper" ? item.dumpedCargo : undefined,
                 currentAmmo: item.currentAmmo,
                 selectedAmmoBinUUID: item.selectedAmmoBinUUID,
                 currentAdditionalArmor: item.currentAdditionalArmor,
@@ -4587,6 +5610,9 @@ export default class Vehicle {
             supportVehicle: this.getSupportVehicleSettings() ?? undefined,
             pilot: this._pilot.export(),
             inPlay: noInPlayVariables ? undefined : this._inPlay,
+            ewarPlay: !noInPlayVariables && Object.keys(this.ewarPlay).length ? JSON.parse(JSON.stringify(this.ewarPlay)) : undefined,
+            autocannonPlay: !noInPlayVariables && Object.keys(this.autocannonPlay).length ? JSON.parse(JSON.stringify(this.autocannonPlay)) : undefined,
+            asSpecialAmmoTag: this.getAlphaStrikeSpecialAmmoTag() || undefined,
         };
     }
 
@@ -4662,11 +5688,20 @@ export default class Vehicle {
                 return savedString(value);
             };
             this._uuid = savedString(importObject.uuid) || generateUUID();
+            this.tro.import(importObject.tro);
+            this.quirks.import(importObject.quirks);
             const updated = typeof importObject.lastUpdated === "string" || typeof importObject.lastUpdated === "number"
                 ? new Date(importObject.lastUpdated) : new Date();
             this.lastUpdated = Number.isNaN(updated.getTime()) ? new Date() : updated;
             this._name = text("name");
             this._rulesEdition = getSelectableRulesEditionTag(importObject.rulesEdition, "vehicle");
+            this.gameSettings.import(importObject);
+            this._printings = {};
+            this._printedSupportItems = Array.isArray(importObject.printedSupportItems) ? importObject.printedSupportItems.filter((entry): entry is string => typeof entry === "string").map((entry) => entry.slice(0, 80)).slice(0, 10) : [];
+            for (const [ruleId, tag] of Object.entries(importObject.printings ?? {})) {
+                const rule = getVehiclePrintedRule(ruleId);
+                if (rule?.printings.some((printing) => printing.tag === tag) && tag !== rule.printings[0].tag) this._printings[ruleId] = tag;
+            }
             this._model = text("model");
             this._nickname = text("nickname");
             if (importObject.tonnage !== undefined && typeof importObject.tonnage !== "number") issue("Ignored a tonnage that is not a number");
@@ -4687,17 +5722,26 @@ export default class Vehicle {
                 : [];
             // Vehicles saved before Omnis were recorded load as standard vehicles.
             this._omni = importObject.omni === true;
+            const turretWeight = Number(importObject.omniTurretWeight);
+            this._omniTurretWeight = this._omni && Number.isFinite(turretWeight) && turretWeight > 0 && turretWeight <= this._tonnage
+                ? Math.ceil(turretWeight * 2) / 2 : 0;
+            this._clanCASE = importObject.clanCASE === true;
             this._podUUIDs = new Set();
             // A saved design keeps its accounting whatever the rules level set now.
             this._weightAccounting = importObject.weightAccounting === "fractional" ? "fractional" : "standard";
             this._inPlay = normalizeVehicleInPlay(importObject.inPlay);
+            this.ewarPlay = normalizeEWarPlay(importObject.ewarPlay);
+            this.autocannonPlay = normalizeAutocannonPlay(importObject.autocannonPlay);
+            this._alphaStrikeSpecialAmmoTag = savedString(importObject.asSpecialAmmoTag);
             this.setTech(savedString(importObject.tech));
             this.setEra(savedString(importObject.era));
             this.setEngineType(savedString(importObject.engineType));
             this._cruiseMP = Math.floor(savedNumber(importObject.cruiseMP, 0, 0, 100));
+            this._unpoweredTrailer = importObject.unpoweredTrailer === true && !this._support && (this._motiveType.tag === "tracked" || this._motiveType.tag === "wheeled");
+            if (this._unpoweredTrailer) this._cruiseMP = 0;
             // Jump jets: only on motive types that allow them, never more than Cruise MP, never with sponsons.
             const jumpMP = Math.floor(savedNumber(importObject.jumpMP, 0, 0, 100));
-            this._jumpMP = this._motiveType.allowsJumpJets && !this._support ? Math.min(jumpMP, this._cruiseMP) : 0;
+            this._jumpMP = this._motiveType.allowsJumpJets ? Math.min(jumpMP, this._cruiseMP) : 0;
             this._sponsonTurrets = importObject.sponsonTurrets === true && this.canHaveSponsonTurrets();
             if (this._hasTurret && !this.canHaveTurret()) {
                 this._hasTurret = false;
@@ -4706,6 +5750,8 @@ export default class Vehicle {
             if (importObject.sponsonTurrets === true && !this._sponsonTurrets) issue("Dropped sponson turrets: the design also has jump jets");
             this._patchworkArmor = {};
             this.setArmorType(savedString(importObject.armorType));
+            // Stored as saved: the era may be set later, and the getters check the choice.
+            this._armorTechBaseChoice = importObject.armorTechBase === "is" || importObject.armorTechBase === "clan" ? importObject.armorTechBase : null;
             const armor = savedLocationPoints(importObject.armorAllocation);
             for (const tag of Object.keys(armor) as VehicleLocation[]) armor[tag] = Math.floor(armor[tag] ?? 0);
             if (armor.rotor !== undefined) armor.rotor = Math.min(VTOL_MAX_ROTOR_ARMOR, armor.rotor);
@@ -4729,7 +5775,6 @@ export default class Vehicle {
             const saved = Array.isArray(importObject.equipment) ? importObject.equipment : [];
             if (importObject.equipment !== undefined && !Array.isArray(importObject.equipment)) issue("Ignored an equipment list that is not a list");
             if (saved.length > MAX_VEHICLE_EQUIPMENT) issue(`Kept the first ${MAX_VEHICLE_EQUIPMENT} of ${saved.length} equipment entries`);
-            const catalog = getEquipmentListByTech(this._tech.tag, true);
             const restored: [IEquipmentItem, Record<string, unknown>][] = [];
             for (const entry of saved.slice(0, MAX_VEHICLE_EQUIPMENT)) {
                 if (!isPlainObject(entry) || typeof entry.tag !== "string") {
@@ -4741,19 +5786,23 @@ export default class Vehicle {
                 const lightWeapon = findSupportVehicleLightWeapon(entry.tag);
                 const catalogItem = lightWeapon
                     ? buildSupportVehicleLightWeapon(lightWeapon, typeof entry.size === "number" ? entry.size : 0)
-                    : findByTag(catalog, entry.tag) ?? findByTag(this._otherTechBaseEquipment(), entry.tag)
-                        ?? findByTag(getBattleArmorScaleListByTech(this._tech.tag), entry.tag);
+                    : findUnitCatalogRecord(this._tech.tag, entry.tag, { battleArmorScale: true });
                 if (!catalogItem) {
                     issue(`Skipped unknown equipment "${entry.tag.slice(0, 60)}"`);
                     continue;
                 }
                 const item = this._newEquipment(catalogItem, entry.location, entry.rear, entry.uuid);
                 if (lightWeapon && entry.pintle === true && item.location && item.location !== "turret") item.pintle = true;
+                // Older saves have no sponson choices: their side weapons were the sponsons' weapons.
+                if ((importObject.sponsonMounts === true ? entry.sponson === true : true) && this._canBeSponsonMounted(item)) item.sponson = true;
                 if (item.variableFormula === "drone-carrier-control" && typeof entry.drones === "number") item.controlledDrones = savedNumber(entry.drones, 1, 1, 1000);
+                if (item.variableFormula === "dumper" && typeof entry.dumped === "number") item.dumpedCargo = savedNumber(entry.dumped, 0, 0, MAX_VEHICLE_CARGO_TONS);
                 if (entry.halfTon === true && this.canBeHalfTonBin(item)) {
                     item.weight = catalogItem.weight / 2;
                     item.cbills = catalogItem.cbills / 2;
                 }
+                if (item.isAmmo && typeof entry.feedsWeaponTag === "string") item.feedsWeaponTag = entry.feedsWeaponTag.slice(0, 80);
+                if (entry.builtTechBase === "is" || entry.builtTechBase === "clan") item.builtTechBase = entry.builtTechBase;
                 if (item.isModularArmor && typeof entry.currentAdditionalArmor === "number") {
                     item.currentAdditionalArmor = savedNumber(entry.currentAdditionalArmor, item.currentAdditionalArmor ?? 0, 0, item.additionalArmor ?? 10);
                 }

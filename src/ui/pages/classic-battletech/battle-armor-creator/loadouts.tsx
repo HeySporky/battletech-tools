@@ -5,11 +5,13 @@ import BattleArmor, { BATTLE_ARMOR_LOCATION_NAMES, BattleArmorArm, MAX_BATTLE_AR
 import { battleArmorManipulators } from '../../../../data/battle-armor-construction';
 import { findBattleArmorEquipment } from '../../../../data/battle-armor-equipment';
 import { IAppGlobals } from '../../../app-router';
-import BattleArmorCreatorSideMenu from '../../../components/battle-armor-creator-side-menu';
+import { BattleArmorCreatorSideMenu } from '../../../components/creator-side-menus';
 import InputField from '../../../components/form_elements/input_field';
 import TextSection from '../../../components/text-section';
 import UIPage from '../../../components/ui-page';
 import BattleArmorStatusBar from './_statusBar';
+import { unitRulesLevel } from '../../../components/game-settings-block';
+import { formatBattleValue } from '../../../../data/battle-value';
 const ArrowCircleLeft = FaArrowCircleLeft as any;
 const ArrowCircleRight = FaArrowCircleRight as any;
 const Plus = FaPlus as any;
@@ -35,7 +37,7 @@ export default class BattleArmorCreatorLoadouts extends React.Component<ILoadout
     render = (): JSX.Element => {
         const suit = this.props.appGlobals.currentBattleArmor;
         if (!suit) return <></>;
-        const rulesLevel = this.props.appGlobals.appSettings.mechRulesFilter;
+        const rulesLevel = unitRulesLevel(this.props.appGlobals.currentBattleArmor, this.props.appGlobals.appSettings);
         const mounts = suit.getSwappableItems();
         const arms = suit.getAdaptorArms();
         const options = suit.getMountOptions(rulesLevel);
@@ -119,7 +121,7 @@ export default class BattleArmorCreatorLoadouts extends React.Component<ILoadout
                                                 ))}
                                                 <p data-testid="ba-loadout-values">
                                                     <strong>Weight</strong>: {refit.getWeight()} of {refit.getWeightClass().maxWeight} kg &nbsp;|&nbsp;
-                                                    <strong>Battle Value</strong>: {refit.getBattleValue()} &nbsp;|&nbsp;
+                                                    <strong>Battle Value</strong>: {formatBattleValue((edition) => refit.getBattleValue(edition), "battle-armor", refit.getRulesEdition())} &nbsp;|&nbsp;
                                                     <strong>Cost</strong>: {refit.getCBillCost().toLocaleString("en-US")} C-bills
                                                 </p>
                                                 {issues.length > 0 ? (
@@ -148,8 +150,8 @@ export default class BattleArmorCreatorLoadouts extends React.Component<ILoadout
 
                             <div className="clear-both overflow-hidden">
                                 <hr />
-                                <Link to={`${process.env.PUBLIC_URL}/classic-battletech/battle-armor-creator/summary`} className="btn btn-primary pull-right btn-sm">
-                                    Summary <ArrowCircleRight />
+                                <Link to={`${process.env.PUBLIC_URL}/classic-battletech/battle-armor-creator/technical-readout`} className="btn btn-primary pull-right btn-sm">
+                                    Next: Technical Readout <ArrowCircleRight />
                                 </Link>
                                 <Link to={`${process.env.PUBLIC_URL}/classic-battletech/battle-armor-creator/equipment`} className="btn btn-primary btn-sm"><ArrowCircleLeft /> Previous Step</Link>
                             </div>

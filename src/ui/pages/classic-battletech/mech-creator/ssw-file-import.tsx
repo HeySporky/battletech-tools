@@ -1,9 +1,10 @@
 import React, { type JSX } from 'react';
+import { isIncompleteDraft } from '../../../../data/custom-content-local';
 import type { ICustomContentDraft } from '../../../../data/custom-content-types';
-import { missingFields } from '../../../../utils/sswDraftBuilder';
-import { ISSWImportResult, runSSWImportSession, sswImportLimitError } from '../../../../utils/sswImportSession';
+import { acceptSSWImport, analyzeSSWImport, ISSWImportAnalysis, ISSWImportResult, sswImportLimitError } from '../../../../utils/sswImportSession';
+import { type ISSWImportAnswer, missingAnswers } from '../../../../utils/sswDraftBuilder';
 import { IAppGlobals } from '../../../app-router';
-import MechCreatorSideMenu from '../../../components/mech-creator-side-menu';
+import { MechCreatorSideMenu } from '../../../components/creator-side-menus';
 import TextSection from '../../../components/text-section';
 import UIPage from '../../../components/ui-page';
 
@@ -20,7 +21,7 @@ const STATUS_LABELS: Record<ISSWImportResult["status"], { label: string; classNa
 export default class MechCreatorSSWFileImport extends React.Component<ISSWFileImportProps, ISSWFileImportState> {
     constructor(props: ISSWFileImportProps) {
         super(props);
-        this.state = { busy: false, results: [], drafts: [], selected: {}, openRow: -1, message: "", error: "", storageWarning: false };
+        this.state = { busy: false, analysis: null, answers: {}, results: [], drafts: [], selected: {}, openRow: -1, message: "", error: "", storageWarning: false, evidenceWarning: false };
         this.props.appGlobals.makeDocumentTitle("Import .ssw Files | 'Mech Creator");
     }
 
@@ -34,11 +35,14 @@ export default class MechCreatorSSWFileImport extends React.Component<ISSWFileIm
         this.setState({ busy: true, message: "", error: "" });
         try {
             const files = await Promise.all([...fileList].map(async (file) => ({ fileName: file.name, xml: await file.text() })));
-            const { results, drafts, saved } = await runSSWImportSession(files);
+            // Nothing is saved yet: the importer answers the questions, then Save builds the drafts from the answers.
+            const analysis = await analyzeSSWImport(files);
+            const { results } = analysis;
             const selected: Record<number, boolean> = {};
             // A design missing a canon item has understated weight, BV and cost: the user ticks it knowingly.
             results.forEach((result, index) => { selected[index] = result.status !== "failed" && result.status !== "canonPending"; });
-            this.setState({ results, drafts, selected, openRow: -1, storageWarning: !saved });
+            const answers = Object.fromEntries(analysis.questions.map((question) => [question.key, question.guess]));
+            this.setState({ analysis, answers, results, drafts: [], selected, openRow: -1, message: "", storageWarning: false, evidenceWarning: false });
         } catch (error) {
             this.setState({ error: `The import stopped: ${String(error)}` });
         } finally {
@@ -54,16 +58,72 @@ export default class MechCreatorSSWFileImport extends React.Component<ISSWFileIm
         this.state.drafts.filter((draft) => result.draftIds.includes(draft.id));
 
     incompleteCustomStats = (result: ISSWImportResult): boolean =>
-        this.draftsFor(result).some((draft) => draft.status !== "complete" || missingFields(draft).length > 0);
+        this.draftsFor(result).some(isIncompleteDraft);
 
-    saveSelected = (): void => {
-        const saves = this.props.appGlobals.battleMechSaves ?? [];
-        let count = 0;
-        this.state.results.forEach((result, index) => {
-            if (result.mech && this.state.selected[index]) { saves.push(result.mech.export(true)); count++; }
-        });
-        this.props.appGlobals.saveBattleMechSaves(saves);
-        this.setState({ message: `${count} design${count === 1 ? "" : "s"} added to your 'Mech saves.` });
+    setAnswer = (key: string, change: Partial<ISSWImportAnswer>): void =>
+        this.setState({ answers: { ...this.state.answers, [key]: { ...this.state.answers[key], ...change } } });
+
+    answersMissing = (): boolean =>
+        (this.state.analysis?.questions ?? []).some((question) => missingAnswers(question, this.state.answers[question.key]).length > 0);
+
+    saveSelected = async (): Promise<void> => {
+        const { analysis } = this.state;
+        if (!analysis || this.answersMissing()) return;
+        this.setState({ busy: true });
+        try {
+            const { results, drafts, saved, evidenceSaved } = await acceptSSWImport(analysis, this.state.answers);
+            const saves = this.props.appGlobals.battleMechSaves ?? [];
+            let count = 0;
+            results.forEach((result, index) => {
+                if (result.mech && this.state.selected[index]) { saves.push(result.mech.export(true)); count++; }
+            });
+            this.props.appGlobals.saveBattleMechSaves(saves);
+            this.setState({
+                results, drafts, analysis: null, storageWarning: !saved, evidenceWarning: saved && !evidenceSaved,
+                message: `${count} design${count === 1 ? "" : "s"} added to your 'Mech saves.`,
+            });
+        } catch (error) {
+            this.setState({ error: `The import stopped: ${String(error)}` });
+        } finally {
+            this.setState({ busy: false });
+        }
+    }
+
+    num = (text: string): number | null => (text.trim() === "" || Number.isNaN(Number(text)) ? null : Number(text));
+
+    renderQuestion = (question: ISSWImportAnalysis["questions"][number]): JSX.Element => {
+        const answer = this.state.answers[question.key] ?? question.guess;
+        const set = (change: Partial<ISSWImportAnswer>) => this.setAnswer(question.key, change);
+        const unknownBox = (field: "techBase" | "tons" | "slots") => (
+            <label className="ms-2"><input type="checkbox" checked={answer.unknown[field]} onChange={(event) => set({ unknown: { ...answer.unknown, [field]: event.currentTarget.checked } })} aria-label="I do not know" /> I do not know</label>
+        );
+        const range = answer.range ?? { short: 0, medium: 0, long: 0 };
+        return (
+            <fieldset key={question.key} className="border p-2 mb-2" data-testid="ssw-import-question">
+                <legend className="fs-6">{question.name}</legend>
+                <p className="small">Used by {question.designs.join(", ")}. SSW files do not carry these, so the values below are best guesses.</p>
+                {question.required.includes("techBase") ? (
+                    <div><label>Tech base <select value={answer.techBase ?? ""} onChange={(event) => set({ techBase: event.currentTarget.value === "clan" ? "clan" : event.currentTarget.value === "is" ? "is" : null, edited: { ...answer.edited, techBase: true } })}>
+                        <option value="">Choose…</option><option value="is">Inner Sphere</option><option value="clan">Clan</option></select></label>{unknownBox("techBase")}</div>
+                ) : null}
+                {question.required.includes("tons") ? (
+                    <div><label>Tons <input type="number" min={0} step={0.5} value={answer.tons ?? ""} onChange={(event) => set({ tons: this.num(event.currentTarget.value), edited: { ...answer.edited, tons: true } })} /></label>{unknownBox("tons")}</div>
+                ) : null}
+                {question.required.includes("slots") ? (
+                    <div><label>Slots <input type="number" min={0} step={1} value={answer.slots ?? ""} onChange={(event) => set({ slots: this.num(event.currentTarget.value), edited: { ...answer.edited, slots: true } })} /></label>{unknownBox("slots")}</div>
+                ) : null}
+                {question.kind === "equipment" ? (
+                    <div className="small">
+                        <label>Damage <input type="number" min={0} value={answer.damage ?? ""} onChange={(event) => set({ damage: this.num(event.currentTarget.value) })} /></label>{" "}
+                        <label>Heat <input type="number" min={0} value={answer.heat ?? ""} onChange={(event) => set({ heat: this.num(event.currentTarget.value) })} /></label>{" "}
+                        <label>Short range <input type="number" min={0} value={answer.range?.short ?? ""} onChange={(event) => set({ range: { ...range, short: this.num(event.currentTarget.value) ?? 0 } })} /></label>{" "}
+                        <label>Medium range <input type="number" min={0} value={answer.range?.medium ?? ""} onChange={(event) => set({ range: { ...range, medium: this.num(event.currentTarget.value) ?? 0 } })} /></label>{" "}
+                        <label>Long range <input type="number" min={0} value={answer.range?.long ?? ""} onChange={(event) => set({ range: { ...range, long: this.num(event.currentTarget.value) ?? 0 } })} /></label>
+                    </div>
+                ) : null}
+                <div className="small"><label>Source note <input type="text" value={answer.sourceNote ?? ""} onChange={(event) => set({ sourceNote: event.currentTarget.value })} /></label> (optional)</div>
+            </fieldset>
+        );
     }
 
     render = (): JSX.Element => {
@@ -82,11 +142,19 @@ export default class MechCreatorSSWFileImport extends React.Component<ISSWFileIm
                             </div>
                             {this.state.busy ? <div className="alert alert-info">Importing…</div> : null}
                             {this.state.storageWarning ? <div className="alert alert-warning">This browser would not save the custom content drafts (private mode or storage full). They work until you close this tab.</div> : null}
+                            {this.state.evidenceWarning ? <div className="alert alert-warning">The drafts are saved, but this browser's storage is full, so the source .ssw files were not kept with them. Import the files again before proposing the drafts.</div> : null}
                             {this.state.error ? <div className="alert alert-danger">{this.state.error}</div> : null}
                             {this.state.message ? <div className="alert alert-success">{this.state.message}</div> : null}
+                            {(this.state.analysis?.questions.length ?? 0) > 0 ? (
+                                <div>
+                                    <h4>Items the catalogs do not know</h4>
+                                    <p>Tell us what you can about each one. Tech base, tons and slots are needed, or tick I do not know to keep the best guess (it is marked estimated). Damage, heat, ranges and the source note are optional. Save stays off until each is answered.</p>
+                                    {this.state.analysis!.questions.map((question) => this.renderQuestion(question))}
+                                </div>
+                            ) : null}
                             {this.state.results.length > 0 ? (
                                 <table className="table table-sm">
-                                    <thead><tr><th></th><th>File</th><th>Design</th><th>Status</th><th className="text-end">BV (ours / SSW)</th><th className="text-end">Issues</th><th></th></tr></thead>
+                                    <thead><tr><th><span className="visually-hidden">Actions</span></th><th>File</th><th>Design</th><th>Status</th><th className="text-end">BV (JBT / SSW)</th><th className="text-end">Issues</th><th><span className="visually-hidden">Actions</span></th></tr></thead>
                                     <tbody>
                                         {this.state.results.map((result, index) => (
                                             <tr key={result.fileName + index}>
@@ -123,7 +191,7 @@ export default class MechCreatorSSWFileImport extends React.Component<ISSWFileIm
                                 </div>
                             ) : null}
                             {this.state.results.some((result) => result.mech) ? (
-                                <button type="button" className="btn btn-primary" onClick={this.saveSelected}>Save selected to my 'Mechs</button>
+                                <button type="button" className="btn btn-primary" disabled={this.state.busy || !this.state.analysis || this.answersMissing()} onClick={() => void this.saveSelected()}>Save selected to my 'Mechs</button>
                             ) : null}
                         </TextSection>
                     </div>
@@ -136,6 +204,8 @@ export default class MechCreatorSSWFileImport extends React.Component<ISSWFileIm
 interface ISSWFileImportProps { appGlobals: IAppGlobals; }
 interface ISSWFileImportState {
     busy: boolean;
+    analysis: ISSWImportAnalysis | null;
+    answers: Record<string, ISSWImportAnswer>;
     results: ISSWImportResult[];
     drafts: ICustomContentDraft[];
     selected: Record<number, boolean>;
@@ -143,4 +213,5 @@ interface ISSWFileImportState {
     message: string;
     error: string;
     storageWarning: boolean;
+    evidenceWarning: boolean;
 }

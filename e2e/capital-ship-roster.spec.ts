@@ -50,7 +50,8 @@ test("a WarShip joins the roster, takes damage in play and prints", async ({ pag
 
     await page.goto("classic-battletech/roster/print");
     await expect(page.getByText("Picket (WarShip)")).toBeVisible();
-    await expect(page.getByTestId("cs-sheet-data").first()).toBeVisible();
+    // The Structural Integrity point lost in play is marked off.
+    await expect(page.getByTestId("capital-track-si").first()).toHaveAttribute("data-damage", "1");
 
     expect(errors).toEqual([]);
 });

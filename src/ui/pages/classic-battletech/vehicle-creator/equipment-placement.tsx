@@ -2,8 +2,9 @@ import React, { type JSX } from 'react';
 import { FaArrowCircleLeft, FaArrowCircleRight } from "react-icons/fa";
 import { Link } from 'react-router';
 import { IAppGlobals } from '../../../app-router';
-import VehicleCreatorSideMenu from '../../../components/vehicle-creator-side-menu';
+import { VehicleCreatorSideMenu } from '../../../components/creator-side-menus';
 import TextSection from '../../../components/text-section';
+import TonnageBar from '../../../components/tonnage-bar';
 import UIPage from '../../../components/ui-page';
 const ArrowCircleLeft = FaArrowCircleLeft as any;
 const ArrowCircleRight = FaArrowCircleRight as any;
@@ -26,7 +27,10 @@ export default class VehicleCreatorEquipmentPlacement extends React.Component<IE
     setLocation = (uuid: string | undefined, location: string): void => {
         const vehicle = this.props.appGlobals.currentVehicle;
         if (vehicle && uuid) {
-            vehicle.setEquipmentLocation(uuid, location);
+            // "left|sponson" is the left side's sponson turret: the weapon sits on its side, in the sponson.
+            const [tag, mount] = location.split("|");
+            vehicle.setEquipmentLocation(uuid, tag);
+            vehicle.setEquipmentSponson(uuid, mount === "sponson");
             this.props.appGlobals.saveCurrentVehicle(vehicle);
         }
     }
@@ -75,6 +79,8 @@ export default class VehicleCreatorEquipmentPlacement extends React.Component<IE
             ...vehicle.getLocations().filter((loc) => loc.tag !== "rotor"),
         ];
         const placementLocations = locationOptions.filter((loc) => loc.tag !== "");
+        // With sponson turrets, each side also offers its sponson (beta feedback 2026-10-21; TO p. 348).
+        const sponsonOptions = vehicle.hasSponsonTurrets() ? placementLocations.filter((loc) => vehicle.isSponsonSide(loc.tag)) : [];
 
         return (
             <UIPage current="classic-battletech-vehicle-creator" appGlobals={this.props.appGlobals}>
@@ -90,8 +96,8 @@ export default class VehicleCreatorEquipmentPlacement extends React.Component<IE
                             </p>
                             {vehicle.hasSponsonTurrets() ? (
                                 <p className={vehicle.getSponsonIssue() ? "color-red" : ""}>
-                                    <strong>Sponson Turrets</strong>: weapons on the left and right sides go in the sponsons
-                                    ({vehicle.getSponsonWeight()} t). {vehicle.getSponsonIssue() ?? "Both sponsons carry the same tonnage."} (TO pp. 348, 411)
+                                    <strong>Sponson Turrets</strong>: place weapons in the Left and Right Sponson locations
+                                    ({vehicle.getSponsonWeight()} t, 10% of the weapons in both sponsons rounded up to the half ton; the two need not carry the same tonnage); a sponson weapon is a side weapon for critical hits. (TO p. 348; TO:AUE p. 158)
                                 </p>
                             ) : null}
                             <table className="table">
@@ -139,14 +145,23 @@ export default class VehicleCreatorEquipmentPlacement extends React.Component<IE
                                             </td>
                                             <td>{vehicle.getItemSlots(item)}</td>
                                             <td>
-                                                <select
-                                                    value={item.location ?? ""}
-                                                    onChange={(e) => this.setLocation(item.uuid, e.currentTarget.value)}
-                                                >
-                                                    {locationOptions.map((loc) => (
-                                                        <option key={loc.tag} value={loc.tag}>{loc.name}</option>
-                                                    ))}
-                                                </select>
+                                                {item.isAmmo ? (
+                                                    // Ammunition goes in the Body, the vehicle's center, never a facing (TM p. 107).
+                                                    <span data-testid={`body-${item.uuid}`}>Body</span>
+                                                ) : (
+                                                    <select
+                                                        aria-label={`${item.name} location`}
+                                                        value={vehicle.isSponsonMounted(item) ? `${item.location}|sponson` : item.location ?? ""}
+                                                        onChange={(e) => this.setLocation(item.uuid, e.currentTarget.value)}
+                                                    >
+                                                        {locationOptions.map((loc) => (
+                                                            <option key={loc.tag} value={loc.tag}>{loc.name}</option>
+                                                        ))}
+                                                        {vehicle.isSponsonWeapon(item) ? sponsonOptions.map((loc) => (
+                                                            <option key={`${loc.tag}|sponson`} value={`${loc.tag}|sponson`}>{loc.name.replace(/ Side$/, "")} Sponson</option>
+                                                        )) : null}
+                                                    </select>
+                                                )}
                                             </td>
                                             {vehicle.isOmni() ? (
                                                 <td>
@@ -210,7 +225,7 @@ export default class VehicleCreatorEquipmentPlacement extends React.Component<IE
 
                             <div className="clear-both overflow-hidden">
                                 <hr />
-                                <Link to={`${process.env.PUBLIC_URL}/classic-battletech/vehicle-creator/summary`} className="btn btn-primary pull-right btn-sm">Next: Summary <ArrowCircleRight /></Link>
+                                <Link to={`${process.env.PUBLIC_URL}/classic-battletech/vehicle-creator/technical-readout`} className="btn btn-primary pull-right btn-sm">Next: Technical Readout <ArrowCircleRight /></Link>
                                 <div className="inline-block text-left">
                                     <Link to={`${process.env.PUBLIC_URL}/classic-battletech/vehicle-creator/equipment-selection`} className="btn btn-primary btn-sm"><ArrowCircleLeft /> Previous Step</Link>
                                 </div>
@@ -218,6 +233,7 @@ export default class VehicleCreatorEquipmentPlacement extends React.Component<IE
                         </TextSection>
                     </div>
                 </div>
+                <TonnageBar used={vehicle.getCurrentTonnage()} total={vehicle.getTonnage()} slots={{ used: vehicle.getUsedItemSlots(), total: vehicle.getTotalItemSlots() }} />
             </UIPage>
         );
     }

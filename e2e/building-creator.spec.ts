@@ -40,15 +40,24 @@ test("a Clan gun emplacement can be built, armed, checked, saved and printed", a
     await expect(page.getByTestId("building-remaining")).toContainText("Remaining Capacity: 42.2 tons");
     await expect(page.getByTestId("building-loads")).toContainText("8 / 26");
 
-    await page.getByRole("link", { name: /Next: Summary/ }).click();
+    // Step 4, the optional Technical Readout, and its printed sheet (#78).
+    await page.getByRole("link", { name: /Next: Technical Readout/ }).click();
+    await expect(page.getByText("Step 4: Technical Readout (optional)")).toBeVisible();
+    await page.getByLabel("Manufacturer", { exact: true }).fill("Kenyon Fortifications");
+    await page.getByRole("link", { name: "Print TRO sheet" }).click();
+    await expect(page.getByText("Kenyon Fortifications").first()).toBeVisible();
+    await expect(page.getByText("Superstructure (Heavy Gun Emplacement)").first()).toBeVisible();
+    await page.goto("classic-battletech/building-creator/technical-readout");
+    await page.getByRole("link", { name: "Summary", exact: true }).click();
     await expect(page.getByText("This building is legal under the Tactical Operations construction rules.")).toBeVisible();
     await expect(page.getByText("Summary: Battery Kenyon")).toBeVisible();
     await expect(page.getByTestId("building-summary")).toContainText("Heavy Gun Emplacement");
     await expect(page.getByTestId("building-cost-log")).toContainText("1 + CF 80 / 100");
 
     await page.getByRole("link", { name: "View Record Sheet" }).click();
-    await expect(page.getByRole("heading", { name: "Battery Kenyon" })).toBeVisible();
-    await expect(page.getByTestId("building-sheet-data")).toContainText("Armor Factor: 80");
+    const sheet = page.getByTestId("building-record-sheet-svg");
+    await expect(sheet).toContainText("Description:Battery Kenyon");
+    await expect(sheet).toContainText("Armor:80 a hex");
 
     await page.goto("classic-battletech/building-creator");
     await page.getByRole("button", { name: /Save as New/ }).click();
@@ -108,7 +117,10 @@ test("a fortress tracks its load hex by hex and a standard building takes only L
     await expect(page.getByText("2 gunners, 0 other crew, 1 officers")).toBeVisible();
     await expect(page.getByTestId("building-cost-log")).toContainText("Light and Medium Weapons and Clips");
     await page.getByRole("link", { name: "View Record Sheet" }).click();
-    await expect(page.getByTestId("building-sheet-light-weapon")).toContainText("Machine Gun (Support) (P) (300 shots)");
+    // On a pintle (P) in hex 1, with three clips of 100 shots.
+    const machineGun = page.getByTestId("building-weapon").filter({ hasText: "Machine Gun (Support) (300 shots)" });
+    await expect(machineGun).toHaveCount(1);
+    await expect(machineGun).toContainText("1 / P");
 
     expect(errors).toEqual([]);
 });
@@ -147,15 +159,20 @@ test("a sealed fortress takes modifications, a door, an elevator and an automate
     await page.getByLabel("Elevator 1 levels reached above the ground level:").selectOption("3");
     await expect(page.getByTestId("building-elevators")).toContainText("Industrial Elevators: 1, 3 tons");
 
-    await page.getByRole("link", { name: /Next: Summary/ }).click();
+    await page.getByRole("link", { name: /Next: Technical Readout/ }).click();
+    await page.getByRole("link", { name: "Print TRO sheet" }).click();
+    await expect(page.getByText("Environmentally sealed, heavy metal superstructure, low ceilings, 1 large door").first()).toBeVisible();
+    await page.goto("classic-battletech/building-creator/summary");
     await expect(page.getByTestId("building-cost-log")).toContainText("x 2.0625 for structural modifications");
     await expect(page.getByTestId("building-cost-log")).toContainText("Large Doors (10,000 x 2 levels): 20,000");
     await expect(page.getByTestId("building-cost-log")).toContainText("Weapon Automation (1,000 x 1 t): 1,000");
     await expect(page.getByText("0 gunners, 0 other crew, 0 officers")).toBeVisible();
 
     await page.getByRole("link", { name: "View Record Sheet" }).click();
-    await expect(page.getByTestId("building-sheet-modifications")).toContainText("Environmental sealing (breach roll -2)");
-    await expect(page.getByTestId("building-sheet-modifications")).toContainText("Low ceilings");
+    const fittings = page.getByTestId("building-fittings");
+    await expect(fittings).toContainText(/Environmental sealing \(breach\s*roll\s*-2\)/);
+    await expect(fittings).toContainText(/Low\s*ceilings/);
+    await expect(fittings).toContainText(/Industrial\s*elevator\s*in\s*hex\s*1/);
 
     expect(errors).toEqual([]);
 });
@@ -233,8 +250,8 @@ test("a fortress mounts capital weapons", async ({ page }) => {
     await expect(page.getByTestId("building-cost-log")).toContainText("Capital Weapons and Ammunition: 730,000");
 
     await page.goto("classic-battletech/building-creator/record-sheet");
-    await expect(page.getByTestId("building-sheet-capital-weapon").first()).toContainText("NL35");
-    await expect(page.getByTestId("building-sheet-capital-weapon").nth(1)).toContainText("Killer Whale (4 shots)");
+    await expect(page.getByTestId("building-weapon").filter({ hasText: "NL35" })).toHaveCount(1);
+    await expect(page.getByTestId("building-weapon").filter({ hasText: "Killer Whale (4 shots)" })).toHaveCount(1);
 
     expect(errors).toEqual([]);
 });

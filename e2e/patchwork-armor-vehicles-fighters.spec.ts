@@ -17,7 +17,7 @@ test("Vehicle Creator: a reactive-armored front under Patchwork Armor", async ({
 
     await page.goto("classic-battletech/vehicle-creator/step1");
     await page.getByLabel("Rules Level").selectOption("3");
-    await page.getByLabel("Vehicle Era").selectOption("dark-ages");
+    await page.getByLabel("Era:").selectOption("dark-ages");
 
     await page.goto("classic-battletech/vehicle-creator/armor");
     await page.getByRole("combobox", { name: /^Armor Type/ }).selectOption("patchwork");

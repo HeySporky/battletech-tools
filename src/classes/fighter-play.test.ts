@@ -165,6 +165,50 @@ describe("Fighter damage and critical hits (TW pp.238-240)", () => {
         expect(conventional.applyHeatPhase()).toEqual(["Conventional fighters do not track heat"]);
     });
 
+    it("explodes the most destructive ammunition on a failed heat Avoid Roll: the Slayer example (TW p.161)", () => {
+        const armed = (): AerospaceFighter => {
+            const fighter = slayer();
+            fighter.addEquipmentFromTag("autocannon-standard-c", "nose");
+            fighter.addEquipmentFromTag("machine-gun", "nose");
+            fighter.addEquipmentFromTag("ammo-machine-gun-standard");
+            fighter.addEquipmentFromTag("ammo-ac-10-standard");
+            return fighter;
+        };
+        const fighter = armed();
+        expect(fighter.getStructuralIntegrity()).toBe(8);
+        // 10 shots x 10 damage / 10 = 10 against SI 8, and the pilot takes 1.
+        const log = fighter.explodeAmmunition();
+        expect(log.join(" | ")).toContain("AC/10");
+        expect(log.join(" | ")).toContain("10 damage to the Structural Integrity");
+        expect(log.join(" | ")).toContain("The pilot takes 1 damage");
+        expect(fighter.getInPlay().structureDamage).toBe(10);
+        expect(fighter.getInPlay().pilotHits).toBe(1);
+        expect(fighter.isDestroyed()).toBe(true);
+        // The spent AC/10 bin stays spent through a save, so the machine gun ammunition goes next.
+        const saved = new AerospaceFighter(fighter.exportJSON());
+        expect(saved.getInPlay().explodedAmmo).toEqual(fighter.getInPlay().explodedAmmo);
+        expect(saved.explodeAmmunition().join(" | ")).toContain("MG - Standard Ammo explodes");
+        expect(saved.explodeAmmunition()).toEqual(["No explosive ammunition left to explode"]);
+
+        // With CASE the damage is divided by 20 instead: 5, and the Slayer survives.
+        const cased = armed();
+        expect(cased.addEquipmentFromTag("case")).not.toBeNull();
+        cased.explodeAmmunition();
+        expect(cased.getInPlay().structureDamage).toBe(5);
+
+        // AeroTech 2 sends the full 100 to the SI, or one shot's 10 with CASE (AT2 p.13); it is not yet selectable.
+        const at2 = armed();
+        (at2 as any)._rulesEdition = "aerotech-2";
+        at2.explodeAmmunition();
+        expect(at2.getInPlay().structureDamage).toBe(100);
+        const at2Cased = armed();
+        (at2Cased as any)._rulesEdition = "aerotech-2";
+        at2Cased.addEquipmentFromTag("case");
+        at2Cased.explodeAmmunition();
+        expect(at2Cased.getInPlay().structureDamage).toBe(10);
+        expect(cased.isDestroyed()).toBe(false);
+    });
+
     it("keeps pilot and damage through a save, joins a roster group, and survives a hostile save", () => {
         const fighter = slayer();
         fighter.getPilot().gunnery = 3;
@@ -175,7 +219,7 @@ describe("Fighter damage and critical hits (TW pp.238-240)", () => {
         const group = new BattleMechGroup();
         group.fighters.push(fighter);
         expect(group.getTotalUnits()).toBe(1);
-        expect(group.getTotaBV2()).toBe(fighter.getPilotAdjustedBattleValue());
+        expect(group.getTotalBattleValue()).toBe(fighter.getPilotAdjustedBattleValue());
         expect(group.getTotalTons()).toBe(80);
         expect(group.isUnderStrength()).toBe(true);
 
@@ -197,5 +241,65 @@ describe("Fighter damage and critical hits (TW pp.238-240)", () => {
         expect(hostile.getInPlay().armorDamage.nose).toBe(0);
         expect(hostile.getInPlay().heatSinks).toBe(10);
         expect(new BattleMechGroup({ name: "x", units: [], uuid: "u", lastUpdated: new Date(), groupLabel: "Lance", fighters: [5, null, []] as never }).fighters).toHaveLength(0);
+    });
+});
+
+describe("Fighter altitude, velocity and air-to-ground attacks in play (#137; TW pp.80-84, 242-247)", () => {
+    it("starts landed and tracks altitude, velocity and thrust through a turn", () => {
+        const fighter = slayer();
+        expect(fighter.getFlight()).toEqual({ altitude: 0, velocity: 0, thrustUsed: 0, controlRollsFailed: 0 });
+        fighter.setFlight({ altitude: 5, velocity: 6 });
+        fighter.startFlightTurn();
+        expect(fighter.getFlight().velocity).toBe(3);
+        fighter.accelerateFlight(2);
+        expect(fighter.getFlight()).toMatchObject({ velocity: 5, thrustUsed: 2 });
+        const dive = fighter.changeFlightAltitude(-3);
+        expect(dive.controlRolls).toEqual([{ reason: "Descended 3 altitudes", modifier: 3 }]);
+        expect(fighter.getFlight()).toMatchObject({ altitude: 2, velocity: 6 });
+        fighter.recordControlRoll(true);
+        expect(fighter.getFlight().controlRollsFailed).toBe(1);
+    });
+
+    it("works out an air-to-ground to-hit from the pilot, damage and thrust spent (a Gunnery 4 pilot)", () => {
+        const fighter = slayer();
+        fighter.getPilot().gunnery = 4;
+        fighter.setFlight({ altitude: 3, velocity: 6 });
+        expect(fighter.getAirToGroundAttack("strike")).toMatchObject({ allowed: true, baseToHit: 6, altitudeLoss: 1 });
+        // A sensor hit (+1) and thrust over Safe Thrust (+2, TW p.243).
+        fighter.setCriticalHits("sensors", 1);
+        fighter.setFlight({ thrustUsed: 7 });
+        expect(fighter.getAirToGroundAttack("strike").baseToHit).toBe(9);
+        // A third FCS hit stops all weapon attacks.
+        fighter.setCriticalHits("fcs", 3);
+        expect(fighter.getAirToGroundAttack("strike").allowed).toBe(false);
+        // Another edition rules, set on the unit.
+        fighter.setCriticalHits("fcs", 0);
+        fighter.setFlight({ thrustUsed: 0 });
+        fighter.setFlightRules("battlespace");
+        expect(fighter.getAirToGroundAttack("strike").baseToHit).toBe(9);
+    });
+
+    it("keeps airships off the low-altitude map (TW p.79)", () => {
+        const airship = new AerospaceFighter();
+        airship.setFighterType("support");
+        airship.setSupportMotive("airship");
+        expect(airship.isFlightMapAllowed()).toBe(false);
+        expect(slayer().isFlightMapAllowed()).toBe(true);
+    });
+
+    it("saves and loads altitude, velocity, thrust and the rules edition, and refuses bad numbers", () => {
+        const fighter = slayer();
+        fighter.setFlight({ altitude: 7, velocity: 9, thrustUsed: 3, controlRollsFailed: 2 });
+        fighter.setFlightRules("aerotech-2");
+        const loaded = new AerospaceFighter(JSON.stringify(fighter.export()));
+        expect(loaded.getFlight()).toEqual({ altitude: 7, velocity: 9, thrustUsed: 3, controlRollsFailed: 2 });
+        expect(loaded.getFlightRules()).toBe("aerotech-2");
+        const hostile = new AerospaceFighter(JSON.stringify({ inPlay: { altitude: 1e9, velocity: -4, thrustUsed: "x", flightRules: "nonsense" } }));
+        // Out-of-range numbers are held to the limits (altitude 11 is the top: off the map), text is dropped.
+        expect(hostile.getFlight()).toEqual({ altitude: 11, velocity: 0, thrustUsed: 0, controlRollsFailed: 0 });
+        expect(hostile.getFlightRules()).toBe("total-warfare");
+        // A reset of the play state clears altitude and velocity.
+        fighter.resetInPlay();
+        expect(fighter.getFlight().altitude).toBe(0);
     });
 });

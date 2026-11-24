@@ -49,6 +49,8 @@ export interface IBattleArmorWeightClass {
     chassisCost: number;
 }
 
+/** Training of each trooper, by technology base (TM p.285 Final Unit Cost Formulas; CBT Companion p.187). */
+export const BATTLE_ARMOR_TRAINING_COST = { is: 150000, clan: 200000 };
 export const BATTLE_ARMOR_GROUND_MP_COST = 25000;
 /** Clan Technology Multiplier on chassis, motive systems, manipulators and armor (TM p.281). */
 export const BATTLE_ARMOR_CLAN_COST_MULTIPLIER = 1.1;

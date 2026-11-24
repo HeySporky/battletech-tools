@@ -49,8 +49,47 @@ export function buildPrintedDroid(droid: IPrintedDroid): BattleMech {
             mech.moveCritical("un", from, entry.location, to);
         }
     }
+    placeHeatSinks(mech, droid);
     mech.setPrintedDroid(droid.id);
     return mech;
+}
+
+/** The Critical Hit Chart's locations in its reading order (BD p.25: right arm, head, left arm, the torsos, the legs). */
+const chartOrder: PrintedDroidLocation[] = ["ra", "hd", "la", "rt", "ct", "lt", "rl", "ll"];
+
+/**
+ * Every heat sink takes a box on the chart, the engine's ten included (BD p.25). The Merlin's chart prints their places;
+ * no other listing does, so the rest go as the Merlin's are "divided among all 8 hit locations": one to each location
+ * in the chart's order, round after round, skipping a location once it is full.
+ */
+function placeHeatSinks(mech: BattleMech, droid: IPrintedDroid): void {
+    const slotsOf = (location: PrintedDroidLocation) =>
+        (mech.getCriticals() as unknown as Record<string, unknown[]>)[criticalKeys[location]] ?? [];
+    const placeOne = (location: PrintedDroidLocation): boolean => {
+        const from = mech.unallocatedCriticals.findIndex(critical => critical?.tag === "heat-sink");
+        if (from < 0) {
+            return false;
+        }
+        const to = freeRun(slotsOf(location), mech.unallocatedCriticals[from].crits);
+        return to >= 0 && mech.moveCritical("un", from, location, to);
+    };
+    if (droid.heatSinkPlaces) {
+        for (const location of chartOrder) {
+            for (let count = droid.heatSinkPlaces[location] ?? 0; count > 0; count--) {
+                placeOne(location);
+            }
+        }
+        return;
+    }
+    let placed = true;
+    while (placed && mech.unallocatedCriticals.some(critical => critical?.tag === "heat-sink")) {
+        placed = false;
+        for (const location of chartOrder) {
+            if (mech.unallocatedCriticals.some(critical => critical?.tag === "heat-sink") && placeOne(location)) {
+                placed = true;
+            }
+        }
+    }
 }
 
 /** The left-over criticals a printed droid mounts in its turret (the GOL-1H's center torso), as the sheet prints them. */
@@ -66,7 +105,7 @@ export function getPrintedTurretCriticals(mech: BattleMech): ICriticalSlot[] {
 /** The criticals still waiting for a slot: the unallocated ones, less any a printed droid mounts in its turret. */
 export function getUnallocatedCriticals(mech: BattleMech): ICriticalSlot[] {
     const turret = new Set(getPrintedTurretCriticals(mech));
-    return mech.unallocatedCriticals.filter(critical => !turret.has(critical));
+    return mech.unallocatedCriticals.filter(critical => critical && !turret.has(critical));
 }
 
 /** What makes a design that design: chassis, movement, heat sinks, armor and each item where it is mounted. */

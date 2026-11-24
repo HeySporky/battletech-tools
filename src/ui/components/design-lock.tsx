@@ -3,6 +3,23 @@ import { editionAllowsConstruction, editionEditsPrintedUnitsAfterWarning, getRul
 import { isUnmodifiedPrintedDroid } from '../../classes/printed-droid';
 import { IAppGlobals } from '../app-router';
 
+/** The current 'Mech design's own rules level, or the app-wide one for a design that has none yet (#324). */
+export function mechRulesLevel(appGlobals: IAppGlobals): number {
+    return appGlobals.currentBattleMech?.getRulesLevel(appGlobals.appSettings.mechRulesFilter) ?? appGlobals.appSettings.mechRulesFilter;
+}
+
+type Mech = NonNullable<IAppGlobals["currentBattleMech"]>;
+
+/**
+ * A 'Mech picked in place of the current design (a printed droid, a sample) keeps the design's rules level and
+ * rulesets: the picker listed it under them (#324).
+ */
+export function keepDesignSettings(appGlobals: IAppGlobals, next: Mech): Mech {
+    const level = mechRulesLevel(appGlobals);
+    next.applyGameSettings({ ...next.getGameSettings(level), rulesLevel: level, rulesets: appGlobals.currentBattleMech?.getRulesets() ?? [] });
+    return next;
+}
+
 /** Why the current 'Mech design cannot be changed at the selected rules level, or null when it can. */
 export function getDesignLockNote(appGlobals: IAppGlobals): string | null {
     const mech = appGlobals.currentBattleMech;
@@ -10,7 +27,7 @@ export function getDesignLockNote(appGlobals: IAppGlobals): string | null {
         return null;
     }
     const editionTag = mech.getRulesEdition();
-    const level = getShownRulesLevel(editionTag, appGlobals.appSettings.mechRulesFilter);
+    const level = getShownRulesLevel(editionTag, mechRulesLevel(appGlobals));
     if (editionAllowsConstruction(editionTag, level)) {
         return null;
     }
@@ -23,16 +40,22 @@ export function getDesignLockNote(appGlobals: IAppGlobals): string | null {
 }
 
 /**
- * Confirm that editing a printed unit moves the design to the edition's construction level, and raise the app-wide
- * rules level to it. Cancelling changes nothing.
+ * Confirm that editing a printed unit moves the design to the edition's construction level, and raise the design's
+ * rules level to it (and the app-wide default with it). Cancelling changes nothing.
  */
 export function confirmEditPrintedDroid(appGlobals: IAppGlobals): void {
     const editionTag = appGlobals.currentBattleMech?.getRulesEdition();
     const construction = getRulesEdition(editionTag).constructionLevel ?? 0;
     const buildName = getRulesLevelOptionsForEdition(editionTag).find(option => option.id === construction)?.name;
     if (window.confirm(`Editing this droid moves the design to ${buildName}, the rules for designing droids. Continue?`)) {
+        const mech = appGlobals.currentBattleMech;
+        const level = Math.max(mechRulesLevel(appGlobals), construction);
+        if (mech) {
+            mech.applyGameSettings({ ...mech.getGameSettings(level), rulesLevel: level });
+            appGlobals.saveCurrentBattleMech(mech);
+        }
         const appSettings = appGlobals.appSettings;
-        appSettings.mechRulesFilter = Math.max(appSettings.mechRulesFilter, construction);
+        appSettings.mechRulesFilter = level;
         appGlobals.saveAppSettings(appSettings);
     }
 }
@@ -44,7 +67,7 @@ export function confirmEditPrintedDroid(appGlobals: IAppGlobals): void {
 export default function DesignLockColumn(props: { appGlobals: IAppGlobals; children: React.ReactNode }): JSX.Element {
     const note = getDesignLockNote(props.appGlobals);
     const editionTag = props.appGlobals.currentBattleMech?.getRulesEdition();
-    const level = getShownRulesLevel(editionTag, props.appGlobals.appSettings.mechRulesFilter);
+    const level = getShownRulesLevel(editionTag, mechRulesLevel(props.appGlobals));
     return (
         <div className="col-md-9 col-lg-10">
             {note ? (

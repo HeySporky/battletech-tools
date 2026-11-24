@@ -1,4 +1,5 @@
 import React, { type JSX } from 'react';
+import { BLK_READERS, BlkUnit, BlkUnitKind, importBlkUnit } from '../../classes/blk-unit-import';
 import { MAX_BLK_FILE_LENGTH } from '../../utils/blk-file';
 import TextSection from './text-section';
 
@@ -9,8 +10,8 @@ export interface IBlkImportOutcome {
     messages: string[];
 }
 
-// Reads a MegaMek ".blk" file chosen by the user and hands its text to the creator's importer, then lists what
-// could not be carried over. Shared by the creators that import MegaMek files.
+// Reads a MegaMek ".blk" file chosen by the user through the one MegaMek reader (importBlkUnit), hands the unit to
+// the creator, then lists what could not be carried over. Shared by every creator that imports MegaMek files.
 export default class BlkImportSection extends React.Component<IBlkImportSectionProps, IBlkImportSectionState> {
     constructor(props: IBlkImportSectionProps) {
         super(props);
@@ -27,10 +28,16 @@ export default class BlkImportSection extends React.Component<IBlkImportSectionP
             return;
         }
         const reader = new FileReader();
-        reader.onload = () => this.setState({ fileName: file.name, outcome: this.props.onImport(typeof reader.result === "string" ? reader.result : "") });
+        reader.onload = () => this.setState({ fileName: file.name, outcome: this.read(typeof reader.result === "string" ? reader.result : "") });
         reader.onerror = () => this.setState({ fileName: file.name, outcome: { loaded: false, messages: ["The file could not be read."] } });
         reader.readAsText(file);
         input.value = "";
+    }
+
+    read = (text: string): IBlkImportOutcome => {
+        const result = importBlkUnit(text, this.props.accept);
+        if (!result.unit || !result.kind) return { loaded: false, messages: result.issues };
+        return { loaded: true, messages: [...result.notes, ...result.issues, ...this.props.onLoad(result.unit, result.kind)] };
     }
 
     render = (): JSX.Element => {
@@ -38,8 +45,8 @@ export default class BlkImportSection extends React.Component<IBlkImportSectionP
         return (
             <TextSection label="Import a MegaMek File">
                 <p>
-                    Load {this.props.unitName} from a MegaMek or MegaMekLab <code>.blk</code> file. The design replaces the one in the
-                    editor; save your current design first if you want to keep it.
+                    Load {this.props.accept.map((kind) => BLK_READERS[kind].name).join(" or ")} from a MegaMek or MegaMekLab <code>.blk</code> file.
+                    The design replaces the one in the editor; save your current design first if you want to keep it.
                 </p>
                 <label>
                     Choose a .blk file:{" "}
@@ -56,7 +63,7 @@ export default class BlkImportSection extends React.Component<IBlkImportSectionP
                     </div>
                 ) : null}
                 <p className="smaller-text">
-                    The file's equipment names are matched to this catalog; anything without a match is left off and listed.
+                    {this.props.note ?? "The file's equipment names are matched to this catalog; anything without a match is left off and listed."}
                 </p>
             </TextSection>
         );
@@ -64,10 +71,13 @@ export default class BlkImportSection extends React.Component<IBlkImportSectionP
 }
 
 interface IBlkImportSectionProps {
-    /** "a Support Vehicle", for the opening sentence. */
-    unitName: string;
+    /** The kinds of unit the creator builds; a file of another kind is refused with a message naming it. */
+    accept: BlkUnitKind[];
     testId: string;
-    onImport: (text: string) => IBlkImportOutcome;
+    /** Puts the read unit in the editor; gives the loaded design's rule issues. */
+    onLoad: (unit: BlkUnit, kind: BlkUnitKind) => string[];
+    /** How the file's contents are matched, in place of the general sentence. */
+    note?: string;
 }
 
 interface IBlkImportSectionState {

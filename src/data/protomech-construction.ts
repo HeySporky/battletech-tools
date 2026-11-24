@@ -12,6 +12,8 @@
  * excluded from the software's underlying license (GNU GPLv3).
  */
 
+import type { ICatalogStanding } from "./data-interfaces";
+
 // ProtoMech construction tables: TechManual pp.80-89 (2 to 9 tons, bipeds) and Interstellar Operations: Alternate
 // Eras pp.93-96 (Ultraheavy, Quad and Glider ProtoMechs). Weights are in kilograms. Cockpits, heat sinks, jump jets
 // and structures are in protomech-components.ts; weapons come from the equipment catalogs (`space.protomech`).
@@ -199,6 +201,18 @@ export const protoMechMissiles: IProtoMechMissile[] = [
     },
 ];
 
+/**
+ * The ProtoMech Missile Weapons BV table of the Master Rules, Revised Edition (BMR(R) p.155; TRO 3060 (FanPro) p.195 prints it again): the
+ * Battle Value 1 of a launcher of a non-standard number of tubes and of a ton of its ammunition, by family and tubes. The standard rack sizes are in
+ * the Clan Weapons and Equipment BV table. The 1st-printing TechManual (FanPro 2007) printed the LRM 2 and LRM 3 rows of this table (25 and 35) too;
+ * its later printings correct them (24, and 34 with 4 an ton: TM p.318).
+ */
+export const PROTOMECH_BV1_MISSILES: Record<string, Record<number, [number, number]>> = {
+    "lrm": { 1: [17, 2], 2: [25, 3], 3: [35, 5], 4: [46, 6], 6: [69, 9], 7: [92, 12], 8: [93, 12], 9: [95, 12], 11: [139, 18], 12: [141, 18], 13: [161, 20], 14: [163, 21], 16: [214, 27], 17: [215, 27], 18: [217, 27], 19: [218, 28] },
+    "srm": { 1: [15, 2], 3: [30, 4], 5: [47, 6] },
+    "streak-srm": { 1: [20, 3], 3: [59, 8], 5: [99, 13] },
+};
+
 export const findProtoMechMissile = (family: string | undefined): IProtoMechMissile | undefined =>
     protoMechMissiles.find((missile) => missile.family === family);
 
@@ -214,7 +228,7 @@ export const PROTOMECH_FIXED_LAUNCHER_PATTERN = /^(clan-lrm-|clan-srm-|clan-stre
  * Equipment only a ProtoMech mounts that the equipment catalogs do not carry. `kg` is fixed, or found from the
  * ProtoMech's tonnage (see `getProtoMechEquipmentKg`).
  */
-export interface IProtoMechEquipment {
+export interface IProtoMechEquipment extends ICatalogStanding {
     tag: string;
     name: string;
     /** Locations it may be mounted in. */
@@ -240,28 +254,28 @@ export interface IProtoMechEquipment {
 
 export const protoMechEquipment: IProtoMechEquipment[] = [
     {
-        tag: "protomech-magnetic-clamp", name: "Magnetic Clamp System", locations: ["torso"], chassis: ["biped"], kg: "magnetic-clamp", bv: 1, cost: 25000,
+        tag: "protomech-magnetic-clamp", editions: ["total-warfare"], techBase: "clan", name: "Magnetic Clamp System", locations: ["torso"], chassis: ["biped"], kg: "magnetic-clamp", bv: 1, cost: 25000,
         rulesLevel: 3, introduced: 3075, prototype: null, book: "IO:AE", page: 60,
         notes: "250 kg under 6 tons, 500 kg from 6 to 9 tons, 1,000 kg at 10 tons or more; one torso slot. Not for Quad or Glider ProtoMechs. A BattleMech may carry two ProtoMechs so equipped (one if it weighs over 9 tons). Battle Value and cost: IO:AE pp.190, 213.",
     },
     {
-        tag: "protomech-melee-weapon", name: "ProtoMech Melee Weapon", locations: ["la", "ra"], chassis: ["biped", "glider"], kg: 500, bv: "melee", cost: 50000,
+        tag: "protomech-melee-weapon", editions: ["total-warfare"], techBase: "clan", name: "ProtoMech Melee Weapon", locations: ["la", "ra"], chassis: ["biped", "glider"], kg: 500, bv: "melee", cost: 50000,
         rulesLevel: 4, introduced: null, prototype: 3067, book: "TO:AUE", page: 149,
         notes: "Half a ton, one arm slot; one melee weapon a ProtoMech. Adds 1 point to a Frenzy attack for every 5 tons of the ProtoMech or part of that. Battle Value: the added damage x 1.25 (TO:AUE p.199).",
     },
     {
-        tag: "protomech-quad-melee-system", name: "ProtoMech Quad Melee Weapon System", locations: ["torso"], chassis: ["quad"], kg: 1000, bv: "quad-melee", cost: 70000,
+        tag: "protomech-quad-melee-system", editions: ["total-warfare"], techBase: "clan", name: "ProtoMech Quad Melee Weapon System", locations: ["torso"], chassis: ["quad"], kg: 1000, bv: "quad-melee", cost: 70000,
         rulesLevel: 3, introduced: 3072, prototype: null, book: "IO:AE", page: 61,
-        notes: "1 ton, torso of a Quad ProtoMech only. Adds 2 points to a Frenzy attack for every 5 tons of the ProtoMech or part of that. Battle Value: the added damage x 1.25 (IO:AE p.190).",
+        notes: "1 ton, torso of a Quad ProtoMech only. Adds 2 points to a Frenzy attack for every 5 tons of the ProtoMech or part of that. Battle Value: the base Frenzy damage plus the added damage, x 1.25 (IO:AE p.190; user ruling 2026-11-02).",
     },
     {
-        tag: "protomech-fusillade", name: "Fusillade Launcher", locations: ["torso", "la", "ra", "mainGun"], chassis: ["biped", "quad", "glider"], kg: 1500, bv: 11, cost: 100000,
+        tag: "protomech-fusillade", editions: ["total-warfare"], techBase: "clan", name: "Fusillade Launcher", locations: ["torso", "la", "ra", "mainGun"], chassis: ["biped", "quad", "glider"], kg: 1500, bv: 11, cost: 100000,
         fixedShots: 2, catalogTag: "atm-3",
         rulesLevel: 4, introduced: null, prototype: 3072, book: "IO:AE", page: 59,
         notes: "1.5 tons with its two ATM 3 rounds, which cannot be added to; needs no heat sinks. Rolls on the 3 column of the Cluster Hits Table with +2 for its built-in Artemis IV. Battle Value and cost: IO:AE pp.190, 213.",
     },
     {
-        tag: "protomech-partial-wing", name: "ProtoMech Partial Wing", locations: ["torso"], chassis: ["biped", "quad"], kg: "partial-wing", bv: 0, cost: "partial-wing",
+        tag: "protomech-partial-wing", editions: ["total-warfare"], techBase: "clan", name: "ProtoMech Partial Wing", locations: ["torso"], chassis: ["biped", "quad"], kg: "partial-wing", bv: 0, cost: "partial-wing",
         rulesLevel: 4, introduced: null, prototype: 3070, book: "TO:AUE", page: 105,
         notes: "20 percent of the ProtoMech's weight, one torso slot. Adds 2 Jumping MP in a standard atmosphere (TO:AUE p.107), which may pass the usual limit. Cost 50,000 x its tonnage (TO:AUE p.210).",
     },

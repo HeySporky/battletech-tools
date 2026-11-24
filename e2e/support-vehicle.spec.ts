@@ -39,8 +39,8 @@ test("a Support Vehicle builds, takes a penetrating critical hit and prints", as
     await expect(panel.getByTestId("pending-roll")).toContainText("Critical Hit roll");
 
     await page.goto("classic-battletech/roster/print");
-    await expect(page.locator(".print-page").first()).toContainText("Tracked Support Vehicle");
-    await expect(page.locator(".print-page").first()).toContainText("BAR 5");
+    await expect(page.locator(".print-page").first()).toContainText("TRACKED SUPPORT VEHICLE RECORD SHEET");
+    await expect(page.locator(".print-page").first()).toContainText("BAR: 5");
 
     expect(errors).toEqual([]);
 });
@@ -75,5 +75,18 @@ test("Support Vehicles and Fixed-Wing Support Vehicles import from MegaMek files
     await expect(page.getByTestId("fw-import-result")).toContainText("spotter.blk: loaded into the editor.");
     await page.goto("classic-battletech/fighter-creator/chassis");
     await expect(page.getByLabel(/^Fighter Name/)).toHaveValue("Import Spotter");
+
+    // A MegaMek aerospace fighter file loads in the same creator (#600 round 4b).
+    const fighter = [...block("UnitType", "AeroSpaceFighter"), ...block("Name", "Import Hawk"), ...block("year", "3025"), ...block("type", "IS Level 1"),
+        ...block("motion_type", "Aerodyne"), ...block("SafeThrust", "5"), ...block("engine_type", "0"), ...block("heatsinks", "10"), ...block("sink_type", "0"),
+        ...block("fuel", "400"), ...block("armor_type", "0"), ...block("armor", "10", "8", "8", "6"), ...block("Nose Equipment", "Medium Laser"),
+        ...block("tonnage", "30.0")].join("\n");
+    await page.goto("classic-battletech/fighter-creator");
+    await page.getByTestId("fw-import-file").setInputFiles({ name: "hawk.blk", mimeType: "text/plain", buffer: Buffer.from(fighter) });
+    await expect(page.getByTestId("fw-import-result")).toContainText("hawk.blk: loaded into the editor.");
+    // The imported spotter is unsaved, so the creator asks first.
+    await page.getByRole("dialog").getByRole("button", { name: "Discard it" }).click();
+    await page.goto("classic-battletech/fighter-creator/chassis");
+    await expect(page.getByLabel(/^Fighter Name/)).toHaveValue("Import Hawk");
     expect(errors).toEqual([]);
 });

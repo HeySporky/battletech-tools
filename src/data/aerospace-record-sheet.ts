@@ -84,3 +84,31 @@ export const ADVANCED_AEROSPACE_CRITICAL_BLOCK: { name: string; boxes: string[] 
 
 /** Crew hits on a JumpShip, WarShip or space station sheet: the modifier for each, the sixth incapacitating (SO:AA p.10). */
 export const ADVANCED_AEROSPACE_CREW_HITS: string[] = ["+1", "+2", "+3", "+4", "+5", "Incp."];
+
+/** Straight Movement on Ground Maps (aerodyne craft only), TW p. 92: the fewest hexes an aerodyne unit moves straight
+ *  at each velocity on a ground map. Fixed-wing support vehicles move double the fighter figure (TW p. 84); Large
+ *  Support Vehicles use the Small Craft column. Above velocity 12 a unit cannot fly on a ground map; one forced over
+ *  12 stays at 12 and makes a Control Roll. */
+export const GROUND_MAP_STRAIGHT_MOVEMENT: { velocity: number; fighter: number; smallCraft: number; dropShip: number }[] = [
+    { velocity: 1, fighter: 8, smallCraft: 8, dropShip: 8 },
+    { velocity: 2, fighter: 12, smallCraft: 14, dropShip: 16 },
+    { velocity: 3, fighter: 16, smallCraft: 20, dropShip: 24 },
+    { velocity: 4, fighter: 20, smallCraft: 26, dropShip: 32 },
+    { velocity: 5, fighter: 24, smallCraft: 32, dropShip: 40 },
+    { velocity: 6, fighter: 28, smallCraft: 38, dropShip: 48 },
+    { velocity: 7, fighter: 32, smallCraft: 44, dropShip: 56 },
+    { velocity: 8, fighter: 36, smallCraft: 50, dropShip: 64 },
+    { velocity: 9, fighter: 40, smallCraft: 56, dropShip: 72 },
+    { velocity: 10, fighter: 44, smallCraft: 62, dropShip: 80 },
+    { velocity: 11, fighter: 48, smallCraft: 68, dropShip: 88 },
+    { velocity: 12, fighter: 52, smallCraft: 74, dropShip: 96 },
+];
+
+/** The Fighter Return Table, as printed on the Total Warfare conventional fighter record sheet: how many turns a
+ *  fighter that flies off a ground map takes to return, by safe thrust. */
+export const FIGHTER_RETURN_TABLE: { safeThrust: string; turns: number }[] = [
+    { safeThrust: "1-4", turns: 3 },
+    { safeThrust: "5-8", turns: 2 },
+    { safeThrust: "9-12", turns: 1 },
+    { safeThrust: "13+", turns: 0 },
+];

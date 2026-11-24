@@ -2,11 +2,12 @@ import React, { type JSX } from 'react';
 import { Link } from 'react-router';
 import { FaArrowCircleLeft, FaArrowCircleRight } from "react-icons/fa";
 import InfantryPlatoon, { INFANTRY_SPECIAL_FEATURES } from '../../../../classes/infantry-platoon';
-import { IInfantryWeapon, INFANTRY_WEAPON_CATEGORIES } from '../../../../data/infantry-weapons';
+import { IInfantryWeapon, INFANTRY_WEAPON_CATEGORIES, getFieldGunCrew, getFieldGunKind } from '../../../../data/infantry-weapons';
 import { IAppGlobals } from '../../../app-router';
-import InfantryCreatorSideMenu from '../../../components/infantry-creator-side-menu';
+import { InfantryCreatorSideMenu } from '../../../components/creator-side-menus';
 import TextSection from '../../../components/text-section';
 import UIPage from '../../../components/ui-page';
+import { unitRulesLevel } from '../../../components/game-settings-block';
 const ArrowCircleLeft = FaArrowCircleLeft as any;
 const ArrowCircleRight = FaArrowCircleRight as any;
 
@@ -56,12 +57,15 @@ export default class InfantryCreatorWeapons extends React.Component<IWeaponsProp
         const platoon = this.props.appGlobals.currentInfantry;
         if (!platoon) return <></>;
         const primary = platoon.getPrimaryWeapon();
+        const fieldGun = platoon.getFieldGunWeapon();
         const secondary = platoon.getSecondaryWeapon();
         const maxPerSquad = platoon.getMaxSecondaryPerSquad();
         const modifiers = platoon.getRangeModifiers();
         const features = platoon.getSpecialFeatures();
         const lines = platoon.getSubPlatoons();
         const issues = platoon.getIssues();
+        const rulesLevel = unitRulesLevel(this.props.appGlobals.currentInfantry, this.props.appGlobals.appSettings);
+        const notes = [primary, secondary].filter((weapon): weapon is IInfantryWeapon => !!weapon?.notes);
 
         return (
             <UIPage current="classic-battletech-infantry-creator" appGlobals={this.props.appGlobals}>
@@ -74,7 +78,7 @@ export default class InfantryCreatorWeapons extends React.Component<IWeaponsProp
                             <label>
                                 Primary Weapon:
                                 <select value={primary.tag} onChange={(e) => { const value = e.currentTarget.value; this.update((p) => p.setPrimaryWeapon(value)); }}>
-                                    {this.renderOptions(platoon.getAvailablePrimaryWeapons())}
+                                    {this.renderOptions(platoon.getAvailablePrimaryWeapons(rulesLevel))}
                                 </select>
                             </label>
                             <p className="smaller-text">
@@ -86,7 +90,7 @@ export default class InfantryCreatorWeapons extends React.Component<IWeaponsProp
                                 Secondary Weapon:
                                 <select value={secondary ? secondary.tag : ""} onChange={(e) => { const value = e.currentTarget.value; this.update((p) => p.setSecondaryWeapon(value)); }}>
                                     <option value="">None</option>
-                                    {this.renderOptions(platoon.getAvailableSecondaryWeapons())}
+                                    {this.renderOptions(platoon.getAvailableSecondaryWeapons(rulesLevel))}
                                 </select>
                             </label>
                             {secondary ? (
@@ -106,7 +110,7 @@ export default class InfantryCreatorWeapons extends React.Component<IWeaponsProp
                             <table className="table" data-testid="infantry-weapons">
                                 <thead>
                                     <tr>
-                                        <th></th><th>Weapon</th><th>Type</th><th className="text-center">Base Range</th><th className="text-center">Damage</th>
+                                        <th><span className="visually-hidden">Actions</span></th><th>Weapon</th><th>Type</th><th className="text-center">Base Range</th><th className="text-center">Damage</th>
                                         <th className="text-center">Crew</th><th className="text-center">Troopers</th><th className="text-right">Cost</th>
                                     </tr>
                                 </thead>
@@ -115,6 +119,56 @@ export default class InfantryCreatorWeapons extends React.Component<IWeaponsProp
                                     {secondary && platoon.getSecondaryCount() > 0 ? this.renderWeaponRow("Secondary", secondary, platoon.getSecondaryCount()) : null}
                                 </tbody>
                             </table>
+                            {notes.map((weapon) => <p key={weapon.tag} className="smaller-text" data-testid="infantry-weapon-notes">{weapon.name}: {weapon.notes}</p>)}
+
+                            <h3>Field Guns and Field Artillery</h3>
+                            {platoon.getFieldGunBar() !== null && !platoon.hasFieldGuns() ? (
+                                <p className="smaller-text" data-testid="infantry-field-guns-bar">{platoon.getFieldGunBar()}.</p>
+                            ) : (
+                                <>
+                                    <label>
+                                        Field Gun or Field Artillery:
+                                        <select data-testid="infantry-field-gun" value={fieldGun ? fieldGun.tag : ""} onChange={(e) => { const value = e.currentTarget.value; this.update((p) => p.setFieldGuns(value, Math.max(1, p.getFieldGunCount()))); }}>
+                                            <option value="">None</option>
+                                            {platoon.getAvailableFieldGuns(rulesLevel).map((item) => (
+                                                <option key={item.tag} value={item.tag}>{item.name} - {item.weight} t, {getFieldGunKind(item) === "artillery" ? `needs ${Math.ceil(item.weight)} troopers` : `crew ${getFieldGunCrew(item)}`}</option>
+                                            ))}
+                                        </select>
+                                    </label>
+                                    {fieldGun && !platoon.isFieldArtillery() ? (
+                                        <label>
+                                            Number of Guns:
+                                            <select data-testid="infantry-field-gun-count" value={platoon.getFieldGunCount()} onChange={(e) => { const value = +e.currentTarget.value; this.update((p) => p.setFieldGuns(fieldGun.tag, value)); }}>
+                                                {Array.from({ length: Math.max(1, platoon.getMaxFieldGuns(), platoon.getFieldGunCount()) }, (_unused, index) => <option key={index + 1} value={index + 1}>{index + 1}</option>)}
+                                            </select>
+                                        </label>
+                                    ) : null}
+                                    {fieldGun ? platoon.getFieldGunAmmo().map((ammo, ton) => (
+                                        <label key={ton} className="d-block">
+                                            Ammunition, ton {ton + 1}:
+                                            <select data-testid={`infantry-field-gun-ammo-${ton}`} value={ammo.tag} onChange={(e) => { const value = e.currentTarget.value; this.update((p) => p.setFieldGunAmmo(ton, value)); }}>
+                                                {platoon.getFieldGunAmmoOptions().map((option) => <option key={option.tag} value={option.tag}>{option.name}</option>)}
+                                            </select>
+                                        </label>
+                                    )) : null}
+                                    {fieldGun ? (
+                                        <p data-testid="infantry-field-gun-summary">
+                                            <strong>{platoon.getFieldGunCount()} x {fieldGun.name}</strong>
+                                            &nbsp;|&nbsp; <strong>Crew</strong>: {platoon.isFieldArtillery() ? `${Math.ceil(fieldGun.weight)} troopers` : `${platoon.getFieldGunCrew()} a gun`}
+                                            &nbsp;|&nbsp; <strong>Weight with ammunition</strong>: {platoon.getFieldGunWeight()} tons
+                                            &nbsp;|&nbsp; <strong>Cost</strong>: {(platoon.getFieldGunCount() * fieldGun.cbills).toLocaleString("en-US")} C-bills
+                                        </p>
+                                    ) : null}
+                                    <p className="smaller-text">
+                                        Advanced rules (Tactical Operations: Advanced Units &amp; Equipment pp. 122-123). Any vehicular autocannon, Gauss rifle
+                                        (not heavy or Hyper-Assault) or Rifle (Cannon) may be towed as a field gun by a motorized or mechanized wheeled or
+                                        tracked platoon, one weapon type for all, as many as the troopers can crew (the weapon's tons rounded up, 2 at least). Or one
+                                        field artillery piece (Sniper, Thumper, Long Tom, Arrow IV or Artillery Cannon), which needs as many troopers as it weighs
+                                        tons and holds the platoon to 1 MP. Each gun has 1 ton of ammunition, each ton a type of its own; an LB-X fires cluster only.
+                                        A platoon with guns makes no Anti-'Mech attacks.
+                                    </p>
+                                </>
+                            )}
 
                             {issues.length > 0 ? (
                                 <ul className="color-red">
@@ -167,7 +221,7 @@ export default class InfantryCreatorWeapons extends React.Component<IWeaponsProp
 
                             <div className="clear-both overflow-hidden">
                                 <hr />
-                                <Link to={`${process.env.PUBLIC_URL}/classic-battletech/infantry-creator/summary`} className="btn btn-primary pull-right btn-sm">Next: Summary <ArrowCircleRight /></Link>
+                                <Link to={`${process.env.PUBLIC_URL}/classic-battletech/infantry-creator/technical-readout`} className="btn btn-primary pull-right btn-sm">Next: Technical Readout <ArrowCircleRight /></Link>
                                 <Link to={`${process.env.PUBLIC_URL}/classic-battletech/infantry-creator/platoon`} className="btn btn-primary btn-sm"><ArrowCircleLeft /> Previous Step</Link>
                             </div>
                         </TextSection>

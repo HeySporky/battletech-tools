@@ -102,7 +102,7 @@ export const acesTextToPlain = ( text: string ): string => {
 /** Stats the engine can read off an Alpha Strike unit to rank candidates. */
 export type TAcesStat =
     "armor" | "structure" | "armor-lost" | "structure-lost" | "tmm" | "pv" | "mv" |
-    "damage-s" | "damage-m" | "damage-l" | "size" | "heat";
+    "damage-s" | "damage-m" | "damage-l" | "size" | "heat" | "armor-start" | "structure-start";
 
 export const acesStats: { id: TAcesStat, label: string }[] = [
     { id: "armor", label: "Armor" },
@@ -117,6 +117,8 @@ export const acesStats: { id: TAcesStat, label: string }[] = [
     { id: "damage-l", label: "L damage" },
     { id: "size", label: "Size" },
     { id: "heat", label: "Heat" },
+    { id: "armor-start", label: "Starting Armor" },
+    { id: "structure-start", label: "Starting Structure" },
 ];
 
 /**
@@ -134,6 +136,8 @@ export interface IAcesPriorityRule {
     objective?: boolean;
     /** A line the source doesn't show clearly; the engine skips it. */
     unresolved?: boolean;
+    /** "no Armor": keeps candidates whose armor is gone. */
+    noArmor?: boolean;
 }
 
 /* ---------------------------------------------------------------------------------------------------------------
@@ -150,6 +154,10 @@ export interface IAcesBehaviorColumn {
     targetInAttackRange: boolean;
     /** ✔ filter: only enemies that have moved (Aces p.12). */
     targetMoved: boolean;
+    /** 👁 filter: only enemies the unit can see, "In line of sight" (Aces p.9). */
+    targetInLOS: boolean;
+    /** ⊘ filter: only enemies the unit cannot see, "No line of sight" (Aces p.9). */
+    targetNoLOS: boolean;
     /** Chip after the filters: a Command card color, "nearest", or nothing. */
     targetSelect: TAcesColor | "nearest" | "";
     moveType: TAcesMoveType;
@@ -179,6 +187,8 @@ export interface IAcesCombatSide {
     zoneKeyword: "" | "nearest" | "any";
     filters: IAcesPriorityRule[];
     overheat: IAcesOverheatRow[];
+    /** The card's "If there are no enemies in [los]: use indirect fire special order card" line (Missile Boat). */
+    indirectIfNoLOS: boolean;
 }
 
 export interface IAcesCard {
@@ -213,9 +223,12 @@ export interface IAcesCommandOrder {
     tokenRank: IAcesPriorityRule[];
     /** An order that overrides behavior for the phase (Aces p.11). */
     behavior: TAcesBehavior | null;
+    /** A movement filter the order adds, printed text with icon tokens, e.g. "0. cover vs [highest] enemies". */
+    filter: string;
 }
 
-export type TAcesStrategyAuto = "" | "objective-complete" | "enemy-no-armor";
+/** "maintain": a row with no condition ("Maintain this strategy"), so the current card stays. */
+export type TAcesStrategyAuto = "" | "objective-complete" | "enemy-no-armor" | "maintain";
 
 export interface IAcesStrategyRow {
     letter: string;
@@ -270,6 +283,33 @@ export interface IAcesSpecialOrder {
     preFilters: string[];
     /** Spotter selection list (Indirect Attacks). */
     spotter: string[];
+    source: IAcesSource | null;
+    sample: boolean;
+    notes: string;
+}
+
+/* ---------------------------------------------------------------------------------------------------------------
+ * Edge cards (Alpha Strike: Aces)
+ * ------------------------------------------------------------------------------------------------------------- */
+
+export type TAcesEdgePhase = "initiative" | "movement" | "combat" | "end" | "any";
+export const acesEdgePhases: TAcesEdgePhase[] = [ "initiative", "movement", "combat", "end", "any" ];
+
+export type TAcesEdgeTrigger = "none" | "moving" | "attacking" | "attacked" | "critical-hit" | "enemy-rear" | "damaged" | "other";
+export const acesEdgeTriggers: TAcesEdgeTrigger[] = [ "none", "moving", "attacking", "attacked", "critical-hit", "enemy-rear", "damaged", "other" ];
+
+export interface IAcesEdgeCard {
+    id: string;
+    name: string;
+    category: string;
+    cardNumber: string;
+    /** Edge point cost, 0 to 9; null when not entered. */
+    cost: number | null;
+    phase: TAcesEdgePhase;
+    trigger: TAcesEdgeTrigger;
+    /** The player's own words from their card; stays in their library. */
+    condition: string;
+    text: string;
     source: IAcesSource | null;
     sample: boolean;
     notes: string;
@@ -347,6 +387,7 @@ export interface IAcesCardLibrary {
     cards: IAcesCard[];
     commandCards: IAcesCommandCard[];
     specialOrders: IAcesSpecialOrder[];
+    edgeCards: IAcesEdgeCard[];
     scenarios: IAcesScenario[];
 }
 
@@ -359,6 +400,8 @@ export const newAcesBehaviorColumn = (): IAcesBehaviorColumn => {
         zoneKeyword: "",
         targetInAttackRange: false,
         targetMoved: false,
+        targetInLOS: false,
+        targetNoLOS: false,
         targetSelect: "",
         moveType: "ground",
         altMoveType: null,
@@ -378,7 +421,7 @@ export const newAcesCard = (): IAcesCard => {
         aggressive: newAcesBehaviorColumn(),
         balanced: newAcesBehaviorColumn(),
         cautious: { ...newAcesBehaviorColumn(), zoneKeyword: "nearest" },
-        combat: { zoneRings: [], zoneKeyword: "", filters: [], overheat: [] },
+        combat: { zoneRings: [], zoneKeyword: "", filters: [], overheat: [], indirectIfNoLOS: false },
         source: null,
         sample: false,
         notes: "",
@@ -427,6 +470,34 @@ export const newAcesSpecialOrder = (): IAcesSpecialOrder => {
     };
 }
 
+/** Names match ignoring case, edge spaces and runs of inner spaces, so older free-text saves still find their card. */
+export const normalizeAcesEdgeName = ( name: string ): string => {
+    return name.trim().replace( /\s+/g, " " ).toLowerCase();
+}
+
+export const acesEdgeCardForName = ( cards: IAcesEdgeCard[], name: string ): IAcesEdgeCard | undefined => {
+    const wanted = normalizeAcesEdgeName( name );
+    if( !wanted ) return undefined;
+    return cards.find( ( card ) => normalizeAcesEdgeName( card.name ) === wanted );
+}
+
+export const newAcesEdgeCard = ():IAcesEdgeCard => {
+    return {
+        id: generateUUID(),
+        name: "",
+        category: "",
+        cardNumber: "",
+        cost: null,
+        phase: "any",
+        trigger: "none",
+        condition: "",
+        text: "",
+        source: null,
+        sample: false,
+        notes: "",
+    };
+}
+
 export const newAcesScenario = (): IAcesScenario => {
     return {
         id: generateUUID(),
@@ -463,6 +534,7 @@ export const newAcesCardLibrary = (): IAcesCardLibrary => {
         cards: [],
         commandCards: [],
         specialOrders: [],
+        edgeCards: [],
         scenarios: [],
     };
 }
@@ -509,6 +581,7 @@ export const normalizeAcesPriorityRule = ( value: unknown ): IAcesPriorityRule |
     if( acesColors.indexOf( data.color as TAcesColor ) > -1 ) rv.color = data.color as TAcesColor;
     if( data.objective === true ) rv.objective = true;
     if( data.unresolved === true ) rv.unresolved = true;
+    if( data.noArmor === true ) rv.noArmor = true;
     return rv;
 }
 
@@ -521,6 +594,8 @@ export const normalizeAcesBehaviorColumn = ( value: unknown ): IAcesBehaviorColu
         zoneKeyword: oneOf( data.zoneKeyword, [ "", "nearest", "any" ] as const, "" ),
         targetInAttackRange: bool( data.targetInAttackRange ),
         targetMoved: bool( data.targetMoved ),
+        targetInLOS: bool( data.targetInLOS ),
+        targetNoLOS: bool( data.targetNoLOS ),
         targetSelect: oneOf( data.targetSelect, [ "", "nearest", "red", "yellow", "blue" ] as const, "" ),
         moveType: oneOf( data.moveType, acesMoveTypes, "ground" ),
         altMoveType: altMoveType,
@@ -562,6 +637,7 @@ export const normalizeAcesCard = ( value: unknown ): IAcesCard | null => {
             zoneKeyword: oneOf( combat.zoneKeyword, [ "", "nearest", "any" ] as const, "" ),
             filters: arr( combat.filters, normalizeAcesPriorityRule ),
             overheat: arr( combat.overheat, normalizeOverheatRow ),
+            indirectIfNoLOS: bool( combat.indirectIfNoLOS ),
         },
         source: source( data.source ),
         sample: bool( data.sample ),
@@ -578,6 +654,7 @@ const normalizeOrder = ( value: unknown ): IAcesCommandOrder | null => {
         token: data.token === "move-first" || data.token === "move-last" ? data.token : null,
         tokenRank: arr( data.tokenRank, normalizeAcesPriorityRule ),
         behavior: acesBehaviorIds.indexOf( data.behavior as TAcesBehavior ) > -1 ? data.behavior as TAcesBehavior : null,
+        filter: str( data.filter ),
     };
 }
 
@@ -587,7 +664,7 @@ const normalizeStrategyRow = ( value: unknown ): IAcesStrategyRow | null => {
     return {
         letter: data.letter,
         text: data.text,
-        auto: oneOf( data.auto, [ "", "objective-complete", "enemy-no-armor" ] as const, "" ),
+        auto: oneOf( data.auto, [ "", "objective-complete", "enemy-no-armor", "maintain" ] as const, "" ),
     };
 }
 
@@ -637,7 +714,26 @@ export const normalizeAcesSpecialOrder = ( value: unknown ): IAcesSpecialOrder |
     };
 }
 
-const normalizeScenarioUnit = ( value: unknown ): IAcesScenarioUnit | null => {
+export const normalizeAcesEdgeCard = ( value: unknown ): IAcesEdgeCard | null => {
+    const data = obj( value );
+    if( typeof data.name !== "string" ) return null;
+    return {
+        id: str( data.id ) || generateUUID(),
+        name: data.name,
+        category: str( data.category ),
+        cardNumber: str( data.cardNumber ),
+        cost: num( data.cost ),
+        phase: oneOf( data.phase, acesEdgePhases, "any" ),
+        trigger: oneOf( data.trigger, acesEdgeTriggers, "none" ),
+        condition: str( data.condition ),
+        text: str( data.text ),
+        source: source( data.source ),
+        sample: bool( data.sample ),
+        notes: str( data.notes ),
+    };
+}
+
+const normalizeScenarioUnit = (value: unknown ): IAcesScenarioUnit | null => {
     const data = obj( value );
     if( typeof data.name !== "string" ) return null;
     return {
@@ -713,6 +809,7 @@ export const normalizeAcesCardLibrary = ( value: unknown ): IAcesCardLibrary => 
         cards: arr( data.cards, normalizeAcesCard ),
         commandCards: arr( data.commandCards, normalizeAcesCommandCard ),
         specialOrders: arr( data.specialOrders, normalizeAcesSpecialOrder ),
+        edgeCards: arr( data.edgeCards, normalizeAcesEdgeCard ),
         scenarios: arr( data.scenarios, normalizeAcesScenario ),
     };
 }
@@ -727,6 +824,7 @@ export const mergeAcesCardLibrary = ( base: IAcesCardLibrary, incoming: IAcesCar
         cards: merge( base.cards, incoming.cards ),
         commandCards: merge( base.commandCards, incoming.commandCards ),
         specialOrders: merge( base.specialOrders, incoming.specialOrders ),
+        edgeCards: merge( base.edgeCards, incoming.edgeCards ),
         scenarios: merge( base.scenarios, incoming.scenarios ),
     };
 }
@@ -737,6 +835,7 @@ const statSynonyms: { [label: string]: TAcesStat } = {
     "armor": "armor", "structure": "structure", "armor lost": "armor-lost", "structure lost": "structure-lost",
     "tmm": "tmm", "pv": "pv", "mv": "mv", "move": "mv", "s damage": "damage-s", "m damage": "damage-m",
     "l damage": "damage-l", "size": "size", "heat": "heat",
+    "starting armor": "armor-start", "starting structure": "structure-start",
 };
 
 /**
@@ -752,9 +851,10 @@ export const parseAcesPriorityLine = ( line: string ): IAcesPriorityRule => {
     const color = /^\[(red|yellow|blue)\](\s*(command\s+)?list)?$/i.exec( text );
     if( color ) return { text: text, color: color[1].toLowerCase() as TAcesColor };
     if( /\[destroyobj\]/i.test( text ) ) return { text: text, objective: true };
+    if( /^no armor$/i.test( text ) ) return { text: text, noArmor: true };
     const ranked = /^\[(highest|lowest)\]\s*(.+)$/i.exec( text );
     if( ranked ) {
-        const stat = statSynonyms[ ranked[2].trim().toLowerCase() ];
+        const stat = statSynonyms[ ranked[2].replace( /\[([sml])\]/i, "$1" ).trim().toLowerCase() ];
         if( stat ) return { text: text, stat: stat, direction: ranked[1].toLowerCase() as "highest" | "lowest" };
     }
     text = text.replace( /\s+/g, " " );
@@ -803,6 +903,16 @@ export const parseAcesOverheatLine = ( line: string ): IAcesOverheatRow | null =
     };
 }
 
+/**
+ * The OV rows as every card prints them, where only the numbers change (Rekikire): the TN of each row and the OV
+ * limit of the second.
+ */
+export const acesStandardOverheatRows = ( maxTN: number, upToTN: number, ovLimit: number, noAttackTN: number ): IAcesOverheatRow[] => [
+    "If TN" + maxTN + " or less or if this unit is destroyed: Use maximum OV.",
+    "If TN" + upToTN + " or less and OV might let unit hit target's structure: Use up to " + ovLimit + " OV.",
+    "If TN" + noAttackTN + " or more and this unit has any heat: Don't attack.",
+].map( ( line ) => parseAcesOverheatLine( line ) as IAcesOverheatRow );
+
 /** Zone text: "12 18 24" (inches, closest first), "nearest" or "any". */
 export const parseAcesZone = ( text: string ): { zoneRings: number[], zoneKeyword: "" | "nearest" | "any" } => {
     const value = text.trim().toLowerCase();
@@ -816,12 +926,14 @@ export const formatAcesZone = ( zoneRings: number[], zoneKeyword: "" | "nearest"
 }
 
 /**
- * A Command card order line: "phase | printed text | behavior". Move First / Move Last orders are recognized from
- * the text and their ranking read from the parenthesized list, e.g. "(▲M Damage, ▲PV)".
+ * A Command card order line: "phase | printed text | behavior or movement filter". A line with no "|" is an order
+ * for any phase. Move First / Move Last orders are recognized from the text and their ranking read from the
+ * parenthesized list, e.g. "(▲M Damage, ▲PV)".
  */
 export const parseAcesCommandOrderLine = ( line: string ): IAcesCommandOrder | null => {
     const parts = line.split( "|" ).map( ( part ) => part.trim() );
-    if( parts.length < 2 || !parts[1] ) return null;
+    if( parts.length === 1 ) parts.unshift( "any" );
+    if( !parts[1] ) return null;
     const phases: TAcesOrderPhase[] = [ "initiative", "movement", "combat", "end", "any" ];
     const phase = phases.indexOf( parts[0].toLowerCase() as TAcesOrderPhase ) > -1 ? parts[0].toLowerCase() as TAcesOrderPhase : "any";
     const text = parts[1];
@@ -830,17 +942,23 @@ export const parseAcesCommandOrderLine = ( line: string ): IAcesCommandOrder | n
     if( /move\s+last/i.test( text ) ) token = "move-last";
     const list = /\(([^)]*)\)/.exec( text );
     const tokenRank = token && list ? list[1].split( "," ).map( ( item ) => parseAcesPriorityLine( item ) ) : [];
-    const behavior = parts[2] && acesBehaviorIds.indexOf( parts[2].toLowerCase() as TAcesBehavior ) > -1 ? parts[2].toLowerCase() as TAcesBehavior : null;
-    return { phase: phase, text: text, token: token, tokenRank: tokenRank, behavior: behavior };
+    const extra = parts.slice( 2 ).join( " | " );
+    const behavior = acesBehaviorIds.indexOf( extra.toLowerCase() as TAcesBehavior ) > -1 ? extra.toLowerCase() as TAcesBehavior : null;
+    return { phase: phase, text: text, token: token, tokenRank: tokenRank, behavior: behavior, filter: behavior ? "" : extra };
 }
 
 export const formatAcesCommandOrderLine = ( order: IAcesCommandOrder ): string => {
-    return order.phase + " | " + order.text + ( order.behavior ? " | " + order.behavior : "" );
+    const extra = order.behavior || order.filter;
+    return order.phase + " | " + order.text + ( extra ? " | " + extra : "" );
 }
 
-/** A strategy decision line: "letter | condition". The app answers "objective is complete" and "no armor" rows. */
+/**
+ * A strategy decision line: "letter | condition". The app answers "objective is complete" and "no armor" rows. A line
+ * with no "|" ("Maintain this strategy") keeps the current card.
+ */
 export const parseAcesStrategyLine = ( line: string ): IAcesStrategyRow | null => {
     const parts = line.split( "|" ).map( ( part ) => part.trim() );
+    if( parts.length === 1 && parts[0] ) return { letter: "", text: parts[0], auto: "maintain" };
     if( parts.length < 2 || !/^[A-Za-z]$/.test( parts[0] ) ) return null;
     let auto: TAcesStrategyAuto = "";
     if( /objective\s+is\s+complete/i.test( parts[1] ) ) auto = "objective-complete";
@@ -958,12 +1076,19 @@ export const validateAcesCommandCard = ( card: IAcesCommandCard ): string[] => {
         if( card[color].length === 0 ) rv.push( "The " + color + " target list is empty." );
     }
     for( const row of card.strategy ) {
-        if( !/^[A-Z]$/.test( row.letter ) ) rv.push( "Strategy row \"" + row.text + "\" needs a card letter." );
+        if( row.auto !== "maintain" && !/^[A-Z]$/.test( row.letter ) ) rv.push( "Strategy row \"" + row.text + "\" needs a card letter." );
     }
     return rv;
 }
 
-export const validateAcesScenario = ( scenario: IAcesScenario ): string[] => {
+export const validateAcesEdgeCard = ( card: IAcesEdgeCard ): string[] => {
+    const rv: string[] = [];
+    if( !card.name.trim() ) rv.push( "Name is missing." );
+    if( card.cost !== null && ( !Number.isInteger( card.cost ) || card.cost < 0 || card.cost > 9 ) ) rv.push( "Cost should be a whole number from 0 to 9." );
+    return rv;
+}
+
+export const validateAcesScenario = (scenario: IAcesScenario ): string[] => {
     const rv: string[] = [];
     if( !scenario.name.trim() ) rv.push( "Sortie name is missing." );
     if( scenario.opposingUnits.length === 0 ) rv.push( "No opposing units listed." );

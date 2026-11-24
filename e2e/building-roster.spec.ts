@@ -67,9 +67,11 @@ test("a gun emplacement joins the roster, takes damage in play and prints", asyn
     await expect(page.getByText("This Building is Damaged")).toBeVisible();
 
     await page.goto("classic-battletech/roster/print");
-    await expect(page.getByRole("heading", { name: "Battery Kenyon" })).toBeVisible();
-    await expect(page.getByTestId("building-sheet-hex")).toContainText("70 left");
-    await expect(page.getByTestId("building-sheet-data")).toContainText("Armor Factor: 80");
+    const sheet = page.getByTestId("building-record-sheet-svg");
+    await expect(sheet).toContainText("Description:Battery Kenyon");
+    await expect(sheet).toContainText("Armor:80 a hex");
+    // The hex's Construction Factor left is written in.
+    await expect(sheet.getByTestId("building-hex").first()).toHaveAttribute("data-current-cf", "70");
 
     expect(errors).toEqual([]);
 });

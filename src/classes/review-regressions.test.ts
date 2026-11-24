@@ -6,7 +6,7 @@ import { BattleMech } from "./battlemech";
 import { importBattleArmorBlk } from "./battle-armor-blk";
 import { importProtoMechBlk } from "./protomech-blk";
 import { importSmallCraftBlk } from "./small-craft-blk";
-import { getSkillMultiplier } from "../data/skill-multipliers";
+import { getSkillMultiplier } from "../data/battle-value";
 import { DEFAULT_RULES_EDITION } from "../data/rules-editions";
 import { customTagFaction } from "../utils/customTags";
 import { AppSettings } from "../ui/classes/app_settings";
@@ -15,7 +15,9 @@ import { IEquipmentItem } from "../data/data-interfaces";
 
 // Findings from the review of the unit-builder bundle (upstream PR #115), each fixed and pinned here.
 describe("review findings", () => {
-    it("a 'Mech's skill-adjusted Battle Value uses its own rules edition's table (BMR p.144 against TM p.315)", () => {
+    // Edition-aware BV plan, ruling 2: a BV1 figure reads its edition's table (BMR p.144), a BV2 figure TM p.315's.
+    // A Master Rules 'Mech shows its BV1 on the BMR table; its BV2 figure reads the TM table.
+    it("a 'Mech's skill-adjusted Battle Value reads the skill table that goes with the BV it shows", () => {
         const mech = new BattleMech();
         mech.setTonnage(50);
         mech.setWalkSpeed(4);
@@ -29,6 +31,8 @@ describe("review findings", () => {
         const multiplier = getSkillMultiplier(3, 4, "mech", "master-rules")!;
         expect(multiplier).not.toBe(getSkillMultiplier(3, 4, "mech", DEFAULT_RULES_EDITION));
         expect(mech.getPilotAdjustedBattleValue()).toBe(Math.round(mech.getBattleValue() * multiplier));
+        expect(mech.getBattleValue()).not.toBe(mech.getBattleValue("total-warfare"));
+        expect(mech.getPilotAdjustedBattleValue("total-warfare")).toBe(Math.round(mech.getBattleValue("total-warfare") * getSkillMultiplier(3, 4, "mech", DEFAULT_RULES_EDITION)!));
     });
 
     it("reset() clears the rules edition with the rest of the design", () => {

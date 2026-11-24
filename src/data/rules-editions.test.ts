@@ -1,5 +1,6 @@
 import { describe, expect, it } from "vitest";
 import { IEditionHistory, IEditionStats } from "./data-interfaces";
+import type { EWarKind } from "../utils/ewar-play";
 import { getEquipmentCatalogDefinitions } from "./equipment-registry";
 import { mechArmorTypes } from "./mech-armor-types";
 import { mechCockpitTypes } from "./mech-cockpit-types";
@@ -13,9 +14,12 @@ import { mechMyomerTypes } from "./mech-myomer-types";
 import { btMechTonnages } from "./mech-tonnages";
 import { mechTypeOptions } from "./mech-type-options";
 import {
-    DEFAULT_ALPHA_STRIKE_EDITION, DEFAULT_RULES_EDITION, asRulesEditions, btRulesExpansions, editionAllowsConstruction, editionEditsPrintedUnitsAfterWarning,
+    DEFAULT_ALPHA_STRIKE_EDITION, DEFAULT_RULES_EDITION, FANPRO_FIRST_EDITION, asRulesEditions, btRulesExpansions, editionAllowsConstruction, editionEditsPrintedUnitsAfterWarning,
     getEditionStats, getIntroducedInEdition, getRulesEditions, getRulesLevelOptionsForEdition, getSelectableAlphaStrikeEditions, getSelectableRulesEditions,
     getSelectableRulesExpansions, getShownRulesLevel, isInRulesEdition,
+    getAlphaStrikeEdition, getAlphaStrikeRulesLevelOptions, alphaStrikeEditionAllowsConstruction,
+    getEditionAtPublication, getEditionTimeline, getRecordOfferIssue, isKnownEditionTag,
+    btRulesEditions, getAlphaStrikeEWarRules, getEWarPlayRules, type IEWarItemRule,
 } from "./rules-editions";
 import { getRulesLevelOptions } from "./rules-level-options";
 
@@ -44,6 +48,11 @@ describe("Rules editions", () => {
         expect(new Set(editions.map(edition => edition.tag)).size).toBe(editions.length);
         expect(new Set(editions.map(edition => edition.book)).size).toBe(editions.length);
         expect(editions.some(edition => edition.tag === DEFAULT_RULES_EDITION)).toBe(true);
+    });
+
+    it("FanPro boundary is a listed edition, the Master Rules, Revised Edition", () => {
+        expect(getRulesEditions().some(edition => edition.tag === FANPRO_FIRST_EDITION)).toBe(true);
+        expect(FANPRO_FIRST_EDITION).toBe("master-rules-revised");
     });
 
     // CRB p.247 lists the core rulebooks before Total Warfare: BattleTech Manual (1987), BattleTech Compendium
@@ -80,10 +89,13 @@ describe("Rules editions", () => {
     it("lists the expansions with their years, and offers none until entered", () => {
         expect(btRulesExpansions.map(expansion => [expansion.tag, expansion.year])).toEqual([
             ["citytech", 1986], ["aerotech", 1986], ["battletroops", 1989], ["clantroops", 1991],
-            ["citytech-2nd-edition", 1994], ["aerotech-2", 2000], ["aerotech-2-revised", 2004],
+            ["battlespace", 1993], ["citytech-2nd-edition", 1994], ["aerotech-2", 2000], ["aerotech-2-revised", 2004],
         ]);
         expect(new Set(btRulesExpansions.map(expansion => expansion.book)).size).toBe(btRulesExpansions.length);
-        expect(btRulesExpansions.find(expansion => expansion.tag === "aerotech-2-revised")!.unitTypes).toContain("capital-ship");
+        // BattleSpace builds DropShips, JumpShips and WarShips (pp.63-75); AT2 builds and values them (contents; BV p.53).
+        for (const tag of ["battlespace", "aerotech-2", "aerotech-2-revised"]) {
+            expect(btRulesExpansions.find(expansion => expansion.tag === tag)!.unitTypes, tag).toContain("capital-ship");
+        }
         expect(getSelectableRulesExpansions("vehicle")).toEqual([]);
     });
 
@@ -91,7 +103,32 @@ describe("Rules editions", () => {
         expect(asRulesEditions.map(edition => [edition.tag, edition.year])).toEqual([
             ["alpha-strike", 2013], ["alpha-strike-commanders-edition", 2019],
         ]);
-        expect(getSelectableAlphaStrikeEditions().map(edition => edition.tag)).toEqual([DEFAULT_ALPHA_STRIKE_EDITION]);
+        expect(getSelectableAlphaStrikeEditions().map(edition => edition.tag)).toEqual(["alpha-strike", DEFAULT_ALPHA_STRIKE_EDITION]);
+    });
+
+    it("2013 plays heat without the TMM step, weapon hits to 0, vehicle engine hits keep TMM", () => {
+        expect(getAlphaStrikeEdition("alpha-strike").playRules).toEqual({ heatLowersTmm: false, weaponHitToMinimal: false, vehicleEngineHitHalvesTmm: false });
+        expect(getAlphaStrikeEdition("alpha-strike-commanders-edition").playRules).toEqual({ heatLowersTmm: true, weaponHitToMinimal: true, vehicleEngineHitHalvesTmm: true });
+    });
+
+    it("an unknown or missing Alpha Strike tag is the Commander's Edition", () => {
+        expect(getAlphaStrikeEdition("nope").tag).toBe("alpha-strike-commanders-edition");
+        expect(getAlphaStrikeEdition(undefined).tag).toBe("alpha-strike-commanders-edition");
+    });
+
+    it("names the Alpha Strike levels and forbids building below Standard", () => {
+        expect(getAlphaStrikeRulesLevelOptions("alpha-strike").map(option => option.id)).toEqual([0, 1, 2, 3, 4, 5, 6, 7]);
+        expect(getAlphaStrikeRulesLevelOptions("alpha-strike")[1].name).toBe("Introductory Alpha Strike");
+        expect(alphaStrikeEditionAllowsConstruction("alpha-strike-commanders-edition", 1)).toBe(false);
+        expect(alphaStrikeEditionAllowsConstruction("alpha-strike-commanders-edition", 2)).toBe(true);
+        expect(alphaStrikeEditionAllowsConstruction("alpha-strike", undefined)).toBe(true);
+    });
+
+    it("lists every printing and errata, latest last", () => {
+        expect(getAlphaStrikeEdition("alpha-strike").printings.map(printing => printing.name)).toEqual(
+            ["1st printing", "Corrected 2nd printing", "Errata v2.3", "Errata v2.3.1", "Errata v2.4", "Errata v2.5"]);
+        expect(getAlphaStrikeEdition("alpha-strike-commanders-edition").printings.map(printing => printing.name)).toEqual(
+            ["1st printing", "Corrected 2nd printing", "Corrected 3rd printing", "Corrected 5th printing", "2024 printing", "Errata v6.0", "Errata v7.0", "Errata v7.0.2"]);
     });
 
     it("treats a record with no edition as part of the default edition and later", () => {
@@ -141,8 +178,10 @@ describe("Rules editions", () => {
                 problems.push(`${label}: unknown edition ${record.introducedInEdition}`);
             }
             if (!record.editionStats) {
-                // No table: the record must not claim an earlier edition.
-                if (record.introducedInEdition !== undefined && earlier.includes(record.introducedInEdition)) {
+                // No table: the record must not claim an earlier edition, unless it is a sourcebook item of that
+                // edition's time, which says its level there.
+                if (record.introducedInEdition !== undefined && earlier.includes(record.introducedInEdition)
+                    && !(record.editionLevels && record.introducedInEdition in record.editionLevels)) {
                     problems.push(`${label}: introduced in ${record.introducedInEdition} but has no editionStats`);
                 }
                 continue;
@@ -153,7 +192,12 @@ describe("Rules editions", () => {
             if (record.editionStats[ordered[0]] === null) problems.push(`${label}: the first edition cannot be null`);
             for (const tag of ordered) {
                 const stats = record.editionStats[tag];
-                if (stats && stats.book !== books[tag]) problems.push(`${label}: ${tag} cites ${stats.book}`);
+                // Maximum Tech prints each Master Rules edition's Level 3 rules: the FASA printing the 1998 edition's, the
+                // Revised printing the Revised Edition's (NGCFells, 2026-11-10 and 2026-11-20). Its master table also offers
+                // the 1998 edition Level 2 items BMR lacks, the Clan ATMs (p.117; NGCFells ruling D14, 2026-11-23).
+                const levelThree = (tag === "master-rules" || tag === "master-rules-revised") && stats?.book === "MaxTech"
+                    && (record.editionLevels?.[tag] === 3 || (tag === "master-rules" && !!stats.battleValueInferred));
+                if (stats && stats.book !== books[tag] && !levelThree) problems.push(`${label}: ${tag} cites ${stats.book}`);
             }
         }
         expect(problems).toEqual([]);
@@ -164,6 +208,8 @@ describe("Rules editions", () => {
             .filter(([, stats]) => stats?.errata).map(([tag]) => `${label} ${tag}`)).sort();
         expect(corrected).toEqual([
             "equipment ammo-machine-gun-standard battledroids",
+            // Maximum Tech p.117 prints heat 2 for every ATM; entered by size, 2/4/6/8, as BMR(R) p.123 prints (D14).
+            "equipment atm-12 master-rules", "equipment atm-3 master-rules", "equipment atm-6 master-rules", "equipment atm-9 master-rules",
             // BTC p.116: the Beagle Active Probe and Artemis IV FCS rows are printed one column to the right.
             "equipment beagle-active-probe battletech-compendium",
             "equipment lrm-10-artemis-iv battletech-compendium",
@@ -198,7 +244,7 @@ describe("Rules editions: Battledroids, complete", () => {
             "equipment autocannon-standard-b", "equipment machine-gun", "equipment standard-flamer",
             // Their ammunition, BD pp.20, 25
             "equipment ammo-lrm-standard", "equipment ammo-srm-standard", "equipment ammo-machine-gun-standard",
-            "equipment ammo-is-ac-5-standard",
+            "equipment ammo-ac-5-standard",
             // Construction, BD pp.23-25
             "engine standard", "gyro standard", "cockpit standard", "heat sink single", "jump jet standard",
             "armor standard", "structure standard", "mech type biped",
@@ -382,7 +428,7 @@ describe("Rules editions: The BattleTech Manual, complete", () => {
         // Weapons Table, BTM p.87
         "equipment autocannon-standard-a", "equipment autocannon-standard-c", "equipment autocannon-standard-d",
         "equipment long-tom-artillery", "equipment sniper-artillery", "equipment thumper-artillery",
-        "equipment ammo-is-ac-2-standard", "equipment ammo-is-ac-10-standard", "equipment ammo-is-ac-20-standard",
+        "equipment ammo-ac-2-standard", "equipment ammo-ac-10-standard", "equipment ammo-ac-20-standard",
         "equipment ammo-long-tom-standard", "equipment ammo-sniper-standard", "equipment ammo-thumper-standard",
         // Special Weapons, Smoke Rounds and Night Combat, BTM pp.41, 45-46
         "equipment vehicle-flamer", "equipment ammo-vehicle-flamer-standard", "equipment ammo-srm-inferno",
@@ -477,8 +523,8 @@ describe("Rules editions: The BattleTech Manual, complete", () => {
 
     // Reloads column, BTM p.86; shots per ton, BTM p.87.
     it.each([
-        ["ammo-is-ac-2-standard", 45, 1000], ["ammo-is-ac-5-standard", 20, 4500], ["ammo-is-ac-10-standard", 10, 6000],
-        ["ammo-is-ac-20-standard", 5, 10000], ["ammo-machine-gun-standard", 200, 1000],
+        ["ammo-ac-2-standard", 45, 1000], ["ammo-ac-5-standard", 20, 4500], ["ammo-ac-10-standard", 10, 6000],
+        ["ammo-ac-20-standard", 5, 10000], ["ammo-machine-gun-standard", 200, 1000],
         ["ammo-long-tom-standard", 5, 10000], ["ammo-sniper-standard", 10, 6000], ["ammo-thumper-standard", 20, 4500],
     ])("%s has %i shots and costs %i a ton", (tag, shots, price) => {
         const stats = equipment.find(record => record.tag === tag)!.editionStats![TAG]!;
@@ -562,6 +608,8 @@ describe("Rules editions: The BattleTech Compendium, complete", () => {
         "equipment ammo-is-streak-srm-standard", "equipment ammo-is-arrow-iv-standard",
         "equipment ammo-is-arrow-iv-homing", "equipment ammo-is-lrm-artemis-iv", "equipment ammo-is-srm-artemis-iv",
         "equipment ammo-is-lrm-swarm", "equipment ammo-is-lrm-thunder",
+        // Narc-equipped missiles, double the price of standard missiles (BTC p.120)
+        "equipment ammo-lrm-narc", "equipment ammo-is-srm-narc", "equipment ammo-clan-srm-narc",
         // Clan Weapons & Equipment, BTC p.115
         "equipment clan-er-large-laser", "equipment er-medium-laser-clan", "equipment er-small-laser-clan",
         "equipment er-ppc-clan", "equipment clan-flamer", "equipment clan_large-pulse-laser",
@@ -604,7 +652,7 @@ describe("Rules editions: The BattleTech Compendium, complete", () => {
 
     it("includes everything the Manual does, and these additions", () => {
         expect(inEdition(TAG)).toEqual([...inEdition("battletech-manual"), ...added].sort());
-        expect(added).toHaveLength(135);
+        expect(added).toHaveLength(138);
         for (const label of added) {
             expect(labelled.find(entry => entry.label === label)!.record.introducedInEdition, label).toBe(TAG);
         }
@@ -796,8 +844,8 @@ describe("Rules editions: The BattleTech Compendium, complete", () => {
             "jump jet standard", "mech type biped", "structure standard",
             "equipment large-laser", "equipment medium-laser", "equipment small-laser", "equipment standard-ppc",
             "equipment standard-flamer", "equipment machine-gun",
-            "equipment ammo-is-ac-2-standard", "equipment ammo-is-ac-5-standard", "equipment ammo-is-ac-10-standard",
-            "equipment ammo-is-ac-20-standard", "equipment ammo-lrm-standard", "equipment ammo-srm-standard",
+            "equipment ammo-ac-2-standard", "equipment ammo-ac-5-standard", "equipment ammo-ac-10-standard",
+            "equipment ammo-ac-20-standard", "equipment ammo-lrm-standard", "equipment ammo-srm-standard",
             "equipment ammo-machine-gun-standard", "equipment ammo-long-tom-standard", "equipment ammo-sniper-standard",
             "equipment ammo-thumper-standard", "equipment ammo-vehicle-flamer-standard",
             "equipment ammo-bomb-standard", "equipment ammo-bomb-inferno",
@@ -844,7 +892,7 @@ describe("Rules editions: Third Edition, complete", () => {
         expect(inEdition(TAG)).toEqual([
             ...inEdition("battletech-2nd-edition"),
             "equipment autocannon-standard-a", "equipment autocannon-standard-c", "equipment autocannon-standard-d",
-            "equipment ammo-is-ac-2-standard", "equipment ammo-is-ac-10-standard", "equipment ammo-is-ac-20-standard",
+            "equipment ammo-ac-2-standard", "equipment ammo-ac-10-standard", "equipment ammo-ac-20-standard",
         ].sort());
         const edition = getRulesEditions().find(entry => entry.tag === TAG)!;
         expect(edition.complete).toBe(true);
@@ -894,7 +942,7 @@ describe("Rules editions: Third Edition, complete", () => {
 
     // BT3 p.43: half-ton lots for machine guns only; shots per ton from the table's Ammo column.
     it("counts ammunition by the ton", () => {
-        expect(["ammo-is-ac-2-standard", "ammo-is-ac-5-standard", "ammo-is-ac-10-standard", "ammo-is-ac-20-standard", "ammo-machine-gun-standard"]
+        expect(["ammo-ac-2-standard", "ammo-ac-5-standard", "ammo-ac-10-standard", "ammo-ac-20-standard", "ammo-machine-gun-standard"]
             .map(tag => find(tag).editionStats![TAG]!.shotsPerTon)).toEqual([45, 20, 10, 5, 200]);
         expect(find("ammo-lrm-standard").editionStats![TAG]!.notes).toContain("24 (LRM-5), 12 (LRM-10), 8 (LRM-15), 6 (LRM-20)");
         expect(find("ammo-srm-standard").editionStats![TAG]!.notes).toContain("50 (SRM-2), 25 (SRM-4), 15 (SRM-6)");
@@ -934,20 +982,21 @@ describe("Rules editions: The Rules of Warfare, complete", () => {
     const row = (tag: string) => figures(find(tag).editionStats![TAG]!);
 
     // BTC:RoW p.7: a ground game, so the 1990 Compendium's AeroTech rules are gone and Land-Air BattleMechs move
-    // to the Tactical Handbook. New: torpedoes (BTC:RoW p.121), Narc-equipped missiles (BTC:RoW p.119) and the
+    // to the Tactical Handbook. New: torpedoes (BTC:RoW p.121) and the
     // ordnance of aerospace support fighters (BTC:RoW p.73).
-    it("includes the Compendium's records less Ferro-Aluminum armor and LAMs, and thirty-one new ones", () => {
+    it("includes the Compendium's records less Ferro-Aluminum armor and LAMs, and twenty-five new ones", () => {
         const added = labelled.filter(entry => entry.record.introducedInEdition === TAG).map(entry => entry.label);
         const dropped = ["armor ferro-aluminum", "mech type lam"];
         expect(inEdition(BEFORE).filter(label => !inEdition(TAG).includes(label)).sort()).toEqual(dropped);
         expect(inEdition(TAG)).toEqual([...inEdition(BEFORE).filter(label => !dropped.includes(label)), ...added].sort());
         expect(added.sort()).toEqual([
-            ...["is", "clan"].flatMap(base => ["lrm-narc", "srm-narc", "lrt-standard", "srt-standard"].map(kind => `equipment ammo-${base}-${kind}`)),
+            // One torpedo round for both sides (catalog consolidation §2).
+            "equipment ammo-lrt-standard", "equipment ammo-srt-standard",
             ...["", "clan-"].flatMap(base => ["lrt-5", "lrt-10", "lrt-15", "lrt-20", "srt-2", "srt-4", "srt-6"].map(kind => `equipment ${base}${kind}`)),
             ...["is", "clan"].flatMap(base => ["thunder", "arrow-iv", "arrow-iv-homing", "tag"].map(kind => `equipment ammo-${base}-bomb-${kind}`)),
             "equipment ammo-bomb-cluster",
         ].sort());
-        expect(added).toHaveLength(31);
+        expect(added).toHaveLength(25);
         const edition = getRulesEditions().find(entry => entry.tag === TAG)!;
         expect(edition.complete).toBe(true);
         expect(edition.mechs).toEqual(["RVN-3L Raven", "BSW-X1 Bushwacker", "AXM-2N Axman", "MAL-1R Mauler",
@@ -1078,7 +1127,7 @@ describe("Rules editions: The Rules of Warfare, complete", () => {
     it("prices ammunition and munitions", () => {
         const stats = (tag: string) => find(tag).editionStats![TAG]!;
         const load = (tag: string) => [stats(tag).shotsPerTon, stats(tag).cbills];
-        expect(["ammo-is-ac-2-standard", "ammo-is-ac-5-standard", "ammo-is-ac-10-standard", "ammo-is-ac-20-standard"].map(load))
+        expect(["ammo-ac-2-standard", "ammo-ac-5-standard", "ammo-ac-10-standard", "ammo-ac-20-standard"].map(load))
             .toEqual([[45, 1000], [20, 4500], [10, 6000], [5, 10000]]);
         expect([2, 5, 10, 20].map(size => [stats(`ammo-clan-lb-${size}x-standard`).cbills, stats(`ammo-clan-lb-${size}x-cluster`).cbills]))
             .toEqual([[2000, 3300], [9000, 15000], [12000, 20000], [20000, 34000]]);
@@ -1086,7 +1135,7 @@ describe("Rules editions: The Rules of Warfare, complete", () => {
         expect(["ammo-lrm-standard", "ammo-srm-standard", "ammo-srm-inferno"].map(tag => stats(tag).cbills)).toEqual([30000, 27000, 13500]);
         expect(["ammo-is-lrm-artemis-iv", "ammo-is-srm-artemis-iv", "ammo-is-lrm-swarm", "ammo-is-lrm-thunder", "ammo-clan-lrm-fascam"].map(tag => stats(tag).cbills))
             .toEqual([60000, 54000, 60000, 60000, 60000]);
-        expect(["ammo-is-lrm-narc", "ammo-clan-srm-narc"].map(tag => [stats(tag).page, stats(tag).cbills])).toEqual([[119, 60000], [119, 54000]]);
+        expect(["ammo-lrm-narc", "ammo-clan-srm-narc"].map(tag => [stats(tag).page, stats(tag).cbills])).toEqual([[119, 60000], [119, 54000]]);
         expect(["ammo-is-arrow-iv-standard", "ammo-is-arrow-iv-homing", "ammo-long-tom-standard", "ammo-sniper-standard", "ammo-thumper-standard"].map(load))
             .toEqual([[5, 10000], [5, 15000], [5, 10000], [10, 6000], [20, 4500]]);
         expect(stats("ammo-clan-arrow-iv-fascam").cbills).toBeUndefined();
@@ -1241,7 +1290,7 @@ describe("Rules editions: Master Rules, complete", () => {
     // BMR p.5: the book supersedes the BattleTech Manual, the Compendium, The Rules of Warfare and the Fourth
     // Edition. It has no aerospace units, so the Compendium's bombs, Ferro-Aluminum armor and Land-Air BattleMechs
     // go, and BattleMechs now start at 20 tons (BMR p.109).
-    it("includes the earlier rulebooks' records less the aerospace ones, and sixty-seven new ones", () => {
+    it("includes the earlier rulebooks' records less the aerospace ones, and sixty-eight new ones plus Maximum Tech's twenty-four", () => {
         const bombs = ["bomb-cluster", "bomb-inferno", "bomb-standard",
             ...["clan", "is"].flatMap(base => ["arrow-iv", "arrow-iv-homing", "tag", "thunder"].map(kind => `${base}-bomb-${kind}`))];
         const dropped = ["armor ferro-aluminum", ...bombs.map(kind => "equipment ammo-" + kind), "mech type lam", "tonnage 10", "tonnage 15"].sort();
@@ -1249,9 +1298,14 @@ describe("Rules editions: Master Rules, complete", () => {
         const added = labelled.filter(entry => entry.record.introducedInEdition === TAG).map(entry => entry.label);
         expect(earlier.filter(label => !inEdition(TAG).includes(label)).sort()).toEqual(dropped);
         expect(inEdition(TAG)).toEqual([...earlier.filter(label => !dropped.includes(label)), ...added].sort());
-        expect(added).toHaveLength(67);
+        // Maximum Tech (FASA) Level 3 (#642): Laser AMS p.72, Artemis V p.75, Streak LRM p.81, Bola pods p.83, smoke and heat-seeking missiles p.82.
+        const maxTech = added.filter(label => labelled.find(entry => entry.label === label)!.record.editionStats?.[TAG]?.book === "MaxTech");
+        // Plus the four Clan ATMs and their standard ammunition from the p.117 master table (D14), the bulldozer blade (p.87) the vehicle coolant system (p.88) and additional crew (p.87, #624).
+        expect(maxTech).toHaveLength(94);
+        expect(added.filter(label => !maxTech.includes(label))).toHaveLength(68);
         expect(added).toEqual(expect.arrayContaining(["equipment mrm-40", "equipment gauss-rifle-light", "equipment melee-sword",
-            "equipment large-heavy-laser", "equipment er-micro-laser", "equipment clan-light-tag", "equipment lrt-5-os", "equipment ammo-is-lrm-semi-guided"]));
+            "equipment large-heavy-laser", "equipment er-micro-laser", "equipment clan-light-tag", "equipment lrt-5-os", "equipment ammo-is-lrm-semi-guided",
+            "equipment ammo-lrm-flare"]));
         const edition = getRulesEditions().find(entry => entry.tag === TAG)!;
         expect(edition.complete).toBe(true);
         expect(edition.mechs).toEqual([]);
@@ -1298,8 +1352,11 @@ describe("Rules editions: Master Rules, complete", () => {
         expect([price("ammo-lrm-standard"), price("ammo-srm-standard")]).toEqual([30000, 27000]);
         expect([price("ammo-is-lrm-fragmentation"), price("ammo-lrm-incendiary"), price("ammo-is-lrm-semi-guided"), price("ammo-is-lrm-swarm-i")])
             .toEqual([60000, 45000, 90000, 90000]);
+        // Flare LRMs cost "normal" in both Master Rules lists (BMR p.138, BMR(R) p.151); TM 2007 p.295 prints x 1 too.
+        expect([price("ammo-lrm-flare"), find("ammo-lrm-flare").editionStats!["master-rules-revised"]!.cbills, find("ammo-lrm-flare").cbills])
+            .toEqual([30000, 30000, 30000]);
         expect([price("ammo-is-srm-frag"), price("ammo-srm-inferno"), price("ammo-is-narc-explosive")]).toEqual([54000, 13500, 1500]);
-        expect([price("ammo-is-ac-5-standard"), price("ammo-clan-light-machine-gun-standard")]).toEqual([4500, 500]);
+        expect([price("ammo-ac-5-standard"), price("ammo-clan-light-machine-gun-standard")]).toEqual([4500, 500]);
     });
 
     // BMR p.129: any missile launcher can be single-shot, half a ton heavier and half the price (p.138).
@@ -1370,13 +1427,17 @@ describe("Rules editions: Master Rules, Revised Edition, complete", () => {
         stats.weight, stats.criticals, stats.shotsPerTon, stats.cbills];
     const row = (tag: string) => figures(find(tag).editionStats![TAG]!);
 
-    // The Revised Edition reprints the Master Rules and adds to it: nothing is dropped.
-    it("includes every Master Rules record and forty-five new ones", () => {
+    // The Revised Edition reprints the Master Rules and adds to it: nothing is dropped. Maximum Tech's Level 3
+    // records (six targeting and tracking systems, p.59, and the EI cockpit, pp.60-61) join it too.
+    it("includes every Master Rules record and thirty-six new ones, plus Maximum Tech's", () => {
         const added = labelled.filter(entry => entry.record.introducedInEdition === TAG).map(entry => entry.label);
         expect(inEdition(TAG)).toEqual([...inEdition(BEFORE), ...added].sort());
-        expect(added).toHaveLength(45);
+        const maxTech = labelled.filter(({ record }) => record.editionStats?.[TAG]?.book === "MaxTech").map(entry => entry.label);
+        // Its own (the Minesweeper, p.67, joined in the Combat Vehicle round; the bulldozer blade, amphibious and dune buggy, pp.87-88, the vehicle coolant system, p.88, and additional crew, p.87, in #624), plus the twenty-four (the Null-Signature System was added in the stealth audit) the FASA printing already put in the Master Rules (#642).
+        expect(maxTech).toHaveLength(88);
+        expect(added.filter(label => !maxTech.includes(label))).toHaveLength(31);
         expect(added).toEqual(expect.arrayContaining(["equipment gauss-rifle-heavy", "equipment rotary-ac-2", "equipment inarc",
-            "equipment rocket-launcher-20", "equipment c3i-computer", "equipment targeting-computer", "equipment atm-12",
+            "equipment rocket-launcher-20", "equipment c3i-computer",
             "equipment ammo-is-ac-20-precision", "equipment ammo-is-lrm-thunder-active", "equipment ammo-is-arrow-iv-inferno",
             "engine light", "armor stealth-basic"]));
         const edition = getRulesEditions().find(entry => entry.tag === TAG)!;
@@ -1393,8 +1454,12 @@ describe("Rules editions: Master Rules, Revised Edition, complete", () => {
             const [old, current] = [record.editionStats?.[BEFORE], record.editionStats?.[TAG]];
             return old && current && JSON.stringify(figures(old)) !== JSON.stringify(figures(current));
         }).map(entry => entry.label);
-        expect(changed).toEqual(["equipment ammo-clan-arrow-iv-fascam"]);
-        const cited = labelled.filter(({ record }) => record.editionStats?.[TAG]).map(({ record }) => record.editionStats![TAG]!);
+        // The Clan ATMs and their ammunition (D14): the 1998 rows are Maximum Tech's p.117 master table, which prints no price;
+        // BMR(R) pp.123, 151 add one.
+        expect(changed).toEqual(["equipment atm-3", "equipment atm-6", "equipment atm-9", "equipment atm-12", "equipment ammo-clan-arrow-iv-fascam", "equipment ammo-clan-atm-standard"]);
+        // Maximum Tech's Level 3 records cite their own book.
+        const cited = labelled.filter(({ record }) => record.editionStats?.[TAG]).map(({ record }) => record.editionStats![TAG]!)
+            .filter(stats => stats.book !== "MaxTech");
         expect(cited.every(stats => stats.book === "BMR(R)")).toBe(true);
         expect(cited.filter(stats => /BMR p/.test(stats.notes ?? ""))).toEqual([]);
     });
@@ -1467,7 +1532,8 @@ describe("Rules editions: Master Rules, Revised Edition, complete", () => {
     it("adds the Inner Sphere targeting computer", () => {
         expect(find("targeting-computer").editionStats![TAG]!.notes).toContain("every 4 tons");
         expect(find("clan-targeting-computer").editionStats![TAG]!.notes).toContain("every 5 tons");
-        expect(find("targeting-computer").introducedInEdition).toBe(TAG);
+        // Maximum Tech p.84 offers it to the 1998 Master Rules at Level 3 already, so the record starts there (#612).
+        expect(find("targeting-computer").introducedInEdition).toBe("master-rules");
     });
 
     // BMR(R) p.140: single-shot launchers; p.141: torpedoes.
@@ -1514,8 +1580,11 @@ describe("rules levels by edition", () => {
         expect(getRulesLevelOptionsForEdition(undefined)).toEqual(getRulesLevelOptions());
     });
 
-    it("shows the lowest listed level above a stored level the edition does not list", () => {
-        expect(getShownRulesLevel("battledroids", 3)).toBe(5);
+    // User ruling 2026-10-26 (#324): an edition's own level, never a jump to Apocryphal, for a game level it lacks.
+    it("shows the edition's nearest game level for a stored game level the edition does not list", () => {
+        expect(getShownRulesLevel("battledroids", 3)).toBe(2);
+        expect(getShownRulesLevel("battledroids", 4)).toBe(2);
+        expect(getShownRulesLevel("battledroids", 5)).toBe(5);
         expect(getShownRulesLevel("battledroids", 1)).toBe(1);
         expect(getShownRulesLevel("battledroids", 9)).toBe(7);
         expect(getShownRulesLevel("total-warfare", 3)).toBe(3);
@@ -1555,5 +1624,342 @@ describe("records an edition allows only at the Apocryphal level", () => {
         expect(quad.apocryphalIn!.battledroids.source).toBe("TCI kit back, GOL-1H Goliath (FASA 1984)");
         expect(quad.apocryphalIn!.battledroids.notes).toContain("Treat All Arm and Arm Critical Hits As Leg Hits");
         expect(isInRulesEdition(quad, "battletech-2nd-edition", 5)).toBe(false);
+    });
+});
+
+describe("the edition timeline (design 2026-10-24-catalog-consolidation, ruling 9 and §3)", () => {
+    it("puts CityTech between the 1985 and 1987 editions", () => {
+        const tags = getEditionTimeline().map((entry) => entry.tag);
+        expect(tags.indexOf("citytech")).toBeGreaterThan(tags.indexOf("battletech-2nd-edition"));
+        expect(tags.indexOf("citytech")).toBeLessThan(tags.indexOf("battletech-manual"));
+    });
+
+    it("counts the expansions as known edition tags", () => {
+        expect(isKnownEditionTag("citytech")).toBe(true);
+        expect(isKnownEditionTag("aerotech-2-revised")).toBe(true);
+        expect(isKnownEditionTag("total-warfare")).toBe(true);
+        expect(isKnownEditionTag("nope")).toBe(false);
+    });
+
+    it("gives a book the edition current for its unit type at publication", () => {
+        expect(getEditionAtPublication(1995, undefined, "vehicle")).toBe("citytech-2nd-edition");
+        expect(getEditionAtPublication(2021, 6, "vehicle")).toBe("total-warfare");
+        expect(getEditionAtPublication(2021, 6, "mech")).toBe("battlemech-manual");
+        expect(getEditionAtPublication(1983, undefined, "mech")).toBeUndefined();
+    });
+
+    it("reads the release month: a book out the month before an edition belongs to the one before it", () => {
+        // BattleMech Manual: 4 October 2017; CityTech: August 1986 (sarna.net, user ruling 2026-10-24).
+        expect(getEditionAtPublication(2017, 9, "mech")).toBe("total-warfare");
+        expect(getEditionAtPublication(2017, 10, "mech")).toBe("battlemech-manual");
+        expect(getEditionAtPublication(1986, 7, "vehicle")).toBeUndefined();
+        expect(getEditionAtPublication(1986, 8, "vehicle")).toBe("citytech");
+        // A book with only a year counts from January.
+        expect(getEditionAtPublication(2017, undefined, "mech")).toBe("total-warfare");
+    });
+
+    it("makes a record dropped after an expansion apocryphal in the later editions", () => {
+        const record = { editions: ["citytech"] };
+        expect(getRecordOfferIssue(record, "total-warfare", 5)).toBeNull();
+        expect(getRecordOfferIssue(record, "total-warfare", 2)).toBe("edition");
+    });
+});
+
+describe("E-War rules by edition", () => {
+    it("has E-War rules only where filled, each item citing a page", () => {
+        for (const edition of btRulesEditions) {
+            for (const [kind, item] of Object.entries(edition.ewarPlayRules?.items ?? {})) {
+                expect(item?.book, `${edition.tag} ${kind}`).toBeTruthy();
+                // A Custom Homebrew item cites its author in the note instead of a page.
+                if (item?.book !== "Custom Homebrew") expect(item?.page, `${edition.tag} ${kind}`).toBeGreaterThan(0);
+                else expect(item.note, `${edition.tag} ${kind}`).toContain("Custom Homebrew by");
+            }
+        }
+        expect(getEWarPlayRules("battledroids")).toBeUndefined();
+        for (const edition of asRulesEditions) {
+            for (const [special, item] of Object.entries(getAlphaStrikeEWarRules(edition.tag)?.specials ?? {})) {
+                expect(item?.book, `${edition.tag} ${special}`).toBeTruthy();
+                expect(item?.page, `${edition.tag} ${special}`).toBeGreaterThan(0);
+            }
+        }
+        expect(getAlphaStrikeEWarRules("no-such-edition")).toBeUndefined();
+    });
+
+    // E-War audit, missiles and defenses (Task 8): read from the page images of each edition rulebook.
+    it("enters the missile and defense rules where each edition prints them", () => {
+        const page = (edition: string, kind: EWarKind) => {
+            const item = getEWarPlayRules(edition)?.items[kind];
+            // Printed entries only: an item the edition dropped is an apocryphal copy of the earlier rule (tested apart).
+            return item && !item.apocryphal ? `${item.book} p.${item.page}` : null;
+        };
+        // Nothing before the 1990 Compendium: the 3025 weapons only (BT3 p.44, BT4 p.45, BTM p.86).
+        for (const edition of ["battledroids", "battletech-2nd-edition", "battletech-manual", "battletech-3rd-edition", "battletech-4th-edition"]) {
+            expect(getEWarPlayRules(edition), edition).toBeUndefined();
+        }
+        expect(["ams", "artemis-iv", "narc", "tag", "inarc", "light-tag"].map(kind => page("battletech-compendium", kind as EWarKind)))
+            .toEqual(["BTC p.117", "BTC p.118", "BTC p.120", "BTC p.117", null, null]);
+        expect(["ams", "artemis-iv", "narc", "tag"].map(kind => page("compendium-rules-of-warfare", kind as EWarKind)))
+            .toEqual(["BTC:RoW p.112", "BTC:RoW p.113", "BTC:RoW p.119", "BTC:RoW p.120"]);
+        expect(["narc", "tag", "light-tag"].map(kind => page("master-rules", kind as EWarKind))).toEqual(["BMR p.133", "BMR p.134", "BMR p.134"]);
+        expect(["inarc", "tag", "light-tag"].map(kind => page("master-rules-revised", kind as EWarKind))).toEqual(["BMR(R) p.145", "BMR(R) p.147", "BMR(R) p.147"]);
+        expect(["laser-ams", "apds", "artemis-v", "artemis-prototype", "apollo"].map(kind => page("total-warfare", kind as EWarKind)))
+            .toEqual(["TO:AUE p.134", "IO:AE p.85", "TO:AUE p.95", "IO:AE p.65", "TO:AUE p.142"]);
+        // The BattleMech Manual prints no APDS; the Core Rulebook does (CRB p.206).
+        expect(page("battlemech-manual", "apds")).toBeNull();
+        expect(["ams", "apds", "apollo", "narc", "tag"].map(kind => page("core-rulebook", kind as EWarKind)))
+            .toEqual(["CRB p.206", "CRB p.206", "CRB p.197", "CRB p.188", "CRB p.200"]);
+    });
+
+    // E-War audit, stealth (Task 10): read from the page images. No edition before the Master Rules prints stealth; BMR and
+    // BMR(R) print it as built-in suit rules of battle armor units (no armor type), and Maximum Tech p.83 adds the Null-Signature System.
+    it("enters the stealth rules where each edition prints them", () => {
+        const page = (edition: string, kind: EWarKind) => {
+            const item = getEWarPlayRules(edition)?.items[kind];
+            // Printed entries only: an item the edition dropped is an apocryphal copy of the earlier rule (tested apart).
+            return item && !item.apocryphal ? `${item.book} p.${item.page}` : null;
+        };
+        const kinds: EWarKind[] = ["stealth-armor", "stealth-vehicular", "stealth-ba", "null-sig", "void-sig", "chameleon", "mimetic"];
+        for (const edition of ["battletech-compendium", "compendium-rules-of-warfare"]) {
+            expect(kinds.map(kind => page(edition, kind)), edition).toEqual([null, null, null, null, null, null, null]);
+        }
+        expect(kinds.map(kind => page("master-rules", kind)))
+            .toEqual([null, null, "BMR p.66", "MT p.83", null, null, null]);
+        expect(kinds.map(kind => page("master-rules-revised", kind)))
+            .toEqual(["BMR(R) p.147", null, "BMR(R) p.69", "MT p.83", null, null, "BMR(R) p.71"]);
+        expect(kinds.map(kind => page("total-warfare", kind)))
+            .toEqual(["TW p.142", "TO:AUE p.94", "TW p.228", "TO:AUE p.148", "TO:AUE p.161", "TO:AUE p.112", "TW p.228"]);
+        expect(kinds.map(kind => page("battlemech-manual", kind)))
+            .toEqual(["BMM p.115", null, null, null, null, null, null]);
+        expect(kinds.map(kind => page("core-rulebook", kind)))
+            .toEqual(["CRB p.202", null, null, "CRB p.209", "CRB p.209", "CRB p.209", null]);
+        // The editions differ on C3: TO:AUE p.112 cuts a Chameleon LPS unit from its C3 network, CRB p.209 does not.
+        // EW Equipment (TO:AUE p.123) and communications equipment as an ECCM source (TO:AR p.99) are Total Warfare only.
+        expect(page("total-warfare", "ew-equipment")).toBe("TO:AUE p.123");
+        expect(page("total-warfare", "communications")).toBe("TO:AR p.99");
+        for (const edition of ["battlemech-manual", "core-rulebook", "master-rules-revised"]) {
+            expect(page(edition, "ew-equipment"), edition).toBeNull();
+        }
+        expect(getEWarPlayRules("total-warfare")?.items.chameleon?.note).toContain("cuts the unit from its C3 network");
+        expect(getEWarPlayRules("core-rulebook")?.items.chameleon?.note).toContain("does not prevent C3 use");
+        // Stealth armor and its ECM suite (Task 13 review): BMR(R) p.147 keeps the ECM working; TW p.142, BMM p.115 and CRB
+        // p.202 switch it off. In every edition the unit suffers effects as if inside an enemy ECM suite's radius.
+        const stealthNote = (edition: string) => getEWarPlayRules(edition)?.items["stealth-armor"]?.note ?? "";
+        expect(stealthNote("master-rules-revised")).toContain("keeps working while stealth is engaged");
+        for (const edition of ["total-warfare", "battlemech-manual"]) expect(stealthNote(edition), edition).toContain("the ECM does not function");
+        expect(stealthNote("core-rulebook")).toContain("no ECM on the unit functions");
+        for (const edition of ["master-rules-revised", "total-warfare", "battlemech-manual", "core-rulebook"]) {
+            expect(stealthNote(edition), edition).toMatch(/inside (an enemy|a hostile) ECM suite's radius/);
+        }
+    });
+
+    // E-War audit, C3 (Task 11): read from the page images. C3 is printed from the Compendium (1990) on; C3i and the boosted
+    // system only where the edition prints them (BMR(R) p.135; TW p.133; BMM p.112; CRB p.199; boosted C3 for TW comes from TO:AUE p.110).
+    it("enters the C3 rules where each edition prints them", () => {
+        const page = (edition: string, kind: EWarKind) => {
+            const item = getEWarPlayRules(edition)?.items[kind];
+            // Printed entries only: an item the edition dropped is an apocryphal copy of the earlier rule (tested apart).
+            return item && !item.apocryphal ? `${item.book} p.${item.page}` : null;
+        };
+        const kinds: EWarKind[] = ["c3-master", "c3-slave", "c3i", "c3-boosted-master"];
+        expect(kinds.map(kind => page("battletech-compendium", kind))).toEqual(["BTC p.118", "BTC p.118", null, null]);
+        expect(kinds.map(kind => page("compendium-rules-of-warfare", kind))).toEqual(["BTC:RoW p.114", "BTC:RoW p.114", null, null]);
+        expect(kinds.map(kind => page("master-rules", kind))).toEqual(["BMR p.124", "BMR p.124", null, null]);
+        expect(kinds.map(kind => page("master-rules-revised", kind))).toEqual(["BMR(R) p.134", "BMR(R) p.134", "BMR(R) p.135", null]);
+        expect(kinds.map(kind => page("total-warfare", kind))).toEqual(["TW p.131", "TW p.131", "TW p.133", "TO:AUE p.110"]);
+        expect(kinds.map(kind => page("battlemech-manual", kind))).toEqual(["BMM p.110", "BMM p.110", "BMM p.112", "BMM p.112"]);
+        expect(kinds.map(kind => page("core-rulebook", kind))).toEqual(["CRB p.198", "CRB p.198", "CRB p.199", "CRB p.199"]);
+    });
+
+    // E-War audit, C3 (Task 11, part 2): Total Warfare takes the C3 Boosted System, Emergency Master and Remote Sensor Launcher from TO:AUE pp.110-111.
+    it("enters the advanced C3 rules for Total Warfare from TO:AUE", () => {
+        const page = (kind: EWarKind) => {
+            const item = getEWarPlayRules("total-warfare")?.items[kind];
+            // Printed entries only: an item the edition dropped is an apocryphal copy of the earlier rule (tested apart).
+            return item && !item.apocryphal ? `${item.book} p.${item.page}` : null;
+        };
+        expect(page("c3-boosted-master")).toBe("TO:AUE p.110");
+        expect(page("c3-boosted-slave")).toBe("TO:AUE p.110");
+        expect(page("c3-emergency-master")).toBe("TO:AUE p.110");
+        expect(page("c3-remote-sensor")).toBe("TO:AUE p.110");
+        expect(getEWarPlayRules("total-warfare")?.items["c3-emergency-master"]?.note).toContain("6 consecutive turns");
+        expect(getEWarPlayRules("total-warfare")?.items["c3-remote-sensor"]?.note).toContain("3 full turns");
+    });
+
+    // E-War audit, C3 (Task 11, part 2b-2): aerospace ECM. TW p.238 and SO pp.99-100 (Total Warfare), AT2R p.25 (BMR(R)).
+    it("notes the aerospace ECM rules on the Guardian ECM entries", () => {
+        expect(getEWarPlayRules("total-warfare")?.items["ecm-guardian"]?.note).toContain("SO pp.99-100");
+        expect(getEWarPlayRules("master-rules-revised")?.items["ecm-guardian"]?.note).toContain("AT2R p.25");
+    });
+
+    // E-War audit, C3 (Task 11, part 2b): Naval C3 is printed only in TO:AUE p.144 (BMM and CRB do not print it).
+    // E-War audit, C3 (Task 11, part 2b-3): the Chaff Pod is printed only in TO:AUE p.111 (BMM and CRB print none).
+    it("enters the Chaff Pod for Total Warfare, apocryphal after it", () => {
+        const item = getEWarPlayRules("total-warfare")?.items["chaff-pod"];
+        expect(`${item?.book} p.${item?.page}`).toBe("TO:AUE p.111");
+        expect(item?.note).toContain("cannot negate");
+        expect(getEWarPlayRules("battlemech-manual")?.items["chaff-pod"]?.apocryphal).toBe(true);
+        expect(getEWarPlayRules("core-rulebook")?.items["chaff-pod"]?.apocryphal).toBe(true);
+    });
+
+    it("enters Naval C3 for Total Warfare, apocryphal after it", () => {
+        const item = getEWarPlayRules("total-warfare")?.items["c3-naval"];
+        expect(`${item?.book} p.${item?.page}`).toBe("TO:AUE p.144");
+        expect(item?.note).toContain("60 hexes");
+        expect(getEWarPlayRules("battlemech-manual")?.items["c3-naval"]?.apocryphal).toBe(true);
+        expect(getEWarPlayRules("core-rulebook")?.items["c3-naval"]?.apocryphal).toBe(true);
+    });
+
+    // E-War Phase 3, Task 1: C3 network numbers per edition and the apocryphal carry-forward along the whole edition chain.
+    it("enters the C3 network numbers each edition prints", () => {
+        const tw = getEWarPlayRules("total-warfare")!.items;
+        expect(tw["c3-master"]?.c3).toMatchObject({ maxUnits: 12, ecm: "cut-off", masterTag: true, needsLos: "attacker" });
+        expect(tw.c3i?.c3).toMatchObject({ maxUnits: 6, masterTag: false });
+        expect(tw["c3-naval"]?.c3).toMatchObject({ maxUnits: 6, maxHexes: 60 });
+        expect(tw["c3-naval"]?.c3Immune).toContain("fighter-ecm");
+        expect(tw["c3-emergency-master"]?.c3Turns).toBe(6);
+        expect(tw["c3-remote-sensor"]?.c3Turns).toBe(3);
+        expect(tw["c3-boosted-master"]?.c3Immune).toContain("ecm-except-angel");
+        expect(tw.communications?.eccmShare).toBe(0.5);
+        expect(tw["ew-equipment"]?.probeRange).toBe(3);
+        expect(getEWarPlayRules("core-rulebook")!.items["c3-master"]?.c3).toMatchObject({ ecm: "degrade", degrade: { perBracket: 1 } });
+        expect(getEWarPlayRules("master-rules-revised")!.items.c3i?.c3?.maxUnits).toBe(6);
+        expect(getEWarPlayRules("master-rules")!.items["c3-master"]?.c3).toMatchObject({ slavesPerMaster: 3, portionEnds: true });
+        for (const tag of ["battledroids", "battletech-3rd-edition", "battletech-4th-edition", "battletech-manual"]) {
+            expect(getEWarPlayRules(tag)?.items["c3-master"]).toBeUndefined();
+        }
+    });
+
+    it("holds an item a later edition drops as apocryphal, along the whole edition chain", () => {
+        const chain = ["battletech-compendium", "compendium-rules-of-warfare", "master-rules", "master-rules-revised", "total-warfare", "battlemech-manual", "core-rulebook"];
+        for (let index = 1; index < chain.length; index++) {
+            const earlier = getEWarPlayRules(chain[index - 1])!.items;
+            const later = getEWarPlayRules(chain[index])!.items;
+            for (const [kind, item] of Object.entries(earlier) as [EWarKind, IEWarItemRule][]) {
+                expect(later[kind], `${kind} in ${chain[index]}`).toBeDefined();
+                if (later[kind]!.apocryphal) {
+                    expect(`${later[kind]!.book} p.${later[kind]!.page}`, `${kind} in ${chain[index]}`).toBe(`${item.book} p.${item.page}`);
+                }
+            }
+        }
+        for (const tag of ["battlemech-manual", "core-rulebook"]) {
+            const items = getEWarPlayRules(tag)!.items;
+            for (const kind of ["c3-naval", "c3-emergency-master", "c3-remote-sensor", "ew-equipment", "communications"] as EWarKind[]) {
+                expect(items[kind]?.apocryphal, `${kind} in ${tag}`).toBe(true);
+                expect(["TO:AUE", "TO:AR"], `${kind} in ${tag}`).toContain(items[kind]?.book);
+            }
+        }
+        expect(getEWarPlayRules("core-rulebook")!.items["c3-naval"]?.c3?.maxHexes).toBe(60);
+    });
+
+    // E-War audit, ECM and probes (Task 9): read from the page images of each edition rulebook; Maximum Tech's Level 3 ECM
+    // and probe rules ride on the Master Rules (both printings, same pages), the advanced books on Total Warfare.
+    it("enters the ECM and probe rules where each edition prints them", () => {
+        const page = (edition: string, kind: EWarKind) => {
+            const item = getEWarPlayRules(edition)?.items[kind];
+            // Printed entries only: an item the edition dropped is an apocryphal copy of the earlier rule (tested apart).
+            return item && !item.apocryphal ? `${item.book} p.${item.page}` : null;
+        };
+        const kinds: EWarKind[] = ["ecm-guardian", "ecm-clan", "ecm-angel", "ecm-watchdog", "ecm-nova", "probe-beagle", "probe-clan", "probe-light", "probe-bloodhound"];
+        expect(kinds.map(kind => page("battletech-compendium", kind)))
+            .toEqual(["BTC p.120", "BTC p.120", null, null, null, "BTC p.118", "BTC p.118", null, null]);
+        expect(kinds.map(kind => page("compendium-rules-of-warfare", kind)))
+            .toEqual(["BTC:RoW p.116", "BTC:RoW p.116", null, null, null, "BTC:RoW p.114", "BTC:RoW p.114", null, null]);
+        expect(kinds.map(kind => page("master-rules", kind)))
+            .toEqual(["BMR p.126", "BMR p.126", "MT p.77", null, null, "BMR p.122", "BMR p.122", "BMR p.122", "MT p.72"]);
+        expect(kinds.map(kind => page("master-rules-revised", kind)))
+            .toEqual(["BMR(R) p.136", "BMR(R) p.136", "MT p.77", null, null, "BMR(R) p.130", "BMR(R) p.130", "BMR(R) p.130", "MT p.72"]);
+        expect(kinds.map(kind => page("total-warfare", kind)))
+            .toEqual(["TW p.134", "TW p.134", "TO:AUE p.91", "TO:AUE p.90", "IO:AE p.60", "TW p.129", "TW p.129", "TW p.129", "TO:AUE p.90"]);
+        expect(kinds.map(kind => page("battlemech-manual", kind)))
+            .toEqual(["BMM p.112", "BMM p.112", "BMM p.113", "BMM p.114", null, "BMM p.110", "BMM p.110", "BMM p.110", "BMM p.110"]);
+        expect(kinds.map(kind => page("core-rulebook", kind)))
+            .toEqual(["CRB p.200", "CRB p.200", "CRB p.200", "CRB p.201", null, "CRB p.197", "CRB p.197", "CRB p.197", "CRB p.197"]);
+        // The IO:AE prototypes and the infantry ECM suits; the BTC and later editions before the Master Rules print no Angel or infantry suit.
+        expect(page("total-warfare", "ecm-guardian-prototype")).toBe("IO:AE p.66");
+        expect(page("total-warfare", "probe-beagle-prototype")).toBe("IO:AE p.65");
+        expect(page("total-warfare", "ecm-infantry")).toBe("TO:AUE p.130");
+        expect(page("master-rules", "ecm-infantry")).toBe("MT p.38");
+        expect(page("master-rules-revised", "ecm-infantry")).toBe("MT p.38");
+        expect(page("battletech-compendium", "ecm-infantry")).toBeNull();
+        // ECCM mode and ghost targets are Tactical Operations: Advanced Rules (pp.98-100) and Maximum Tech (p.77), noted on the ECM entries.
+        expect(getEWarPlayRules("total-warfare")?.items["ecm-guardian"]?.note).toContain("TO:AR pp.98-100");
+        expect(getEWarPlayRules("master-rules")?.items["ecm-guardian"]?.note).toContain("ECCM");
+    });
+});
+
+describe("E-War Phase 1: missile numbers per edition (#642)", () => {
+    const item = (edition: string, kind: EWarKind) => getEWarPlayRules(edition)?.items[kind];
+    it("prints AMS as missiles destroyed until the Master Rules (Revised) and as a Cluster Hits shift from Total Warfare on", () => {
+        for (const edition of ["battletech-compendium", "compendium-rules-of-warfare"]) {
+            expect(item(edition, "ams")?.defense, edition).toMatchObject({ mode: "missiles-destroyed", dice: 1, clanDice: 2, heat: 1, beforeRoll: true, ammoRoll: { dice: 1, multiplier: 2 } });
+        }
+        for (const edition of ["master-rules", "master-rules-revised"]) {
+            expect(item(edition, "ams")?.defense, edition).toMatchObject({ mode: "missiles-destroyed", dice: 1, clanDice: 2, heat: 1, ammoPerMissile: 1 });
+            expect(item(edition, "ams")?.defense?.beforeRoll).toBeFalsy();
+        }
+        expect(item("total-warfare", "ams")?.defense).toMatchObject({ mode: "cluster-shift", shift: -4, heat: 1, ammoPerUse: 1, maxPerTurn: 1 });
+        expect(item("battlemech-manual", "ams")?.defense).toMatchObject({ mode: "cluster-shift", shift: -4, heat: 1, maxPerTurn: 1 });
+        expect(item("core-rulebook", "ams")?.defense).toMatchObject({ mode: "cluster-shift", shift: -4, maxPerTurn: 2 });
+    });
+    it("gives Artemis +2 (prototype +1, V +3 capped at 12 and -1 to hit), ECM blocking it, Apollo (its catalog records already drop the MRM +1 to-hit) or removing the CRB MRM -1", () => {
+        expect(item("battlemech-manual", "artemis-iv")).toMatchObject({ clusterShift: 2, ecmBlocks: true, excludes: ["streak", "narc", "swarm", "thunder", "indirect"] });
+        expect(item("battlemech-manual", "narc")?.excludes).toEqual(["streak", "artemis", "swarm", "thunder", "indirect"]);
+        expect(item("total-warfare", "narc")?.ecmPodOnly).toBe(true);
+        expect(item("master-rules", "narc")?.ecmPodOnly).toBeFalsy();
+        expect(item("battletech-compendium", "artemis-iv")).toMatchObject({ clusterShift: 2, ecmBlocks: true });
+        expect(item("total-warfare", "artemis-v")).toMatchObject({ clusterShift: 3, clusterMax: 12, toHit: -1, ecmBlocks: true });
+        expect(item("total-warfare", "artemis-prototype")).toMatchObject({ clusterShift: 1 });
+        expect(item("total-warfare", "apollo")).toMatchObject({ clusterShift: -1, ecmBlocks: false });
+        expect(item("battlemech-manual", "apollo")).toMatchObject({ clusterShift: -1 });
+        expect(item("core-rulebook", "apollo")).toMatchObject({ clusterShift: 1, ecmBlocks: false });
+    });
+    it("gives Narc and iNarc +2, TAG designating semi-guided LRMs from the Master Rules on, and none to the editions without the items", () => {
+        expect(item("master-rules", "narc")).toMatchObject({ clusterShift: 2, ecmBlocks: true });
+        expect(item("core-rulebook", "narc")).toMatchObject({ clusterShift: 2, toHit: -1 });
+        expect(item("total-warfare", "inarc")).toMatchObject({ clusterShift: 2, toHit: -1 });
+        expect(item("master-rules", "tag")?.semiGuided).toBe(true);
+        expect(item("battletech-compendium", "tag")?.semiGuided).toBeFalsy();
+        expect(item("total-warfare", "light-tag")).toMatchObject({ rangeBands: [3, 6, 9] });
+        expect(item("master-rules", "laser-ams")?.defense).toMatchObject({ mode: "missiles-destroyed", dice: 2, heatFromRoll: true, ammoPerUse: 0 });
+        expect(item("total-warfare", "apds")?.defense).toMatchObject({ mode: "cluster-shift", shift: -4, friendlyShifts: [-4, -3, -2, -1], heat: 2, belowTwoDestroys: true });
+        expect(item("core-rulebook", "ams")?.defense?.belowTwoDestroys).toBe(true);
+        expect(item("total-warfare", "ams")?.defense?.belowTwoDestroys).toBeFalsy();
+        expect(item("total-warfare", "laser-ams")?.defense).toMatchObject({ heat: 7, clanHeat: 5, belowTwoDestroys: true });
+        expect(item("battlemech-manual", "laser-ams")?.defense).toMatchObject({ heat: 5, clanHeat: 5, belowTwoDestroys: true });
+        for (const edition of ["battledroids", "battletech-4th-edition"]) {
+            expect(getEWarPlayRules(edition), edition).toBeUndefined();
+        }
+    });
+});
+
+describe("E-War Phase 2 numbers: stealth, ECM and probes", () => {
+    const item = (edition: string, kind: EWarKind) => getEWarPlayRules(edition)?.items[kind];
+    it("holds the stealth numbers each edition prints", () => {
+        expect(item("battlemech-manual", "stealth-armor")).toMatchObject({ stealthMods: { medium: 1, long: 2 }, stealthEcm: "switches-off" });
+        expect(item("master-rules-revised", "stealth-armor")).toMatchObject({ stealthMods: { medium: 1, long: 2, extreme: 2 }, stealthEcm: "keeps-working" });
+        expect(item("total-warfare", "void-sig")?.stealthMoveMods?.[0]).toEqual({ hexes: 0, modifier: 3 });
+        expect(item("total-warfare", "chameleon")?.stealthExcludes).toContain("void-sig");
+        expect(item("core-rulebook", "chameleon")?.cutsC3).toBe(false);
+        expect(item("master-rules", "null-sig")).toMatchObject({ stealthMods: { medium: 1, long: 2, extreme: 2 } });
+    });
+    it("holds ECM, Angel, ECCM and probe numbers", () => {
+        expect(item("total-warfare", "ecm-angel")?.ecmCounts).toBe(2);
+        expect(item("total-warfare", "ecm-guardian")?.ghostTargets).toEqual({ piloting: 3, modifier: 1 });
+        // Not printed by the BattleMech Manual: carried from Total Warfare as apocryphal.
+        expect(item("battlemech-manual", "ecm-guardian")?.eccm).toBe(true);
+        expect(item("total-warfare", "ecm-guardian")?.eccm).toBe(true);
+        expect(item("total-warfare", "probe-bloodhound")).toMatchObject({ probeRange: 8 });
+        expect(item("total-warfare", "probe-bloodhound")?.probeFinds).toContain("null-sig");
+        expect(item("total-warfare", "probe-beagle")?.probeFinds).not.toContain("null-sig");
+        expect(item("total-warfare", "probe-clan")?.probeRange).toBe(5);
+        expect(item("total-warfare", "probe-light")?.probeRange).toBe(3);
+        expect(item("battletech-compendium", "ecm-guardian")?.ecmCancels).toEqual(expect.arrayContaining(["artemis", "beagle"]));
+        expect(item("battletech-compendium", "ecm-guardian")?.ecmCancels).not.toContain("streak-lock");
+    });
+    it("has no stealth entries under the early editions", () => {
+        for (const edition of ["battletech-3rd-edition", "battletech-4th-edition", "battletech-compendium"]) {
+            expect(item(edition, "null-sig"), edition).toBeUndefined();
+            expect(item(edition, "stealth-armor"), edition).toBeUndefined();
+        }
     });
 });

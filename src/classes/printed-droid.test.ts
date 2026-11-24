@@ -72,12 +72,12 @@ describe("Printed Battledroids droids: the ten of the box set", () => {
     });
     it("SHD-2H Shadow Hawk", () => {
         listing("shd-2h", 16, [55, 5, 3, 12, 152], [9, 23, 8, 18, 6, 18, 6, 16, 16, 16, 16],
-            ["ammo-is-ac-5-standard lt", "ammo-lrm-standard lt", "ammo-srm-standard lt", "autocannon-standard-b lt", "lrm-5 rt", "medium-laser ra", "srm-2 hd"], 55);
+            ["ammo-ac-5-standard lt", "ammo-lrm-standard lt", "ammo-srm-standard lt", "autocannon-standard-b lt", "lrm-5 rt", "medium-laser ra", "srm-2 hd"], 55);
     });
     it("RFL-3N Rifleman: the VOX 260 printed is larger than its Walking MP needs", () => {
         const entry = droid("rfl-3n");
         const notes = listing("rfl-3n", 17, [60, 4, 0, 10, 120], [6, 22, 4, 15, 2, 15, 2, 15, 15, 12, 12],
-            ["ammo-is-ac-5-standard ct", "autocannon-standard-b la", "autocannon-standard-b ra", "large-laser la", "large-laser ra"],
+            ["ammo-ac-5-standard ct", "autocannon-standard-b la", "autocannon-standard-b ra", "large-laser la", "large-laser ra"],
             built("rfl-3n").getCurrentTonnage());
         expect(entry.engineRating).toBe(260);
         expect(built("rfl-3n").getEngineRating()).toBe(240);
@@ -104,12 +104,22 @@ describe("Printed Battledroids droids: the ten of the box set", () => {
     });
     it("MAD-3R Marauder", () => {
         listing("mad-3r", 17, [75, 4, 0, 16, 184], [9, 35, 16, 16, 8, 16, 8, 22, 22, 16, 16], [
-            "ammo-is-ac-5-standard lt", "autocannon-standard-b rt", "medium-laser la", "medium-laser ra", "standard-ppc la", "standard-ppc ra",
+            "ammo-ac-5-standard lt", "autocannon-standard-b rt", "medium-laser la", "medium-laser ra", "standard-ppc la", "standard-ppc ra",
         ], 75);
     });
 
     it("are the edition's 'Mechs, and the apocryphal droids are not", () => {
         expect(getRulesEdition("battledroids").mechs).toEqual(BOOK.map(id => `${droid(id).model} ${droid(id).name}`));
+    });
+
+    // BD pp.23-25: the worked example of droid construction, built from the text and its sheet.
+    it("Merlin: the construction example, with the armor diagram's head and arms over the text's misprint", () => {
+        const notes = listing("merlin", 24, [60, 4, 4, 18, 192], [9, 26, 13, 19, 9, 19, 9, 20, 20, 24, 24], [
+            "ammo-lrm-standard rt", "ammo-machine-gun-standard lt", "lrm-5 rt", "machine-gun lt", "medium-laser la", "medium-laser ra",
+            "standard-flamer lt", "standard-ppc rt",
+        ], 60);
+        expect(notes).toContain("Arms 28");
+        expect(overCap(built("merlin"))).toEqual([]);
     });
 });
 
@@ -202,8 +212,8 @@ describe("Printed Battledroids droids: the apocryphal sources", () => {
         // The figurine carries them in a turret on the center torso: mounted there as printed, nothing left over.
         expect(getPrintedTurretCriticals(mech).map(critical => critical.tag).sort()).toEqual(
             ["ammo-machine-gun-standard", "machine-gun", "machine-gun", "standard-ppc"]);
-        // The extra heat sinks wait for slots on every droid (TODO.md); no weapon or ammunition does.
-        expect(getUnallocatedCriticals(mech).filter(critical => critical.tag !== "heat-sink")).toEqual([]);
+        // Nothing waits for a slot, the heat sinks included (#206).
+        expect(getUnallocatedCriticals(mech)).toEqual([]);
         expect(mech.getInstalledEquipment().filter(item => item.location === "ct").map(item => item.tag).sort()).toEqual([
             "ammo-lrm-standard", "ammo-lrm-standard", "ammo-machine-gun-standard", "machine-gun", "machine-gun", "standard-ppc",
         ]);
@@ -224,7 +234,7 @@ describe("Printed Battledroids droids: the apocryphal sources", () => {
             expect(wolverine.notes.join(" ")).toContain("156");
             expect([mech.getWalkSpeed(), mech.getJumpSpeed(), mech.getHeatSinks()]).toEqual([5, 5, 12]);
             expect(mounted(mech)).toEqual([
-                "ammo-is-ac-5-standard rt", "ammo-srm-standard lt", "autocannon-standard-b ra", "medium-laser hd",
+                "ammo-ac-5-standard rt", "ammo-srm-standard lt", "autocannon-standard-b ra", "medium-laser hd",
                 "srm-2 lt", "srm-2 lt", "srm-2 lt",
             ]);
             expect(mech.getCurrentTonnage()).toBe(56);
@@ -249,7 +259,7 @@ describe("Printed Battledroids droids: the apocryphal sources", () => {
         const mech = built("shd-3h");
         expect(armor(mech)).toEqual([9, 23, 8, 18, 6, 18, 6, 16, 16, 16, 16]);
         expect(mounted(mech)).toEqual([
-            "ammo-is-ac-5-standard lt", "ammo-lrm-standard lt", "ammo-machine-gun-standard lt", "autocannon-standard-b lt",
+            "ammo-ac-5-standard lt", "ammo-lrm-standard lt", "ammo-machine-gun-standard lt", "autocannon-standard-b lt",
             "lrm-5 rt", "machine-gun hd", "medium-laser ra",
         ]);
         expect(hawk.notes.join(" ")).toContain("blank");
@@ -298,14 +308,16 @@ describe("Printed Battledroids droids: the apocryphal sources", () => {
     });
 });
 
-// BD p.25: a location's armor is at most twice its internal structure boxes, the head up to 9. Read for the front
-// section of a torso: the book's own Stinger, Wasp, Phoenix Hawk, Archer and Marauder pass only that way.
+// BD p.25: a location's armor is at most twice its internal structure boxes, the head up to 9, a torso's front and
+// rear sections each apart: the book's own Stinger, Wasp, Phoenix Hawk, Archer and Marauder pass only that way.
 const overCap = (mech: BattleMech): string[] => {
     const structure = mech.getInternalStructure() as unknown as Record<string, number>;
     const a = mech.export().armor_allocation as unknown as Record<string, number>;
     const sums: [string, number, number][] = [
         ["head", a.head, 9], ["center torso", a.centerTorso, 2 * structure.centerTorso],
         ["left torso", a.leftTorso, 2 * structure.leftTorso], ["right torso", a.rightTorso, 2 * structure.rightTorso],
+        ["center torso rear", a.centerTorsoRear, 2 * structure.centerTorso],
+        ["left torso rear", a.leftTorsoRear, 2 * structure.leftTorso], ["right torso rear", a.rightTorsoRear, 2 * structure.rightTorso],
         ["left arm", a.leftArm, 2 * structure.leftArm], ["right arm", a.rightArm, 2 * structure.rightArm],
         ["left leg", a.leftLeg, 2 * structure.leftLeg], ["right leg", a.rightLeg, 2 * structure.rightLeg],
     ];
@@ -352,7 +364,7 @@ describe("Printed Battledroids droids: the user's Ral Partha conversions", () =>
     });
     it("BKX-7K Battleaxe: the book's Auto Cannon, armor to the limit, half a ton under", () => {
         const notes = custom("bkx-7k", [70, 4, 0, 15, 216], [9, 33, 10, 22, 8, 22, 8, 22, 22, 30, 30], [
-            "ammo-is-ac-5-standard lt", "ammo-srm-standard lt", "ammo-srm-standard rt", "autocannon-standard-b la", "large-laser ra",
+            "ammo-ac-5-standard lt", "ammo-srm-standard lt", "ammo-srm-standard rt", "autocannon-standard-b la", "large-laser ra",
             "srm-6 lt", "srm-6 rt",
         ], 69.5);
         expect(notes).toContain("Auto Cannon");
@@ -378,18 +390,63 @@ describe("Printed Battledroids droids: building and saving", () => {
     });
 
     it("lists the droids at or below a rules level", () => {
-        expect(getPrintedDroids(0).map(entry => entry.id)).toEqual(BOOK);
-        expect(getPrintedDroids(1).map(entry => entry.id)).toEqual(BOOK);
+        expect(getPrintedDroids(0).map(entry => entry.id)).toEqual([...BOOK, "merlin"]);
+        expect(getPrintedDroids(1).map(entry => entry.id)).toEqual([...BOOK, "merlin"]);
         expect(getPrintedDroids(APOCRYPHAL_RULES_LEVEL).map(entry => entry.id)).toEqual([
-            ...BOOK, "spi-5r", "gol-1h", "wlv-3nb", "wlv-3nc", "grf-2n", "shd-3h", "thn-8t", "btl-5r", "shd-2h-jakt", "grf-1n-soltic-h8",
+            ...BOOK, "merlin", "spi-5r", "gol-1h", "wlv-3nb", "wlv-3nc", "grf-2n", "shd-3h", "thn-8t", "btl-5r", "shd-2h-jakt", "grf-1n-soltic-h8",
         ]);
     });
 
     it("names each droid with its model, name and source", () => {
         for (const entry of battledroidsPrintedDroids) {
-            expect(entry.model, entry.id).toMatch(/^[A-Z]{2,3}\d*-[0-9A-Z]+/);
+            // The Merlin's sheet prints only "MERLIN" (BD p.24).
+            expect(entry.model, entry.id).toMatch(/^[A-Z]{2,3}\d*-[0-9A-Z]+|^MERLIN$/);
             expect(entry.source, entry.id).not.toBe("");
             expect(built(entry.id).model, entry.id).toBe(entry.model);
         }
     }, 30000);
+});
+
+// Heat sinks on the Critical Hit Chart, by location code, in the chart's order.
+const heatSinkPlaces = (mech: BattleMech): Record<string, number> => {
+    const places: Record<string, number> = {};
+    const criticals = mech.getCriticals() as unknown as Record<string, ({ tag: string } | null)[]>;
+    for (const key of ["rightArm", "head", "leftArm", "rightTorso", "centerTorso", "leftTorso", "rightLeg", "leftLeg"]) {
+        const count = (criticals[key] ?? []).filter(slot => slot?.tag === "heat-sink").length;
+        if (count) {
+            places[codes[key]] = count;
+        }
+    }
+    return places;
+};
+
+// BD p.25: "Heat sinks occupy [one] space on the table each", the engine's ten included.
+describe("Printed Battledroids droids: heat sinks on the Critical Hit Chart", () => {
+    it("places the Merlin's 18 as its chart prints them (BD p.25)", () => {
+        expect(heatSinkPlaces(built("merlin"))).toEqual({ ra: 3, hd: 1, la: 2, rt: 2, ct: 2, lt: 4, rl: 2, ll: 2 });
+        expect(getUnallocatedCriticals(built("merlin"))).toEqual([]);
+    });
+
+    it("spreads the rest over the chart, one to each location in turn, as the Merlin's are", () => {
+        // 10: one in each of the 8 locations, then the arms.
+        expect(heatSinkPlaces(built("stg-3r"))).toEqual({ ra: 2, hd: 1, la: 2, rt: 1, ct: 1, lt: 1, rl: 1, ll: 1 });
+        // 18: the head, center torso and legs fill (1 free; 1 beside the machine gun ammunition; 2), the arms and
+        // torsos take the rest in turn.
+        expect(heatSinkPlaces(built("whm-6r"))).toEqual({ ra: 3, hd: 1, la: 3, rt: 3, ct: 1, lt: 3, rl: 2, ll: 2 });
+    });
+
+    it("leaves no droid with a heat sink waiting for a slot", () => {
+        for (const entry of battledroidsPrintedDroids) {
+            const mech = built(entry.id);
+            expect(getUnallocatedCriticals(mech), entry.id).toEqual([]);
+            const places = Object.values(heatSinkPlaces(mech)).reduce((sum, count) => sum + count, 0);
+            expect(places, entry.id).toBe(entry.heatSinks);
+        }
+    }, 30000);
+
+    it("keeps the places through a save and load", () => {
+        const loaded = new BattleMech();
+        loaded.import(built("merlin").export());
+        expect(heatSinkPlaces(loaded)).toEqual({ ra: 3, hd: 1, la: 2, rt: 2, ct: 2, lt: 4, rl: 2, ll: 2 });
+    });
 });

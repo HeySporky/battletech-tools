@@ -2,7 +2,7 @@
 // mech-custom-* catalogs. See docs/superpowers/specs/2026-09-30-ssw-runtime-import-custom-content-design.md.
 
 export type CustomComponentKind = "armor" | "structure" | "engine" | "gyro" | "heatSink" | "jumpJet" | "myomer";
-export type CustomContentKind = "equipment" | "ammunition" | CustomComponentKind;
+export type CustomContentKind = "equipment" | "ammunition" | "quirk" | CustomComponentKind;
 export type CustomFaction = "is" | "clan" | "universal";
 
 export interface ICustomContentSource {
@@ -15,15 +15,20 @@ export interface ICustomContentDraft {
     id: string;
     kind: CustomContentKind;
     faction: CustomFaction;
-    /** Catalog id, e.g. "mech-custom-ammo" or "mech-custom-armor-types". */
+    /** Catalog id, e.g. "ammo-custom" or "mech-custom-armor-types". */
     targetCatalogId: string;
     /** The catalog record, field-for-field; null where the stat is still unknown. */
     record: Record<string, unknown>;
     status: "draft" | "complete";
     /** The slot count was estimated from the SSW file and the user has not confirmed it yet. */
     slotsEstimated: boolean;
+    /** Fields the importer answered "I do not know" (or left at the best guess) on the SSW import form (#76). */
+    estimated?: string[];
     sourceFiles: ICustomContentSource[];
-    /** The source .ssw text by file name, for the PR's evidence branch. */
+    /**
+     * Drafts saved before #45 kept the source .ssw text here, by file name. It now lives once per file in the
+     * evidence store (custom-content-local.ts), by SHA-256, and moves there on the next save.
+     */
     sourceXml?: Record<string, string>;
     sourceNote: string;
     prUrl?: string;
@@ -43,6 +48,7 @@ export interface ISSWUnresolvedItem {
     location: string;
     /** Starting slot, or -1. */
     slotIndex: number;
-    splitLocations: { location: string; index: number }[];
+    /** Where a split item sits: SSW gives each location's first slot and slot count (number; 0 when absent). */
+    splitLocations: { location: string; index: number; number: number }[];
     tons: number | null;
 }

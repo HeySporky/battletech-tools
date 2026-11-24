@@ -3,9 +3,9 @@ export function chunkRange (
     len: number
 ): number[][] {
 
-    var chunks = [],
-        i = 0,
+    const chunks = [],
         n = arr.length;
+    let i = 0;
   
     while (i < n) {
       chunks.push(arr.slice(i, i += len));

@@ -20,6 +20,7 @@ coverage/
 /playwright-report/
 /test-results/
 /blob-report/
+/.test-audit/
 /playwright/.cache/
 
 # node_modules/.vite is already covered; this catches caches outside it.
@@ -76,6 +77,9 @@ robots.txt
 /tools/mul-sync/browser-state.json
 /tools/mul-sync/last-failure.png
 
+# mordel.net sync mirror: member designs from mordel.net. Never commit it; the repository is public.
+/tools/mordel-sync/.mirror/
+
 # ---------------------------------------------------------------------------
 # Ollama AI engine rules and helpers (root-anchored; the committed equivalents
 # under tools/ are intentional project tooling and must stay tracked)
@@ -96,3 +100,7 @@ robots.txt
 !.github/
 !.github/workflows/
 !.github/workflows/*.yml
+
+# Local developer harnesses (Aces card photo reader runs, etc.); never committed
+src/zz-local/
+tools-local/

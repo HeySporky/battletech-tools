@@ -41,17 +41,17 @@ describe("battle armor armor catalog (TM pp.169, 252-253, 281; TO:AUE pp.93-94, 
     });
 
     it("carries dates and availability (IO:AE p.30)", () => {
-        expect(find("ba-standard")).toMatchObject({ techBase: "both", techRating: "e", availability: "F-F-E-D", prototype: 2680, introduced: 2868, book: "TM", page: 252 });
+        expect(find("ba-standard")).toMatchObject({ techBase: "universal", techRating: "e", availability: "F-F-E-D", prototype: 2680, introduced: 2868, book: "TM", page: 252 });
         expect(find("ba-standard-advanced")).toMatchObject({ techBase: "is", availability: "X-X-F-E", prototype: null, introduced: 3057 });
         expect(find("ba-standard-prototype")).toMatchObject({ techBase: "is", prototype: 3050, introduced: null });
         expect(find("ba-stealth-basic")).toMatchObject({ availability: "F-F-E-D", prototype: 2700, introduced: 2710, extinct: 2770, reintroduced: 3052 });
         expect(find("ba-stealth-standard")).toMatchObject({ availability: "F-X-E-D", prototype: 2710, introduced: 2720, extinct: 2770, reintroduced: 3053 });
-        expect(find("ba-stealth-improved")).toMatchObject({ techBase: "both", availability: "X-X-F-E", prototype: 3055, introduced: 3057, clanDates: { introduced: 3058, extinct: null, reintroduced: null } });
+        expect(find("ba-stealth-improved")).toMatchObject({ techBase: "universal", availability: "X-X-F-E", prototype: 3055, introduced: 3057, clanDates: { introduced: 3058, extinct: null, reintroduced: null } });
         expect(find("ba-stealth-prototype")).toMatchObject({ techBase: "is", availability: "X-X-F-X", prototype: 3050, introduced: 3052, extinct: 3055 });
         expect(find("ba-fire-resistant")).toMatchObject({ techBase: "clan", techRating: "f", availability: "X-X-F-E", prototype: 3052, introduced: 3058, page: 253 });
         expect(find("ba-mimetic")).toMatchObject({ techBase: "is", availability: "X-X-F-E", prototype: 3058, introduced: 3061, page: 253 });
-        expect(find("ba-laser-reflective")).toMatchObject({ techBase: "both", techRating: "f", availability: "X-X-F-E", prototype: 3074, introduced: 3089, book: "TO:AUE", page: 93 });
-        expect(find("ba-reactive")).toMatchObject({ techBase: "both", techRating: "f", availability: "X-X-F-E", prototype: 3075, introduced: 3093, book: "TO:AUE", page: 94 });
+        expect(find("ba-laser-reflective")).toMatchObject({ techBase: "universal", techRating: "f", availability: "X-X-F-E", prototype: 3074, introduced: 3089, book: "TO:AUE", page: 93 });
+        expect(find("ba-reactive")).toMatchObject({ techBase: "universal", techRating: "f", availability: "X-X-F-E", prototype: 3075, introduced: 3093, book: "TO:AUE", page: 94 });
     });
 
     it("limits armor by weight class (TM p.169)", () => {

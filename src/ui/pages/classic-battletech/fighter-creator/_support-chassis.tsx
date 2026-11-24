@@ -152,7 +152,7 @@ export default class SupportAircraftChassis extends React.Component<ISupportAirc
                 <h3>Transport Bays</h3>
                 {unit.getBays().length > 0 ? (
                     <table className="table" data-testid="aircraft-bays">
-                        <thead><tr><th>Bay</th><th>Tons, Bays or Cubicles</th><th>Doors</th><th>Weight</th><th></th></tr></thead>
+                        <thead><tr><th>Bay</th><th>Tons, Bays or Cubicles</th><th>Doors</th><th>Weight</th><th><span className="visually-hidden">Actions</span></th></tr></thead>
                         <tbody>
                             {unit.getBays().map((bay, index) => {
                                 const type = getVehicleBayType(bay.tag);

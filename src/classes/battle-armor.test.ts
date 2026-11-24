@@ -140,7 +140,7 @@ describe("Battle armor construction (TechManual pp.160-173)", () => {
         const tags = battleArmorEquipment.map((entry) => entry.tag);
         expect(new Set(tags).size).toBe(tags.length);
         // TechManual equipment is described on pp.252-271; Tactical Operations items carry their page in that book.
-        for (const entry of battleArmorEquipment) expect(entry.page, entry.tag).toBeGreaterThan(entry.book === "TO:AUE" ? 90 : 200);
+        for (const entry of battleArmorEquipment) expect(entry.page, entry.tag).toBeGreaterThan(entry.book === "TO:AUE" ? 90 : entry.book === "IO:AE" ? 80 : 200);
     });
 
     it("saves and loads a design, and cleans a broken save", () => {
@@ -152,5 +152,126 @@ describe("Battle armor construction (TechManual pp.160-173)", () => {
         expect(broken.suit).toMatchObject({ weightClass: "medium", bodyType: "quad", armorPoints: 10, squadSize: 6, items: [] });
         expect(broken.issues.length).toBeGreaterThan(0);
         expect(normalizeBattleArmorExport("x").suit).toBeNull();
+    });
+});
+
+describe("E-War carrier (#642)", () => {
+    const build = () => {
+        const suit = new BattleArmor();
+        suit.setTechBase("clan");
+        suit.setWeightClass("medium");
+        suit.setArmorPoints(4);
+        expect(suit.addItem("clan-active-probe", "body")).toBe(true);
+        expect(suit.addItem("clan-micro-pulse-laser", "ra")).toBe(true);
+        return suit;
+    };
+
+    it("lists its E-War gear", () => {
+        const gear = build().getEWarGear();
+        expect(gear.map(item => item.kind)).toEqual(["probe-clan"]);
+        for (const item of gear) {
+            expect(item.name).toBeTruthy();
+            expect(item.uuid).toBeTruthy();
+            expect(item.destroyed).toBe(false);
+        }
+    });
+
+    it("reports destroyed E-War gear", () => {
+        // Squad gear is listed once, not per trooper; only an item carried by one trooper is lost with that trooper (isItemLost).
+        const suit = build();
+        suit.setSquadSize(4);
+        suit.updateItem(0, { trooper: 2 });
+        expect(suit.getEWarGear().map(item => [item.kind, item.destroyed])).toEqual([["probe-clan", false]]);
+        suit.setTrooperDamage(1, suit.getTrooperCapacity());
+        expect(suit.getEWarGear().map(item => [item.kind, item.destroyed])).toEqual([["probe-clan", true]]);
+    });
+
+    it("lists its real ECM and Narc tags", () => {
+        // is-c3-system (BC3, a C3 Slave) and is-improved-c3-system (BC3i, a C3i) are classified in ewar-play.test.ts (TO:AUE p.109).
+        const suit = new BattleArmor();
+        suit.setWeightClass("heavy");
+        for (const tag of ["is-ecm-suite", "is-compact-narc"]) expect(suit.addItem(tag, "body"), tag).toBe(true);
+        expect(suit.getEWarGear().map(item => [item.tag, item.kind])).toEqual([["is-ecm-suite", "ecm-guardian"], ["is-compact-narc", "narc"]]);
+        const clan = new BattleArmor();
+        clan.setTechBase("clan");
+        clan.setWeightClass("heavy");
+        for (const tag of ["clan-ecm-suite", "clan-angel-ecm"]) expect(clan.addItem(tag, "body"), tag).toBe(true);
+        expect(clan.getEWarGear().map(item => item.kind)).toEqual(["ecm-clan", "ecm-angel"]);
+    });
+
+    it("lists stealth and mimetic armor", () => {
+        for (const [tag, kind] of [["ba-stealth-basic", "stealth-ba"], ["ba-stealth-improved", "stealth-ba"], ["ba-stealth-standard", "stealth-ba"], ["ba-mimetic", "mimetic"]] as const) {
+            const suit = new BattleArmor();
+            expect(suit.setArmor(tag)).toBe(true);
+            const armor = suit.getEWarGear().find(item => item.kind === kind);
+            expect(armor, tag).toMatchObject({ tag, location: "armor", destroyed: false });
+            expect(armor?.uuid).toBeUndefined();
+        }
+    });
+
+    it("saves E-War state and loads old saves without it", () => {
+        const suit = build();
+        expect(suit.export().ewarPlay).toBeUndefined();
+        suit.ewarPlay.inHostileEcm = true;
+        const saved = JSON.parse(JSON.stringify(suit.export()));
+        expect(saved.ewarPlay).toEqual({ inHostileEcm: true });
+        expect(suit.export(true).ewarPlay).toBeUndefined();
+        expect(new BattleArmor(JSON.stringify(saved)).ewarPlay).toEqual({ inHostileEcm: true });
+        delete saved.ewarPlay;
+        expect(new BattleArmor(JSON.stringify(saved)).ewarPlay).toEqual({});
+    });
+});
+
+// IO:AE p.69 (game and construction rules), p.184 (Warrior Augmentations: 1,500,000 C-bills, Experimental), p.186 (BV): the Clan
+// enhanced imaging neural implants augment battle armor troopers. A unit with the EI interface operated by an augmented warrior
+// takes -1 Piloting and -1 Gunnery for its BV Skill Modifier; the augmentation cost is multiplied by the augmented troopers.
+describe("Battle armor EI implants (IO:AE pp.69, 184, 186)", () => {
+    const clanSquad = (): BattleArmor => {
+        const suit = new BattleArmor();
+        suit.setTechBase("clan");
+        suit.setWeightClass("medium");
+        suit.setMotive("jump", 3);
+        suit.setSquadSize(5);
+        return suit;
+    };
+
+    it("is offered to Clan suits at the Experimental level and refused to Inner Sphere ones or below it", () => {
+        const clan = clanSquad();
+        expect(clan.canHaveEIImplants(3)).toBe(false);
+        expect(clan.canHaveEIImplants(4)).toBe(true);
+        expect(clan.setEIImplants(true, 3)).toBe(false);
+        expect(clan.hasEIImplants()).toBe(false);
+        expect(clan.setEIImplants(true, 4)).toBe(true);
+        expect(clan.hasEIImplants()).toBe(true);
+        const inner = new BattleArmor();
+        expect(inner.canHaveEIImplants(4)).toBe(false);
+        expect(inner.setEIImplants(true, 4)).toBe(false);
+    });
+
+    it("adds 1,500,000 C-bills for each augmented trooper and rates the squad one Gunnery and Anti-'Mech skill better for BV", () => {
+        const plain = clanSquad();
+        const augmented = clanSquad();
+        augmented.setEIImplants(true, 4);
+        expect(augmented.getCBillCost() - plain.getCBillCost()).toBe(5 * 1500000);
+        plain.setGunnery(4);
+        plain.setAntiMechSkill(5);
+        augmented.setGunnery(4);
+        augmented.setAntiMechSkill(5);
+        const skills = (suit: BattleArmor) => suit.getSkillMultiplier();
+        const better = clanSquad();
+        better.setGunnery(3);
+        better.setAntiMechSkill(4);
+        expect(skills(augmented)).toBe(skills(better));
+        expect(skills(augmented)).toBeGreaterThan(skills(plain));
+        expect(augmented.getRequiredRulesLevel()).toBeGreaterThanOrEqual(4);
+        expect(augmented.getNotes().join(" ")).toMatch(/EI implants/);
+    });
+
+    it("saves and loads", () => {
+        const suit = clanSquad();
+        suit.setEIImplants(true, 4);
+        const saved = suit.export();
+        expect(saved.eiImplants).toBe(true);
+        expect(new BattleArmor(JSON.stringify(saved)).hasEIImplants()).toBe(true);
     });
 });

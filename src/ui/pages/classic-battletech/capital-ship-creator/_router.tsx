@@ -10,6 +10,8 @@ import CapitalShipCreatorCrew from './crew';
 import CapitalShipCreatorSummary from './summary';
 import CapitalShipCreatorRecordSheet from './record-sheet';
 import CapitalShipCreatorPrintAS from './print-as';
+import { CreatorPrintTRO, CreatorTechnicalReadoutStep } from '../../../components/creator-tro-pages';
+import { CAPITAL_SHIP_TRO } from '../creator-tro-configs';
 
 import type { JSX } from "react";
 
@@ -23,6 +25,8 @@ export default class CapitalShipCreatorRouter extends React.Component<ICapitalSh
                 <Route path={`armor`} element={<CapitalShipCreatorArmor appGlobals={this.props.appGlobals} />} />
                 <Route path={`equipment`} element={<CapitalShipCreatorEquipment appGlobals={this.props.appGlobals} />} />
                 <Route path={`crew`} element={<CapitalShipCreatorCrew appGlobals={this.props.appGlobals} />} />
+                <Route path={`technical-readout`} element={<CreatorTechnicalReadoutStep appGlobals={this.props.appGlobals} config={CAPITAL_SHIP_TRO} />} />
+                <Route path={`print-tro`} element={<CreatorPrintTRO appGlobals={this.props.appGlobals} config={CAPITAL_SHIP_TRO} />} />
                 <Route path={`summary`} element={<CapitalShipCreatorSummary appGlobals={this.props.appGlobals} />} />
                 <Route path={`record-sheet`} element={<CapitalShipCreatorRecordSheet appGlobals={this.props.appGlobals} />} />
                 <Route path={`print-as`} element={<CapitalShipCreatorPrintAS appGlobals={this.props.appGlobals} />} />

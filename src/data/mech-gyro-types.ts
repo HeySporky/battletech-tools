@@ -17,6 +17,9 @@ export const mechGyroTypes: IGyro[] = [
 	{
 		name: "Standard Gyro",
 		tag: "standard",
+		rulesLevel: 1,
+		techBase: "universal",
+		editions: ["battledroids", "battletech-2nd-edition", "battletech-manual", "battletech-compendium", "battletech-3rd-edition", "compendium-rules-of-warfare", "battletech-4th-edition", "master-rules", "master-rules-revised", "total-warfare", "battlemech-manual", "core-rulebook"],
 		weight_multiplier: 1,
 		criticals: 4,
 		costMultiplier: 300000,
@@ -45,6 +48,8 @@ export const mechGyroTypes: IGyro[] = [
 	{
 		name: "Extra-light (XL) Gyro",
 		tag: "xl",
+		techBase: "universal",
+		editions: ["total-warfare", "battlemech-manual", "core-rulebook"],
 		altNames: ["Extra-Light Gyro"],
 		weight_multiplier: 0.5,
 		criticals: 6,
@@ -60,6 +65,8 @@ export const mechGyroTypes: IGyro[] = [
 	{
 		name: "Compact Gyro",
 		tag: "compact",
+		techBase: "universal",
+		editions: ["total-warfare", "battlemech-manual", "core-rulebook"],
 		weight_multiplier: 1.5,
 		criticals: 2,
 		costMultiplier: 400000,
@@ -74,6 +81,8 @@ export const mechGyroTypes: IGyro[] = [
 	{
 		name: "Heavy Duty Gyro",
 		tag: "heavy-duty",
+		techBase: "universal",
+		editions: ["total-warfare", "battlemech-manual", "core-rulebook"],
 		altNames: ["Heavy-Duty Gyro"],
 		weight_multiplier: 2,
 		criticals: 4,
@@ -85,5 +94,23 @@ export const mechGyroTypes: IGyro[] = [
 		reintroduced: null,
 		book: "TM",
 		page: 219
+	},
+	{
+		// "A BattleMech with an interface cockpit may be constructed without a gyro, in which case the usual Gyro
+		// slots ... are treated as empty" (IO:AE p.110). Dated with the interface cockpit; MegaMek names it "None".
+		name: "No Gyro",
+		tag: "none",
+		techBase: "universal",
+		editions: ["total-warfare", "battlemech-manual", "core-rulebook"],
+		altNames: ["None"],
+		weight_multiplier: 0,
+		criticals: 0,
+		costMultiplier: 0,
+		prototype: 3074,
+		introduced: null,
+		extinct: null,
+		reintroduced: null,
+		book: "IO:AE",
+		page: 110
 	}
 ];

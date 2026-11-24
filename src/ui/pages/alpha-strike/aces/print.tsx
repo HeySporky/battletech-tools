@@ -6,7 +6,7 @@ import { AcesGame, IAcesGameExport } from '../../../../classes/aces-game';
 import { IAcesCardLibrary } from '../../../../data/aces-cards';
 import { getAcesDeck } from '../../../../data/aces-rules';
 import { getAcesCardLibrary, getAcesGame } from '../../../../dataSaves';
-import { AcesCardView, AcesCommandCardView, AcesScenarioView, AcesSpecialOrderView } from './_aces-card-view';
+import { AcesCardView, AcesCommandCardView, AcesEdgeCardView, AcesScenarioView, AcesSpecialOrderView } from './_aces-card-view';
 import './aces.scss';
 const ArrowCircleLeft = FaArrowCircleLeft as any;
 const PrintIcon = FaPrint as any;
@@ -16,12 +16,13 @@ const PrintIcon = FaPrint as any;
  * objectives, automated roster and log.
  */
 
-type TPrintPart = "cards" | "commandCards" | "specialOrders" | "scenarios" | "game";
+type TPrintPart = "cards" | "commandCards" | "specialOrders" | "edgeCards" | "scenarios" | "game";
 
 const partLabels: { [part in TPrintPart]: string } = {
     cards: "Aces cards",
     commandCards: "Command cards",
     specialOrders: "Special Orders",
+    edgeCards: "Edge cards",
     scenarios: "Sorties",
     game: "Game sheet",
 };
@@ -32,7 +33,7 @@ export default class AcesPrintPage extends React.Component<IAcesPrintPageProps, 
         this.state = {
             library: null,
             game: null,
-            parts: { cards: true, commandCards: true, specialOrders: true, scenarios: true, game: false },
+            parts: { cards: true, commandCards: true, specialOrders: true, edgeCards: true, scenarios: true, game: false },
         };
         this.props.appGlobals.makeDocumentTitle("Printing Aces Cards");
     }
@@ -107,6 +108,9 @@ export default class AcesPrintPage extends React.Component<IAcesPrintPageProps, 
                 {parts.specialOrders && library.specialOrders.length > 0 ? (
                     <div className="aces-print-section"><h2>Special Orders</h2><div className="aces-print-grid">{library.specialOrders.map( ( order ) => <AcesSpecialOrderView key={order.id} order={order} /> )}</div></div>
                 ) : null}
+                {parts.edgeCards && ( library.edgeCards || [] ).length > 0 ? (
+                    <div className="aces-print-section"><h2>Edge cards</h2><div className="aces-print-grid">{library.edgeCards.map( ( card ) => <AcesEdgeCardView key={card.id} card={card} /> )}</div></div>
+                ) : null}
                 {parts.scenarios && library.scenarios.length > 0 ? (
                     <div className="aces-print-section"><h2>Sorties</h2>{library.scenarios.map( ( scenario ) => <AcesScenarioView key={scenario.id} scenario={scenario} /> )}</div>
                 ) : null}
@@ -123,7 +127,8 @@ export default class AcesPrintPage extends React.Component<IAcesPrintPageProps, 
                         <li><span title="Open the Print Dialog" onClick={() => window.print()} className="current"><PrintIcon /></span></li>
                     </ul>
                 </header>
-                <div className="aces-page aces-print">
+                <main className="aces-page aces-print">
+                    <h1 className="visually-hidden">Aces print sheets</h1>
                     <div className="aces-inline print-bar">
                         {( Object.keys( partLabels ) as TPrintPart[] ).map( ( part ) => (
                             <label key={part}>
@@ -143,7 +148,7 @@ export default class AcesPrintPage extends React.Component<IAcesPrintPageProps, 
                         </>
                     )}
                     <p className="aces-muted">Printed from Jeff's BattleTech Tools. BattleTech: Aces is published by Catalyst Game Labs; card text is the players' own entry.</p>
-                </div>
+                </main>
             </>
         );
     }

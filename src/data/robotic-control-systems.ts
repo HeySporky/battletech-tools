@@ -25,18 +25,24 @@ export type RoboticUnitType = "industrialmech" | "battlemech" | "combat-vehicle"
 export interface IRoboticControlSystem {
     tag: RoboticControlTag;
     name: string;
+    /** With no `editions`, a record from the default edition on (rules-editions.ts). */
+    rulesLevel: number;
 }
-
-export const ROBOTIC_CONTROL_SYSTEMS: IRoboticControlSystem[] = [
-    { tag: "none", name: "None (crewed)" },
-    { tag: "srcs", name: "Smart Robotic Control System" },
-    { tag: "srcs-improved", name: "Smart Robotic Control System (Improved)" },
-];
 
 /** "Rules Level: Advanced" (IO:AE p.134). */
 export const SRCS_RULES_LEVEL = 3;
 
-/** "multiply its final BV by 0.85 to reflect its robotic controls" (IO:AE p.187). */
+export const ROBOTIC_CONTROL_SYSTEMS: IRoboticControlSystem[] = [
+    { tag: "none", name: "None (crewed)", rulesLevel: 0 },
+    { tag: "srcs", name: "Smart Robotic Control System", rulesLevel: SRCS_RULES_LEVEL },
+    { tag: "srcs-improved", name: "Smart Robotic Control System (Improved)", rulesLevel: SRCS_RULES_LEVEL },
+];
+
+/**
+ * "multiply its final BV by 0.85 to reflect its robotic controls" (IO:AE p.187; IO 2016 the same). Jihad: Final
+ * Reckoning (2011) printed the 'Mech robotic drone system first, Experimental and for quads only, at x0.95 (JFR
+ * pp.142-143, 147). Both books are in the Total Warfare edition, so the newer IO ruling wins, as errata would.
+ */
 export const SRCS_BATTLE_VALUE_MULTIPLIER = 0.85;
 
 // Smart Robotic Control Systems Table (IO:AE p.135): Gunnery, Piloting/Driving and mass as a share of the unit.
@@ -85,7 +91,8 @@ export function getRoboticControlWeight(unitType: RoboticUnitType, tag: RoboticC
     if (tag === "none") return 0;
     const improved = tag === "srcs-improved" && IMPROVABLE.includes(unitType);
     if (tonnage < 10) return improved ? 1 : 0;
-    return round(tonnage * (SRCS_TABLE[unitType].massFraction + (improved ? 0.02 : 0)));
+    // Trimmed first: 0.05 + 0.02 is 0.07000000000000001, which would round 3.5 tons up to 4.
+    return round(Math.round(tonnage * (SRCS_TABLE[unitType].massFraction + (improved ? 0.02 : 0)) * 1e6) / 1e6);
 }
 
 /** "5,000+(10,000xIT)", IT being the SRCS's own tonnage (Additional Alternate Era Weapons and Equipment Table, IO:AE p.215). */

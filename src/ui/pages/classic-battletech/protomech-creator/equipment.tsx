@@ -4,10 +4,13 @@ import { FaArrowCircleRight, FaPlus, FaTrash } from "react-icons/fa";
 import ProtoMech, { MAX_PROTOMECH_SHOTS, formatProtoMechDamage } from '../../../../classes/protomech';
 import { ProtoMechMountLocation, getProtoMechEquipmentKg } from '../../../../data/protomech-construction';
 import { IAppGlobals } from '../../../app-router';
-import ProtoMechCreatorSideMenu from '../../../components/protomech-creator-side-menu';
+import { ProtoMechCreatorSideMenu } from '../../../components/creator-side-menus';
 import TextSection from '../../../components/text-section';
+import TonnageBar from '../../../components/tonnage-bar';
 import UIPage from '../../../components/ui-page';
 import ProtoMechStatusBar from './_statusBar';
+import { unitRulesLevel } from '../../../components/game-settings-block';
+import HandheldWeaponPanel from '../../../components/handheld-weapon-panel';
 const ArrowCircleRight = FaArrowCircleRight as any;
 const Plus = FaPlus as any;
 const Trash = FaTrash as any;
@@ -32,7 +35,7 @@ export default class ProtoMechCreatorEquipment extends React.Component<IEquipmen
     render = (): JSX.Element => {
         const proto = this.props.appGlobals.currentProtoMech;
         if (!proto) return <></>;
-        const rulesLevel = this.props.appGlobals.appSettings.mechRulesFilter;
+        const rulesLevel = unitRulesLevel(this.props.appGlobals.currentProtoMech, this.props.appGlobals.appSettings);
         const locations = proto.getMountLocations();
         const location: ProtoMechMountLocation = locations.includes(this.state.location) ? this.state.location : "torso";
         const filter = this.state.filter.trim().toLowerCase();
@@ -50,7 +53,7 @@ export default class ProtoMechCreatorEquipment extends React.Component<IEquipmen
                         <TextSection label="Step 5: Mounted Weapons and Equipment">
                             <table className="table" data-testid="pm-mounts">
                                 <thead>
-                                    <tr><th>Item</th><th>Location</th><th>Weight</th><th>Ammunition</th><th></th></tr>
+                                    <tr><th>Item</th><th>Location</th><th>Weight</th><th>Ammunition</th><th><span className="visually-hidden">Actions</span></th></tr>
                                 </thead>
                                 <tbody>
                                     {mounts.length === 0 ? <tr><td colSpan={5}>Nothing mounted yet.</td></tr> : null}
@@ -121,6 +124,8 @@ export default class ProtoMechCreatorEquipment extends React.Component<IEquipmen
                             </p>
                         </TextSection>
 
+                        <HandheldWeaponPanel mech={proto} rulesLevel={rulesLevel} onChange={() => this.props.appGlobals.saveCurrentProtoMech(proto)} />
+
                         <TextSection label="Add Weapons and Equipment">
                             <label>
                                 Mount in:
@@ -133,7 +138,7 @@ export default class ProtoMechCreatorEquipment extends React.Component<IEquipmen
                             </label>
                             {!proto.hasMainGun() ? <p className="smaller-text">A main gun mount is chosen in Step 1.</p> : null}
 
-                            <h4>Missile Launchers, by the Tube</h4>
+                            <h3 className="h4">Missile Launchers, by the Tube</h3>
                             <table className="table">
                                 <tbody>
                                     {proto.getAvailableMissiles(rulesLevel).map((missile) => {
@@ -160,7 +165,7 @@ export default class ProtoMechCreatorEquipment extends React.Component<IEquipmen
                                 </tbody>
                             </table>
 
-                            <h4>ProtoMech Equipment</h4>
+                            <h3 className="h4">ProtoMech Equipment</h3>
                             <table className="table">
                                 <tbody>
                                     {proto.getAvailableSpecials(rulesLevel).length === 0 ? <tr><td>None at this rules level for this chassis.</td></tr> : null}
@@ -180,14 +185,14 @@ export default class ProtoMechCreatorEquipment extends React.Component<IEquipmen
                                 </tbody>
                             </table>
 
-                            <h4>Weapons and Electronics</h4>
+                            <h3 className="h4">Weapons and Electronics</h3>
                             <label>
                                 Search:
                                 <input type="text" value={this.state.filter} data-testid="pm-filter" onChange={(e) => this.setState({ filter: e.currentTarget.value })} />
                             </label>
                             <table className="table" data-testid="pm-catalog">
                                 <thead>
-                                    <tr><th>Item</th><th>Weight</th><th>Heat</th><th>Damage</th><th>Range</th><th>BV</th><th>Source</th><th></th></tr>
+                                    <tr><th>Item</th><th>Weight</th><th>Heat</th><th>Damage</th><th>Range</th><th>BV</th><th>Source</th><th><span className="visually-hidden">Actions</span></th></tr>
                                 </thead>
                                 <tbody>
                                     {catalog.map((item) => (
@@ -210,13 +215,14 @@ export default class ProtoMechCreatorEquipment extends React.Component<IEquipmen
                             </table>
                             <div className="clear-both overflow-hidden">
                                 <hr />
-                                <Link to={`${process.env.PUBLIC_URL}/classic-battletech/protomech-creator/summary`} className="btn btn-primary pull-right btn-sm">
-                                    Summary <ArrowCircleRight />
+                                <Link to={`${process.env.PUBLIC_URL}/classic-battletech/protomech-creator/technical-readout`} className="btn btn-primary pull-right btn-sm">
+                                    Next: Technical Readout <ArrowCircleRight />
                                 </Link>
                             </div>
                         </TextSection>
                     </div>
                 </div>
+                <TonnageBar used={proto.getWeight()} total={proto.getMaxWeight()} unit="kg" />
             </UIPage>
         );
     }

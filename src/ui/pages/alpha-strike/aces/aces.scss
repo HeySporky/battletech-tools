@@ -69,8 +69,18 @@
     }
 
     .aces-muted {
-        opacity: .7;
+        // A grey, not opacity, so links inside keep their full contrast.
+        color: #c8c8c8;
         font-size: .9rem;
+    }
+
+    // The player's card photo, as large as the page allows, for reading the small print against the form.
+    .aces-scan-photo {
+        display: block;
+        width: 100%;
+        max-width: 60rem;
+        height: auto;
+        margin-bottom: .5rem;
     }
 
     table td, table th {
@@ -224,6 +234,11 @@
     background: #fff;
     color: #000;
     padding: 0 .25in;
+
+    // The screen's muted grey is for a dark page; on the white sheet it needs to be dark to be read.
+    .aces-muted {
+        color: #555;
+    }
 
     .aces-print-section {
         margin-top: 1rem;

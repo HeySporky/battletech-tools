@@ -151,12 +151,26 @@ describe("Light and Medium weapons and pintles on Small Support Vehicles (TM pp.
         expect(laser.pintle).toBe(true);
         // 150 kg x 5% = 7.5 kg, rounded up to 8.
         expect(vehicle.getPintleWeight()).toBe(0.008);
-        // No fire control: the weapon's own crew of 2, plus the driver.
-        expect(vehicle.getSupportVehicleMinimumCrew()).toBe(3);
+        // No fire control: 1 gunner per weapon (TM p.131's table and MegaMek; not the weapon's Crew value of 2), plus
+        // the driver.
+        expect(vehicle.getSupportVehicleMinimumCrew()).toBe(2);
         vehicle.setSupportVehicleFireControl("basic");
         expect(vehicle.getSupportVehicleMinimumCrew()).toBe(2);
         vehicle.setSupportVehicleFireControl("advanced");
         expect(vehicle.getSupportVehicleMinimumCrew()).toBe(1);
+    });
+
+    it("takes the fire control multiplier off heavy weapons only, not Light and Medium weapons or equipment (TM p.316)", () => {
+        const bv = (build: (vehicle: Vehicle) => void, fireControl: string): number => {
+            const vehicle = jeep();
+            build(vehicle);
+            vehicle.setSupportVehicleFireControl(fireControl);
+            return vehicle.getBattleValue();
+        };
+        const light = (vehicle: Vehicle) => { vehicle.addLightWeapon("inf-support-pulse-laser", "front"); };
+        expect(bv(light, "none")).toBe(bv(light, "advanced"));
+        const truck = (vehicle: Vehicle) => { vehicle.setTonnage(20); add(vehicle, "chainsaw", 1, "front"); };
+        expect(bv(truck, "none")).toBe(bv(truck, "advanced"));
     });
 
     it("keeps Light and Medium weapons off vehicles of 5 tons or more, and pintles off naval vehicles", () => {

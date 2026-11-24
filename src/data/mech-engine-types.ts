@@ -25,6 +25,9 @@ export const mechEngineTypes: IEngineType[] = [
 		name: "Standard Fusion",
 		alternateName: "Fusion Engine",
 		tag: "standard",
+		rulesLevel: 1,
+		techBase: "universal",
+		editions: ["battledroids", "battletech-2nd-edition", "battletech-manual", "battletech-compendium", "battletech-3rd-edition", "compendium-rules-of-warfare", "battletech-4th-edition", "master-rules", "master-rules-revised", "total-warfare", "battlemech-manual", "core-rulebook"],
 		book: "TM",
 		page: 214,
 		criticals: {
@@ -80,6 +83,8 @@ export const mechEngineTypes: IEngineType[] = [
 	{
 		name: "XL Fusion",
 		tag: "xl",
+		techBase: "universal",
+		editions: ["battletech-compendium", "compendium-rules-of-warfare", "master-rules", "master-rules-revised", "total-warfare", "battlemech-manual", "core-rulebook"],
 		introducedInEdition: "battletech-compendium", editionStats: { "battletech-compendium": { book: "BTC", page: 122, name: "Inner Sphere XL Engine", notes: "Any fusion engine may be built as an XL: half the normal engine weight, rounded up to the half ton, with extra engine critical slots in the side torsos, 3 in the left torso and 3 in the right. Three engine critical hits destroy the BattleMech whichever torso they are in. BattleMechs, vehicles and AeroSpace fighters may use it; there is no XL ICE (BTC pp.122-123). Price: (20,000 x rating x tonnage) / 75 (BTC p.128)." }, "compendium-rules-of-warfare": { book: "BTC:RoW", page: 122, name: "Inner Sphere XL Engine", notes: "Half the normal engine weight, rounded up to the half ton; the Fusion Engine Table prints the standard tonnage only (BTC:RoW p.103). XL Engines Table: 3 critical slots in the left torso and 3 in the right; any 3 engine critical hits destroy the BattleMech. On a vehicle it uses up 2 items; internal combustion engines are not available as XL (BTC:RoW pp.107, 122). Price: (20,000 x rating x tonnage) / 75 (BTC:RoW p.123)." }, "master-rules": { book: "BMR", page: 134, name: "Inner Sphere XL Engine", notes: "The Fusion Engine Table now prints an XL Tonnage column beside the standard one, for ratings 10 to 400: half the standard weight, rounded up to the half ton (BMR p.111). Extra engine critical slots in each side torso, 3 for the Inner Sphere engine; any 3 engine critical hits destroy the BattleMech, wherever the slots are. On a vehicle it uses up 2 items; there is no XL internal combustion engine (BMR pp.119, 134-135). Price: (20,000 x rating x tonnage) / 75 (BMR p.136)." }, "master-rules-revised": { book: "BMR(R)", page: 148, name: "Inner Sphere XL Engine", notes: "The Fusion Engine Table prints Standard, Light and XL tonnage columns for ratings 10 to 400; the XL engine is half the standard weight, rounded up to the half ton (BMR(R) pp.117-118). Extra engine critical slots in each side torso, 3 for the Inner Sphere engine; any 3 engine critical hits destroy the BattleMech, wherever the slots are. On a vehicle it uses up 2 items; there is no XL internal combustion engine (BMR(R) pp.128, 148). Price: (20,000 x rating x tonnage) / 75 (BMR(R) p.149)." } },
 		altNames: ["XL Engine"],
 		book: "TM",
@@ -94,7 +99,7 @@ export const mechEngineTypes: IEngineType[] = [
 		introduced: 2579,
 		extinct: 2865,
 		reintroduced: 3035,
-		// Retirement date set by the project owner (2026-09-30), in line with the Clans' other Star League
+		// Retirement date set by NGCFells (2026-09-30), in line with the Clans' other Star League
 		// copies (~2850); no published extinction date.
 		clanDates: { prototype: 2556, introduced: 2579, extinct: 2850, reintroduced: null },
 		rating: 0
@@ -102,6 +107,8 @@ export const mechEngineTypes: IEngineType[] = [
 	{
 		name: "Clan XL Fusion",
 		tag: "clan_xl",
+		techBase: "universal",
+		editions: ["battletech-compendium", "compendium-rules-of-warfare", "master-rules", "master-rules-revised", "total-warfare", "battlemech-manual", "core-rulebook"],
 		introducedInEdition: "battletech-compendium", editionStats: { "battletech-compendium": { book: "BTC", page: 122, name: "Clan XL Engine", notes: "Any fusion engine may be built as an XL: half the normal engine weight, rounded up to the half ton, with extra engine critical slots in the side torsos, 2 in the left torso and 2 in the right. Three engine critical hits destroy the BattleMech whichever torso they are in. BattleMechs, vehicles and AeroSpace fighters may use it; there is no XL ICE (BTC pp.122-123). Price: (20,000 x rating x tonnage) / 75 (BTC p.128)." }, "compendium-rules-of-warfare": { book: "BTC:RoW", page: 122, name: "Clan XL Engine", notes: "Half the normal engine weight, rounded up to the half ton; the Fusion Engine Table prints the standard tonnage only (BTC:RoW p.103). XL Engines Table: 2 critical slots in the left torso and 2 in the right; any 3 engine critical hits destroy the BattleMech. On a vehicle it uses up 1 item; internal combustion engines are not available as XL (BTC:RoW pp.107, 122). Price: (20,000 x rating x tonnage) / 75 (BTC:RoW p.123)." }, "master-rules": { book: "BMR", page: 134, name: "Clan XL Engine", notes: "The Fusion Engine Table now prints an XL Tonnage column beside the standard one, for ratings 10 to 400: half the standard weight, rounded up to the half ton (BMR p.111). Extra engine critical slots in each side torso, 2 for the Clan engine; any 3 engine critical hits destroy the BattleMech, wherever the slots are. On a vehicle it uses up 1 item; there is no XL internal combustion engine (BMR pp.119, 134-135). Price: (20,000 x rating x tonnage) / 75 (BMR p.136)." }, "master-rules-revised": { book: "BMR(R)", page: 148, name: "Clan XL Engine", notes: "The Fusion Engine Table prints Standard, Light and XL tonnage columns for ratings 10 to 400; the XL engine is half the standard weight, rounded up to the half ton (BMR(R) pp.117-118). Extra engine critical slots in each side torso, 2 for the Clan engine; any 3 engine critical hits destroy the BattleMech, wherever the slots are. On a vehicle it uses up 1 item; there is no XL internal combustion engine (BMR(R) pp.128, 148). Price: (20,000 x rating x tonnage) / 75 (BMR(R) p.149)." } },
 		altNames: ["XL Engine"],
 		book: "TM",
@@ -119,6 +126,8 @@ export const mechEngineTypes: IEngineType[] = [
 	{
 		name: "Light Fusion",
 		tag: "light",
+		techBase: "universal",
+		editions: ["master-rules-revised", "total-warfare", "battlemech-manual", "core-rulebook"],
 		introducedInEdition: "master-rules-revised", editionStats: { "master-rules-revised": { book: "BMR(R)", page: 139, name: "Light Engine", notes: "Inner Sphere only. Three-quarters of the standard engine weight, rounded up to the half ton; the Fusion Engine Table prints a Light tonnage column for ratings 10 to 400 (BMR(R) pp.117-118). 2 extra engine critical slots in each side torso, against the Inner Sphere XL engine's 3; any 3 engine critical hits destroy the BattleMech. On a vehicle it uses up 1 item (BMR(R) p.139). Price: (15,000 x rating x tonnage) / 75 (BMR(R) pp.149-150)." } },
 		altNames: ["Light Fusion Engine"],
 		book: "TM",
@@ -136,6 +145,8 @@ export const mechEngineTypes: IEngineType[] = [
 	{
 		name: "Compact Fusion",
 		tag: "compact",
+		techBase: "universal",
+		editions: ["total-warfare", "battlemech-manual", "core-rulebook"],
 		altNames: ["Compact Fusion Engine"],
 		book: "TM",
 		page: 214,
@@ -152,6 +163,9 @@ export const mechEngineTypes: IEngineType[] = [
 	{
 		name: "XXL Fusion",
 		tag: "xxl",
+		rulesLevel: 4,
+		techBase: "universal",
+		editions: ["total-warfare", "battlemech-manual", "core-rulebook"],
 		altNames: ["XXL Engine"],
 		book: "TO:AUE",
 		page: 121,
@@ -168,6 +182,9 @@ export const mechEngineTypes: IEngineType[] = [
 	{
 		name: "Clan XXL Fusion",
 		tag: "clan_xxl",
+		rulesLevel: 4,
+		techBase: "universal",
+		editions: ["total-warfare", "battlemech-manual", "core-rulebook"],
 		altNames: ["XXL Engine"],
 		book: "TO:AUE",
 		page: 121,
@@ -185,6 +202,9 @@ export const mechEngineTypes: IEngineType[] = [
 		name: "Internal Combustion Engine",
 		alternateName: "ICE",
 		tag: "ice",
+		rulesLevel: 1,
+		techBase: "universal",
+		editions: ["battletech-manual", "battletech-compendium", "compendium-rules-of-warfare", "master-rules", "master-rules-revised", "total-warfare", "battlemech-manual", "core-rulebook"],
 		introducedInEdition: "battletech-manual",
 		editionStats: {
 			"battletech-manual": { book: "BTM", page: 81, name: "Internal Combustion Engine", notes: "Offered for vehicles and installations, and as the turbine of conventional aircraft: twice the weight of an identically rated fusion engine from the Engine Table, with no built-in heat sinks, and power amplifiers at one ton per ten tons of energy weapons (BTM pp.81-82, 84). BattleMech construction does not mention it (BTM pp.78-80)." },
@@ -210,6 +230,8 @@ export const mechEngineTypes: IEngineType[] = [
 		name: "Fuel Cell Engine",
 		alternateName: "FCE",
 		tag: "cell",
+		techBase: "universal",
+		editions: ["total-warfare", "battlemech-manual", "core-rulebook"],
 		altNames: ["Fuel-Cell Engine"],
 		book: "TM",
 		page: 215,
@@ -227,6 +249,8 @@ export const mechEngineTypes: IEngineType[] = [
 	{
 		name: "Fission Engine",
 		tag: "fission",
+		techBase: "universal",
+		editions: ["total-warfare", "battlemech-manual", "core-rulebook"],
 		book: "TM",
 		page: 215,
 		criticals: {
@@ -242,6 +266,8 @@ export const mechEngineTypes: IEngineType[] = [
 	{
 		name: "Primitive Fusion Engine",
 		tag: "primitive",
+		techBase: "universal",
+		editions: ["total-warfare", "battlemech-manual", "core-rulebook"],
 		book: "IO:AE",
 		page: 117,
 		criticals: {
@@ -270,6 +296,9 @@ export const mechLargeEngineTypes: IEngineType[] = [
 		name: "Large Fusion",
 		alternateName: "LSF",
 		tag: "large-standard",
+		rulesLevel: 4,
+		techBase: "universal",
+		editions: ["total-warfare", "battlemech-manual", "core-rulebook"],
 		largeOf: "standard",
 		book: "TO:AUE",
 		page: 119,
@@ -288,6 +317,9 @@ export const mechLargeEngineTypes: IEngineType[] = [
 		name: "Large XL Fusion",
 		alternateName: "LXL",
 		tag: "large-xl",
+		rulesLevel: 4,
+		techBase: "universal",
+		editions: ["total-warfare", "battlemech-manual", "core-rulebook"],
 		largeOf: "xl",
 		book: "TO:AUE",
 		page: 119,
@@ -305,6 +337,9 @@ export const mechLargeEngineTypes: IEngineType[] = [
 		name: "Large Clan XL Fusion",
 		alternateName: "LXL",
 		tag: "large-clan_xl",
+		rulesLevel: 4,
+		techBase: "universal",
+		editions: ["total-warfare", "battlemech-manual", "core-rulebook"],
 		largeOf: "clan_xl",
 		book: "TO:AUE",
 		page: 119,
@@ -320,8 +355,12 @@ export const mechLargeEngineTypes: IEngineType[] = [
 	},
 	{
 		name: "Large Light Fusion",
+		altNames: ["Large Light Engine"],
 		alternateName: "LLF",
 		tag: "large-light",
+		rulesLevel: 4,
+		techBase: "universal",
+		editions: ["total-warfare", "battlemech-manual", "core-rulebook"],
 		largeOf: "light",
 		book: "TO:AUE",
 		page: 119,
@@ -337,8 +376,12 @@ export const mechLargeEngineTypes: IEngineType[] = [
 	},
 	{
 		name: "Large XXL Fusion",
+		altNames: ["Large XXL Engine"],
 		alternateName: "LXXL",
 		tag: "large-xxl",
+		rulesLevel: 4,
+		techBase: "universal",
+		editions: ["total-warfare", "battlemech-manual", "core-rulebook"],
 		largeOf: "xxl",
 		book: "TO:AUE",
 		page: 119,
@@ -356,6 +399,9 @@ export const mechLargeEngineTypes: IEngineType[] = [
 		name: "Large Clan XXL Fusion",
 		alternateName: "LXXL",
 		tag: "large-clan_xxl",
+		rulesLevel: 4,
+		techBase: "universal",
+		editions: ["total-warfare", "battlemech-manual", "core-rulebook"],
 		largeOf: "clan_xxl",
 		book: "TO:AUE",
 		page: 119,
@@ -371,8 +417,12 @@ export const mechLargeEngineTypes: IEngineType[] = [
 	},
 	{
 		name: "Large Internal Combustion Engine",
+		altNames: ["Large ICE Engine"],
 		alternateName: "LIC",
 		tag: "large-ice",
+		rulesLevel: 4,
+		techBase: "universal",
+		editions: ["total-warfare", "battlemech-manual", "core-rulebook"],
 		largeOf: "ice",
 		book: "TO:AUE",
 		page: 119,

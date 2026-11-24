@@ -134,6 +134,9 @@ export const mechInternalStructureTypes: IInternalStructure[] = [
   {
     name: "Standard",
     tag: "standard",
+    rulesLevel: 1,
+    techBase: "universal",
+    editions: ["battledroids", "battletech-2nd-edition", "battletech-manual", "battletech-compendium", "battletech-3rd-edition", "compendium-rules-of-warfare", "battletech-4th-edition", "master-rules", "master-rules-revised", "total-warfare", "battlemech-manual", "core-rulebook"],
     altNames: ["Standard Structure"],
     introducedInEdition: "battledroids",
     editionStats: {
@@ -244,6 +247,8 @@ export const mechInternalStructureTypes: IInternalStructure[] = [
   {
     name: "Endo-Steel",
     tag: "endo-steel",
+    techBase: "universal",
+    editions: ["battletech-compendium", "compendium-rules-of-warfare", "master-rules", "master-rules-revised", "total-warfare", "battlemech-manual", "core-rulebook"],
     introducedInEdition: "battletech-compendium", editionStats: { "battletech-compendium": { book: "BTC", page: 119, name: "Endo Steel Internal Structure", notes: "Half the usual internal structure weight, rounding up. Takes 14 critical slots (Inner Sphere) or 7 (Clan), placed anywhere; hits on them are re-rolled (BTC pp.112, 119). Skeleton cost: tonnage x 1,600 C-bills (BTC p.128)." }, "compendium-rules-of-warfare": { book: "BTC:RoW", page: 116, name: "Endo Steel Internal Structure", notes: "Half the standard internal structure weight, rounded up to the nearest half ton. Takes 14 critical slots in Inner Sphere BattleMechs and 7 in Clan 'Mechs, placed anywhere; critical hits on them are rerolled (BTC:RoW pp.101, 116). Never part of an OmniMech pod (BTC:RoW p.107). Skeleton cost: tonnage x 1,600 C-bills (BTC:RoW p.123)." }, "master-rules": { book: "BMR", page: 127, name: "Endo Steel Internal Structure", notes: "Half the standard internal structure weight, rounded up to the nearest half ton. Takes 14 critical slots in Inner Sphere BattleMechs and 7 in Clan 'Mechs, placed anywhere; critical hits on them are rerolled. Vehicles may not use it (BMR pp.110, 127). Skeleton cost: tonnage x 1,600 C-bills (BMR p.136)." }, "master-rules-revised": { book: "BMR(R)", page: 137, name: "Endo Steel Internal Structure", notes: "Half the standard internal structure weight, rounded up to the nearest half ton. Takes 14 critical slots in Inner Sphere BattleMechs and 7 in Clan 'Mechs, placed anywhere; critical hits on them are rerolled. Vehicles may not use it (BMR(R) pp.116, 137). Skeleton cost: tonnage x 1,600 C-bills (BMR(R) p.149)." } },
     book: "TM",
     page: 224,
@@ -263,8 +268,35 @@ export const mechInternalStructureTypes: IInternalStructure[] = [
     }
   },
   {
+    // Age of War prototype (IO:AE p.65): Inner Sphere endo steel in 2 more slots; 'Mechs only, TT÷20 tons,
+    // 4,800 x TT C-bills (IO:AE p.211). Ends at production in 2487; recovered as a prototype in 3035 (IO:AE p.97).
+    name: "Endo-Steel Prototype",
+    tag: "endo-steel-prototype",
+    techBase: "universal",
+    editions: ["total-warfare", "battlemech-manual", "core-rulebook"],
+    book: "IO:AE",
+    page: 65,
+    prototype: 2471,
+    introduced: null,
+    extinct: 2487,
+    reintroduced: 3035,
+    crits: { clan: 0, is: 16 },
+    cost: 4800,
+    innerSphereOnly: true,
+    perMechType: {
+      biped: generateStructuresForType('biped'),
+      quad: generateStructuresForType('quad'),
+      tripod: generateStructuresForType('tripod'),
+      lam: generateStructuresForType('lam'),
+      quadvee: generateStructuresForType('quadvee'),
+    }
+  },
+  {
     name: "Endo-Composite",
     tag: "endo-composite",
+    rulesLevel: 4,
+    techBase: "universal",
+    editions: ["total-warfare", "battlemech-manual", "core-rulebook"],
     book: "TO:AUE",
     page: 154,
     prototype: 3067,
@@ -285,6 +317,9 @@ export const mechInternalStructureTypes: IInternalStructure[] = [
   {
     name: "Reinforced",
     tag: "reinforced",
+    rulesLevel: 4,
+    techBase: "universal",
+    editions: ["total-warfare", "battlemech-manual", "core-rulebook"],
     altNames: ["Reinforced Structure"],
     book: "TO:AUE",
     page: 155,
@@ -307,6 +342,9 @@ export const mechInternalStructureTypes: IInternalStructure[] = [
   {
     name: "Composite",
     tag: "composite",
+    rulesLevel: 4,
+    techBase: "universal",
+    editions: ["total-warfare", "battlemech-manual", "core-rulebook"],
     altNames: ["Composite Structure"],
     book: "TO:AUE",
     page: 154,
@@ -329,6 +367,8 @@ export const mechInternalStructureTypes: IInternalStructure[] = [
   {
     name: "Industrial",
     tag: "industrial",
+    techBase: "universal",
+    editions: ["total-warfare", "battlemech-manual", "core-rulebook"],
     altNames: ["Industrial Structure"],
     book: "TM",
     page: 224,

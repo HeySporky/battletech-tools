@@ -2,6 +2,7 @@ import React, { type JSX } from 'react';
 import { IAppGlobals } from '../../../app-router';
 import PrintablePage from '../../../components/printable-page';
 import AlphaStrikeUnitSVG from '../../../components/svg/alpha-strike-unit-svg';
+import { unitRulesLevel } from '../../../components/game-settings-block';
 
 export default class FighterCreatorPrintAS extends React.Component<IPrintASProps> {
     constructor(props: IPrintASProps) {
@@ -15,7 +16,7 @@ export default class FighterCreatorPrintAS extends React.Component<IPrintASProps
 
         return (
             <PrintablePage backTo={`${process.env.PUBLIC_URL}/classic-battletech/fighter-creator/summary`} appGlobals={this.props.appGlobals}
-                requiredRulesLevel={fighter.getRequiredRulesLevel()}
+                requiredRulesLevel={fighter.getRequiredRulesLevel()} rulesLevel={unitRulesLevel(fighter, this.props.appGlobals.appSettings)}
             >
                 <div className="print-page">
                     <AlphaStrikeUnitSVG

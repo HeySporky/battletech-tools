@@ -3,9 +3,11 @@ import { Link } from 'react-router';
 import { FaArrowCircleLeft } from "react-icons/fa";
 import { formatProtoMechASDamage } from '../../../../classes/protomech';
 import { IAppGlobals } from '../../../app-router';
-import ProtoMechCreatorSideMenu from '../../../components/protomech-creator-side-menu';
+import { ProtoMechCreatorSideMenu } from '../../../components/creator-side-menus';
+import { ProtoMechCalcBreakdown } from '../../../components/calc-breakdown';
 import TextSection from '../../../components/text-section';
 import UIPage from '../../../components/ui-page';
+import { formatBattleValue } from '../../../../data/battle-value';
 const ArrowCircleLeft = FaArrowCircleLeft as any;
 
 export default class ProtoMechCreatorSummary extends React.Component<ISummaryProps> {
@@ -45,7 +47,7 @@ export default class ProtoMechCreatorSummary extends React.Component<ISummaryPro
                                 <strong>Type</strong>: {proto.getWeightClassName()} ProtoMech, {proto.getTons()} tons, {proto.getChassisName()} &nbsp;|&nbsp;
                                 <strong>Tech</strong>: {proto.getTechName()} &nbsp;|&nbsp;
                                 <strong>Era</strong>: {proto.getEra().name} &nbsp;|&nbsp;
-                                <strong>Battle Value</strong>: {proto.getBattleValue()}{point > 1 ? ` (Point of ${point}: ${proto.getPointBattleValue()})` : ""} &nbsp;|&nbsp;
+                                <strong>Battle Value</strong>: {formatBattleValue((edition) => proto.getBattleValue(edition), "protomech", proto.getRulesEdition())}{point > 1 ? ` (Point of ${point}: ${proto.getPointBattleValue()})` : ""} &nbsp;|&nbsp;
                                 <strong>Cost</strong>: {proto.getCBillCost().toLocaleString("en-US")} C-bills{point > 1 ? ` (Point: ${proto.getPointCBillCost().toLocaleString("en-US")})` : ""}
                             </p>
                             <p>
@@ -58,7 +60,7 @@ export default class ProtoMechCreatorSummary extends React.Component<ISummaryPro
                             </p>
                             <p>
                                 <strong>Gunnery</strong>: {proto.getGunnery()} &nbsp;|&nbsp;
-                                <strong>Skill-Adjusted Battle Value</strong>: {proto.getSkillAdjustedBattleValue()} (x {proto.getSkillMultiplier().toFixed(2)}){point > 1 ? `, Point ${proto.getSkillAdjustedPointBattleValue()}` : ""} &nbsp;|&nbsp;
+                                <strong>Skill-Adjusted Battle Value</strong>: {formatBattleValue((edition) => proto.getSkillAdjustedBattleValue(edition), "protomech", proto.getRulesEdition())} (x {proto.getSkillMultiplier().toFixed(2)}){point > 1 ? `, Point ${proto.getSkillAdjustedPointBattleValue()}` : ""} &nbsp;|&nbsp;
                                 <strong>Frenzy attack</strong>: {proto.getFrenzyDamage()} damage &nbsp;|&nbsp;
                                 <strong>Rules level needed</strong>: {proto.getRequiredRulesLevel() <= 2 ? "Standard" : proto.getRequiredRulesLevel() === 3 ? "Advanced" : "Experimental"}
                             </p>
@@ -76,23 +78,13 @@ export default class ProtoMechCreatorSummary extends React.Component<ISummaryPro
                                 </tbody>
                             </table>
 
-                            <h3>Battle Value Calculation</h3>
-                            <ul data-testid="pm-bv-log">
-                                {proto.getBattleValueLog().map((line, index) => <li key={index}>{line}</li>)}
-                            </ul>
+                            <h3>Calculations</h3>
+                            <ProtoMechCalcBreakdown proto={proto} />
                             <p className="smaller-text">
-                                TechManual pp. 306-307, for Gunnery 4; the Speed Factor and Defensive Factors tables are on p. 316 and the
-                                skill multiplier on p. 315. A myomer booster adds 1 to the speed factor's MP and counts at its boosted
-                                Running MP toward the Defensive Factor.
-                            </p>
-
-                            <h3>Cost Calculation</h3>
-                            <ul data-testid="pm-cost-log">
-                                {proto.getCBillCostLog().map((line, index) => <li key={index}>{line}</li>)}
-                            </ul>
-                            <p className="smaller-text">
-                                TechManual pp. 279, 283 and 285; Ultraheavy, Quad and Glider components from IO:AE p. 215. Missile launchers are
-                                priced by the tube except at the standard rack sizes; ammunition is not part of a unit's cost.
+                                Battle Value 2: TechManual p. 306 (worked example p. 307), for Gunnery 4; the Speed Factor and Defensive Factors tables are on p. 316 and the
+                                skill multiplier on p. 315. A myomer booster adds 1 to the speed factor MP and counts at its boosted Running MP toward the Defensive Factor.
+                                Battle Value 1: Master Rules, Revised Edition pp. 154-156. Cost: TechManual pp. 279, 282 and 285; Ultraheavy, Quad and Glider components from
+                                IO:AE p. 215. Missile launchers are priced by the tube except at the standard rack sizes; ammunition is not part of a unit cost.
                             </p>
 
                             <h3>Alpha Strike</h3>
@@ -119,7 +111,8 @@ export default class ProtoMechCreatorSummary extends React.Component<ISummaryPro
                                 <hr />
                                 <Link to={`${process.env.PUBLIC_URL}/classic-battletech/protomech-creator/record-sheet`} className="btn btn-primary pull-right btn-sm">View Record Sheet</Link>
                                 <Link to={`${process.env.PUBLIC_URL}/classic-battletech/protomech-creator/print-as`} className="btn btn-primary pull-right btn-sm">View Alpha Strike Card</Link>
-                                <Link to={`${process.env.PUBLIC_URL}/classic-battletech/protomech-creator/equipment`} className="btn btn-primary btn-sm"><ArrowCircleLeft /> Previous Step</Link>
+                                <Link to={`${process.env.PUBLIC_URL}/classic-battletech/protomech-creator/print-tro`} className="btn btn-primary pull-right btn-sm">Print the TRO sheet</Link>
+                                <Link to={`${process.env.PUBLIC_URL}/classic-battletech/protomech-creator/technical-readout`} className="btn btn-primary btn-sm"><ArrowCircleLeft /> Previous Step</Link>
                             </div>
                         </TextSection>
                     </div>

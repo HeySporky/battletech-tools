@@ -11,6 +11,9 @@ import { IRulesLevelOption } from "./data-interfaces";
 * excluded from the software's underlying license (GNU GPLv3).
 */
 
+/** The Standard rules level ("std"): tournament play, everything past the technology of 3025. */
+export const STANDARD_RULES_LEVEL = 2;
+
 /** The Advanced rules level ("adv"). */
 export const ADVANCED_RULES_LEVEL = 3;
 

@@ -2,6 +2,7 @@ import React, { type JSX } from 'react';
 import { IAppGlobals } from '../../../app-router';
 import PrintablePage from '../../../components/printable-page';
 import CapitalShipAlphaStrikeCard from '../../../components/capital-ship-as-card';
+import { unitRulesLevel } from '../../../components/game-settings-block';
 
 /** The converted Alpha Strike card of the vessel: a large aerospace card with four arcs (ASC pp.102-103). */
 export default class CapitalShipCreatorPrintAS extends React.Component<IPrintASProps> {
@@ -16,7 +17,7 @@ export default class CapitalShipCreatorPrintAS extends React.Component<IPrintASP
 
         return (
             <PrintablePage backTo={`${process.env.PUBLIC_URL}/classic-battletech/capital-ship-creator/summary`} appGlobals={this.props.appGlobals}
-                requiredRulesLevel={ship.getRequiredRulesLevel()}
+                requiredRulesLevel={ship.getRequiredRulesLevel()} rulesLevel={unitRulesLevel(ship, this.props.appGlobals.appSettings)}
             >
                 <div className="print-page">
                     <CapitalShipAlphaStrikeCard ship={ship} />

@@ -7,13 +7,18 @@ import {
     CUSTOM_MUL_KEY_PREFIX,
     emptyCustomMULForm,
     ICustomMULForm,
+    isDuplicateCustomMULEntry,
     mergeCustomMULEntries,
     mulIdentity,
     nextCustomMULId,
+    reconcileLocalCustomMUL,
     serializeCustomMULRecords,
     validateCustomMULForm,
 } from "./custom-mul";
 import bundledCustoms from "./mul/custom/custom-units.json";
+import { untabulate } from "../utils/packed-json";
+
+const readTable = (text: string) => untabulate(JSON.parse(text)) as IASMULUnit[];
 
 function validForm(overrides: Partial<ICustomMULForm> = {}): ICustomMULForm {
     return {
@@ -104,7 +109,7 @@ describe("custom MUL entries", () => {
         const a = { ...buildCustomMULRecord(validForm({ name: "Alpha" }), identity), MulSource: "custom" as const };
         expect(nextCustomMULId([a, b])).toBe(900008);
 
-        const parsed = JSON.parse(serializeCustomMULRecords([b, a]));
+        const parsed = readTable(serializeCustomMULRecords([b, a]));
         expect(parsed.map((record: IASMULUnit) => record.Name)).toEqual(["Alpha", "Beta"]);
         expect(parsed[0]).not.toHaveProperty("MulSource");
     });
@@ -120,7 +125,7 @@ describe("custom MUL entries", () => {
         };
         mine.CustomInfo = { ...mine.CustomInfo!, local: true, pullRequestUrl: "https://example.test/pr/1" };
 
-        const merged: IASMULUnit[] = JSON.parse(mergeCustomMULEntries(current, [mine]));
+        const merged: IASMULUnit[] = readTable(mergeCustomMULEntries(current, [mine]));
         expect(merged.map((record) => [record.Name, record.Id])).toEqual([["Mine", CUSTOM_MUL_ID_START + 2], ["Theirs", CUSTOM_MUL_ID_START + 1]]);
         expect(merged[0].CustomInfo).not.toHaveProperty("local");
         expect(merged[0].CustomInfo).not.toHaveProperty("pullRequestUrl");
@@ -128,16 +133,16 @@ describe("custom MUL entries", () => {
 
         // Re-submitting an edit replaces the entry in place and keeps its shared Id.
         const edited = buildCustomMULRecord(validForm({ name: "Mine", pointValue: "30" }), { ...identity, key: "CUSTOM-MINE000001" });
-        const remerged: IASMULUnit[] = JSON.parse(mergeCustomMULEntries(JSON.stringify(merged), [edited]));
+        const remerged: IASMULUnit[] = readTable(mergeCustomMULEntries(JSON.stringify(merged), [edited]));
         expect(remerged).toHaveLength(2);
         expect(remerged[0]).toMatchObject({ Name: "Mine", BFPointValue: 30, Id: CUSTOM_MUL_ID_START + 2 });
 
         // A missing file (first submission) starts a new list.
-        expect(JSON.parse(mergeCustomMULEntries(null, [edited]))).toHaveLength(1);
+        expect(readTable(mergeCustomMULEntries(null, [edited]))).toHaveLength(1);
     });
 
     it("keeps every bundled custom entry valid and unique", () => {
-        const records = bundledCustoms as unknown as IASMULUnit[];
+        const records = untabulate(bundledCustoms) as IASMULUnit[];
         for (const record of records) {
             expect(record.MulUnitKey?.startsWith(CUSTOM_MUL_KEY_PREFIX)).toBe(true);
             expect(record.Id).toBeGreaterThan(CUSTOM_MUL_ID_START);
@@ -147,5 +152,33 @@ describe("custom MUL entries", () => {
         }
         expect(new Set(records.map((record) => record.Id)).size).toBe(records.length);
         expect(new Set(records.map((record) => record.MulUnitKey)).size).toBe(records.length);
+    });
+
+    // #241: fan-made units are first checked for a duplicate overall, then for an Id clash.
+    it("leaves out a submitted entry that duplicates a shared unit under another key", () => {
+        const theirs = buildCustomMULRecord(validForm(), { ...identity, key: "CUSTOM-THEIRS0001" });
+        const same = buildCustomMULRecord(validForm({ author: "Someone Else" }), { ...identity, id: CUSTOM_MUL_ID_START + 7, key: "CUSTOM-SAME000001" });
+        const other = buildCustomMULRecord(validForm({ pointValue: "30" }), { ...identity, id: CUSTOM_MUL_ID_START + 8, key: "CUSTOM-OTHER00001" });
+        expect(isDuplicateCustomMULEntry(same, [theirs])).toBe(true);
+        expect(isDuplicateCustomMULEntry(other, [theirs])).toBe(false);
+        const merged = readTable(mergeCustomMULEntries(serializeCustomMULRecords([theirs]), [same]));
+        expect(merged.map((record) => record.MulUnitKey)).toEqual(["CUSTOM-THEIRS0001"]);
+    });
+
+    it("gives a local entry the next Id free in this browser when a shared unit has taken its Id, and hides a local duplicate", () => {
+        const shared = [buildCustomMULRecord(validForm({ name: "Theirs" }), { ...identity, key: "CUSTOM-THEIRS0001" })];
+        const clashing = buildCustomMULRecord(validForm({ name: "Mine" }), { ...identity, key: "CUSTOM-MINE000001" });
+        const fine = buildCustomMULRecord(validForm({ name: "Also Mine" }), { ...identity, id: CUSTOM_MUL_ID_START + 5, key: "CUSTOM-MINE000002" });
+        const duplicate = buildCustomMULRecord(validForm({ name: "Theirs" }), { ...identity, id: CUSTOM_MUL_ID_START + 6, key: "CUSTOM-MINE000003" });
+        const { records, shown, changed } = reconcileLocalCustomMUL([clashing, fine, duplicate], shared);
+        expect(changed).toBe(true);
+        expect(records.map((record) => [record.MulUnitKey, record.Id])).toEqual([
+            ["CUSTOM-MINE000001", CUSTOM_MUL_ID_START + 7],
+            ["CUSTOM-MINE000002", CUSTOM_MUL_ID_START + 5],
+            ["CUSTOM-MINE000003", CUSTOM_MUL_ID_START + 6],
+        ]);
+        expect(shown.map((record) => record.MulUnitKey)).toEqual(["CUSTOM-MINE000001", "CUSTOM-MINE000002"]);
+        // A local edit of a shared entry keeps its key and Id.
+        expect(reconcileLocalCustomMUL([{ ...shared[0], BFPointValue: 31 }], shared).changed).toBe(false);
     });
 });

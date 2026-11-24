@@ -33,6 +33,15 @@ describe("Battledroids tanks, jeeps and infantry", () => {
         expect(new BattledroidsUnit("hnt-3r-hunter").getWeaponLines()[0].range.min).toBe(6);
     });
 
+    // The Weapons Table (BD p.20): short-range missiles do 2 points for each missile that hits, long-range 1; the
+    // auto cannon 5 and the machine gun 2.
+    it("gives each weapon line the damage of the Weapons Table, per missile for launchers", () => {
+        const damage = (tag: string) => new BattledroidsUnit(tag).getWeaponLines().map(line => line.damage);
+        expect(damage("scr-8n-scorpion")).toEqual(["2/Msl", "2/Msl", "2/Msl"]);
+        expect(damage("hnt-3r-hunter")).toEqual(["1/Msl"]);
+        expect(damage("vde-3t-vedette")).toEqual(["5", "2"]);
+    });
+
     // Tank Hit Locations, BD p.22.
     it("locates hits on a tank by the table", () => {
         const column = (side: boolean) => [2, 3, 4, 5, 9, 10, 12].map(roll => getBattledroidsTankHitLocation(roll, side));
@@ -132,8 +141,32 @@ describe("Battledroids tanks, jeeps and infantry", () => {
             maxTargetMovementModifier: 3,
             secondaryTargetModifiers: false,
             criticalHitRoll: 7,
+            // No immobile-target modifier and no aimed shots (BD pp.8-11, 15).
+            immobileTargetModifier: 0,
         });
         expect(getEditionPlayRules("total-warfare")).toBeUndefined();
         expect(getEditionPlayRules(undefined)).toBeUndefined();
+    });
+});
+
+describe("E-War carrier (#642)", () => {
+    // Battledroids units are fixed printed designs; none of their weapons is E-War gear, so the list is empty.
+    it("lists no E-War gear", () => {
+        for (const design of battledroidsUnitDesigns) expect(new BattledroidsUnit(design.tag).getEWarGear()).toEqual([]);
+        expect(new BattledroidsUnit().getRulesEdition()).toBe("battledroids");
+    });
+
+    it("saves E-War state and loads old saves without it", () => {
+        const unit = new BattledroidsUnit("scr-8n-scorpion");
+        expect(unit.export().ewarPlay).toBeUndefined();
+        unit.ewarPlay.inHostileEcm = true;
+        const saved = JSON.parse(JSON.stringify(unit.export()));
+        expect(saved.ewarPlay).toEqual({ inHostileEcm: true });
+        expect(unit.export(true).ewarPlay).toBeUndefined();
+        expect(new BattledroidsUnit(JSON.stringify(saved)).ewarPlay).toEqual({ inHostileEcm: true });
+        delete saved.ewarPlay;
+        expect(new BattledroidsUnit(JSON.stringify(saved)).ewarPlay).toEqual({});
+        unit.resetInPlay();
+        expect(unit.ewarPlay).toEqual({});
     });
 });

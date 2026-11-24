@@ -185,6 +185,11 @@ export const getAdvancedAerospaceMaxBayDoors = (type: AdvancedAerospaceType, ton
  * McKenna). A JumpShip or WarShip carries up to 100,000 tons on each collar (SO:AA p.142).
  */
 export const DOCKING_COLLAR_TONS = 1000;
+/** Energy storage batteries, space stations only: 100,000 tons and 1,000,000 C-bills each (TO:AUE pp.188, 221; SO:AA p.153). */
+export const ENERGY_STORAGE_BATTERY_TONS = 100000;
+export const ENERGY_STORAGE_BATTERY_COST = 1000000;
+/** Ours (NGCFells, 2026-11-22, #152): expanded fire control costs this much a ton at Custom Homebrew and Munchkin; the books price none. */
+export const FIRE_CONTROL_PRICE_PER_TON = 10000;
 export const DOCKING_COLLAR_MAX_CARRIED_TONS = 100000;
 export const getMaxDockingCollars = (tonnage: number): number => tonnage < 50000 ? 0 : Math.ceil(tonnage / 50000 - 1e-9);
 
@@ -293,3 +298,64 @@ export const ADVANCED_AEROSPACE_BV_ARMOR_FACTOR = 25;
 export const ADVANCED_AEROSPACE_BV_SI_FACTOR = 20;
 export const getAdvancedAerospaceBVMaxThrust = (type: AdvancedAerospaceType, safeThrust: number): number =>
     type === "warShip" ? getAdvancedAerospaceMaxThrust(type, safeThrust) : type === "jumpShip" ? 1 : 0;
+
+// ---- SDS (Caspar) drone control (IO:AE pp.134, 140-141; the Terran Hegemony Space Defense System drones, #150) -------------
+
+export type SdsLevel = "none" | "standard" | "improved";
+export type SdsCraftKind = "smallCraft" | "dropShip" | "spaceStation" | "warShip";
+
+/** The SDS Drone Control System Equipment Table (IO:AE p.134): base skills, the percentage of the vessel on top of its controls, the extra percentage for the next skill step. */
+export const SDS_DCS_TABLE: Record<SdsCraftKind, { name: string; gunnery: number; piloting: number; percent: number; improvedPercent: number; improvedGunnery: number; improvedPiloting: number }> = {
+    smallCraft: { name: "Small Craft", gunnery: 5, piloting: 6, percent: 5, improvedPercent: 2, improvedGunnery: 4, improvedPiloting: 5 },
+    dropShip: { name: "DropShip", gunnery: 5, piloting: 6, percent: 4, improvedPercent: 4, improvedGunnery: 4, improvedPiloting: 5 },
+    spaceStation: { name: "Space Station", gunnery: 4, piloting: 5, percent: 8, improvedPercent: 4, improvedGunnery: 3, improvedPiloting: 4 },
+    warShip: { name: "WarShip", gunnery: 4, piloting: 5, percent: 6, improvedPercent: 4, improvedGunnery: 3, improvedPiloting: 4 },
+};
+/** An SDS WarShip may weigh 800,000 tons at most (IO:AE p.134, table note). */
+export const SDS_MAX_WARSHIP_TONS = 800000;
+export const SDS_WARSHIP_LIMIT_MESSAGE = "An SDS (Caspar) WarShip may be 800,000 tons at most (IO:AE p.134).";
+/** The self-destruct takes 10 percent of the drone, to at most 10,000 tons (IO:AE p.141); the SLDF Jammer weighs 30,000 tons (p.140). */
+export const SDS_SELF_DESTRUCT_MAX_TONS = 10000;
+export const SDS_JAMMER_TONS = 30000;
+/** Experimental (IO:AE pp.134, 140, 141). */
+export const SDS_RULES_LEVEL = 4;
+/**
+ * Prices (IO:AE p.215, Additional Alternate Era Weapons and Equipment, read from the page image): the SDS (Caspar) Drone
+ * Control System 500,000 + (50,000 x IT), the SDS Self-Destruct System 1,000,000, the SDS Jammer System 800M. The IO:AE cost
+ * rules say the Caspar price replaces the normal cockpit/crew systems (here the Bridge line; sensors and life support stay)
+ * and that IT includes the unit's default controls with the Caspar share added to them.
+ */
+export const SDS_SELF_DESTRUCT_COST = 1000000;
+export const SDS_JAMMER_COST = 800000000;
+export const getSdsControlCost = (controlsTons: number, sdsTons: number): number => 500000 + 50000 * (controlsTons + sdsTons);
+
+/** The control system on top of the standard controls: a percentage of the vessel, rounded up by the caller (IO:AE p.134). */
+export const getSdsControlPercent = (kind: SdsCraftKind, level: SdsLevel): number => {
+    if (level === "none") return 0;
+    const row = SDS_DCS_TABLE[kind];
+    return row.percent + (level === "improved" ? row.improvedPercent : 0);
+};
+export const getSdsSkills = (kind: SdsCraftKind, level: SdsLevel): { gunnery: number; piloting: number } => {
+    const row = SDS_DCS_TABLE[kind];
+    return level === "improved" ? { gunnery: row.improvedGunnery, piloting: row.improvedPiloting } : { gunnery: row.gunnery, piloting: row.piloting };
+};
+/** Weight with whole-percent arithmetic, so 10 percent of 420,000 tons is 42,000 and not 42,000.000000000007. */
+export const getSdsControlWeight = (kind: SdsCraftKind, tonnage: number, level: SdsLevel, roundUp: (tons: number) => number): number =>
+    roundUp(tonnage * getSdsControlPercent(kind, level) / 100 - 1e-9);
+/** Steerage quarters for half the minimum crew of the human-operated equivalent, rounded up (IO:AE p.134). */
+export const getSdsSupportQuarters = (minimumCrew: number): number => Math.ceil(Math.max(0, minimumCrew) / 2);
+export const getSdsSelfDestructWeight = (tonnage: number): number => Math.min(SDS_SELF_DESTRUCT_MAX_TONS, Math.ceil(tonnage / 10 - 1e-9));
+/** A ram that triggers the self-destruct adds Safe Thrust x tonnage to the rammed unit Structural Integrity, to 500 points (IO:AE p.141). */
+export const getSdsRamDamage = (safeThrust: number, tonnage: number): number => Math.min(500, Math.max(0, safeThrust * tonnage));
+/** Rules text a sheet or the creator shows beside an SDS drone. */
+export const SDS_DRONE_NOTES: string[] = [
+    "Operates by the standard rules for its unit type, as a human-operated unit; it does not use the Robotic Independent Command rules (IO:AE p.134).",
+    "A functional SDS drone can never jump while its AI is active: an SDS WarShip still carries a K-F drive, and its crew must first receive a deactivation command from a friendly human-controlled ATAC unit, then a prepare-for-boarding command, and board it to engage the drive by hand (IO:AE p.134).",
+    "Any time an SDS drone is not shut down before a jump, 2D6 on arrival against 12: failing by 8 or more it self-destructs, by 7 or less it goes rogue (IO:AE p.134).",
+    "Its ECM zone is 1 hex larger than normal: 3 hexes for a WarShip, 2 for a DropShip, adjacent hexes for a Small Craft (IO:AE p.134).",
+];
+export const SDS_SELF_DESTRUCT_NOTES: string[] = [
+    "Operates as the booby trap (TO:AUE p.109), located in the engine section and taking no critical slot; a ram that connects sets it off for Safe Thrust x tonnage extra Structural Integrity damage to the rammed unit, to 500 (IO:AE p.141).",
+    "A critical hit to the aft section of a unit with it: on 12 or higher on another 2D6 it goes off, destroying the engine and damaging its own ship.",
+    "A drone also sets it off when every engine critical is destroyed, at 98 percent or more Structural Integrity lost (rounded up), on losing control in a boarding action, or on a Destruct command from a friendly human-operated ATAC unit.",
+];

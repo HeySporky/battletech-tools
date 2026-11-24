@@ -1,6 +1,7 @@
 import React, { type JSX } from 'react';
 import BattleArmor, { BATTLE_ARMOR_LOCATION_NAMES } from '../../../../classes/battle-armor';
 import TextSection from '../../../components/text-section';
+import { formatBattleValue } from '../../../../data/battle-value';
 
 /** The running totals every step of the Battle Armor Creator shows: weight, slots by location, and what is not legal yet. */
 export default class BattleArmorStatusBar extends React.Component<IBattleArmorStatusBarProps> {
@@ -16,7 +17,7 @@ export default class BattleArmorStatusBar extends React.Component<IBattleArmorSt
                     <strong>Slots free</strong>: {suit.getLocations().map((location) => `${BATTLE_ARMOR_LOCATION_NAMES[location]} ${suit.getFreeSlots(location)}/${suit.getSlots(location)}`).join(", ")}
                     {suit.getArmorSlots() > 0 ? `, less ${suit.getArmorSlots()} for armor` : ""} &nbsp;|&nbsp;
                     <strong>Movement</strong>: {suit.getMovementText()} &nbsp;|&nbsp;
-                    <strong>BV</strong>: {suit.getBattleValue()}
+                    <strong>BV</strong>: {formatBattleValue((edition) => suit.getBattleValue(edition), "battle-armor", suit.getRulesEdition())}
                     {issues.length > 0 ? (
                         <ul className="color-red" data-testid="ba-issues">
                             {issues.map((issue, index) => <li key={index}>{issue}</li>)}

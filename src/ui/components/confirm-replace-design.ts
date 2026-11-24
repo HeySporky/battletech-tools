@@ -13,6 +13,7 @@ const withoutIds = (value: unknown): unknown => {
     }
     return value;
 };
+const withoutSettings = (save: object): object => ({ ...save, rulesLevel: undefined, rulesets: undefined });
 const same = (a: unknown, b: unknown): boolean => JSON.stringify(withoutIds(a)) === JSON.stringify(withoutIds(b));
 
 interface IDesign {
@@ -31,8 +32,9 @@ export function designWouldBeLost(current: IDesign | null | undefined, makeBlank
     }
     const blank = makeBlank();
     blank.setRulesEdition(current.getRulesEdition());
-    const design = JSON.parse(current.exportJSON());
-    return !same(design, JSON.parse(blank.exportJSON())) && !saves.some(save => same(design, JSON.parse(JSON.stringify(save))));
+    // The design's game settings (#324) are not work that a replace would lose.
+    const design = withoutSettings(JSON.parse(current.exportJSON()));
+    return !same(design, JSON.parse(blank.exportJSON())) && !saves.some(save => same(design, withoutSettings(JSON.parse(JSON.stringify(save)))));
 }
 
 interface IReplaceDialogHost {

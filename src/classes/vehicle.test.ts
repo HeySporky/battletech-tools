@@ -1,7 +1,7 @@
 import { describe, expect, it } from "vitest";
-import { mechUniversalEquipment } from "../data/mech-universal-equipment";
 import Vehicle, { formatVehicleASDamage } from "./vehicle";
 import { getVehicleTonnageBounds } from "../data/vehicle-motive-types";
+import { universalEquipment } from "../data/universal-equipment";
 
 describe("Vehicle tonnage bounds by motive type and rules level", () => {
     it("caps Tracked vehicles at 100 tons under standard rules and 200 under Advanced+", () => {
@@ -145,6 +145,30 @@ describe("Vehicle Internal Structure Table and armor caps", () => {
 });
 
 describe("Vehicle Alpha Strike stats", () => {
+    // A Beagle gives RCN and so does communications equipment of a twentieth of the weight: listed once (#642 Phase 5).
+    it("lists RCN once when a probe and communications equipment both give it", () => {
+        const vehicle = new Vehicle();
+        vehicle.setTonnage(20);
+        vehicle.addEquipmentFromTag("beagle-active-probe");
+        vehicle.addEquipmentFromTag("communications-equipment");
+        const specials = vehicle.getAlphaStrikeStats().specialAbilities;
+        expect(specials.filter((code) => code === "RCN")).toHaveLength(1);
+        expect(specials.filter((code) => code === "PRB")).toHaveLength(1);
+    });
+
+    // Our Chaff Pod conversion (TO:AUE p.111, no published one), summed per pod, only on a Custom Homebrew or Munchkin
+    // design (#642; canon 0-4 and Apocryphal 5 get the canon card). A vehicle's level is the one its parts require.
+    it("gives a canon design the inferred CHF for its Chaff Pods (#647), and sums them once a custom part makes it Custom Homebrew", () => {
+        const vehicle = new Vehicle();
+        vehicle.setTonnage(50);
+        vehicle.addEquipmentFromTag("chaff-pod");
+        vehicle.addEquipmentFromTag("chaff-pod");
+        const chaff = () => vehicle.getAlphaStrikeStats().specialAbilities.filter((code) => code.startsWith("CHF"));
+        expect(chaff()).toEqual(["CHF2"]);
+        vehicle.addEquipmentFromTag("custom-chaff-pod-2");
+        expect(chaff()).toEqual(["CHF6"]);
+    });
+
     it("bands Size by tonnage", () => {
         const vehicle = new Vehicle();
         vehicle.setTonnage(35);
@@ -247,6 +271,12 @@ describe("Vehicle motive types", () => {
         expect(build("hydrofoil", 25).getSuspensionFactor()).toBe(150);
         expect(build("naval-surface", 100).getSuspensionFactor()).toBe(30);
         expect(build("naval-sub", 100).getSuspensionFactor()).toBe(30);
+        // Super-Heavy naval: tonnage / 10, rounded up to the nearest 5 (TO:AUE p.190).
+        expect(build("naval-surface", 301).getSuspensionFactor()).toBe(35);
+        expect(build("naval-surface", 310).getSuspensionFactor()).toBe(35);
+        expect(build("naval-sub", 320).getSuspensionFactor()).toBe(35);
+        expect(build("naval-sub", 351).getSuspensionFactor()).toBe(40);
+        expect(build("naval-surface", 555).getSuspensionFactor()).toBe(60);
 
         const hover = build("hover", 20);
         hover.setCruiseMP(10);
@@ -259,7 +289,9 @@ describe("Vehicle motive types", () => {
         expect(vtol.getEngineRating()).toBe(10);
         expect(build("tracked", 50).getMaxCruiseMP(2)).toBe(8);
         expect(build("hover", 50).getMaxCruiseMP(2)).toBe(Math.floor((400 + 235) / 50));
-        expect(build("tracked", 50).getMaxCruiseMP(4)).toBe(10);
+        const lateTank = build("tracked", 50);
+        lateTank.setEra("jihad");
+        expect(lateTank.getMaxCruiseMP(4)).toBe(10);
     });
 
     it("adds 5% control systems to every vehicle and 10% lift or dive equipment where needed", () => {
@@ -396,6 +428,30 @@ describe("Vehicle construction details", () => {
         expect(tank.getWeights().some((entry) => entry.name === "Power Amplifiers")).toBe(true);
     });
 
+    it("needs no power amplifiers for heavy flamers, which are fed by ammunition: Sokar Urban Combat Unit (TRO: Prototypes p.73)", () => {
+        // The Sokar's printed weight table has no Power Amplifier line for its two heavy flamers on a 180 ICE.
+        const tank = build("wheeled", 50);
+        tank.setEngineType("ice");
+        place(tank, "heavy-flamer", "front");
+        place(tank, "heavy-flamer", "front");
+        expect(tank.getPowerAmplifierWeight()).toBe(0);
+        place(tank, "large-laser", "front");
+        expect(tank.getPowerAmplifierWeight()).toBe(0.5);
+    });
+
+    it("takes 1 heat off each insulated laser when counting heat sinks (TO:AUE p.134): Pandion Combat WiGE (3140 Upgrade)", () => {
+        // RS: TRO 3150's Pandion (3140 Upgrade) has two medium re-engineered lasers and two laser insulators in the turret
+        // and weighs 20 tons with no heat sink tonnage: 2 x (6 - 1) = 10, all covered by the engine's free heat sinks.
+        const tank = build("tracked", 20);
+        place(tank, "medium-re-engineered-laser", "turret");
+        place(tank, "medium-re-engineered-laser", "turret");
+        expect(tank.getRequiredHeatSinks()).toBe(12);
+        place(tank, "laser-insulator", "turret");
+        place(tank, "laser-insulator", "turret");
+        expect(tank.getRequiredHeatSinks()).toBe(10);
+        expect(tank.getWeightedHeatSinks()).toBe(0);
+    });
+
     it("offers dual turrets except on VTOL and WiGE vehicles, weighing each turret separately", () => {
         const tank = build("tracked", 60);
         tank.setDualTurret(true);
@@ -420,8 +476,24 @@ describe("Vehicle construction details", () => {
         tank.setTonnage(100);
         expect(laser.location).toBe("");
         expect(tank.getArmorAllocation().rearRight).toBe(0);
-        // Super-Heavy VTOLs have the six facings too, plus the rotor (Tactical Operations p. 378).
-        expect(build("vtol", 50).getLocations().some((loc) => loc.tag === "frontLeft")).toBe(true);
+    });
+
+    // TO:AUE p.190: "All Super-Heavy Combat Vehicles apart from VTOLs use the Super-Heavy Vehicle Hit Locations Table,
+    // and must apply armor and structure to 6 facings"; every super-heavy gets tonnage / 10 structure a location, and a
+    // non-naval one's structure weighs 20 percent. (Tactical Operations 2008 and 2012, p.378, gave VTOLs the six too.)
+    it("keeps a Super-Heavy VTOL's four facings and rotor, at tonnage / 10 structure a location and 20 percent structure weight", () => {
+        const vtol = build("vtol", 55);
+        expect(vtol.isSuperheavy()).toBe(true);
+        expect(vtol.getLocations().map((loc) => loc.tag)).toEqual(["front", "left", "right", "rear", "rotor"]);
+        expect(vtol.hasSplitSides()).toBe(false);
+        const structure = vtol.getStructureAllocation();
+        for (const location of ["front", "left", "right", "rear", "rotor"] as const) expect(structure[location], location).toBe(6);
+        expect(vtol.getStructureWeight()).toBe(11);
+        // In play a side hit strikes the side, as on any VTOL (TW p.197).
+        expect(vtol.resolveHitArea("side", "left")).toBe("left");
+        vtol.setHasTurret(true);
+        expect(vtol.getLocations().map((loc) => loc.tag)).toEqual(["front", "left", "right", "rear", "rotor", "turret"]);
+        expect(vtol.getStructureAllocation().turret).toBe(6);
     });
 
     it("mounts vehicular jump jets on hover, wheeled, tracked and WiGE only, up to Cruise MP (Advanced)", () => {
@@ -444,11 +516,19 @@ describe("Vehicle construction details", () => {
         const tank = build("tracked", 50);
         expect(tank.getTotalItemSlots()).toBe(15);
         place(tank, "autocannon-standard-b", "front");
-        tank.addEquipmentFromTag("ammo-is-ac-5-standard");
-        tank.addEquipmentFromTag("ammo-is-ac-5-standard");
+        tank.addEquipmentFromTag("ammo-ac-5-standard");
+        tank.addEquipmentFromTag("ammo-ac-5-standard");
         expect(tank.getUsedItemSlots()).toBe(2);
         tank.setEngineType("xl");
         expect(tank.getUsedItemSlots()).toBe(4);
+    });
+
+    it("caps an Artemis launcher's rounds at the launcher's unmodified value (TM p.307)", () => {
+        const tank = build("tracked", 100);
+        place(tank, "lrm-20-artemis-iv", "front");
+        for (let ton = 0; ton < 8; ton++) tank.addEquipmentFromTag("ammo-is-lrm-artemis-iv");
+        // 8 tons at 23 is 184: over the LRM-20's 181, under the 217.2 it counts with Artemis IV.
+        expect(tank.getBattleValueLog()).toContain("Ammunition for lrm-20-artemis-iv: 184, capped at the weapon BV = 181");
     });
 
     it("loads a Cruise Missile one 25-ton missile at a time (TO:AUE pp.97, 216)", () => {
@@ -491,17 +571,17 @@ describe("Vehicles against the Master Unit List", () => {
         eq: [string, string, number?][] };
     const specs: Spec[] = [
         { name: "Scorpion", card: '8"t TMM1 SZ1 A2 S2 1/1/1 PV11 EE,SRCH,TUR(1/1/1)', mul: 306, motive: "tracked", tons: 25, cruise: 4, engine: "ice", armor: [16, 11, 11, 10, 16], turret: true,
-            eq: [["machine-gun", "turret"], ["autocannon-standard-b", "turret"], ["ammo-machine-gun-standard", "", 0.5], ["ammo-is-ac-5-standard", ""]] },
+            eq: [["machine-gun", "turret"], ["autocannon-standard-b", "turret"], ["ammo-machine-gun-standard", "", 0.5], ["ammo-ac-5-standard", ""]] },
         { name: "Vedette", card: '10"t TMM2 SZ2 A3 S3 1/1/1 PV16 EE,SRCH,TUR(0*/1/1)', mul: 475, motive: "tracked", tons: 50, cruise: 5, engine: "ice", armor: [20, 18, 18, 20, 20], turret: true,
-            eq: [["machine-gun", "front"], ["autocannon-standard-b", "turret"], ["ammo-machine-gun-standard", ""], ["ammo-is-ac-5-standard", ""]] },
+            eq: [["machine-gun", "front"], ["autocannon-standard-b", "turret"], ["ammo-machine-gun-standard", ""], ["ammo-ac-5-standard", ""]] },
         { name: "Pegasus", card: '16"h TMM3 SZ1 A3 S2 2/2/0 PV25 EE,SRCH,SRM1/1,TUR(2/2/-,SRM1/1)', mul: 640, motive: "hover", tons: 35, cruise: 8, engine: "ice", armor: [26, 19, 19, 19, 21], turret: true,
             eq: [["medium-laser", "front"], ["srm-6", "turret"], ["srm-6", "turret"], ["ammo-srm-standard", ""]] },
         { name: "J. Edgar", card: '22"h TMM4 SZ1 A3 S2 1/1/0 PV23 SRCH,TUR(1/1/-)', mul: 544, motive: "hover", tons: 25, cruise: 11, engine: "standard", armor: [30, 19, 19, 12, 24], turret: true,
             eq: [["medium-laser", "turret"], ["srm-2", "turret"], ["srm-2", "turret"], ["ammo-srm-standard", ""]] },
         { name: "Condor", card: '16"h TMM3 SZ2 A3 S3 2/2/1 PV27 EE,SRCH,TUR(2/2/1)', mul: 653, motive: "hover", tons: 50, cruise: 8, engine: "ice", armor: [30, 15, 15, 14, 22], turret: true,
-            eq: [["machine-gun", "front"], ["autocannon-standard-b", "turret"], ["medium-laser", "turret"], ["medium-laser", "turret"], ["ammo-is-ac-5-standard", ""], ["ammo-machine-gun-standard", "", 0.5]] },
+            eq: [["machine-gun", "front"], ["autocannon-standard-b", "turret"], ["medium-laser", "turret"], ["medium-laser", "turret"], ["ammo-ac-5-standard", ""], ["ammo-machine-gun-standard", "", 0.5]] },
         { name: "Warrior H-7", card: '18"v TMM3 SZ1 A1 S2 1/1/0* PV15 ATMO,EE,SRCH', mul: 295, motive: "vtol", tons: 21, cruise: 9, engine: "ice", armor: [6, 5, 5, 6, 2], turret: false,
-            eq: [["srm-4", "front"], ["autocannon-standard-a", "front"], ["ammo-srm-standard", ""], ["ammo-is-ac-2-standard", ""]] },
+            eq: [["srm-4", "front"], ["autocannon-standard-a", "front"], ["ammo-srm-standard", ""], ["ammo-ac-2-standard", ""]] },
         { name: "Sea Skimmer", card: '24"n TMM4 SZ1 A1 S2 1/1/0 PV17 EE,SRCH,TUR(1/1/-)', mul: 288, motive: "hydrofoil", tons: 25, cruise: 12, engine: "ice", armor: [9, 7, 7, 4, 5], turret: true,
             eq: [["machine-gun", "right"], ["machine-gun", "left"], ["machine-gun", "rear"], ["srm-4", "turret"], ["ammo-machine-gun-standard", "", 0.5], ["ammo-srm-standard", ""]] },
         { name: "Heavy Wheeled APC (MG)", troopSpace: 3, card: '12"w TMM2 SZ1 A2 S1 1/0/0 PV8 EE,IT3,REAR0*/-/-,SRCH', mul: 213, motive: "wheeled", tons: 20, cruise: 6, engine: "ice", armor: [20, 13, 13, 10, 0], turret: false,
@@ -529,6 +609,101 @@ describe("Vehicles against the Master Unit List", () => {
             vehicle.setTonnage(spec.tons);
             return vehicle;
     };
+
+    describe("BV1 (BMR(R) pp.154-155; Maximum Tech pp.90-92)", () => {
+        const edition = "master-rules-revised";
+        const skulker: Spec = { name: "Skulker", card: "", mul: 0, motive: "wheeled", tons: 20, cruise: 7, engine: "ice", armor: [18, 18, 18, 18, 0], turret: false, eq: [["medium-laser", "front"]] };
+        const add = (vehicle: Vehicle, tag: string, location: string = "front"): void => {
+            vehicle.addEquipmentFromTag(tag);
+            const item = vehicle.getEquipmentList()[vehicle.getEquipmentList().length - 1];
+            if (location) vehicle.setEquipmentLocation(item.uuid!, location);
+        };
+
+        // Maximum Tech's vehicle table, pp.96-100.
+        it.each([["Scorpion", 163], ["Vedette", 229], ["J. Edgar", 328]])("%s: the printed BV %i", (name, printed) => {
+            expect(build(specs.find((spec) => spec.name === name)!).getBattleValue(edition)).toBe(printed);
+        });
+
+        it("reads a wheeled vehicle's modifier and both BV1 editions alike (Skulker 155)", () => {
+            const vehicle = build(skulker);
+            expect([vehicle.getBattleValue("master-rules"), vehicle.getBattleValue(edition)]).toEqual([155, 155]);
+        });
+
+        it("keeps BV2 under a BV2 edition and logs BV1 first under a BV1 one", () => {
+            const vehicle = build(skulker);
+            expect(vehicle.getBattleValue("total-warfare")).not.toBe(155);
+            expect(vehicle.getBattleValueLog("total-warfare")).not.toContain("BV1");
+            const log = vehicle.getBattleValueLog(edition);
+            expect(log.indexOf("<strong>Battle Value: ")).toBeGreaterThan(-1);
+            expect(log.indexOf("<strong>BV2 (current rules), for comparison")).toBeGreaterThan(log.indexOf("<strong>Battle Value: "));
+        });
+
+        it("counts a VTOL's Flank MP twice in the Speed Factor (Sprint Laser Variant 352)", () => {
+            const sprint: Spec = { ...skulker, motive: "vtol", tons: 10, cruise: 13, armor: [6, 3, 3, 3, 2], eq: [["medium-laser", "front"], ["beagle-active-probe", "front"]] };
+            const vehicle = build(sprint);
+            expect(vehicle.getBattleValueLog(edition)).toContain("Speed Factor: MP 40 =");
+            expect(vehicle.getBattleValue("master-rules")).toBe(352);
+            expect(vehicle.getBattleValue(edition)).toBe(352);
+        });
+
+        it("halves the front arc, not the sides, when the rear outweighs the rest (BMR(R) p.155)", () => {
+            const vehicle = build({ ...skulker, eq: [["medium-laser", "front"], ["medium-laser", "right"], ["medium-laser", "rear"], ["medium-laser", "rear"], ["medium-laser", "rear"]] });
+            expect(vehicle.getBattleValueLog(edition)).toContain("weapons 207 +");
+        });
+
+        it("takes a targeting computer's 20% from the weapons it links", () => {
+            const vehicle = build(skulker);
+            add(vehicle, "targeting-computer", "body");
+            expect(vehicle.getBattleValueLog(edition)).toContain("targeting computer 9.2 +");
+        });
+
+        // Worked by hand from BMR(R) pp.154-155 (BMR pp.141-142): a 20 ton tracked tank, cruise 5 (Flank 8, TMM +3),
+        // armor 10 x 5 and structure 2 x 5, a medium laser (46) in the front, rear and turret. Defensive (50 + 10 / 2) x 0.8
+        // x 1.3 = 57.2. Offensive: 46 + 46 / 2 (rear) + 46 (a turret is in no arc) = 115 x 1.37 (Speed Factor, MP 8) = 157.55.
+        it.each(["master-rules", "master-rules-revised"])("works a tracked tank with a rear weapon and a turret by hand under %s (215)", (under) => {
+            const tank = build({ ...skulker, motive: "tracked", cruise: 5, armor: [10, 10, 10, 10, 10], turret: true, eq: [["medium-laser", "front"], ["medium-laser", "rear"], ["medium-laser", "turret"]] });
+            const breakdown = tank.getBattleValueBreakdown(under);
+            expect(breakdown.scheme).toBe("bv1");
+            expect(breakdown.result).toBe(215);
+            expect(tank.getBattleValue(under)).toBe(215);
+            const value = (id: string) => breakdown.steps.find((entry) => entry.id === id)?.value;
+            expect(value("cv.bv1.def.rating")).toBeCloseTo(57.2, 5);
+            expect(value("cv.bv1.off.base")).toBe(115);
+            expect(value("cv.bv1.off.rating")).toBeCloseTo(157.55, 5);
+            expect(breakdown.steps.filter((entry) => entry.id === "cv.bv1.off.weapon.rear")).toHaveLength(1);
+            expect(breakdown.steps.every((entry) => entry.cites.length > 0)).toBe(true);
+        });
+
+        it("rates Level 3 vehicle equipment under the editions with Maximum Tech's rules (p.92)", () => {
+            const rated = (tag: string) => {
+                const vehicle = build(skulker);
+                add(vehicle, tag);
+                return vehicle.getBattleValue(edition);
+            };
+            expect(rated("bulldozer")).toBe(165); // 155.44 + 10 x 0.7 x 1.4
+            expect(rated("bridge-layer-heavy")).toBe(175); // + 20 after the modifiers
+            expect(rated("minesweeper")).toBe(185); // + 30 base Defensive Battle Rating x 0.7 x 1.4 (Maximum Tech p.92)
+            const amphibious = build(skulker);
+            amphibious.setChassisModification("fully-amphibious", true, 3);
+            expect(amphibious.getChassisModifications().length).toBe(1);
+            expect([amphibious.getBattleValue(edition), amphibious.getBattleValue("master-rules")]).toEqual([166, 166]); // type modifier 0.8 at Level 3, in both printings of Maximum Tech
+        });
+
+        it("adds 1 to the Speed Factor MP for a supercharger (Maximum Tech p.91)", () => {
+            const vehicle = build(skulker);
+            add(vehicle, "supercharger", "body");
+            expect(vehicle.getBattleValueLog(edition)).toContain("Speed Factor: MP 12 =");
+        });
+
+        it("rates semi-guided LRM ammo x 6 only beside TAG, as a 'Mech's (Maximum Tech p.91)", () => {
+            const vehicle = build({ ...skulker, eq: [["lrm-5", "front"]] });
+            expect(vehicle.getBattleValueTagShare(edition).semiGuided).toBeUndefined();
+            add(vehicle, "ammo-is-lrm-semi-guided", "");
+            const gain = vehicle.getBattleValueTagShare(edition).semiGuided ?? 0;
+            expect(Math.abs(gain - 6 * 5 * 1.76)).toBeLessThanOrEqual(1);
+            expect(vehicle.getBattleValueTagShare("total-warfare").semiGuided).toBeUndefined();
+        });
+    });
 
     it("builds a printable Alpha Strike unit from the conversion (Scorpion)", () => {
         const unit = build(specs[0]).getAlphaStrikeUnit();
@@ -576,30 +751,82 @@ describe("Vehicle era availability", () => {
             vehicle(tech, era).getAvailableArmorTypes().find((armor) => armor.tag === "ferro-fibrous");
         expect(ferro("is", "late-sw-lt")?.available).toBe(false);
         expect(ferro("clan", "clan-golden-years")?.available).toBe(true);
-        // Star League Ferro-Fibrous carries over to Clan designs until Clan production, at the IS armor factor.
-        expect(ferro("clan", "star-league")?.available).toBe(true);
+        // Clan designs start in the Founding Years (user ruling 2026-10-21), with Clan Ferro-Fibrous in production.
+        expect(ferro("clan", "clan-founding-years")?.available).toBe(true);
     });
 
     it("uses the Clan dates for Clan engines", () => {
         const engine = (tech: string, era: string, tag: string) =>
             vehicle(tech, era).getAvailableEngineTypes().find((option) => option.tag === tag);
         expect(engine("clan", "clan-golden-years", "clan_xl")?.available).toBe(true);
-        expect(engine("clan", "star-league", "clan_xl")?.available).toBe(false);
         expect(engine("is", "clan-inv", "clan_xl")).toBeUndefined();
         expect(engine("clan", "clan-inv", "xl")?.available).toBe(false);
     });
 });
 
-describe("Vehicle Clan Star League carry-over", () => {
-    it("rates Ferro-Fibrous at the IS factor until Clan production (2825)", () => {
-        const pointsPerTon = (era: string) => {
-            const created = new Vehicle();
-            created.setTech("clan");
-            created.setEra(era);
-            created.setArmorType("ferro-fibrous");
-            return created.getArmorPointsPerTon();
-        };
-        expect(pointsPerTon("star-league")).toBeLessThan(pointsPerTon("clan-golden-years"));
+// Clan designs start in the Clan Founding Years (user ruling 2026-10-21), where Clan Ferro-Fibrous is in production.
+describe("Vehicle Clan tech from the first Clan era", () => {
+    it("cannot build a Clan design in the Star League era, and rates Ferro-Fibrous at the Clan factor", () => {
+        const created = new Vehicle();
+        created.setTech("clan");
+        created.setEra("star-league");
+        expect(created.getEra().tag).toBe("clan-founding-years");
+        created.setArmorType("ferro-fibrous");
+        const inner = new Vehicle();
+        inner.setTech("is");
+        inner.setEra("star-league");
+        inner.setArmorType("ferro-fibrous");
+        expect(created.getArmorPointsPerTon()).toBeGreaterThan(inner.getArmorPointsPerTon());
+    });
+});
+
+// The Clans fielded Star League Ferro-Fibrous until Clan Ferro-Fibrous was in production (2825). Clan Founding
+// Years (2800-2840) holds both windows, so a Clan vehicle there may take either version (#168).
+describe("Vehicle Star League armor on a Clan design", () => {
+    const ferroVehicle = (tech: string, era: string) => {
+        const created = new Vehicle();
+        created.setTech(tech);
+        created.setEra(era);
+        created.setArmorType("ferro-fibrous");
+        return created;
+    };
+
+    it("offers the Star League version beside the Clan one while the era holds both", () => {
+        const created = ferroVehicle("clan", "clan-founding-years");
+        expect(created.getComponentTechBases("armor")).toEqual(["clan", "is"]);
+        expect([created.getArmorTechBase(), created.getArmorItemSlots()]).toEqual(["clan", 1]);
+        expect(created.setArmorTechBase("is")).toBe("is");
+        expect(created.getArmorItemSlots()).toBe(2);
+        expect(created.getArmorPointsPerTon()).toBeCloseTo(16 * 1.12, 6);
+    });
+
+    it("keeps the Star League choice through a save and load", () => {
+        const created = ferroVehicle("clan", "clan-founding-years");
+        created.setArmorTechBase("is");
+        expect(created.export().armorTechBase).toBe("is");
+        expect(new Vehicle(created.exportJSON()).getArmorTechBase()).toBe("is");
+    });
+
+    it("drops the Star League version once the Clan one is the only one in the era", () => {
+        const created = ferroVehicle("clan", "clan-golden-years");
+        expect(created.getComponentTechBases("armor")).toEqual(["clan"]);
+        expect(created.setArmorTechBase("is")).toBe("clan");
+        const earlier = ferroVehicle("clan", "clan-founding-years");
+        earlier.setArmorTechBase("is");
+        earlier.setEra("clan-golden-years");
+        expect(earlier.getArmorTechBase()).toBe("clan");
+        expect(earlier.export().armorTechBase).toBeUndefined();
+    });
+
+    it("leaves an Inner Sphere vehicle one version, a Mixed Tech vehicle both, and standard armor none", () => {
+        expect(ferroVehicle("is", "clan-inv").getComponentTechBases("armor")).toEqual(["is"]);
+        const mixed = ferroVehicle("mis", "clan-inv");
+        expect(mixed.getComponentTechBases("armor")).toEqual(["is", "clan"]);
+        expect(mixed.setArmorTechBase("clan")).toBe("clan");
+        expect(mixed.getArmorItemSlots()).toBe(1);
+        const standard = ferroVehicle("clan", "clan-founding-years");
+        standard.setArmorType("standard");
+        expect(standard.getComponentTechBases("armor")).toEqual(["clan"]);
     });
 });
 
@@ -611,7 +838,8 @@ describe("Vehicle equipment saved before the Batch 15 tech-base splits", () => {
         for (const tag of ["mech-mortar-8", "long-tom-cannon", "laser-insulator"]) {
             clan.addEquipmentFromTag(tag);
         }
-        expect(clan.getEquipmentList().map(item => item.tag)).toEqual(["clan-mech-mortar-8", "clan-long-tom-cannon", "clan-laser-insulator"]);
+        // The Long Tom Cannon and the Laser Insulator merged back into one record each (catalog consolidation §2).
+        expect(clan.getEquipmentList().map(item => item.tag)).toEqual(["clan-mech-mortar-8", "long-tom-cannon", "laser-insulator"]);
 
         const is = new Vehicle();
         is.setTech("is");
@@ -622,8 +850,10 @@ describe("Vehicle equipment saved before the Batch 15 tech-base splits", () => {
 });
 
 describe("Vehicle large engines (TO:AUE pp.119-120, 219)", () => {
-    const tank = (engine: string, cruise: number): Vehicle => {
+    const tank = (engine: string, cruise: number, era: string = "jihad", tech: string = "is"): Vehicle => {
         const vehicle = new Vehicle();
+        vehicle.setTech(tech);
+        vehicle.setEra(era);
         vehicle.setMotiveType("tracked");
         vehicle.setTonnage(50);
         vehicle.setEngineType(engine);
@@ -634,9 +864,9 @@ describe("Vehicle large engines (TO:AUE pp.119-120, 219)", () => {
     it("prices a large engine at twice its base type's multiplier", () => {
         const large = tank("standard", 10); // rating 500
         expect(large.getEngineRating()).toBe(500);
-        expect(large.getCBillCostLog()).toContain("Large Fusion (10000 x rating 500 x 50 t / 75)");
+        expect(large.getCostBreakdown().steps.find((step) => step.id === "cv.cost.engine.later")).toMatchObject({ label: "Large Fusion", detail: "10,000 x rating 500 x 50 tons / 75" });
         const standard = tank("standard", 8); // rating 400
-        expect(standard.getCBillCostLog()).toContain("Standard Fusion (5000 x rating 400 x 50 t / 75)");
+        expect(standard.getCostBreakdown().steps.find((step) => step.id === "cv.cost.engine")).toMatchObject({ label: "Standard Fusion", detail: "5,000 x rating 400 x 50 tons / 75" });
     });
 
     it("stops engine types with no large form at rating 400, even at the Experimental level", () => {
@@ -645,6 +875,36 @@ describe("Vehicle large engines (TO:AUE pp.119-120, 219)", () => {
         for (const engine of ["cell", "fission", "compact"]) {
             expect(tank(engine, 4).getMaxCruiseMP(4), engine).toBe(8);
         }
+    });
+
+    // Issue #37: the large engine's own dates (IO:AE p.38) apply to vehicles as they do to 'Mechs.
+    it("offers no rating above 400 before the large engine exists (Large Fusion prototype 2630)", () => {
+        expect(tank("standard", 4, "age-of-war").getMaxCruiseMP(4)).toBe(8);
+        expect(tank("standard", 4, "star-league").getMaxCruiseMP(4)).toBe(10);
+    });
+
+    it("marks an engine type by its large form's dates above rating 400", () => {
+        const engine = (vehicle: Vehicle, tag: string, rulesLevel: number) =>
+            vehicle.getAvailableEngineTypes(rulesLevel).find((option) => option.tag === tag);
+        // Large Fusion: prototype 2630, production 3085.
+        expect(engine(tank("standard", 10, "clan-inv"), "standard", 2)?.available).toBe(false);
+        expect(engine(tank("standard", 10, "clan-inv"), "standard", 4)?.availableAsPrototype).toBe(true);
+        expect(engine(tank("standard", 10, "early-rep"), "standard", 2)?.available).toBe(true);
+        expect(engine(tank("standard", 8, "clan-inv"), "standard", 2)?.available).toBe(true);
+        // Large Light Fusion: prototype 3064, though the Light engine's prototype dates from 3055.
+        expect(engine(tank("standard", 8, "clan-inv"), "light", 4)?.available).toBe(true);
+        expect(engine(tank("standard", 10, "clan-inv"), "light", 4)?.available).toBe(false);
+        // No large form: Compact, Fuel Cell and Fission cannot be fitted above 400.
+        expect(engine(tank("standard", 10, "ilClan"), "compact", 4)?.available).toBe(false);
+    });
+
+    it("bounds the Inner Sphere Large XL prototype by its loss in 2822 and recovery in 3054", () => {
+        const largeXL = (era: string) => tank("xl", 10, era).getAvailableEngineTypes(4).find((option) => option.tag === "xl");
+        expect(largeXL("star-league")?.availableAsPrototype).toBe(true);
+        expect(largeXL("late-sw-lt")?.available).toBe(false);
+        expect(largeXL("clan-inv")?.availableAsPrototype).toBe(true);
+        expect(largeXL("early-rep")?.availableAsPrototype).toBe(false);
+        expect(largeXL("early-rep")?.available).toBe(true);
     });
 });
 
@@ -741,15 +1001,17 @@ describe("Batch 54 industrial equipment for vehicles and the combat vehicle slot
 
     it("lists the industrial items with the table values", () => {
         for (const [tag, name, weight, cbills, [battlemech, combatVehicle, supportVehicle, aerospaceFighter, smallCraft, dropShip], techRating, prototype, introduced, page] of items) {
-            const item = mechUniversalEquipment.find(entry => entry.tag === tag);
+            const item = universalEquipment.find(entry => entry.tag === tag);
             expect(item, tag).toMatchObject({
-                name, weight, cbills, techRating, introduced, extinct: null, reintroduced: null, book: "TM", page, battleValue: 0,
+                name, weight, cbills, techRating, introduced, extinct: null, reintroduced: null, book: "TM", page,
+                // The Bulldozer is the one with a BV: 10, defensive (TM p.317 table).
+                battleValue: tag === "bulldozer" ? 10 : 0,
                 space: { battlemech, protomech: -1, combatVehicle, supportVehicle, aerospaceFighter, smallCraft, dropShip },
             });
             expect(item?.prototype ?? null, tag).toBe(prototype);
         }
         // The Arresting Hoist is its own item now, no longer a second name for the Lift Hoist.
-        expect(mechUniversalEquipment.find(entry => entry.tag === "lift-hoist")?.altNames).not.toContain("Arresting Hoist");
+        expect(universalEquipment.find(entry => entry.tag === "lift-hoist")?.altNames).not.toContain("Arresting Hoist");
     });
 
     it("offers a combat vehicle only what has a combat vehicle slot value", () => {
@@ -801,7 +1063,7 @@ describe("Combat Vehicle chassis modifications (TO:AUE pp.114-115, 193, 219)", (
         const plain = build("hover", 30);
         const floating = build("hover", 30);
         floating.setChassisModification("flotation-hull", true);
-        expect(floating.getBattleValueLog()).toContain("x 0.8 (Hover type modifier, chassis modifications +0.1)");
+        expect(floating.getBattleValueLog()).toContain("x 0.8, chassis modifications +0.1");
         expect(floating.getCBillCost()).toBe(Math.round(plain.getCBillCost() * 1.25));
     });
 
@@ -810,10 +1072,70 @@ describe("Combat Vehicle chassis modifications (TO:AUE pp.114-115, 193, 219)", (
         buggy.setCruiseMP(6);
         buggy.setChassisModification("dune-buggy", true);
         expect(buggy.getCruiseMP()).toBe(5);
-        expect(buggy.getCBillCostLog()).toContain("Dune Buggy: 4,000");
+        expect(buggy.getCostBreakdown().steps.find((step) => step.id === "cv.cost.chassis")).toMatchObject({ label: "Dune Buggy", value: 4000 });
         const restored = new Vehicle(buggy.exportJSON());
         expect(restored.hasChassisModification("dune-buggy")).toBe(true);
         restored.setMotiveType("tracked");
         expect(restored.getChassisModifications()).toEqual([]);
+    });
+});
+
+describe("Loading saved vehicles (#86)", () => {
+    it("loads a saved vehicle without copying the whole equipment catalog", () => {
+        const saved = new Vehicle().exportJSON();
+        expect(new Vehicle(saved).getImportIssues()).toEqual([]);
+        const start = performance.now();
+        for (let i = 0; i < 100; i++) new Vehicle(saved);
+        // A backup restore loads up to a thousand saves; each load copied the catalog and took about 25 ms.
+        expect(performance.now() - start).toBeLessThan(1000);
+    });
+});
+
+describe("E-War carrier (#642)", () => {
+    const build = () => {
+        const vehicle = new Vehicle();
+        vehicle.setTonnage(50);
+        vehicle.addEquipmentFromTag("is-ams");
+        vehicle.addEquipmentFromTag("ecm-suite");
+        vehicle.addEquipmentFromTag("medium-laser");
+        return vehicle;
+    };
+
+    it("lists its E-War gear", () => {
+        const gear = build().getEWarGear();
+        expect(gear.map(item => item.kind)).toEqual(["ams", "ecm-guardian"]);
+        for (const item of gear) {
+            expect(item.name).toBeTruthy();
+            expect(item.uuid).toBeTruthy();
+            expect(item.destroyed).toBe(false);
+        }
+    });
+
+    it("reports destroyed E-War gear", () => {
+        const vehicle = build();
+        const ecm = vehicle.getEWarGear().find(item => item.kind === "ecm-guardian")!;
+        vehicle.setWeaponStatus(ecm.uuid!, "destroyed");
+        expect(vehicle.getEWarGear().map(item => [item.kind, item.destroyed])).toEqual([["ams", false], ["ecm-guardian", true]]);
+    });
+
+    it("lists stealth armor", () => {
+        const vehicle = new Vehicle();
+        vehicle.setArmorType("vehicular-stealth");
+        const armor = vehicle.getEWarGear().find(item => item.kind === "stealth-vehicular");
+        expect(armor).toMatchObject({ tag: "vehicular-stealth", location: "armor", destroyed: false });
+        expect(armor?.uuid).toBeUndefined();
+    });
+
+    it("saves E-War state and loads old saves without it", () => {
+        const vehicle = build();
+        expect(vehicle.export().ewarPlay).toBeUndefined();
+        vehicle.ewarPlay.inHostileEcm = true;
+        const saved = JSON.parse(JSON.stringify(vehicle.export()));
+        expect(saved.ewarPlay).toEqual({ inHostileEcm: true });
+        expect(vehicle.export(true).ewarPlay).toBeUndefined();
+        const loaded = new Vehicle(JSON.stringify(saved));
+        expect(loaded.ewarPlay).toEqual({ inHostileEcm: true });
+        delete saved.ewarPlay;
+        expect(new Vehicle(JSON.stringify(saved)).ewarPlay).toEqual({});
     });
 });

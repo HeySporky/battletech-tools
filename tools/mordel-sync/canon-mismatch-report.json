@@ -1,0 +1,3236 @@
+{
+ "built": "2026-11-07T09:53:14.889Z",
+ "detailsMissingOrStale": 0,
+ "counts": {
+  "total": 56043,
+  "canon": 5416,
+  "droppedMatching": 4317,
+  "canonMismatched": 381,
+  "canonNotInMul": 718
+ },
+ "mismatches": [
+  {
+   "key": "bm/102",
+   "name": "Exterminator EXT-4A",
+   "mulUnitKey": "9YS31V7E9N",
+   "diffs": [
+    "BV 1345 vs 1372"
+   ]
+  },
+  {
+   "key": "bm/1052",
+   "name": "Charger CGR-2A2",
+   "mulUnitKey": "4F2015WKMN",
+   "diffs": [
+    "BV 1106 vs 1109"
+   ]
+  },
+  {
+   "key": "bm/1055",
+   "name": "Goliath GOL-4S",
+   "mulUnitKey": "SZD8ZJB3E9",
+   "diffs": [
+    "BV 1923 vs 1912"
+   ]
+  },
+  {
+   "key": "bm/1067",
+   "name": "Zeus ZEU-9T",
+   "mulUnitKey": "4FDY36D4QH",
+   "diffs": [
+    "BV 1832 vs 1835"
+   ]
+  },
+  {
+   "key": "bm/1090",
+   "name": "Banshee BNC-7S",
+   "mulUnitKey": "WTPWG39BX6",
+   "diffs": [
+    "BV 2114 vs 2126"
+   ]
+  },
+  {
+   "key": "bm/1117",
+   "name": "Spider SDR-8M",
+   "mulUnitKey": "QZWS0E8HDD",
+   "diffs": [
+    "BV 625 vs 621"
+   ]
+  },
+  {
+   "key": "bm/1193",
+   "name": "Caesar CES-4S",
+   "mulUnitKey": "G3YSV5NHNQ",
+   "diffs": [
+    "BV 1750 vs 1739"
+   ]
+  },
+  {
+   "key": "bm/1227",
+   "name": "Shogun C",
+   "mulUnitKey": "S2SK4F6HB6",
+   "diffs": [
+    "BV 3008 vs 3032"
+   ]
+  },
+  {
+   "key": "bm/1241",
+   "name": "Banshee BNC-6S",
+   "mulUnitKey": "2D1C228YJT",
+   "diffs": [
+    "BV 1899 vs 1889"
+   ]
+  },
+  {
+   "key": "bm/1246",
+   "name": "Atlas AS7-S2",
+   "mulUnitKey": "KQZVCKMZ9S",
+   "diffs": [
+    "BV 2389 vs 2378"
+   ]
+  },
+  {
+   "key": "bm/13255",
+   "name": "Regent A",
+   "mulUnitKey": "J9JB4YG596",
+   "diffs": [
+    "BV 3419 vs 3412"
+   ]
+  },
+  {
+   "key": "bm/13948",
+   "name": "Grand Crusader GRN-D-01-X",
+   "mulUnitKey": "2T38MSF4YR",
+   "diffs": [
+    "BV 1869 vs 1895"
+   ]
+  },
+  {
+   "key": "bm/13998",
+   "name": "Alpha Wolf A",
+   "mulUnitKey": "SNJMD2Z8MJ",
+   "diffs": [
+    "BV 3435 vs 3359"
+   ]
+  },
+  {
+   "key": "bm/14002",
+   "name": "Atlas AS7-S3-DC",
+   "mulUnitKey": "XHJX4WJ3TR",
+   "diffs": [
+    "BV 2278 vs 2276"
+   ]
+  },
+  {
+   "key": "bm/19372",
+   "name": "Merlin MLN-1P",
+   "mulUnitKey": "5BTX0ZAXCW",
+   "diffs": [
+    "BV 1182 vs 1181"
+   ]
+  },
+  {
+   "key": "bm/20179",
+   "name": "Charger C",
+   "mulUnitKey": "G4NQE0Z3HG",
+   "diffs": [
+    "BV 2826 vs 2756"
+   ]
+  },
+  {
+   "key": "bm/20417",
+   "name": "Vulcan VT-7T",
+   "mulUnitKey": "1GNG01WR2N",
+   "diffs": [
+    "BV 1500 vs 1499"
+   ]
+  },
+  {
+   "key": "bm/20723",
+   "name": "Shogun C 3",
+   "mulUnitKey": "7E6BCT9EKW",
+   "diffs": [
+    "armor 8 vs 10"
+   ]
+  },
+  {
+   "key": "bm/217",
+   "name": "Locust LCT-3M",
+   "mulUnitKey": "D2XW88ASDX",
+   "diffs": [
+    "BV 525 vs 522"
+   ]
+  },
+  {
+   "key": "bm/21713",
+   "name": "Battle Cobra BTL-C-2OC",
+   "mulUnitKey": "MMRB7HT6FS",
+   "diffs": [
+    "PV 20 vs 19"
+   ]
+  },
+  {
+   "key": "bm/230",
+   "name": "Wasp WSP-3W",
+   "mulUnitKey": "GGN3CH6X1J",
+   "diffs": [
+    "BV 346 vs 342"
+   ]
+  },
+  {
+   "key": "bm/2346",
+   "name": "Strider SR1-OA",
+   "mulUnitKey": "WMTMSN17AG",
+   "diffs": [
+    "PV 24 vs 23"
+   ]
+  },
+  {
+   "key": "bm/23677",
+   "name": "Prey Seeker PY-SR30",
+   "mulUnitKey": "4CA4KKRK3H",
+   "diffs": [
+    "BV 349 vs 331"
+   ]
+  },
+  {
+   "key": "bm/23765",
+   "name": "Hercules HRC-LS-9004",
+   "mulUnitKey": "VW3M22AMC2",
+   "diffs": [
+    "BV 1825 vs 1824"
+   ]
+  },
+  {
+   "key": "bm/23858",
+   "name": "Shogun SHG-3E",
+   "mulUnitKey": "Y6Q8VRMTFT",
+   "diffs": [
+    "BV 1988 vs 1998"
+   ]
+  },
+  {
+   "key": "bm/249",
+   "name": "Commando COM-5S",
+   "mulUnitKey": "E2J1CP74VP",
+   "diffs": [
+    "BV 560 vs 557"
+   ]
+  },
+  {
+   "key": "bm/267",
+   "name": "Spider SDR-7M",
+   "mulUnitKey": "R99RF8CBPJ",
+   "diffs": [
+    "BV 625 vs 621"
+   ]
+  },
+  {
+   "key": "bm/2696",
+   "name": "Hauptmann HA1-OC",
+   "mulUnitKey": "QJTPA6PN1F",
+   "diffs": [
+    "BV 2333 vs 2322"
+   ]
+  },
+  {
+   "key": "bm/2910",
+   "name": "Seraph C-SRP-O Invictus",
+   "mulUnitKey": "2AVPWESQGF",
+   "diffs": [
+    "BV 1810 vs 1794"
+   ]
+  },
+  {
+   "key": "bm/2963",
+   "name": "Arctic Wolf II A",
+   "mulUnitKey": "CWHBB43F9X",
+   "diffs": [
+    "BV 2111 vs 1645",
+    "PV 45 vs 46",
+    "damage long 2 vs 0"
+   ]
+  },
+  {
+   "key": "bm/2964",
+   "name": "Arctic Wolf II PRIME",
+   "mulUnitKey": "XHHX370QNA",
+   "diffs": [
+    "BV 1645 vs 2111",
+    "PV 46 vs 45",
+    "damage long 0 vs 2"
+   ]
+  },
+  {
+   "key": "bm/300",
+   "name": "Vulcan VT-5S",
+   "mulUnitKey": "FPJ6MS89EZ",
+   "diffs": [
+    "BV 887 vs 883"
+   ]
+  },
+  {
+   "key": "bm/3071",
+   "name": "Berserker BRZ-C3",
+   "mulUnitKey": "J764KFPK1X",
+   "diffs": [
+    "BV 2395 vs 2354"
+   ]
+  },
+  {
+   "key": "bm/3119",
+   "name": "Mantis MTS-L",
+   "mulUnitKey": "666RP93W7A",
+   "diffs": [
+    "BV 1194 vs 1176"
+   ]
+  },
+  {
+   "key": "bm/3217",
+   "name": "Eyleuka EYL-45A",
+   "mulUnitKey": "G3QKGHB9KC",
+   "diffs": [
+    "PV 42 vs 43"
+   ]
+  },
+  {
+   "key": "bm/3236",
+   "name": "Seraph C-SRP-OA Dominus",
+   "mulUnitKey": "TS5ZVRX99Y",
+   "diffs": [
+    "BV 2360 vs 2338"
+   ]
+  },
+  {
+   "key": "bm/3241",
+   "name": "Archangel C-ANG-OC Comminus",
+   "mulUnitKey": "NMKQBM97B7",
+   "diffs": [
+    "BV 2010 vs 2014"
+   ]
+  },
+  {
+   "key": "bm/3264",
+   "name": "Helepolis HEP-2H",
+   "mulUnitKey": "51JX7M2SF6",
+   "diffs": [
+    "PV 48 vs 45"
+   ]
+  },
+  {
+   "key": "bm/3266",
+   "name": "Mackie MSK-9H",
+   "mulUnitKey": "NYGZZKC0N7",
+   "diffs": [
+    "BV 2019 vs 2022"
+   ]
+  },
+  {
+   "key": "bm/3292",
+   "name": "Great Turtle GTR-2",
+   "mulUnitKey": "4WCWNYC0AM",
+   "diffs": [
+    "BV 2322 vs 2355"
+   ]
+  },
+  {
+   "key": "bm/3297",
+   "name": "Malak C-MK-OS Caelestis",
+   "mulUnitKey": "5ZT8JDF57Y",
+   "diffs": [
+    "BV 1121 vs 1125"
+   ]
+  },
+  {
+   "key": "bm/33011",
+   "name": "Mauler MAL-1PT6",
+   "mulUnitKey": "BJE2XEYR4K",
+   "diffs": [
+    "PV 37 vs 47"
+   ]
+  },
+  {
+   "key": "bm/3419",
+   "name": "Axman AXM-6T",
+   "mulUnitKey": "8AX0NDT36Y",
+   "diffs": [
+    "PV 42 vs 43"
+   ]
+  },
+  {
+   "key": "bm/3513",
+   "name": "Vandal LI-OB",
+   "mulUnitKey": "FD436V1CT3",
+   "diffs": [
+    "BV 1659 vs 1666",
+    "PV 42 vs 41"
+   ]
+  },
+  {
+   "key": "bm/3514",
+   "name": "Ronin SA-RN7",
+   "mulUnitKey": "RYN6NA7T7Y",
+   "diffs": [
+    "BV 1180 vs 1182"
+   ]
+  },
+  {
+   "key": "bm/3515",
+   "name": "Bombard BMB-1X",
+   "mulUnitKey": "D396AB63WB",
+   "diffs": [
+    "BV 1648 vs 1652"
+   ]
+  },
+  {
+   "key": "bm/3516",
+   "name": "Hachiwara HCA-3T",
+   "mulUnitKey": "2N24B4ER7Q",
+   "diffs": [
+    "BV 1646 vs 1651"
+   ]
+  },
+  {
+   "key": "bm/3517",
+   "name": "Hachiwara HCA-4T",
+   "mulUnitKey": "TFPKCYKWAB",
+   "diffs": [
+    "BV 1728 vs 1731"
+   ]
+  },
+  {
+   "key": "bm/3518",
+   "name": "Hachiwara HCA-4U",
+   "mulUnitKey": "BEWFRNF565",
+   "diffs": [
+    "BV 1786 vs 1791"
+   ]
+  },
+  {
+   "key": "bm/3537",
+   "name": "Neanderthal NTL-AG",
+   "mulUnitKey": "1CR56GJKWF",
+   "diffs": [
+    "BV 2020 vs 2024",
+    "PV 36 vs 39",
+    "damage medium 1 vs 2"
+   ]
+  },
+  {
+   "key": "bm/3543",
+   "name": "Tenshi TN-10-OR",
+   "mulUnitKey": "ZY1ETZ780S",
+   "diffs": [
+    "BV 2183 vs 2237"
+   ]
+  },
+  {
+   "key": "bm/3578",
+   "name": "Wolfhound WLF-2X",
+   "mulUnitKey": "E2J1TF9VWX",
+   "diffs": [
+    "BV 1842 vs 1812"
+   ]
+  },
+  {
+   "key": "bm/3595",
+   "name": "Trebuchet TBT-K7R",
+   "mulUnitKey": "RK91DYF0Q6",
+   "diffs": [
+    "BV 1415 vs 1408",
+    "PV 32 vs 31"
+   ]
+  },
+  {
+   "key": "bm/3597",
+   "name": "Hunchback HBK-4G (Shakir)",
+   "mulUnitKey": "9E4QGM997V",
+   "diffs": [
+    "BV 952 vs 968"
+   ]
+  },
+  {
+   "key": "bm/3608",
+   "name": "Osteon A",
+   "mulUnitKey": "PKJCTAD1JJ",
+   "diffs": [
+    "PV 60 vs 61"
+   ]
+  },
+  {
+   "key": "bm/3632",
+   "name": "Cephalus U",
+   "mulUnitKey": "RFSE1BN2W5",
+   "diffs": [
+    "PV 28 vs 26"
+   ]
+  },
+  {
+   "key": "bm/3639",
+   "name": "Revenant UBM-1A",
+   "mulUnitKey": "QGW0GW482C",
+   "diffs": [
+    "BV 702 vs 784",
+    "PV 25 vs 31"
+   ]
+  },
+  {
+   "key": "bm/3647",
+   "name": "Grand Dragon DRG-1G (Douglas)",
+   "mulUnitKey": "WQYNXM53WY",
+   "diffs": [
+    "PV 30 vs 35",
+    "armor 5 vs 6",
+    "damage long 1 vs 2"
+   ]
+  },
+  {
+   "key": "bm/3652",
+   "name": "Bandersnatch BNDR-01A (Horus)",
+   "mulUnitKey": "RFDCSHCVD1",
+   "diffs": [
+    "BV 1584 vs 1587"
+   ]
+  },
+  {
+   "key": "bm/3666",
+   "name": "Juggernaut (Leapin' Lil) JG-R9TX1",
+   "mulUnitKey": "GP12GGNTHA",
+   "diffs": [
+    "BV 1946 vs 1951",
+    "PV 42 vs 40",
+    "damage medium 4 vs 3"
+   ]
+  },
+  {
+   "key": "bm/36972",
+   "name": "Jackalope JLP-NH \"Tepoztēcatl\"",
+   "mulUnitKey": "4CV004GFNK",
+   "diffs": [
+    "BV 1216 vs 1208"
+   ]
+  },
+  {
+   "key": "bm/379",
+   "name": "Archer ARC-5R",
+   "mulUnitKey": "V16QHTVK3P",
+   "diffs": [
+    "BV 1672 vs 1674"
+   ]
+  },
+  {
+   "key": "bm/3844",
+   "name": "Victor C",
+   "mulUnitKey": "SGYKGSDC67",
+   "diffs": [
+    "BV 1950 vs 1925"
+   ]
+  },
+  {
+   "key": "bm/38453",
+   "name": "Poseidon PSD-V2",
+   "mulUnitKey": "01S4YTAVXQ",
+   "diffs": [
+    "BV 3357 vs 3677"
+   ]
+  },
+  {
+   "key": "bm/38488",
+   "name": "Ares ARS-V1D Hephaestus",
+   "mulUnitKey": "1VHJAEMACC",
+   "diffs": [
+    "PV 69 vs 68"
+   ]
+  },
+  {
+   "key": "bm/3917",
+   "name": "Longbow LGB-13NAIS",
+   "mulUnitKey": "WDFPPF30G3",
+   "diffs": [
+    "PV 51 vs 48"
+   ]
+  },
+  {
+   "key": "bm/3941",
+   "name": "Seraph C-SRP-OR (Ravana)",
+   "mulUnitKey": "THFATQ52M9",
+   "diffs": [
+    "BV 1957 vs 1941"
+   ]
+  },
+  {
+   "key": "bm/3954",
+   "name": "Orion IIC (Burton)",
+   "mulUnitKey": "NKTA488204",
+   "diffs": [
+    "PV 48 vs 49",
+    "damage long 4 vs 5"
+   ]
+  },
+  {
+   "key": "bm/3961",
+   "name": "Rifleman IIC 6",
+   "mulUnitKey": "9YP1TPJ4CR",
+   "diffs": [
+    "BV 2220 vs 2251"
+   ]
+  },
+  {
+   "key": "bm/3974",
+   "name": "Hatamoto-Kaeru HTM-35X",
+   "mulUnitKey": "DTK7WS43E2",
+   "diffs": [
+    "PV 35 vs 36"
+   ]
+  },
+  {
+   "key": "bm/4035",
+   "name": "Mackie MSK-5S",
+   "mulUnitKey": "RW9KN46D12",
+   "diffs": [
+    "BV 1401 vs 1436"
+   ]
+  },
+  {
+   "key": "bm/4038",
+   "name": "Helepolis HEP-1H",
+   "mulUnitKey": "HDXY85XF0A",
+   "diffs": [
+    "PV 44 vs 41"
+   ]
+  },
+  {
+   "key": "bm/4064",
+   "name": "Stealth STH-5X",
+   "mulUnitKey": "BEH6XCYX3F",
+   "diffs": [
+    "BV 2155 vs 2240"
+   ]
+  },
+  {
+   "key": "bm/4069",
+   "name": "Commando COM-1D",
+   "mulUnitKey": "ME1BB1JG8Q",
+   "diffs": [
+    "move 12\" vs 12"
+   ]
+  },
+  {
+   "key": "bm/4122",
+   "name": "BattleMaster BLR-3M (Rogers)",
+   "mulUnitKey": "WRY554SWGG",
+   "diffs": [
+    "PV 45 vs 46"
+   ]
+  },
+  {
+   "key": "bm/4126",
+   "name": "Rook NH-1X \"Rook-X\"",
+   "mulUnitKey": "YNPAWPWC1X",
+   "diffs": [
+    "PV 26 vs 27"
+   ]
+  },
+  {
+   "key": "bm/4128",
+   "name": "Phoenix Hawk L \"Fenikkusu Taka\" PXH-11K2",
+   "mulUnitKey": "DX2F20FMQ0",
+   "diffs": [
+    "PV 21 vs 22",
+    "damage short 2 vs 3"
+   ]
+  },
+  {
+   "key": "bm/4240",
+   "name": "Scarecrow UCU-F4",
+   "mulUnitKey": "5WYX5QQS7Q",
+   "diffs": [
+    "BV 1472 vs 1475",
+    "PV 38 vs 40"
+   ]
+  },
+  {
+   "key": "bm/4241",
+   "name": "Scarecrow UCU-F4r",
+   "mulUnitKey": "3F95JNWK42",
+   "diffs": [
+    "BV 1431 vs 1472"
+   ]
+  },
+  {
+   "key": "bm/4250",
+   "name": "Templar III TLR2-OB",
+   "mulUnitKey": "NDBGX79DRQ",
+   "diffs": [
+    "BV 1919 vs 1918"
+   ]
+  },
+  {
+   "key": "bm/4254",
+   "name": "Atlas III AS7-D3",
+   "mulUnitKey": "MWG492FWEA",
+   "diffs": [
+    "PV 59 vs 58"
+   ]
+  },
+  {
+   "key": "bm/4284",
+   "name": "Osteon PRIME",
+   "mulUnitKey": "HZCPSD4B7T",
+   "diffs": [
+    "PV 78 vs 79"
+   ]
+  },
+  {
+   "key": "bm/4320",
+   "name": "Savage Coyote Z",
+   "mulUnitKey": "PKYFEQ64NR",
+   "diffs": [
+    "BV 3026 vs 3080"
+   ]
+  },
+  {
+   "key": "bm/434",
+   "name": "Shogun SHG-2E",
+   "mulUnitKey": "DGP30Q9GY2",
+   "diffs": [
+    "PV 42 vs 43"
+   ]
+  },
+  {
+   "key": "bm/4353",
+   "name": "Anzu ZU-G60",
+   "mulUnitKey": "EC583EJ2MN",
+   "diffs": [
+    "BV 1503 vs 1486"
+   ]
+  },
+  {
+   "key": "bm/4391",
+   "name": "Helepolis HEP-3H",
+   "mulUnitKey": "AQMWZZ4DY5",
+   "diffs": [
+    "PV 49 vs 46"
+   ]
+  },
+  {
+   "key": "bm/4392",
+   "name": "Helepolis HEP-4H",
+   "mulUnitKey": "CNWP334P1K",
+   "diffs": [
+    "PV 48 vs 45"
+   ]
+  },
+  {
+   "key": "bm/4399",
+   "name": "Gladiator GLD-1R (Keller)",
+   "mulUnitKey": "0CG2GEP9VY",
+   "diffs": [
+    "BV 1553 vs 1517"
+   ]
+  },
+  {
+   "key": "bm/4434",
+   "name": "Grand Dragon DRG-5K (Emory)",
+   "mulUnitKey": "2R7HQ9H7AS",
+   "diffs": [
+    "BV 1394 vs 1431"
+   ]
+  },
+  {
+   "key": "bm/4435",
+   "name": "Gestalt D2X-G",
+   "mulUnitKey": "MHKQCGMSX3",
+   "diffs": [
+    "BV 2329 vs 2392"
+   ]
+  },
+  {
+   "key": "bm/4437",
+   "name": "Black Knight BL-6-KNT (Ian)",
+   "mulUnitKey": "KG04GGTBRG",
+   "diffs": [
+    "BV 1861 vs 1830"
+   ]
+  },
+  {
+   "key": "bm/4438",
+   "name": "Parash 3",
+   "mulUnitKey": "J5WA6EASB9",
+   "diffs": [
+    "BV 1785 vs 1753"
+   ]
+  },
+  {
+   "key": "bm/4449",
+   "name": "Thug THG-11ECX (Jose)",
+   "mulUnitKey": "7DD44VWV3Q",
+   "diffs": [
+    "BV 1720 vs 1668",
+    "PV 41 vs 43"
+   ]
+  },
+  {
+   "key": "bm/4450",
+   "name": "Rifleman III RF2-A",
+   "mulUnitKey": "FFH6TJKGXZ",
+   "diffs": [
+    "PV 37 vs 39"
+   ]
+  },
+  {
+   "key": "bm/4521",
+   "name": "Yinghuochong YHC-3Y",
+   "mulUnitKey": "FFZ4KZYYD4",
+   "diffs": [
+    "PV 27 vs 30"
+   ]
+  },
+  {
+   "key": "bm/4557",
+   "name": "Morrigan 3",
+   "mulUnitKey": "GNCSG2WD9V",
+   "diffs": [
+    "PV 42 vs 41"
+   ]
+  },
+  {
+   "key": "bm/4636",
+   "name": "Liberator LIB-4T",
+   "mulUnitKey": "7BGC66NNYR",
+   "diffs": [
+    "BV 880 vs 0",
+    "PV 24 vs 0",
+    "size 2 vs 0",
+    "move 12\" vs —",
+    "armor 3 vs 0",
+    "structure 3 vs 0",
+    "damage short 2 vs 0",
+    "damage medium 2 vs 0",
+    "damage long 1 vs 0"
+   ]
+  },
+  {
+   "key": "bm/4639",
+   "name": "Stinger STG-7S",
+   "mulUnitKey": "KT862Z38RP",
+   "diffs": [
+    "BV 375 vs 382"
+   ]
+  },
+  {
+   "key": "bm/4642",
+   "name": "Valkyrie VLK-QW5",
+   "mulUnitKey": "EM1FS5WVCQ",
+   "diffs": [
+    "BV 689 vs 701"
+   ]
+  },
+  {
+   "key": "bm/4651",
+   "name": "Shadow Hawk C",
+   "mulUnitKey": "X82CNM8WTD",
+   "diffs": [
+    "BV 1348 vs 1309"
+   ]
+  },
+  {
+   "key": "bm/4663",
+   "name": "Thunderbolt TDR-9Nr",
+   "mulUnitKey": "VM1PG58E45",
+   "diffs": [
+    "BV 1632 vs 1635"
+   ]
+  },
+  {
+   "key": "bm/4667",
+   "name": "Archer C",
+   "mulUnitKey": "W7AZ46H0WW",
+   "diffs": [
+    "BV 1883 vs 1811"
+   ]
+  },
+  {
+   "key": "bm/4671",
+   "name": "Warhammer C",
+   "mulUnitKey": "FX33TQ0V3N",
+   "diffs": [
+    "BV 1746 vs 1728"
+   ]
+  },
+  {
+   "key": "bm/4706",
+   "name": "Arctic Fox AF1U",
+   "mulUnitKey": "K60857T1BF",
+   "diffs": [
+    "PV 19 vs 15"
+   ]
+  },
+  {
+   "key": "bm/4741",
+   "name": "Dragon DRG-5Nr",
+   "mulUnitKey": "MFPZ2NT171",
+   "diffs": [
+    "BV 1277 vs 1252",
+    "PV 34 vs 36"
+   ]
+  },
+  {
+   "key": "bm/4744",
+   "name": "Quickdraw QKD-5Mr",
+   "mulUnitKey": "G7Y2511RGG",
+   "diffs": [
+    "BV 1465 vs 1471"
+   ]
+  },
+  {
+   "key": "bm/4745",
+   "name": "Osprey OSP-36",
+   "mulUnitKey": "97HMEQHSSR",
+   "diffs": [
+    "BV 1450 vs 1532"
+   ]
+  },
+  {
+   "key": "bm/4821",
+   "name": "Charger CGR-3Kr",
+   "mulUnitKey": "BKZHRAEY1E",
+   "diffs": [
+    "BV 2121 vs 2092"
+   ]
+  },
+  {
+   "key": "bm/4829",
+   "name": "Templar TLR1-OU",
+   "mulUnitKey": "2QF4VK9FHS",
+   "diffs": [
+    "PV 45 vs 47"
+   ]
+  },
+  {
+   "key": "bm/4835",
+   "name": "Zeus-X ZEU-X",
+   "mulUnitKey": "RHAMS593C5",
+   "diffs": [
+    "PV 42 vs 44"
+   ]
+  },
+  {
+   "key": "bm/4850",
+   "name": "Crossbow U",
+   "mulUnitKey": "1HM8072FJ4",
+   "diffs": [
+    "PV 38 vs 39"
+   ]
+  },
+  {
+   "key": "bm/4856",
+   "name": "Turkina U",
+   "mulUnitKey": "30WBMENCG3",
+   "diffs": [
+    "BV 2520 vs 2478"
+   ]
+  },
+  {
+   "key": "bm/4861",
+   "name": "Phoenix PX-1R",
+   "mulUnitKey": "0PMXR1FCMX",
+   "diffs": [
+    "PV 23 vs 21",
+    "move 8\"/6\"j vs 8\"j",
+    "damage short 2 vs 1",
+    "damage medium 2 vs 1"
+   ]
+  },
+  {
+   "key": "bm/4862",
+   "name": "Wolverine WVR-1R",
+   "mulUnitKey": "W0CB88YG29",
+   "diffs": [
+    "BV 879 vs 885"
+   ]
+  },
+  {
+   "key": "bm/4868",
+   "name": "Valiant VLT-3E",
+   "mulUnitKey": "MXKP4G7JBW",
+   "diffs": [
+    "BV 998 vs 1019"
+   ]
+  },
+  {
+   "key": "bm/4878",
+   "name": "Crimson Hawk 4",
+   "mulUnitKey": "QAM4649CZ0",
+   "diffs": [
+    "PV 26 vs 25"
+   ]
+  },
+  {
+   "key": "bm/4936",
+   "name": "Victor VTR-9K2 (St. James)",
+   "mulUnitKey": "3GGZBHSBH4",
+   "diffs": [
+    "BV 1993 vs 2006"
+   ]
+  },
+  {
+   "key": "bm/4952",
+   "name": "Fennec FEC-5CM",
+   "mulUnitKey": "214XJ11S1B",
+   "diffs": [
+    "BV 1498 vs 1445"
+   ]
+  },
+  {
+   "key": "bm/4953",
+   "name": "Super-Griffin GRF-2N-X",
+   "mulUnitKey": "A1YAPQCWYQ",
+   "diffs": [
+    "BV 1269 vs 1310",
+    "PV 32 vs 34",
+    "damage medium 2 vs 3"
+   ]
+  },
+  {
+   "key": "bm/4966",
+   "name": "Ti Ts'ang TSG-10L",
+   "mulUnitKey": "0PGRW1PRF5",
+   "diffs": [
+    "BV 1728 vs 1730"
+   ]
+  },
+  {
+   "key": "bm/4981",
+   "name": "Triskelion TRK-4V",
+   "mulUnitKey": "FHBPECKGDE",
+   "diffs": [
+    "BV 2702 vs 2837"
+   ]
+  },
+  {
+   "key": "bm/5115",
+   "name": "Stinger LAM Mk I STG-A1",
+   "mulUnitKey": "WGA82SFMEH",
+   "diffs": [
+    "BV 846 vs 0"
+   ]
+  },
+  {
+   "key": "bm/5116",
+   "name": "Stinger LAM STG-A5",
+   "mulUnitKey": "AEHQ6WA532",
+   "diffs": [
+    "BV 1073 vs 0"
+   ]
+  },
+  {
+   "key": "bm/5117",
+   "name": "Stinger LAM STG-A10",
+   "mulUnitKey": "0ZQ944ZS5W",
+   "diffs": [
+    "BV 881 vs 0"
+   ]
+  },
+  {
+   "key": "bm/5124",
+   "name": "Screamer LAM SCR-1X-LAM",
+   "mulUnitKey": "EZ7WQE21S5",
+   "diffs": [
+    "BV 1599 vs 1144"
+   ]
+  },
+  {
+   "key": "bm/5130",
+   "name": "Wasp LAM Mk I WSP-100",
+   "mulUnitKey": "01J5W5SQ8K",
+   "diffs": [
+    "BV 638 vs 0"
+   ]
+  },
+  {
+   "key": "bm/5132",
+   "name": "Wasp LAM Mk I WSP-100A",
+   "mulUnitKey": "YF6XWN9XYC",
+   "diffs": [
+    "BV 909 vs 0"
+   ]
+  },
+  {
+   "key": "bm/5134",
+   "name": "Wasp LAM Mk I WSP-100b",
+   "mulUnitKey": "4SJJEQPCNY",
+   "diffs": [
+    "BV 876 vs 0"
+   ]
+  },
+  {
+   "key": "bm/5135",
+   "name": "Wasp LAM WSP-105",
+   "mulUnitKey": "R19X1QB0ET",
+   "diffs": [
+    "BV 814 vs 0"
+   ]
+  },
+  {
+   "key": "bm/5136",
+   "name": "Wasp LAM WSP-105M",
+   "mulUnitKey": "531HYDG5FY",
+   "diffs": [
+    "BV 907 vs 0"
+   ]
+  },
+  {
+   "key": "bm/5138",
+   "name": "Wasp LAM WSP-110",
+   "mulUnitKey": "R2Q4K195JH",
+   "diffs": [
+    "BV 783 vs 0"
+   ]
+  },
+  {
+   "key": "bm/5146",
+   "name": "Yurei S-YR-1LAM",
+   "mulUnitKey": "0BXXTBNNHR",
+   "diffs": [
+    "BV 2253 vs 2106"
+   ]
+  },
+  {
+   "key": "bm/5158",
+   "name": "Phoenix Hawk LAM PHX-HK2M",
+   "mulUnitKey": "4YMV79XV6G",
+   "diffs": [
+    "BV 1465 vs 0"
+   ]
+  },
+  {
+   "key": "bm/5159",
+   "name": "Phoenix Hawk LAM Mk I PHX-HK1",
+   "mulUnitKey": "5JC7S2G874",
+   "diffs": [
+    "BV 1942 vs 0"
+   ]
+  },
+  {
+   "key": "bm/5160",
+   "name": "Phoenix Hawk LAM Mk I PHX-HK1R",
+   "mulUnitKey": "ZFTHYB32PA",
+   "diffs": [
+    "BV 1858 vs 0"
+   ]
+  },
+  {
+   "key": "bm/5161",
+   "name": "Phoenix Hawk LAM PHX-HK1RB",
+   "mulUnitKey": "9P3BWF9MF8",
+   "diffs": [
+    "BV 1800 vs 0"
+   ]
+  },
+  {
+   "key": "bm/5168",
+   "name": "Shadow Hawk LAM SHD-X1",
+   "mulUnitKey": "B5Q6WEWGWF",
+   "diffs": [
+    "BV 828 vs 0"
+   ]
+  },
+  {
+   "key": "bm/5169",
+   "name": "Shadow Hawk LAM SHD-X2",
+   "mulUnitKey": "P9R12FJJKW",
+   "diffs": [
+    "BV 1060 vs 0"
+   ]
+  },
+  {
+   "key": "bm/5185",
+   "name": "Grand Titan T-IT-N13M",
+   "mulUnitKey": "EFX4GKQWTQ",
+   "diffs": [
+    "BV 2533 vs 2553"
+   ]
+  },
+  {
+   "key": "bm/5192",
+   "name": "Xanthos XNT-6O",
+   "mulUnitKey": "Y630VA7WAD",
+   "diffs": [
+    "BV 2320 vs 2300"
+   ]
+  },
+  {
+   "key": "bm/5198",
+   "name": "Zeus-X ZEU-X2",
+   "mulUnitKey": "MV1JRD8K0K",
+   "diffs": [
+    "BV 1909 vs 1915",
+    "PV 42 vs 44"
+   ]
+  },
+  {
+   "key": "bm/52182",
+   "name": "Atlas AS7-S (Hanssen)",
+   "mulUnitKey": "K7F4QPVCGX",
+   "diffs": [
+    "BV 2295 vs 0"
+   ]
+  },
+  {
+   "key": "bm/52185",
+   "name": "Guillotine GLT-3N (Estriđsen)",
+   "mulUnitKey": "JC0F82SFX7",
+   "diffs": [
+    "BV 1846 vs 0",
+    "PV 41 vs 39",
+    "damage short 5 vs 4",
+    "damage medium 5 vs 4"
+   ]
+  },
+  {
+   "key": "bm/52214",
+   "name": "Hatamoto-Chi HTM-27T (Lowenbrau)",
+   "mulUnitKey": "8MVT08ERCR",
+   "diffs": [
+    "BV 1865 vs 0"
+   ]
+  },
+  {
+   "key": "bm/52215",
+   "name": "Jenner JR7-D (Webster)",
+   "mulUnitKey": "8N6P79HJR2",
+   "diffs": [
+    "BV 1086 vs 0"
+   ]
+  },
+  {
+   "key": "bm/52267",
+   "name": "Ostsol OTL-5M (Maki)",
+   "mulUnitKey": "DZKJBZ88EM",
+   "diffs": [
+    "BV 1473 vs 0"
+   ]
+  },
+  {
+   "key": "bm/52268",
+   "name": "Panther PNT-10ALAG",
+   "mulUnitKey": "JXBJHC3WGZ",
+   "diffs": [
+    "BV 916 vs 0",
+    "PV 22 vs 0",
+    "size 1 vs 0",
+    "move 12\" vs —",
+    "armor 3 vs 0",
+    "structure 3 vs 0",
+    "damage short 2 vs 0",
+    "damage medium 2 vs 0",
+    "damage long 1 vs 0"
+   ]
+  },
+  {
+   "key": "bm/52695",
+   "name": "Blackjack BJ-1 \"Arrow\"",
+   "mulUnitKey": "JWYST148X8",
+   "diffs": [
+    "BV 1180 vs 949",
+    "PV 30 vs 26",
+    "move 10\"j vs 8\"j",
+    "damage short 4 vs 2",
+    "damage long 0 vs 0*"
+   ]
+  },
+  {
+   "key": "bm/52699",
+   "name": "Awesome AWS-8V \"Pretty Baby\"",
+   "mulUnitKey": "9MKSPF45PB",
+   "diffs": [
+    "BV 1893 vs 1510",
+    "PV 49 vs 39",
+    "move 10\" vs 6\"",
+    "structure 4 vs 6",
+    "damage short 4 vs 3",
+    "damage medium 5 vs 3"
+   ]
+  },
+  {
+   "key": "bm/5280",
+   "name": "Pwwka S-PW-1LAM",
+   "mulUnitKey": "F5EEW9P4T2",
+   "diffs": [
+    "BV 1707 vs 1638"
+   ]
+  },
+  {
+   "key": "bm/5281",
+   "name": "Waneta S-WN-2LAM",
+   "mulUnitKey": "JNYHWPZMCX",
+   "diffs": [
+    "BV 2804 vs 2713",
+    "PV 40 vs 39",
+    "damage long 3 vs 2"
+   ]
+  },
+  {
+   "key": "bm/605",
+   "name": "Spider SDR-C",
+   "mulUnitKey": "JYCDCQHWG5",
+   "diffs": [
+    "BV 620 vs 616"
+   ]
+  },
+  {
+   "key": "bm/6575",
+   "name": "Schwerer Gustav",
+   "mulUnitKey": "DF47K8MPDV",
+   "diffs": [
+    "BV 1656 vs 1796"
+   ]
+  },
+  {
+   "key": "bm/6576",
+   "name": "Warhammer WHM-X7 \"The Lich\"",
+   "mulUnitKey": "F025MNHDGK",
+   "diffs": [
+    "BV 1803 vs 1807",
+    "PV 34 vs 35",
+    "damage short 3 vs 4"
+   ]
+  },
+  {
+   "key": "bm/6577",
+   "name": "Temax Cat Ninjabolt TMC-NB",
+   "mulUnitKey": "KQBVRAT55V",
+   "diffs": [
+    "BV 1481 vs 1475"
+   ]
+  },
+  {
+   "key": "bm/681",
+   "name": "Phoenix Hawk IIC",
+   "mulUnitKey": "ZJ8Z16418H",
+   "diffs": [
+    "BV 2037 vs 2057"
+   ]
+  },
+  {
+   "key": "bm/704",
+   "name": "Cerberus MR-5M",
+   "mulUnitKey": "Z5MY6NEQCC",
+   "diffs": [
+    "BV 2060 vs 2057"
+   ]
+  },
+  {
+   "key": "bm/720",
+   "name": "Mackie MSK-6S",
+   "mulUnitKey": "HBCMEWPD4J",
+   "diffs": [
+    "BV 1426 vs 1461"
+   ]
+  },
+  {
+   "key": "bm/734",
+   "name": "Jenner JR7-C",
+   "mulUnitKey": "8YTSSKE3YC",
+   "diffs": [
+    "BV 836 vs 832"
+   ]
+  },
+  {
+   "key": "bm/766",
+   "name": "Centurion CN9-YLW2 \"Yen-Lo-Wang\"",
+   "mulUnitKey": "FP0MNEN1R5",
+   "diffs": [
+    "BV 1435 vs 1415"
+   ]
+  },
+  {
+   "key": "bm/774",
+   "name": "Stalking Spider 2",
+   "mulUnitKey": "7XQZXJKE1Y",
+   "diffs": [
+    "BV 2060 vs 2056"
+   ]
+  },
+  {
+   "key": "bm/8396",
+   "name": "Hierofalcon A",
+   "mulUnitKey": "PNTVVBJMXG",
+   "diffs": [
+    "BV 1953 vs 1963"
+   ]
+  },
+  {
+   "key": "bm/8411",
+   "name": "BattleMaster C 3",
+   "mulUnitKey": "GMHE7JA983",
+   "diffs": [
+    "BV 2579 vs 2532",
+    "PV 51 vs 50"
+   ]
+  },
+  {
+   "key": "bm/8638",
+   "name": "Starslayer STY-2C-EC",
+   "mulUnitKey": "AASVFASW2A",
+   "diffs": [
+    "BV 1419 vs 1407"
+   ]
+  },
+  {
+   "key": "bm/8657",
+   "name": "Vision Quest VQ-1NC",
+   "mulUnitKey": "J86PXWPHMX",
+   "diffs": [
+    "BV 2401 vs 2180"
+   ]
+  },
+  {
+   "key": "bm/8675",
+   "name": "Minsk 2",
+   "mulUnitKey": "Z5594GD3N7",
+   "diffs": [
+    "BV 2362 vs 2363"
+   ]
+  },
+  {
+   "key": "bm/8677",
+   "name": "Emperor EMP-6A-EC",
+   "mulUnitKey": "39TV5R7MW5",
+   "diffs": [
+    "BV 2210 vs 2165"
+   ]
+  },
+  {
+   "key": "bm/9042",
+   "name": "Excalibur EXC-B2b-EC",
+   "mulUnitKey": "B83XW0W1QX",
+   "diffs": [
+    "BV 2001 vs 2008"
+   ]
+  },
+  {
+   "key": "bm/9043",
+   "name": "Rhino",
+   "mulUnitKey": "6M4K90536V",
+   "diffs": [
+    "BV 2113 vs 2124"
+   ]
+  },
+  {
+   "key": "bm/908",
+   "name": "Hussar HSR-500-D",
+   "mulUnitKey": "HB3YCWS9S4",
+   "diffs": [
+    "BV 980 vs 977"
+   ]
+  },
+  {
+   "key": "bm/91543",
+   "name": "Dervish DV-6M (Turner)",
+   "mulUnitKey": "32SNRVGM43",
+   "diffs": [
+    "BV 1417 vs 0"
+   ]
+  },
+  {
+   "key": "bm/91544",
+   "name": "Scorpion SCP-1N (Wendall 2)",
+   "mulUnitKey": "E4Z5ZZRS5B",
+   "diffs": [
+    "BV 1220 vs 0"
+   ]
+  },
+  {
+   "key": "bm/91545",
+   "name": "Crusader CRD-3R (Bear)",
+   "mulUnitKey": "69661XPZRK",
+   "diffs": [
+    "BV 1206 vs 0"
+   ]
+  },
+  {
+   "key": "bm/91546",
+   "name": "Archer ARC-4M (Ismail)",
+   "mulUnitKey": "CPMY9CQVC8",
+   "diffs": [
+    "BV 1500 vs 0",
+    "PV 44 vs 45"
+   ]
+  },
+  {
+   "key": "bm/91547",
+   "name": "Orion ON1-K (Muller)",
+   "mulUnitKey": "334RTVK0ES",
+   "diffs": [
+    "BV 1224 vs 0",
+    "PV 48 vs 43",
+    "damage short 2 vs 1",
+    "damage medium 2 vs 1"
+   ]
+  },
+  {
+   "key": "bm/91548",
+   "name": "Crockett CRK-5003-0 (Saddleford)",
+   "mulUnitKey": "Y1V25F18T1",
+   "diffs": [
+    "BV 1855 vs 0"
+   ]
+  },
+  {
+   "key": "bm/978",
+   "name": "Scorpion SCP-12C",
+   "mulUnitKey": "MCF7EZFEJ1",
+   "diffs": [
+    "BV 1247 vs 1259",
+    "PV 34 vs 37",
+    "damage medium 1 vs 2"
+   ]
+  },
+  {
+   "key": "bm/991",
+   "name": "Ostroc OSR-4C",
+   "mulUnitKey": "HTW3WFHAD2",
+   "diffs": [
+    "BV 1322 vs 1325"
+   ]
+  },
+  {
+   "key": "bm/993",
+   "name": "Ostsol OTL-5D",
+   "mulUnitKey": "YT230YW2BE",
+   "diffs": [
+    "BV 1307 vs 1333"
+   ]
+  },
+  {
+   "key": "cv/1016",
+   "name": "Tokugawa Heavy Tank (SD2)",
+   "mulUnitKey": "630D3XBKE8",
+   "diffs": [
+    "BV 961 vs 991"
+   ]
+  },
+  {
+   "key": "cv/1089",
+   "name": "Hetzer Wheeled Assault Gun (Scout)",
+   "mulUnitKey": "KS9JD097XN",
+   "diffs": [
+    "BV 568 vs 553"
+   ]
+  },
+  {
+   "key": "cv/1094",
+   "name": "Onuris Attack VTOL C",
+   "mulUnitKey": "P1NK5R956X",
+   "diffs": [
+    "damage short 2 vs 3",
+    "damage long 0 vs 2"
+   ]
+  },
+  {
+   "key": "cv/1098",
+   "name": "Behemoth Heavy Tank (Liao)",
+   "mulUnitKey": "WWQ3BQ2936",
+   "diffs": [
+    "PV 44 vs 41",
+    "damage medium 6 vs 5",
+    "damage long 5 vs 4"
+   ]
+  },
+  {
+   "key": "cv/1137",
+   "name": "Goblin Medium Tank",
+   "mulUnitKey": "EEQCE7KFD9",
+   "diffs": [
+    "BV 555 vs 647",
+    "PV 15 vs 21",
+    "damage short 1 vs 3",
+    "damage medium 1 vs 3"
+   ]
+  },
+  {
+   "key": "cv/1150",
+   "name": "Condor Heavy Hover Tank",
+   "mulUnitKey": "SF23CPKPMA",
+   "diffs": [
+    "BV 653 vs 981",
+    "PV 27 vs 0",
+    "size 2 vs 0",
+    "move 16\"h vs —",
+    "armor 3 vs 0",
+    "structure 3 vs 0",
+    "damage short 2 vs 0",
+    "damage medium 2 vs 0",
+    "damage long 1 vs 0"
+   ]
+  },
+  {
+   "key": "cv/1151",
+   "name": "Condor Heavy Hover Tank (Davion)",
+   "mulUnitKey": "DZ2MYQM09D",
+   "diffs": [
+    "BV 577 vs 592"
+   ]
+  },
+  {
+   "key": "cv/1219",
+   "name": "Condor Heavy Hover Tank (Davion HM)",
+   "mulUnitKey": "DZ2MYQM09D",
+   "diffs": [
+    "PV 22 vs 23",
+    "armor 3 vs 4",
+    "damage medium 1 vs 0*",
+    "damage long 1 vs 0*"
+   ]
+  },
+  {
+   "key": "cv/1249",
+   "name": "Mobile Long Tom Artillery LT-MOB-25",
+   "mulUnitKey": "JVHG3ZGABY",
+   "diffs": [
+    "PV 40 vs 37",
+    "size 3 vs 2",
+    "move 6\"t vs 4\"t",
+    "structure 4 vs 3"
+   ]
+  },
+  {
+   "key": "cv/1276",
+   "name": "Neptune Submarine (Hunter-Killer)",
+   "mulUnitKey": "KBAYM4ZNCK",
+   "diffs": [
+    "PV 32 vs 34"
+   ]
+  },
+  {
+   "key": "cv/1296",
+   "name": "Rommel Tank",
+   "mulUnitKey": "ZN3JJZV5M5",
+   "diffs": [
+    "PV 28 vs 27"
+   ]
+  },
+  {
+   "key": "cv/1385",
+   "name": "Behemoth Heavy Tank (Flamer)",
+   "mulUnitKey": "62QMKXEEE1",
+   "diffs": [
+    "PV 40 vs 39",
+    "damage short 7 vs 6"
+   ]
+  },
+  {
+   "key": "cv/1386",
+   "name": "Neptune Submarine",
+   "mulUnitKey": "ZZ6RR14DYX",
+   "diffs": [
+    "PV 31 vs 33"
+   ]
+  },
+  {
+   "key": "cv/1392",
+   "name": "Demolisher Heavy Tank (Mk. I)",
+   "mulUnitKey": "SF23CPKPMA",
+   "diffs": [
+    "PV 27 vs 0",
+    "size 4 vs 0",
+    "move 6\"t vs —",
+    "armor 5 vs 0",
+    "structure 4 vs 0",
+    "damage short 4 vs 0",
+    "damage medium 4 vs 0"
+   ]
+  },
+  {
+   "key": "cv/1477",
+   "name": "Zephyr Hovertank (LRM)",
+   "mulUnitKey": "1QYA5H405B",
+   "diffs": [
+    "BV 889 vs 867"
+   ]
+  },
+  {
+   "key": "cv/1507",
+   "name": "Thor Artillery Vehicle (Clan)",
+   "mulUnitKey": "1R51Q4XZZ7",
+   "diffs": [
+    "BV 827 vs 830"
+   ]
+  },
+  {
+   "key": "cv/1521",
+   "name": "Marksman Artillery Vehicle",
+   "mulUnitKey": "H31QTKTHNK",
+   "diffs": [
+    "PV 32 vs 29"
+   ]
+  },
+  {
+   "key": "cv/1522",
+   "name": "Marksman Artillery Vehicle (Light PPC)",
+   "mulUnitKey": "APADGZ80F7",
+   "diffs": [
+    "PV 34 vs 31"
+   ]
+  },
+  {
+   "key": "cv/1532",
+   "name": "Rhino Fire Support Tank",
+   "mulUnitKey": "V66E74XYW9",
+   "diffs": [
+    "BV 1463 vs 1462"
+   ]
+  },
+  {
+   "key": "cv/1635",
+   "name": "Sea Skimmer Hydrofoil \"Sniper\"",
+   "mulUnitKey": "6E3MD5H516",
+   "diffs": [
+    "BV 346 vs 322"
+   ]
+  },
+  {
+   "key": "cv/1636",
+   "name": "Partisan Hull Defense",
+   "mulUnitKey": "7KY0304ZXS",
+   "diffs": [
+    "BV 1207 vs 1113"
+   ]
+  },
+  {
+   "key": "cv/1671",
+   "name": "Centipede Scout Car Commando",
+   "mulUnitKey": "3N5BG82D5Z",
+   "diffs": [
+    "BV 445 vs 455"
+   ]
+  },
+  {
+   "key": "cv/1780",
+   "name": "Cavalry Attack Helicopter (Infantry)",
+   "mulUnitKey": "A1FK0EDNRW",
+   "diffs": [
+    "BV 615 vs 605"
+   ]
+  },
+  {
+   "key": "cv/1783",
+   "name": "Cavalry Attack Helicopter (TAG)",
+   "mulUnitKey": "PQD0516Z7N",
+   "diffs": [
+    "BV 495 vs 487",
+    "PV 25 vs 22",
+    "armor 3 vs 2",
+    "damage short 0* vs 1"
+   ]
+  },
+  {
+   "key": "cv/1967",
+   "name": "Ballista Self-Propelled Artillery Tank",
+   "mulUnitKey": "1YNBG6THTW",
+   "diffs": [
+    "PV 27 vs 24"
+   ]
+  },
+  {
+   "key": "cv/1979",
+   "name": "Peregrine Attack VTOL (Cargo)",
+   "mulUnitKey": "5XBQ9FAS54",
+   "diffs": [
+    "BV 88 vs 564",
+    "PV 8 vs 26",
+    "damage short 0 vs 3",
+    "damage medium 0 vs 3"
+   ]
+  },
+  {
+   "key": "cv/2044",
+   "name": "Hunter Light Support Tank (3054 Upgrade)",
+   "mulUnitKey": "4B15GDBFTX",
+   "diffs": [
+    "PV 15 vs 16"
+   ]
+  },
+  {
+   "key": "cv/2050",
+   "name": "Pegasus Scout Hover Tank (C3)",
+   "mulUnitKey": "DERZA3V9XM",
+   "diffs": [
+    "BV 785 vs 787"
+   ]
+  },
+  {
+   "key": "cv/2103",
+   "name": "Saladin Assault Hover Tank (Ultra)",
+   "mulUnitKey": "3TS33W4K22",
+   "diffs": [
+    "BV 806 vs 808"
+   ]
+  },
+  {
+   "key": "cv/2132",
+   "name": "Pollux ADA Heavy Tank",
+   "mulUnitKey": "84H6JK1F8F",
+   "diffs": [
+    "PV 35 vs 32"
+   ]
+  },
+  {
+   "key": "cv/2134",
+   "name": "Rotunda Scout Vehicle RND-J-1-11 (RL)",
+   "mulUnitKey": "16F529SE2A",
+   "diffs": [
+    "BV 292 vs 320"
+   ]
+  },
+  {
+   "key": "cv/2146",
+   "name": "Galleon Light Tank GAL-200 (RL)",
+   "mulUnitKey": "JJ5G2HZC7F",
+   "diffs": [
+    "BV 422 vs 443"
+   ]
+  },
+  {
+   "key": "cv/2152",
+   "name": "Thor Artillery Vehicle (AC)",
+   "mulUnitKey": "Q7RXFXXH6D",
+   "diffs": [
+    "BV 657 vs 664"
+   ]
+  },
+  {
+   "key": "cv/2153",
+   "name": "Marksman Artillery Vehicle (AC)",
+   "mulUnitKey": "ADZZQY62DT",
+   "diffs": [
+    "BV 962 vs 976"
+   ]
+  },
+  {
+   "key": "cv/2209",
+   "name": "Bandit (C) Hovercraft PRIME",
+   "mulUnitKey": "KRZD2A2D1N",
+   "diffs": [
+    "BV 1087 vs 1054"
+   ]
+  },
+  {
+   "key": "cv/2387",
+   "name": "Fulcrum Heavy Hovertank II",
+   "mulUnitKey": "KAXF3SEG9H",
+   "diffs": [
+    "BV 1248 vs 1167",
+    "PV 48 vs 42",
+    "damage short 3 vs 2",
+    "damage medium 3 vs 2"
+   ]
+  },
+  {
+   "key": "cv/2534",
+   "name": "LRM Carrier (WoB)",
+   "mulUnitKey": "ZM7MFJAWSE",
+   "diffs": [
+    "PV 34 vs 35"
+   ]
+  },
+  {
+   "key": "cv/2658",
+   "name": "Brutus Assault Tank",
+   "mulUnitKey": "J1FE0WZB66",
+   "diffs": [
+    "BV 1115 vs 979",
+    "PV 32 vs 28",
+    "damage medium 5 vs 4",
+    "damage long 2 vs 1"
+   ]
+  },
+  {
+   "key": "cv/2663",
+   "name": "Zhukov Heavy Tank (WoB)",
+   "mulUnitKey": "A628J3WCHY",
+   "diffs": [
+    "BV 983 vs 939"
+   ]
+  },
+  {
+   "key": "cv/2815",
+   "name": "Flatbed Truck (Mortar)",
+   "mulUnitKey": "E7HZMTPH4B",
+   "diffs": [
+    "PV 2 vs 5"
+   ]
+  },
+  {
+   "key": "cv/2849",
+   "name": "Flatbed Truck (RL)",
+   "mulUnitKey": "D8XBGNH4PY",
+   "diffs": [
+    "BV 216 vs 232"
+   ]
+  },
+  {
+   "key": "cv/2900",
+   "name": "Gladius Medium Hover Tank Mk. II",
+   "mulUnitKey": "1QDW1HCD8Y",
+   "diffs": [
+    "BV 638 vs 613"
+   ]
+  },
+  {
+   "key": "cv/2937",
+   "name": "Myrmidon Medium Tank Type 2",
+   "mulUnitKey": "5AHYDATJF4",
+   "diffs": [
+    "BV 1002 vs 815",
+    "PV 31 vs 23",
+    "move 12\"t vs 10\"t",
+    "damage short 1 vs 2",
+    "damage medium 1 vs 2",
+    "damage long 0 vs 1"
+   ]
+  },
+  {
+   "key": "cv/2999",
+   "name": "Schiltron Mobile Fire-Support Platform F",
+   "mulUnitKey": "Z6490EK8WM",
+   "diffs": [
+    "BV 1470 vs 1466"
+   ]
+  },
+  {
+   "key": "cv/3006",
+   "name": "Asshur Fast Reconnaissance Vehicle (Proto AC)",
+   "mulUnitKey": "9WME36GKTX",
+   "diffs": [
+    "BV 336 vs 333"
+   ]
+  },
+  {
+   "key": "cv/3012",
+   "name": "Von Luckner Heavy Tank (Royal)",
+   "mulUnitKey": "3JQ0KMB8WW",
+   "diffs": [
+    "BV 1272 vs 1261"
+   ]
+  },
+  {
+   "key": "cv/3013",
+   "name": "Von Luckner Heavy Tank (Star League)",
+   "mulUnitKey": "AFN1FJZ6FC",
+   "diffs": [
+    "BV 1220 vs 1216"
+   ]
+  },
+  {
+   "key": "cv/3043",
+   "name": "Rhino Fire Support Tank EC",
+   "mulUnitKey": "C9S60G4HGX",
+   "diffs": [
+    "BV 1685 vs 1679"
+   ]
+  },
+  {
+   "key": "cv/3046",
+   "name": "Sea Hunter Maritime Tank",
+   "mulUnitKey": "6Y957MSVV0",
+   "diffs": [
+    "BV 565 vs 570",
+    "PV 22 vs 16"
+   ]
+  },
+  {
+   "key": "cv/3100",
+   "name": "Zorya Light Tank (Ammo)",
+   "mulUnitKey": "4ZSFRQVC0Z",
+   "diffs": [
+    "BV 573 vs 575"
+   ]
+  },
+  {
+   "key": "cv/3117",
+   "name": "Anhur (P-Stealth)",
+   "mulUnitKey": "DHTQXY5Q8Y",
+   "diffs": [
+    "BV 930 vs 1035"
+   ]
+  },
+  {
+   "key": "cv/3119",
+   "name": "Ontos Heavy Tank X All-Aspect Assault Tank",
+   "mulUnitKey": "JE3JDFJT0B",
+   "diffs": [
+    "BV 1078 vs 1031"
+   ]
+  },
+  {
+   "key": "cv/3142",
+   "name": "Hachiman Fire Support Tank",
+   "mulUnitKey": "WZMNNGXES1",
+   "diffs": [
+    "PV 36 vs 37"
+   ]
+  },
+  {
+   "key": "cv/3148",
+   "name": "Ishtar Heavy Fire Support Tank",
+   "mulUnitKey": "4EX6DQWAPN",
+   "diffs": [
+    "BV 1393 vs 1404"
+   ]
+  },
+  {
+   "key": "cv/3153",
+   "name": "Huitzilopochtli Assault Tank \"Huey\"",
+   "mulUnitKey": "4HH2EAE7N4",
+   "diffs": [
+    "BV 1160 vs 1132"
+   ]
+  },
+  {
+   "key": "cv/3154",
+   "name": "Huitzilopochtli Assault Tank \"Huey\" (AAA)",
+   "mulUnitKey": "VWTM6CHN0H",
+   "diffs": [
+    "BV 1496 vs 1454"
+   ]
+  },
+  {
+   "key": "cv/3155",
+   "name": "Mars Assault Vehicle",
+   "mulUnitKey": "HK1J3Z1N6W",
+   "diffs": [
+    "PV 55 vs 56"
+   ]
+  },
+  {
+   "key": "cv/3156",
+   "name": "Mars Assault Vehicle (XL)",
+   "mulUnitKey": "HZGDS9JTWD",
+   "diffs": [
+    "PV 56 vs 57"
+   ]
+  },
+  {
+   "key": "cv/3158",
+   "name": "Mars Assault Vehicle (HAG)",
+   "mulUnitKey": "CA73E0NZY4",
+   "diffs": [
+    "BV 2545 vs 1948",
+    "PV 67 vs 54",
+    "armor 12 vs 7",
+    "damage short 9 vs 12",
+    "damage long 8 vs 4"
+   ]
+  },
+  {
+   "key": "cv/3174",
+   "name": "Main Gauche Light Support Tank (XL)",
+   "mulUnitKey": "DEWBFBEDWM",
+   "diffs": [
+    "BV 585 vs 565"
+   ]
+  },
+  {
+   "key": "cv/3218",
+   "name": "Morningstar City Command Vehicle (Laser)",
+   "mulUnitKey": "KTEMY354G5",
+   "diffs": [
+    "BV 945 vs 940"
+   ]
+  },
+  {
+   "key": "cv/3303",
+   "name": "Manteuffel Attack Tank B",
+   "mulUnitKey": "MJKGZNSQ5T",
+   "diffs": [
+    "BV 1491 vs 1508"
+   ]
+  },
+  {
+   "key": "cv/3312",
+   "name": "Glory Heavy Fire Support Vehicle",
+   "mulUnitKey": "VE51818NQH",
+   "diffs": [
+    "BV 1684 vs 1686"
+   ]
+  },
+  {
+   "key": "cv/3314",
+   "name": "Glory Heavy Fire Support Vehicle (Light Gauss)",
+   "mulUnitKey": "0KZVGYX1B7",
+   "diffs": [
+    "BV 1450 vs 1452"
+   ]
+  },
+  {
+   "key": "cv/3322",
+   "name": "Ajax Assault Tank B",
+   "mulUnitKey": "XD5A8D12SM",
+   "diffs": [
+    "BV 1706 vs 2042",
+    "PV 55 vs 53",
+    "damage short 3 vs 7",
+    "damage medium 5 vs 7",
+    "damage long 5 vs 0"
+   ]
+  },
+  {
+   "key": "cv/3374",
+   "name": "Lightning Attack Hovercraft CX-3",
+   "mulUnitKey": "2QTBDWA9JQ",
+   "diffs": [
+    "BV 586 vs 710",
+    "PV 19 vs 25",
+    "damage short 1 vs 2",
+    "damage medium 1 vs 2"
+   ]
+  },
+  {
+   "key": "cv/3378",
+   "name": "Demon Tank CX-2",
+   "mulUnitKey": "9EBD712780",
+   "diffs": [
+    "BV 1474 vs 0",
+    "PV 37 vs 33",
+    "move 8\"w vs 8\"t"
+   ]
+  },
+  {
+   "key": "cv/3379",
+   "name": "Fury Command Tank CX-17",
+   "mulUnitKey": "R6D4K7CTD0",
+   "diffs": [
+    "BV 1322 vs 0",
+    "PV 30 vs 32"
+   ]
+  },
+  {
+   "key": "cv/3431",
+   "name": "Enyo Strike Tank (LB-X) \"Sholef\"",
+   "mulUnitKey": "VBBC4KDWTP",
+   "diffs": [
+    "BV 1423 vs 1527"
+   ]
+  },
+  {
+   "key": "cv/3951",
+   "name": "MIT 23 MASH Vehicle",
+   "mulUnitKey": "8GSTEJHTNM",
+   "diffs": [
+    "BV 172 vs 153"
+   ]
+  },
+  {
+   "key": "cv/4105",
+   "name": "Hiryo Armored Infantry Transport",
+   "mulUnitKey": "J7W3KTMVG1",
+   "diffs": [
+    "BV 687 vs 665"
+   ]
+  },
+  {
+   "key": "cv/4106",
+   "name": "Hiryo Armored Infantry Transport (Light PPC)",
+   "mulUnitKey": "MPA2PX4FQ5",
+   "diffs": [
+    "BV 708 vs 686"
+   ]
+  },
+  {
+   "key": "cv/4107",
+   "name": "Hiryo Armored Infantry Transport (MRM)",
+   "mulUnitKey": "BB65NWQ5SV",
+   "diffs": [
+    "BV 666 vs 644"
+   ]
+  },
+  {
+   "key": "cv/4180",
+   "name": "DI Morgan Assault Tank (Gauss)",
+   "mulUnitKey": "4NTEJJ4EAZ",
+   "diffs": [
+    "BV 1621 vs 1623"
+   ]
+  },
+  {
+   "key": "cv/4444",
+   "name": "Ripper Infantry Transport (Royal)",
+   "mulUnitKey": "JRZXTRFDN5",
+   "diffs": [
+    "BV 225 vs 228"
+   ]
+  },
+  {
+   "key": "cv/465",
+   "name": "Scorpion Light Tank (MRM)",
+   "mulUnitKey": "4G02TWKNZG",
+   "diffs": [
+    "BV 393 vs 469"
+   ]
+  },
+  {
+   "key": "cv/4664",
+   "name": "Zephyr Hovertank (Royal)",
+   "mulUnitKey": "PQ84Z48X6N",
+   "diffs": [
+    "BV 811 vs 633",
+    "PV 31 vs 32",
+    "size 2 vs 1",
+    "move 18\"h vs 22\"h",
+    "armor 4 vs 2",
+    "damage short 2 vs 3",
+    "damage medium 2 vs 3"
+   ]
+  },
+  {
+   "key": "cv/479",
+   "name": "Partisan Air Defense Tank (LRM)",
+   "mulUnitKey": "SXF7TXE3ZW",
+   "diffs": [
+    "PV 41 vs 42"
+   ]
+  },
+  {
+   "key": "cv/4896",
+   "name": "Rhino Fire Support Tank (Royal)",
+   "mulUnitKey": "39QQF35W47",
+   "diffs": [
+    "PV 45 vs 46"
+   ]
+  },
+  {
+   "key": "cv/4897",
+   "name": "Puma Assault Tank PAT-005b",
+   "mulUnitKey": "2BK0KZY1AW",
+   "diffs": [
+    "PV 42 vs 43"
+   ]
+  },
+  {
+   "key": "cv/4904",
+   "name": "Bellona Hover Tank (Laser)",
+   "mulUnitKey": "444FV8NG6M",
+   "diffs": [
+    "BV 1269 vs 1262",
+    "PV 33 vs 37",
+    "damage medium 2 vs 3"
+   ]
+  },
+  {
+   "key": "cv/4906",
+   "name": "SM Tank Destroyer SM1A",
+   "mulUnitKey": "Y6PE0KKFRC",
+   "diffs": [
+    "BV 1239 vs 1214"
+   ]
+  },
+  {
+   "key": "cv/4943",
+   "name": "Goblin Medium Tank X",
+   "mulUnitKey": "BHF26S9WP1",
+   "diffs": [
+    "BV 898 vs 886"
+   ]
+  },
+  {
+   "key": "cv/4944",
+   "name": "Striker Light Tank \"Wet Striker\"",
+   "mulUnitKey": "43K6TFM9Y2",
+   "diffs": [
+    "BV 580 vs 573"
+   ]
+  },
+  {
+   "key": "cv/4947",
+   "name": "Glaive Medium Tank (MFB)",
+   "mulUnitKey": "GZ00A1PHF0",
+   "diffs": [
+    "BV 206 vs 277"
+   ]
+  },
+  {
+   "key": "cv/5099",
+   "name": "Sabaku Kaze Heavy Scout Hover Tank",
+   "mulUnitKey": "HSW4CQD88T",
+   "diffs": [
+    "BV 997 vs 1038",
+    "PV 38 vs 28",
+    "size 2 vs 3",
+    "move 18\"h vs 8\"t",
+    "structure 3 vs 4",
+    "damage short 4 vs 3",
+    "damage long 0 vs 2"
+   ]
+  },
+  {
+   "key": "cv/5217",
+   "name": "Padilla Anti-Missile Tank",
+   "mulUnitKey": "0NAEGCA3B8",
+   "diffs": [
+    "BV 1062 vs 1155",
+    "PV 23 vs 24"
+   ]
+  },
+  {
+   "key": "cv/5218",
+   "name": "Quaestor Mobile Tactical Command HQ",
+   "mulUnitKey": "RDDTQK5JH6",
+   "diffs": [
+    "PV 22 vs 21",
+    "damage medium 0* vs 0",
+    "damage long 0 vs 0*"
+   ]
+  },
+  {
+   "key": "cv/5228",
+   "name": "Zephyr Hovertank (OmniDrone) C",
+   "mulUnitKey": "A0P55XT768",
+   "diffs": [
+    "PV 21 vs 23",
+    "damage short 0 vs 0*",
+    "damage medium 0 vs 0*"
+   ]
+  },
+  {
+   "key": "cv/524",
+   "name": "Whirlwind Scout Hover Tank (IFV)",
+   "mulUnitKey": "WMCDCN54ZN",
+   "diffs": [
+    "BV 756 vs 667"
+   ]
+  },
+  {
+   "key": "cv/5262",
+   "name": "Condor Multi-Purpose Tank (Reactive)",
+   "mulUnitKey": "H1D7NYTHQS",
+   "diffs": [
+    "BV 963 vs 811",
+    "PV 24 vs 23"
+   ]
+  },
+  {
+   "key": "cv/527",
+   "name": "Mobile Long Tom Artillery LT-MOB-25F",
+   "mulUnitKey": "A5QH5FF6Y3",
+   "diffs": [
+    "PV 36 vs 37",
+    "structure 3 vs 4"
+   ]
+  },
+  {
+   "key": "cv/5324",
+   "name": "Cavalry Attack Helicopter Cadence Rain",
+   "mulUnitKey": "9XYGGEFSC5",
+   "diffs": [
+    "BV 485 vs 568"
+   ]
+  },
+  {
+   "key": "cv/5339",
+   "name": "Ferret Light Scout VTOL \"Fermi\"",
+   "mulUnitKey": "BSGMZVCJ05",
+   "diffs": [
+    "BV 120 vs 108"
+   ]
+  },
+  {
+   "key": "cv/5340",
+   "name": "Packrat LRPV \"Gespenst\"",
+   "mulUnitKey": "MNEA77WW2J",
+   "diffs": [
+    "BV 433 vs 397",
+    "PV 18 vs 19"
+   ]
+  },
+  {
+   "key": "cv/5341",
+   "name": "SM Tank Destroyer SM1 \"Telos\"",
+   "mulUnitKey": "E5NJE3WB25",
+   "diffs": [
+    "BV 1110 vs 1055"
+   ]
+  },
+  {
+   "key": "cv/5342",
+   "name": "Hi-Scout Drone Carrier \"Cunnington\"",
+   "mulUnitKey": "3Q132PVEAE",
+   "diffs": [
+    "PV 23 vs 21"
+   ]
+  },
+  {
+   "key": "cv/5356",
+   "name": "Daimyo HQ 67-K",
+   "mulUnitKey": "MTGPP7GX4X",
+   "diffs": [
+    "BV 561 vs 583"
+   ]
+  },
+  {
+   "key": "cv/5358",
+   "name": "Daimyo HQ 67-K2",
+   "mulUnitKey": "CMGNFZDM97",
+   "diffs": [
+    "BV 620 vs 647"
+   ]
+  },
+  {
+   "key": "cv/5359",
+   "name": "Daimyo HQ 67-R",
+   "mulUnitKey": "HGCSD10KBQ",
+   "diffs": [
+    "BV 749 vs 683"
+   ]
+  },
+  {
+   "key": "cv/5361",
+   "name": "Korvin Tank KRV-3",
+   "mulUnitKey": "ZTF9TZFSB9",
+   "diffs": [
+    "BV 792 vs 809"
+   ]
+  },
+  {
+   "key": "cv/5451",
+   "name": "Kanga-X Jump Tank",
+   "mulUnitKey": "X6ZAFM7J6P",
+   "diffs": [
+    "BV 1363 vs 1154"
+   ]
+  },
+  {
+   "key": "cv/5452",
+   "name": "Schrek II-X PPC Carrier",
+   "mulUnitKey": "B6E1B80RZY",
+   "diffs": [
+    "BV 1407 vs 1242"
+   ]
+  },
+  {
+   "key": "cv/546",
+   "name": "SturmFeur Heavy Tank (WoB)",
+   "mulUnitKey": "V7V961TYXB",
+   "diffs": [
+    "BV 1596 vs 1578"
+   ]
+  },
+  {
+   "key": "cv/547",
+   "name": "SturmFeur Heavy Tank (Steiner)",
+   "mulUnitKey": "HA62E5ZQFX",
+   "diffs": [
+    "armor 11 vs 10"
+   ]
+  },
+  {
+   "key": "cv/5471",
+   "name": "Ignis Infantry Support Tank (SRM)",
+   "mulUnitKey": "1B7XRKV0N3",
+   "diffs": [
+    "BV 499 vs 502"
+   ]
+  },
+  {
+   "key": "cv/5473",
+   "name": "Marsden MBT II",
+   "mulUnitKey": "CNY1SM0PE7",
+   "diffs": [
+    "BV 984 vs 1056"
+   ]
+  },
+  {
+   "key": "cv/5474",
+   "name": "Marsden MBT II-A",
+   "mulUnitKey": "T92HC3XVT7",
+   "diffs": [
+    "BV 980 vs 1054"
+   ]
+  },
+  {
+   "key": "cv/5475",
+   "name": "Marsden MBT II-A (LB-X)",
+   "mulUnitKey": "FJV93FWHJC",
+   "diffs": [
+    "BV 1013 vs 1090"
+   ]
+  },
+  {
+   "key": "cv/5478",
+   "name": "Mauna Kea Command Vessel (LRM)",
+   "mulUnitKey": "TG87W0QJG4",
+   "diffs": [
+    "BV 1022 vs 1005"
+   ]
+  },
+  {
+   "key": "cv/5479",
+   "name": "Mauna Kea Command Vessel (LRT)",
+   "mulUnitKey": "EMH9GV60BK",
+   "diffs": [
+    "BV 1022 vs 872",
+    "PV 36 vs 32"
+   ]
+  },
+  {
+   "key": "cv/5498",
+   "name": "Yellow Jacket Gunship (PPC)",
+   "mulUnitKey": "XS370JJZMF",
+   "diffs": [
+    "BV 758 vs 582"
+   ]
+  },
+  {
+   "key": "cv/5517",
+   "name": "Plainsman Medium Hovertank (Sealed)",
+   "mulUnitKey": "SQJG8CBS5Q",
+   "diffs": [
+    "BV 665 vs 632",
+    "PV 26 vs 25"
+   ]
+  },
+  {
+   "key": "cv/5526",
+   "name": "Drillson Heavy Hover Tank (Sealed)",
+   "mulUnitKey": "F2NTXTM65W",
+   "diffs": [
+    "BV 914 vs 870"
+   ]
+  },
+  {
+   "key": "cv/5529",
+   "name": "Vedette Medium Tank (Cell)",
+   "mulUnitKey": "KGXCEP0ZQK",
+   "diffs": [
+    "BV 730 vs 731"
+   ]
+  },
+  {
+   "key": "cv/557",
+   "name": "Browning Mobile Headquarters (Half-Track)",
+   "mulUnitKey": "GG874BT7AA",
+   "diffs": [
+    "PV 17 vs 18"
+   ]
+  },
+  {
+   "key": "cv/5652",
+   "name": "Schrek PPC Carrier (Armor)",
+   "mulUnitKey": "GWP32G5C3R",
+   "diffs": [
+    "BV 1005 vs 1040"
+   ]
+  },
+  {
+   "key": "cv/574",
+   "name": "LRM Carrier C",
+   "mulUnitKey": "G7YEJQ52DC",
+   "diffs": [
+    "move 8\"t vs 6\"t"
+   ]
+  },
+  {
+   "key": "cv/5830",
+   "name": "Hiryo Armored Infantry Transport \"Hound\"",
+   "mulUnitKey": "KRGYQWFCEK",
+   "diffs": [
+    "BV 656 vs 628"
+   ]
+  },
+  {
+   "key": "cv/5831",
+   "name": "Tokugawa Heavy Tank Yumi",
+   "mulUnitKey": "RJY0JEPBP3",
+   "diffs": [
+    "BV 1125 vs 1127"
+   ]
+  },
+  {
+   "key": "cv/5837",
+   "name": "Galleon Light Tank Maxwell",
+   "mulUnitKey": "N75BF08E3P",
+   "diffs": [
+    "BV 483 vs 451"
+   ]
+  },
+  {
+   "key": "cv/5866",
+   "name": "Beagle Hover Scout (LRRP)",
+   "mulUnitKey": "GSQ6WAXD52",
+   "diffs": [
+    "BV 230 vs 219",
+    "PV 17 vs 15"
+   ]
+  },
+  {
+   "key": "cv/5890",
+   "name": "Minion Advanced Tactical Vehicle \"Silver Bullet\"",
+   "mulUnitKey": "JSMXG5Q4DG",
+   "diffs": [
+    "BV 530 vs 560",
+    "PV 19 vs 22",
+    "move 18\"h vs 22\"h"
+   ]
+  },
+  {
+   "key": "cv/5891",
+   "name": "Manticore Heavy Tank \"The Ballista\"",
+   "mulUnitKey": "WHQCEB3RPR",
+   "diffs": [
+    "BV 1060 vs 1135"
+   ]
+  },
+  {
+   "key": "cv/5954",
+   "name": "Warrior Stealth Helicopter S-9",
+   "mulUnitKey": "BZ4DRX3NM4",
+   "diffs": [
+    "BV 688 vs 668"
+   ]
+  },
+  {
+   "key": "cv/5987",
+   "name": "Hunter Light Support Tank (Amphibious)",
+   "mulUnitKey": "CS251KP8HE",
+   "diffs": [
+    "PV 22 vs 16"
+   ]
+  },
+  {
+   "key": "cv/5991",
+   "name": "Hiryo Armored Infantry Transport (Bloodhound)",
+   "mulUnitKey": "KCH2DMGA20",
+   "diffs": [
+    "BV 528 vs 504"
+   ]
+  },
+  {
+   "key": "cv/5995",
+   "name": "Bandit Hovercraft Mk. II",
+   "mulUnitKey": "8RZA945HDM",
+   "diffs": [
+    "BV 738 vs 770"
+   ]
+  },
+  {
+   "key": "cv/625",
+   "name": "Skimmer",
+   "mulUnitKey": "6NZA9H25RA",
+   "diffs": [
+    "PV 8 vs 7",
+    "move 34\"h vs 26\"h"
+   ]
+  },
+  {
+   "key": "cv/629",
+   "name": "Harrier Heavy Hover Tank (Re-Laser)",
+   "mulUnitKey": "VVQD69M1YB",
+   "diffs": [
+    "BV 958 vs 859"
+   ]
+  },
+  {
+   "key": "cv/6356",
+   "name": "Vidar Heavy Defense Tank",
+   "mulUnitKey": "X5ZH2B1Q67",
+   "diffs": [
+    "BV 1458 vs 1396"
+   ]
+  },
+  {
+   "key": "cv/6509",
+   "name": "Ranger Armored Fighting Vehicle VV1",
+   "mulUnitKey": "7C42Y1DY1H",
+   "diffs": [
+    "BV 644 vs 604"
+   ]
+  },
+  {
+   "key": "cv/6540",
+   "name": "Regulator II Hovertank (Stealth)",
+   "mulUnitKey": "NCB0Y540CV",
+   "diffs": [
+    "BV 1029 vs 971"
+   ]
+  },
+  {
+   "key": "cv/6548",
+   "name": "Padilla Tube Artillery Tank",
+   "mulUnitKey": "28V37NKPQR",
+   "diffs": [
+    "PV 32 vs 29"
+   ]
+  },
+  {
+   "key": "cv/6553",
+   "name": "Prowler Multi-Terrain Vehicle (RAF)",
+   "mulUnitKey": "WXY8D75YCZ",
+   "diffs": [
+    "BV 680 vs 679"
+   ]
+  },
+  {
+   "key": "cv/6557",
+   "name": "Prowler Multi-Terrain Vehicle (WoB)",
+   "mulUnitKey": "YJ4XKGMH0X",
+   "diffs": [
+    "BV 698 vs 697"
+   ]
+  },
+  {
+   "key": "cv/6595",
+   "name": "Bolla Stealth Tank Dominus",
+   "mulUnitKey": "EB3B58TVFQ",
+   "diffs": [
+    "BV 898 vs 908"
+   ]
+  },
+  {
+   "key": "cv/6679",
+   "name": "Kinnol MBT",
+   "mulUnitKey": "CRJTSAMYK3",
+   "diffs": [
+    "BV 1226 vs 1200"
+   ]
+  },
+  {
+   "key": "cv/670",
+   "name": "Von Luckner Heavy Tank VNL-K65W",
+   "mulUnitKey": "TPHMHE9RS3",
+   "diffs": [
+    "BV 1318 vs 1319"
+   ]
+  },
+  {
+   "key": "cv/684",
+   "name": "Schrek AC Carrier (Lothian)",
+   "mulUnitKey": "0ATZGWH6XH",
+   "diffs": [
+    "armor 4 vs 5"
+   ]
+  },
+  {
+   "key": "cv/7382",
+   "name": "Joust Medium Tank BE701",
+   "mulUnitKey": "5GYJ6GGE46",
+   "diffs": [
+    "BV 1074 vs 1077"
+   ]
+  },
+  {
+   "key": "cv/7537",
+   "name": "Chalchiuhtotolin Support Tank (Chemical Laser)",
+   "mulUnitKey": "SR6C2S61KB",
+   "diffs": [
+    "BV 1181 vs 1177"
+   ]
+  },
+  {
+   "key": "im/1",
+   "name": "Exo HMX-1 HaulerMech",
+   "mulUnitKey": "2JFVV7J5NQ",
+   "diffs": [
+    "PV 4 vs 5"
+   ]
+  },
+  {
+   "key": "im/108",
+   "name": "Heavy Lifter HCL-1 CargoMech",
+   "mulUnitKey": "5JN3PWDCWY",
+   "diffs": [
+    "PV 16 vs 17"
+   ]
+  },
+  {
+   "key": "im/115",
+   "name": "Dig Lord RCL-4 MiningMech",
+   "mulUnitKey": "NDW8XP3D5P",
+   "diffs": [
+    "PV 14 vs 12",
+    "damage short 0 vs 2"
+   ]
+  },
+  {
+   "key": "im/116",
+   "name": "Dig King RCL-1 MiningMech",
+   "mulUnitKey": "PYFE5B6V3W",
+   "diffs": [
+    "PV 10 vs 11"
+   ]
+  },
+  {
+   "key": "im/120",
+   "name": "Carbine CON-1 ConstructionMech (RL)",
+   "mulUnitKey": "7EZRYH4JPV",
+   "diffs": [
+    "BV 294 vs 296",
+    "PV 9 vs 8"
+   ]
+  },
+  {
+   "key": "im/121",
+   "name": "Crosscut ED-X2 LoggerMech (RL)",
+   "mulUnitKey": "F838PZ2BR2",
+   "diffs": [
+    "BV 406 vs 422"
+   ]
+  },
+  {
+   "key": "im/122",
+   "name": "Powerman SC XI LoaderMech",
+   "mulUnitKey": "H3S06EYP25",
+   "diffs": [
+    "PV 4 vs 5"
+   ]
+  },
+  {
+   "key": "im/125",
+   "name": "Daedalus GTX2A \"Stevedore\"",
+   "mulUnitKey": "8YWVJ0Y6PH",
+   "diffs": [
+    "PV 16 vs 17"
+   ]
+  },
+  {
+   "key": "im/127",
+   "name": "Daedalus GTX2 (Militarized)",
+   "mulUnitKey": "7EW7JMWWPH",
+   "diffs": [
+    "BV 866 vs 849",
+    "PV 24 vs 23"
+   ]
+  },
+  {
+   "key": "im/132",
+   "name": "Jabberwocky JAW-65A EngineerMech",
+   "mulUnitKey": "T5K02XBJTG",
+   "diffs": [
+    "BV 265 vs 230"
+   ]
+  },
+  {
+   "key": "im/133",
+   "name": "Jabberwocky JAW-66B EngineerMech",
+   "mulUnitKey": "Z6TNEZYM79",
+   "diffs": [
+    "BV 350 vs 322"
+   ]
+  },
+  {
+   "key": "im/135",
+   "name": "Jabberwocky JAW-66D ConstructionMech",
+   "mulUnitKey": "B68A2T9Z2Y",
+   "diffs": [
+    "BV 352 vs 326",
+    "PV 7 vs 8",
+    "damage short 0* vs 1"
+   ]
+  },
+  {
+   "key": "im/138",
+   "name": "Patron PTN LoaderMech",
+   "mulUnitKey": "JWKSR87853",
+   "diffs": [
+    "BV 73 vs 97",
+    "PV 1 vs 3",
+    "armor 0 vs 1"
+   ]
+  },
+  {
+   "key": "im/139",
+   "name": "Patron PTN-1 LoaderMech",
+   "mulUnitKey": "11F1VHY447",
+   "diffs": [
+    "BV 73 vs 107",
+    "PV 1 vs 2"
+   ]
+  },
+  {
+   "key": "im/144",
+   "name": "Quasit QUA-51M MilitiaMech",
+   "mulUnitKey": "2BNYNXVHXG",
+   "diffs": [
+    "BV 680 vs 636"
+   ]
+  },
+  {
+   "key": "im/145",
+   "name": "Quasit QUA-51P MilitiaMech",
+   "mulUnitKey": "QAMT8VXEK7",
+   "diffs": [
+    "BV 826 vs 779"
+   ]
+  },
+  {
+   "key": "im/158",
+   "name": "Kiso K-3N-KRHQ CommandMech",
+   "mulUnitKey": "S9FSMMD57Y",
+   "diffs": [
+    "BV 931 vs 940"
+   ]
+  },
+  {
+   "key": "im/159",
+   "name": "Crosscut ED-XX \"Ichabod\"",
+   "mulUnitKey": "CK29KREAGA",
+   "diffs": [
+    "PV 12 vs 10"
+   ]
+  },
+  {
+   "key": "im/165",
+   "name": "Sokuryou SKU-181 SurveyMech",
+   "mulUnitKey": "YBCR0ZCESV",
+   "diffs": [
+    "PV 14 vs 12"
+   ]
+  },
+  {
+   "key": "im/167",
+   "name": "Sokuryou SKU-198 SurveyMech",
+   "mulUnitKey": "GDNWYPGTB0",
+   "diffs": [
+    "PV 18 vs 17"
+   ]
+  },
+  {
+   "key": "im/168",
+   "name": "Fwltur FWL-3R SalvageMech",
+   "mulUnitKey": "XFB05YER9T",
+   "diffs": [
+    "BV 255 vs 250"
+   ]
+  },
+  {
+   "key": "im/170",
+   "name": "Diomede D-M3D-3 ConstructionMech",
+   "mulUnitKey": "7T537R27WA",
+   "diffs": [
+    "BV 1227 vs 1228",
+    "PV 35 vs 34"
+   ]
+  },
+  {
+   "key": "im/171",
+   "name": "Diomede D-M3D-4 DemolitionMech",
+   "mulUnitKey": "3VG8HXYX8J",
+   "diffs": [
+    "BV 1234 vs 1235",
+    "PV 35 vs 34"
+   ]
+  },
+  {
+   "key": "im/2",
+   "name": "Exo HMX-2 HaulerMech",
+   "mulUnitKey": "136QR29B6V",
+   "diffs": [
+    "PV 4 vs 5"
+   ]
+  },
+  {
+   "key": "im/20",
+   "name": "Demeter WLD-1 AgroMech",
+   "mulUnitKey": "FAD67C52AJ",
+   "diffs": [
+    "PV 10 vs 11"
+   ]
+  },
+  {
+   "key": "im/228",
+   "name": "Rock Hound AM-PRM-RH7 ProspectorMech",
+   "mulUnitKey": "NDYNZ8Z3BV",
+   "diffs": [
+    "BV 523 vs 0"
+   ]
+  },
+  {
+   "key": "im/229",
+   "name": "Rock Hound AM-PRM-RH7C \"Rock Possum\" ProspectorMech",
+   "mulUnitKey": "2K111FTDM8",
+   "diffs": [
+    "BV 479 vs 0",
+    "PV 14 vs 0",
+    "size 2 vs 0",
+    "move 8\" vs —",
+    "armor 3 vs 0",
+    "structure 3 vs 0",
+    "damage short 1 vs 0",
+    "damage medium 1 vs 0"
+   ]
+  },
+  {
+   "key": "im/230",
+   "name": "Rock Hound AM-PRM-RH7A \"Rock Otter\" ProspectorMech",
+   "mulUnitKey": "6CQFYV6JD7",
+   "diffs": [
+    "BV 455 vs 0",
+    "PV 14 vs 0",
+    "size 2 vs 0",
+    "move 8\" vs —",
+    "armor 3 vs 0",
+    "structure 3 vs 0",
+    "damage short 1 vs 0",
+    "damage medium 1 vs 0"
+   ]
+  },
+  {
+   "key": "im/28",
+   "name": "StrongArm SC CV ConstructionMech",
+   "mulUnitKey": "KPDGZTENCZ",
+   "diffs": [
+    "PV 7 vs 8"
+   ]
+  },
+  {
+   "key": "im/29",
+   "name": "StrongArm SC CVI ConstructionMech",
+   "mulUnitKey": "RP60YN1JP0",
+   "diffs": [
+    "PV 7 vs 8"
+   ]
+  },
+  {
+   "key": "im/3",
+   "name": "Exo HMX-3 HaulerMech",
+   "mulUnitKey": "QKHY7XMKT9",
+   "diffs": [
+    "PV 4 vs 5"
+   ]
+  },
+  {
+   "key": "im/35",
+   "name": "Harvester HVR-199M-M AgroMech Mod",
+   "mulUnitKey": "K2R0MSBXX9",
+   "diffs": [
+    "PV 20 vs 16"
+   ]
+  },
+  {
+   "key": "im/48",
+   "name": "Deep Lord RCL-Z1M MilitiaMech",
+   "mulUnitKey": "RZYESCYTQP",
+   "diffs": [
+    "BV 713 vs 715"
+   ]
+  },
+  {
+   "key": "im/51",
+   "name": "MuckRaker GMMM-2 MiningMech",
+   "mulUnitKey": "XKZJRZ96PM",
+   "diffs": [
+    "PV 17 vs 18"
+   ]
+  },
+  {
+   "key": "im/58",
+   "name": "Pompier GM-3A FireMech",
+   "mulUnitKey": "BDXZM8XHRM",
+   "diffs": [
+    "PV 3 vs 4"
+   ]
+  },
+  {
+   "key": "im/60",
+   "name": "Pompier GM-3HT FireMech",
+   "mulUnitKey": "Z6J6Y9NEWH",
+   "diffs": [
+    "PV 3 vs 4"
+   ]
+  },
+  {
+   "key": "im/64",
+   "name": "Shugosha LAW-QM1 Q-Mech",
+   "mulUnitKey": "3SXWR3DMZQ",
+   "diffs": [
+    "PV 7 vs 8"
+   ]
+  },
+  {
+   "key": "im/68",
+   "name": "CattleMaster \"Herder\" CTL-3R IndustrialMech",
+   "mulUnitKey": "HVAAA1Q4ME",
+   "diffs": [
+    "PV 7 vs 8"
+   ]
+  },
+  {
+   "key": "im/69",
+   "name": "CattleMaster \"Hunter\" CTL-3R2 IndustrialMech",
+   "mulUnitKey": "BVJ96CH75Q",
+   "diffs": [
+    "BV 260 vs 245"
+   ]
+  },
+  {
+   "key": "im/77",
+   "name": "Carbine CON-8H HaulerMech",
+   "mulUnitKey": "J258XBZTHB",
+   "diffs": [
+    "PV 5 vs 6"
+   ]
+  },
+  {
+   "key": "im/90",
+   "name": "Crosscut ED-X5M LoggerMech MOD",
+   "mulUnitKey": "21W8FND710",
+   "diffs": [
+    "BV 309 vs 317",
+    "PV 9 vs 10"
+   ]
+  },
+  {
+   "key": "im/92",
+   "name": "Harvester HVR-99 AgroMech",
+   "mulUnitKey": "FPWR3P21NN",
+   "diffs": [
+    "PV 10 vs 11"
+   ]
+  },
+  {
+   "key": "im/93",
+   "name": "Marco MR-8C ExplorerMech",
+   "mulUnitKey": "WRFKF28Z6K",
+   "diffs": [
+    "PV 6 vs 7"
+   ]
+  },
+  {
+   "key": "im/97",
+   "name": "Powerman SC XV HaulerMech",
+   "mulUnitKey": "KTSZDKVAEB",
+   "diffs": [
+    "PV 4 vs 5"
+   ]
+  },
+  {
+   "key": "im/98",
+   "name": "Powerman SC XVI HaulerMech",
+   "mulUnitKey": "D00ZVBE37F",
+   "diffs": [
+    "PV 4 vs 5"
+   ]
+  },
+  {
+   "key": "pm/14",
+   "name": "Centaur",
+   "mulUnitKey": "P1PZF22X8H",
+   "diffs": [
+    "BV 190 vs 192"
+   ]
+  },
+  {
+   "key": "pm/149",
+   "name": "Gorgon 6",
+   "mulUnitKey": "M6AP75F2VH",
+   "diffs": [
+    "BV 358 vs 355"
+   ]
+  },
+  {
+   "key": "pm/155",
+   "name": "Minotaur Z",
+   "mulUnitKey": "CC9007YT32",
+   "diffs": [
+    "BV 300 vs 295"
+   ]
+  },
+  {
+   "key": "pm/17",
+   "name": "Centaur 4",
+   "mulUnitKey": "PFCRWRK49P",
+   "diffs": [
+    "BV 227 vs 228"
+   ]
+  },
+  {
+   "key": "pm/37",
+   "name": "Minotaur 4",
+   "mulUnitKey": "JXR2HEPBV2",
+   "diffs": [
+    "BV 191 vs 188"
+   ]
+  },
+  {
+   "key": "pm/39",
+   "name": "Centaur Z",
+   "mulUnitKey": "6B3EX47P68",
+   "diffs": [
+    "BV 183 vs 179"
+   ]
+  },
+  {
+   "key": "pm/41",
+   "name": "Procyon Z",
+   "mulUnitKey": "SA30FHMTEA",
+   "diffs": [
+    "BV 182 vs 180"
+   ]
+  },
+  {
+   "key": "pm/43",
+   "name": "Basilisk (Quad) B",
+   "mulUnitKey": "FP6BF3XEM6",
+   "diffs": [
+    "BV 240 vs 218"
+   ]
+  },
+  {
+   "key": "pm/44",
+   "name": "Roc Z",
+   "mulUnitKey": "8FCDXMXHCH",
+   "diffs": [
+    "BV 223 vs 221"
+   ]
+  },
+  {
+   "key": "pm/49",
+   "name": "Sprite",
+   "mulUnitKey": "46QPSQNB5V",
+   "diffs": [
+    "BV 608 vs 622"
+   ]
+  },
+  {
+   "key": "pm/59",
+   "name": "Basilisk",
+   "mulUnitKey": "G0AVP5MTJF",
+   "diffs": [
+    "BV 318 vs 319"
+   ]
+  },
+  {
+   "key": "pm/75",
+   "name": "Orc 2",
+   "mulUnitKey": "2PKDHW8C2F",
+   "diffs": [
+    "BV 171 vs 170"
+   ]
+  },
+  {
+   "key": "pm/80",
+   "name": "Procyon 3",
+   "mulUnitKey": "7YWVY8YMYY",
+   "diffs": [
+    "BV 161 vs 163"
+   ]
+  },
+  {
+   "key": "pm/84",
+   "name": "Triton 2",
+   "mulUnitKey": "EPGX4JA11X",
+   "diffs": [
+    "BV 272 vs 274"
+   ]
+  },
+  {
+   "key": "pm/86",
+   "name": "Triton 4",
+   "mulUnitKey": "8YJBJGHB5C",
+   "diffs": [
+    "BV 205 vs 207"
+   ]
+  }
+ ]
+}

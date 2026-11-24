@@ -1,8 +1,10 @@
 import { describe, expect, it } from "vitest";
 import {
+    acesEdgeCardForName,
     acesDeckIdFromName,
     acesLines,
     acesTextToPlain,
+    formatAcesCommandOrderLine,
     formatAcesDeckOrderLine,
     formatAcesObjectiveLine,
     formatAcesPriorityLine,
@@ -19,15 +21,19 @@ import {
     parseAcesZone,
     mergeAcesCardLibrary,
     newAcesCard,
+    newAcesEdgeCard,
+    normalizeAcesEdgeCard,
+    validateAcesEdgeCard,
     newAcesCardLibrary,
     newAcesScenario,
     normalizeAcesCardLibrary,
+    normalizeAcesPriorityRule,
     parseAcesText,
     validateAcesCard,
     validateAcesCommandCard,
     validateAcesScenario,
 } from "./aces-cards";
-import { acesSampleBattleROMReview, acesSampleBrawler383, acesSampleSniper475, acesSampleStarCaptainB, getAcesSampleLibrary } from "./aces-card-samples";
+import { acesSampleEdgeCard, acesSampleBattleROMReview, acesSampleBrawler383, acesSampleSniper475, acesSampleStarCaptainB, getAcesSampleLibrary } from "./aces-card-samples";
 
 describe("Aces card text", () => {
     it("splits icon tokens out of printed text", () => {
@@ -79,6 +85,20 @@ describe("Aces card library", () => {
         expect( normalizeAcesCardLibrary( undefined ) ).toEqual( newAcesCardLibrary() );
     });
 
+    it("loads the line-of-sight target filters, off for cards saved before them (#591)", () => {
+        const library = getAcesSampleLibrary();
+        const saved = JSON.parse( JSON.stringify( library ) );
+        delete saved.cards[0].aggressive.targetInLOS;
+        delete saved.cards[0].aggressive.targetNoLOS;
+        saved.cards[0].balanced.targetInLOS = true;
+        saved.cards[0].cautious.targetNoLOS = true;
+        const loaded = normalizeAcesCardLibrary( saved );
+        expect( loaded.cards[0].aggressive.targetInLOS ).toBe( false );
+        expect( loaded.cards[0].aggressive.targetNoLOS ).toBe( false );
+        expect( loaded.cards[0].balanced.targetInLOS ).toBe( true );
+        expect( loaded.cards[0].cautious.targetNoLOS ).toBe( true );
+    });
+
     it("merges imports by id, replacing matches", () => {
         const base = getAcesSampleLibrary();
         const incoming = newAcesCardLibrary();
@@ -99,6 +119,55 @@ describe("Aces card library", () => {
     });
 });
 
+describe("Aces Edge cards", () => {
+    it("loads an old library without edgeCards as an empty list", () => {
+        const old = JSON.parse( JSON.stringify( getAcesSampleLibrary() ) );
+        delete old.edgeCards;
+        expect( normalizeAcesCardLibrary( old ).edgeCards ).toEqual( [] );
+        expect( newAcesCardLibrary().edgeCards ).toEqual( [] );
+    });
+
+    it("merges Edge cards by id", () => {
+        const base = newAcesCardLibrary();
+        base.edgeCards = [ { ...newAcesEdgeCard(), id: "kite", name: "Kite Day" } ];
+        const incoming = newAcesCardLibrary();
+        incoming.edgeCards = [ { ...newAcesEdgeCard(), id: "kite", name: "Kite Night" }, { ...newAcesEdgeCard(), id: "pot", name: "Teapot" } ];
+        const merged = mergeAcesCardLibrary( base, incoming );
+        expect( merged.edgeCards.map( ( card ) => card.name ) ).toEqual( [ "Kite Night", "Teapot" ] );
+    });
+
+    it("flags an empty name and an out-of-range cost", () => {
+        expect( validateAcesEdgeCard( newAcesEdgeCard() ) ).toContain( "Name is missing." );
+        const card = { ...newAcesEdgeCard(), name: "Kite Day" };
+        expect( validateAcesEdgeCard( card ) ).toEqual( [] );
+        expect( validateAcesEdgeCard( { ...card, cost: 0 } ) ).toEqual( [] );
+        expect( validateAcesEdgeCard( { ...card, cost: 9 } ) ).toEqual( [] );
+        expect( validateAcesEdgeCard( { ...card, cost: 10 } ).length ).toBe( 1 );
+        expect( validateAcesEdgeCard( { ...card, cost: -1 } ).length ).toBe( 1 );
+        expect( validateAcesEdgeCard( { ...card, cost: 2.5 } ).length ).toBe( 1 );
+    });
+
+    it("normalizes odd records and round-trips", () => {
+        expect( normalizeAcesEdgeCard( null ) ).toBeNull();
+        expect( normalizeAcesEdgeCard( { name: 7 } ) ).toBeNull();
+        const card = normalizeAcesEdgeCard( { name: "Teapot", phase: "bogus", trigger: "bogus", cost: "3", text: "A teapot whistles." } )!;
+        expect( card.phase ).toBe( "any" );
+        expect( card.trigger ).toBe( "none" );
+        expect( card.cost ).toBe( 3 );
+        expect( card.id ).not.toBe( "" );
+        expect( normalizeAcesEdgeCard( JSON.parse( JSON.stringify( card ) ) ) ).toEqual( card );
+    });
+
+    it("ships one sample of ours, marked not official", () => {
+        const library = getAcesSampleLibrary();
+        expect( library.edgeCards.length ).toBe( 1 );
+        expect( library.edgeCards[0] ).toEqual( acesSampleEdgeCard );
+        expect( acesSampleEdgeCard.sample ).toBe( true );
+        expect( acesSampleEdgeCard.notes ).toContain( "NOT OFFICIAL" );
+        expect( validateAcesEdgeCard( acesSampleEdgeCard ) ).toEqual( [] );
+    });
+});
+
 describe("Aces typed lines (library editor)", () => {
     it("reads target-list lines the way the samples store them (Aces p.8)", () => {
         for( const list of [ acesSampleStarCaptainB.red, acesSampleStarCaptainB.yellow, acesSampleStarCaptainB.blue, acesSampleSniper475.combat.filters ] ) {
@@ -107,6 +176,13 @@ describe("Aces typed lines (library editor)", () => {
             }
         }
         expect( parseAcesPriorityLine( "? hidden line" ) ).toEqual( { text: "hidden line", unresolved: true } );
+        expect( parseAcesPriorityLine( "[highest] Starting Armor" ) ).toEqual( { text: "[highest] Starting Armor", stat: "armor-start", direction: "highest" } );
+        expect( parseAcesPriorityLine( "[lowest] Starting Structure" ).stat ).toBe( "structure-start" );
+        expect( parseAcesPriorityLine( "[highest] [M] damage" ) ).toMatchObject( { stat: "damage-m", direction: "highest" } );
+        expect( parseAcesPriorityLine( "[highest] [S] damage" ).stat ).toBe( "damage-s" );
+        expect( parseAcesPriorityLine( "no Armor" ) ).toEqual( { text: "no Armor", noArmor: true } );
+        expect( normalizeAcesPriorityRule( { text: "no Armor", noArmor: true } )?.noArmor ).toBe( true );
+        expect( parseAcesPriorityLine( "Hit target's Rear" ).stat ).toBeUndefined();
     });
 
     it("reads printed OV rows (Aces SS pp.6-7)", () => {
@@ -128,6 +204,22 @@ describe("Aces typed lines (library editor)", () => {
         expect( acesLines( "a\n\n b \r\nc" ) ).toEqual( [ "a", "b", "c" ] );
     });
 
+    it("keeps an order's movement filter, phase-less orders and 'Maintain this strategy' (#602)", () => {
+        const filterLine = "movement | When your crippled units use Forced Withdrawal, add the following movement filter | 0. cover vs [highest] enemies";
+        const order = parseAcesCommandOrderLine( filterLine )!;
+        expect( order.behavior ).toBeNull();
+        expect( order.filter ).toBe( "0. cover vs [highest] enemies" );
+        expect( formatAcesCommandOrderLine( order ) ).toBe( filterLine );
+        expect( parseAcesCommandOrderLine( "movement | All units use Aggressive | aggressive" )!.filter ).toBe( "" );
+        const plain = parseAcesCommandOrderLine( "For the rest of the sortie, all units are in Forced Withdrawal" )!;
+        expect( plain.phase ).toBe( "any" );
+        expect( plain.text ).toBe( "For the rest of the sortie, all units are in Forced Withdrawal" );
+        expect( formatAcesCommandOrderLine( plain ) ).toBe( "any | For the rest of the sortie, all units are in Forced Withdrawal" );
+        const maintain = parseAcesStrategyLine( "Maintain this strategy" )!;
+        expect( maintain.auto ).toBe( "maintain" );
+        expect( validateAcesCommandCard( { ...acesSampleStarCaptainB, strategy: [ maintain ] } ) ).toEqual( [] );
+    });
+
     it("reads sortie lines the way the tutorial sample stores them (Aces SS pp.4-5)", () => {
         const scenario = acesSampleBattleROMReview;
         for( const unit of [ ...scenario.playerUnits, ...scenario.opposingUnits ] ) {
@@ -145,3 +237,16 @@ describe("Aces typed lines (library editor)", () => {
         expect( acesDeckIdFromName( "Nonsense" ) ).toBe( "" );
     });
 });
+
+describe( "acesEdgeCardForName", () => {
+    const card = newAcesEdgeCard();
+    card.name = "Kite Day";
+    it( "matches ignoring case, edge spaces and inner space runs", () => {
+        expect( acesEdgeCardForName( [ card ], "kite day " ) ).toBe( card );
+        expect( acesEdgeCardForName( [ card ], "KITE   DAY" ) ).toBe( card );
+    } );
+    it( "returns nothing for other or blank names", () => {
+        expect( acesEdgeCardForName( [ card ], "Teapot Luck" ) ).toBeUndefined();
+        expect( acesEdgeCardForName( [ card ], "  " ) ).toBeUndefined();
+    } );
+} );

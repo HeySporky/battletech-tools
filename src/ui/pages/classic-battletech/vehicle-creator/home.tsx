@@ -3,10 +3,9 @@ import { Link } from 'react-router';
 import { FaArrowCircleRight, FaFile, FaFolderOpen, FaSave, FaTrash } from "react-icons/fa";
 import Vehicle, { IVehicleExport } from '../../../../classes/vehicle';
 import { IAppGlobals } from '../../../app-router';
-import VehicleCreatorSideMenu from '../../../components/vehicle-creator-side-menu';
+import { VehicleCreatorSideMenu } from '../../../components/creator-side-menus';
 import TextSection from '../../../components/text-section';
-import BlkImportSection, { IBlkImportOutcome } from '../../../components/blk-import-section';
-import { importSupportVehicleBlk } from '../../../../classes/support-vehicle-blk';
+import BlkImportSection from '../../../components/blk-import-section';
 import UIPage from '../../../components/ui-page';
 import { confirmReplaceDesign, designWouldBeLost } from '../../../components/confirm-replace-design';
 const ArrowCircleRight = FaArrowCircleRight as any;
@@ -91,12 +90,11 @@ export default class VehicleCreatorHome extends React.Component<IHomeProps, IHom
         }
     }
 
-    // A MegaMek Support Vehicle file (SupportTank, LargeSupportTank, SupportVTOL).
-    importBlk = (text: string): IBlkImportOutcome => {
-        const result = importSupportVehicleBlk(text);
-        if (!result.vehicle) return { loaded: false, messages: result.issues };
-        this.replaceDesign(() => this.props.appGlobals.saveCurrentVehicle(result.vehicle));
-        return { loaded: true, messages: [...result.notes, ...result.issues, ...result.vehicle.getSupportVehicleIssues()] };
+    // A MegaMek Combat or Support Vehicle file.
+    loadBlk = (unit: unknown): string[] => {
+        const vehicle = unit as Vehicle;
+        this.replaceDesign(() => this.props.appGlobals.saveCurrentVehicle(vehicle));
+        return vehicle.isSupportVehicle() ? vehicle.getSupportVehicleIssues() : vehicle.getChassisModificationIssues();
     }
 
     render = (): JSX.Element => {
@@ -130,7 +128,7 @@ export default class VehicleCreatorHome extends React.Component<IHomeProps, IHom
                             </div>
                         </TextSection>
 
-                        <BlkImportSection unitName="a ground or VTOL Support Vehicle" testId="sv" onImport={this.importBlk} />
+                        <BlkImportSection accept={["vehicles", "support-vehicles"]} testId="sv" onLoad={this.loadBlk} />
 
                         <TextSection
                             label="Your Saved Vehicles"
@@ -146,7 +144,7 @@ export default class VehicleCreatorHome extends React.Component<IHomeProps, IHom
                                         <th>Name</th>
                                         <th>Motive Type</th>
                                         <th>Tons</th>
-                                        <th></th>
+                                        <th><span className="visually-hidden">Actions</span></th>
                                     </tr>
                                 </thead>
                                 {this.props.appGlobals.vehicleSaves && this.props.appGlobals.vehicleSaves.length > 0 ? (

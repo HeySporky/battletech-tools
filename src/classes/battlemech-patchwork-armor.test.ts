@@ -58,13 +58,13 @@ describe("Patchwork Armor: availability (TO:AUE p.189)", () => {
     });
 
     it("offers a location only the armor types legal for the unit", () => {
-        const battleMech = tags(patchwork().getAvailablePatchworkArmorTypes(3));
+        const battleMech = tags(patchwork().getAvailablePatchworkArmorTypes(4));
         expect(battleMech).toEqual(expect.arrayContaining(["standard", "ferro-fibrous", "light-ferro-fibrous", "heavy-ferro-fibrous", "stealth-basic", "hardened", "laser-reflective", "reactive"]));
         // "Modular Armor is treated as an item, not as armor"; Ferro-Lamellor is Clan armor; Commercial and Industrial are IndustrialMech armor.
         for (const tag of ["patchwork", "modular", "ferro-lamellor", "commercial", "industrial", "primitive", "ferro-fibrous-prototype"]) {
             expect(battleMech, tag).not.toContain(tag);
         }
-        expect(tags(patchwork({ tech: "clan" }).getAvailablePatchworkArmorTypes(3)))
+        expect(tags(patchwork({ tech: "clan" }).getAvailablePatchworkArmorTypes(4)))
             .toEqual(["standard", "ferro-fibrous", "hardened", "laser-reflective", "reactive", "ferro-lamellor", "heat-dissipating"]);
         expect(tags(patchwork({ structure: "industrial" }).getAvailablePatchworkArmorTypes(3)))
             .toEqual(["standard", "industrial", "commercial"]);
@@ -288,8 +288,9 @@ describe("Patchwork Armor: Battle Value and cost (TO:AUE p.194)", () => {
         mech.setLeftArmArmor(10);
         mech.setRightArmArmor(7);
         // 9 + 26 + (10 x 2 for Hardened) + 7 = 62.
-        expect(mech.getBVCalcHTML()).toContain("Left Arm: 10 x 2 (Hardened Armor) = 20");
-        expect(mech.getBVCalcHTML()).toContain("Total Armor Factor = Armor Factor x 2.5: 155 = 2.5 x 62");
+        const armorSteps = mech.getBattleValueBreakdown().steps.filter((step) => step.id === "bv2.def.armor.patchwork");
+        expect(armorSteps.find((step) => step.label === "Armor, Left Arm (Hardened Armor)")).toMatchObject({ detail: "10 points x 2", value: 20 });
+        expect(armorSteps[armorSteps.length - 1]).toMatchObject({ detail: "2.5 x 62", value: 155 });
     });
 
     it("prices each location's armor at its own type's cost per ton", () => {
@@ -324,7 +325,9 @@ describe("Patchwork Armor: HarJel repair systems (IO:AE pp.82-83)", () => {
         mech.setRightTorsoArmor(20);
         const harjel = add(mech, "clan-harjel-ii")!;
         expect(place(mech, harjel, "rt", "rightTorso")).toBe(true);
-        expect(mech.getBVCalcHTML()).toContain("HarJel II Self-Repair System in rightTorso: armor x 1.1 on 20 points = +5.00");
+        const harjelSteps = mech.getBattleValueBreakdown().steps.filter((step) => step.id === "bv2.def.armor.harjel");
+        expect(harjelSteps).toMatchObject([{ label: "HarJel II Self-Repair System in rightTorso", detail: "armor x 1.1 on 20 points" }]);
+        expect(harjelSteps[0].value).toBeCloseTo(5, 6);
     });
 });
 

@@ -2,6 +2,7 @@ import React, { type JSX } from 'react';
 import { IAppGlobals } from '../../../app-router';
 import PrintablePage from '../../../components/printable-page';
 import ProtoMechRecordSheet from '../../../components/protomech-record-sheet';
+import { unitRulesLevel } from '../../../components/game-settings-block';
 
 export default class ProtoMechCreatorRecordSheet extends React.Component<IRecordSheetProps> {
     constructor(props: IRecordSheetProps) {
@@ -14,7 +15,7 @@ export default class ProtoMechCreatorRecordSheet extends React.Component<IRecord
         if (!proto) return <></>;
 
         return (
-            <PrintablePage backTo={`${process.env.PUBLIC_URL}/classic-battletech/protomech-creator/summary`} appGlobals={this.props.appGlobals} requiredRulesLevel={proto.getRequiredRulesLevel()}>
+            <PrintablePage backTo={`${process.env.PUBLIC_URL}/classic-battletech/protomech-creator/summary`} appGlobals={this.props.appGlobals} rulesLevel={unitRulesLevel(proto, this.props.appGlobals.appSettings)} requiredRulesLevel={proto.getRequiredRulesLevel()}>
                 <ProtoMechRecordSheet proto={proto} />
             </PrintablePage>
         );

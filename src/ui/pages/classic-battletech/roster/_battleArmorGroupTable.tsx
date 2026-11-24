@@ -2,7 +2,9 @@ import * as React from 'react';
 import { FaTrash } from 'react-icons/fa';
 import BattleArmor from '../../../../classes/battle-armor';
 import { IAppGlobals } from '../../../app-router';
+import MULSearchButton from './_mulSearchButton';
 import StatBar from '../../../components/stat-bar';
+import { formatBattleValue } from '../../../../data/battle-value';
 const Trash = FaTrash as any;
 
 /**
@@ -75,7 +77,7 @@ export default class BattleArmorGroupTable extends React.Component<IBattleArmorG
             <table className="table" data-testid="battle-armor-group-table">
                 <thead>
                     <tr>
-                        {this.props.showEdit ? <th className="min-width no-wrap"></th> : null}
+                        {this.props.showEdit ? <th className="min-width no-wrap"><span className="visually-hidden">Actions</span></th> : null}
                         <th>Battle Armor</th>
                         <th>Troopers</th>
                         <th>Tech</th>
@@ -85,8 +87,8 @@ export default class BattleArmorGroupTable extends React.Component<IBattleArmorG
                     </tr>
                 </thead>
                 {squads.map( (squad, index) => {
-                    const adjustedBV = squad.getSkillAdjustedBattleValue();
-                    const baseBV = squad.getBattleValue();
+                    const adjustedBV = formatBattleValue((edition) => squad.getSkillAdjustedBattleValue(edition), "battle-armor", this.props.appGlobals.currentCBTForce?.rulesEdition);
+                    const baseBV = formatBattleValue((edition) => squad.getBattleValue(edition), "battle-armor", this.props.appGlobals.currentCBTForce?.rulesEdition);
                     const capabilities = squad.getCapabilities();
                     const loadouts = squad.getLoadouts();
                     return (
@@ -190,6 +192,7 @@ export default class BattleArmorGroupTable extends React.Component<IBattleArmorG
                                 ) : (
                                     <span className="small-text">Save suits in the Battle Armor Creator to add them to this group.</span>
                                 )}
+                                <MULSearchButton unitLabel="battle armor" onClick={this.props.onSearchMUL} />
                             </td>
                         </tr>
                     </tfoot>
@@ -209,6 +212,7 @@ interface IBattleArmorGroupTableProps {
     appGlobals: IAppGlobals;
     bmGroupIndex: number;
     showAdd: boolean;
+    onSearchMUL?: ( e: React.FormEvent<HTMLButtonElement> ) => void;
     showEdit: boolean;
 }
 

@@ -6,13 +6,13 @@ import {
     BATTLE_ARMOR_MAX_SQUAD, BattleArmorMotive, battleArmorFormations, battleArmorManipulators, battleArmorWeightClasses,
 } from '../../../../data/battle-armor-construction';
 import { IAppGlobals } from '../../../app-router';
-import BattleArmorCreatorSideMenu from '../../../components/battle-armor-creator-side-menu';
+import { BattleArmorCreatorSideMenu } from '../../../components/creator-side-menus';
 import InputField from "../../../components/form_elements/input_field";
-import RulesEditionSelect from '../../../components/rules-edition-select';
-import RulesLevelSelect from '../../../components/rules-level-select';
+import { getTechChoices } from '../../../../data/era-choice';
 import TextSection from '../../../components/text-section';
 import UIPage from '../../../components/ui-page';
 import BattleArmorStatusBar from './_statusBar';
+import { UnitGameSettingsBlock, unitRulesLevel } from '../../../components/game-settings-block';
 const ArrowCircleRight = FaArrowCircleRight as any;
 
 const range = (from: number, to: number): number[] => Array.from({ length: Math.max(0, to - from + 1) }, (_unused, index) => from + index);
@@ -33,16 +33,10 @@ export default class BattleArmorCreatorChassis extends React.Component<IChassisP
         }
     }
 
-    updateRulesLevel = (level: number): void => {
-        const appSettings = this.props.appGlobals.appSettings;
-        appSettings.mechRulesFilter = level;
-        this.props.appGlobals.saveAppSettings(appSettings);
-    }
-
     render = (): JSX.Element => {
         const suit = this.props.appGlobals.currentBattleArmor;
         if (!suit) return <></>;
-        const rulesLevel = this.props.appGlobals.appSettings.mechRulesFilter;
+        const rulesLevel = unitRulesLevel(this.props.appGlobals.currentBattleArmor, this.props.appGlobals.appSettings);
         const armorValue = (techBase: string, tag: string): string => (techBase === suit.getTechBase() ? tag : `${techBase}:${tag}`);
         const weightClass = suit.getWeightClass();
         const motive = suit.getMotive();
@@ -59,22 +53,14 @@ export default class BattleArmorCreatorChassis extends React.Component<IChassisP
                     <div className="col-md-9 col-lg-10">
                         <BattleArmorStatusBar suit={suit} />
                         <TextSection label="Step 1: Design the Chassis">
-                            {/* The rules edition comes first: it decides what every field below offers. */}
-                            <RulesEditionSelect unitType="battle-armor" value={suit.getRulesEdition()} onChange={(tag) => this.update((s) => s.setRulesEdition(tag))} />
-                            <RulesLevelSelect editionTag={suit.getRulesEdition()} value={rulesLevel} onChange={this.updateRulesLevel} />
+                            {/* The shared settings block comes first: it decides what every field below offers (#324). */}
+                            <UnitGameSettingsBlock unitType="battle-armor" unit={suit} appGlobals={this.props.appGlobals} onChange={() => this.update(() => undefined)} />
                             <InputField
                                 label="Name (e.g. Elemental, Purifier Adaptive Battle Armor)"
                                 value={suit.getName()}
                                 onChange={(e) => { const value = e.currentTarget.value; this.update((s) => s.setName(value)); }}
                             />
-                            <label>
-                                Technology Base:
-                                <select data-testid="ba-tech-base" value={suit.getTechBase()} onChange={(e) => { const value = e.currentTarget.value; this.update((s) => s.setTechBase(value === "clan" ? "clan" : "is")); }}>
-                                    <option value="is">Inner Sphere</option>
-                                    <option value="clan">Clan</option>
-                                </select>
-                            </label>
-                            {rulesLevel >= 3 || suit.isMixedTech() ? (
+                            {(rulesLevel >= 3 && getTechChoices(suit.getEra(), ["mis", "mclan"]).length > 0) || suit.isMixedTech() ? (
                                 <label>
                                     <input type="checkbox" data-testid="ba-mixed-tech" checked={suit.isMixedTech()} onChange={(e) => { const value = e.currentTarget.checked; this.update((s) => s.setMixedTech(value)); }} />
                                     &nbsp;Mixed technology: the chassis above, with armor and equipment of either technology base (Advanced; TO:AUE p. 189)
@@ -86,14 +72,12 @@ export default class BattleArmorCreatorChassis extends React.Component<IChassisP
                                     &nbsp;Automata: a robot on the Clan chassis weight, run by an Automata Core in place of a trooper (Experimental; Ghosts of Obeedah p. 51)
                                 </label>
                             ) : null}
-                            <label>
-                                Era:
-                                <select data-testid="ba-era" value={suit.getEra().tag} onChange={(e) => { const value = e.currentTarget.value; this.update((s) => s.setEra(value)); }}>
-                                    {suit.getAvailableEras().map((option) => (
-                                        <option key={option.tag} value={option.tag}>{option.name}</option>
-                                    ))}
-                                </select>
-                            </label>
+                            {suit.canHaveEIImplants(rulesLevel) || suit.hasEIImplants() ? (
+                                <label>
+                                    <input type="checkbox" data-testid="ba-ei-implants" checked={suit.hasEIImplants()} onChange={(e) => { const value = e.currentTarget.checked; this.update((s) => s.setEIImplants(value, rulesLevel)); }} />
+                                    &nbsp;Clan EI neural implants in every trooper: 1 off Gunnery and Anti-'Mech skill for BV, 1,500,000 C-bills a trooper, pilot feedback damage (Experimental; IO:AE pp. 69, 184)
+                                </label>
+                            ) : null}
                             <label>
                                 Weight Class:
                                 <select data-testid="ba-weight-class" value={weightClass.tag} onChange={(e) => { const value = e.currentTarget.value; this.update((s) => s.setWeightClass(value)); }}>

@@ -26,13 +26,14 @@ import {
     acesPilotEdgeTokenThresholds,
     acesPilotSkillThresholds,
     ACES_MAX_NAMED_PILOTS,
-    ACES_NAMED_PILOT_TYPES,
     ACES_STARTING_PV,
+    getAcesNamedPilotTypes,
     IAcesPilotThreshold,
     TAcesRepairCategory,
 } from '../../../../data/aces-rules';
 import { generateUUID } from '../../../../utils/generateUUID';
-import { getAcesCampaigns, saveAcesCampaigns } from '../../../../dataSaves';
+import { acesEdgeCardForName, IAcesEdgeCard, normalizeAcesEdgeName } from '../../../../data/aces-cards';
+import { getAcesCampaigns, getAcesCardLibrary, saveAcesCampaigns } from '../../../../dataSaves';
 import './aces.scss';
 
 const emptyLedgerInput = (): IAcesSortieLedgerInput => {
@@ -124,6 +125,7 @@ export default class AcesCampaignPage extends React.Component<IAcesCampaignPageP
         super(props);
         this.state = {
             loaded: false,
+            edgeCards: [],
             campaigns: [],
             currentId: "",
             newPilotCallsign: "",
@@ -166,8 +168,15 @@ export default class AcesCampaignPage extends React.Component<IAcesCampaignPageP
                 "", true, null, 0,
             );
         }
+        let edgeCards: IAcesEdgeCard[] = [];
+        try {
+            edgeCards = ( await getAcesCardLibrary( this.props.appGlobals.appSettings ) ).edgeCards || [];
+        } catch( error ) {
+            console.error("Unable to read the Aces card library for Edge cards", error);
+        }
         this.setState({
             loaded: true,
+            edgeCards: edgeCards,
             campaigns: campaigns,
             currentId: campaigns.length > 0 ? campaigns[0].id : "",
             sortie: newSortieDraft( campaigns.length > 0 ? campaigns[0] : null ),
@@ -276,7 +285,7 @@ export default class AcesCampaignPage extends React.Component<IAcesCampaignPageP
                 ) : null}
                 <table className="table tighter-padding">
                     <thead>
-                        <tr><th>Unit</th><th>Type</th><th>Size</th><th>PV</th><th>Buy / sell</th><th>Status</th><th></th></tr>
+                        <tr><th>Unit</th><th>Type</th><th>Size</th><th>PV</th><th>Buy / sell</th><th>Status</th><th><span className="visually-hidden">Actions</span></th></tr>
                     </thead>
                     <tbody>
                         {campaign.roster.map( ( unit ) => (
@@ -322,7 +331,9 @@ export default class AcesCampaignPage extends React.Component<IAcesCampaignPageP
         this._update( ( campaign ) => {
             const pilot = new AcesNamedPilot();
             pilot.callsign = callsign;
-            pilot.type = this.state.newPilotType;
+            const types = getAcesNamedPilotTypes( campaign.customUnits );
+            // MM stays chosen in the form after custom units is switched off; fall back to BM.
+            pilot.type = types.indexOf( this.state.newPilotType ) > -1 ? this.state.newPilotType : types[0];
             campaign.pilots.push( pilot );
         } );
         this.setState({ newPilotCallsign: "" });
@@ -355,12 +366,57 @@ export default class AcesCampaignPage extends React.Component<IAcesCampaignPageP
         );
     }
 
+    /** Edge abilities are picked from the player's entered Edge cards (samples included, as they are marked in the library); names are stored so older saves keep working. */
+    private _renderEdgePicker = ( pilot: AcesNamedPilot ): JSX.Element => {
+        const cardNames: string[] = [];
+        for( const card of this.state.edgeCards ) {
+            const name = card.name.trim();
+            if( name && !cardNames.some( ( entry ) => normalizeAcesEdgeName( entry ) === normalizeAcesEdgeName( name ) ) ) cardNames.push( name );
+        }
+        // The free-text field holds any ability that is not one of the entered cards; it is always shown, beside the card checkboxes.
+        const isCard = ( name: string ) => !!acesEdgeCardForName( this.state.edgeCards, name );
+        const freeLabel = cardNames.length === 0 ? "Edge abilities chosen" : "Other Edge abilities";
+        const freeText = (
+            <input
+                type="text"
+                placeholder={freeLabel}
+                aria-label={freeLabel}
+                value={pilot.edgeAbilities.filter( ( name ) => !isCard( name ) ).join( ", " )}
+                onChange={( e ) => { const value = e.currentTarget.value; this._update( () => { pilot.edgeAbilities = pilot.edgeAbilities.filter( ( name ) => name.trim() !== "" && isCard( name ) ).concat( value.split( "," ).map( ( entry ) => entry.trimStart() ) ); } ); }}
+            />
+        );
+        if( cardNames.length === 0 ) return freeText;
+        const picked = pilot.edgeAbilities.filter( ( name ) => name.trim() !== "" ).length;
+        const isPicked = ( name: string ) => pilot.edgeAbilities.some( ( entry ) => normalizeAcesEdgeName( entry ) === normalizeAcesEdgeName( name ) );
+        // Matching ignores case and spaces; ticking stores the card's own name and unticking drops any saved variant.
+        const toggle = ( name: string, on: boolean ) => {
+            this._update( () => {
+                const others = pilot.edgeAbilities.filter( ( entry ) => normalizeAcesEdgeName( entry ) !== normalizeAcesEdgeName( name ) );
+                pilot.edgeAbilities = on ? others.concat( name ) : others;
+            } );
+        };
+        return (
+            <fieldset className="aces-muted">
+                <legend className="visually-hidden">Edge abilities chosen</legend>
+                {cardNames.map( ( name ) => (
+                    <div key={name}>
+                        <label><input type="checkbox" checked={isPicked( name )} onChange={( e ) => toggle( name, e.currentTarget.checked )} /> {name}</label>
+                    </div>
+                ) )}
+                <div>{freeText}</div>
+                {picked > pilot.edgeAbilityCount ? (
+                    <div className="aces-issue-error">{picked} Edge abilities picked, more than the {pilot.edgeAbilityCount} this pilot has.</div>
+                ) : null}
+            </fieldset>
+        );
+    }
+
     private _renderPilots = ( campaign: AcesCampaign ): JSX.Element => {
         return (
             <>
                 <table className="table tighter-padding">
                     <thead>
-                        <tr><th>Pilot</th><th>Skill</th><th>Edge tokens</th><th>Edge abilities</th><th>Unallocated</th><th></th></tr>
+                        <tr><th>Pilot</th><th>Skill</th><th>Edge tokens</th><th>Edge abilities</th><th>Unallocated</th><th><span className="visually-hidden">Actions</span></th></tr>
                     </thead>
                     <tbody>
                         {campaign.pilots.map( ( pilot ) => (
@@ -372,12 +428,7 @@ export default class AcesCampaignPage extends React.Component<IAcesCampaignPageP
                                         {pilot.wounded ? ", wounded (sits out the next sortie)" : ""}{pilot.killed ? ", killed" : ""}
                                     </span>
                                     <br />
-                                    <input
-                                        type="text"
-                                        placeholder="Edge abilities chosen"
-                                        value={pilot.edgeAbilities.join( ", " )}
-                                        onChange={( e ) => { const value = e.currentTarget.value; this._update( () => { pilot.edgeAbilities = value.split( "," ).map( ( entry ) => entry.trimStart() ); } ); }}
-                                    />
+                                    {this._renderEdgePicker( pilot )}
                                 </td>
                                 {this._renderTrack( pilot, "skill", "Skill", pilot.skill, pilot.skillSP, acesPilotSkillThresholds )}
                                 {this._renderTrack( pilot, "edgeTokens", "Edge", pilot.edgeTokens, pilot.edgeTokenSP, acesPilotEdgeTokenThresholds )}
@@ -405,8 +456,8 @@ export default class AcesCampaignPage extends React.Component<IAcesCampaignPageP
                             <input type="text" value={this.state.newPilotCallsign} onChange={( e ) => this.setState( { newPilotCallsign: e.currentTarget.value } )} />
                         </label>
                         <label>Unit type:{" "}
-                            <select value={this.state.newPilotType} onChange={( e ) => this.setState( { newPilotType: e.currentTarget.value } )}>
-                                {ACES_NAMED_PILOT_TYPES.map( ( type ) => <option key={type} value={type}>{type}</option> )}
+                            <select value={getAcesNamedPilotTypes( campaign.customUnits ).indexOf( this.state.newPilotType ) > -1 ? this.state.newPilotType : "BM"} onChange={( e ) => this.setState( { newPilotType: e.currentTarget.value } )}>
+                                {getAcesNamedPilotTypes( campaign.customUnits ).map( ( type ) => <option key={type} value={type}>{type}</option> )}
                             </select>
                         </label>
                         <button className="btn btn-primary btn-sm" onClick={this._addPilot}>Add Named Pilot</button>
@@ -673,6 +724,7 @@ export default class AcesCampaignPage extends React.Component<IAcesCampaignPageP
                 <div className="aces-inline">
                     <label><input type="checkbox" checked={campaign.existingForce} onChange={( e ) => { const value = e.currentTarget.checked; this._update( ( c ) => { c.existingForce = value; } ); }} /> Existing force from another campaign (<em>Aces</em> p.29)</label>
                     <label><input type="checkbox" checked={campaign.advancedForceCreation} onChange={( e ) => { const value = e.currentTarget.checked; this._update( ( c ) => { c.advancedForceCreation = value; } ); }} /> Advanced force creation (<em>Aces</em> p.26)</label>
+                    <label title="Not in Aces. Adds Micro-Mechs (MM) to advanced force creation and to Named Pilots."><input type="checkbox" checked={campaign.customUnits} onChange={( e ) => { const value = e.currentTarget.checked; this._update( ( c ) => { c.customUnits = value; } ); }} /> Custom units: Micro-Mechs (Custom Homebrew, not in <em>Aces</em>)</label>
                     <label>Starting warchest (SP):{" "}
                         <input type="number" className="aces-number" value={campaign.startingWarchest} onChange={( e ) => { const value = this._num( e.currentTarget.value ); this._update( ( c ) => { c.startingWarchest = value; } ); }} />
                     </label>
@@ -752,6 +804,7 @@ interface IAcesCampaignPageProps {
 
 interface IAcesCampaignPageState {
     loaded: boolean;
+    edgeCards: IAcesEdgeCard[];
     campaigns: AcesCampaign[];
     currentId: string;
     newPilotCallsign: string;

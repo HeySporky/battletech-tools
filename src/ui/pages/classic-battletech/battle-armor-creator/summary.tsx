@@ -3,9 +3,13 @@ import { Link } from 'react-router';
 import { FaArrowCircleLeft } from "react-icons/fa";
 import { formatBattleArmorASDamage } from '../../../../classes/battle-armor';
 import { IAppGlobals } from '../../../app-router';
-import BattleArmorCreatorSideMenu from '../../../components/battle-armor-creator-side-menu';
+import { BattleArmorCalcBreakdown } from '../../../components/calc-breakdown';
+import { BattleArmorCreatorSideMenu } from '../../../components/creator-side-menus';
+import QuirkPicker from '../../../components/quirk-picker';
 import TextSection from '../../../components/text-section';
 import UIPage from '../../../components/ui-page';
+import { unitRulesLevel } from '../../../components/game-settings-block';
+import { formatBattleValue } from '../../../../data/battle-value';
 const ArrowCircleLeft = FaArrowCircleLeft as any;
 
 export default class BattleArmorCreatorSummary extends React.Component<ISummaryProps> {
@@ -48,7 +52,7 @@ export default class BattleArmorCreatorSummary extends React.Component<ISummaryP
                                 <strong>Tech</strong>: {suit.getTechName()} &nbsp;|&nbsp;
                                 <strong>Era</strong>: {suit.getEra().name} &nbsp;|&nbsp;
                                 <strong>Troopers</strong>: {suit.getSquadSize()} &nbsp;|&nbsp;
-                                <strong>Battle Value</strong>: {suit.getBattleValue()} ({suit.getSuitBattleValue()} a suit) &nbsp;|&nbsp;
+                                <strong>Battle Value</strong>: {formatBattleValue((edition) => suit.getBattleValue(edition), "battle-armor", suit.getRulesEdition())} ({suit.getSuitBattleValue()} a suit) &nbsp;|&nbsp;
                                 <strong>Cost</strong>: {suit.getCBillCost().toLocaleString("en-US")} C-bills ({suit.getSuitCost().toLocaleString("en-US")} a suit)
                             </p>
                             <p>
@@ -62,7 +66,7 @@ export default class BattleArmorCreatorSummary extends React.Component<ISummaryP
                                 <strong>Mechanized battle armor</strong>: {capabilities.mechanized ? "Yes" : "No"} &nbsp;|&nbsp;
                                 <strong>Gunnery</strong>: {suit.getGunnery()} &nbsp;|&nbsp;
                                 <strong>Anti-'Mech</strong>: {suit.getAntiMechSkill()} &nbsp;|&nbsp;
-                                <strong>Skill-Adjusted Battle Value</strong>: {suit.getSkillAdjustedBattleValue()} (x {suit.getSkillMultiplier().toFixed(2)})
+                                <strong>Skill-Adjusted Battle Value</strong>: {formatBattleValue((edition) => suit.getSkillAdjustedBattleValue(edition), "battle-armor", suit.getRulesEdition())} (x {suit.getSkillMultiplier().toFixed(2)})
                             </p>
                             {capabilities.notes.length + notes.length > 0 ? (
                                 <ul className="smaller-text">
@@ -87,7 +91,7 @@ export default class BattleArmorCreatorSummary extends React.Component<ISummaryP
                                                         <td>{suit.getLoadouts()[index].name}</td>
                                                         <td>{[...changed, ...arms].join("; ")}</td>
                                                         <td className="text-right">{refit.getWeight()} kg</td>
-                                                        <td className="text-right">{refit.getBattleValue()}</td>
+                                                        <td className="text-right">{formatBattleValue((edition) => refit.getBattleValue(edition), "battle-armor", refit.getRulesEdition())}</td>
                                                         <td className="text-right">{refit.getCBillCost().toLocaleString("en-US")}</td>
                                                         <td>{formatBattleArmorASDamage(card.damageValues.short)}/{formatBattleArmorASDamage(card.damageValues.medium)}/{formatBattleArmorASDamage(card.damageValues.long)}, {card.pointValue} points</td>
                                                     </tr>
@@ -106,23 +110,24 @@ export default class BattleArmorCreatorSummary extends React.Component<ISummaryP
                                 </tbody>
                             </table>
 
-                            <h3>Battle Value Calculation</h3>
-                            <ul data-testid="ba-bv-log">
-                                {suit.getBattleValueLog().map((line, index) => <li key={index}>{line}</li>)}
-                            </ul>
-                            <p className="smaller-text">
-                                TechManual pp. 310-311, for Gunnery 4 and Anti-'Mech 5; the Speed Factor, Defensive Factors and Unit Size
-                                Modifier tables are on p. 316 and the skill multiplier on p. 315.
-                            </p>
+                            <QuirkPicker
+                                quirks={suit.quirks}
+                                unitType={suit.getQuirkUnitType()}
+                                editionTag={suit.getRulesEdition()}
+                                rulesLevel={unitRulesLevel(this.props.appGlobals.currentBattleArmor, this.props.appGlobals.appSettings)}
+                                {...suit.getQuirkTargets()}
+                                onChange={() => this.props.appGlobals.saveCurrentBattleArmor(suit)}
+                            />
 
-                            <h3>Cost Calculation</h3>
-                            <ul data-testid="ba-cost-log">
-                                {suit.getCBillCostLog().map((line, index) => <li key={index}>{line}</li>)}
-                            </ul>
+                            <h3>Calculations</h3>
+                            <BattleArmorCalcBreakdown suit={suit} />
                             <p className="smaller-text">
-                                TechManual pp. 276, 281 and 296-298; Tactical Operations items from TO:AUE p. 225. Missile launchers are priced
-                                by the tube, a one-shot launcher at half; ammunition is not part of a unit's cost. The squad support weapon is
-                                bought once for the squad.
+                                Battle Value 2: TechManual pp. 310-311, for Gunnery 4 and Anti-'Mech 5; the Speed Factor, Defensive Factors and Unit
+                                Size Modifier tables are on p. 316 and the skill multiplier on p. 315. Battle Value 1 under the Master Rules: the
+                                Classic BattleTech Companion pp. 187-190. Cost: TechManual pp. 276, 281-282, 285-286 and 296-298 with the trooper
+                                training of p. 285; Tactical Operations items from TO:AUE p. 225. Missile launchers are priced by the tube, a
+                                one-shot launcher at half; ammunition is not part of a unit's cost. The squad support weapon is bought once for the
+                                squad.
                             </p>
 
                             <h3>Alpha Strike</h3>
@@ -149,7 +154,8 @@ export default class BattleArmorCreatorSummary extends React.Component<ISummaryP
                                 <hr />
                                 <Link to={`${process.env.PUBLIC_URL}/classic-battletech/battle-armor-creator/record-sheet`} className="btn btn-primary pull-right btn-sm">View Record Sheet</Link>
                                 <Link to={`${process.env.PUBLIC_URL}/classic-battletech/battle-armor-creator/print-as`} className="btn btn-primary pull-right btn-sm">View Alpha Strike Card</Link>
-                                <Link to={`${process.env.PUBLIC_URL}/classic-battletech/battle-armor-creator/loadouts`} className="btn btn-primary btn-sm"><ArrowCircleLeft /> Previous Step</Link>
+                                <Link to={`${process.env.PUBLIC_URL}/classic-battletech/battle-armor-creator/print-tro`} className="btn btn-primary pull-right btn-sm">Print the TRO sheet</Link>
+                                <Link to={`${process.env.PUBLIC_URL}/classic-battletech/battle-armor-creator/technical-readout`} className="btn btn-primary btn-sm"><ArrowCircleLeft /> Previous Step</Link>
                             </div>
                         </TextSection>
                     </div>

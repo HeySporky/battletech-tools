@@ -4,12 +4,14 @@ import { Link } from 'react-router';
 import { IVehicleArmorAllocation, VehicleLocation } from '../../../../data/data-interfaces';
 import { IAppGlobals } from '../../../app-router';
 import InputNumeric from '../../../components/form_elements/input_numeric';
-import VehicleCreatorSideMenu from '../../../components/vehicle-creator-side-menu';
+import { VehicleCreatorSideMenu } from '../../../components/creator-side-menus';
 import TextSection from '../../../components/text-section';
 import UIPage from '../../../components/ui-page';
 import { availabilityOptionLabel, isOptionShown } from '../../../components/availability-options';
 import { supportVehicleArmor } from '../../../../data/support-vehicle-armor';
 import { SUPPORT_VEHICLE_TECH_RATINGS } from '../../../../data/support-vehicle-construction';
+import { unitRulesLevel } from '../../../components/game-settings-block';
+import ComponentTechBaseChoice from '../../../components/component-tech-base-choice';
 const ArrowCircleLeft = FaArrowCircleLeft as any;
 const ArrowCircleRight = FaArrowCircleRight as any;
 
@@ -107,7 +109,7 @@ export default class VehicleCreatorArmor extends React.Component<IArmorProps, IA
         const maxArmor = vehicle.getMaxArmorAllocation();
         const locations = vehicle.getLocations();
         const support = vehicle.getSupportVehicleSettings();
-        const rulesLevel = this.props.appGlobals.appSettings.mechRulesFilter;
+        const rulesLevel = unitRulesLevel(this.props.appGlobals.currentVehicle, this.props.appGlobals.appSettings);
         const patchwork = vehicle.isPatchworkArmor();
 
         return (
@@ -151,7 +153,7 @@ export default class VehicleCreatorArmor extends React.Component<IArmorProps, IA
                                 <label>
                                     Armor Type:
                                     <select value={vehicle.getArmorType().tag} onChange={this.updateArmorType}>
-                                        {vehicle.getAvailableArmorTypes(this.props.appGlobals.appSettings.mechRulesFilter)
+                                        {vehicle.getAvailableArmorTypes(unitRulesLevel(this.props.appGlobals.currentVehicle, this.props.appGlobals.appSettings))
                                             .filter((option) => isOptionShown(option, option.tag === vehicle.getArmorType().tag))
                                             .map((option) => (
                                                 <option key={option.tag} value={option.tag}>{availabilityOptionLabel(option)}</option>
@@ -159,6 +161,13 @@ export default class VehicleCreatorArmor extends React.Component<IArmorProps, IA
                                     </select>
                                 </label>
                             )}
+                            <ComponentTechBaseChoice
+                                label="Armor Version"
+                                choices={vehicle.getComponentTechBases("armor")}
+                                value={vehicle.getArmorTechBase()}
+                                clanDesign={vehicle.getTech().tag === "clan"}
+                                onChange={(techBase) => { vehicle.setArmorTechBase(techBase); this.props.appGlobals.saveCurrentVehicle(vehicle); }}
+                            />
 
                             <p>
                                 <strong>Max Armor</strong>: {vehicle.getMaxArmorPoints()} points{patchwork ? null : ` (${vehicle.getMaxArmorTonnage()} tons)`} &nbsp;|&nbsp;
@@ -238,6 +247,7 @@ export default class VehicleCreatorArmor extends React.Component<IArmorProps, IA
                                                     value={armor[loc.tag] ?? 0}
                                                     min={0}
                                                     max={maxArmor[loc.tag] ?? 0}
+                                                    ariaLabel={`${loc.name} armor points`}
                                                     setValue={(newValue) => this.updateArmorPoints(loc.tag, newValue)}
                                                 />
                                             </td>

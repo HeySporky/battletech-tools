@@ -2,13 +2,16 @@ import React, { type JSX } from 'react';
 import { Link } from 'react-router';
 import { FaArrowCircleLeft, FaArrowCircleRight, FaPlus, FaTrash } from "react-icons/fa";
 import BattleArmor, { BATTLE_ARMOR_LOCATION_NAMES, BATTLE_ARMOR_WEAPON_PACK, BattleArmorLocation, IBattleArmorMountedItem } from '../../../../classes/battle-armor';
+import { isInfantryWeaponAtRulesLevel } from '../../../../data/infantry-weapons';
 import { BATTLE_ARMOR_TURRET } from '../../../../data/battle-armor-construction';
-import { IBattleArmorEquipment, battleArmorMineTypes, findBattleArmorEquipment, findBattleArmorMineType } from '../../../../data/battle-armor-equipment';
+import { IBattleArmorEquipment, battleArmorMineTypes, findBattleArmorEquipment, findBattleArmorMineType, getBattleArmorMunitionsFor } from '../../../../data/battle-armor-equipment';
 import { IAppGlobals } from '../../../app-router';
-import BattleArmorCreatorSideMenu from '../../../components/battle-armor-creator-side-menu';
+import { BattleArmorCreatorSideMenu } from '../../../components/creator-side-menus';
 import TextSection from '../../../components/text-section';
+import TonnageBar from '../../../components/tonnage-bar';
 import UIPage from '../../../components/ui-page';
 import BattleArmorStatusBar from './_statusBar';
+import { unitRulesLevel } from '../../../components/game-settings-block';
 const ArrowCircleLeft = FaArrowCircleLeft as any;
 const ArrowCircleRight = FaArrowCircleRight as any;
 const Plus = FaPlus as any;
@@ -43,7 +46,7 @@ export default class BattleArmorCreatorEquipment extends React.Component<IEquipm
     private _itemRow = (suit: BattleArmor, entry: IBattleArmorMountedItem, index: number): JSX.Element | null => {
         const equipment = findBattleArmorEquipment(entry.tag);
         if (!equipment) return null;
-        const rulesLevel = this.props.appGlobals.appSettings.mechRulesFilter;
+        const rulesLevel = unitRulesLevel(this.props.appGlobals.currentBattleArmor, this.props.appGlobals.appSettings);
         const missile = equipment.kind === "missile";
         const mountable = !equipment.noMount && !suit.isQuad();
         return (
@@ -106,6 +109,14 @@ export default class BattleArmorCreatorEquipment extends React.Component<IEquipm
                             </select>
                         </label>
                     ) : null}
+                    {getBattleArmorMunitionsFor(equipment).length > 1 ? (
+                        <label>
+                            Munition:
+                            <select data-testid="ba-item-munition" value={entry.munition ?? "standard"} onChange={(e) => { const value = e.currentTarget.value; this.update((s) => s.updateItem(index, { munition: value })); }}>
+                                {getBattleArmorMunitionsFor(equipment).map((munition) => <option key={munition.tag} value={munition.tag} title={munition.notes}>{munition.name}</option>)}
+                            </select>
+                        </label>
+                    ) : null}
                     {!entry.squadSupport ? (
                         <label>
                             Carried by:
@@ -137,10 +148,12 @@ export default class BattleArmorCreatorEquipment extends React.Component<IEquipm
         const locations = suit.getLocations();
         const location = locations.includes(this.state.location) ? this.state.location : "body";
         const turret = suit.getTurret();
-        const rulesLevel = this.props.appGlobals.appSettings.mechRulesFilter;
+        const rulesLevel = unitRulesLevel(this.props.appGlobals.currentBattleArmor, this.props.appGlobals.appSettings);
         const available = suit.getAvailableEquipment(rulesLevel);
         const groups = Array.from(new Set(available.map((equipment) => equipment.group)));
-        const apWeapons = suit.getAntiPersonnelWeapons();
+        // A Custom Homebrew weapon is offered at its rules level, or where a mount already carries it.
+        const apWeapons = suit.getAntiPersonnelWeapons().filter((weapon) => isInfantryWeaponAtRulesLevel(weapon, rulesLevel)
+            || suit.getAPMounts().some((mount) => mount.weapon === weapon.tag));
 
         return (
             <UIPage current="classic-battletech-battle-armor-creator" appGlobals={this.props.appGlobals}>
@@ -154,7 +167,7 @@ export default class BattleArmorCreatorEquipment extends React.Component<IEquipm
                         <TextSection label="Step 5: Mounted Weapons and Equipment">
                             <table className="table">
                                 <thead>
-                                    <tr><th>Item</th><th>Location</th><th>Options</th><th className="text-right">Weight</th><th className="text-right">Slots</th><th></th></tr>
+                                    <tr><th>Item</th><th>Location</th><th>Options</th><th className="text-right">Weight</th><th className="text-right">Slots</th><th><span className="visually-hidden">Actions</span></th></tr>
                                 </thead>
                                 <tbody>
                                     {suit.getItems().length > 0 ? suit.getItems().map((entry, index) => this._itemRow(suit, entry, index)) : (
@@ -220,7 +233,7 @@ export default class BattleArmorCreatorEquipment extends React.Component<IEquipm
                             </label>
                             <table className="table">
                                 <thead>
-                                    <tr><th>Item</th><th>Damage</th><th>Range (min/sht/med/lng)</th><th>Weight</th><th>Ammo</th><th>Slots</th><th>BV</th><th></th></tr>
+                                    <tr><th>Item</th><th>Damage</th><th>Range (min/sht/med/lng)</th><th>Weight</th><th>Ammo</th><th>Slots</th><th>BV</th><th><span className="visually-hidden">Actions</span></th></tr>
                                 </thead>
                                 <tbody>
                                     {groups.map((group) => (
@@ -266,6 +279,7 @@ export default class BattleArmorCreatorEquipment extends React.Component<IEquipm
                         </TextSection>
                     </div>
                 </div>
+                <TonnageBar used={suit.getWeight()} total={suit.getWeightClass().maxWeight} unit="kg" />
             </UIPage>
         );
     }

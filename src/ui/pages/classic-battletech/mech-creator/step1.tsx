@@ -2,17 +2,19 @@ import { FaArrowCircleLeft, FaArrowCircleRight } from "react-icons/fa";
 import React, { type JSX } from 'react';
 import { Link } from 'react-router';
 import { BattleMech, IFrankenMechDonor } from '../../../../classes/battlemech';
-import { getAvailableTonnagesForMechType, getTonnageBoundsForMechType } from '../../../../data/mech-tonnages';
+import { btMechTonnages, getAvailableTonnagesForMechType, getTonnageBoundsForMechType } from '../../../../data/mech-tonnages';
 import { mechTypeOptions } from '../../../../data/mech-type-options';
 import { getRulesLevelOptions } from '../../../../data/rules-level-options';
-import { editionEditsPrintedUnitsAfterWarning, editionHasBattleValue, editionHasPrices, getRulesEdition, getShownRulesLevel } from '../../../../data/rules-editions';
+import { editionEditsPrintedUnitsAfterWarning, editionHasPrices, getRulesEdition, getShownRulesLevel } from '../../../../data/rules-editions';
+import { editionHasBattleValue } from '../../../../data/battle-value';
 import { editionHasPrintedDroids, getPrintedDroid, getPrintedDroids } from '../../../../data/battledroids-mechs';
 import { buildPrintedDroid, isUnmodifiedPrintedDroid } from '../../../../classes/printed-droid';
-import { confirmEditPrintedDroid, getDesignLockNote } from '../../../components/design-lock';
-import RulesEditionSelect from '../../../components/rules-edition-select';
-import RulesLevelSelect from '../../../components/rules-level-select';
+import { confirmEditPrintedDroid, getDesignLockNote, keepDesignSettings, mechRulesLevel } from '../../../components/design-lock';
+import GameSettingsBlock, { rememberRulesLevel } from '../../../components/game-settings-block';
+import { IGameSettings } from '../../../../data/game-settings';
+import { GameSettingStep } from '../../../../data/special-rulesets';
 import { IAppGlobals } from '../../../app-router';
-import MechCreatorSideMenu from '../../../components/mech-creator-side-menu';
+import { MechCreatorSideMenu } from '../../../components/creator-side-menus';
 import MechCreatorStatusbar from '../../../components/mech-creator-status-bar';
 import SanitizedHTML from '../../../components/sanitized-html';
 import TextSection from '../../../components/text-section';
@@ -23,7 +25,17 @@ import InputField from "../../../components/form_elements/input_field";
 import { availabilityOptionLabel, isOptionShown } from '../../../components/availability-options';
 import { replaceCurrentBattleMech } from '../../../components/confirm-replace-design';
 import EditionChoice from '../../../components/edition-choice';
+import ComponentTechBaseChoice from '../../../components/component-tech-base-choice';
+import { getVTOLAMSamples } from '../../../../data/vtolam-samples';
+import { getPAMSamples } from '../../../../data/pam-samples';
+import { getPowerArmorSamples } from '../../../../data/power-armor-samples';
+import { FW_POWER_ARMOR_RULESET } from '../../../../data/future-wars-power-armor';
+import { getRulesetBlock } from '../../../../data/special-rulesets';
+import { CUSTOM_HOMEBREW_RULES_LEVEL } from '../../../../data/rules-level-options';
+import { generateUUID } from '../../../../utils/generateUUID';
 const ArrowCircleLeft = FaArrowCircleLeft as any;
+// A Permanent Air 'Mech goes past the LAM's 55 tons (to its own 75, getLAMMaxTonnage), so it takes a biped's tonnage list.
+const tonnageChassisTag = ( mech: BattleMech ): string => mech.isPermanentAirMech() ? "biped" : mech.getType().tag;
 const ArrowCircleRight = FaArrowCircleRight as any;
 
 export default class MechCreatorStep1 extends React.Component<IHomeProps, IHomeState> {
@@ -38,7 +50,7 @@ export default class MechCreatorStep1 extends React.Component<IHomeProps, IHomeS
 
     updateMake = ( e: React.FormEvent<HTMLInputElement>): void => {
       if( this.props.appGlobals.currentBattleMech ) {
-        let currentMech = this.props.appGlobals.currentBattleMech;
+        const currentMech = this.props.appGlobals.currentBattleMech;
         currentMech.setModel( e.currentTarget.value);
         this.props.appGlobals.saveCurrentBattleMech( currentMech );
       }
@@ -46,7 +58,7 @@ export default class MechCreatorStep1 extends React.Component<IHomeProps, IHomeS
 
     updateName = ( e: React.FormEvent<HTMLInputElement>): void => {
       if( this.props.appGlobals.currentBattleMech ) {
-        let currentMech = this.props.appGlobals.currentBattleMech;
+        const currentMech = this.props.appGlobals.currentBattleMech;
         currentMech.setName( e.currentTarget.value);
         this.props.appGlobals.saveCurrentBattleMech( currentMech );
       }
@@ -56,8 +68,8 @@ export default class MechCreatorStep1 extends React.Component<IHomeProps, IHomeS
       if( e && e.preventDefault ) e.preventDefault();
 
       if( this.props.appGlobals.currentBattleMech ) {
-        let currentMech = this.props.appGlobals.currentBattleMech;
-        currentMech.toggleOmni(this.props.appGlobals.appSettings.mechRulesFilter);
+        const currentMech = this.props.appGlobals.currentBattleMech;
+        currentMech.toggleOmni(mechRulesLevel(this.props.appGlobals));
         this.props.appGlobals.saveCurrentBattleMech( currentMech );
       }
     }
@@ -66,8 +78,18 @@ export default class MechCreatorStep1 extends React.Component<IHomeProps, IHomeS
       if( e && e.preventDefault ) e.preventDefault();
 
       if( this.props.appGlobals.currentBattleMech ) {
-        let currentMech = this.props.appGlobals.currentBattleMech;
+        const currentMech = this.props.appGlobals.currentBattleMech;
         currentMech.setPrimitive( !currentMech.isPrimitive() );
+        this.props.appGlobals.saveCurrentBattleMech( currentMech );
+      }
+    }
+
+    toggleClanCASE = ( e: React.FormEvent<HTMLInputElement>): void => {
+      if( e && e.preventDefault ) e.preventDefault();
+
+      if( this.props.appGlobals.currentBattleMech ) {
+        const currentMech = this.props.appGlobals.currentBattleMech;
+        currentMech.setClanCASE( !currentMech.hasClanCASE() );
         this.props.appGlobals.saveCurrentBattleMech( currentMech );
       }
     }
@@ -76,15 +98,15 @@ export default class MechCreatorStep1 extends React.Component<IHomeProps, IHomeS
       if( e && e.preventDefault ) e.preventDefault();
 
       if( this.props.appGlobals.currentBattleMech ) {
-        let currentMech = this.props.appGlobals.currentBattleMech;
-        currentMech.setFrankenMech( !currentMech.isFrankenMech(), this.props.appGlobals.appSettings.mechRulesFilter );
+        const currentMech = this.props.appGlobals.currentBattleMech;
+        currentMech.setFrankenMech( !currentMech.isFrankenMech(), mechRulesLevel(this.props.appGlobals) );
         this.props.appGlobals.saveCurrentBattleMech( currentMech );
       }
     }
 
     updateFrankenMechDonor = ( locationKey: string, donor: Partial<IFrankenMechDonor> ): void => {
       if( this.props.appGlobals.currentBattleMech ) {
-        let currentMech = this.props.appGlobals.currentBattleMech;
+        const currentMech = this.props.appGlobals.currentBattleMech;
         currentMech.setFrankenMechDonor( locationKey, donor );
         this.props.appGlobals.saveCurrentBattleMech( currentMech );
       }
@@ -92,50 +114,34 @@ export default class MechCreatorStep1 extends React.Component<IHomeProps, IHomeS
 
     toggleFractionalAccounting = (): void => {
       if( this.props.appGlobals.currentBattleMech ) {
-        let currentMech = this.props.appGlobals.currentBattleMech;
+        const currentMech = this.props.appGlobals.currentBattleMech;
         currentMech.setWeightAccounting(
           currentMech.usesFractionalAccounting() ? "standard" : "fractional",
-          this.props.appGlobals.appSettings.mechRulesFilter,
+          mechRulesLevel(this.props.appGlobals),
         );
         this.props.appGlobals.saveCurrentBattleMech( currentMech );
         this.setState({ updated: !this.state.updated });
       }
     }
 
-    updateTech = ( e: React.FormEvent<HTMLSelectElement>): void => {
-      if( this.props.appGlobals.currentBattleMech ) {
-        let currentMech = this.props.appGlobals.currentBattleMech;
-        currentMech.setTech( e.currentTarget.value);
-        // A Clan tech base has no superheavy tonnages (IO:AE p.154).
-        this.clampTonnageToChassisRules(currentMech, this.props.appGlobals.appSettings.mechRulesFilter);
-        this.props.appGlobals.saveCurrentBattleMech( currentMech );
-        this.setState({ updated: !this.state.updated });
-      }
-    }
-
-    updateRulesLevel = ( level: number ): void => {
-      const appSettings = this.props.appGlobals.appSettings;
-      appSettings.mechRulesFilter = level;
-      this.props.appGlobals.saveAppSettings(appSettings);
-
-      if( this.props.appGlobals.currentBattleMech ) {
-        let currentMech = this.props.appGlobals.currentBattleMech;
-        this.clampTonnageToChassisRules(currentMech, appSettings.mechRulesFilter);
-        this.props.appGlobals.saveCurrentBattleMech( currentMech );
-      }
-    }
-
-    // Builds the design under another rules edition; its tonnage moves into that edition's range.
-    updateRulesEdition = ( editionTag: string ): void => {
-      if( this.props.appGlobals.currentBattleMech ) {
-        let currentMech = this.props.appGlobals.currentBattleMech;
-        currentMech.setRulesEdition( editionTag );
-        this.clampTonnageToChassisRules(currentMech, this.props.appGlobals.appSettings.mechRulesFilter);
-        // The clamp finishes the switch; an undo of the switch still brings back the design as it was.
-        currentMech.settleRulesEditionSwitch();
-        this.props.appGlobals.saveCurrentBattleMech( currentMech );
-        this.setState({ updated: !this.state.updated });
-      }
+    // The shared settings block (#324): the design takes its edition, tech base, era, level and rulesets; its tonnage
+    // moves into the range they allow. A rules level the player picks is also the default for the next new design
+    // (call 12); one an edition change fitted is not.
+    updateGameSettings = ( settings: IGameSettings, step: GameSettingStep | "rulesets" ): void => {
+      const currentMech = this.props.appGlobals.currentBattleMech;
+      if( !currentMech ) return;
+      const switched = settings.edition !== currentMech.getGameSettings( settings.rulesLevel ).edition;
+      currentMech.applyGameSettings( settings );
+      // A Clan tech base has no superheavy tonnages (IO:AE p.154).
+      // A way back to an edition may restore another level: clamp at the design's own.
+      this.clampTonnageToChassisRules(currentMech, mechRulesLevel(this.props.appGlobals));
+      // The clamp finishes an edition switch; an undo of the switch still brings back the design as it was. Only a
+      // switch settles: settling after any other change would take edits made since the switch for none, and going
+      // back would drop them.
+      if( switched ) currentMech.settleRulesEditionSwitch();
+      rememberRulesLevel( this.props.appGlobals, settings, step );
+      this.props.appGlobals.saveCurrentBattleMech( currentMech );
+      this.setState({ updated: !this.state.updated });
     }
 
     // Loads a droid as its record listing prints it, in place of the current design.
@@ -143,17 +149,54 @@ export default class MechCreatorStep1 extends React.Component<IHomeProps, IHomeS
       const droid = getPrintedDroid( e.currentTarget.value );
       if( droid ) {
         replaceCurrentBattleMech( this.props.appGlobals, () => {
-          this.props.appGlobals.saveCurrentBattleMech( buildPrintedDroid( droid ) );
+          this.props.appGlobals.saveCurrentBattleMech( keepDesignSettings( this.props.appGlobals, buildPrintedDroid( droid ) ) );
           this.setState({ updated: !this.state.updated });
         });
       }
     }
 
+    loadVTOLAMSample = ( e: React.FormEvent<HTMLSelectElement>): void => {
+      this.loadSample( getVTOLAMSamples( mechRulesLevel(this.props.appGlobals) ), e.currentTarget.value );
+    }
+
+    loadPAMSample = ( e: React.FormEvent<HTMLSelectElement>): void => {
+      this.loadSample( getPAMSamples( mechRulesLevel(this.props.appGlobals) ), e.currentTarget.value );
+    }
+
+    // A suit needs its ruleset: keep the design's other rulesets, less any that cannot sit with Power Armor.
+    loadPowerArmorSample = ( e: React.FormEvent<HTMLSelectElement>): void => {
+      this.loadSample( getPowerArmorSamples( mechRulesLevel(this.props.appGlobals) ), e.currentTarget.value, (suit) => {
+        const level = mechRulesLevel( this.props.appGlobals );
+        const kept = suit.getRulesets().filter( (id) => id !== FW_POWER_ARMOR_RULESET && !getRulesetBlock( [FW_POWER_ARMOR_RULESET], id ) );
+        suit.applyGameSettings({ ...suit.getGameSettings( level ), rulesLevel: level, rulesets: [...kept, FW_POWER_ARMOR_RULESET] });
+      });
+    }
+
+    loadSample = ( samples: { id: string; save: object }[], id: string, adjust?: ( mech: BattleMech ) => void ): void => {
+      const sample = samples.find( (entry) => entry.id === id );
+      if( sample ) {
+        replaceCurrentBattleMech( this.props.appGlobals, () => {
+          const mech = keepDesignSettings( this.props.appGlobals, new BattleMech( JSON.stringify( { ...sample.save, uuid: generateUUID() } ) ) ) as BattleMech;
+          adjust?.( mech );
+          this.props.appGlobals.saveCurrentBattleMech( mech );
+          this.setState({ updated: !this.state.updated });
+        });
+      }
+    }
+
+    setArmless = ( e: React.FormEvent<HTMLInputElement>): void => {
+      if( this.props.appGlobals.currentBattleMech ) {
+        const currentMech = this.props.appGlobals.currentBattleMech;
+        currentMech.setArmless( e.currentTarget.checked, mechRulesLevel(this.props.appGlobals) );
+        this.props.appGlobals.saveCurrentBattleMech( currentMech );
+      }
+    }
+
     updateType = ( e: React.FormEvent<HTMLSelectElement>): void => {
       if( this.props.appGlobals.currentBattleMech ) {
-        let currentMech = this.props.appGlobals.currentBattleMech;
+        const currentMech = this.props.appGlobals.currentBattleMech;
         currentMech.setType( e.currentTarget.value);
-        this.clampTonnageToChassisRules(currentMech, this.props.appGlobals.appSettings.mechRulesFilter);
+        this.clampTonnageToChassisRules(currentMech, mechRulesLevel(this.props.appGlobals));
         this.props.appGlobals.saveCurrentBattleMech( currentMech );
       }
     }
@@ -163,9 +206,20 @@ export default class MechCreatorStep1 extends React.Component<IHomeProps, IHomeS
       if( currentMech.isOmnimech && !currentMech.canBeOmniMech( rulesLevel ) ) {
         currentMech.toggleOmni( rulesLevel );
       }
-      const { min, max } = getTonnageBoundsForMechType( currentMech.getType().tag, rulesLevel, currentMech.getTech().tag, currentMech.getRulesEdition() );
       const tonnage = currentMech.getTonnage();
-      if( tonnage < min ) {
+      // A construction ruleset's own tonnages (Power Armor: 5, 10, 15): the nearest one, the heavier on a tie.
+      const rulesetTonnages = currentMech.getConstructionTonnages();
+      if( rulesetTonnages ) {
+        if( !rulesetTonnages.includes( tonnage ) ) {
+          currentMech.setTonnage( rulesetTonnages.reduce( (best, tons) => Math.abs( tons - tonnage ) <= Math.abs( best - tonnage ) ? tons : best ) );
+        }
+        return;
+      }
+      const { min, max } = getTonnageBoundsForMechType( tonnageChassisTag( currentMech ), rulesLevel, currentMech.getTech().tag, currentMech.getRulesEdition() );
+      const lamMax = currentMech.getLAMMaxTonnage();
+      if( lamMax !== null && tonnage > lamMax ) {
+        currentMech.setTonnage( lamMax );
+      } else if( tonnage < min ) {
         currentMech.setTonnage( min );
       } else if( tonnage > max ) {
         currentMech.setTonnage( max );
@@ -190,7 +244,7 @@ export default class MechCreatorStep1 extends React.Component<IHomeProps, IHomeS
 
     updateTonnage = ( e: React.FormEvent<HTMLSelectElement>): void => {
       if( this.props.appGlobals.currentBattleMech ) {
-        let currentMech = this.props.appGlobals.currentBattleMech;
+        const currentMech = this.props.appGlobals.currentBattleMech;
         currentMech.setTonnage( +e.currentTarget.value);
         this.props.appGlobals.saveCurrentBattleMech( currentMech );
       }
@@ -198,16 +252,8 @@ export default class MechCreatorStep1 extends React.Component<IHomeProps, IHomeS
 
     updateStructureType = ( e: React.FormEvent<HTMLSelectElement>): void => {
       if( this.props.appGlobals.currentBattleMech ) {
-        let currentMech = this.props.appGlobals.currentBattleMech;
+        const currentMech = this.props.appGlobals.currentBattleMech;
         currentMech.setInternalStructureType( e.currentTarget.value);
-        this.props.appGlobals.saveCurrentBattleMech( currentMech );
-      }
-    }
-
-    updateEra = ( e: React.FormEvent<HTMLSelectElement>): void => {
-      if( this.props.appGlobals.currentBattleMech ) {
-        let currentMech = this.props.appGlobals.currentBattleMech;
-        currentMech.setEra( e.currentTarget.value);
         this.props.appGlobals.saveCurrentBattleMech( currentMech );
       }
     }
@@ -217,7 +263,7 @@ export default class MechCreatorStep1 extends React.Component<IHomeProps, IHomeS
         return <></>
       // At a rules level with no construction rules, only a printed droid can be chosen.
       const locked = getDesignLockNote(this.props.appGlobals);
-      const shownLevel = getShownRulesLevel(this.props.appGlobals.currentBattleMech.getRulesEdition(), this.props.appGlobals.appSettings.mechRulesFilter);
+      const shownLevel = getShownRulesLevel(this.props.appGlobals.currentBattleMech.getRulesEdition(), mechRulesLevel(this.props.appGlobals));
       return (
         <>
           <MechCreatorStatusbar  appGlobals={this.props.appGlobals}  />
@@ -236,15 +282,18 @@ export default class MechCreatorStep1 extends React.Component<IHomeProps, IHomeS
                       <TextSection
                         label="Step 1: Design the Chassis"
                       >
-                          {/* The rules edition comes first: it decides what every field below offers, the rules levels included. */}
-                          <RulesEditionSelect unitType="mech" value={this.props.appGlobals.currentBattleMech.getRulesEdition()} onChange={this.updateRulesEdition} />
-                          <RulesLevelSelect editionTag={this.props.appGlobals.currentBattleMech.getRulesEdition()} value={this.props.appGlobals.appSettings.mechRulesFilter} onChange={this.updateRulesLevel} />
+                          {/* The shared settings block comes first: it decides what every field below offers (#324). */}
+                          <GameSettingsBlock
+                            unitType="mech"
+                            settings={this.props.appGlobals.currentBattleMech.getGameSettings(this.props.appGlobals.appSettings.mechRulesFilter)}
+                            onChange={this.updateGameSettings}
+                          />
                           {this.props.appGlobals.currentBattleMech.usesEarlierRulesEdition() ? (
                             <p className="smaller-text">
                               Built from the {getRulesEdition(this.props.appGlobals.currentBattleMech.getRulesEdition()).name} rulebook: only what it includes is offered,
                               with the weights, heat, ranges, damage{editionHasPrices(this.props.appGlobals.currentBattleMech.getRulesEdition()) ? ", critical slots and prices" : " and critical slots"} it prints.
-                              {editionHasBattleValue(this.props.appGlobals.currentBattleMech.getRulesEdition()) ? " Battle Value" : " This rulebook has no Battle Value: the one shown is the current rules' (BV2), for comparison. It"}
-                              {editionHasPrices(this.props.appGlobals.currentBattleMech.getRulesEdition()) ? (editionHasBattleValue(this.props.appGlobals.currentBattleMech.getRulesEdition()) ? " and total cost still follow the current rules." : " prints prices, but the total cost still follows the current rules.") : " prints no prices either, so the design has no cost."}
+                              {editionHasBattleValue(this.props.appGlobals.currentBattleMech.getRulesEdition()) ? " Battle Value is its BV1, with the current rules' (BV2) beside it." : " This rulebook has no Battle Value: the one shown is the current rules' (BV2), for comparison."}
+                              {editionHasPrices(this.props.appGlobals.currentBattleMech.getRulesEdition()) ? " It prints prices, but the total cost still follows the current rules." : " It prints no prices, so the design has no cost."}
                             </p>
                           ) : null}
                           {this.props.appGlobals.currentBattleMech.getRulesEditionIssues(shownLevel).length > 0 ? (
@@ -274,7 +323,7 @@ export default class MechCreatorStep1 extends React.Component<IHomeProps, IHomeS
                               <select value={isUnmodifiedPrintedDroid(this.props.appGlobals.currentBattleMech) ? this.props.appGlobals.currentBattleMech.getPrintedDroid() : ""} onChange={this.loadPrintedDroid}>
                                 <option value="">{locked ? "Choose a printed droid" : "Start from a printed droid (optional)"}</option>
                                 {getPrintedDroids(shownLevel).map((droid) => (
-                                  <option key={droid.id} value={droid.id}>{droid.model} {droid.name}{droid.inferred ? " (inferred)" : ""}</option>
+                                  <option key={droid.id} value={droid.id}>{droid.model !== droid.name.toUpperCase() && `${droid.model} `}{droid.name}{droid.inferred ? " (inferred)" : ""}</option>
                                 ))}
                               </select>
                             </label>
@@ -302,32 +351,13 @@ export default class MechCreatorStep1 extends React.Component<IHomeProps, IHomeS
 
                           <EditionChoice earlierEdition={this.props.appGlobals.currentBattleMech.usesEarlierRulesEdition()}>
                             <label>
-                              Technology Base:
-                              <select
-                                value={this.props.appGlobals.currentBattleMech.getTech().tag}
-                                onChange={this.updateTech}
-                              >
-                              {this.props.appGlobals.currentBattleMech.getAvailableTechOptions().map( (option) => {
-                                return (
-                                  <option key={option.tag} value={option.tag}>{option.name}</option>
-                                )
-                              })}
-                              </select>
-                            </label>
-                          </EditionChoice>
-
-
-                          <EditionChoice earlierEdition={this.props.appGlobals.currentBattleMech.usesEarlierRulesEdition()}>
-                            <label>
                               Mech Type:
                               <select
                                 value={this.props.appGlobals.currentBattleMech.getType().tag}
                                 onChange={this.updateType}
                               >
                               {mechTypeOptions
-                                .filter( (option) => (this.props.appGlobals.currentBattleMech?.usesEarlierRulesEdition()
-                                    ? this.props.appGlobals.currentBattleMech.isInRulesEdition(option, shownLevel)
-                                    : option.rulesLevel <= this.props.appGlobals.appSettings.mechRulesFilter)
+                                .filter( (option) => !!this.props.appGlobals.currentBattleMech?.isOfferedInEdition(option, shownLevel)
                                   || option.tag === this.props.appGlobals.currentBattleMech?.getType().tag )
                                 .map( (option) => {
                                 return (
@@ -337,7 +367,19 @@ export default class MechCreatorStep1 extends React.Component<IHomeProps, IHomeS
                               </select>
                             </label>
                           </EditionChoice>
-                          {!this.props.appGlobals.currentBattleMech.usesEarlierRulesEdition() && this.props.appGlobals.currentBattleMech.getRequiredRulesLevel() > this.props.appGlobals.appSettings.mechRulesFilter ? (
+                          {(() => {
+                            const mech = this.props.appGlobals.currentBattleMech;
+                            const armless = mech.getArmlessOption(mechRulesLevel(this.props.appGlobals));
+                            const armlessNow = mech.isArmless() || mech.hasArmlessArms();
+                            if( !isOptionShown(armless, armlessNow) ) return null;
+                            return (
+                              <label className="d-block">
+                                <input type="checkbox" checked={armlessNow} onChange={this.setArmless} data-testid="armless" />{" "}
+                                {availabilityOptionLabel(armless)}: {mech.hasArmlessArms() || (!armlessNow && mechRulesLevel(this.props.appGlobals) < 3) ? "arms keep armor and structure, hold only the shoulder and upper arm actuator (Level 2)" : "no arm armor, structure or slots (Level 3)"}
+                              </label>
+                            );
+                          })()}
+                          {!this.props.appGlobals.currentBattleMech.usesEarlierRulesEdition() && this.props.appGlobals.currentBattleMech.getRequiredRulesLevel() > mechRulesLevel(this.props.appGlobals) ? (
                             <p className="color-red smaller-text">
                               This design requires the {getRulesLevelOptions().find( (option) => option.id === this.props.appGlobals.currentBattleMech?.getRequiredRulesLevel() )?.name} rules
                               level and is not legal at the selected level. Printing will ask for confirmation.
@@ -353,6 +395,58 @@ export default class MechCreatorStep1 extends React.Component<IHomeProps, IHomeS
                               >
                                 <option value="standard">Standard (Mech / AirMech / Fighter)</option>
                                 <option value="bimodal">Bimodal (Mech / Fighter)</option>
+                                {mechRulesLevel(this.props.appGlobals) >= CUSTOM_HOMEBREW_RULES_LEVEL || this.props.appGlobals.currentBattleMech.isVTOLAM() ? (
+                                  <>
+                                    <option value="vtolam">VTOLAM, BishopSteiner rules (Mech / VTOL; Custom Homebrew)</option>
+                                    <option value="vtolam-btitf">VTOLAM, Battletech Into The Future rules (Mech / VTOL; Custom Homebrew)</option>
+                                  </>
+                                ) : null}
+                                {mechRulesLevel(this.props.appGlobals) >= CUSTOM_HOMEBREW_RULES_LEVEL || this.props.appGlobals.currentBattleMech.isPermanentAirMech() ? (
+                                  <option value="pam">Permanent Air 'Mech (AirMech only; Custom Homebrew)</option>
+                                ) : null}
+                              </select>
+                            </label>
+                          ) : null}
+                          {this.props.appGlobals.currentBattleMech.isPermanentAirMech() ? (
+                            <p className="smaller-text" data-testid="pam-notes">
+                              {this.props.appGlobals.currentBattleMech.getLAMTypeNotes()} AirMech Cruise / Flank MP: {this.props.appGlobals.currentBattleMech.getAirMechCruiseMP()} / {this.props.appGlobals.currentBattleMech.getAirMechFlankMP()}.
+                            </p>
+                          ) : null}
+                          {this.props.appGlobals.currentBattleMech.isVTOLAM() ? (
+                            <p className="smaller-text" data-testid="vtolam-notes">
+                              {this.props.appGlobals.currentBattleMech.getLAMTypeNotes()} VTOL mode Cruise / Flank MP: {this.props.appGlobals.currentBattleMech.getVTOLAMCruiseMP()} / {this.props.appGlobals.currentBattleMech.getVTOLAMFlankMP()}.
+                            </p>
+                          ) : null}
+                          {getVTOLAMSamples( mechRulesLevel(this.props.appGlobals) ).length > 0 ? (
+                            <label>
+                              Sample VTOLAMs (Custom Homebrew):
+                              <select value="" onChange={this.loadVTOLAMSample} data-testid="vtolam-samples">
+                                <option value="">Start from a sample VTOLAM (optional)</option>
+                                {getVTOLAMSamples( mechRulesLevel(this.props.appGlobals) ).map( (sample) => (
+                                  <option key={sample.id} value={sample.id}>{sample.name}</option>
+                                ))}
+                              </select>
+                            </label>
+                          ) : null}
+                          {getPAMSamples( mechRulesLevel(this.props.appGlobals) ).length > 0 ? (
+                            <label>
+                              Sample Permanent Air 'Mechs (Custom Homebrew):
+                              <select value="" onChange={this.loadPAMSample} data-testid="pam-samples">
+                                <option value="">Start from a sample Permanent Air 'Mech (optional)</option>
+                                {getPAMSamples( mechRulesLevel(this.props.appGlobals) ).map( (sample) => (
+                                  <option key={sample.id} value={sample.id}>{sample.name}</option>
+                                ))}
+                              </select>
+                            </label>
+                          ) : null}
+                          {getPowerArmorSamples( mechRulesLevel(this.props.appGlobals) ).length > 0 ? (
+                            <label>
+                              Sample Power Armor (Custom Homebrew):
+                              <select value="" onChange={this.loadPowerArmorSample} data-testid="power-armor-samples">
+                                <option value="">Start from a sample suit (optional)</option>
+                                {getPowerArmorSamples( mechRulesLevel(this.props.appGlobals) ).map( (sample) => (
+                                  <option key={sample.id} value={sample.id}>{sample.name}</option>
+                                ))}
                               </select>
                             </label>
                           ) : null}
@@ -410,26 +504,22 @@ export default class MechCreatorStep1 extends React.Component<IHomeProps, IHomeS
                             </>
                           ) : null}
 
-                          <EditionChoice earlierEdition={false} hidden={!!getRulesEdition(this.props.appGlobals.currentBattleMech.getRulesEdition()).noEras}>
-                          <label>
-                            Mech Era:
-                            <select
-                              value={this.props.appGlobals.currentBattleMech.getEra().tag}
-                              onChange={this.updateEra}
-                            >
-                            {this.props.appGlobals.currentBattleMech.getAvailableEras().map( (option) => {
-                              return (
-                                <option key={option.tag} value={option.tag}>{option.name}</option>
-                              )
-                            })}
-                            </select>
-                          </label>
-                          {this.props.appGlobals.currentBattleMech.getEra().description ? (
-                            <p className="smaller-text">{this.props.appGlobals.currentBattleMech.getEra().description}</p>
-                          ) : null}
-                          </EditionChoice>
 
-                          {this.props.appGlobals.currentBattleMech.canUseFractionalAccounting( this.props.appGlobals.appSettings.mechRulesFilter )
+                          {this.props.appGlobals.currentBattleMech.canChooseClanCASE() ? (
+                            <div data-testid="clan-case-option">
+                              <InputCheckbox
+                                label="Clan CASE"
+                                checked={this.props.appGlobals.currentBattleMech.hasClanCASE()}
+                                onChange={this.toggleClanCASE}
+                              />
+                              <p className="smaller-text">
+                                Clan CASE is weightless and takes no critical slots, and protects every location (TM p.210).
+                                Battle Value counts it as CASE in each side torso and arm; with an Inner Sphere XL engine it saves nothing (TM pp.302-303).
+                              </p>
+                            </div>
+                          ) : null}
+
+                          {this.props.appGlobals.currentBattleMech.canUseFractionalAccounting( mechRulesLevel(this.props.appGlobals) )
                             || this.props.appGlobals.currentBattleMech.usesFractionalAccounting() ? (
                             <div data-testid="fractional-accounting-option">
                               <InputCheckbox
@@ -456,12 +546,18 @@ export default class MechCreatorStep1 extends React.Component<IHomeProps, IHomeS
                               value={this.props.appGlobals.currentBattleMech.getTonnage()}
                               onChange={this.updateTonnage}
                             >
-                            {getAvailableTonnagesForMechType(
-                              this.props.appGlobals.currentBattleMech.getType().tag,
-                              this.props.appGlobals.appSettings.mechRulesFilter,
-                              this.props.appGlobals.currentBattleMech.getTech().tag,
-                              this.props.appGlobals.currentBattleMech.getRulesEdition()
-                            ).map( (option) => {
+                            {(() => {
+                              const rulesetTonnages = this.props.appGlobals.currentBattleMech.getConstructionTonnages();
+                              return rulesetTonnages
+                                ? btMechTonnages.filter( (option) => rulesetTonnages.includes( option.tons ) )
+                                : getAvailableTonnagesForMechType(
+                                  tonnageChassisTag( this.props.appGlobals.currentBattleMech ),
+                                  mechRulesLevel(this.props.appGlobals),
+                                  this.props.appGlobals.currentBattleMech.getTech().tag,
+                                  this.props.appGlobals.currentBattleMech.getRulesEdition()
+                                );
+                            })().filter( (option) => option.tons <= ( this.props.appGlobals.currentBattleMech?.getLAMMaxTonnage() ?? Infinity )
+                              && ( !this.props.appGlobals.currentBattleMech?.isPermanentAirMech() || option.tons >= 20 ) ).map( (option) => {
                               return (
                                 <option key={option.tons} value={option.tons}>{option.tons} ({option.type})</option>
                               )
@@ -476,7 +572,7 @@ export default class MechCreatorStep1 extends React.Component<IHomeProps, IHomeS
                                 value={this.props.appGlobals.currentBattleMech.getInternalStructureType()}
                                 onChange={this.updateStructureType}
                               >
-                              {this.props.appGlobals.currentBattleMech.getAvailableInternalStructures(this.props.appGlobals.appSettings.mechRulesFilter).map( (option) => {
+                              {this.props.appGlobals.currentBattleMech.getAvailableInternalStructures(mechRulesLevel(this.props.appGlobals)).map( (option) => {
                                 const selected = option.tag === this.props.appGlobals.currentBattleMech?.getInternalStructureType();
                                 if( !isOptionShown(option, selected) ) {
                                   return <React.Fragment key={option.tag}></React.Fragment>;
@@ -488,8 +584,15 @@ export default class MechCreatorStep1 extends React.Component<IHomeProps, IHomeS
                               </select>
                             </label>
                           </EditionChoice>
+                          <ComponentTechBaseChoice
+                            label="Structure Version"
+                            choices={this.props.appGlobals.currentBattleMech.getComponentTechBases("structure")}
+                            value={this.props.appGlobals.currentBattleMech.getStructureTechBase()}
+                            clanDesign={this.props.appGlobals.currentBattleMech.getTech().tag === "clan"}
+                            onChange={(techBase) => { const mech = this.props.appGlobals.currentBattleMech; if (mech) { mech.setStructureTechBase(techBase); this.props.appGlobals.saveCurrentBattleMech(mech); } }}
+                          />
 
-                          {this.props.appGlobals.currentBattleMech.isFrankenMech() || this.props.appGlobals.currentBattleMech.canBeFrankenMech(this.props.appGlobals.appSettings.mechRulesFilter) ? (
+                          {this.props.appGlobals.currentBattleMech.isFrankenMech() || this.props.appGlobals.currentBattleMech.canBeFrankenMech(mechRulesLevel(this.props.appGlobals)) ? (
                             <InputCheckbox
                               label="Is a FrankenMech"
                               checked={this.props.appGlobals.currentBattleMech.isFrankenMech()}
@@ -520,7 +623,7 @@ export default class MechCreatorStep1 extends React.Component<IHomeProps, IHomeS
                                     const currentMech = this.props.appGlobals.currentBattleMech!;
                                     const donor = currentMech.getFrankenMechDonor(location.key);
                                     const centerTorso = location.key === "centerTorso";
-                                    const offered = currentMech.getFrankenMechDonorStructures(this.props.appGlobals.appSettings.mechRulesFilter)
+                                    const offered = currentMech.getFrankenMechDonorStructures(mechRulesLevel(this.props.appGlobals))
                                       .filter( (structure) => isOptionShown(structure, structure.tag === donor.structure) );
                                     const structures = offered.some( (structure) => structure.tag === donor.structure )
                                       ? offered : [currentMech.getFrankenMechLocationStructure(location.key), ...offered];

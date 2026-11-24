@@ -88,7 +88,7 @@ describe("Hi-Scout Armored Automata Carrier (Ghosts of Obeedah p.80)", () => {
         const vehicle = hiScout();
         expect(vehicle.getRoboticSkills()).toEqual({ gunnery: 4, piloting: 5 });
         expect(vehicle.getBattleValue()).toBe(448);
-        expect(vehicle.getBattleValueLog()).toContain("x 0.85 (Smart Robotic Control System, IO:AE p.187)");
+        expect(vehicle.getBattleValueLog()).toContain("Smart Robotic Control System: x 0.85 = 0.85 (IO:AE p.187)");
         expect(vehicle.getPilotAdjustedBattleValue()).toBe(448);
         vehicle.setRoboticControl("none");
         expect(vehicle.getBattleValue()).toBe(527);
@@ -97,7 +97,7 @@ describe("Hi-Scout Armored Automata Carrier (Ghosts of Obeedah p.80)", () => {
     it("is Experimental, costs the SRCS, and keeps it and standard rounding through a save", () => {
         const vehicle = hiScout();
         expect(vehicle.getRequiredRulesLevel()).toBe(4);
-        expect(vehicle.getCBillCostLog()).toContain("Smart Robotic Control System (Improved) (4.5 t): 50,000");
+        expect(vehicle.getCostBreakdown().steps.find((step) => step.id === "cv.cost.robotic")).toMatchObject({ label: "Smart Robotic Control System (Improved)", detail: "4.5 tons", value: 50000 });
         const reloaded = new Vehicle(vehicle.exportJSON());
         expect(reloaded.getRoboticControl().tag).toBe("srcs-improved");
         expect(reloaded.usesFractionalAccounting()).toBe(false);

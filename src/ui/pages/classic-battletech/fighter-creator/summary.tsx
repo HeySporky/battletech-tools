@@ -3,10 +3,14 @@ import { Link } from 'react-router';
 import { FaArrowCircleLeft } from "react-icons/fa";
 import { FIGHTER_ARCS, FIGHTER_LOCATIONS, formatFighterASDamage } from '../../../../classes/aerospace-fighter';
 import { IAppGlobals } from '../../../app-router';
-import FighterCreatorSideMenu from '../../../components/fighter-creator-side-menu';
+import { FighterCreatorSideMenu } from '../../../components/creator-side-menus';
 import SanitizedHTML from '../../../components/sanitized-html';
+import { FighterCalcBreakdown } from '../../../components/calc-breakdown';
+import QuirkPicker from '../../../components/quirk-picker';
 import TextSection from '../../../components/text-section';
 import UIPage from '../../../components/ui-page';
+import { unitRulesLevel } from '../../../components/game-settings-block';
+import { formatBattleValue } from '../../../../data/battle-value';
 const ArrowCircleLeft = FaArrowCircleLeft as any;
 
 export default class FighterCreatorSummary extends React.Component<ISummaryProps> {
@@ -18,7 +22,7 @@ export default class FighterCreatorSummary extends React.Component<ISummaryProps
     render = (): JSX.Element => {
         const fighter = this.props.appGlobals.currentFighter;
         if (!fighter) return <></>;
-        const issues = fighter.getIssues(this.props.appGlobals.appSettings.mechRulesFilter);
+        const issues = fighter.getIssues(unitRulesLevel(this.props.appGlobals.currentFighter, this.props.appGlobals.appSettings));
         const armor = fighter.getArmorAllocation();
         const as = fighter.getAlphaStrikeStats();
         const title = `${fighter.getModel()} ${fighter.getName()}`.trim() || "Unnamed Fighter";
@@ -47,7 +51,7 @@ export default class FighterCreatorSummary extends React.Component<ISummaryProps
                                 <strong>Tech</strong>: {fighter.getTech().name} &nbsp;|&nbsp;
                                 <strong>Era</strong>: {fighter.getEra().name} &nbsp;|&nbsp;
                                 <strong>Tonnage</strong>: {fighter.getTonnage()} &nbsp;|&nbsp;
-                                <strong>Battle Value</strong>: {fighter.getBattleValue()} &nbsp;|&nbsp;
+                                <strong>Battle Value</strong>: {formatBattleValue((edition) => fighter.getBattleValue(edition), "fighter", fighter.getRulesEdition())} &nbsp;|&nbsp;
                                 <strong>Cost</strong>: {fighter.getCBillCost().toLocaleString("en-US")} C-bills
                             </p>
                             <p>
@@ -123,17 +127,37 @@ export default class FighterCreatorSummary extends React.Component<ISummaryProps
                                 checked against Master Unit List cards. Published fighters should still use their MUL card.
                             </p>
                             <Link to={`${process.env.PUBLIC_URL}/classic-battletech/fighter-creator/print-as`} className="btn btn-primary btn-sm">Print Alpha Strike Card</Link>
+                            {" "}
+                            <Link to={`${process.env.PUBLIC_URL}/classic-battletech/fighter-creator/print-tro`} className="btn btn-primary btn-sm">Print the TRO sheet</Link>
 
-                            <h3>Battle Value Calculation</h3>
-                            <SanitizedHTML raw={true} html={fighter.getBattleValueLog()} />
+                            <QuirkPicker
+                                quirks={fighter.quirks}
+                                unitType={fighter.getQuirkUnitType()}
+                                editionTag={fighter.getRulesEdition()}
+                                rulesLevel={unitRulesLevel(this.props.appGlobals.currentFighter, this.props.appGlobals.appSettings)}
+                                {...fighter.getQuirkTargets()}
+                                onChange={() => this.props.appGlobals.saveCurrentFighter(fighter)}
+                            />
 
-                            <h3>Cost Calculation</h3>
-                            <SanitizedHTML raw={true} html={fighter.getCBillCostLog()} />
+                            {fighter.isSupportVehicle() ? (
+                                <>
+                                    <h3>Battle Value Calculation</h3>
+                                    <SanitizedHTML raw={true} html={fighter.getBattleValueLog()} />
+
+                                    <h3>Cost Calculation</h3>
+                                    <SanitizedHTML raw={true} html={fighter.getCBillCostLog()} />
+                                </>
+                            ) : (
+                                <>
+                                    <h3>Calculations</h3>
+                                    <FighterCalcBreakdown fighter={fighter} />
+                                </>
+                            )}
 
                             <div className="clear-both overflow-hidden">
                                 <hr />
                                 <Link to={`${process.env.PUBLIC_URL}/classic-battletech/fighter-creator/record-sheet`} className="btn btn-primary pull-right btn-sm">View Record Sheet</Link>
-                                <Link to={`${process.env.PUBLIC_URL}/classic-battletech/fighter-creator/equipment`} className="btn btn-primary btn-sm"><ArrowCircleLeft /> Previous Step</Link>
+                                <Link to={`${process.env.PUBLIC_URL}/classic-battletech/fighter-creator/technical-readout`} className="btn btn-primary btn-sm"><ArrowCircleLeft /> Previous Step</Link>
                             </div>
                         </TextSection>
                     </div>

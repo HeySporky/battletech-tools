@@ -1,9 +1,11 @@
 import { describe, expect, it } from "vitest";
 import { getAmmoFamily } from "./equipment-registry";
-import { mechISAmmo } from "./mech-is-ammo";
-import { mechUniversalAmmo } from "./mech-universal-ammo";
+import { ammoCatalog } from "./ammo";
 
-const find = (tag: string) => [...mechISAmmo, ...mechUniversalAmmo].find(item => item.tag === tag)!;
+const isAmmoList = ammoCatalog.filter((item) => item.techBase === "is");
+const universalAmmoList = ammoCatalog.filter((item) => item.techBase === "universal");
+
+const find = (tag: string) => [...isAmmoList, ...universalAmmoList].find(item => item.tag === tag)!;
 
 describe("alternate munitions added for canon completeness", () => {
     it("Retro-Streak SRMs and Shoot-and-Sit Narc missiles join their launcher families at x1.1 cost (IO:AE pp.126-127)", () => {

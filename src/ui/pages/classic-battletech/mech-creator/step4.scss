@@ -10,8 +10,10 @@
         height: 335px;
     }
 
-    svg.tripod-armor-diagram {
-        height: 420px;
+    // The Tripod diagram nests the Biped art, which fills it.
+    svg.tripod-armor-diagram svg {
+        width: 100%;
+        height: 100%;
     }
     .armor-select-dropdown {
         position: absolute;
@@ -152,8 +154,9 @@
             width: 422px;
         }
 
-        svg.tripod-armor-diagram {
-            height: 565px;
+        svg.tripod-armor-diagram svg {
+            width: 100%;
+            height: 100%;
         }
 
         .armor-select-dropdown {

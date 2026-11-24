@@ -9,6 +9,8 @@ import BattleArmorCreatorSummary from './summary';
 import BattleArmorCreatorRecordSheet from './record-sheet';
 import BattleArmorCreatorLoadouts from './loadouts';
 import BattleArmorCreatorPrintAS from './print-as';
+import { CreatorPrintTRO, CreatorTechnicalReadoutStep } from '../../../components/creator-tro-pages';
+import { BATTLE_ARMOR_TRO } from '../creator-tro-configs';
 
 import type { JSX } from "react";
 
@@ -31,6 +33,14 @@ export default class BattleArmorCreatorRouter extends React.Component<IBattleArm
 
                 <Route path={`loadouts`} element={
                     <BattleArmorCreatorLoadouts appGlobals={this.props.appGlobals} />
+                }/>
+
+                <Route path={`technical-readout`} element={
+                    <CreatorTechnicalReadoutStep appGlobals={this.props.appGlobals} config={BATTLE_ARMOR_TRO} />
+                }/>
+
+                <Route path={`print-tro`} element={
+                    <CreatorPrintTRO appGlobals={this.props.appGlobals} config={BATTLE_ARMOR_TRO} />
                 }/>
 
                 <Route path={`print-as`} element={

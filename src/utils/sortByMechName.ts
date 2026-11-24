@@ -4,8 +4,8 @@ export function sortByMechName(
     a: BattleMech,
     b: BattleMech,
 ): number {
-    let aName = a.getName().toLowerCase().trim();
-    let bName = b.getName().toLowerCase().trim();
+    const aName = a.getName().toLowerCase().trim();
+    const bName = b.getName().toLowerCase().trim();
 
     if( aName > bName ) {
         return 1

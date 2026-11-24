@@ -1,6 +1,7 @@
 import React, { type JSX } from 'react';
 import SmallCraft from '../../../../classes/small-craft';
 import TextSection from '../../../components/text-section';
+import { formatBattleValue } from '../../../../data/battle-value';
 
 /** The running totals every step of the Small Craft Creator shows: weight, thrust, armor, heat, and what is not legal yet. */
 export default class SmallCraftStatusBar extends React.Component<ISmallCraftStatusBarProps> {
@@ -16,8 +17,8 @@ export default class SmallCraftStatusBar extends React.Component<ISmallCraftStat
                     <strong>Thrust</strong>: {craft.getSafeThrust()}/{craft.getMaxThrust()} &nbsp;|&nbsp;
                     <strong>SI</strong>: {craft.getStructuralIntegrity()} &nbsp;|&nbsp;
                     <strong>Armor</strong>: {craft.getTotalArmorPoints()} of {craft.getAvailableArmorPoints()} points &nbsp;|&nbsp;
-                    <strong>Heat</strong>: {craft.getWeaponHeat()} of {craft.getHeatDissipation()} dissipated &nbsp;|&nbsp;
-                    <strong>BV</strong>: {craft.getBattleValue()}
+                    <strong>Heat</strong>: {craft.getHeatDissipation()} dissipated of {craft.getWeaponHeat()} generated &nbsp;|&nbsp;
+                    <strong>BV</strong>: {formatBattleValue((edition) => craft.getBattleValue(edition), "small-craft", craft.getRulesEdition())}
                     {issues.length > 0 ? (
                         <ul className="color-red" data-testid="sc-issues">
                             {issues.map((issue, index) => <li key={index}>{issue}</li>)}

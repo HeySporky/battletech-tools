@@ -1,9 +1,9 @@
 import { describe, expect, it } from "vitest";
 import { BattleMech } from "./battlemech";
 import { getCockpitType } from "../data/mech-cockpit-types";
-import { sswMechs } from "../data/ssw/sswMechs";
-import { mechUniversalEquipment } from "../data/mech-universal-equipment";
+import { sswTestFixtures } from "../data/ssw/sswTestFixtures";
 import { getTargetToHitFromWeapon } from "../utils";
+import { universalEquipment } from "../data/universal-equipment";
 
 const build = (options: { tech?: string, era?: string, type?: string, tonnage?: number, walk?: number, structure?: string, engine?: string } = {}) => {
     const mech = new BattleMech();
@@ -143,7 +143,7 @@ describe("Weight-free heat sinks by engine type (TM p.71)", () => {
 describe("Importing a design with a non-fusion engine", () => {
     it("keeps the heat sink total of an SSW file", () => {
         // The Griffin GRF-1N file lists 12 heat sinks. With a fission engine 5 are free and 7 are added.
-        const griffin = sswMechs.find((xml) => /name="Griffin" model="GRF-1N"/.test(xml))!;
+        const griffin = sswTestFixtures["Griffin GRF-1N"];
         const fusion = new BattleMech();
         fusion.importSSWXML(griffin);
         expect([fusion.getEngineType().tag, fusion.getHeatSinks(), fusion.getAdditionalHeatSinks()]).toEqual(["standard", 12, 2]);
@@ -151,6 +151,20 @@ describe("Importing a design with a non-fusion engine", () => {
         const fission = new BattleMech();
         fission.importSSWXML(griffin.replace(">Fusion Engine</engine>", ">Fission Engine</engine>"));
         expect([fission.getEngineType().tag, fission.getHeatSinks(), fission.getAdditionalHeatSinks()]).toEqual(["fission", 12, 7]);
+    });
+});
+
+// A saved IndustrialMech lost its industrial armor on load (the armor was set before the Industrial structure made
+// it an IndustrialMech), so its Battle Value and cost changed: a Buster BC XV went from 222 to 294 BV (#241 build).
+describe("Reloading a saved IndustrialMech", () => {
+    it("keeps its Commercial armor, Battle Value and cost", () => {
+        const mech = new BattleMech();
+        mech.setInternalStructureType("industrial");
+        mech.setArmorType("commercial");
+        expect(mech.getArmorType()).toBe("commercial");
+        const reload = new BattleMech(mech.exportJSON());
+        expect(reload.getArmorType()).toBe("commercial");
+        expect([reload.getBattleValue(), reload.getCBillCostNumeric()]).toEqual([mech.getBattleValue(), mech.getCBillCostNumeric()]);
     });
 });
 
@@ -176,7 +190,9 @@ describe("Power amplifiers on ICE and fuel cell 'Mechs (TM p.72)", () => {
         add(mech, "small-laser");
         expect(mech.getCBillCalcHTML()).not.toContain("Power Amplifiers");
         mech.setEngineType("ice");
-        expect(mech.getCBillCalcHTML()).toContain("<strong>Power Amplifiers</strong><br /><span class=\"smaller-text\">20,000 x Amplifier Tonnage [0.5]</span></td><td>10,000</td>");
+        const amplifier = mech.getCostBreakdown().steps.find((step) => step.id === "cost.power-amplifiers");
+        expect(amplifier).toMatchObject({ label: "Power Amplifiers", detail: "20,000 x 0.5 tons of amplifier", value: 10000 });
+        expect(mech.getCBillCalcHTML()).toContain("Power Amplifiers");
     });
 
     it("needs none with a fission or fusion engine", () => {
@@ -213,7 +229,7 @@ describe("Extended Fuel Tanks (TM pp.68, 244)", () => {
         mech.moveCritical("un", mech.unallocatedCriticals.findIndex(critical => critical?.uuid === item.uuid), loc, (mech.getCriticals() as any)[key].findIndex((critical: unknown) => !critical));
 
     it("lists the record with the book's dates, cost and limits", () => {
-        expect(mechUniversalEquipment.find(item => item.tag === "extended-fuel-tank")).toMatchObject({
+        expect(universalEquipment.find(item => item.tag === "extended-fuel-tank")).toMatchObject({
             name: "Extended Fuel Tank", industrialMechOnly: true, requiresEngine: "ice-or-fuel-cell", allowedLocations: ["ct", "lt", "rt"],
             explosive: true, explosiveAsAmmo: true, prototype: 2100, introduced: 2300, extinct: null, reintroduced: null,
             techRating: "c", book: "TM", page: 244, variableFormula: "extended-fuel-tank",
@@ -256,9 +272,9 @@ describe("Extended Fuel Tanks (TM pp.68, 244)", () => {
         const mech = build({ structure: "industrial", engine: "ice" });
         const tank = add(mech, "extended-fuel-tank")!;
         expect(place(mech, tank, "lt", "leftTorso")).toBe(true);
-        const log = mech.getBVCalcHTML();
-        expect(log.match(/Explosive Ammo Crit in leftTorso \(Inner Sphere, -15\)/g)).toHaveLength(2);
-        expect(log).not.toContain("Explosive Component Crit (Extended Fuel Tank)");
+        const steps = mech.getBattleValueBreakdown().steps;
+        expect(steps.filter((step) => step.id.startsWith("bv2.def.explosive.") && step.label.includes("leftTorso (Inner Sphere)") && step.value === -15)).toHaveLength(2);
+        expect(steps.filter((step) => step.id === "bv2.def.explosive.component" && step.label.includes("Extended Fuel Tank"))).toHaveLength(0);
     });
 });
 
@@ -332,10 +348,10 @@ describe("Dark Age armors on IndustrialMechs (IO:AE p.82)", () => {
     it("refuses one on an Inner Sphere IndustrialMech", () => {
         const mech = build({ structure: "industrial", era: "ilClan" });
         expect(mech.setArmorType("ballistic-reinforced").tag).toBe("standard");
-        // Ferro-Fibrous and Stealth stay barred whatever the rules level (TM p.72).
+        // TM p.72 bars Ferro-Fibrous below Experimental; there "all other BattleMech-legal armor types" are open (TO:AUE p.92).
         const mixed = build({ structure: "industrial", era: "ilClan", tech: "mis" });
-        expect(mixed.setArmorType("ferro-fibrous").tag).toBe("standard");
-        expect(offered(mixed.getAvailableArmorTypes(4))).not.toContain("ferro-fibrous");
+        expect(offered(mixed.getAvailableArmorTypes(3))).not.toContain("ferro-fibrous");
+        expect(offered(mixed.getAvailableArmorTypes(4))).toContain("ferro-fibrous");
     });
 });
 
@@ -502,16 +518,17 @@ describe("Primitive BattleMechs (IO:AE pp.116-118)", () => {
         const mech = mackie();
         const log = mech.getCBillCalcHTML();
         expect(log).toContain("Primitive Musculature");
-        expect(log).toContain("1,000 x Unit Tonnage [100]");
-        expect(log).toContain("Primitive BattleMech Cockpit</strong></td><td>200,000");
+        const steps = mech.getCostBreakdown().steps;
+        expect(steps.find((step) => step.id === "cost.musculature.primitive")).toMatchObject({ label: "Primitive Musculature", detail: "1,000 x 100 tons", value: 100000 });
+        expect(steps.find((step) => step.label === "Primitive BattleMech Cockpit")?.value).toBe(200000);
         // The engine costs as a 360-rated standard fusion engine: 5,000 x 360 x 100 / 75.
-        expect(log).toContain("Engine Rating [360]");
+        expect(steps.find((step) => step.id.startsWith("cost.engine"))?.detail).toContain("rating 360");
         expect(log).toContain("<td>2,400,000</td>");
     });
 
     it("is Advanced rules", () => {
         expect(mackie().getRequiredRulesLevel()).toBe(3);
-        expect(build({ era: "age-of-war" }).getRequiredRulesLevel()).toBe(0);
+        expect(build({ era: "age-of-war" }).getRequiredRulesLevel()).toBe(1);
     });
 
     it("survives a save and reload", () => {

@@ -7,7 +7,7 @@ import { IAppGlobals } from '../../../app-router';
 import CriticalAllocationSection from '../../../components/critical-allocation-section';
 import InputCheckbox from '../../../components/form_elements/input_checkbox';
 import InputNumeric from '../../../components/form_elements/input_numeric';
-import MechCreatorSideMenu from '../../../components/mech-creator-side-menu';
+import { MechCreatorSideMenu } from '../../../components/creator-side-menus';
 import MechCreatorStatusbar from '../../../components/mech-creator-status-bar';
 import StandardModal from '../../../components/standard-modal';
 import TextSection from '../../../components/text-section';
@@ -69,8 +69,8 @@ export default class MechCreatorStep6 extends React.Component<IHomeProps, IHomeS
     ) => {
       if( e && e.preventDefault ) e.preventDefault();
 
-      let selectionMessage = "Select a location to place your the first part of " + this.state.selectedItem?.name + " ( " + this.state.splitItemCount + " slots)";
-      let selectionMessageType = "warning";
+      const selectionMessage = "Select a location to place your the first part of " + this.state.selectedItem?.name + " ( " + this.state.splitItemCount + " slots)";
+      const selectionMessageType = "warning";
 
       this.setState({
         isSplitting: true,
@@ -189,7 +189,7 @@ export default class MechCreatorStep6 extends React.Component<IHomeProps, IHomeS
               selectedItemSize = selectedItem.size
             }
             // console.log("isSplitting")
-            let split_criticals = this.state.split_criticals;
+            const split_criticals = this.state.split_criticals;
             if( this.state.onSecondClick && this.props.appGlobals.currentBattleMech ) {
               // console.log("onSecondClick")
 
@@ -201,7 +201,7 @@ export default class MechCreatorStep6 extends React.Component<IHomeProps, IHomeS
 
               // console.log("split_criticals", split_criticals)
 
-              let wasMoved = this.props.appGlobals.currentBattleMech.moveCritical(
+              const wasMoved = this.props.appGlobals.currentBattleMech.moveCritical(
                 // this.state.selectedItem.tag,
                 // this.state.selectedItem.rear,
                 this.state.selectedItemLocation,
@@ -235,7 +235,7 @@ export default class MechCreatorStep6 extends React.Component<IHomeProps, IHomeS
                 1000)
               } else {
                 if( this.state.selectedItem ) {
-                  selectionMessage = "Cannot place that "  + this.state.selectedItem.name + " there.";
+                  selectionMessage = this.props.appGlobals.currentBattleMech?.getSlotFitMessage( selectedLocation, this.state.selectedItem.crits ) ?? ("Cannot place that " + this.state.selectedItem.name + " there.");
                   selectedItemName = "";
                   selectionMessageType = "danger";
                 } else {
@@ -274,8 +274,8 @@ export default class MechCreatorStep6 extends React.Component<IHomeProps, IHomeS
                   size : this.state.splitItemCount,
                   index: selectedIndex,
                 });
-                let selectionMessage = "Select the location to place the second part of your" + this.state.selectedItem?.name + " ( " + (this.state.selectedItem.crits - this.state.splitItemCount) + " slots)";
-                let selectionMessageType = "warning";
+                const selectionMessage = "Select the location to place the second part of your" + this.state.selectedItem?.name + " ( " + (this.state.selectedItem.crits - this.state.splitItemCount) + " slots)";
+                const selectionMessageType = "warning";
 
                 // console.log("firstClick split_criticals", split_criticals)
 
@@ -293,7 +293,7 @@ export default class MechCreatorStep6 extends React.Component<IHomeProps, IHomeS
             // console.log("moving?")
             // try to move item to slot
             if( this.state.selectedItemLocation && this.state.selectedItemIndex > -1 && this.props.appGlobals.currentBattleMech) {
-              let wasMoved = this.props.appGlobals.currentBattleMech.moveCritical(
+              const wasMoved = this.props.appGlobals.currentBattleMech.moveCritical(
                 // this.state.selectedItem.tag,
                 // this.state.selectedItem.rear,
                 this.state.selectedItemLocation,
@@ -323,7 +323,7 @@ export default class MechCreatorStep6 extends React.Component<IHomeProps, IHomeS
                 1000)
               } else {
                 if( this.state.selectedItem ) {
-                  selectionMessage = "Cannot place that "  + this.state.selectedItem.name + " there.";
+                  selectionMessage = this.props.appGlobals.currentBattleMech?.getSlotFitMessage( selectedLocation, this.state.selectedItem.crits ) ?? ("Cannot place that " + this.state.selectedItem.name + " there.");
                   selectionMessageType = "danger";
                   selectedItemName = "";
                 } else {
@@ -482,10 +482,10 @@ export default class MechCreatorStep6 extends React.Component<IHomeProps, IHomeS
                                 <div className="row">
                                   <div className="col-4">
                                     {this.props.appGlobals.currentBattleMech.isQuad() || this.props.appGlobals.currentBattleMech.isQuadVee() ? (
-                                      <h4 className="text-center">Left Front Leg</h4>
+                                      <h3 className="h4 text-center">Left Front Leg</h3>
                                     ) : (
                                       <>
-                                      <h4 className="text-center">Left Arm</h4>
+                                      <h3 className="h4 text-center">Left Arm</h3>
                                       <InputCheckbox
                                         checked={this.props.appGlobals.currentBattleMech.hasLowerArmActuator("la")}
                                         onChange={() => this.toggleLowerArmActuator("la") }
@@ -513,7 +513,7 @@ export default class MechCreatorStep6 extends React.Component<IHomeProps, IHomeS
                                       currentSelectedItemSize={this.state.selectedItemSize}
                                       currentSelectedItemName={this.state.selectedItemName}
                                     />
-                                    <h4 className="text-center">Left Torso</h4>
+                                    <h3 className="h4 text-center">Left Torso</h3>
                                     <CriticalAllocationSection
                                       appGlobals={this.props.appGlobals}
                                       mech={this.props.appGlobals.currentBattleMech}
@@ -526,9 +526,9 @@ export default class MechCreatorStep6 extends React.Component<IHomeProps, IHomeS
                                       currentSelectedItemName={this.state.selectedItemName}
                                     />
                                     {this.props.appGlobals.currentBattleMech.isQuad() || this.props.appGlobals.currentBattleMech.isQuadVee() ? (
-                                      <h4 className="text-center">Left Rear Leg</h4>
+                                      <h3 className="h4 text-center">Left Rear Leg</h3>
                                     ) : (
-                                      <h4 className="text-center">Left Leg</h4>
+                                      <h3 className="h4 text-center">Left Leg</h3>
                                     )}
 
                                     <CriticalAllocationSection
@@ -544,7 +544,7 @@ export default class MechCreatorStep6 extends React.Component<IHomeProps, IHomeS
                                     />
                                   </div>
                                   <div className="col-4">
-                                    <h4 className="text-center">Head</h4>
+                                    <h3 className="h4 text-center">Head</h3>
                                     <CriticalAllocationSection
                                       appGlobals={this.props.appGlobals}
                                       mech={this.props.appGlobals.currentBattleMech}
@@ -557,7 +557,7 @@ export default class MechCreatorStep6 extends React.Component<IHomeProps, IHomeS
                                       currentSelectedItemName={this.state.selectedItemName}
                                     />
 
-                                    <h4 className="text-center">Center Torso</h4>
+                                    <h3 className="h4 text-center">Center Torso</h3>
                                     <CriticalAllocationSection
                                       appGlobals={this.props.appGlobals}
                                       crits={this.props.appGlobals.currentBattleMech.criticals.centerTorso}
@@ -571,7 +571,7 @@ export default class MechCreatorStep6 extends React.Component<IHomeProps, IHomeS
                                     />
                                     {this.props.appGlobals.currentBattleMech.isTripod() ? (
                                       <>
-                                        <h4 className="text-center">Center Leg</h4>
+                                        <h3 className="h4 text-center">Center Leg</h3>
                                         <CriticalAllocationSection
                                           appGlobals={this.props.appGlobals}
                                           crits={this.props.appGlobals.currentBattleMech.criticals.centerLeg}
@@ -588,10 +588,10 @@ export default class MechCreatorStep6 extends React.Component<IHomeProps, IHomeS
                                   </div>
                                   <div className="col-4">
                                   {this.props.appGlobals.currentBattleMech.isQuad() || this.props.appGlobals.currentBattleMech.isQuadVee() ? (
-                                      <h4 className="text-center">Right Front Leg</h4>
+                                      <h3 className="h4 text-center">Right Front Leg</h3>
                                     ) : (
                                       <>
-                                      <h4 className="text-center">Right Arm</h4>
+                                      <h3 className="h4 text-center">Right Arm</h3>
                                       <InputCheckbox
                                         checked={this.props.appGlobals.currentBattleMech.hasLowerArmActuator("ra")}
                                         onChange={() => this.toggleLowerArmActuator("ra") }
@@ -618,7 +618,7 @@ export default class MechCreatorStep6 extends React.Component<IHomeProps, IHomeS
                                       currentSelectedItemSize={this.state.selectedItemSize}
                                       currentSelectedItemName={this.state.selectedItemName}
                                     />
-                                    <h4 className="text-center">Right Torso</h4>
+                                    <h3 className="h4 text-center">Right Torso</h3>
                                     <CriticalAllocationSection
                                       appGlobals={this.props.appGlobals}
                                       crits={this.props.appGlobals.currentBattleMech.criticals.rightTorso}
@@ -631,9 +631,9 @@ export default class MechCreatorStep6 extends React.Component<IHomeProps, IHomeS
                                       currentSelectedItemName={this.state.selectedItemName}
                                     />
                                     {this.props.appGlobals.currentBattleMech.isQuad() || this.props.appGlobals.currentBattleMech.isQuadVee() ? (
-                                      <h4 className="text-center">Right Rear Leg</h4>
+                                      <h3 className="h4 text-center">Right Rear Leg</h3>
                                     ) : (
-                                      <h4 className="text-center">Right Leg</h4>
+                                      <h3 className="h4 text-center">Right Leg</h3>
                                     )}
 
                                     <CriticalAllocationSection
@@ -655,7 +655,7 @@ export default class MechCreatorStep6 extends React.Component<IHomeProps, IHomeS
 
                         <div className="clear-both overflow-hidden">
                           <hr />
-                          <Link to={`${process.env.PUBLIC_URL}/classic-battletech/mech-creator/summary`} className="btn btn-primary pull-right btn-sm">Summary <ArrowCircleRight /></Link>
+                          <Link to={`${process.env.PUBLIC_URL}/classic-battletech/mech-creator/step7`} className="btn btn-primary pull-right btn-sm">Step 7 <ArrowCircleRight /></Link>
                           <div className="inline-block text-left">
                               <Link to={`${process.env.PUBLIC_URL}/classic-battletech/mech-creator/step5`} className="btn btn-primary btn-sm"><ArrowCircleLeft /> Previous Step</Link>
                             </div>

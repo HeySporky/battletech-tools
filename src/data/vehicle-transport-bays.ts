@@ -20,9 +20,10 @@ export const MAX_VEHICLE_BAY_COUNT = 1000;
 export const MAX_VEHICLE_CARGO_TONS = 100000;
 
 /** Bays a ground vehicle can carry: every Transport Bay table row but the infantry compartment, which is troop space. */
-export const VEHICLE_BAY_TYPES: ITransportBayType[] = transportBayTypes.filter((type) => type.tag !== "infantry-compartment");
-/** Bays an Airship, Fixed-Wing or Satellite Support Vehicle can carry: every row. */
-export const AIRCRAFT_BAY_TYPES: ITransportBayType[] = transportBayTypes;
+// The Micro-Mech Bay is left off both: its text (Micro-Mechs 6.1.0.2) is an AeroTech 2 supplement, for DropShips.
+export const VEHICLE_BAY_TYPES: ITransportBayType[] = transportBayTypes.filter((type) => type.tag !== "infantry-compartment" && type.tag !== "micro-mech" && !type.largeCraftOnly);
+/** Bays an Airship, Fixed-Wing or Satellite Support Vehicle can carry: every row but the Micro-Mech Bay. */
+export const AIRCRAFT_BAY_TYPES: ITransportBayType[] = transportBayTypes.filter((type) => type.tag !== "micro-mech" && !type.largeCraftOnly);
 
 export function getVehicleBayType(tag: string): ITransportBayType | undefined {
     return findTransportBayType(tag);

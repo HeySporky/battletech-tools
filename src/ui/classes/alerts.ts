@@ -31,7 +31,7 @@ export default class Alerts {
         if( this.cancelTimeout > -1 ) {
             window.clearTimeout( this.cancelTimeout );
         }
-        let alertID = document.getElementById("alert-index-" + alertIndex);
+        const alertID = document.getElementById("alert-index-" + alertIndex);
         if( alertID ) {
             alertID.style.height = "0px";
             alertID.style.paddingTop = "0px";
@@ -84,7 +84,7 @@ export default class Alerts {
         let showMessage = true;
         if( messageID && messageID.trim() ) {
 
-            for( let message of this.activeAlerts ) {
+            for( const message of this.activeAlerts ) {
                 if( message.messageID && message.messageID === messageID) {
                     showMessage= false;
                 }
@@ -107,12 +107,12 @@ export default class Alerts {
                 }
             );
 
-            let dismissIndex = this.activeAlerts.length - 1;
+            const dismissIndex = this.activeAlerts.length - 1;
             this._app.refreshGlobalState();
             if( autoDismissSeconds > 0 ) {
                 window.setTimeout(
                     () => {
-                        let alertID = document.getElementById("alert-index-" + dismissIndex);
+                        const alertID = document.getElementById("alert-index-" + dismissIndex);
                         if( alertID ) {
                             alertID.className = alertID.className + 'fade-away';
                         }
@@ -122,7 +122,7 @@ export default class Alerts {
                 );
                 window.setTimeout(
                     () => {
-                        let alertID = document.getElementById("alert-bar-index-" + dismissIndex);
+                        const alertID = document.getElementById("alert-bar-index-" + dismissIndex);
                         if( alertID ) {
                             alertID.style.width = "0px";
                         }

@@ -43,7 +43,7 @@ export default class AlphaStrikeGroup {
 	public getActiveMembers() {
 		this.activeMembers = 0;
 		this.groupPoints = 0;
-		for( var memCount = 0; memCount < this.members.length; memCount++ ) {
+		for( let memCount = 0; memCount < this.members.length; memCount++ ) {
 			this.members[memCount].calcCurrentValues();
 			if( this.members[memCount].active )
 				this.activeMembers++;
@@ -58,7 +58,7 @@ export default class AlphaStrikeGroup {
     }
 
 	public isUnderStrength(): boolean {
-		for( let member of this.members ) {
+		for( const member of this.members ) {
 			if( member.isUnderStrength() ) {
 				return true;
 			}
@@ -74,7 +74,7 @@ export default class AlphaStrikeGroup {
     public getTotalPoints(): number {
         let returnValue: number = 0;
 
-		for( let unit of this.members ) {
+		for( const unit of this.members ) {
 			returnValue += unit.currentPoints;
 		}
 
@@ -95,7 +95,7 @@ export default class AlphaStrikeGroup {
 			if( this.customName ) {
 				return this.customName;
 			} else {
-				return this.groupLabel + "Group #" + groupNumber.toString();
+				return this.groupLabel + " #" + groupNumber.toString();
 			}
 		}
 
@@ -117,7 +117,7 @@ export default class AlphaStrikeGroup {
 		this.availableFormationBonuses = formationBonuses;
 		// if set formation bonus isn't in new list reset to "None"
 		if (this.formationBonus){
-			let selectedBonus:string = this.formationBonus.Name;
+			const selectedBonus:string = this.formationBonus.Name;
 
 			if (!this.availableFormationBonuses.find(x=>x.Name === selectedBonus)){
 				this.formationBonus = formationBonuses.find(x=>x.Name==="None");
@@ -128,7 +128,7 @@ export default class AlphaStrikeGroup {
     public export(
 		noInPlayVariables: boolean = false,
 	): IASGroupExport {
-        let returnValue: IASGroupExport = {
+        const returnValue: IASGroupExport = {
 			name: this.customName,
 			members: [],
             uuid: this.uuid,
@@ -137,8 +137,8 @@ export default class AlphaStrikeGroup {
 			groupLabel: this.groupLabel,
 		}
 
-		for( let unit of this.members ) {
-			let exportUnit = unit.export(noInPlayVariables);
+		for( const unit of this.members ) {
+			const exportUnit = unit.export(noInPlayVariables);
 
 			if( exportUnit ) {
 				returnValue.members.push( exportUnit );
@@ -157,15 +157,15 @@ export default class AlphaStrikeGroup {
 
 		this.customName = importObj.name;
 		if( importObj.members ) {
-			for( let unit of importObj.members) {
-				let theUnit = new AlphaStrikeUnit();
+			for( const unit of importObj.members) {
+				const theUnit = new AlphaStrikeUnit();
 				theUnit.importUnit( unit )
 				this.members.push( theUnit );
 			}
 		}
 		if( importObj.units ) {
-			for( let unit of importObj.units) {
-				let theUnit = new AlphaStrikeUnit();
+			for( const unit of importObj.units) {
+				const theUnit = new AlphaStrikeUnit();
 				theUnit.importMUL( unit )
 				this.members.push( theUnit );
 			}

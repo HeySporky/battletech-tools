@@ -22,8 +22,8 @@ export default class ComponentDamageSVG extends React.Component<IComponentDamage
             this.strokeColor = this.props.strokeColor;
         }
 
-        let baseWidth = 744.09448819;
-        let baseHeight = 1052.3622047;
+        const baseWidth = 744.09448819;
+        const baseHeight = 1052.3622047;
         if( this.props.width ) {
             this.theWidth = this.props.width;
             this.theHeight = Math.round( this.props.width / baseWidth * baseHeight );
@@ -56,7 +56,7 @@ export default class ComponentDamageSVG extends React.Component<IComponentDamage
         //     var svg = "<!DOCTYPE HTML><svg version=\"1.1\" xmlns=\"http://www.w3.org/2000/svg\" xml:space=\"preserve\" height=\"" + theHeight  + " px\" width=\"" + theWidth  + "px\" viewBox=\"0 0 790 100\" ><g>\n";
         // console.log( this.theWidth )
 
-        let textRightLine = this.theWidth * 2 / 3 - 40;
+        const textRightLine = this.theWidth * 2 / 3 - 40;
 
         // theHeight = 100;
         return (
@@ -113,6 +113,8 @@ export default class ComponentDamageSVG extends React.Component<IComponentDamage
                     // clickFunction={this.to}
                 />
 
+                {/* A 5-ton Power Armor suit has no gyro (Best-of p.16), so no Gyro Hits boxes. */}
+                {this.props.mechData.getGyro().tag === "none" ? null : <>
                 <text
 
                     x={this.props.xLoc + textRightLine}
@@ -146,6 +148,7 @@ export default class ComponentDamageSVG extends React.Component<IComponentDamage
                     bgColorFilled={"rgb(200,0,0)"}
                     // clickFunction={this.to}
                 />
+                </>}
 
                 <text
 
@@ -180,6 +183,17 @@ export default class ComponentDamageSVG extends React.Component<IComponentDamage
                     bgColorFilled={"rgb(200,0,0)"}
                     // clickFunction={this.to}
                 />
+
+                {/* A Torso-Mounted Cockpit is blinded at the third sensor hit (TO:AUE p.113). */}
+                {this.props.mechData.getCockpitType().tag === "torso-mounted" ? (
+                    <DamageCircleSVG
+                        xLoc={this.props.xLoc + textRightLine + 130}
+                        yLoc={this.props.yLoc + 130}
+                        radius={20}
+                        isFilled={this.props.mechData.sensorHits() > 2}
+                        bgColorFilled={"rgb(200,0,0)"}
+                    />
+                ) : null}
 
                 <text
                     x={this.props.xLoc + textRightLine}

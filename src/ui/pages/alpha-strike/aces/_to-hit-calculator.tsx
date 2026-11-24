@@ -21,7 +21,9 @@ const attackTypes: { id: TAcesAttackType, label: string }[] = [
     { id: "anti-mech", label: "Anti-'Mech (infantry)" },
 ];
 
-const targetTypes = [ "BM", "IM", "PM", "CV", "SV", "BA", "CI", "AF", "CF" ];
+// MM: a Micro-Mech (Custom Homebrew); it never claims partial cover (MCR). WK / IWK: a walker or industrial
+// walker (Custom Homebrew), read as BM / IM, partial cover included.
+const targetTypes = [ "BM", "IM", "PM", "MM", "WK", "IWK", "CV", "SV", "BA", "CI", "AF", "CF" ];
 
 /**
  * Target number helper for Alpha Strike with the Aces additions (ASCE p.44; Aces pp.3-6, 18). It adds up

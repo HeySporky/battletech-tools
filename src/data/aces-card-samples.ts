@@ -16,6 +16,7 @@ import {
     IAcesCard,
     IAcesCardLibrary,
     IAcesCommandCard,
+    IAcesEdgeCard,
     IAcesScenario,
     IAcesSpecialOrder,
     ACES_CARD_LIBRARY_VERSION,
@@ -42,6 +43,8 @@ export const acesSampleSniper475: IAcesCard = {
         zoneKeyword: "",
         targetInAttackRange: true,
         targetMoved: true,
+        targetInLOS: false,
+        targetNoLOS: false,
         targetSelect: "yellow",
         moveType: "ground",
         altMoveType: null,
@@ -58,6 +61,8 @@ export const acesSampleSniper475: IAcesCard = {
         zoneKeyword: "",
         targetInAttackRange: true,
         targetMoved: false,
+        targetInLOS: false,
+        targetNoLOS: false,
         targetSelect: "yellow",
         moveType: "ground",
         altMoveType: "jump",
@@ -74,6 +79,8 @@ export const acesSampleSniper475: IAcesCard = {
         zoneKeyword: "nearest",
         targetInAttackRange: false,
         targetMoved: false,
+        targetInLOS: false,
+        targetNoLOS: false,
         targetSelect: "",
         moveType: "ground",
         altMoveType: "jump",
@@ -98,6 +105,7 @@ export const acesSampleSniper475: IAcesCard = {
             { text: "If TN6 or less and OV might let unit hit target's structure: Use up to 3 OV.", tnAtMost: 6, tnAtLeast: null, join: "and", also: "could-hit-structure", action: "up-to", ovLimit: 3 },
             { text: "If TN9 or more and this unit has any heat: Don't attack.", tnAtMost: null, tnAtLeast: 9, join: "and", also: "has-heat", action: "no-attack", ovLimit: null },
         ],
+        indirectIfNoLOS: false,
     },
     source: acesSSSource( 6 ),
     sample: true,
@@ -118,6 +126,8 @@ export const acesSampleBrawler383: IAcesCard = {
         zoneKeyword: "",
         targetInAttackRange: true,
         targetMoved: true,
+        targetInLOS: false,
+        targetNoLOS: false,
         targetSelect: "red",
         moveType: "ground",
         altMoveType: null,
@@ -134,6 +144,8 @@ export const acesSampleBrawler383: IAcesCard = {
         zoneKeyword: "any",
         targetInAttackRange: true,
         targetMoved: true,
+        targetInLOS: false,
+        targetNoLOS: false,
         targetSelect: "nearest",
         moveType: "jump",
         altMoveType: null,
@@ -151,6 +163,8 @@ export const acesSampleBrawler383: IAcesCard = {
         zoneKeyword: "nearest",
         targetInAttackRange: false,
         targetMoved: false,
+        targetInLOS: false,
+        targetNoLOS: false,
         targetSelect: "",
         moveType: "ground",
         altMoveType: "jump",
@@ -174,6 +188,7 @@ export const acesSampleBrawler383: IAcesCard = {
             { text: "If TN7 or less and OV might let unit hit target's structure: Use up to 2 OV.", tnAtMost: 7, tnAtLeast: null, join: "and", also: "could-hit-structure", action: "up-to", ovLimit: 2 },
             { text: "If TN9 or more and this unit has any heat: Don't attack.", tnAtMost: null, tnAtLeast: 9, join: "and", also: "has-heat", action: "no-attack", ovLimit: null },
         ],
+        indirectIfNoLOS: false,
     },
     source: acesSSSource( 6 ),
     sample: true,
@@ -200,6 +215,7 @@ export const acesSampleStarCaptainB: IAcesCommandCard = {
                 { text: "[highest] PV", stat: "pv", direction: "highest" },
             ],
             behavior: null,
+            filter: "",
         },
     ],
     red: [
@@ -270,6 +286,7 @@ export const acesSampleMechWarriorC: IAcesCommandCard = {
                 { text: "[highest] MV", stat: "mv", direction: "highest" },
             ],
             behavior: null,
+            filter: "",
         },
     ],
     red: [
@@ -320,6 +337,8 @@ export const acesSampleForcedWithdrawal: IAcesSpecialOrder = {
         zoneKeyword: "nearest",
         targetInAttackRange: false,
         targetMoved: false,
+        targetInLOS: false,
+        targetNoLOS: false,
         targetSelect: "",
         moveType: "jump",
         altMoveType: null,
@@ -456,6 +475,22 @@ export const acesSampleBattleROMReview: IAcesScenario = {
     notes: "Requires the Multiple Attack Rolls and Front-Loaded optional rules (Aces SS p.4). Terrain setup is on the map on Aces SS p.5.",
 };
 
+/** An invented Edge card, here only to show how one is entered. It is not from any printed card. */
+export const acesSampleEdgeCard: IAcesEdgeCard = {
+    id: "aces-sample-edge-kite",
+    name: "Kite Over The Teapot",
+    category: "Sample",
+    cardNumber: "",
+    cost: 1,
+    phase: "movement",
+    trigger: "moving",
+    condition: "When a kite is flying over a teapot",
+    text: "The teapot whistles and the kite turns around.",
+    source: null,
+    sample: true,
+    notes: "NOT OFFICIAL: an invented card that only shows how to enter one. Type in your own cards from your own box.",
+};
+
 /** The samples as a library, for loading into the editor. */
 export const getAcesSampleLibrary = (): IAcesCardLibrary => {
     const copy = <T>( value: T ): T => JSON.parse( JSON.stringify( value ) );
@@ -469,6 +504,7 @@ export const getAcesSampleLibrary = (): IAcesCardLibrary => {
             copy( acesSampleDestroyObjective ),
             copy( acesSampleIndirectAttacks ),
         ],
+        edgeCards: [ copy( acesSampleEdgeCard ) ],
         scenarios: [ copy( acesSampleBattleROMReview ) ],
     };
 }

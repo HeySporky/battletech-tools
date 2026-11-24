@@ -8,7 +8,7 @@ Be sure to join our [Discord](https://discord.gg/U539K45v8U) and talk to other d
 
 ## Development
 
-Want to contribute? The app is a Vite + React + TypeScript PWA. You need **Node.js 26** (22.22+ and 24 also work) and
+Want to contribute? The app is a Vite + React + TypeScript single-page app (SPA). You need **Node.js 26** (22.22+ and 24 also work) and
 Git. Everything else is installed by npm into the project folder. The same steps work on Windows, macOS, Linux and
 Android.
 
@@ -47,8 +47,7 @@ same Wi-Fi. On Android, `npm run dev` inside Termux serves the app to the phone'
 ### 3. Before you open a pull request
 
 ```sh
-npm run check   # typecheck + unit tests + production build (the same steps CI runs)
-npm run lint    # see "Lint" below
+npm run check   # typecheck + lint + unit tests + production build (the same steps CI runs)
 ```
 
 ### npm scripts
@@ -69,7 +68,7 @@ npm run lint    # see "Lint" below
 | `npm run test:browser` | Component tests (`*.browser.test.tsx`) in real Chromium, Firefox and WebKit. Desktop only. |
 | `npm run test:e2e` | e2e main: Playwright end-to-end tests against a production build, on desktop Chromium, Firefox and WebKit plus iPad emulation. Desktop only. |
 | `npm run test:e2e:mobile` | e2e mobile: the same tests on Android phone and iPhone emulation. `npm run test:e2e:all` runs both. Desktop only. |
-| `npm run check` | `typecheck`, `test` and `build` in one go. |
+| `npm run check` | `typecheck`, `lint`, `test` and `build` in one go. |
 | `npm run lint` | ESLint over the whole project. |
 
 Pass extra options after `--`, for example `npm test -- --reporter=verbose` or `npm run test:e2e -- --project=webkit`.
@@ -115,8 +114,8 @@ Playwright has no Android browsers, so on Termux use `npm test` and `npm run che
 
 ### Lint
 
-`npm run lint` still reports problems in the existing code. In CI the lint job shows them but doesn't fail the build.
-Please don't add new ones; fixing old ones in the files you touch is welcome.
+`npm run lint` passes with no errors or warnings, and the CI lint job fails the build on any new one.
+`npm run check` runs it too, so a clean `check` means a clean lint.
 
 ### GitHub Actions workflows
 
@@ -143,7 +142,7 @@ these jobs:
 
 ### Technology
 
-PWA application using TypeScript and React, built with Vite and tested with Vitest and Playwright.
+Single-page application (SPA) using TypeScript and React, built with Vite and tested with Vitest and Playwright.
 
 ### Current Contributors
 

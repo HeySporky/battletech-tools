@@ -1,6 +1,7 @@
 import React, { type JSX } from 'react';
 import CapitalShip from '../../../../classes/capital-ship';
 import TextSection from '../../../components/text-section';
+import { formatBattleValue } from '../../../../data/battle-value';
 
 /** The running totals every step of the creator shows: weight, thrust, armor, heat, and what is not legal yet. */
 export default class CapitalShipStatusBar extends React.Component<ICapitalShipStatusBarProps> {
@@ -16,8 +17,8 @@ export default class CapitalShipStatusBar extends React.Component<ICapitalShipSt
                     <strong>Thrust</strong>: {ship.isWarShip() ? `${ship.getSafeThrust()}/${ship.getMaxThrust()}` : "station-keeping"} &nbsp;|&nbsp;
                     <strong>SI</strong>: {ship.getStructuralIntegrity()} &nbsp;|&nbsp;
                     <strong>Armor</strong>: {ship.getAllocatedArmorPoints()} of {ship.getPurchasedArmorPoints()} points placed &nbsp;|&nbsp;
-                    <strong>Hottest bay</strong>: {ship.getHottestBayHeat()} heat of {ship.getHeatDissipation()} dissipated &nbsp;|&nbsp;
-                    <strong>BV</strong>: {ship.getBattleValue().toLocaleString("en-US")}
+                    <strong>Hottest bay</strong>: {ship.getHeatDissipation()} dissipated of {ship.getHottestBayHeat()} generated &nbsp;|&nbsp;
+                    <strong>BV</strong>: {formatBattleValue((edition) => ship.getBattleValue(edition), "capital-ship", ship.getRulesEdition())}
                     {issues.length > 0 ? (
                         <ul className="color-red" data-testid="cs-issues">
                             {issues.map((issue, index) => <li key={index}>{issue}</li>)}

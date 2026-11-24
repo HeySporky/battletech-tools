@@ -14,13 +14,13 @@ export default class PrintablePage extends React.Component<IPrintablePageProps, 
 
     // Guard against printing a unit above the selected rules level by mistake.
     print = (): void => {
-        printWithRulesLevelGuard(this.props.requiredRulesLevel, this.props.appGlobals.appSettings.mechRulesFilter);
+        printWithRulesLevelGuard(this.props.requiredRulesLevel, this.props.rulesLevel ?? this.props.appGlobals.appSettings.mechRulesFilter);
     }
 
     render = (): JSX.Element => {
         return (
         <>
-          <div className="print-bar">
+          <header className="print-bar">
             <a
                 href={CONST_BATTLETECH_URL}
                 rel="noopener noreferrer"
@@ -33,11 +33,10 @@ export default class PrintablePage extends React.Component<IPrintablePageProps, 
 
             <Link
               to={this.props.backTo}
-              className="pull-left"
+              className="btn btn-primary pull-left"
+              aria-label="Back"
             >
-              <button className="btn btn-primary">
-                <ArrowCircleLeft />
-              </button>
+              <ArrowCircleLeft />
             </Link>
             <button
               className="btn btn-primary"
@@ -45,11 +44,12 @@ export default class PrintablePage extends React.Component<IPrintablePageProps, 
             >
               <Print /> Print
             </button>
-          </div>
-          <div className="print-bg">
+          </header>
+          <main className="print-bg">
+            <h1 className="visually-hidden">Printable page</h1>
             <RulesLevelStamp requiredRulesLevel={this.props.requiredRulesLevel} provisionalNote={this.props.provisionalNote} />
             <ErrorBoundary showSettingsLink={true}>{this.props.children}</ErrorBoundary>
-          </div>
+          </main>
         </>
         )
     }
@@ -60,6 +60,8 @@ interface IPrintablePageProps {
     backTo: string;
     /** Lowest rules level the printed unit is legal at; stamps and guards printing above Standard. */
     requiredRulesLevel?: number;
+    /** The level the unit is built at, when it keeps its own (#324); the app-wide level otherwise. */
+    rulesLevel?: number;
     provisionalNote?: string;
     children?: React.ReactNode | React.ReactNode[];
   }

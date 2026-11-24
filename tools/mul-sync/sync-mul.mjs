@@ -51,6 +51,9 @@ import { chromium } from "playwright";
 import fs from "node:fs/promises";
 import path from "node:path";
 import { fileURLToPath } from "node:url";
+import { bfTypeOf, fillFromLegacy, legacyEraIdOf, legacyFillByLiveKey, subTypeIdOfSummaryHash, takeThreshold } from "./mul-mappings.mjs";
+import { arcCardGlyphs, bitmapOfPng, compactArcs, readArcCard } from "./arc-card-reader.mjs";
+import { stringifyTable } from "./pack-json.mjs";
 
 const __dirname = path.dirname(fileURLToPath(import.meta.url));
 const repoRoot = path.resolve(__dirname, "..", "..");
@@ -106,24 +109,6 @@ async function captureFailureScreenshot(page, label) {
     }
 }
 
-// Standard Alpha Strike movement-type abbreviations (not present in the live site's data — this is
-// fixed rules knowledge, keyed off the site's unit_types.json `name`).
-const BF_TYPE_BY_UNIT_TYPE_NAME = {
-    BattleMech: "BM",
-    OmniMech: "BM",
-    "Combat Vehicle": "CV",
-    OmniVehicle: "CV",
-    "Support Vehicle": "SV",
-    "Fighter Craft": "AF",
-    "Aerospace Craft": "AF",
-    "Battle Armor": "BA",
-    Infantry: "CI",
-    ProtoMech: "PM",
-    IndustrialMech: "IM",
-    "Advanced Support": "SV",
-    Buildings: "CF",
-};
-
 const LEGACY_TYPE_ID_BY_NAME = {
     BattleMech: 18,
     "Combat Vehicle": 19,
@@ -138,19 +123,48 @@ const LEGACY_TYPE_ID_BY_NAME = {
     "Advanced Support": 24,
 };
 
-const LEGACY_ERA_ID_BY_LIVE_ID = {
-    2: 10,
-    3: 11,
-    4: 13,
-    5: 14,
-    6: 15,
-    7: 16,
-    8: 247,
-    10: 254,
-    11: 255,
-    12: 256,
-    13: 257,
-};
+// Live era ids the era table doesn't know; reported once each so the table gets the new era.
+const unknownLiveEraIds = new Set();
+function eraIdOf(liveEraId) {
+    const eraId = legacyEraIdOf(liveEraId);
+    if (eraId === undefined && liveEraId !== undefined && liveEraId !== null && !unknownLiveEraIds.has(liveEraId)) {
+        unknownLiveEraIds.add(liveEraId);
+        console.warn(`Unknown live era id ${liveEraId}: add it to tools/mul-sync/mul-mappings.mjs.`);
+    }
+    return eraId;
+}
+
+/** Sets a stored record's Alpha Strike type from its sub-type; true when that changed it. */
+function fixBFType(entry) {
+    const record = entry.record;
+    if (!record) return false;
+    if (record.SubTypeId === undefined) {
+        const subTypeId = subTypeIdOfSummaryHash(entry.summaryHash);
+        if (subTypeId !== undefined) record.SubTypeId = subTypeId;
+    }
+    const bfType = bfTypeOf(record.Class, record.SubTypeId);
+    if (bfType === record.BFType) return false;
+    record.BFType = bfType;
+    return true;
+}
+
+/**
+ * The clean-ups every stored record gets, offline or after a run: the role out of its abilities, its Alpha Strike
+ * type from its sub-type, its armor threshold out of its abilities, and the rules level, TRO and image of the
+ * legacy record it replaced (#48). Returns how many records each one changed.
+ */
+async function fixStoredRecords(store) {
+    const fills = legacyFillByLiveKey(await loadJson(legacyArchivePath, []));
+    const counts = { roles: 0, types: 0, thresholds: 0, legacyFields: 0 };
+    for (const [key, entry] of Object.entries(store.units)) {
+        if (!entry.record) continue;
+        if (stripRoleFromAbilities(entry.record)) counts.roles += 1;
+        if (fixBFType(entry)) counts.types += 1;
+        if (isFullyDetailed(entry.record) && takeThreshold(entry.record)) counts.thresholds += 1;
+        if (fillFromLegacy(entry.record, fills.get(key))) counts.legacyFields += 1;
+    }
+    return counts;
+}
 
 function normalizeIdentityPart(value) {
     return String(value ?? "").trim().replace(/\s+/g, " ").toLowerCase();
@@ -289,10 +303,12 @@ function buildLookup(records, keyField = "id") {
 function decodeAvailability(availability, opaqueId) {
     const entries = availability?.u?.[opaqueId];
     if (!entries) return [];
-    return entries.map(([eraId, dictIndex]) => ({
-        EraId: LEGACY_ERA_ID_BY_LIVE_ID[eraId] ?? eraId,
-        FactionIds: availability.d[dictIndex] ?? [],
-    }));
+    return entries
+        .filter(([eraId]) => eraIdOf(eraId) !== undefined)
+        .map(([eraId, dictIndex]) => ({
+            EraId: eraIdOf(eraId),
+            FactionIds: availability.d[dictIndex] ?? [],
+        }));
 }
 
 function summaryHashOf(unit) {
@@ -413,8 +429,38 @@ async function scrapeUnitDetail(page, opaqueId) {
             return clone.textContent.trim();
         });
 
-        return { stats, chips };
+        // Large craft: the card back, the only place the site gives the per-arc damage.
+        const backCardUrl = document.querySelector('img[src*="side=back"]')?.src ?? null;
+        // The unit's art (#48); the legacy record's image fills in where the live site has none.
+        const unitArtUrl = document.querySelector('img[src*="/unit-art/"]')?.src ?? null;
+
+        return { stats, chips, backCardUrl, unitArtUrl };
     });
+}
+
+const LARGE_CRAFT_TYPES = new Set(["SC", "DS", "DA", "JS", "WS", "SS"]);
+
+/** Reads a large craft's per-arc damage off its card back; null (and a warning) if the card can't be read. */
+async function scrapeArcs(page, backCardUrl, label) {
+    const result = await page.evaluate(async (u) => {
+        const res = await fetch(u);
+        const contentType = res.headers.get("content-type") ?? "";
+        if (!res.ok || !contentType.startsWith("image/png")) return { ok: false, status: res.status, contentType };
+        const bytes = new Uint8Array(await res.arrayBuffer());
+        let binary = "";
+        for (let i = 0; i < bytes.length; i += 0x8000) binary += String.fromCharCode(...bytes.subarray(i, i + 0x8000));
+        return { ok: true, base64: btoa(binary) };
+    }, backCardUrl);
+    if (!result.ok) {
+        console.warn(`Card back for ${label} not fetched (${result.status} ${result.contentType}).`);
+        return null;
+    }
+    const card = readArcCard(bitmapOfPng(Buffer.from(result.base64, "base64")), arcCardGlyphs);
+    if (card.unknown) {
+        console.warn(`Card back for ${label} has ${card.unknown.length} glyph(s) not in arc-card-glyphs.json; arcs left as they were.`);
+        return null;
+    }
+    return compactArcs(card.arcs);
 }
 
 function parseDetailIntoRecord(detail, roleName) {
@@ -471,6 +517,8 @@ function parseDetailIntoRecord(detail, roleName) {
     }
 
     record.BFAbilities = abilities.join(",");
+    takeThreshold(record);
+    if (detail.unitArtUrl) record.ImageUrl = detail.unitArtUrl;
     return record;
 }
 
@@ -501,7 +549,8 @@ async function writeLiveChunks(store) {
         const chunk = records.slice(i, i + CHUNK_SIZE);
         const first = chunk[0].Id;
         const last = chunk[chunk.length - 1].Id;
-        await saveJson(path.join(liveMulDir, `mul_live_${first}_to_${last}.json`), chunk);
+        // Tables (pack-json.mjs): the keys once a chunk, not once a record.
+        await fs.writeFile(path.join(liveMulDir, `mul_live_${first}_to_${last}.json`), stringifyTable(chunk), "utf8");
     }
 
     console.log(`Wrote ${records.length} live units across ${Math.ceil(records.length / CHUNK_SIZE)} chunk file(s).`);
@@ -512,8 +561,8 @@ async function main() {
 
     // MUL_SYNC_OFFLINE=1: no browser and no network. Clean the store and rewrite the chunk files from it.
     if (process.env.MUL_SYNC_OFFLINE === "1") {
-        const cleaned = Object.values(store.units).filter((unit) => unit.record && stripRoleFromAbilities(unit.record)).length;
-        console.log(`Offline rebuild: removed the role from the abilities of ${cleaned} record(s).`);
+        const counts = await fixStoredRecords(store);
+        console.log(`Offline rebuild: role taken out of the abilities of ${counts.roles} record(s), Alpha Strike type fixed on ${counts.types}, threshold set on ${counts.thresholds}, legacy rules/TRO/image filled on ${counts.legacyFields}.`);
         await saveJson(storePath, store);
         await writeLiveChunks(store);
         return;
@@ -627,8 +676,9 @@ async function main() {
                     Image: null,
                     SortOrder: unitTypeById.get(unit.t)?.sort ?? 0,
                 },
-                BFType: BF_TYPE_BY_UNIT_TYPE_NAME[unitTypeName] ?? null,
-                EraId: LEGACY_ERA_ID_BY_LIVE_ID[unit.ie] ?? unit.ie ?? 0,
+                SubTypeId: unit.st,
+                BFType: bfTypeOf(unitTypeName, unit.st),
+                EraId: eraIdOf(unit.ie) ?? 0,
                 EraStart: eraById.get(unit.ie)?.ys ?? 0,
                 Availability: decodeAvailability(availability, opaqueId),
             };
@@ -639,7 +689,9 @@ async function main() {
                 record,
             };
 
-            if (changed || !existing?.detailScrapedAt) {
+            // Large craft scraped before the card-back reader existed still need their arcs.
+            const missingArcs = LARGE_CRAFT_TYPES.has(record.BFType) && !record.BFArcs;
+            if (changed || !existing?.detailScrapedAt || missingArcs) {
                 needsDetail.push(opaqueId);
             }
         }
@@ -667,6 +719,11 @@ async function main() {
                 // The role's name, not the { Id, Name } object: the parser compares it with each chip.
                 const detailFields = parseDetailIntoRecord(detail, entry.record.Role?.Name ?? "");
                 Object.assign(entry.record, detailFields);
+                if (detail.backCardUrl) {
+                    await page.waitForTimeout(jitter(CRAWL_DELAY_MS));
+                    const arcs = await scrapeArcs(page, detail.backCardUrl, `${entry.record.Name} ${entry.record.Variant ?? ""}`.trim());
+                    if (arcs) entry.record.BFArcs = arcs;
+                }
                 entry.detailScrapedAt = new Date().toISOString();
                 consecutiveCloudflareBlocks = 0;
                 detailScrapedThisRun += 1;
@@ -709,9 +766,7 @@ async function main() {
         await browser.close();
     }
 
-    for (const unit of Object.values(store.units)) {
-        if (unit.record) stripRoleFromAbilities(unit.record);
-    }
+    await fixStoredRecords(store);
     await saveJson(storePath, store);
     await saveJson(dupeReportPath, dupeCandidates);
     await appendGithubStepSummary(

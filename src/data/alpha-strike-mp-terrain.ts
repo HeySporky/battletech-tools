@@ -15,9 +15,9 @@ import { generateUUID } from "../utils/generateUUID";
  */
 
 export function generateScenarioTerrains(terrainSet: IAlphaStrikeMPTerrainSet, numberOfTerrains: number): IAlphaStrikeMPTerrain[] {
-    let returnTerrains: IAlphaStrikeMPTerrain[] = [];
-    let totalterrainWeight = terrainSet.terrainWeights.reduce((a, b) => a + b, 0);
-    let weightedTerrains: number[] = [];
+    const returnTerrains: IAlphaStrikeMPTerrain[] = [];
+    const totalterrainWeight = terrainSet.terrainWeights.reduce((a, b) => a + b, 0);
+    const weightedTerrains: number[] = [];
 
     for (let i = 0; i < terrainSet.terrainIds.length; i++) {
         for (let j = 0; j < terrainSet.terrainWeights[i]; j++) {
@@ -30,8 +30,8 @@ export function generateScenarioTerrains(terrainSet: IAlphaStrikeMPTerrainSet, n
     }
 
     while (returnTerrains.length < numberOfTerrains) {
-        let randomIndex = Math.floor(Math.random() * totalterrainWeight);
-        let terrainId = weightedTerrains[randomIndex];
+        const randomIndex = Math.floor(Math.random() * totalterrainWeight);
+        const terrainId = weightedTerrains[randomIndex];
         if (returnTerrains.find((d) => d.id === terrainId) !== undefined) {
             continue;
         }
@@ -45,7 +45,7 @@ export function generateScenarioTerrains(terrainSet: IAlphaStrikeMPTerrainSet, n
 
 
 export const getTerrainById = (terrainId: number): IAlphaStrikeMPTerrain => {
-    let terrain = alphaStrikeMPTerrains.find((d) => d.id === terrainId);
+    const terrain = alphaStrikeMPTerrains.find((d) => d.id === terrainId);
     if (terrain === undefined) {
         throw new Error(`Terrain with id ${terrainId} not found`);
     } else {

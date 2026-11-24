@@ -24,7 +24,7 @@ import DieSVG from "../../../components/svg/die-svg";
 import TextSection from "../../../components/text-section";
 import ToHitTable from '../../../components/to-hit-table';
 import './play.scss';
-import InPlayCriticalHitTable from './_criticalHitTable';
+import InPlayCriticalHitTable, { getPlayCritSlotCount } from './_criticalHitTable';
 import InPlayIndustrialDamageCheck from './_industrialDamageCheck';
 import Vehicle from '../../../../classes/vehicle';
 import { vehicleName } from './_vehicleGroupTable';
@@ -44,6 +44,11 @@ import BattleArmor from '../../../../classes/battle-armor';
 import BattleArmorPlayPanel from './_battleArmorPlay';
 import ProtoMech from '../../../../classes/protomech';
 import ProtoMechPlayPanel from './_protoMechPlay';
+import MicroMech from '../../../../classes/micro-mech';
+import MicroMechPlayPanel from './_microMechPlay';
+import Walker from '../../../../classes/walker';
+import WalkerPlayPanel from './_walkerPlay';
+import { WALKER_LOCATIONS } from '../../../../data/walker-construction';
 import { IBattleArmorCarrierLoad, getBattleArmorCarrierLoad, isCarrierWeaponBlocked } from '../../../../classes/battle-armor-transport';
 import BattledroidsUnit from '../../../../classes/battledroids-unit';
 import BattledroidsPlayPanel from './_battledroidsPlay';
@@ -51,6 +56,15 @@ import BattledroidsRulesReference from '../../../components/battledroids-rules-r
 import BattledroidsDroidHelper from '../../../components/battledroids-droid-helper';
 import Building from '../../../../classes/building';
 import BuildingPlayPanel from './_buildingPlay';
+import QuirksInPlay from '../../../components/quirks-in-play';
+import FutureWarsPlayPanel, { AutocannonPlayPanel, getBoostedMoveNote, showFutureWarsPlay } from './_futureWarsPlay';
+import { getBlueSaviourDamageText, isEnergyWeapon } from '../../../../utils/future-wars-play';
+import FutureWarsRulesetTools, { showFutureWarsRulesetTools, showPowerArmorTargetFlag } from './_futureWarsRulesetTools';
+import { getCarrierQuirkEffects, IQuirkCarrier } from '../../../../utils/quirk-effects';
+import EWarNotes from '../../../components/ewar-notes';
+import { classicForceUsesSonic } from '../../../../utils/dial-weapons';
+import { EWarKind, IEWarCarrier, IEWarModifier, getForceEccmTick, getEWarEcmEffective, applyEWarClusterShift, getEWarDefense, getEWarMissileHits, getEWarWeaponClusterShifts, getMissileDamageGroups } from '../../../../utils/ewar-play';
+import { getEWarPlayRules } from '../../../../data/rules-editions';
 const ArrowCircleDown = FaArrowCircleDown as any;
 const ArrowCircleLeft = FaArrowCircleLeft as any;
 const ArrowCircleRight = FaArrowCircleRight as any;
@@ -78,6 +92,8 @@ export default class ClassicBattleTechRosterPlay extends React.Component<IPlayPr
             setMovementNumber: 0,
             setMovementCanJump: false,
             setMovementJumpingMP: 0,
+            setMovementElevation: 0,
+            bombMessage: "",
 
             resolveFireDialog: false,
 
@@ -96,15 +112,31 @@ export default class ClassicBattleTechRosterPlay extends React.Component<IPlayPr
 
             setTargetDialog: null,
             targetData: null,
+            targetingRangeSetting: "normal",
+            enhancedImagingOff: false,
+            satelliteUplinkOff: false,
+            combatDropLog: [],
             viewGATOR: null,
 
             takeDamageDialog: null,
+            takeDamageMissileSize: 0,
+            takeDamageMissilePer: 1,
+            takeDamageMissileRoll: 7,
+            takeDamageMissileDestroyed: 0,
+            takeDamageMissileShift: 0,
+            takeDamageMissileStreak: false,
+            takeDamageMissileAmmoRoll: 0,
+            takeDamageMissileMunition: "",
+            takeDamageMissileGroup: 5,
+            takeDamageMissileQueue: [],
             takeDamageAmount: -1,
             takeDamageLocationRoll: -1,
             takeDamageLocationSide: "",
             takeDamageLocationRear: false,
             takeDamageLocation: "",
             takeDamageCritical: false,
+            takeDamageEnergy: false,
+            takeDamageHandheldRoll: 0,
 
             zoomSheet: false,
             selectedVehicleUUID: "",
@@ -159,7 +191,7 @@ export default class ClassicBattleTechRosterPlay extends React.Component<IPlayPr
       if( e && e.preventDefault ) e.preventDefault();
 
       if(this.props.appGlobals.currentCBTForce) {
-        let currentCBTForce = this.props.appGlobals.currentCBTForce;
+        const currentCBTForce = this.props.appGlobals.currentCBTForce;
 
         unit.selectAmmoBin( attackUUID, e.currentTarget.value  );
         this.props.appGlobals.saveCurrentCBTForce( currentCBTForce );
@@ -228,7 +260,7 @@ export default class ClassicBattleTechRosterPlay extends React.Component<IPlayPr
         })
 
         if(this.props.appGlobals.currentCBTForce) {
-          let currentCBTForce = this.props.appGlobals.currentCBTForce;
+          const currentCBTForce = this.props.appGlobals.currentCBTForce;
 
           unit.setDamageClusterHits( eq_index, damageClusterHits );
           this.props.appGlobals.saveCurrentCBTForce( currentCBTForce );
@@ -238,6 +270,21 @@ export default class ClassicBattleTechRosterPlay extends React.Component<IPlayPr
           updated: true,
         })
       }
+    }
+
+    /** The E-War Cluster Hits shifts for the weapon whose cluster chart is open (#642). */
+    getClusterEWarShifts = (): IEWarModifier[] => {
+      const unit = this.state.damagePerClusterUnit;
+      const target = this.state.damagePerClusterGATOR?.targetObj;
+      if( !unit || !target ) {
+        return [];
+      }
+      return getEWarWeaponClusterShifts( unit, this.state.damagePerClusterEQIndex, target );
+    }
+
+    /** Missiles or hits for a 2D6 roll, with the E-War shifts added to the roll first. */
+    clusterHits = ( roll: number ): number => {
+      return getClusterHitsPerRoll( applyEWarClusterShift( roll, this.getClusterEWarShifts() ), this.state.damageClusters );
     }
 
     setNumberRolledClusters = (
@@ -251,6 +298,150 @@ export default class ClassicBattleTechRosterPlay extends React.Component<IPlayPr
       this.setState({
         damageRolledClusters: nv
       })
+    }
+
+    /** The ammunition bins of one anti-missile item: an Inner Sphere or Clan AMS its own tech base AMS ammunition, an APDS its own. */
+    getAntiMissileBins = ( unit: BattleMech, gear: { kind: string; tag: string } ) => {
+      const pattern = gear.kind === "apds" ? /^ammo-is-risc-apds/ : gear.kind === "ams" ? (gear.tag.startsWith("clan-") ? /^ammo-clan-ams/ : /^ammo-is-ams/) : null;
+      return pattern ? unit.equipmentList.filter(item => pattern.test(item.tag)) : [];
+    }
+
+    getMissileDefense = ( unit: BattleMech ) => {
+      const ammoShots: Record<string, number> = {};
+      for( const gear of unit.getEWarGear() ) {
+        if( gear.uuid ) {
+          ammoShots[gear.uuid] = this.getAntiMissileBins( unit, gear ).reduce((sum, bin) => sum + unit.getAmmoBinRemaining( bin ), 0);
+        }
+      }
+      return getEWarDefense( unit, { missileAttack: true, launcherSize: Math.max(1, this.state.takeDamageMissileSize), streak: this.state.takeDamageMissileStreak, munition: this.state.takeDamageMissileMunition || undefined, ammoShots } );
+    }
+
+    /** Spend the defense: heat, ammunition and the engagement for this turn, and put the resulting damage in the dialog. */
+    applyMissileDefense = ( unit: BattleMech ) => {
+      const defense = this.getMissileDefense( unit );
+      const size = this.state.takeDamageMissileSize;
+      const hits = getEWarMissileHits( defense, size, this.state.takeDamageMissileRoll, this.state.takeDamageMissileDestroyed, getClusterHitsPerRoll, this.state.takeDamageMissileShift );
+      const groups = getMissileDamageGroups( Math.max( 0, hits ), this.state.takeDamageMissilePer, this.state.takeDamageMissileGroup );
+      const spentGear = unit.getEWarGear().find(gear => gear.uuid === defense.spentGearUuid);
+      if( defense.applies && defense.spentGearUuid && (spentGear || defense.fromField) ) {
+        const heat = defense.heatFromRoll ? this.state.takeDamageMissileDestroyed : defense.heat;
+        // The heat joins the turn's heat (the Heat Phase applies it), not the heat scale straight away.
+        unit.ewarPlay = { ...unit.ewarPlay, heat: (unit.ewarPlay.heat ?? 0) + heat };
+        let ammoToSpend = defense.ammoRoll
+          ? this.state.takeDamageMissileAmmoRoll * defense.ammoRoll.multiplier
+          : defense.ammoShots + (defense.ammoPerMissile ?? 0) * this.state.takeDamageMissileDestroyed;
+        for( const bin of spentGear ? this.getAntiMissileBins( unit, spentGear ) : [] ) {
+          const spend = Math.min( ammoToSpend, unit.getAmmoBinRemaining( bin ) );
+          if( spend > 0 && bin.uuid ) {
+            unit.setAmmoBinShots( bin.uuid, unit.getAmmoBinRemaining( bin ) - spend );
+            ammoToSpend -= spend;
+          }
+        }
+        const uses = { ...(unit.ewarPlay.amsUses ?? {}) };
+        uses[defense.spentGearUuid] = (uses[defense.spentGearUuid] ?? 0) + 1;
+        unit.ewarPlay = { ...unit.ewarPlay, amsUses: uses };
+      }
+      if( this.props.appGlobals.currentCBTForce ) {
+        this.props.appGlobals.saveCurrentCBTForce( this.props.appGlobals.currentCBTForce );
+      }
+      this.setState({
+        takeDamageAmount: groups[0] ?? 0,
+        takeDamageMissileQueue: groups.slice(1),
+        takeDamageMissileSize: 0,
+        takeDamageMissileDestroyed: 0,
+        takeDamageMissileShift: 0,
+        takeDamageMissileStreak: false,
+        takeDamageMissileAmmoRoll: 0,
+        takeDamageMissileMunition: "",
+      });
+    }
+
+    renderMissileDefense = () => {
+      const unit = this.state.takeDamageDialog;
+      if( !unit || !getEWarPlayRules( unit.getRulesEdition() ) || (!unit.isBlueSaviourOn() && !unit.getEWarGear().some(gear => gear.kind === "ams" || gear.kind === "laser-ams" || gear.kind === "apds")) ) {
+        return null;
+      }
+      const size = this.state.takeDamageMissileSize;
+      const defense = this.getMissileDefense( unit );
+      return (
+        <div className="alert alert-sm alert-info" data-testid="missile-defense">
+          <label>
+            <input
+              type="checkbox"
+              checked={size > 0}
+              onChange={(e) => this.setState({ takeDamageMissileSize: e.currentTarget.checked ? 10 : 0 })}
+            />{" "}
+            Missile attack (anti-missile defense)
+          </label>
+          {this.state.takeDamageMissileQueue.length > 0 ? (
+            <div data-testid="missile-queue">
+              {this.state.takeDamageMissileQueue.length} more damage grouping{this.state.takeDamageMissileQueue.length === 1 ? "" : "s"} of this missile hit follow
+              ({this.state.takeDamageMissileQueue.join(", ")}): each loads after you apply the one above, with its own hit location roll.
+            </div>
+          ) : null}
+          {size > 0 ? (
+            <>
+              <div>
+                Launcher size{" "}
+                <input type="number" min={1} max={40} value={size} onChange={(e) => this.setState({ takeDamageMissileSize: Math.max(1, Number(e.currentTarget.value)) })} />
+                {" "}damage per group (5 LRM, 2 SRM){" "}
+                <input type="number" min={1} max={20} data-testid="missile-group" value={this.state.takeDamageMissileGroup} onChange={(e) => this.setState({ takeDamageMissileGroup: Math.max(1, Number(e.currentTarget.value)) })} />
+                {" "}damage per missile{" "}
+                <input type="number" min={1} max={5} value={this.state.takeDamageMissilePer} onChange={(e) => this.setState({ takeDamageMissilePer: Math.max(1, Number(e.currentTarget.value)) })} />
+                {" "}2D6 roll{" "}
+                <input type="number" min={2} max={12} value={this.state.takeDamageMissileRoll} onChange={(e) => this.setState({ takeDamageMissileRoll: Math.min(12, Math.max(2, Number(e.currentTarget.value))) })} />
+              </div>
+              <div>
+                Munition{" "}
+                <select data-testid="missile-munition" value={this.state.takeDamageMissileMunition} onChange={(e) => this.setState({ takeDamageMissileMunition: e.currentTarget.value })}>
+                  <option value="">Standard missiles</option>
+                  <option value="thunder">Thunder</option>
+                  <option value="swarm">Swarm</option>
+                  <option value="flare">Flare</option>
+                  <option value="arrow-iv">Arrow IV</option>
+                </select>
+              </div>
+              <div>
+                Attacker Cluster Hits shift (Artemis, Narc){" "}
+                <input type="number" min={-4} max={4} value={this.state.takeDamageMissileShift} onChange={(e) => this.setState({ takeDamageMissileShift: Number(e.currentTarget.value) })} />
+                {" "}
+                <label>
+                  <input type="checkbox" checked={this.state.takeDamageMissileStreak} onChange={(e) => this.setState({ takeDamageMissileStreak: e.currentTarget.checked })} />{" "}
+                  Streak launcher (the roll counts as an 11 before the shift)
+                </label>
+                {size === 1 ? <div>A single missile: roll 1D6, a 1-3 destroys it, a 4-6 hits (enter 1 destroyed for a 1-3).</div> : null}
+              </div>
+              {defense.applies ? (
+                <div>
+                  {defense.labels.join(", ")}.
+                  {defense.mode === "missiles-destroyed" || defense.singleMissile ? (
+                    <>
+                      {" "}{defense.singleMissile ? "Destroyed on the 1D6 (1 for yes)" : "Missiles destroyed"}{" "}
+                      <input type="number" min={0} max={40} value={this.state.takeDamageMissileDestroyed} onChange={(e) => this.setState({ takeDamageMissileDestroyed: Math.max(0, Number(e.currentTarget.value)) })} />
+                    </>
+                  ) : null}
+                  {defense.ammoRoll ? (
+                    <>
+                      {" "}Ammunition roll ({defense.ammoRoll.dice}D6, x{defense.ammoRoll.multiplier}){" "}
+                      <input type="number" min={0} max={12} value={this.state.takeDamageMissileAmmoRoll} onChange={(e) => this.setState({ takeDamageMissileAmmoRoll: Math.max(0, Number(e.currentTarget.value)) })} />
+                    </>
+                  ) : null}
+                  {" "}Costs {defense.heatFromRoll ? "heat equal to the missiles destroyed" : `${defense.heat} heat`}
+                  {defense.ammoShots > 0 || defense.ammoPerMissile ? ", ammunition" : ""}.
+                </div>
+              ) : (
+                <div data-testid="missile-no-defense">{defense.labels[0] ?? "No anti-missile item can engage this attack (none working, none left to engage this turn, or no ammunition)."}</div>
+              )}
+              <div>
+                Hits: {Math.max(0, getEWarMissileHits( defense, size, this.state.takeDamageMissileRoll, this.state.takeDamageMissileDestroyed, getClusterHitsPerRoll, this.state.takeDamageMissileShift ))}
+                {" "}= {Math.max(0, getEWarMissileHits( defense, size, this.state.takeDamageMissileRoll, this.state.takeDamageMissileDestroyed, getClusterHitsPerRoll, this.state.takeDamageMissileShift )) * this.state.takeDamageMissilePer} damage
+                {" "}in {getMissileDamageGroups( Math.max(0, getEWarMissileHits( defense, size, this.state.takeDamageMissileRoll, this.state.takeDamageMissileDestroyed, getClusterHitsPerRoll, this.state.takeDamageMissileShift )), this.state.takeDamageMissilePer, this.state.takeDamageMissileGroup ).join(", ") || "0"} groupings, each with its own hit location roll
+              </div>
+              <button className="btn btn-sm btn-warning" onClick={() => this.applyMissileDefense( unit )}>Apply and use this damage</button>
+            </>
+          ) : null}
+        </div>
+      );
     }
 
     openClusterDamageChart = (
@@ -326,7 +517,7 @@ export default class ClassicBattleTechRosterPlay extends React.Component<IPlayPr
       }
 
       if(this.props.appGlobals.currentCBTForce) {
-        let currentCBTForce = this.props.appGlobals.currentCBTForce;
+        const currentCBTForce = this.props.appGlobals.currentCBTForce;
 
         bm.toggleResolved( eq_index );
         this.props.appGlobals.saveCurrentCBTForce( currentCBTForce );
@@ -341,7 +532,7 @@ export default class ClassicBattleTechRosterPlay extends React.Component<IPlayPr
       }
 
       if(this.props.appGlobals.currentCBTForce) {
-        let currentCBTForce = this.props.appGlobals.currentCBTForce;
+        const currentCBTForce = this.props.appGlobals.currentCBTForce;
         currentCBTForce.turn = +e.currentTarget.value;
 
         this.props.appGlobals.saveCurrentCBTForce( currentCBTForce );
@@ -360,7 +551,7 @@ export default class ClassicBattleTechRosterPlay extends React.Component<IPlayPr
       }
 
       if(this.props.appGlobals.currentCBTForce) {
-        let currentCBTForce = this.props.appGlobals.currentCBTForce;
+        const currentCBTForce = this.props.appGlobals.currentCBTForce;
         currentCBTForce.phase = nv;
 
         this.props.appGlobals.saveCurrentCBTForce( currentCBTForce );
@@ -380,7 +571,7 @@ export default class ClassicBattleTechRosterPlay extends React.Component<IPlayPr
       }
 
       if(this.props.appGlobals.currentCBTForce) {
-        let currentCBTForce = this.props.appGlobals.currentCBTForce;
+        const currentCBTForce = this.props.appGlobals.currentCBTForce;
         currentCBTForce.hideHelp = !currentCBTForce.hideHelp;
 
         this.props.appGlobals.saveCurrentCBTForce( currentCBTForce );
@@ -420,7 +611,7 @@ export default class ClassicBattleTechRosterPlay extends React.Component<IPlayPr
       }
 
       if(this.props.appGlobals.currentCBTForce) {
-        let currentCBTForce = this.props.appGlobals.currentCBTForce;
+        const currentCBTForce = this.props.appGlobals.currentCBTForce;
         currentCBTForce.applyHeat();
 
         this.props.appGlobals.saveCurrentCBTForce( currentCBTForce );
@@ -439,32 +630,41 @@ export default class ClassicBattleTechRosterPlay extends React.Component<IPlayPr
       }
 
       if(this.props.appGlobals.currentCBTForce) {
-        let currentCBTForce = this.props.appGlobals.currentCBTForce;
+        const currentCBTForce = this.props.appGlobals.currentCBTForce;
         currentCBTForce.phase = 0;
         currentCBTForce.turn++;
         currentCBTForce.heatApplied = false;
 
-        for( let group of currentCBTForce.groups ) {
-          for( let unit of group.members ) {
+        for( const group of currentCBTForce.groups ) {
+          for( const unit of group.members ) {
             unit.turnReset();
           }
-          for( let vehicle of group.vehicles ) {
+          for( const vehicle of group.vehicles ) {
             vehicle.turnReset();
           }
-          for( let fighter of group.fighters ) {
+          for( const fighter of group.fighters ) {
             fighter.turnReset();
           }
-          for( let craft of group.smallCraft ) {
+          for( const craft of group.smallCraft ) {
             craft.turnReset();
           }
-          for( let ship of group.capitalShips ) {
+          for( const ship of group.capitalShips ) {
             ship.turnReset();
           }
-          for( let building of group.buildings ) {
+          for( const building of group.buildings ) {
             building.startTurn();
           }
         }
 
+        currentCBTForce.endEWarTurn();
+        const turnTargets = this.state.targetData;
+        if( turnTargets ) {
+          for( const letter of ["a", "b", "c"] as const ) {
+            if( turnTargets[letter] ) {
+              turnTargets[letter].tagged = false;
+            }
+          }
+        }
         this.props.appGlobals.saveCurrentCBTForce( currentCBTForce );
 
         this.setState({
@@ -481,7 +681,7 @@ export default class ClassicBattleTechRosterPlay extends React.Component<IPlayPr
       if( e && e.preventDefault ) {
         e.preventDefault();
       }
-      let targetWeaponSelection = this.state.targetWeaponSelection;
+      const targetWeaponSelection = this.state.targetWeaponSelection;
 
       if( targetWeaponSelection.length > eq_index && targetWeaponSelection[eq_index]) {
         targetWeaponSelection[eq_index].target = e.currentTarget.value;
@@ -500,8 +700,8 @@ export default class ClassicBattleTechRosterPlay extends React.Component<IPlayPr
       if( e && e.preventDefault ) {
         e.preventDefault();
       }
-      let targetData = this.state.targetData;
-      let targetWeaponSelection = this.state.targetWeaponSelection;
+      const targetData = this.state.targetData;
+      const targetWeaponSelection = this.state.targetWeaponSelection;
       if( targetData ) {
         if( target === "a" ) {
           targetData.a.primary = true;
@@ -532,8 +732,8 @@ export default class ClassicBattleTechRosterPlay extends React.Component<IPlayPr
       if( e && e.preventDefault ) {
         e.preventDefault();
       }
-      let targetData = this.state.targetData;
-      let targetWeaponSelection = this.state.targetWeaponSelection;
+      const targetData = this.state.targetData;
+      const targetWeaponSelection = this.state.targetWeaponSelection;
       let removeTarget = "";
       if( targetData ) {
         if( target === "a" ) {
@@ -555,7 +755,7 @@ export default class ClassicBattleTechRosterPlay extends React.Component<IPlayPr
       }
 
       if( removeTarget !== "") {
-        for( let item of targetWeaponSelection ) {
+        for( const item of targetWeaponSelection ) {
           if( item.target === removeTarget ) {
             item.target = "";
           }
@@ -575,8 +775,8 @@ export default class ClassicBattleTechRosterPlay extends React.Component<IPlayPr
       if( e && e.preventDefault ) {
         e.preventDefault();
       }
-      let targetData = this.state.targetData;
-      let targetWeaponSelection = this.state.targetWeaponSelection;
+      const targetData = this.state.targetData;
+      const targetWeaponSelection = this.state.targetWeaponSelection;
       if( targetData ) {
         if( target === "a" ) {
           targetData.a.inRearArc = e.currentTarget.checked;
@@ -604,7 +804,7 @@ export default class ClassicBattleTechRosterPlay extends React.Component<IPlayPr
       if( e && e.preventDefault ) {
         e.preventDefault();
       }
-      let targetData = this.state.targetData;
+      const targetData = this.state.targetData;
       if( targetData ) {
         if( target === "a" ) {
           targetData.a.name = e.currentTarget.value;
@@ -639,6 +839,92 @@ export default class ClassicBattleTechRosterPlay extends React.Component<IPlayPr
       })
     }
 
+    updateTargetFlag = (
+      e: React.FormEvent<HTMLInputElement>,
+      target: "a" | "b" | "c",
+      field: "airborne" | "immobile" | "powerArmor" | "hostileEcm" | "friendlyEccm" | "tagged" | "indirectFire" | "targetHostileEcm" | "hostileAngelEcm" | "friendlyAngelEccm" | "c3NearestInEcm",
+    ) => {
+      if( e && e.preventDefault ) {
+        e.preventDefault();
+      }
+      const targetData = this.state.targetData;
+      if( targetData ) {
+        targetData[target][field] = e.currentTarget.checked;
+      }
+      this.setState({
+        targetData: targetData,
+      })
+    }
+
+    updateTargetStealth = (
+      e: React.FormEvent<HTMLInputElement>,
+      target: "a" | "b" | "c",
+      kind: EWarKind,
+    ) => {
+      const targetData = this.state.targetData;
+      if( targetData ) {
+        const systems = (targetData[target].stealthSystems ?? []).filter(item => item !== kind);
+        if( e.currentTarget.checked ) {
+          systems.push( kind );
+        }
+        targetData[target].stealthSystems = systems.length > 0 ? systems : undefined;
+      }
+      this.setState({ targetData: targetData });
+    }
+
+    updateTargetEwarNumber = (
+      e: React.FormEvent<HTMLInputElement>,
+      target: "a" | "b" | "c",
+      field: "hostileEcmCount" | "friendlyEccmCount" | "targetMoved",
+    ) => {
+      const targetData = this.state.targetData;
+      if( targetData ) {
+        const value = Math.max( 0, Math.floor( +e.currentTarget.value || 0 ) );
+        targetData[target][field] = value > 0 ? value : undefined;
+      }
+      this.setState({ targetData: targetData });
+    }
+
+    /** Fills the friendly ECCM ticks from the units of the force that are set to ECCM mode (communications equipment counts as halves). */
+    useForceEccm = ( target: "a" | "b" | "c" ) => {
+      const force = this.props.appGlobals.currentCBTForce;
+      const targetData = this.state.targetData;
+      if( force && targetData ) {
+        const tick = getForceEccmTick( force.getEWarUnits() );
+        targetData[target].friendlyEccmCount = tick.friendlyEccmCount > 0 ? tick.friendlyEccmCount : undefined;
+        targetData[target].friendlyAngelEccm = tick.friendlyAngelEccm || undefined;
+      }
+      this.setState({ targetData: targetData });
+    }
+
+    updateTargetC3Range = (
+      e: React.ChangeEvent<HTMLInputElement>,
+      target: "a" | "b" | "c",
+    ) => {
+      const targetData = this.state.targetData;
+      if( targetData ) {
+        const raw = e.currentTarget.value;
+        targetData[target].c3NearestHexes = raw === "" ? undefined : Math.max( 0, Math.floor( +raw || 0 ) );
+      }
+      this.setState({ targetData: targetData });
+    }
+
+    updateTargetNarcPod = (
+      e: React.FormEvent<HTMLInputElement>,
+      target: "a" | "b" | "c",
+      pod: string,
+    ) => {
+      const targetData = this.state.targetData;
+      if( targetData ) {
+        const pods = (targetData[target].narcPods ?? []).filter(item => item !== pod);
+        if( e.currentTarget.checked ) {
+          pods.push( pod );
+        }
+        targetData[target].narcPods = pods.length > 0 ? pods : undefined;
+      }
+      this.setState({ targetData: targetData });
+    }
+
     updateTargetJumped = (
       e: React.FormEvent<HTMLInputElement>,
       target: string
@@ -646,7 +932,7 @@ export default class ClassicBattleTechRosterPlay extends React.Component<IPlayPr
       if( e && e.preventDefault ) {
         e.preventDefault();
       }
-      let targetData = this.state.targetData;
+      const targetData = this.state.targetData;
       if( targetData ) {
         if( target === "a" ) {
           targetData.a.jumped = e.currentTarget.checked;
@@ -669,7 +955,7 @@ export default class ClassicBattleTechRosterPlay extends React.Component<IPlayPr
       if( e && e.preventDefault ) {
         e.preventDefault();
       }
-      let targetData = this.state.targetData;
+      const targetData = this.state.targetData;
       if( targetData ) {
         if( target === "a" ) {
           targetData.a.range = +e.currentTarget.value;
@@ -685,27 +971,201 @@ export default class ClassicBattleTechRosterPlay extends React.Component<IPlayPr
       })
     }
 
-    updateTargetOtherMods = (
+    updateTargetNumber = (
       e: React.FormEvent<HTMLInputElement>,
-      target: string
+      target: "a" | "b" | "c",
+      field: "otherMods" | "lightWoodsHexes" | "heavyWoodsHexes" | "darkness",
     ) => {
       if( e && e.preventDefault ) {
         e.preventDefault();
       }
-      let targetData = this.state.targetData;
+      const targetData = this.state.targetData;
       if( targetData ) {
-        if( target === "a" ) {
-          targetData.a.otherMods = +e.currentTarget.value;
-        } else if( target === "b" ) {
-          targetData.b.otherMods = +e.currentTarget.value;
-        } else if( target === "c" ) {
-          targetData.c.otherMods = +e.currentTarget.value;
-        }
+        targetData[target][field] = +e.currentTarget.value;
       }
 
       this.setState({
         targetData: targetData,
       })
+    }
+
+    // The Target dialog's Power Armor flag (#172): see showPowerArmorTargetFlag.
+    _showPowerArmorTargetFlag = ( ticked: boolean ): boolean => {
+      return showPowerArmorTargetFlag( this.props.appGlobals.currentCBTForce?.groups.flatMap( (group) => group.members ) ?? [], ticked );
+    }
+
+    // Woods, jungle or smoke hexes and darkness, which Enhanced Imaging reduces, and aimed shots, which it allows (IO:AE
+    // p.69; Maximum Tech p.61).
+    renderTargetConditions = ( mech: BattleMech, target: "a" | "b" | "c" ) => {
+      if( !this.state.targetData ) return null;
+      const data = this.state.targetData[target];
+      return (
+        <>
+          <InputNumeric
+            label="Light Woods / Smoke Hexes"
+            description="Light woods, jungle or smoke hexes between you and the target, its own hex included: +1 each"
+            value={data.lightWoodsHexes ?? 0}
+            onChange={(e) => this.updateTargetNumber(e, target, "lightWoodsHexes")}
+            step={1}
+            inline={true}
+            min={0}
+            max={50}
+          />
+          <InputNumeric
+            label="Heavy Woods / Smoke Hexes"
+            description="Heavy woods, jungle or smoke hexes between you and the target, its own hex included: +2 each"
+            value={data.heavyWoodsHexes ?? 0}
+            onChange={(e) => this.updateTargetNumber(e, target, "heavyWoodsHexes")}
+            step={1}
+            inline={true}
+            min={0}
+            max={50}
+          />
+          <InputNumeric
+            label="Darkness Mod"
+            description="The scenario's darkness or night modifier"
+            value={data.darkness ?? 0}
+            onChange={(e) => this.updateTargetNumber(e, target, "darkness")}
+            step={1}
+            inline={true}
+            min={0}
+            max={10}
+          />
+          {this._showPowerArmorTargetFlag( !!data.powerArmor ) ? (
+            <InputCheckbox
+              label="Power Armor"
+              checked={!!data.powerArmor}
+              description="The target is a Power Armor suit: +1 to hit (Custom Homebrew, The Best of Future Wars p.14)"
+              onChange={(e) => this.updateTargetFlag(e, target, "powerArmor")}
+            />
+          ) : null}
+          {mech.getEditionPlayRules()?.immobileTargetModifier !== 0 ? (
+            <>
+              <InputCheckbox
+                label="Immobile"
+                checked={!!data.immobile}
+                description="Shut down, or its warrior unconscious: -4 to hit, and any weapon but a missile launcher, LB-X cluster or Hyper-Assault Gauss may aim (TW p.110)"
+                onChange={(e) => this.updateTargetFlag(e, target, "immobile")}
+              />
+              <label>
+                Aimed Shot:{" "}
+                <select
+                  value={data.aimedLocation ?? ""}
+                  title={"A 'Mech target's location. An active target takes aims only with a targeting computer or Enhanced Imaging, never at the head. On a hit roll 2D6: 6-8 hits the location, else "
+                    + (mech.usesEarlierRulesEdition() ? "a computer-aimed shot misses (BMR(R) p.148) and others roll for location (BMR(R) p.26)" : "roll for location (TW p.110)")}
+                  onChange={(e) => {
+                    this.state.targetData![target].aimedLocation = e.currentTarget.value || undefined;
+                    this.setState({ targetData: this.state.targetData });
+                  }}
+                >
+                  <option value="">-none-</option>
+                  {["hd", "ct", "lt", "rt", "la", "ra", "ll", "rl"].map(location => (
+                    <option key={location} value={location}>{getLocationName(location, false)}</option>
+                  ))}
+                </select>
+              </label>
+            </>
+          ) : null}
+          {getEWarPlayRules( mech.getRulesEdition() ) ? (
+            <fieldset className="fieldset">
+              <legend>E-War</legend>
+              <InputCheckbox
+                label="Hostile ECM"
+                checked={!!data.hostileEcm}
+                description="Hostile ECM covers the attacker or this target: it cancels Artemis, Narc pods and Artemis V on this attack where the edition says so"
+                onChange={(e) => this.updateTargetFlag(e, target, "hostileEcm")}
+              />
+              <InputCheckbox
+                label="Target inside hostile ECM"
+                checked={!!data.targetHostileEcm}
+                description="The target (a Narc pod on it) sits inside a hostile ECM bubble: the pod loses its bonus (Total Warfare, Core Rulebook)"
+                onChange={(e) => this.updateTargetFlag(e, target, "targetHostileEcm")}
+              />
+              <InputCheckbox
+                label="Friendly ECCM"
+                checked={!!data.friendlyEccm}
+                description="Friendly ECCM covers the line and counters the hostile ECM"
+                onChange={(e) => this.updateTargetFlag(e, target, "friendlyEccm")}
+              />
+              <label className="d-block">
+                Hostile ECM suites on the line{" "}
+                <input type="number" min={0} className="form-control form-control-sm d-inline-block w-auto" data-testid={"ewar-hostile-count-" + target}
+                  value={data.hostileEcmCount ?? 0} onChange={(e) => this.updateTargetEwarNumber(e, target, "hostileEcmCount")} />
+              </label>
+              <label className="d-block">
+                Friendly ECCM suites on the line{" "}
+                <input type="number" min={0} className="form-control form-control-sm d-inline-block w-auto" data-testid={"ewar-friendly-count-" + target}
+                  value={data.friendlyEccmCount ?? 0} onChange={(e) => this.updateTargetEwarNumber(e, target, "friendlyEccmCount")} />
+              </label>
+              <button type="button" className="btn btn-sm btn-secondary mb-2" data-testid={"ewar-force-eccm-" + target} onClick={() => this.useForceEccm(target)}>Use the force ECCM modes</button>
+              <InputCheckbox
+                label="Hostile Angel ECM"
+                checked={!!data.hostileAngelEcm}
+                description="An Angel ECM suite on the line counts as two, is countered only by Angel ECCM and spoils Streak locks"
+                onChange={(e) => this.updateTargetFlag(e, target, "hostileAngelEcm")}
+              />
+              <InputCheckbox
+                label="Friendly Angel ECCM"
+                checked={!!data.friendlyAngelEccm}
+                description="One Angel ECCM suite counters any amount of ordinary ECM and Angel ECM"
+                onChange={(e) => this.updateTargetFlag(e, target, "friendlyAngelEccm")}
+              />
+              {data.hostileEcmCount || data.hostileAngelEcm || data.hostileEcm ? (
+                <p className="small-text" data-testid={"ewar-ecm-result-" + target}>{getEWarEcmEffective( data, mech.getRulesEdition() ).label}</p>
+              ) : null}
+              {([ ["stealth-armor", "Stealth armor"], ["null-sig", "Null-Signature"], ["void-sig", "Void-Signature"], ["chameleon", "Chameleon LPS"], ["mimetic", "Mimetic armor"], ["stealth-ba", "BA stealth (basic or prototype)"], ["stealth-ba-standard", "BA stealth (standard)"], ["stealth-ba-improved", "BA stealth (improved)"], ["stealth-ba-achileus", "Achileus"], ["stealth-ba-infiltrator", "Infiltrator"], ["stealth-ba-infiltrator-mk2", "Infiltrator Mk. II"], ["sneak-camo", "Sneak suit (camo)"], ["sneak-ir", "Sneak suit (IR)"], ["dest-suit", "DEST infiltration suit"] ] as [EWarKind, string][]).map(([kind, name]) => (
+                <InputCheckbox
+                  key={kind}
+                  label={"Target stealth: " + name}
+                  checked={!!data.stealthSystems?.includes(kind)}
+                  description="The target has this stealth system on: its to-hit modifier for the range, as the edition prints it"
+                  onChange={(e) => this.updateTargetStealth(e, target, kind)}
+                />
+              ))}
+              <label className="d-block">
+                Target moved (hexes){" "}
+                <input type="number" min={0} className="form-control form-control-sm d-inline-block w-auto" data-testid={"ewar-moved-" + target}
+                  value={data.targetMoved ?? 0} onChange={(e) => this.updateTargetEwarNumber(e, target, "targetMoved")} />
+              </label>
+              <label className="d-block">
+                Nearest networked unit is this many hexes from the target (blank: C3 not used){" "}
+                <input type="number" min={0} className="form-control form-control-sm d-inline-block w-auto" data-testid={"ewar-c3-hexes-" + target}
+                  value={data.c3NearestHexes ?? ""} onChange={(e) => this.updateTargetC3Range(e, target)} />
+              </label>
+              <InputCheckbox
+                label="Nearest networked unit inside hostile ECM"
+                checked={!!data.c3NearestInEcm}
+                description="Core Rulebook p.199: ECM on the nearest networked unit adds a TN penalty for the range bracket C3 gained"
+                onChange={(e) => this.updateTargetFlag(e, target, "c3NearestInEcm")}
+              />
+              <InputCheckbox
+                label="TAG designated"
+                checked={!!data.tagged}
+                description="A friendly TAG designated the target this turn: semi-guided LRMs gain their bonus"
+                onChange={(e) => this.updateTargetFlag(e, target, "tagged")}
+              />
+              <InputCheckbox
+                label="Indirect fire"
+                checked={!!data.indirectFire}
+                description="The missile attack is indirect: no Artemis bonus"
+                onChange={(e) => this.updateTargetFlag(e, target, "indirectFire")}
+              />
+              <InputCheckbox
+                label="Narc pod"
+                checked={!!data.narcPods?.includes("narc")}
+                description="A Narc pod is attached to the target: +2 on the Cluster Hits roll of missiles homing on it"
+                onChange={(e) => this.updateTargetNarcPod(e, target, "narc")}
+              />
+              <InputCheckbox
+                label="iNarc homing pod"
+                checked={!!data.narcPods?.includes("homing")}
+                description="An iNarc homing pod is attached to the target: -1 to hit and +2 on the Cluster Hits roll"
+                onChange={(e) => this.updateTargetNarcPod(e, target, "homing")}
+              />
+            </fieldset>
+          ) : null}
+        </>
+      );
     }
 
     updateTargetMovement = (
@@ -715,7 +1175,7 @@ export default class ClassicBattleTechRosterPlay extends React.Component<IPlayPr
       if( e && e.preventDefault ) {
         e.preventDefault();
       }
-      let targetData = this.state.targetData;
+      const targetData = this.state.targetData;
       if( targetData ) {
         if( target === "a" ) {
           targetData.a.movement = +e.currentTarget.value;
@@ -765,7 +1225,24 @@ export default class ClassicBattleTechRosterPlay extends React.Component<IPlayPr
       });
     }
 
-    onVehicleChange = ( _vehicle: Vehicle | AerospaceFighter | SmallCraft | CapitalShip | InfantryPlatoon | BattleArmor | ProtoMech | Building | BattledroidsUnit ): void => {
+    /** A Best of Future Wars counter or roll changed the selected 'Mech (#172): save the force. */
+    onFutureWarsChange = (): void => {
+      if(this.props.appGlobals.currentCBTForce) {
+        this.props.appGlobals.saveCurrentCBTForce( this.props.appGlobals.currentCBTForce );
+      }
+      this.setState({
+        updated: true,
+      });
+    }
+
+    onEwarChange = (): void => {
+      if(this.props.appGlobals.currentCBTForce) {
+        this.props.appGlobals.saveCurrentCBTForce( this.props.appGlobals.currentCBTForce );
+      }
+      this.setState({ updated: true });
+    }
+
+    onVehicleChange = ( _vehicle: Vehicle | AerospaceFighter | SmallCraft | CapitalShip | InfantryPlatoon | BattleArmor | ProtoMech | MicroMech | Walker | Building | BattledroidsUnit ): void => {
       if(this.props.appGlobals.currentCBTForce) {
         this.props.appGlobals.saveCurrentCBTForce( this.props.appGlobals.currentCBTForce );
       }
@@ -790,37 +1267,43 @@ export default class ClassicBattleTechRosterPlay extends React.Component<IPlayPr
         "Yes",
         "No, Thank you",
         () => {
-          for( let unit of group.members ) {
+          for( const unit of group.members ) {
             if( unit && unit.resetDamage ) {
               unit.resetDamage();
             }
 
           }
-          for( let vehicle of group.vehicles ) {
+          for( const vehicle of group.vehicles ) {
             vehicle.resetInPlay();
           }
-          for( let fighter of group.fighters ) {
+          for( const fighter of group.fighters ) {
             fighter.resetInPlay();
           }
-          for( let craft of group.smallCraft ) {
+          for( const craft of group.smallCraft ) {
             craft.resetInPlay();
           }
-          for( let ship of group.capitalShips ) {
+          for( const ship of group.capitalShips ) {
             ship.resetInPlay();
           }
-          for( let platoon of group.infantry ) {
+          for( const platoon of group.infantry ) {
             platoon.resetInPlay();
           }
-          for( let squad of group.battleArmor ) {
+          for( const squad of group.battleArmor ) {
             squad.resetInPlay();
           }
-          for( let point of group.protoMechs ) {
+          for( const point of group.protoMechs ) {
             point.resetInPlay();
           }
-          for( let building of group.buildings ) {
+          for( const micro of group.microMechs ) {
+            micro.resetInPlay();
+          }
+          for( const walker of group.walkers ) {
+            walker.resetInPlay();
+          }
+          for( const building of group.buildings ) {
             building.resetInPlay();
           }
-          for( let unit of group.battledroidsUnits ) {
+          for( const unit of group.battledroidsUnits ) {
             unit.resetInPlay();
           }
           if( this.props.appGlobals.currentCBTForce )
@@ -911,7 +1394,7 @@ export default class ClassicBattleTechRosterPlay extends React.Component<IPlayPr
     ) => {
 
       if( this.props.appGlobals.currentCBTForce && currentBM ) {
-        let targetData = {
+        const targetData = {
           a: JSON.parse(JSON.stringify(currentBM.getTarget("a"))),
           b: JSON.parse(JSON.stringify(currentBM.getTarget("b"))),
           c: JSON.parse(JSON.stringify(currentBM.getTarget("c"))),
@@ -920,7 +1403,7 @@ export default class ClassicBattleTechRosterPlay extends React.Component<IPlayPr
         // A weapon in a torso location a mechanized trooper occupies may not fire.
         const carrierLoad = this._carrierLoad( currentBM.uuid, currentBM.getName(), "mech", currentBM.isOmnimech, currentBM.isFrankenMech() );
         const targetWeaponSelection: IEquipmentItem[] = JSON.parse(JSON.stringify(currentBM.equipmentList));
-        for( let item of targetWeaponSelection ) {
+        for( const item of targetWeaponSelection ) {
           if( isCarrierWeaponBlocked( carrierLoad, item ) ) {
             item.target = "";
           }
@@ -932,6 +1415,9 @@ export default class ClassicBattleTechRosterPlay extends React.Component<IPlayPr
           setMovementDialog: null,
           takeDamageDialog: null,
           targetData: targetData,
+          targetingRangeSetting: currentBM.targetingRangeSetting,
+          enhancedImagingOff: currentBM.enhancedImagingOff,
+          satelliteUplinkOff: currentBM.satelliteUplinkOff,
         })
       }
 
@@ -944,6 +1430,12 @@ export default class ClassicBattleTechRosterPlay extends React.Component<IPlayPr
         e.preventDefault();
       }
 
+      // Cancel puts back the End Phase settings the dialog opened with.
+      if( this.state.setTargetDialog ) {
+        this.state.setTargetDialog.targetingRangeSetting = this.state.targetingRangeSetting;
+        this.state.setTargetDialog.enhancedImagingOff = this.state.enhancedImagingOff;
+        this.state.setTargetDialog.satelliteUplinkOff = this.state.satelliteUplinkOff;
+      }
       this.setState({
         setTargetDialog: null,
         targetData: null,
@@ -958,7 +1450,7 @@ export default class ClassicBattleTechRosterPlay extends React.Component<IPlayPr
         e.preventDefault();
       }
 
-      let currentBM: BattleMech | null = this.state.setTargetDialog;
+      const currentBM: BattleMech | null = this.state.setTargetDialog;
       if( this.props.appGlobals.currentCBTForce && currentBM && this.state.targetData ) {
         currentBM.setTargets(
           this.state.targetData.a,
@@ -1004,6 +1496,8 @@ export default class ClassicBattleTechRosterPlay extends React.Component<IPlayPr
         takeDamageLocation: "",
         takeDamageLocationRear: false,
         takeDamageCritical: false,
+        takeDamageEnergy: false,
+        takeDamageHandheldRoll: 0,
         takeDamageLocationRoll: 0,
         takeDamageLocationSide: "",
       })
@@ -1026,6 +1520,8 @@ export default class ClassicBattleTechRosterPlay extends React.Component<IPlayPr
           takeDamageLocation: "",
           takeDamageLocationRear: false,
           takeDamageCritical: false,
+          takeDamageEnergy: false,
+          takeDamageHandheldRoll: 0,
           takeDamageLocationRoll: 0,
           takeDamageLocationSide: "",
         })
@@ -1041,25 +1537,36 @@ export default class ClassicBattleTechRosterPlay extends React.Component<IPlayPr
       }
 
       if(  this.state.takeDamageDialog && this.props.appGlobals.currentCBTForce  ) {
-        let currentBM = this.state.takeDamageDialog;
+        const currentBM = this.state.takeDamageDialog;
         if( currentBM ) {
-          let damageLog = currentBM.damageLog;
+          const damageLog = currentBM.damageLog;
 
-          let takeDamageResult = currentBM.takeDamage(
-            this.state.takeDamageAmount,
+          // An energy hit is halved by an active Blue Saviour and by Laser Reflective armor (#641); the log keeps both amounts.
+          const applied = currentBM.getIncomingDamageApplied(this.state.takeDamageAmount, this.state.takeDamageEnergy, this.state.takeDamageLocation);
+          const takeDamageResult = currentBM.takeDamage(
+            applied,
             this.state.takeDamageLocation,
             this.state.takeDamageLocationRear,
+            // The 1D6 for a hit that may strike the handheld weapon (Maximum Tech p.79; TO:AUE p.128).
+            this.state.takeDamageHandheldRoll > 0 ? { handheldRoll: this.state.takeDamageHandheldRoll } : undefined,
           );
 
           damageLog.push( {
             turn: this.props.appGlobals.currentCBTForce.turn,
-            amount: this.state.takeDamageAmount,
+            amount: applied,
+            ...(applied !== this.state.takeDamageAmount ? { entered: this.state.takeDamageAmount } : {}),
             rear: this.state.takeDamageLocationRear,
             location: this.state.takeDamageLocation,
             damageResults: takeDamageResult,
           })
 
+          // A missile hit applies in damage groupings, each with its own location roll: the next one loads here.
+          const queue = this.state.takeDamageMissileQueue;
           this.setState({
+            takeDamageEnergy: false,
+            takeDamageHandheldRoll: 0,
+            takeDamageAmount: queue.length > 0 ? queue[0] : this.state.takeDamageAmount,
+            takeDamageMissileQueue: queue.slice(1),
             takeDamageLocation: "",
             takeDamageLocationRoll: 0,
             takeDamageLocationSide: "",
@@ -1098,11 +1605,78 @@ export default class ClassicBattleTechRosterPlay extends React.Component<IPlayPr
         setMovementDialog: currentBM,
         setMovementMode: currentBM ? currentBM.currentMovementMode : "",
         setMovementNumber: currentBM ? currentBM.currentToHitMovementModifier : 0,
-        setMovementCanJump: currentBM && currentBM.getJumpSpeed() > 0 && currentBM.canUseJumpJetsInCurrentMode() ? true : false,
+        setMovementCanJump: currentBM && Math.max(currentBM.getJumpSpeed(), currentBM.getJumpPackSpeed()) > 0 && currentBM.canUseJumpJetsInCurrentMode() ? true : false,
+        setMovementJumpingMP: currentBM ? currentBM.currentTargetJumpingMP : 0,
+        setMovementElevation: currentBM ? currentBM.airMechElevation : 0,
+        bombMessage: "",
         setTargetDialog: null,
         takeDamageDialog: null,
       })
     }
+    /** The combat drop step (TO:AUE p.105; BMR(R) p.78): burns and jettisons a pack under Total Warfare. */
+    combatDrop = (
+      e: React.FormEvent<HTMLButtonElement>
+    ) => {
+      if( e && e.preventDefault ) {
+        e.preventDefault();
+      }
+      const currentBM = this.state.setMovementDialog;
+      if( currentBM && this.props.appGlobals.currentCBTForce ) {
+        const log = currentBM.combatDrop();
+        this.props.appGlobals.saveCurrentCBTForce( this.props.appGlobals.currentCBTForce );
+        this.setState({
+          combatDropLog: log,
+          setMovementCanJump: currentBM.getJumpSpeed() > 0 && currentBM.canUseJumpJetsInCurrentMode(),
+          setMovementMode: currentBM.getJumpSpeed() > 0 || this.state.setMovementMode !== "j" ? this.state.setMovementMode : "n",
+        });
+      }
+    }
+    dropJumpPack = (
+      e: React.FormEvent<HTMLButtonElement>
+    ) => {
+      if( e && e.preventDefault ) {
+        e.preventDefault();
+      }
+      const currentBM = this.state.setMovementDialog;
+      if( currentBM && this.props.appGlobals.currentCBTForce ) {
+        currentBM.dropJumpPack();
+        this.props.appGlobals.saveCurrentCBTForce( this.props.appGlobals.currentCBTForce );
+        this.setState({
+          setMovementCanJump: currentBM.getJumpSpeed() > 0 && currentBM.canUseJumpJetsInCurrentMode(),
+          setMovementMode: currentBM.getJumpSpeed() > 0 || this.state.setMovementMode !== "j" ? this.state.setMovementMode : "n",
+        });
+      }
+    }
+    /** Drops or fires one loaded LAM bomb from the movement dialog (IO:AE p.105); the Alamo resolves by its blast rings as text. */
+    useLoadedBomb = (
+      tag: string,
+      burst: "ground" | "air"
+    ) => {
+      const currentBM = this.state.setMovementDialog;
+      if( !currentBM ) return;
+      const result = currentBM.useBomb(tag, burst);
+      if( result.ok && this.props.appGlobals.currentCBTForce ) {
+        this.props.appGlobals.saveCurrentCBTForce( this.props.appGlobals.currentCBTForce );
+      }
+      this.setState({ bombMessage: result.message });
+    }
+    /** Changes a LAM's or QuadVee's mode in the movement dialog; a movement the new mode lacks is cleared. */
+    setDialogTransformationMode = (
+      mode: string
+    ) => {
+      const currentBM = this.state.setMovementDialog;
+      if( !currentBM ) return;
+      currentBM.setTransformationMode(mode);
+      const airMech = currentBM.getTransformationMode() === "airmech";
+      const canJump = Math.max(currentBM.getJumpSpeed(), currentBM.getJumpPackSpeed()) > 0 && currentBM.canUseJumpJetsInCurrentMode();
+      const movementMode = this.state.setMovementMode;
+      const keep = ( movementMode !== "j" || canJump ) && ( airMech || ( movementMode !== "c" && movementMode !== "f" ) );
+      this.setState({
+        setMovementCanJump: canJump,
+        setMovementMode: keep ? movementMode : "",
+      });
+    }
+
     closeSetMovement  = (
       e: React.FormEvent<HTMLButtonElement>
     ) => {
@@ -1124,13 +1698,18 @@ export default class ClassicBattleTechRosterPlay extends React.Component<IPlayPr
       if( this.props.appGlobals.currentCBTForce ) {
 
         if( this.state.setMovementDialog ) {
-          let currentBM = this.state.setMovementDialog;
+          const currentBM = this.state.setMovementDialog;
           currentBM.currentMovementMode = this.state.setMovementMode;
           currentBM.currentToHitMovementModifier = this.state.setMovementNumber;
           if( currentBM.currentMovementMode === "j")
-            currentBM.currentTargetJumpingMP = this.state.setMovementJumpingMP;
+            currentBM.currentTargetJumpingMP = currentBM.getJumpPackSpeed() > 0 ? Math.min(this.state.setMovementJumpingMP, currentBM.getJumpPackSpeed()) : this.state.setMovementJumpingMP;
+          else if( currentBM.currentMovementMode === "c" || currentBM.currentMovementMode === "f" )
+            // AirMech MP expended, for the heat (IO:AE p.102).
+            currentBM.currentTargetJumpingMP = Math.min(this.state.setMovementJumpingMP, currentBM.currentMovementMode === "c" ? currentBM.getAirMechCruiseMP() : currentBM.getAirMechFlankMP());
           else
             currentBM.currentTargetJumpingMP = 0
+          // An AirMech spending AirMech MP is airborne at 1 elevation or more; any other movement ends on the ground.
+          currentBM.airMechElevation = currentBM.isAirMechAirborne() ? Math.max(1, this.state.setMovementElevation) : 0;
           this.props.appGlobals.saveCurrentCBTForce( this.props.appGlobals.currentCBTForce );
         } else {
           console.error("setMovement Can't find UUID ", this.state.setMovementDialog)
@@ -1255,7 +1834,21 @@ export default class ClassicBattleTechRosterPlay extends React.Component<IPlayPr
       if(!this.props.appGlobals.currentCBTForce) {
         return <></>;
       }
-      let selectedMech: BattleMech | null = this.props.appGlobals.currentCBTForce.getSelectedMech();
+      const selectedMech: BattleMech | null = this.props.appGlobals.currentCBTForce.getSelectedMech();
+      // E-War Phase 3: each 'Mech reads its C3 link status from the force network when the to-hit uses the nearest networked unit range.
+      const c3Force = this.props.appGlobals.currentCBTForce;
+      for( const group of c3Force.groups ) {
+        for( const member of group.members ) {
+          member.c3StatusProvider = () => c3Force.getC3StatusFor( member.getUUID() );
+        }
+      }
+      // The game's "Use design quirks" switch (quirks design, plan 3).
+      const quirksInPlay = this.props.appGlobals.currentCBTForce.quirksInPlay;
+      // Units added on the roster since the force loaded have not had the game year yet.
+      if( quirksInPlay ) this.props.appGlobals.currentCBTForce.syncQuirkPlayYear();
+      const sideInitiative = quirksInPlay ? this.props.appGlobals.currentCBTForce.getInitiativeModifier() : null;
+      // The uplink, HQ and command console bonus for the side, with its source unit (Maximum Tech pp.59, 70).
+      const sideBonuses = this.props.appGlobals.currentCBTForce.getSideBonuses();
       const targetCarrierLoad = this.state.setTargetDialog
         ? this._carrierLoad( this.state.setTargetDialog.uuid, this.state.setTargetDialog.getName(), "mech", this.state.setTargetDialog.isOmnimech, this.state.setTargetDialog.isFrankenMech() )
         : null;
@@ -1264,8 +1857,8 @@ export default class ClassicBattleTechRosterPlay extends React.Component<IPlayPr
         : null;
 
       let selectedVehicle: Vehicle | null = null;
-      for( let group of this.props.appGlobals.currentCBTForce.groups ) {
-        for( let vehicle of group.vehicles ) {
+      for( const group of this.props.appGlobals.currentCBTForce.groups ) {
+        for( const vehicle of group.vehicles ) {
           if( vehicle.getUUID() === this.state.selectedVehicleUUID ) {
             selectedVehicle = vehicle;
           }
@@ -1273,8 +1866,8 @@ export default class ClassicBattleTechRosterPlay extends React.Component<IPlayPr
       }
       // A fighter is selected the same way as a vehicle, by its UUID.
       let selectedFighter: AerospaceFighter | null = null;
-      for( let group of this.props.appGlobals.currentCBTForce.groups ) {
-        for( let fighter of group.fighters ) {
+      for( const group of this.props.appGlobals.currentCBTForce.groups ) {
+        for( const fighter of group.fighters ) {
           if( fighter.getUUID() === this.state.selectedVehicleUUID ) {
             selectedFighter = fighter;
           }
@@ -1282,8 +1875,8 @@ export default class ClassicBattleTechRosterPlay extends React.Component<IPlayPr
       }
       // A Small Craft is selected the same way as a vehicle, by its UUID.
       let selectedSmallCraft: SmallCraft | null = null;
-      for( let group of this.props.appGlobals.currentCBTForce.groups ) {
-        for( let craft of group.smallCraft ) {
+      for( const group of this.props.appGlobals.currentCBTForce.groups ) {
+        for( const craft of group.smallCraft ) {
           if( craft.getUUID() === this.state.selectedVehicleUUID ) {
             selectedSmallCraft = craft;
           }
@@ -1291,8 +1884,8 @@ export default class ClassicBattleTechRosterPlay extends React.Component<IPlayPr
       }
       // So is a JumpShip, WarShip or space station.
       let selectedCapitalShip: CapitalShip | null = null;
-      for( let group of this.props.appGlobals.currentCBTForce.groups ) {
-        for( let ship of group.capitalShips ) {
+      for( const group of this.props.appGlobals.currentCBTForce.groups ) {
+        for( const ship of group.capitalShips ) {
           if( ship.getUUID() === this.state.selectedVehicleUUID ) {
             selectedCapitalShip = ship;
           }
@@ -1300,8 +1893,8 @@ export default class ClassicBattleTechRosterPlay extends React.Component<IPlayPr
       }
       // So is an infantry platoon.
       let selectedInfantry: InfantryPlatoon | null = null;
-      for( let group of this.props.appGlobals.currentCBTForce.groups ) {
-        for( let platoon of group.infantry ) {
+      for( const group of this.props.appGlobals.currentCBTForce.groups ) {
+        for( const platoon of group.infantry ) {
           if( platoon.getUUID() === this.state.selectedVehicleUUID ) {
             selectedInfantry = platoon;
           }
@@ -1309,8 +1902,8 @@ export default class ClassicBattleTechRosterPlay extends React.Component<IPlayPr
       }
       // And a battle armor squad.
       let selectedBattleArmor: BattleArmor | null = null;
-      for( let group of this.props.appGlobals.currentCBTForce.groups ) {
-        for( let squad of group.battleArmor ) {
+      for( const group of this.props.appGlobals.currentCBTForce.groups ) {
+        for( const squad of group.battleArmor ) {
           if( squad.getUUID() === this.state.selectedVehicleUUID ) {
             selectedBattleArmor = squad;
           }
@@ -1318,17 +1911,35 @@ export default class ClassicBattleTechRosterPlay extends React.Component<IPlayPr
       }
       // And a ProtoMech Point.
       let selectedProtoMech: ProtoMech | null = null;
-      for( let group of this.props.appGlobals.currentCBTForce.groups ) {
-        for( let point of group.protoMechs ) {
+      for( const group of this.props.appGlobals.currentCBTForce.groups ) {
+        for( const point of group.protoMechs ) {
           if( point.getUUID() === this.state.selectedVehicleUUID ) {
             selectedProtoMech = point;
           }
         }
       }
+      // And a Micro-Mech (fan-made, #173).
+      let selectedMicroMech: MicroMech | null = null;
+      for( const group of this.props.appGlobals.currentCBTForce.groups ) {
+        for( const micro of group.microMechs ) {
+          if( micro.getUUID() === this.state.selectedVehicleUUID ) {
+            selectedMicroMech = micro;
+          }
+        }
+      }
+      // And a walker (Custom Homebrew, #172).
+      let selectedWalker: Walker | null = null;
+      for( const group of this.props.appGlobals.currentCBTForce.groups ) {
+        for( const walker of group.walkers ) {
+          if( walker.getUUID() === this.state.selectedVehicleUUID ) {
+            selectedWalker = walker;
+          }
+        }
+      }
       // And a Battledroids tank, jeep or infantry squad.
       let selectedBattledroidsUnit: BattledroidsUnit | null = null;
-      for( let group of this.props.appGlobals.currentCBTForce.groups ) {
-        for( let unit of group.battledroidsUnits ) {
+      for( const group of this.props.appGlobals.currentCBTForce.groups ) {
+        for( const unit of group.battledroidsUnits ) {
           if( unit.getUUID() === this.state.selectedVehicleUUID ) {
             selectedBattledroidsUnit = unit;
           }
@@ -1336,13 +1947,18 @@ export default class ClassicBattleTechRosterPlay extends React.Component<IPlayPr
       }
       // And a building.
       let selectedBuilding: Building | null = null;
-      for( let group of this.props.appGlobals.currentCBTForce.groups ) {
-        for( let building of group.buildings ) {
+      for( const group of this.props.appGlobals.currentCBTForce.groups ) {
+        for( const building of group.buildings ) {
           if( building.getUUID() === this.state.selectedVehicleUUID ) {
             selectedBuilding = building;
           }
         }
       }
+      // The selected unit's quirks, in the same order the panels below are chosen; units without quirks show none.
+      const quirkCarrier: IQuirkCarrier | null = selectedBattledroidsUnit || selectedBuilding || selectedInfantry || selectedProtoMech || selectedMicroMech || selectedWalker ? null
+        : selectedBattleArmor ?? selectedFighter ?? selectedSmallCraft ?? selectedCapitalShip ?? selectedVehicle ?? selectedMech;
+      const ewarCarrier: IEWarCarrier | null = selectedBattledroidsUnit || selectedProtoMech || selectedMicroMech || selectedWalker ? null
+        : selectedBuilding ?? selectedInfantry ?? selectedBattleArmor ?? selectedFighter ?? selectedSmallCraft ?? selectedCapitalShip ?? selectedVehicle ?? selectedMech;
       return (
         <>
 {this.state.zoomSheet && selectedMech ? (
@@ -1356,6 +1972,7 @@ export default class ClassicBattleTechRosterPlay extends React.Component<IPlayPr
     <BattleMechSVG
       mechData={selectedMech}
       inPlay={true}
+      quirksInPlay={quirksInPlay}
       bgColor={selectedMech.isWrecked() ? "#666" : ""}
       openSetCriticalDialog={() => this.openSetCriticalDialog(selectedMech)}
       openSetTargetDialog={() => this.openSetTargetDialog(selectedMech)}
@@ -1383,6 +2000,11 @@ export default class ClassicBattleTechRosterPlay extends React.Component<IPlayPr
   onClose={this.closeClusterDamageChart}
   title={"Damage Cluster for " + this.state.damagePerClusterGATOR.weaponName}
 >
+    {this.getClusterEWarShifts().length > 0 ? (
+      <div className="alert alert-sm alert-info">
+        E-War: {this.getClusterEWarShifts().map(shift => shift.label).join(", ")}. Each roll below already includes the shift.
+      </div>
+    ) : null}
     <h4>Step 1: Click on the Roll or # of hits:</h4>
     <table className="table text-center">
       <thead>
@@ -1395,33 +2017,33 @@ export default class ClassicBattleTechRosterPlay extends React.Component<IPlayPr
               <ArrowCircleDown /> # Shots
             </div>
           </th>
-          <th><button title="This is the die roll for the cluster hits" className="btn btn-sm btn-secondary" onClick={(e) => this.setNumberRolledClusters(e, getClusterHitsPerRoll(2, this.state.damageClusters))}>2</button></th>
-          <th><button title="This is the die roll for the cluster hits" className="btn btn-sm btn-secondary" onClick={(e) => this.setNumberRolledClusters(e, getClusterHitsPerRoll(3, this.state.damageClusters))}>3</button></th>
-          <th><button title="This is the die roll for the cluster hits" className="btn btn-sm btn-secondary" onClick={(e) => this.setNumberRolledClusters(e, getClusterHitsPerRoll(4, this.state.damageClusters))}>4</button></th>
-          <th><button title="This is the die roll for the cluster hits" className="btn btn-sm btn-secondary" onClick={(e) => this.setNumberRolledClusters(e, getClusterHitsPerRoll(5, this.state.damageClusters))}>5</button></th>
-          <th><button title="This is the die roll for the cluster hits" className="btn btn-sm btn-secondary" onClick={(e) => this.setNumberRolledClusters(e, getClusterHitsPerRoll(6, this.state.damageClusters))}>6</button></th>
-          <th><button title="This is the die roll for the cluster hits" className="btn btn-sm btn-secondary" onClick={(e) => this.setNumberRolledClusters(e, getClusterHitsPerRoll(7, this.state.damageClusters))}>7</button></th>
-          <th><button title="This is the die roll for the cluster hits" className="btn btn-sm btn-secondary" onClick={(e) => this.setNumberRolledClusters(e, getClusterHitsPerRoll(8, this.state.damageClusters))}>8</button></th>
-          <th><button title="This is the die roll for the cluster hits" className="btn btn-sm btn-secondary" onClick={(e) => this.setNumberRolledClusters(e, getClusterHitsPerRoll(9, this.state.damageClusters))}>9</button></th>
-          <th><button title="This is the die roll for the cluster hits" className="btn btn-sm btn-secondary"  onClick={(e) => this.setNumberRolledClusters(e, getClusterHitsPerRoll(10, this.state.damageClusters))}>10</button></th>
-          <th><button title="This is the die roll for the cluster hits" className="btn btn-sm btn-secondary"  onClick={(e) => this.setNumberRolledClusters(e, getClusterHitsPerRoll(11, this.state.damageClusters))}>11</button></th>
-          <th><button title="This is the die roll for the cluster hits" className="btn btn-sm btn-secondary"  onClick={(e) => this.setNumberRolledClusters(e, getClusterHitsPerRoll(12, this.state.damageClusters))}>12</button></th>
+          <th><button title="This is the die roll for the cluster hits" className="btn btn-sm btn-secondary" onClick={(e) => this.setNumberRolledClusters(e, this.clusterHits(2))}>2</button></th>
+          <th><button title="This is the die roll for the cluster hits" className="btn btn-sm btn-secondary" onClick={(e) => this.setNumberRolledClusters(e, this.clusterHits(3))}>3</button></th>
+          <th><button title="This is the die roll for the cluster hits" className="btn btn-sm btn-secondary" onClick={(e) => this.setNumberRolledClusters(e, this.clusterHits(4))}>4</button></th>
+          <th><button title="This is the die roll for the cluster hits" className="btn btn-sm btn-secondary" onClick={(e) => this.setNumberRolledClusters(e, this.clusterHits(5))}>5</button></th>
+          <th><button title="This is the die roll for the cluster hits" className="btn btn-sm btn-secondary" onClick={(e) => this.setNumberRolledClusters(e, this.clusterHits(6))}>6</button></th>
+          <th><button title="This is the die roll for the cluster hits" className="btn btn-sm btn-secondary" onClick={(e) => this.setNumberRolledClusters(e, this.clusterHits(7))}>7</button></th>
+          <th><button title="This is the die roll for the cluster hits" className="btn btn-sm btn-secondary" onClick={(e) => this.setNumberRolledClusters(e, this.clusterHits(8))}>8</button></th>
+          <th><button title="This is the die roll for the cluster hits" className="btn btn-sm btn-secondary" onClick={(e) => this.setNumberRolledClusters(e, this.clusterHits(9))}>9</button></th>
+          <th><button title="This is the die roll for the cluster hits" className="btn btn-sm btn-secondary"  onClick={(e) => this.setNumberRolledClusters(e, this.clusterHits(10))}>10</button></th>
+          <th><button title="This is the die roll for the cluster hits" className="btn btn-sm btn-secondary"  onClick={(e) => this.setNumberRolledClusters(e, this.clusterHits(11))}>11</button></th>
+          <th><button title="This is the die roll for the cluster hits" className="btn btn-sm btn-secondary"  onClick={(e) => this.setNumberRolledClusters(e, this.clusterHits(12))}>12</button></th>
         </tr>
       </thead>
         <tbody>
           <tr>
             <td>#{this.state.damageClusters}</td>
-            <td><button title="This is the rolled number of cluster hits" className="btn btn-sm btn-primary" onClick={(e) => this.setNumberRolledClusters(e, getClusterHitsPerRoll(2, this.state.damageClusters))}>{getClusterHitsPerRoll(2, this.state.damageClusters)}</button></td> {/* 2 */}
-            <td><button title="This is the rolled number of cluster hits" className="btn btn-sm btn-primary" onClick={(e) => this.setNumberRolledClusters(e, getClusterHitsPerRoll(3, this.state.damageClusters))}>{getClusterHitsPerRoll(3, this.state.damageClusters)}</button></td> {/* 3 */}
-            <td><button title="This is the rolled number of cluster hits" className="btn btn-sm btn-primary" onClick={(e) => this.setNumberRolledClusters(e, getClusterHitsPerRoll(4, this.state.damageClusters))}>{getClusterHitsPerRoll(4, this.state.damageClusters)}</button></td> {/* 4 */}
-            <td><button title="This is the rolled number of cluster hits" className="btn btn-sm btn-primary" onClick={(e) => this.setNumberRolledClusters(e, getClusterHitsPerRoll(5, this.state.damageClusters))}>{getClusterHitsPerRoll(5, this.state.damageClusters)}</button></td> {/* 5 */}
-            <td><button title="This is the rolled number of cluster hits" className="btn btn-sm btn-primary" onClick={(e) => this.setNumberRolledClusters(e, getClusterHitsPerRoll(6, this.state.damageClusters))}>{getClusterHitsPerRoll(6, this.state.damageClusters)}</button></td> {/* 6 */}
-            <td><button title="This is the rolled number of cluster hits" className="btn btn-sm btn-primary" onClick={(e) => this.setNumberRolledClusters(e, getClusterHitsPerRoll(7, this.state.damageClusters))}>{getClusterHitsPerRoll(7, this.state.damageClusters)}</button></td> {/* 7 */}
-            <td><button title="This is the rolled number of cluster hits" className="btn btn-sm btn-primary" onClick={(e) => this.setNumberRolledClusters(e, getClusterHitsPerRoll(8, this.state.damageClusters))}>{getClusterHitsPerRoll(8, this.state.damageClusters)}</button></td> {/* 8 */}
-            <td><button title="This is the rolled number of cluster hits" className="btn btn-sm btn-primary" onClick={(e) => this.setNumberRolledClusters(e, getClusterHitsPerRoll(9, this.state.damageClusters))}>{getClusterHitsPerRoll(9, this.state.damageClusters)}</button></td> {/* 9 */}
-            <td><button title="This is the rolled number of cluster hits" className="btn btn-sm btn-primary"  onClick={(e) => this.setNumberRolledClusters(e, getClusterHitsPerRoll(10, this.state.damageClusters))}>{getClusterHitsPerRoll(10, this.state.damageClusters)}</button></td> {/* 10 */}
-            <td><button title="This is the rolled number of cluster hits" className="btn btn-sm btn-primary"  onClick={(e) => this.setNumberRolledClusters(e, getClusterHitsPerRoll(11, this.state.damageClusters))}>{getClusterHitsPerRoll(11, this.state.damageClusters)}</button></td> {/* 11 */}
-            <td><button title="This is the rolled number of cluster hits" className="btn btn-sm btn-primary"  onClick={(e) => this.setNumberRolledClusters(e, getClusterHitsPerRoll(12, this.state.damageClusters))}>{getClusterHitsPerRoll(12, this.state.damageClusters)}</button></td> {/* 12 */}
+            <td><button title="This is the rolled number of cluster hits" className="btn btn-sm btn-primary" onClick={(e) => this.setNumberRolledClusters(e, this.clusterHits(2))}>{this.clusterHits(2)}</button></td> {/* 2 */}
+            <td><button title="This is the rolled number of cluster hits" className="btn btn-sm btn-primary" onClick={(e) => this.setNumberRolledClusters(e, this.clusterHits(3))}>{this.clusterHits(3)}</button></td> {/* 3 */}
+            <td><button title="This is the rolled number of cluster hits" className="btn btn-sm btn-primary" onClick={(e) => this.setNumberRolledClusters(e, this.clusterHits(4))}>{this.clusterHits(4)}</button></td> {/* 4 */}
+            <td><button title="This is the rolled number of cluster hits" className="btn btn-sm btn-primary" onClick={(e) => this.setNumberRolledClusters(e, this.clusterHits(5))}>{this.clusterHits(5)}</button></td> {/* 5 */}
+            <td><button title="This is the rolled number of cluster hits" className="btn btn-sm btn-primary" onClick={(e) => this.setNumberRolledClusters(e, this.clusterHits(6))}>{this.clusterHits(6)}</button></td> {/* 6 */}
+            <td><button title="This is the rolled number of cluster hits" className="btn btn-sm btn-primary" onClick={(e) => this.setNumberRolledClusters(e, this.clusterHits(7))}>{this.clusterHits(7)}</button></td> {/* 7 */}
+            <td><button title="This is the rolled number of cluster hits" className="btn btn-sm btn-primary" onClick={(e) => this.setNumberRolledClusters(e, this.clusterHits(8))}>{this.clusterHits(8)}</button></td> {/* 8 */}
+            <td><button title="This is the rolled number of cluster hits" className="btn btn-sm btn-primary" onClick={(e) => this.setNumberRolledClusters(e, this.clusterHits(9))}>{this.clusterHits(9)}</button></td> {/* 9 */}
+            <td><button title="This is the rolled number of cluster hits" className="btn btn-sm btn-primary"  onClick={(e) => this.setNumberRolledClusters(e, this.clusterHits(10))}>{this.clusterHits(10)}</button></td> {/* 10 */}
+            <td><button title="This is the rolled number of cluster hits" className="btn btn-sm btn-primary"  onClick={(e) => this.setNumberRolledClusters(e, this.clusterHits(11))}>{this.clusterHits(11)}</button></td> {/* 11 */}
+            <td><button title="This is the rolled number of cluster hits" className="btn btn-sm btn-primary"  onClick={(e) => this.setNumberRolledClusters(e, this.clusterHits(12))}>{this.clusterHits(12)}</button></td> {/* 12 */}
           </tr>
         </tbody>
 
@@ -1517,7 +2139,7 @@ export default class ClassicBattleTechRosterPlay extends React.Component<IPlayPr
           <h2>{group.getName(groupIndex)}</h2>
           {group.members.map( (unit, unitIndex) => {
             let numberOfAttacks = 0;
-            for( let attack of unit.equipmentList ) {
+            for( const attack of unit.equipmentList ) {
               if( attack.target ) {
                 numberOfAttacks++;
               }
@@ -1536,7 +2158,7 @@ export default class ClassicBattleTechRosterPlay extends React.Component<IPlayPr
                     <th className="min-width">R</th>
                     <th className="min-width no-wrap">To-Hit</th>
                     <th className="min-width no-wrap">Damage</th>
-                    <th className="min-width no-wrap"></th>
+                    <th className="min-width no-wrap"><span className="visually-hidden">Actions</span></th>
                   </tr>
 
                 </thead>
@@ -1552,9 +2174,12 @@ export default class ClassicBattleTechRosterPlay extends React.Component<IPlayPr
                 ) : (
                   <>
                     {unit.equipmentList.map( (attack, attackIndex) => {
-                      let attackGATOR = getTargetToHitFromWeapon(
+                      const attackGATOR = getTargetToHitFromWeapon(
                           unit,
                           attackIndex,
+                          null,
+                          null,
+                          quirksInPlay,
 
                       )
                       if( !attack.isAmmo && !attack.isEquipment && attackGATOR.target ) {
@@ -1564,8 +2189,16 @@ export default class ClassicBattleTechRosterPlay extends React.Component<IPlayPr
                         const damagePerCluster = selectedAmmo?.ammoProfile?.damagePerMissile ?? attack.damagePerCluster;
 
                         let attackDamage = attack.damage ? attack.damage.toString() : "";
+                        // An energy weapon's hit is halved while this unit's Blue Saviour is on (#641): one number or short / medium / long.
+                        const blueSaviourHalves = unit.isBlueSaviourOn() && isEnergyWeapon(attack);
+                        const halve = (damage: number) => unit.getBlueSaviourOutgoingDamage(attack, damage);
+                        const halvedBands = blueSaviourHalves && attack.damage && typeof attack.damage === "object" ? attack.damage : undefined;
                         let attackDamageSecondLine = "";
-                        if( attack.damagePerShot ) {
+                        if( blueSaviourHalves && typeof attack.damage === "number" && attack.damage > 0 ) {
+                          attackDamage = getBlueSaviourDamageText( attack.damage, !!attack.damagePerShot, halve );
+                        } else if( halvedBands ) {
+                          attackDamage = getBlueSaviourDamageText( halvedBands, !!attack.damagePerShot, halve );
+                        } else if( attack.damagePerShot ) {
                           attackDamage += "/shot";
                         }
 
@@ -1574,7 +2207,9 @@ export default class ClassicBattleTechRosterPlay extends React.Component<IPlayPr
                           clusterChartButton = true;
                           attackDamage += attack.damageClusters.toString() + " clusters";
                           if( damagePerCluster )
-                            attackDamageSecondLine = damagePerCluster.toString() + " damage/hit";
+                            attackDamageSecondLine = blueSaviourHalves
+                              ? `${halve( damagePerCluster )} damage/hit (half of ${damagePerCluster}, Blue Saviour)`
+                              : damagePerCluster.toString() + " damage/hit";
                         }
 
                         let attackUUID = "";
@@ -1583,7 +2218,7 @@ export default class ClassicBattleTechRosterPlay extends React.Component<IPlayPr
                         let attackLocation = "";
                         if( attack.location )
                           attackLocation = attack.location;
-                        let attackDamaged = unit.isEquipmentDamaged( attackUUID, attackLocation );
+                        const attackDamaged = unit.isEquipmentDamaged( attackUUID, attackLocation );
                         return (
                           <tbody key={attackIndex}>
                             <tr>
@@ -1647,7 +2282,7 @@ export default class ClassicBattleTechRosterPlay extends React.Component<IPlayPr
                                     <button
                                       className="btn btn-primary btn-sm"
                                       title="Click here to open the Cluster Damage Chart"
-                                      onClick={(e) => this.openClusterDamageChart(e, attackGATOR, attack.damageClusters, damagePerCluster, unit, attackIndex)}
+                                      onClick={(e) => this.openClusterDamageChart(e, attackGATOR, attack.damageClusters, blueSaviourHalves && damagePerCluster ? halve( damagePerCluster ) : damagePerCluster, unit, attackIndex)}
                                     >
                                       <MissileSwarmIcon />
                                     </button>
@@ -1813,18 +2448,35 @@ export default class ClassicBattleTechRosterPlay extends React.Component<IPlayPr
           <div className="small-text">Transformation Mode</div>
           {this.state.setMovementDialog.isLAM() ? (
             <>
-              <button className={this.state.setMovementDialog.getTransformationMode() === "mech" ? "btn btn-primary" : "btn"} onClick={() => this.state.setMovementDialog?.setTransformationMode("mech")}>Mech</button>
+              <button className={this.state.setMovementDialog.getTransformationMode() === "mech" ? "btn btn-primary" : "btn"} onClick={() => this.setDialogTransformationMode("mech")}>Mech</button>
               {this.state.setMovementDialog.hasAirMechMode() ? (
-                <button className={this.state.setMovementDialog.getTransformationMode() === "airmech" ? "btn btn-primary" : "btn"} onClick={() => this.state.setMovementDialog?.setTransformationMode("airmech")}>AirMech</button>
+                <button className={this.state.setMovementDialog.getTransformationMode() === "airmech" ? "btn btn-primary" : "btn"} onClick={() => this.setDialogTransformationMode("airmech")}>AirMech</button>
               ) : null}
-              <button className={this.state.setMovementDialog.getTransformationMode() === "aerospace" ? "btn btn-primary" : "btn"} onClick={() => this.state.setMovementDialog?.setTransformationMode("aerospace")}>Aerospace</button>
+              {this.state.setMovementDialog.isVTOLAM() ? (
+                <button className={this.state.setMovementDialog.getTransformationMode() === "vehicle" ? "btn btn-primary" : "btn"} onClick={() => this.setDialogTransformationMode("vehicle")}>VTOL</button>
+              ) : (
+                <button className={this.state.setMovementDialog.getTransformationMode() === "aerospace" ? "btn btn-primary" : "btn"} onClick={() => this.setDialogTransformationMode("aerospace")}>Aerospace</button>
+              )}
             </>
           ) : (
             <>
-              <button className={this.state.setMovementDialog.getTransformationMode() === "mech" ? "btn btn-primary" : "btn"} onClick={() => this.state.setMovementDialog?.setTransformationMode("mech")}>Mech</button>
-              <button className={this.state.setMovementDialog.getTransformationMode() === "vehicle" ? "btn btn-primary" : "btn"} onClick={() => this.state.setMovementDialog?.setTransformationMode("vehicle")}>Vehicle</button>
+              <button className={this.state.setMovementDialog.getTransformationMode() === "mech" ? "btn btn-primary" : "btn"} onClick={() => this.setDialogTransformationMode("mech")}>Mech</button>
+              <button className={this.state.setMovementDialog.getTransformationMode() === "vehicle" ? "btn btn-primary" : "btn"} onClick={() => this.setDialogTransformationMode("vehicle")}>Vehicle</button>
             </>
           )}
+          {this.state.setMovementDialog.isVTOLAM() ? <div className="small-text">VTOL Cruise / Flank MP: {this.state.setMovementDialog.getVTOLAMCruiseMP()} / {this.state.setMovementDialog.getVTOLAMFlankMP()}. {this.state.setMovementDialog.getLAMTypeNotes()}</div> : null}
+          {this.state.setMovementDialog.isLAM() && Object.keys(this.state.setMovementDialog.getBombLoadout()).length > 0 ? (
+            <div className="small-text">
+              Bomb bays (IO:AE p.105): {Object.keys(this.state.setMovementDialog.getBombLoadout()).map((tag) => (
+                <span key={tag}>
+                  {this.state.setMovementDialog!.getBombName(tag)} x{this.state.setMovementDialog!.getBombsRemaining(tag)}{" "}
+                  <button className="btn" disabled={this.state.setMovementDialog!.getBombsRemaining(tag) <= 0} onClick={() => this.useLoadedBomb(tag, "ground")}>Drop / fire</button>
+                  {tag.includes("alamo") ? <button className="btn" disabled={this.state.setMovementDialog!.getBombsRemaining(tag) <= 0} onClick={() => this.useLoadedBomb(tag, "air")}>Air-burst</button> : null}{" "}
+                </span>
+              ))}
+              {this.state.bombMessage ? <div>{this.state.bombMessage}</div> : null}
+            </div>
+          ) : null}
           {this.state.setMovementDialog.isQuadVee() ? <div className="small-text">Motive: {this.state.setMovementDialog.getQuadVeeMotive()} Vehicle Cruise MP: {this.state.setMovementDialog.getQuadVeeVehicleCruiseMP()}</div> : null}
         </>
       ) : null}
@@ -1865,12 +2517,14 @@ export default class ClassicBattleTechRosterPlay extends React.Component<IPlayPr
         numberPips={1}
       />
       </svg><br />
-      Walk: {this.state.setMovementDialog.getWalkSpeed()}
+      Walk: {this.state.setMovementDialog.getTransformationMode() === "airmech" ? this.state.setMovementDialog.getAirMechWalkMP() : this.state.setMovementDialog.getWalkSpeed()}
       </button>
       <br />
     <button
         className={this.state.setMovementMode === "r" ? "btn btn-primary" : "btn"}
         onClick={(e) => this.setMovementMode(e, "r")}
+        disabled={!this.state.setMovementDialog.canUseFutureWarsMovementMode("r")}
+        title={this.state.setMovementDialog.canUseFutureWarsMovementMode("r") ? undefined : "The leg Power Booster burned out the legs: walking only until a major overhaul"}
       >
     <svg
       width={40}
@@ -1885,7 +2539,7 @@ export default class ClassicBattleTechRosterPlay extends React.Component<IPlayPr
         numberPips={2}
       />
       </svg><br />
-      Run:  {this.state.setMovementDialog.getRunSpeed()}
+      Run:  {this.state.setMovementDialog.getTransformationMode() === "airmech" ? this.state.setMovementDialog.getAirMechRunMP() : this.state.setMovementDialog.getRunSpeed()}{getBoostedMoveNote(this.state.setMovementDialog, "r")}
       </button>
       <br />
     {this.state.setMovementCanJump ? (
@@ -1893,6 +2547,8 @@ export default class ClassicBattleTechRosterPlay extends React.Component<IPlayPr
     <button
         className={this.state.setMovementMode === "j" ? "btn btn-primary" : "btn"}
         onClick={(e) => this.setMovementMode(e, "j")}
+        disabled={!this.state.setMovementDialog.canUseFutureWarsMovementMode("j")}
+        title={this.state.setMovementDialog.canUseFutureWarsMovementMode("j") ? undefined : "The jump-jet Power Booster burned out the jets: they must be replaced"}
       >
       <svg
       width={40}
@@ -1907,7 +2563,26 @@ export default class ClassicBattleTechRosterPlay extends React.Component<IPlayPr
         numberPips={3}
       />
       </svg><br />
-      Jump:  {this.state.setMovementDialog.getJumpSpeed()}
+      Jump:  {this.state.setMovementDialog.getJumpingText()}{getBoostedMoveNote(this.state.setMovementDialog, "j")}
+      </button>
+      </>
+    ) : null}
+    {this.state.setMovementDialog.hasAirMechMode() && this.state.setMovementDialog.getTransformationMode() === "airmech" ? (
+      <>
+      <button
+        className={this.state.setMovementMode === "c" ? "btn btn-primary" : "btn"}
+        onClick={(e) => this.setMovementMode(e, "c")}
+        data-testid="airmech-cruise"
+      >
+        AirMech Cruise: {this.state.setMovementDialog.getAirMechCruiseMP()}
+      </button>
+      <br />
+      <button
+        className={this.state.setMovementMode === "f" ? "btn btn-primary" : "btn"}
+        onClick={(e) => this.setMovementMode(e, "f")}
+        data-testid="airmech-flank"
+      >
+        AirMech Flank: {this.state.setMovementDialog.getAirMechFlankMP()}
       </button>
       </>
     ) : null}
@@ -1972,11 +2647,11 @@ export default class ClassicBattleTechRosterPlay extends React.Component<IPlayPr
             </tr>
           </tbody>
             </>) : null}
-          {this.state.setMovementMode === "j" ? (
+          {this.state.setMovementMode === "j" || this.state.setMovementMode === "c" || this.state.setMovementMode === "f" ? (
             <tfoot>
               <tr>
                 <th colSpan={2} className="small-text">
-                  Jump bonus will be be included on in-play sheet
+                  The +1 to be hit for a jump or an airborne AirMech is on the in-play sheet
                 </th>
               </tr>
             </tfoot>
@@ -1985,10 +2660,24 @@ export default class ClassicBattleTechRosterPlay extends React.Component<IPlayPr
       </div>
 
   </div>
+  {this.state.setMovementDialog.getJumpPackSpeed() > 0 ? (
+    <div className="text-center" data-testid="jump-pack-play">
+      <span>
+        Jump pack ({this.state.setMovementDialog.getJumpPackSpeed()} MP, {this.state.setMovementDialog.getJumpPackFuelText(this.state.setMovementDialog.getJumpPackFuelLeft())} left, no heat)
+      </span>{" "}
+      <button className="btn btn-sm" data-testid="jump-pack-drop" onClick={this.dropJumpPack}>Drop the pack (1 MP)</button>
+    </div>
+  ) : null}
+  {this.state.setMovementDialog.canCombatDrop().allowed ? (
+    <div className="text-center" data-testid="combat-drop-play">
+      <button className="btn btn-sm" data-testid="combat-drop" onClick={this.combatDrop}>Combat drop</button>
+      {this.state.combatDropLog.map((line, index) => <div key={index} className="smaller-text">{line}</div>)}
+    </div>
+  ) : null}
   {this.state.setMovementMode === "j" ? (
         <div className="text-center">
         <InputNumeric
-          label="Jumping MP Used (for heat calculation)"
+          label={(this.state.setMovementDialog?.getJumpPackSpeed() ?? 0) > 0 ? "Jumping MP Used (for fuel)" : "Jumping MP Used (for heat calculation)"}
           value={this.state.setMovementJumpingMP}
           onChange={this.updateMovementJumpingMP}
           description="Changing this will also set the movement modifer above, so you don't have to perform two clicks."
@@ -1997,6 +2686,34 @@ export default class ClassicBattleTechRosterPlay extends React.Component<IPlayPr
           max={30}
           step={1}
         />
+        </div>
+  ) : null}
+  {this.state.setMovementMode === "c" || this.state.setMovementMode === "f" ? (
+        <div className="text-center" data-testid="airmech-movement">
+        <InputNumeric
+          label="AirMech MP Used (for heat: MP / 3)"
+          value={this.state.setMovementJumpingMP}
+          onChange={(e: React.FormEvent<HTMLInputElement>) => this.setState({ setMovementJumpingMP: Math.max(0, Math.floor(+e.currentTarget.value || 0)) })}
+          inline={true}
+          min={0}
+          max={this.state.setMovementMode === "c" ? this.state.setMovementDialog.getAirMechCruiseMP() : this.state.setMovementDialog.getAirMechFlankMP()}
+          step={1}
+        />
+        <InputNumeric
+          label="Elevation at the end of movement"
+          value={this.state.setMovementElevation}
+          onChange={(e: React.FormEvent<HTMLInputElement>) => this.setState({ setMovementElevation: Math.max(1, Math.min(25, Math.floor(+e.currentTarget.value || 1))) })}
+          inline={true}
+          min={1}
+          max={25}
+          step={1}
+        />
+        <div className="small-text">
+          AirMech Cruise / Flank (IO:AE pp.102-103): moves as a WiGE at 1 elevation or more. 5 MP to take off; at least
+          5 hexes a turn to stay up, or 5 MP to hover (0-4 hexes moved first). 1 MP an elevation to climb, up to 25; 2 MP
+          a hex while more than 1 elevation up; descending is free. A landing needs a Control Roll only if the gyro or hip
+          actuator is hit (2021 printing). Turn mode rules apply; no evasive action or overdrive. Airborne: +1 to be hit; heat MP / 3.
+        </div>
         </div>
   ) : null}
 </StandardModal>
@@ -2009,6 +2726,71 @@ export default class ClassicBattleTechRosterPlay extends React.Component<IPlayPr
   className="modal-xl"
   title={this.state.setTargetDialog.getName() + " Target Selection"}
 >
+  {this.state.setTargetDialog.equipmentList.some(item => item.targetingSystem?.variableRange) ? (
+    <label className="text-center full-width">
+      Variable-Range Targeting (set in the End Phase; Maximum Tech p.59):{" "}
+      <select
+        value={this.state.setTargetDialog.targetingRangeSetting}
+        onChange={(e) => {
+          this.state.setTargetDialog!.targetingRangeSetting = e.currentTarget.value as BattleMech["targetingRangeSetting"];
+          this.forceUpdate();
+        }}
+      >
+        <option value="normal">Normal</option>
+        <option value="long">Long-Range</option>
+        <option value="short">Short-Range</option>
+      </select>
+    </label>
+  ) : null}
+  {this.state.setTargetDialog.hasEnhancedImaging() ? (
+    <label className="text-center full-width">
+      <input
+        type="checkbox"
+        checked={!this.state.setTargetDialog.enhancedImagingOff}
+        onChange={(e) => {
+          this.state.setTargetDialog!.enhancedImagingOff = !e.currentTarget.checked;
+          this.forceUpdate();
+        }}
+      />{" "}
+      Enhanced Imaging on (set in the End Phase): Piloting -1, feedback roll on structure damage; a sensors hit shuts it down
+      {this.state.setTargetDialog.usesEarlierRulesEdition() ? " (Maximum Tech p.61)" : "; works only for a pilot with EI implants, and gives a 1-hex active probe while the sensors are unhit, on or off (IO:AE p.69)"}.
+      {this.state.setTargetDialog.isEnhancedImagingActive() ? null : <strong> Not active.</strong>}
+    </label>
+  ) : null}
+  {this.state.setTargetDialog.hasSatelliteUplink() ? (
+    <label className="text-center full-width">
+      <input
+        type="checkbox"
+        data-testid="uplink-on"
+        checked={!this.state.setTargetDialog.satelliteUplinkOff}
+        onChange={(e) => {
+          this.state.setTargetDialog!.satelliteUplinkOff = !e.currentTarget.checked;
+          this.forceUpdate();
+        }}
+      />{" "}
+      Satellite uplink on (set in the End Phase): +2 Initiative for the side; this unit takes +1 on attacks and Piloting Skill Rolls and cannot spot, use a spotter or join a C3 network (Maximum Tech p.59)
+      {this.state.setTargetDialog.isSatelliteUplinkActive() ? null : <strong> Off.</strong>}
+    </label>
+  ) : null}
+  {this.state.setTargetDialog.getHandheldWeapon() ? (
+    <div className="text-center full-width" data-testid="handheld-play">
+      <div className="smaller-text">{this.state.setTargetDialog.getHandheldNote()}</div>
+      <div>
+        Handheld weapon: <strong>{this.state.setTargetDialog.getHandheldPlay().state}</strong>
+        {this.state.setTargetDialog.getHandheldPlay().state === "carried" ? ` (${this.state.setTargetDialog.getHandheldPlay().armorLeft} armor left${this.state.setTargetDialog.isHandheldUsable() ? "" : ", not ready to fire"})` : ""}
+        {this.state.setTargetDialog.handheldMustDrop() ? <strong> {this.state.setTargetDialog.handheldTsmForcesDrop() ? "Triple-Strength Myomer is below its activation heat (9) with the weapon over 10 percent of the tonnage: drop it (TO:AUE p.128)." : "A hand actuator is gone: drop it in the End Phase."}</strong> : null}
+        {this.state.setTargetDialog.getHandheldPlay().droppedTargetModifier !== undefined ? ` Shooting at it: ${this.state.setTargetDialog.getHandheldPlay().droppedTargetModifier} to hit.` : ""}
+      </div>
+      <button className="btn btn-sm" data-testid="handheld-drop" disabled={this.state.setTargetDialog.getHandheldPlay().state !== "carried"} onClick={() => {
+        this.state.setTargetDialog!.dropHandheld();
+        this.forceUpdate();
+      }}>Drop it</button>{" "}
+      <button className="btn btn-sm" data-testid="handheld-pick-up" disabled={!this.state.setTargetDialog.canPickUpHandheld()} onClick={() => {
+        this.state.setTargetDialog!.pickUpHandheld();
+        this.forceUpdate();
+      }}>Pick it up</button>
+    </div>
+  ) : null}
   {this.state.targetData ? (
     <div className="row">
       <div className="col-md">
@@ -2031,15 +2813,23 @@ export default class ClassicBattleTechRosterPlay extends React.Component<IPlayPr
             <InputCheckbox
               label="Primary"
               checked={this.state.targetData.a.primary}
-              description="Secondary targets are -1 to hit, or -2 in rear arc"
+              description="Secondary targets are +1 to hit, or +2 in rear arc"
               onChange={(e) => this.updatePrimary(e, "a")}
             />
             <InputCheckbox
               label="Rear Arc"
               checked={this.state.targetData.a.inRearArc}
-              description="Secondary targets are -1 to hit, or -2 in rear arc"
+              description="Secondary targets are +1 to hit, or +2 in rear arc"
               onChange={(e) => this.updateRearArc(e, "a")}
             />
+            {quirksInPlay || this.state.setTargetDialog.getTargetingSystem()?.targetingSystem?.airborne ? (
+              <InputCheckbox
+                label="Airborne"
+                checked={!!this.state.targetData.a.airborne}
+                description="Airborne, not grounded: an aerospace unit, a VTOL or a 'Mech on a combat drop, but not a jumping 'Mech. For Anti-Aircraft Targeting (CO p.225; Maximum Tech p.59)."
+                onChange={(e) => this.updateTargetFlag(e, "a", "airborne")}
+              />
+            ) : null}
 
           </div>
           <div className="col">
@@ -2057,14 +2847,15 @@ export default class ClassicBattleTechRosterPlay extends React.Component<IPlayPr
 
         <InputNumeric
           label="Other Mods"
-          description='Trees, Water, other cover, etc'
+          description='Water, partial cover, etc. (enter woods and smoke below)'
           value={this.state.targetData.a.otherMods}
-          onChange={(e) => this.updateTargetOtherMods(e, "a")}
+          onChange={(e) => this.updateTargetNumber(e, "a", "otherMods")}
           step={1}
           inline={true}
           min={-10}
           max={50}
         />
+        {this.renderTargetConditions(this.state.setTargetDialog, "a")}
         <InputNumeric
           label="Range"
           description='The number of hexes between your target'
@@ -2098,15 +2889,23 @@ export default class ClassicBattleTechRosterPlay extends React.Component<IPlayPr
             <InputCheckbox
               label="Primary"
               checked={this.state.targetData.b.primary}
-              description="Secondary targets are -1 to hit, or -2 in rear arc"
+              description="Secondary targets are +1 to hit, or +2 in rear arc"
               onChange={(e) => this.updatePrimary(e, "b")}
             />
             <InputCheckbox
               label="Rear Arc"
               checked={this.state.targetData.b.inRearArc}
-              description="Secondary targets are -1 to hit, or -2 in rear arc"
+              description="Secondary targets are +1 to hit, or +2 in rear arc"
               onChange={(e) => this.updateRearArc(e, "b")}
             />
+            {quirksInPlay || this.state.setTargetDialog.getTargetingSystem()?.targetingSystem?.airborne ? (
+              <InputCheckbox
+                label="Airborne"
+                checked={!!this.state.targetData.b.airborne}
+                description="Airborne, not grounded: an aerospace unit, a VTOL or a 'Mech on a combat drop, but not a jumping 'Mech. For Anti-Aircraft Targeting (CO p.225; Maximum Tech p.59)."
+                onChange={(e) => this.updateTargetFlag(e, "b", "airborne")}
+              />
+            ) : null}
 
           </div>
           <div className="col">
@@ -2124,15 +2923,16 @@ export default class ClassicBattleTechRosterPlay extends React.Component<IPlayPr
 
         <InputNumeric
           label="Other Mods"
-          description='Trees, Water, other cover, etc'
+          description='Water, partial cover, etc. (enter woods and smoke below)'
 
           value={this.state.targetData.b.otherMods}
-          onChange={(e) => this.updateTargetOtherMods(e, "b")}
+          onChange={(e) => this.updateTargetNumber(e, "b", "otherMods")}
           step={1}
           inline={true}
           min={-10}
           max={50}
         />
+        {this.renderTargetConditions(this.state.setTargetDialog, "b")}
         <InputNumeric
           label="Range"
           description='The number of hexes between your target'
@@ -2167,15 +2967,23 @@ export default class ClassicBattleTechRosterPlay extends React.Component<IPlayPr
             <InputCheckbox
               label="Primary"
               checked={this.state.targetData.c.primary}
-              description="Secondary targets are -1 to hit, or -2 in rear arc"
+              description="Secondary targets are +1 to hit, or +2 in rear arc"
               onChange={(e) => this.updatePrimary(e, "c")}
             />
             <InputCheckbox
               label="Rear Arc"
               checked={this.state.targetData.c.inRearArc}
-              description="Secondary targets are -1 to hit, or -2 in rear arc"
+              description="Secondary targets are +1 to hit, or +2 in rear arc"
               onChange={(e) => this.updateRearArc(e, "c")}
             />
+            {quirksInPlay || this.state.setTargetDialog.getTargetingSystem()?.targetingSystem?.airborne ? (
+              <InputCheckbox
+                label="Airborne"
+                checked={!!this.state.targetData.c.airborne}
+                description="Airborne, not grounded: an aerospace unit, a VTOL or a 'Mech on a combat drop, but not a jumping 'Mech. For Anti-Aircraft Targeting (CO p.225; Maximum Tech p.59)."
+                onChange={(e) => this.updateTargetFlag(e, "c", "airborne")}
+              />
+            ) : null}
           </div>
           <div className="col">
 
@@ -2192,15 +3000,16 @@ export default class ClassicBattleTechRosterPlay extends React.Component<IPlayPr
 
         <InputNumeric
           label="Other Mods"
-          description='Trees, Water, other cover, etc'
+          description='Water, partial cover, etc. (enter woods and smoke below)'
 
           value={this.state.targetData.c.otherMods}
-          onChange={(e) => this.updateTargetOtherMods(e, "c")}
+          onChange={(e) => this.updateTargetNumber(e, "c", "otherMods")}
           step={1}
           inline={true}
           min={-10}
           max={50}
         />
+        {this.renderTargetConditions(this.state.setTargetDialog, "c")}
         <InputNumeric
           label="Range"
           description='The number of hexes between your target'
@@ -2275,6 +3084,7 @@ export default class ClassicBattleTechRosterPlay extends React.Component<IPlayPr
                     itemIndex,
                     targetData,
                     this.state.targetWeaponSelection,
+                    quirksInPlay,
                 );
                 }
 
@@ -2311,7 +3121,14 @@ export default class ClassicBattleTechRosterPlay extends React.Component<IPlayPr
                         </span>}
 
                       </td>
-                      <td>{item.name}</td>
+                      <td>
+                        {item.name}
+                        {this.state.setTargetDialog && item.uuid && this.state.setTargetDialog.isFutureWarsSystemBurnedOut(item.uuid) ? (
+                          <span className="color-red" data-testid="mech-weapon-burned-out"> (burned out: cannot fire)</span>
+                        ) : this.state.setTargetDialog && item.uuid && this.state.setTargetDialog.isPowerBoosterOn(item.uuid) ? (
+                          <span data-testid="mech-weapon-boosted"> (boosted: +{item.conversion?.booster?.extraHeat ?? 0} heat, {item.conversion?.booster?.extraDamagePerHit !== undefined ? `+${item.conversion.booster.extraDamagePerHit} damage a hit` : `+${item.conversion?.booster?.extraDamage ?? 0} damage`}, +{item.conversion?.booster?.addedRange ?? 0} range in each band, in the to-hit)</span>
+                        ) : null}
+                      </td>
                       <td className=" min-width no-wrap text-center">{item.heat}</td>
                       <td className=" min-width no-wrap text-center">{itemDamage}</td>
                       <td className=" min-width no-wrap text-center">{item.range.short}</td>
@@ -2358,13 +3175,13 @@ export default class ClassicBattleTechRosterPlay extends React.Component<IPlayPr
                     {this.state.setTargetDialog.getActiveMoveHeat()}
                   </td>
                   <td>
-                    {this.state.setTargetDialog.getActiveWeaponHeat(this.state.targetWeaponSelection)}
+                    {this.state.setTargetDialog.getActiveWeaponHeat(this.state.targetWeaponSelection, quirksInPlay)}
                   </td>
                   <td>
                     {this.state.setTargetDialog.getActiveHeatDissipation()}
                   </td>
                   <td>
-                    {this.state.setTargetDialog.getTurnHeatDifference(this.state.targetWeaponSelection)} heat
+                    {this.state.setTargetDialog.getTurnHeatDifference(this.state.targetWeaponSelection, quirksInPlay)} heat
                   </td>
                 </tr>
               </tbody>
@@ -2391,21 +3208,21 @@ export default class ClassicBattleTechRosterPlay extends React.Component<IPlayPr
     <div className="row">
       <div className="col">
 
-        <InPlayCriticalHitTable
+        {this.state.criticalHitDialog.isArmless() ? null : <InPlayCriticalHitTable
           appGlobals={this.props.appGlobals}
           location={this.state.criticalHitDialog.isQuad() || this.state.criticalHitDialog.isQuadVee() ? "fll" : "la"}
           mechData={this.state.criticalHitDialog}
           critData={this.state.criticalHitDialog.isQuad() || this.state.criticalHitDialog.isQuadVee() ? this.state.criticalHitDialog.getCriticals().frontLeftLeg : this.state.criticalHitDialog.getCriticals().leftArm}
-          numberCritSlots={this.state.criticalHitDialog.isQuad() || this.state.criticalHitDialog.isQuadVee() ? 6 : 12}
+          numberCritSlots={getPlayCritSlotCount(this.state.criticalHitDialog, this.state.criticalHitDialog.isQuad() || this.state.criticalHitDialog.isQuadVee() ? "fll" : "la")}
           onChange={this.updateCriticalHitDialog}
-        />
+        />}
 
         <InPlayCriticalHitTable
           appGlobals={this.props.appGlobals}
           location="lt"
           mechData={this.state.criticalHitDialog}
           critData={this.state.criticalHitDialog.getCriticals().leftTorso}
-          numberCritSlots={12}
+          numberCritSlots={getPlayCritSlotCount(this.state.criticalHitDialog, "lt")}
           onChange={this.updateCriticalHitDialog}
         />
         <InPlayCriticalHitTable
@@ -2413,7 +3230,7 @@ export default class ClassicBattleTechRosterPlay extends React.Component<IPlayPr
           location="ll"
           mechData={this.state.criticalHitDialog}
           critData={this.state.criticalHitDialog.getCriticals().leftLeg}
-          numberCritSlots={6}
+          numberCritSlots={getPlayCritSlotCount(this.state.criticalHitDialog, "ll")}
           onChange={this.updateCriticalHitDialog}
         />
 
@@ -2425,7 +3242,7 @@ export default class ClassicBattleTechRosterPlay extends React.Component<IPlayPr
           location="hd"
           mechData={this.state.criticalHitDialog}
           critData={this.state.criticalHitDialog.getCriticals().head}
-          numberCritSlots={6}
+          numberCritSlots={getPlayCritSlotCount(this.state.criticalHitDialog, "hd")}
           onChange={this.updateCriticalHitDialog}
         />
         <InPlayCriticalHitTable
@@ -2433,7 +3250,7 @@ export default class ClassicBattleTechRosterPlay extends React.Component<IPlayPr
           location="ct"
           mechData={this.state.criticalHitDialog}
           critData={this.state.criticalHitDialog.getCriticals().centerTorso}
-          numberCritSlots={12}
+          numberCritSlots={getPlayCritSlotCount(this.state.criticalHitDialog, "ct")}
           onChange={this.updateCriticalHitDialog}
         />
         {this.state.criticalHitDialog.isTripod() ? (
@@ -2442,7 +3259,7 @@ export default class ClassicBattleTechRosterPlay extends React.Component<IPlayPr
             location="cl"
             mechData={this.state.criticalHitDialog}
             critData={this.state.criticalHitDialog.getCriticals().centerLeg}
-            numberCritSlots={6}
+            numberCritSlots={getPlayCritSlotCount(this.state.criticalHitDialog, "cl")}
             onChange={this.updateCriticalHitDialog}
           />
         ) : null}
@@ -2490,21 +3307,21 @@ export default class ClassicBattleTechRosterPlay extends React.Component<IPlayPr
       </div>
       <div className="col">
 
-      <InPlayCriticalHitTable
+      {this.state.criticalHitDialog.isArmless() ? null : <InPlayCriticalHitTable
           appGlobals={this.props.appGlobals}
           location={this.state.criticalHitDialog.isQuad() || this.state.criticalHitDialog.isQuadVee() ? "frl" : "ra"}
           mechData={this.state.criticalHitDialog}
           critData={this.state.criticalHitDialog.isQuad() || this.state.criticalHitDialog.isQuadVee() ? this.state.criticalHitDialog.getCriticals().frontRightLeg : this.state.criticalHitDialog.getCriticals().rightArm}
-          numberCritSlots={this.state.criticalHitDialog.isQuad() || this.state.criticalHitDialog.isQuadVee() ? 6 : 12}
+          numberCritSlots={getPlayCritSlotCount(this.state.criticalHitDialog, this.state.criticalHitDialog.isQuad() || this.state.criticalHitDialog.isQuadVee() ? "frl" : "ra")}
           onChange={this.updateCriticalHitDialog}
-        />
+        />}
 
         <InPlayCriticalHitTable
           appGlobals={this.props.appGlobals}
           location="rt"
           mechData={this.state.criticalHitDialog}
           critData={this.state.criticalHitDialog.getCriticals().rightTorso}
-          numberCritSlots={12}
+          numberCritSlots={getPlayCritSlotCount(this.state.criticalHitDialog, "rt")}
           onChange={this.updateCriticalHitDialog}
         />
         <InPlayCriticalHitTable
@@ -2512,7 +3329,7 @@ export default class ClassicBattleTechRosterPlay extends React.Component<IPlayPr
           location="rl"
           mechData={this.state.criticalHitDialog}
           critData={this.state.criticalHitDialog.getCriticals().rightLeg}
-          numberCritSlots={6}
+          numberCritSlots={getPlayCritSlotCount(this.state.criticalHitDialog, "rl")}
           onChange={this.updateCriticalHitDialog}
         />
       </div>
@@ -2537,6 +3354,30 @@ export default class ClassicBattleTechRosterPlay extends React.Component<IPlayPr
       <div className="col-md-3 smaller-padding">
     <fieldset className="fieldset ">
         <legend>How Much Damage?</legend>
+        {this.state.takeDamageDialog.getEnergyDamageHalvings(this.state.takeDamageLocation || undefined) > 0 ? (
+          <label className="small-text" data-testid="take-damage-energy">
+            <input
+              type="checkbox"
+              checked={this.state.takeDamageEnergy}
+              onChange={(e) => this.setState({ takeDamageEnergy: e.currentTarget.checked })}
+            />{" "}
+            Energy weapon (halved{this.state.takeDamageDialog.getEnergyDamageHalvings(this.state.takeDamageLocation || undefined) > 1 ? " twice" : ""}, rounded down
+            {this.state.takeDamageEnergy && this.state.takeDamageAmount > 0
+              ? `: ${this.state.takeDamageDialog.getIncomingDamageApplied(this.state.takeDamageAmount, true, this.state.takeDamageLocation)} applied` : ""})
+          </label>
+        ) : null}
+        {this.state.takeDamageLocation && this.state.takeDamageDialog.handheldRollApplies(this.state.takeDamageLocation, this.state.takeDamageLocationRear) ? (
+          <div className="small-text" data-testid="take-damage-handheld">
+            Handheld weapon: roll 1D6 for this hit (strikes the weapon on {this.state.takeDamageDialog.getHandheldHitNumbers(this.state.takeDamageLocation)}):{" "}
+            {[1, 2, 3, 4, 5, 6].map((face) => (
+              <button
+                key={face}
+                className={this.state.takeDamageHandheldRoll === face ? "btn btn-xs btn-primary" : "btn btn-xs btn-secondary"}
+                onClick={(e) => { e.preventDefault(); this.setState({ takeDamageHandheldRoll: this.state.takeDamageHandheldRoll === face ? 0 : face }); }}
+              >{face}</button>
+            ))}
+          </div>
+        ) : null}
         <br />
         {chunkRange( makeRange(1, 50) , 5).map( (section, sectionIndex) => {
 
@@ -2574,6 +3415,7 @@ export default class ClassicBattleTechRosterPlay extends React.Component<IPlayPr
     <div className="col-md-6 smaller-padding">
     <fieldset className="fieldset ">
       <legend>Where did it hurt?</legend>
+      {this.renderMissileDefense()}
       <ToHitTable
         forQuad={this.state.takeDamageDialog.isQuad()}
         showRear={true}
@@ -2641,7 +3483,8 @@ export default class ClassicBattleTechRosterPlay extends React.Component<IPlayPr
         {this.state.takeDamageDialog.damageLog.map( (line, lineIndex) => {
           return (
             <li key={lineIndex}>
-              {line.amount} on {getLocationName( line.location, this.state.takeDamageDialog ? this.state.takeDamageDialog.isQuad() : false) }
+              {line.amount}{line.entered !== undefined ? ` (${line.entered} entered, energy halved)` : ""} on {getLocationName( line.location, this.state.takeDamageDialog ? this.state.takeDamageDialog.isQuad() : false) }
+              {line.damageResults?.flatMap( result => result.criticalEffects ).map( (effect, effectIndex) => <div key={effectIndex} className="small-text">{effect}</div> )}
             </li>
           )
         })}
@@ -2705,6 +3548,16 @@ export default class ClassicBattleTechRosterPlay extends React.Component<IPlayPr
           onChange={this.setTurn}
         />
       </div>
+      {quirksInPlay && sideInitiative ? (
+        <div data-testid="quirk-initiative">
+          Initiative: {sideInitiative.modifier > 0 ? "+" : ""}{sideInitiative.modifier} ({sideInitiative.title})
+        </div>
+      ) : null}
+      {sideBonuses.initiative > 0 ? (
+        <div data-testid="side-initiative" title={sideBonuses.initiativeLog.join("; ")}>
+          Side Initiative: +{sideBonuses.initiative} ({sideBonuses.initiativeLog.join("; ")})
+        </div>
+      ) : null}
       <div>
         <button
           className={this.props.appGlobals.currentCBTForce.phase === 0 ? "btn btn-phase-active btn-sm" : "btn btn-secondary btn-sm"}
@@ -2826,6 +3679,9 @@ export default class ClassicBattleTechRosterPlay extends React.Component<IPlayPr
       {this.props.appGlobals.currentCBTForce.phase === 3 ? (
         <div>
           Make physical attacks as per the rule book.
+          {selectedMech && selectedMech.getPhysicalAttackNote() ? (
+            <div className="small-text" data-testid="airmech-physical-note">{selectedMech.getPhysicalAttackNote()}</div>
+          ) : null}
         </div>
       ) : null}
       {this.props.appGlobals.currentCBTForce.phase === 4 ? (
@@ -2844,6 +3700,13 @@ export default class ClassicBattleTechRosterPlay extends React.Component<IPlayPr
 </TextSection>
 
 <div className="selected-mech">
+          {quirkCarrier ? (
+            <QuirksInPlay effects={getCarrierQuirkEffects(quirkCarrier)} quirksInPlay={quirksInPlay} />
+          ) : null}
+          {(selectedMech || selectedVehicle || selectedFighter) && (selectedMech ?? selectedVehicle ?? selectedFighter)!.getRateOfFireWeapons().length > 0 ? (
+            <AutocannonPlayPanel key={"ac" + (selectedMech ?? selectedVehicle ?? selectedFighter)!.getUUID()} unit={(selectedMech ?? selectedVehicle ?? selectedFighter)!} onChange={this.onEwarChange} />
+          ) : null}
+          {ewarCarrier ? <EWarNotes key={ewarCarrier.getUUID()} unit={ewarCarrier} onChange={this.onEwarChange} targetCalculator={ewarCarrier !== selectedMech} attackerInfantry={ewarCarrier === selectedInfantry} force={this.props.appGlobals.currentCBTForce} aero={ewarCarrier && ewarCarrier === selectedFighter ? "fighter" : ewarCarrier && ewarCarrier === selectedSmallCraft ? "small-craft" : ewarCarrier && ewarCarrier === selectedCapitalShip ? "large-craft" : undefined} /> : null}
           {selectedBattledroidsUnit ? (
             <BattledroidsPlayPanel
               key={selectedBattledroidsUnit.getUUID()}
@@ -2860,6 +3723,8 @@ export default class ClassicBattleTechRosterPlay extends React.Component<IPlayPr
             <InfantryPlayPanel
               key={selectedInfantry.getUUID()}
               platoon={selectedInfantry}
+              turn={this.props.appGlobals.currentCBTForce.turn}
+              showStun={classicForceUsesSonic(this.props.appGlobals.currentCBTForce.groups)}
               onChange={this.onVehicleChange}
             />
           ) : selectedBattleArmor ? (
@@ -2881,6 +3746,18 @@ export default class ClassicBattleTechRosterPlay extends React.Component<IPlayPr
             <ProtoMechPlayPanel
               key={selectedProtoMech.getUUID()}
               point={selectedProtoMech}
+              onChange={this.onVehicleChange}
+            />
+          ) : selectedMicroMech ? (
+            <MicroMechPlayPanel
+              key={selectedMicroMech.getUUID()}
+              micro={selectedMicroMech}
+              onChange={this.onVehicleChange}
+            />
+          ) : selectedWalker ? (
+            <WalkerPlayPanel
+              key={selectedWalker.getUUID()}
+              walker={selectedWalker}
               onChange={this.onVehicleChange}
             />
           ) : selectedFighter ? (
@@ -2906,6 +3783,7 @@ export default class ClassicBattleTechRosterPlay extends React.Component<IPlayPr
               vehicle={selectedVehicle}
               carrierLoad={this._carrierLoad( selectedVehicle.getUUID(), vehicleName(selectedVehicle), "vehicle", selectedVehicle.isOmni() )}
               onChange={this.onVehicleChange}
+              quirksInPlay={quirksInPlay}
             />
           ) : selectedMech ? (
             <>
@@ -2924,6 +3802,7 @@ export default class ClassicBattleTechRosterPlay extends React.Component<IPlayPr
               <BattleMechSVG
                 mechData={selectedMech}
                 inPlay={true}
+                quirksInPlay={quirksInPlay}
                 bgColor={selectedMech.isWrecked() ? "#666" : ""}
                 openSetCriticalDialog={() => this.openSetCriticalDialog(selectedMech)}
                 openSetTargetDialog={() => this.openSetTargetDialog(selectedMech)}
@@ -2933,6 +3812,20 @@ export default class ClassicBattleTechRosterPlay extends React.Component<IPlayPr
                 viewGATOR={this.viewGATOR}
                 currentPhase={this.props.appGlobals.currentCBTForce.phase}
               />
+              {showFutureWarsPlay(selectedMech) ? (
+                <FutureWarsPlayPanel
+                  key={"fw" + selectedMech.uuid}
+                  mech={selectedMech}
+                  onChange={() => this.onFutureWarsChange()}
+                />
+              ) : null}
+              {showFutureWarsRulesetTools(selectedMech) ? (
+                <FutureWarsRulesetTools
+                  key={"fwr" + selectedMech.uuid}
+                  mech={selectedMech}
+                  onChange={() => this.onFutureWarsChange()}
+                />
+              ) : null}
             </>
           ) : (
             <div className="text-center">
@@ -2971,7 +3864,7 @@ export default class ClassicBattleTechRosterPlay extends React.Component<IPlayPr
                   {group.members.map( (unit, unitIndex) => {
                     let dieBG = "#009";
                     let dieFG = "white";
-                    let diePips = unit.currentToHitMovementModifier;
+                    const diePips = unit.currentToHitMovementModifier;
 
                     if( unit.currentMovementMode === "n" ) {
                       dieBG = CONST_HIGHLIGHT_COLOR;
@@ -2988,6 +3881,10 @@ export default class ClassicBattleTechRosterPlay extends React.Component<IPlayPr
                     }
                     if( unit.currentMovementMode === "j" ) {
                       dieBG = "red";
+                      dieFG = "white";
+                    }
+                    if( unit.currentMovementMode === "c" || unit.currentMovementMode === "f" ) {
+                      dieBG = unit.currentMovementMode === "c" ? "#38c" : "#036";
                       dieFG = "white";
                     }
 
@@ -3179,6 +4076,69 @@ export default class ClassicBattleTechRosterPlay extends React.Component<IPlayPr
                       <hr />
                     </li>
                   ))}
+                  {group.microMechs.map( (micro) => (
+                    <li key={micro.getUUID()}>
+                      <button
+                        onClick={(e) => this.selectVehicle(e, micro.getUUID())}
+                        className={selectedMicroMech && selectedMicroMech.getUUID() === micro.getUUID() ? "btn btn-sm btn-primary full-width" : "btn btn-sm btn-secondary full-width"}
+                        title={"Select " + micro.getDisplayName()}
+                      >
+                        {micro.getDisplayName()}
+                        <div className="stats">
+                          {micro.isDestroyed() ? (
+                            <h3 className="color-red text-center">
+                              DESTROYED
+                            </h3>
+                          ) : (
+                            <div className="bars">
+                              <StatBar
+                                color="white"
+                                background="#aaa"
+                                currentPercentage={Math.round(micro.getLocations().reduce((sum, location) => sum + micro.getArmorLeft(location), 0) / Math.max(1, micro.getArmorPoints()) * 100)}
+                                currentNumber={micro.getLocations().reduce((sum, location) => sum + micro.getArmorLeft(location), 0)}
+                                height={8}
+                                title="Armor Left"
+                              />
+                            </div>
+                          )}
+                        </div>
+                      </button>
+                      <hr />
+                    </li>
+                  ))}
+                  {group.walkers.map( (walker) => {
+                    const armorLeft = WALKER_LOCATIONS.reduce((sum, location) => sum + walker.getArmorLeft(location), 0);
+                    return (
+                      <li key={walker.getUUID()}>
+                        <button
+                          onClick={(e) => this.selectVehicle(e, walker.getUUID())}
+                          className={selectedWalker && selectedWalker.getUUID() === walker.getUUID() ? "btn btn-sm btn-primary full-width" : "btn btn-sm btn-secondary full-width"}
+                          title={"Select " + walker.getDisplayName()}
+                        >
+                          {walker.getDisplayName()}
+                          <div className="stats">
+                            {walker.isDestroyed() ? (
+                              <h3 className="color-red text-center">
+                                DESTROYED
+                              </h3>
+                            ) : (
+                              <div className="bars">
+                                <StatBar
+                                  color="white"
+                                  background="#aaa"
+                                  currentPercentage={Math.round(armorLeft / Math.max(1, walker.getArmorPoints()) * 100)}
+                                  currentNumber={armorLeft}
+                                  height={8}
+                                  title="Armor Left"
+                                />
+                              </div>
+                            )}
+                          </div>
+                        </button>
+                        <hr />
+                      </li>
+                    );
+                  })}
                   {group.battledroidsUnits.map( (unit) => (
                     <li key={unit.getUUID()}>
                       <button
@@ -3420,6 +4380,10 @@ interface IPlayState {
   setMovementNumber: number;
   setMovementCanJump: boolean;
   setMovementJumpingMP: number;
+  /** An AirMech's elevation after its AirMech Cruise or Flank movement (IO:AE p.102). */
+  setMovementElevation: number;
+  /** The last LAM bomb dropped or fired from the movement dialog, as text. */
+  bombMessage: string;
 
   resolveFireDialog: boolean;
 
@@ -3430,16 +4394,43 @@ interface IPlayState {
   takeDamageLocationRear: boolean;
   takeDamageLocation: string;
   takeDamageCritical: boolean;
+  /** The hit was from an energy weapon: halved by an active Blue Saviour and by Laser Reflective armor (#641). */
+  takeDamageEnergy: boolean;
+  /** The 1D6 roll for a hit to an arm while a handheld weapon is carried; 0 = not rolled (Maximum Tech p.79; TO:AUE p.128). */
+  takeDamageHandheldRoll: number;
 
   criticalHitDialog: BattleMech | null;
 
   setTargetDialog: BattleMech | null;
 
   targetData: ICombinedTargetData | null;
+  /** The unit's variable-range targeting setting when the target dialog opened. */
+  targetingRangeSetting: BattleMech["targetingRangeSetting"];
+  /** The unit's Enhanced Imaging switch when the target dialog opened. */
+  enhancedImagingOff: boolean;
+  /** The unit's satellite uplink switch when the target dialog opened. */
+  satelliteUplinkOff: boolean;
+  /** What the combat drop just did, shown in the movement dialog (#628). */
+  combatDropLog: string[];
   targetWeaponSelection: IEquipmentItem[];
   viewGATOR: IGATOR | null;
 
   hitLocationChartDialog: boolean;
+
+  /** E-War (#642): an incoming missile attack in the take-damage dialog; size 0 is off. */
+  takeDamageMissileSize: number;
+  takeDamageMissilePer: number;
+  takeDamageMissileRoll: number;
+  takeDamageMissileDestroyed: number;
+  /** The attacker Artemis or Narc Cluster Hits shift, a Streak launcher, and the rolled ammunition dice. */
+  takeDamageMissileShift: number;
+  takeDamageMissileStreak: boolean;
+  takeDamageMissileAmmoRoll: number;
+  takeDamageMissileMunition: string;
+  /** Most damage in one grouping of the missile hit (5 for an LRM, 2 for an SRM). */
+  takeDamageMissileGroup: number;
+  /** The damage groupings still to apply after the one in the dialog, each with its own hit location. */
+  takeDamageMissileQueue: number[];
 
   damageClusters: number;
   damagePerCluster: number;

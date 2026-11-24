@@ -1,3 +1,4 @@
+import EWarNotes from '../../../components/ewar-notes';
 import * as React from 'react';
 import ProtoMech, { PROTOMECH_CRITICAL_BOXES, PROTOMECH_CRITICAL_EFFECTS, PROTOMECH_HIT_LOCATIONS } from '../../../../classes/protomech';
 import { ProtoMechLocation } from '../../../../data/protomech-construction';
@@ -16,6 +17,7 @@ export default class ProtoMechPlayPanel extends React.Component<IProtoMechPlayPa
             unit: 0,
             location: "torso",
             damage: 5,
+            handheldRoll: 0,
             log: [],
         };
     }
@@ -30,8 +32,9 @@ export default class ProtoMechPlayPanel extends React.Component<IProtoMechPlayPa
 
     applyHit = (): void => {
         const point = this.props.point;
-        const lines = point.applyDamage(this.state.unit, this.state.location, this.state.damage);
+        const lines = point.applyDamage(this.state.unit, this.state.location, this.state.damage, this.state.handheldRoll > 0 ? this.state.handheldRoll : undefined);
         this._log([`ProtoMech ${this.state.unit + 1}: ${this.state.damage} damage to the ${point.getLocationName(this.state.location)}.`, ...lines]);
+        this.setState({ handheldRoll: 0 });
         this._changed();
     }
 
@@ -44,10 +47,10 @@ export default class ProtoMechPlayPanel extends React.Component<IProtoMechPlayPa
             this._log([`ProtoMech ${this.state.unit + 1}: rolled ${roll}, a near miss. No damage${point.isGlider() ? "; a Glider in flight loses 1 WiGE Cruising MP (IO:AE p.94)" : ""}.`]);
             return;
         }
-        const lines = point.applyDamage(this.state.unit, location, this.state.damage);
+        const lines = point.applyDamage(this.state.unit, location, this.state.damage, this.state.handheldRoll > 0 ? this.state.handheldRoll : undefined);
         const struck = point.resolveHitLocation(location);
         this._log([`ProtoMech ${this.state.unit + 1}: rolled ${roll}, ${this.state.damage} damage to the ${point.getLocationName(struck)}.`, ...lines]);
-        this.setState({ location: struck });
+        this.setState({ location: struck, handheldRoll: 0 });
         this._changed();
     }
 
@@ -85,6 +88,7 @@ export default class ProtoMechPlayPanel extends React.Component<IProtoMechPlayPa
                     Gunnery {point.getGunnery()} &nbsp;|&nbsp; Frenzy attack {point.getFrenzyDamage()} damage &nbsp;|&nbsp;
                     {point.getActiveUnits()} of {point.getPointSize()} active
                 </p>
+                <EWarNotes unit={point} onChange={() => this._changed()} />
 
                 <fieldset className="fieldset">
                     <legend>A Hit on the Point</legend>
@@ -104,6 +108,16 @@ export default class ProtoMechPlayPanel extends React.Component<IProtoMechPlayPa
                             {point.getLocations().map((location) => <option key={location} value={location}>{point.getLocationName(location)}</option>)}
                         </select>
                     </label>
+                    {point.getHandheldWeapon() ? (
+                        <span className="small-text" data-testid="protomech-play-handheld-roll">
+                            {" "}Handheld weapon, hit to an arm: 1D6 (strikes it on a 6):{" "}
+                            {[1, 2, 3, 4, 5, 6].map((face) => (
+                                <button key={face} type="button" className={this.state.handheldRoll === face ? "btn btn-xs btn-primary" : "btn btn-xs btn-secondary"}
+                                    onClick={() => this.setState({ handheldRoll: this.state.handheldRoll === face ? 0 : face })}>{face}</button>
+                            ))}
+                            {" "}
+                        </span>
+                    ) : null}
                     <button className="btn btn-primary btn-sm" type="button" data-testid="protomech-play-apply" onClick={this.applyHit}>Apply</button>
                     &nbsp;
                     <button className="btn btn-primary btn-sm" type="button" data-testid="protomech-play-roll" onClick={this.rollHit}>Roll the Location (2D6)</button>
@@ -133,6 +147,16 @@ export default class ProtoMechPlayPanel extends React.Component<IProtoMechPlayPa
                                     <button key={hit} type="button" aria-label={`ProtoMech ${unit + 1} warrior hit ${hit + 1}`} style={box(hit < point.getPilotHits(unit))} onClick={() => { point.setPilotHits(unit, point.getPilotHits(unit) === hit + 1 ? hit : hit + 1); this._changed(); }} />
                                 ))}
                             </p>
+                            {point.getHandheldWeapon() ? (
+                                <p data-testid={`protomech-play-handheld-${unit}`}>
+                                    <strong>Handheld weapon</strong>: {point.getHandheldPlay(unit).state}
+                                    {point.getHandheldPlay(unit).state === "carried" ? ` (${point.getHandheldPlay(unit).armorLeft} armor left${point.isHandheldUsable(unit) ? "" : ", not ready to fire"})` : ""}
+                                    {point.handheldMustDrop(unit) ? <strong> An arm is gone: drop it in the End Phase.</strong> : null}
+                                    {point.getHandheldPlay(unit).state === "dropped" ? " Shooting at it: -3 to hit (+1 and the -4 immobile target modifier)." : ""}{" "}
+                                    <button className="btn btn-sm" type="button" disabled={point.getHandheldPlay(unit).state !== "carried"} onClick={() => { point.dropHandheld(unit); this._changed(); }}>Drop it</button>{" "}
+                                    <button className="btn btn-sm" type="button" disabled={point.getHandheldPlay(unit).state !== "dropped" || point.isLocationDestroyed(unit, "la") || point.isLocationDestroyed(unit, "ra")} onClick={() => { point.pickUpHandheld(unit); this._changed(); }}>Pick it up</button>
+                                </p>
+                            ) : null}
                             <table className="table">
                                 <thead>
                                     <tr><th>2D6</th><th>Location</th><th>Armor and Structure</th><th>Critical Hits</th></tr>
@@ -225,5 +249,7 @@ interface IProtoMechPlayPanelState {
     unit: number;
     location: ProtoMechLocation;
     damage: number;
+    /** The 1D6 for a hit to an arm while a handheld weapon is carried; 0 = not rolled (TO:AUE p.128). */
+    handheldRoll: number;
     log: string[];
 }

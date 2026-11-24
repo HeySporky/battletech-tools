@@ -2,17 +2,16 @@ import React, { type JSX } from 'react';
 import { Link } from 'react-router';
 import { FaArrowCircleRight } from "react-icons/fa";
 import SmallCraft from '../../../../classes/small-craft';
-import { SMALL_CRAFT_MAX_TONNAGE, SMALL_CRAFT_MIN_TONNAGE, SMALL_CRAFT_SHAPES, SMALL_CRAFT_TONNAGE_STEP } from '../../../../data/small-craft-construction';
-import { btTechOptions } from '../../../../data/tech-options';
+import { KF_BOOM_TYPES, PRIMITIVE_FIRST_YEAR, PRIMITIVE_LAST_YEAR, SMALL_CRAFT_MAX_TONNAGE, SMALL_CRAFT_MIN_TONNAGE, SMALL_CRAFT_SHAPES, SMALL_CRAFT_TONNAGE_STEP } from '../../../../data/small-craft-construction';
 import { IAppGlobals } from '../../../app-router';
 import InputField from "../../../components/form_elements/input_field";
 import InputNumeric from "../../../components/form_elements/input_numeric";
-import SmallCraftCreatorSideMenu from '../../../components/small-craft-creator-side-menu';
-import RulesEditionSelect from '../../../components/rules-edition-select';
-import RulesLevelSelect from '../../../components/rules-level-select';
+import { SmallCraftCreatorSideMenu } from '../../../components/creator-side-menus';
 import TextSection from '../../../components/text-section';
 import UIPage from '../../../components/ui-page';
 import SmallCraftStatusBar from './_statusBar';
+import FwDropShipStep from './_future-wars-dropship';
+import { UnitGameSettingsBlock, unitRulesLevel } from '../../../components/game-settings-block';
 const ArrowCircleRight = FaArrowCircleRight as any;
 
 const range = (from: number, to: number, step: number = 1): number[] => {
@@ -36,16 +35,12 @@ export default class SmallCraftCreatorChassis extends React.Component<IChassisPr
         }
     }
 
-    updateRulesLevel = (level: number): void => {
-        const appSettings = this.props.appGlobals.appSettings;
-        appSettings.mechRulesFilter = level;
-        this.props.appGlobals.saveAppSettings(appSettings);
-    }
-
     render = (): JSX.Element => {
         const craft = this.props.appGlobals.currentSmallCraft;
         if (!craft) return <></>;
-        const rulesLevel = this.props.appGlobals.appSettings.mechRulesFilter;
+        const rulesLevel = unitRulesLevel(this.props.appGlobals.currentSmallCraft, this.props.appGlobals.appSettings);
+        // A DropShip built by a Future Wars method (#172) has its own Step 2 and no Primitive option.
+        const fwMethod = craft.getFwDropShipMethod();
 
         return (
             <UIPage current="classic-battletech-small-craft-creator" appGlobals={this.props.appGlobals}>
@@ -56,9 +51,8 @@ export default class SmallCraftCreatorChassis extends React.Component<IChassisPr
                     <div className="col-md-9 col-lg-10">
                         <SmallCraftStatusBar craft={craft} rulesLevel={rulesLevel} />
                         <TextSection label="Step 1: Design the Hull">
-                            {/* The rules edition comes first: it decides what every field below offers. */}
-                            <RulesEditionSelect unitType="small-craft" value={craft.getRulesEdition()} onChange={(tag) => this.update((c) => c.setRulesEdition(tag))} />
-                            <RulesLevelSelect editionTag={craft.getRulesEdition()} value={rulesLevel} onChange={this.updateRulesLevel} />
+                            {/* The shared settings block comes first: it decides what every field below offers (#324). */}
+                            <UnitGameSettingsBlock unitType="small-craft" unit={craft} appGlobals={this.props.appGlobals} onChange={() => this.update(() => undefined)} />
                             <InputField
                                 label="Model # (e.g. LC-100)"
                                 value={craft.getModel()}
@@ -86,6 +80,68 @@ export default class SmallCraftCreatorChassis extends React.Component<IChassisPr
                                 />
                                 {" "}Military design (a DropShip's crew, free heat sinks and fuel use depend on it, TM pp. 186-193)
                             </label>
+                            {!fwMethod && (craft.isPrimitive() || craft.canBePrimitive()) ? (
+                                <>
+                                    <label>
+                                        <input
+                                            type="checkbox"
+                                            data-testid="sc-primitive"
+                                            checked={craft.isPrimitive()}
+                                            onChange={(e) => { const value = e.currentTarget.checked; this.update((c) => c.setPrimitiveYear(value ? Math.max(PRIMITIVE_FIRST_YEAR, Math.min(PRIMITIVE_LAST_YEAR, c.getEra().yearStart)) : null)); }}
+                                        />
+                                        {" "}Primitive {craft.getCraftTypeName()} (IO:AE pp. 119-121)
+                                    </label>
+                                    {craft.isPrimitive() ? (
+                                        <>
+                                            <InputNumeric
+                                                label="Year of introduction"
+                                                value={craft.getPrimitiveYear() ?? PRIMITIVE_FIRST_YEAR}
+                                                min={PRIMITIVE_FIRST_YEAR}
+                                                max={PRIMITIVE_LAST_YEAR}
+                                                setValue={(year) => this.update((c) => c.setPrimitiveYear(year))}
+                                            />
+                                            <p className="smaller-text">
+                                                Built to the rules of its year: heavier engine and controls, less fuel efficiency, all armor
+                                                x 0.66 rounded down and single heat sinks only.
+                                                {craft.isDropShip()
+                                                    ? " A Primitive DropShip follows the civilian rules, with its weight limit set by year and shape and fewer free heat sinks."
+                                                    : " Its controls add +1 to-hit at Long and Extreme range."}
+                                                {" "}Equipment introduced after 2500 makes it a RetroTech craft.
+                                            </p>
+                                        </>
+                                    ) : null}
+                                </>
+                            ) : null}
+                            {craft.canHaveFlotationHull() ? (
+                                <label>
+                                    <input type="checkbox" data-testid="sc-flotation-hull" checked={craft.hasFlotationHull()} onChange={(e) => { const value = e.currentTarget.checked; this.update((c) => c.setFlotationHull(value)); }} />
+                                    {" "}Flotation Hull (Custom Homebrew): 5% of tonnage, cost x1.25; lands and floats on water (Vehrec concept, NGCFells)
+                                </label>
+                            ) : null}
+                            <div data-testid="sc-sds">
+                                <label>
+                                    SDS (Caspar) drone control:{" "}
+                                    <select data-testid="sc-sds-level" value={craft.getSds()} onChange={(e) => { const value = e.currentTarget.value as "none" | "standard" | "improved"; this.update((c) => c.setSds(value)); }}>
+                                        <option value="none">None</option>
+                                        <option value="standard">Standard (skills 5/6)</option>
+                                        <option value="improved">Improved (skills 4/5)</option>
+                                    </select>
+                                    {" "}Experimental, IO:AE p.134
+                                </label>
+                                {craft.getSds() !== "none" ? <p className="small-text">{craft.getSdsNotes().join(" ")}</p> : null}
+                                <label style={{ display: "block" }}>
+                                    <input type="checkbox" data-testid="sc-sds-destruct" checked={craft.hasSdsSelfDestruct()} onChange={(e) => { const value = e.currentTarget.checked; this.update((c) => c.setSdsSelfDestruct(value)); }} />
+                                    {" "}SDS self-destruct: 10% of the craft (IO:AE p.141)
+                                </label>
+                            </div>
+                            {craft.isDropShip() ? (
+                                <label>
+                                    Docking collar:
+                                    <select data-testid="sc-kf-boom" value={craft.getKFBoom()} onChange={(e) => { const value = e.currentTarget.value; this.update((c) => c.setKFBoom(value)); }}>
+                                        {KF_BOOM_TYPES.map((boom) => <option key={boom.tag} value={boom.tag}>{boom.name}</option>)}
+                                    </select>
+                                </label>
+                            ) : null}
 
                             <label>
                                 Shape:
@@ -100,26 +156,6 @@ export default class SmallCraftCreatorChassis extends React.Component<IChassisPr
                                     ? "An aerodyne craft flies like a fighter: Nose, Wing and Aft arcs, a heavier structure, more armor for its Structural Integrity and up to 2 bay doors (TM pp. 187-196)."
                                     : "A spheroid craft lands on its tail: Nose, Fore-Side, Aft-Side and Aft arcs, a lighter structure, more free heat sinks and up to 4 bay doors (TM pp. 187-196)."}
                             </p>
-
-                            <label>
-                                Technology Base:
-                                <select value={craft.getTech().tag} onChange={(e) => { const value = e.currentTarget.value; this.update((c) => c.setTech(value)); }}>
-                                    {btTechOptions.map((option) => (
-                                        <option key={option.tag} value={option.tag}>{option.name}</option>
-                                    ))}
-                                </select>
-                            </label>
-
-
-                            <label>
-                                Era:
-                                <select value={craft.getEra().tag} onChange={(e) => { const value = e.currentTarget.value; this.update((c) => c.setEra(value)); }}>
-                                    {craft.getAvailableEras().map((option) => (
-                                        <option key={option.tag} value={option.tag}>{option.name}</option>
-                                    ))}
-                                </select>
-                            </label>
-                            {craft.getEra().description ? <p className="smaller-text">{craft.getEra().description}</p> : null}
 
                             <label>
                                 Tonnage:
@@ -166,6 +202,7 @@ export default class SmallCraftCreatorChassis extends React.Component<IChassisPr
                         </TextSection>
 
                         <TextSection label="Step 2: Engine, Fuel, Structure and Controls">
+                            {fwMethod ? <FwDropShipStep craft={craft} update={this.update} /> : <>
                             <label>
                                 Safe Thrust:
                                 <select data-testid="sc-thrust" value={craft.getSafeThrust()} onChange={(e) => { const value = +e.currentTarget.value; this.update((c) => c.setSafeThrust(value)); }}>
@@ -189,7 +226,7 @@ export default class SmallCraftCreatorChassis extends React.Component<IChassisPr
                             </p>
                             <p className="smaller-text">
                                 Engine weight = tonnage x Safe Thrust x 0.065, or 0.061 for a Clan craft, rounded up to the half ton
-                                (TM p. 185). Controls weigh tonnage x 0.0075 (TM p. 189).
+                                (TM p. 185). Controls weigh tonnage x 0.0075 (TM p. 189). A Primitive craft uses the factors of its year (IO:AE pp. 119-121).
                             </p>
 
                             <InputNumeric
@@ -227,6 +264,7 @@ export default class SmallCraftCreatorChassis extends React.Component<IChassisPr
                                 Structural Integrity runs from Maximum Thrust to 30 times it, and weighs SI x tonnage / {craft.isAerodyne() ? 200 : 500} (TM
                                 p. 187). It sets the most armor the craft may carry and gives each facing that many armor points free (TM p. 191).
                             </p>
+                            </>}
 
                             <div className="clear-both overflow-hidden">
                                 <hr />

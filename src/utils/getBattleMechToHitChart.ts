@@ -1,6 +1,6 @@
 export function getBattleMechToHitChart(): IToHitTable {
 
-    let toHitTable: IToHitTable = {
+    const toHitTable: IToHitTable = {
         rows: [],
       };
 

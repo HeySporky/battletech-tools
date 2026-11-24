@@ -1,0 +1,6707 @@
+{
+  "sites": [
+    {
+      "id": "ares-bergan-industries",
+      "systemId": "Ares",
+      "planet": "Ares",
+      "name": "Bergan Industries",
+      "products": [
+        "Locust and Stinger BattleMechs"
+      ],
+      "heavy": true,
+      "position": "Ausapolis (Anteros)",
+      "date": "3079-12-30",
+      "source": "Objectives: Capellan Confederation, p. 6"
+    },
+    {
+      "id": "bithinia-bithinian-ballistics",
+      "systemId": "Bithinia",
+      "planet": "Bithinia",
+      "name": "Bithinian Ballistics",
+      "products": [
+        "BattleMech and Vehicle Autocannons, Artillery"
+      ],
+      "heavy": false,
+      "position": "Hera (Cius)",
+      "date": "3079-12-30",
+      "source": "Objectives: Capellan Confederation, p. 7"
+    },
+    {
+      "id": "ares-earthwerks-limited",
+      "systemId": "Ares",
+      "planet": "Ares",
+      "name": "Earthwerks Limited",
+      "products": [
+        "Danais, Kuan Ti, Overlord, and Union-class Dropships"
+      ],
+      "heavy": true,
+      "position": "Ausapolis (Anteros)",
+      "date": "3079-12-30",
+      "source": "Objectives: Capellan Confederation, p. 7"
+    },
+    {
+      "id": "ares-quikscell-company",
+      "systemId": "Ares",
+      "planet": "Ares",
+      "name": "Quikscell Company",
+      "products": [
+        "AC Carrier, Arrow IV Carrier, Bulldog Medium Tank, Heavy Tracked APC, LRM Carrier, Manticore Tank, SRM Carrier, Scorpion Light Tank, Tracked APC"
+      ],
+      "heavy": true,
+      "position": "Ausapolis (Anteros)",
+      "date": "3079-12-30",
+      "source": "Objectives: Capellan Confederation, p. 7"
+    },
+    {
+      "id": "bithinia-rashpur-owens-inc",
+      "systemId": "Bithinia",
+      "planet": "Bithinia",
+      "name": "Rashpur-Owens Inc.",
+      "products": [
+        "Achilles, Avenger, Excalibur, Lung Wang and Triumph DropShips",
+        "Invader, Merchant, and Monolith JumpShips"
+      ],
+      "heavy": true,
+      "position": "L1 Point",
+      "date": "3079-12-30",
+      "source": "Objectives: Capellan Confederation, p. 8"
+    },
+    {
+      "id": "capella-ceres-metals-industries",
+      "systemId": "Capella",
+      "planet": "Capella",
+      "name": "Ceres Metals Industries",
+      "products": [
+        "Firestarter OmniMech, Maruader, Ostroc, Snake, Thunder, Ti’Tsang, and Vindicator BattleMechs",
+        "Defiance and Transit aerospace fighters",
+        "Katya Conventional Fighter",
+        "Fa Shih, Inner Sphere Standard, and Yin Long battle armor"
+      ],
+      "heavy": true,
+      "position": "Ceres City (Llagarres)/L1 Point",
+      "date": "3079-12-30",
+      "source": "Objectives: Capellan Confederation, p. 8"
+    },
+    {
+      "id": "corey-hollis-incorporated",
+      "systemId": "Corey",
+      "planet": "Corey",
+      "name": "Hollis Incorporated",
+      "products": [
+        "Catapult, Huron Warrior, Xanthos BattleMechs, BattleMech refit and repair facilities"
+      ],
+      "heavy": true,
+      "position": "Valasha, (Vallhala)",
+      "date": "3079-12-30",
+      "source": "Objectives: Capellan Confederation, p. 11"
+    },
+    {
+      "id": "nanking-kallon-industries",
+      "systemId": "Nanking",
+      "planet": "Nanking",
+      "name": "Kallon Industries",
+      "products": [
+        "Shadow Hawk and Wolverine BattleMechs",
+        "Ontos and Partisan Tanks"
+      ],
+      "heavy": true,
+      "position": "Yang-Ku (Yangtze)",
+      "date": "3079-12-30",
+      "source": "Objectives: Capellan Confederation, p. 11"
+    },
+    {
+      "id": "styk-tao-mechworks",
+      "systemId": "Styk",
+      "planet": "Styk",
+      "name": "Tao MechWorks",
+      "products": [
+        "Crusader, Victor Class BattleMech"
+      ],
+      "heavy": true,
+      "position": "Lorelei (Burtnik)",
+      "date": "3079-12-30",
+      "source": "Objectives: Capellan Confederation, p. 12"
+    },
+    {
+      "id": "sarna-asuncion-industries",
+      "systemId": "Sarna",
+      "planet": "Sarna",
+      "name": "Asuncion Industries",
+      "products": [
+        "Wolverine primitive BattleMech"
+      ],
+      "heavy": true,
+      "position": "Gerriado (Borah)",
+      "date": "3079-12-30",
+      "source": "Objectives: Capellan Confederation, p. 12"
+    },
+    {
+      "id": "sarna-tengo-aerospace",
+      "systemId": "Sarna",
+      "planet": "Sarna",
+      "name": "Tengo Aerospace",
+      "products": [
+        "Yangtze Air Transport",
+        "Cheetah, Lightning and Thrush Aerospace Fighter",
+        "Mammoth, Mule and Seeker DropShips"
+      ],
+      "heavy": true,
+      "position": "Backtal (Canoshal)",
+      "date": "3079-12-30",
+      "source": "Objectives: Capellan Confederation, p. 12"
+    },
+    {
+      "id": "betelgeuse-aldis-industries",
+      "systemId": "Betelgeuse",
+      "planet": "Betelgeuse",
+      "name": "Aldis Industries",
+      "products": [
+        "Behemoth Heavy Tank, Demolisher Heavy Tank, Regulator Hovertank, Schrek PPC carrier, Zhukov Heavy Tank"
+      ],
+      "heavy": true,
+      "position": "Kingston (Bulwark",
+      "date": "3079-12-30",
+      "source": "Objectives: Capellan Confederation, p. 16"
+    },
+    {
+      "id": "betelgeuse-firmir-weaponry",
+      "systemId": "Betelgeuse",
+      "planet": "Betelgeuse",
+      "name": "Firmir Weaponry",
+      "products": [
+        "BattleMech and Vehicle Lasers"
+      ],
+      "heavy": false,
+      "position": "Kingston (Bulwark",
+      "date": "3079-12-30",
+      "source": "Objectives: Capellan Confederation, p. 16"
+    },
+    {
+      "id": "betelgeuse-hellespont-industrials",
+      "systemId": "Betelgeuse",
+      "planet": "Betelgeuse",
+      "name": "Hellespont Industrials",
+      "products": [
+        "UrbanMech BattleMech, Icarus and Wasp Primitive BattleMechs"
+      ],
+      "heavy": true,
+      "position": "Kingston (Bulwark)",
+      "date": "3079-12-30",
+      "source": "Objectives: Capellan Confederation, p. 16"
+    },
+    {
+      "id": "menke-ceres-metals",
+      "systemId": "Menke",
+      "planet": "Menke",
+      "name": "Ceres Metals",
+      "products": [
+        "Po, Heavy Tanks"
+      ],
+      "heavy": true,
+      "position": "Archibald",
+      "date": "3079-12-30",
+      "source": "Objectives: Capellan Confederation, p. 17"
+    },
+    {
+      "id": "menke-menke-armor-and-armaments",
+      "systemId": "Menke",
+      "planet": "Menke",
+      "name": "Menke Armor and Armaments",
+      "products": [
+        "Arrow IV Artillery systems, BattleMech Armor, Missile, and Targeting systems"
+      ],
+      "heavy": false,
+      "position": "Archibald",
+      "date": "3079-12-30",
+      "source": "Objectives: Capellan Confederation, p. 17"
+    },
+    {
+      "id": "grand-base-earthwerks-ltd",
+      "systemId": "Grand Base",
+      "planet": "Grand Base",
+      "name": "Earthwerks Ltd.",
+      "products": [
+        "Archer, Cataphract, Griffin, Shadow Hawk, and Stinger BattleMechs",
+        "Sherpa Armored Truck. BattleMech repair and refit facilities"
+      ],
+      "heavy": true,
+      "position": "Behemoth",
+      "date": "3079-12-30",
+      "source": "Objectives: Capellan Confederation, p. 17"
+    },
+    {
+      "id": "sian-ceres-metals",
+      "systemId": "Sian",
+      "planet": "Sian",
+      "name": "Ceres Metals",
+      "products": [
+        "Thunder BattleMech"
+      ],
+      "heavy": true,
+      "position": "Imarra",
+      "date": "3079-12-30",
+      "source": "Objectives: Capellan Confederation, p. 18"
+    },
+    {
+      "id": "sian-hellespont-industries",
+      "systemId": "Sian",
+      "planet": "Sian",
+      "name": "Hellespont Industries",
+      "products": [
+        "Heavy Wheeled and Tracked APCs, Hover APC, Maxim Hover Transport, Pegasus Scout Hover Tank, Scorpion Light Tank, and Vedette Medium Tank",
+        "Fa Shih and standard battle armor"
+      ],
+      "heavy": true,
+      "position": "Sylbari (Imarra)",
+      "date": "3079-12-30",
+      "source": "Objectives: Capellan Confederation, p. 18"
+    },
+    {
+      "id": "sian-hellespont-mech-works",
+      "systemId": "Sian",
+      "planet": "Sian",
+      "name": "Hellespont ’Mech Works",
+      "products": [
+        "Assassin, Men Shen, Pillager, Raven, Sha Yu, Stinger, and Wasp BattleMechs"
+      ],
+      "heavy": true,
+      "position": "Sylbari (Imarra)/L2 point",
+      "date": "3079-12-30",
+      "source": "Objectives: Capellan Confederation, p. 18"
+    },
+    {
+      "id": "menke-starcorps-industries",
+      "systemId": "Menke",
+      "planet": "Menke",
+      "name": "StarCorps Industries",
+      "products": [
+        "Emperor and Warhammer BattlMechs"
+      ],
+      "heavy": true,
+      "position": "Archibald/L2 point",
+      "date": "3079-12-30",
+      "source": "Objectives: Capellan Confederation, p. 18"
+    },
+    {
+      "id": "sian-saroyan-special-production",
+      "systemId": "Sian",
+      "planet": "Sian",
+      "name": "Saroyan Special Production",
+      "products": [
+        "Heavy Strike Fighter, Transgressor Aerospace Fighter"
+      ],
+      "heavy": true,
+      "position": "Imarra",
+      "date": "3079-12-30",
+      "source": "Objectives: Capellan Confederation, p. 19"
+    },
+    {
+      "id": "indicass-ceres-metals",
+      "systemId": "Indicass",
+      "planet": "Indicass",
+      "name": "Ceres Metals",
+      "products": [
+        "Galleon Tank, Heavy Hover APC, Hetzer Wheeled Assault Gun, Swift Wind Scout Car, Wheeled APC"
+      ],
+      "heavy": true,
+      "position": "Xin Singapore (Indicass)",
+      "date": "3079-12-30",
+      "source": "Objectives: Capellan Confederation, p. 22"
+    },
+    {
+      "id": "st-ives-ceres-metals",
+      "systemId": "St. Ives",
+      "planet": "St. Ives",
+      "name": "Ceres Metals",
+      "products": [
+        "Blackjack, Phoenix Hawk",
+        "Po II Heavy Tank"
+      ],
+      "heavy": true,
+      "position": "‘Zona",
+      "date": "3079-12-30",
+      "source": "Objectives: Capellan Confederation, p. 22"
+    },
+    {
+      "id": "texlos-hildco-interplanetary",
+      "systemId": "Texlos",
+      "planet": "Texlos",
+      "name": "Hildco Interplanetary",
+      "products": [
+        "Lightning Aerospace Fighters"
+      ],
+      "heavy": true,
+      "position": "Titus",
+      "date": "3079-12-30",
+      "source": "Objectives: Capellan Confederation, p. 23"
+    },
+    {
+      "id": "texlos-kajuka-aerospace-division",
+      "systemId": "Texlos",
+      "planet": "Texlos",
+      "name": "Kajuka Aerospace Division",
+      "products": [
+        "BattleMech and Aerospace grade lasers"
+      ],
+      "heavy": false,
+      "position": "Valencia (Livius)",
+      "date": "3079-12-30",
+      "source": "Objectives: Capellan Confederation, p. 23"
+    },
+    {
+      "id": "st-ives-hildco-interplanetary",
+      "systemId": "St. Ives",
+      "planet": "St. Ives",
+      "name": "Hildco Interplanetary",
+      "products": [
+        "Victor, and Pillager BattleMechs"
+      ],
+      "heavy": true,
+      "position": "Tain-tan (Liaoning)",
+      "date": "3079-12-30",
+      "source": "Objectives: Capellan Confederation, p. 23"
+    },
+    {
+      "id": "st-ives-mujika-aerospace-technologies",
+      "systemId": "St. Ives",
+      "planet": "St. Ives",
+      "name": "Mujika Aerospace Technologies",
+      "products": [
+        "Thrush Aerospace Fighter",
+        "Guardian, ‘Mechbuster, and Crane Conventional Fighters",
+        "Boomerang Spotter Plane, Bullet Suicide Drone"
+      ],
+      "heavy": true,
+      "position": "‘Zona",
+      "date": "3079-12-30",
+      "source": "Objectives: Capellan Confederation, p. 23"
+    },
+    {
+      "id": "st-ives-tengo-aerospace",
+      "systemId": "St. Ives",
+      "planet": "St. Ives",
+      "name": "Tengo Aerospace",
+      "products": [
+        "Cheetah, Lightning Aerospace fighters"
+      ],
+      "heavy": true,
+      "position": "Tain-tan (Liaoning)",
+      "date": "3079-12-30",
+      "source": "Objectives: Capellan Confederation, p. 23"
+    },
+    {
+      "id": "st-ives-starcorps",
+      "systemId": "St. Ives",
+      "planet": "St. Ives",
+      "name": "StarCorps",
+      "products": [
+        "Avatar, Black Hawk-KU, and Sunder OmniMechs, Longbow and Emperor BattleMechs"
+      ],
+      "heavy": true,
+      "position": "Liaoning",
+      "date": "3079-12-30",
+      "source": "Objectives: Capellan Confederation, p. 23"
+    },
+    {
+      "id": "texlos-texlos-miltronics",
+      "systemId": "Texlos",
+      "planet": "Texlos",
+      "name": "Texlos Miltronics",
+      "products": [
+        "Communications and targeting and tracking systems"
+      ],
+      "heavy": false,
+      "position": "Valencia (Livius)",
+      "date": "3079-12-30",
+      "source": "Objectives: Capellan Confederation, p. 24"
+    },
+    {
+      "id": "warlock-ceres-metals",
+      "systemId": "Warlock",
+      "planet": "Warlock",
+      "name": "Ceres Metals",
+      "products": [
+        "Blackjack OmniMech, Cossack, Helios, Ostroc and Marauder BattleMechs",
+        "Minion Hovertank, Morningstar Command Vehicle"
+      ],
+      "heavy": true,
+      "position": "Solitude (Warlock)",
+      "date": "3079-12-30",
+      "source": "Objectives: Capellan Confederation, p. 24"
+    },
+    {
+      "id": "victoria-cc-earthwerks-limited",
+      "systemId": "Victoria (CC)",
+      "planet": "Victoria",
+      "name": "Earthwerks Limited",
+      "products": [
+        "Flea BattleMech"
+      ],
+      "heavy": true,
+      "position": "Victoria",
+      "date": "3079-12-30",
+      "source": "Objectives: Capellan Confederation, p. 25"
+    },
+    {
+      "id": "victoria-cc-shengli-arms",
+      "systemId": "Victoria (CC)",
+      "planet": "Victoria",
+      "name": "Shengli Arms",
+      "products": [
+        "Duan Gung, Jinggau, Lao Hu and BattleMechs"
+      ],
+      "heavy": true,
+      "position": "Pictish (Victoria)",
+      "date": "3079-12-30",
+      "source": "Objectives: Capellan Confederation, p. 25"
+    },
+    {
+      "id": "victoria-cc-trellis-electronics",
+      "systemId": "Victoria (CC)",
+      "planet": "Victoria",
+      "name": "Trellis Electronics",
+      "products": [
+        "Communications and targeting and tracking systems"
+      ],
+      "heavy": false,
+      "position": "Trellis (Victoria)",
+      "date": "3079-12-30",
+      "source": "Objectives: Capellan Confederation, p. 25"
+    },
+    {
+      "id": "axton-wangker-aerospace",
+      "systemId": "Axton",
+      "planet": "Axton",
+      "name": "Wangker Aerospace",
+      "products": [
+        "Corsair, Thunderbird Aerospace Fighters"
+      ],
+      "heavy": true,
+      "position": "Topell",
+      "date": "3080-01-30",
+      "source": "Objectives: Federated Suns, p. 6"
+    },
+    {
+      "id": "kathil-general-motors-annex",
+      "systemId": "Kathil",
+      "planet": "Kathil",
+      "name": "General Motors Annex",
+      "products": [
+        "Pandion WiGE, Ajax Assault Tank, Challenger MBT, Darter Scout Car, Minion Advanced Tactical Vehicle, Morningstar City Command Tank Vehicles"
+      ],
+      "heavy": true,
+      "position": "Nugent City (Muran)",
+      "date": "3080-01-30",
+      "source": "Objectives: Federated Suns, p. 7"
+    },
+    {
+      "id": "bell-cc-bell-refit-yards",
+      "systemId": "Bell (CC)",
+      "planet": "Bell",
+      "name": "Bell Refit Yards",
+      "products": [
+        "Firebee, Clint (Refit) BattleMechs, Refits"
+      ],
+      "heavy": true,
+      "position": "Watsonville (York)",
+      "date": "3080-01-30",
+      "source": "Objectives: Federated Suns, p. 7"
+    },
+    {
+      "id": "carmacks-federated-armor-a-division-of-federated-industries",
+      "systemId": "Carmacks",
+      "planet": "Carmacks",
+      "name": "Federated Armor (A division of Federated Industries)",
+      "products": [
+        "Personal Body Armor"
+      ],
+      "heavy": false,
+      "position": "Teluride (Yukon)",
+      "date": "3080-01-30",
+      "source": "Objectives: Federated Suns, p. 7"
+    },
+    {
+      "id": "new-hessen-hessen-industrialworks",
+      "systemId": "New Hessen",
+      "planet": "New Hessen",
+      "name": "Hessen IndustrialWorks",
+      "products": [
+        "BattleAxe and Hammerhands Primitive BattleMechs, Vedette, Striker, LRM carrier, Heavy Hover, Heavy Tracked, and Heavy Wheeled APCs, Defender II Medium Strike Fighter"
+      ],
+      "heavy": true,
+      "position": "Marburg (Hessia)",
+      "date": "3080-01-30",
+      "source": "Objectives: Federated Suns, p. 8"
+    },
+    {
+      "id": "new-hessen-federated-boeing-formerly-universal-air",
+      "systemId": "New Hessen",
+      "planet": "New Hessen",
+      "name": "Federated-Boeing (Formerly Universal Air)",
+      "products": [
+        "Invader JumpShip (repair only)"
+      ],
+      "heavy": false,
+      "position": "Universal Yards (Nadir JumpPoint)",
+      "date": "3080-01-30",
+      "source": "Objectives: Federated Suns, p. 8"
+    },
+    {
+      "id": "new-hessen-hessen-workmechs",
+      "systemId": "New Hessen",
+      "planet": "New Hessen",
+      "name": "Hessen WorkMechs",
+      "products": [
+        "Rook BattleMech"
+      ],
+      "heavy": true,
+      "position": "Fulda (Hessia)",
+      "date": "3080-01-30",
+      "source": "Objectives: Federated Suns, p. 9"
+    },
+    {
+      "id": "new-syrtis-new-syrtis-shipyards",
+      "systemId": "New Syrtis",
+      "planet": "New Syrtis",
+      "name": "New Syrtis Shipyards",
+      "products": [
+        "Jumpship Repair and Refits"
+      ],
+      "heavy": false,
+      "position": "LaGrange Point 4",
+      "date": "3080-01-30",
+      "source": "Objectives: Federated Suns, p. 9"
+    },
+    {
+      "id": "salem-general-motors",
+      "systemId": "Salem",
+      "planet": "Salem",
+      "name": "General Motors",
+      "products": [
+        "Ajax, APC, Behemoth, Challenger, Heavy Wheeled APC, Wheeled and Tracked APC, Pandion WiGE class vehicles, Hauberk Class Battle Armor"
+      ],
+      "heavy": true,
+      "position": "Eden (New England)",
+      "date": "3080-01-30",
+      "source": "Objectives: Federated Suns, p. 10"
+    },
+    {
+      "id": "talcott-general-motors",
+      "systemId": "Talcott",
+      "planet": "Talcott",
+      "name": "General Motors",
+      "products": [
+        "Blackjack, Whitworth (Refit) BattleMechs, Cavalier, Grenadier Battle Armor"
+      ],
+      "heavy": true,
+      "position": "Pelys Conn (South Hamilton)",
+      "date": "3080-01-30",
+      "source": "Objectives: Federated Suns, p. 10"
+    },
+    {
+      "id": "novaya-zemlya-federated-arms-a-division-of-federated-industries",
+      "systemId": "Novaya Zemlya",
+      "planet": "Novaya Zemlya",
+      "name": "Federated Arms (A division of Federated Industries)",
+      "products": [
+        "Small Arms"
+      ],
+      "heavy": false,
+      "position": "Arkangel (Yushny)",
+      "date": "3080-01-30",
+      "source": "Objectives: Federated Suns, p. 10"
+    },
+    {
+      "id": "belladonna-cal-boeing-combat-systems",
+      "systemId": "Belladonna",
+      "planet": "Belladonna",
+      "name": "Cal-Boeing Combat Systems",
+      "products": [
+        "Boomerang Spotter Plane, Cavalry, Ferret, Marten, Ripper VTOLs"
+      ],
+      "heavy": true,
+      "position": "Dorwinion (Morel)",
+      "date": "3080-01-30",
+      "source": "Objectives: Federated Suns, p. 12"
+    },
+    {
+      "id": "augusta-corean-enterprises",
+      "systemId": "Augusta",
+      "planet": "Augusta",
+      "name": "Corean Enterprises",
+      "products": [
+        "Devastator, Legionnaire BattleMechs"
+      ],
+      "heavy": true,
+      "position": "Livia (Capena)",
+      "date": "3080-01-30",
+      "source": "Objectives: Federated Suns, p. 12"
+    },
+    {
+      "id": "colorado-basantapur-fine-metals-aerospace-range",
+      "systemId": "Colorado",
+      "planet": "Colorado",
+      "name": "Basantapur Fine Metals Aerospace Range",
+      "products": [
+        "Aerospace Repair and Refit facilities, Drake Medium Strike Fighter"
+      ],
+      "heavy": true,
+      "position": "Apache (Yuma)",
+      "date": "3080-01-30",
+      "source": "Objectives: Federated Suns, p. 13"
+    },
+    {
+      "id": "bristol-jolassa-kumbold-armored-weapons",
+      "systemId": "Bristol",
+      "planet": "Bristol",
+      "name": "Jolassa-Kumbold Armored Weapons",
+      "products": [
+        "Fury Vehicle"
+      ],
+      "heavy": true,
+      "position": "Outside of Cardiff (Cymru)",
+      "date": "3080-01-30",
+      "source": "Objectives: Federated Suns, p. 13"
+    },
+    {
+      "id": "cahokia-achernar-battlemechs",
+      "systemId": "Cahokia",
+      "planet": "Cahokia",
+      "name": "Achernar BattleMechs",
+      "products": [
+        "Legionnaire BattleMech"
+      ],
+      "heavy": true,
+      "position": "Chicago (Peoria)",
+      "date": "3080-01-30",
+      "source": "Objectives: Federated Suns, p. 13"
+    },
+    {
+      "id": "delavan-federated-boeing",
+      "systemId": "Delavan",
+      "planet": "Delavan",
+      "name": "Federated-Boeing",
+      "products": [
+        "Excalibur, Excalibur PWS, Arondight DropShips, Invader, Star Lord JumpShips, Ares Assault Craft, Ares Landing Craft"
+      ],
+      "heavy": true,
+      "position": "Williams Bay (Galena), Universal Ship Yards (Orbiting Delavan III)",
+      "date": "3080-01-30",
+      "source": "Objectives: Federated Suns, p. 14"
+    },
+    {
+      "id": "delavan-dynamico-ltd",
+      "systemId": "Delavan",
+      "planet": "Delavan",
+      "name": "Dynamico Ltd.",
+      "products": [
+        "Aurora, Avenger, Buccaneer DropShips"
+      ],
+      "heavy": true,
+      "position": "Como (Galena)",
+      "date": "3080-01-30",
+      "source": "Objectives: Federated Suns, p. 14"
+    },
+    {
+      "id": "johnsondale-valiant-systems",
+      "systemId": "Johnsondale",
+      "planet": "Johnsondale",
+      "name": "Valiant Systems",
+      "products": [
+        "Pegasus Scout Hover Tank, Ranger AFV, Striker Light Tank, Pilum Heavy Tank"
+      ],
+      "heavy": true,
+      "position": "Rio (Amazonia)",
+      "date": "3080-01-30",
+      "source": "Objectives: Federated Suns, p. 15"
+    },
+    {
+      "id": "el-dorado-general-motors-el-camino-facility",
+      "systemId": "El Dorado",
+      "planet": "El Dorado",
+      "name": "General Motors El Camino Facility",
+      "products": [
+        "Warlord BattleMech, Repair and Refit facilities"
+      ],
+      "heavy": true,
+      "position": "City of Industry (San Diego)",
+      "date": "3080-01-30",
+      "source": "Objectives: Federated Suns, p. 15"
+    },
+    {
+      "id": "gulkana-yeffters-weapons-factory",
+      "systemId": "Gulkana",
+      "planet": "Gulkana",
+      "name": "Yeffters Weapons Factory",
+      "products": [
+        "Autocannons"
+      ],
+      "heavy": false,
+      "position": "Kanpur (Pangaea)",
+      "date": "3080-01-30",
+      "source": "Objectives: Federated Suns, p. 15"
+    },
+    {
+      "id": "layover-quikscell-company",
+      "systemId": "Layover",
+      "planet": "Layover",
+      "name": "Quikscell Company",
+      "products": [
+        "Autocannon, Arrow IV, LRM, SRM, and Laser Carriers, Heavy Tracked APC, Hetzer Wheeled Assault Gun, Scorpion Light Tank, Vedette Medium Tank"
+      ],
+      "heavy": true,
+      "position": "New Phoenix (Arizona)",
+      "date": "3080-01-30",
+      "source": "Objectives: Federated Suns, p. 16"
+    },
+    {
+      "id": "kirklin-kallon-weapon-industries",
+      "systemId": "Kirklin",
+      "planet": "Kirklin",
+      "name": "Kallon Weapon Industries",
+      "products": [
+        "Rifleman (Refit) BattleMech, Challenger MBT, Partisan Heavy Tank"
+      ],
+      "heavy": true,
+      "position": "Lake Semmes (Heffner)",
+      "date": "3080-01-30",
+      "source": "Objectives: Federated Suns, p. 16"
+    },
+    {
+      "id": "new-avalon-corean-enterprises",
+      "systemId": "New Avalon",
+      "planet": "New Avalon",
+      "name": "Corean Enterprises",
+      "products": [
+        "Fireball, Centurion, Valkyrie BattleMechs",
+        "Musketeer Hover Tank"
+      ],
+      "heavy": true,
+      "position": "Jeretha (Albion)",
+      "date": "3080-01-30",
+      "source": "Objectives: Federated Suns, p. 17"
+    },
+    {
+      "id": "layover-salvatore-inc",
+      "systemId": "Layover",
+      "planet": "Layover",
+      "name": "Salvatore Inc.",
+      "products": [
+        "Seeker DropShip, K-1 DropShuttle"
+      ],
+      "heavy": true,
+      "position": "St. Edwards (Arizona)",
+      "date": "3080-01-30",
+      "source": "Objectives: Federated Suns, p. 17"
+    },
+    {
+      "id": "layover-kallon-weapon-industries",
+      "systemId": "Layover",
+      "planet": "Layover",
+      "name": "Kallon Weapon Industries",
+      "products": [
+        "Arondight PWS, Vengeance DropShips"
+      ],
+      "heavy": true,
+      "position": "St. Edwards (Arizona)",
+      "date": "3080-01-30",
+      "source": "Objectives: Federated Suns, p. 17"
+    },
+    {
+      "id": "new-avalon-lycomb-davion-introtech",
+      "systemId": "New Avalon",
+      "planet": "New Avalon",
+      "name": "Lycomb-Davion IntroTech",
+      "products": [
+        "Stuka, Lighting Aerospace Fighters, Comet Light Strike Fighter, Artillery weapons"
+      ],
+      "heavy": true,
+      "position": "Ultron, Novais (Brunswick)",
+      "date": "3080-01-30",
+      "source": "Objectives: Federated Suns, p. 18"
+    },
+    {
+      "id": "new-avalon-achernar-battlemechs",
+      "systemId": "New Avalon",
+      "planet": "New Avalon",
+      "name": "Achernar BattleMechs",
+      "products": [
+        "Dervish, Enforcer III, Battleaxe, Hammerhands BattleMechs, Repair and Refit Facilities"
+      ],
+      "heavy": true,
+      "position": "Ith (Brunswick)",
+      "date": "3080-01-30",
+      "source": "Objectives: Federated Suns, p. 18"
+    },
+    {
+      "id": "new-avalon-albion-advanced-technologies-and-products-a-division-of-achernar-battlemechs",
+      "systemId": "New Avalon",
+      "planet": "New Avalon",
+      "name": "Albion Advanced Technologies and Products (A division of Achernar BattleMechs)",
+      "products": [
+        "Legionnaire BattleMechs, Cavalier, Grenadier, Infiltrator MK II, Sloth Battle Armors,"
+      ],
+      "heavy": true,
+      "position": "Grand Avalon Mountains (Albion)",
+      "date": "3080-01-30",
+      "source": "Objectives: Federated Suns, p. 18"
+    },
+    {
+      "id": "new-valencia-general-motors-heavy-industries",
+      "systemId": "New Valencia",
+      "planet": "New Valencia",
+      "name": "General Motors Heavy Industries",
+      "products": [
+        "Blackjack Omni, Falconer, Victor BattleMechs, Ajax Assault Tank, Pandion Combat WiGE Vehicles"
+      ],
+      "heavy": true,
+      "position": "San Angeles (Olivereta)",
+      "date": "3080-01-30",
+      "source": "Objectives: Federated Suns, p. 19"
+    },
+    {
+      "id": "new-damascus-hurricane-defense-a-division-of-federated-industries",
+      "systemId": "New Damascus",
+      "planet": "New Damascus",
+      "name": "Hurricane Defense (A division of Federated Industries)",
+      "products": [
+        "Heavy Weapons, Ammunition, Specialty Ammunition"
+      ],
+      "heavy": false,
+      "position": "Abbasiyyin (Qassaa’)",
+      "date": "3080-01-30",
+      "source": "Objectives: Federated Suns, p. 19"
+    },
+    {
+      "id": "benet-iii-johnston-industries",
+      "systemId": "Benet III",
+      "planet": "Benet III",
+      "name": "Johnston Industries",
+      "products": [
+        "Valiant BattleMech"
+      ],
+      "heavy": true,
+      "position": "Martine (Sierra)",
+      "date": "3080-01-30",
+      "source": "Objectives: Federated Suns, p. 22"
+    },
+    {
+      "id": "robinson-robinson-standard-battleworks",
+      "systemId": "Robinson",
+      "planet": "Robinson",
+      "name": "Robinson Standard BattleWorks",
+      "products": [
+        "Argus, Atlas, Sentry, Ostsol (Refit) BattleMechs"
+      ],
+      "heavy": true,
+      "position": "Tiberias (Canaan)",
+      "date": "3080-01-30",
+      "source": "Objectives: Federated Suns, p. 23"
+    },
+    {
+      "id": "cartago-joint-equipment-systems",
+      "systemId": "Cartago",
+      "planet": "Cartago",
+      "name": "Joint Equipment Systems",
+      "products": [
+        "Fusion Engines, Components"
+      ],
+      "heavy": false,
+      "position": "San Rafael (Jiménez)",
+      "date": "3080-01-30",
+      "source": "Objectives: Federated Suns, p. 23"
+    },
+    {
+      "id": "exeter-galtor-naval-yards",
+      "systemId": "Exeter",
+      "planet": "Exeter",
+      "name": "Galtor Naval Yards",
+      "products": [
+        "Neptune, Rapier Patrol Destroyer Vehicles"
+      ],
+      "heavy": true,
+      "position": "New Bristol (Bristol)",
+      "date": "3080-01-30",
+      "source": "Objectives: Federated Suns, p. 23"
+    },
+    {
+      "id": "tancredi-iv-precision-weaponry",
+      "systemId": "Tancredi IV",
+      "planet": "Tancredi IV",
+      "name": "Precision Weaponry",
+      "products": [
+        "Rifleman, Rook, and Battleaxe Primitive BattleMechs",
+        "Heavy Weapons"
+      ],
+      "heavy": true,
+      "position": "Buo Dane (Beawar)",
+      "date": "3080-01-30",
+      "source": "Objectives: Federated Suns, p. 24"
+    },
+    {
+      "id": "robinson-valiant-systems",
+      "systemId": "Robinson",
+      "planet": "Robinson",
+      "name": "Valiant Systems",
+      "products": [
+        "Heavy Weapons, Armor"
+      ],
+      "heavy": false,
+      "position": "Tiberias (Canaan)",
+      "date": "3080-01-30",
+      "source": "Objectives: Federated Suns, p. 24"
+    },
+    {
+      "id": "woodbine-clyde-shipyards",
+      "systemId": "Woodbine",
+      "planet": "Woodbine",
+      "name": "Clyde Shipyards",
+      "products": [
+        "Arondight, Colossus DropShips"
+      ],
+      "heavy": true,
+      "position": "Clyde Shipyards (Orbiting Firgrove)",
+      "date": "3080-01-30",
+      "source": "Objectives: Federated Suns, p. 27"
+    },
+    {
+      "id": "woodbine-geenock-flight-academy",
+      "systemId": "Woodbine",
+      "planet": "Woodbine",
+      "name": "Geenock Flight Academy",
+      "products": [
+        "Vulcan Aerospace Fighter"
+      ],
+      "heavy": true,
+      "position": "Ormond Intercontinental Aeroport (Geenock)",
+      "date": "3080-01-30",
+      "source": "Objectives: Federated Suns, p. 27"
+    },
+    {
+      "id": "macintosh-apple-computers-interstellar",
+      "systemId": "Macintosh",
+      "planet": "Macintosh",
+      "name": "Apple Computers Interstellar",
+      "products": [
+        "Communications and T&T Systems"
+      ],
+      "heavy": false,
+      "position": "New Delos (Kýthnos)",
+      "date": "3080-01-30",
+      "source": "Objectives: Federated Suns, p. 27"
+    },
+    {
+      "id": "crofton-starcorps-industries",
+      "systemId": "Crofton",
+      "planet": "Crofton",
+      "name": "StarCorps Industries",
+      "products": [
+        "Avatar, Black Hawk-KU, Emperor, Gallant, Longbow, Stalker, Sunder, Thanatos, Warhammer BattleMechs",
+        "J Edgar Light Hover Tank, Manteuffel Attack Tank Vehicles"
+      ],
+      "heavy": true,
+      "position": "Farrarrah (Annesland)",
+      "date": "3080-01-30",
+      "source": "Objectives: Federated Suns, p. 27"
+    },
+    {
+      "id": "panpour-jalastar-aerospace",
+      "systemId": "Panpour",
+      "planet": "Panpour",
+      "name": "Jalastar Aerospace",
+      "products": [
+        "Javelin BattleMech, Sabre, Sparrowhawk Aerospace Fighters",
+        "Comet, Defender II, Meteor-U Conventional Fighters, Condor Hover Tank, Myrmidon Medium Tank, Manticore Heavy Tank, Typhoon Assault Vehicles"
+      ],
+      "heavy": true,
+      "position": "Remig (Amristar) – BattleMechs; Kantara (Mestin) Aerospace, Conventional Vehicles",
+      "date": "3080-01-30",
+      "source": "Objectives: Federated Suns, p. 28"
+    },
+    {
+      "id": "panpour-joint-equipment-systems",
+      "systemId": "Panpour",
+      "planet": "Panpour",
+      "name": "Joint Equipment Systems",
+      "products": [
+        "JES I Tactical Missile Carrier, JES II Strategic Missile Carrier Vehicles"
+      ],
+      "heavy": true,
+      "position": "Kantara (Mestin)",
+      "date": "3080-01-30",
+      "source": "Objectives: Federated Suns, p. 28"
+    },
+    {
+      "id": "panpour-challenge-systems",
+      "systemId": "Panpour",
+      "planet": "Panpour",
+      "name": "Challenge Systems",
+      "products": [
+        "Monolith JumpShips"
+      ],
+      "heavy": true,
+      "position": "Challenge Yards (Orbiting Panpour IX)",
+      "date": "3080-01-30",
+      "source": "Objectives: Federated Suns, p. 28"
+    },
+    {
+      "id": "shawnee-iroquois-machinery-limited",
+      "systemId": "Shawnee",
+      "planet": "Shawnee",
+      "name": "Iroquois Machinery Limited",
+      "products": [
+        "Toro Primitive BattleMech"
+      ],
+      "heavy": true,
+      "position": "Chiksika (Oklahoma)",
+      "date": "3080-01-30",
+      "source": "Objectives: Federated Suns, p. 29"
+    }
+  ],
+  "garrisons": [
+    {
+      "systemId": "Addicks",
+      "date": "3054-01-01",
+      "faction": "FC",
+      "units": [
+        "Addicks DMM"
+      ],
+      "source": "Objective Raids, p. 13"
+    },
+    {
+      "systemId": "Dahar IV",
+      "date": "3054-01-01",
+      "faction": "FC",
+      "units": [
+        "Dahar DMM"
+      ],
+      "source": "Objective Raids, p. 13"
+    },
+    {
+      "systemId": "Kentares IV",
+      "date": "3054-01-01",
+      "faction": "FC",
+      "units": [
+        "Clovis DMM"
+      ],
+      "source": "Objective Raids, p. 13"
+    },
+    {
+      "systemId": "Le Blanc",
+      "date": "3054-01-01",
+      "faction": "FC",
+      "units": [
+        "Robinson DMM"
+      ],
+      "source": "Objective Raids, p. 13"
+    },
+    {
+      "systemId": "Northwind",
+      "date": "3054-01-01",
+      "faction": "FC",
+      "units": [
+        "2nd Kearny Highlanders, 1st Battalion",
+        "2nd Kearny Highlanders, 2nd Battalion"
+      ],
+      "source": "Objective Raids, p. 13"
+    },
+    {
+      "systemId": "Ozawa",
+      "date": "3054-01-01",
+      "faction": "FC",
+      "units": [
+        "2nd Kearny Highlanders, 3rd Battalion"
+      ],
+      "source": "Objective Raids, p. 13"
+    },
+    {
+      "systemId": "Raman",
+      "date": "3054-01-01",
+      "faction": "FC",
+      "units": [
+        "Raman DMM"
+      ],
+      "source": "Objective Raids, p. 13"
+    },
+    {
+      "systemId": "Robinson",
+      "date": "3054-01-01",
+      "faction": "FC",
+      "units": [
+        "Robinson Academy Training Battalion"
+      ],
+      "source": "Objective Raids, p. 13"
+    },
+    {
+      "systemId": "Sakhara V",
+      "date": "3054-01-01",
+      "faction": "FC",
+      "units": [
+        "Sakhara Academy Training Battalion"
+      ],
+      "source": "Objective Raids, p. 13"
+    },
+    {
+      "systemId": "Schedar",
+      "date": "3054-01-01",
+      "faction": "FC",
+      "units": [
+        "1st NAIS Cadet Cadre"
+      ],
+      "source": "Objective Raids, p. 13"
+    },
+    {
+      "systemId": "Alcyone",
+      "date": "3054-01-01",
+      "faction": "FC",
+      "units": [
+        "Alcyone CMM"
+      ],
+      "source": "Objective Raids, p. 14"
+    },
+    {
+      "systemId": "Axton",
+      "date": "3054-01-01",
+      "faction": "FC",
+      "units": [
+        "1st Bell Training Battalion"
+      ],
+      "source": "Objective Raids, p. 14"
+    },
+    {
+      "systemId": "Bremond",
+      "date": "3054-01-01",
+      "faction": "FC",
+      "units": [
+        "Bremond DMM"
+      ],
+      "source": "Objective Raids, p. 14"
+    },
+    {
+      "systemId": "Bryceland",
+      "date": "3054-01-01",
+      "faction": "FC",
+      "units": [
+        "Bryceland DMM"
+      ],
+      "source": "Objective Raids, p. 14"
+    },
+    {
+      "systemId": "Kathil",
+      "date": "3054-01-01",
+      "faction": "FC",
+      "units": [
+        "2nd NAIS Cadet Cadre"
+      ],
+      "source": "Objective Raids, p. 14"
+    },
+    {
+      "systemId": "Kilbourne",
+      "date": "3054-01-01",
+      "faction": "FC",
+      "units": [
+        "Kilbourne DMM"
+      ],
+      "source": "Objective Raids, p. 14"
+    },
+    {
+      "systemId": "Kittery",
+      "date": "3054-01-01",
+      "faction": "FC",
+      "units": [
+        "1st Kittery Borderers",
+        "1st Kittery Training Battalion"
+      ],
+      "source": "Objective Raids, p. 14"
+    },
+    {
+      "systemId": "Lee",
+      "date": "3054-01-01",
+      "faction": "FC",
+      "units": [
+        "5th Syrtis Fusiliers RCT"
+      ],
+      "source": "Objective Raids, p. 14"
+    },
+    {
+      "systemId": "Mayetta",
+      "date": "3054-01-01",
+      "faction": "FC",
+      "units": [
+        "Mayetta DMM"
+      ],
+      "source": "Objective Raids, p. 14"
+    },
+    {
+      "systemId": "Milligan",
+      "date": "3054-01-01",
+      "faction": "FC",
+      "units": [
+        "Milligan DMM"
+      ],
+      "source": "Objective Raids, p. 14"
+    },
+    {
+      "systemId": "Monhegan",
+      "date": "3054-01-01",
+      "faction": "FC",
+      "units": [
+        "8th Donegal Guards RCT"
+      ],
+      "source": "Objective Raids, p. 14"
+    },
+    {
+      "systemId": "Tancredi IV",
+      "date": "3054-01-01",
+      "faction": "FC",
+      "units": [
+        "1st Conroe Training Battalion"
+      ],
+      "source": "Objective Raids, p. 14"
+    },
+    {
+      "systemId": "Valexa",
+      "date": "3054-01-01",
+      "faction": "FC",
+      "units": [
+        "Valexa CMM"
+      ],
+      "source": "Objective Raids, p. 14"
+    },
+    {
+      "systemId": "Brockway",
+      "date": "3054-01-01",
+      "faction": "FC",
+      "units": [
+        "Lexington Combat Group, Frederic's Gazelles"
+      ],
+      "source": "Objective Raids, p. 15"
+    },
+    {
+      "systemId": "Bromhead",
+      "date": "3054-01-01",
+      "faction": "FC",
+      "units": [
+        "Hansen's Roughriders"
+      ],
+      "source": "Objective Raids, p. 15"
+    },
+    {
+      "systemId": "Delavan",
+      "date": "3054-01-01",
+      "faction": "FC",
+      "units": [
+        "19th Arcturan Guards, 1st Battalion"
+      ],
+      "source": "Objective Raids, p. 15"
+    },
+    {
+      "systemId": "Enchi",
+      "date": "3054-01-01",
+      "faction": "FC",
+      "units": [
+        "2nd Albion Training Cadre"
+      ],
+      "source": "Objective Raids, p. 15"
+    },
+    {
+      "systemId": "Frazer",
+      "date": "3054-01-01",
+      "faction": "FC",
+      "units": [
+        "Davion Assault Guards RCT"
+      ],
+      "source": "Objective Raids, p. 15"
+    },
+    {
+      "systemId": "Glentworth",
+      "date": "3054-01-01",
+      "faction": "FC",
+      "units": [
+        "3rd Illician Lancers (4th Rangers)"
+      ],
+      "source": "Objective Raids, p. 15"
+    },
+    {
+      "systemId": "Horsham",
+      "date": "3054-01-01",
+      "faction": "FC",
+      "units": [
+        "1st Capellan Dragoons"
+      ],
+      "source": "Objective Raids, p. 15"
+    },
+    {
+      "systemId": "Immenstadt",
+      "date": "3054-01-01",
+      "faction": "FC",
+      "units": [
+        "4th Illician Lancers (9th Rangers)"
+      ],
+      "source": "Objective Raids, p. 15"
+    },
+    {
+      "systemId": "Johnsondale",
+      "date": "3054-01-01",
+      "faction": "FC",
+      "units": [
+        "Goshen War College Training Battalion"
+      ],
+      "source": "Objective Raids, p. 15"
+    },
+    {
+      "systemId": "Kestrel",
+      "date": "3054-01-01",
+      "faction": "FC",
+      "units": [
+        "Kestrel CMM"
+      ],
+      "source": "Objective Raids, p. 15"
+    },
+    {
+      "systemId": "Layover",
+      "date": "3054-01-01",
+      "faction": "FC",
+      "units": [
+        "1st Aragon Borderers"
+      ],
+      "source": "Objective Raids, p. 15"
+    },
+    {
+      "systemId": "Lindsay",
+      "date": "3054-01-01",
+      "faction": "FC",
+      "units": [
+        "Lexington Combat Group, 32nd Recon"
+      ],
+      "source": "Objective Raids, p. 15"
+    },
+    {
+      "systemId": "Lothair",
+      "date": "3054-01-01",
+      "faction": "FC",
+      "units": [
+        "8th Syrtis Fusiliers RCT"
+      ],
+      "source": "Objective Raids, p. 15"
+    },
+    {
+      "systemId": "Manapire",
+      "date": "3054-01-01",
+      "faction": "FC",
+      "units": [
+        "3rd Ceti Hussars RCT"
+      ],
+      "source": "Objective Raids, p. 15"
+    },
+    {
+      "systemId": "Marlette",
+      "date": "3054-01-01",
+      "faction": "FC",
+      "units": [
+        "Marlette CMM"
+      ],
+      "source": "Objective Raids, p. 15"
+    },
+    {
+      "systemId": "Mendham",
+      "date": "3054-01-01",
+      "faction": "FC",
+      "units": [
+        "2nd Illician Lancers (21st Rangers)"
+      ],
+      "source": "Objective Raids, p. 15"
+    },
+    {
+      "systemId": "Midale",
+      "date": "3054-01-01",
+      "faction": "FC",
+      "units": [
+        "Lexington Combat Group, Marie's Golden Hammers"
+      ],
+      "source": "Objective Raids, p. 15"
+    },
+    {
+      "systemId": "New Avalon",
+      "date": "3054-01-01",
+      "faction": "FC",
+      "units": [
+        "New Avalon CMM",
+        "1st Davion Guards RCT",
+        "Davion Heavy Guards RCT",
+        "Team Banzai"
+      ],
+      "source": "Objective Raids, p. 15"
+    },
+    {
+      "systemId": "New Syrtis",
+      "date": "3054-01-01",
+      "faction": "FC",
+      "units": [
+        "New Syrtis CMM"
+      ],
+      "source": "Objective Raids, p. 15"
+    },
+    {
+      "systemId": "Ridgebrook",
+      "date": "3054-01-01",
+      "faction": "FC",
+      "units": [
+        "Ridgebrook CMM"
+      ],
+      "source": "Objective Raids, p. 15"
+    },
+    {
+      "systemId": "Salem",
+      "date": "3054-01-01",
+      "faction": "FC",
+      "units": [
+        "19th Arcturan Guards, 3rd Battalion"
+      ],
+      "source": "Objective Raids, p. 15"
+    },
+    {
+      "systemId": "Sirdar",
+      "date": "3054-01-01",
+      "faction": "FC",
+      "units": [
+        "Sirdar CMM"
+      ],
+      "source": "Objective Raids, p. 15"
+    },
+    {
+      "systemId": "Talcott",
+      "date": "3054-01-01",
+      "faction": "FC",
+      "units": [
+        "19th Arcturan Guards, 2nd Battalion"
+      ],
+      "source": "Objective Raids, p. 15"
+    },
+    {
+      "systemId": "Uravan",
+      "date": "3054-01-01",
+      "faction": "FC",
+      "units": [
+        "2nd Ceti Hussars RCT"
+      ],
+      "source": "Objective Raids, p. 15"
+    },
+    {
+      "systemId": "Velhas",
+      "date": "3054-01-01",
+      "faction": "FC",
+      "units": [
+        "4th Donegal Guards RCT"
+      ],
+      "source": "Objective Raids, p. 15"
+    },
+    {
+      "systemId": "Verlo",
+      "date": "3054-01-01",
+      "faction": "FC",
+      "units": [
+        "15th Deneb Light Cavalry RCT"
+      ],
+      "source": "Objective Raids, p. 15"
+    },
+    {
+      "systemId": "Warren",
+      "date": "3054-01-01",
+      "faction": "FC",
+      "units": [
+        "Warren CMM"
+      ],
+      "source": "Objective Raids, p. 15"
+    },
+    {
+      "systemId": "Ziliang",
+      "date": "3054-01-01",
+      "faction": "FC",
+      "units": [
+        "1st Federated Suns Armored Cavalry"
+      ],
+      "source": "Objective Raids, p. 15"
+    },
+    {
+      "systemId": "Anjin Muerto",
+      "date": "3054-01-01",
+      "faction": "FC",
+      "units": [
+        "Anjin Muerto CMM"
+      ],
+      "source": "Objective Raids, p. 16"
+    },
+    {
+      "systemId": "Brockton",
+      "date": "3054-01-01",
+      "faction": "FC",
+      "units": [
+        "1st Brockton Training Battalion"
+      ],
+      "source": "Objective Raids, p. 16"
+    },
+    {
+      "systemId": "Broken Wheel",
+      "date": "3054-01-01",
+      "faction": "FC",
+      "units": [
+        "1st Albion Training Cadre"
+      ],
+      "source": "Objective Raids, p. 16"
+    },
+    {
+      "systemId": "Filtvelt",
+      "date": "3054-01-01",
+      "faction": "FC",
+      "units": [
+        "Filtvet Academy Training Battalion"
+      ],
+      "source": "Objective Raids, p. 16"
+    },
+    {
+      "systemId": "Islamabad",
+      "date": "3054-01-01",
+      "faction": "FC",
+      "units": [
+        "Islamabad CMM"
+      ],
+      "source": "Objective Raids, p. 16"
+    },
+    {
+      "systemId": "Malagrotta",
+      "date": "3054-01-01",
+      "faction": "FC",
+      "units": [
+        "Malagrotta CMM"
+      ],
+      "source": "Objective Raids, p. 16"
+    },
+    {
+      "systemId": "Nunivak",
+      "date": "3054-01-01",
+      "faction": "FC",
+      "units": [
+        "Remagen CMM"
+      ],
+      "source": "Objective Raids, p. 16"
+    },
+    {
+      "systemId": "Point Barrow",
+      "date": "3054-01-01",
+      "faction": "FC",
+      "units": [
+        "Point Barrow Academy Training Battalion"
+      ],
+      "source": "Objective Raids, p. 16"
+    },
+    {
+      "systemId": "Tsamma",
+      "date": "3054-01-01",
+      "faction": "FC",
+      "units": [
+        "Tsamma CMM"
+      ],
+      "source": "Objective Raids, p. 16"
+    },
+    {
+      "systemId": "Achernar",
+      "date": "3054-01-01",
+      "faction": "FC",
+      "units": [
+        "Achernar SMM"
+      ],
+      "source": "Objective Raids, p. 17"
+    },
+    {
+      "systemId": "Bora",
+      "date": "3054-01-01",
+      "faction": "FC",
+      "units": [
+        "5th Syrtis Fusiliers RCT"
+      ],
+      "source": "Objective Raids, p. 17"
+    },
+    {
+      "systemId": "Campertown",
+      "date": "3054-01-01",
+      "faction": "FC",
+      "units": [
+        "12th Vegan Rangers, Alpha Regiment"
+      ],
+      "source": "Objective Raids, p. 17"
+    },
+    {
+      "systemId": "Chamdo",
+      "date": "3054-01-01",
+      "faction": "FC",
+      "units": [
+        "12th Vegan Rangers, Delta Regiment"
+      ],
+      "source": "Objective Raids, p. 17"
+    },
+    {
+      "systemId": "Corey",
+      "date": "3054-01-01",
+      "faction": "FC",
+      "units": [
+        "Corey SMM"
+      ],
+      "source": "Objective Raids, p. 17"
+    },
+    {
+      "systemId": "Elnath",
+      "date": "3054-01-01",
+      "faction": "FC",
+      "units": [
+        "15th Arcturan Guards"
+      ],
+      "source": "Objective Raids, p. 17"
+    },
+    {
+      "systemId": "Gan Singh",
+      "date": "3054-01-01",
+      "faction": "FC",
+      "units": [
+        "1st F-C RCT"
+      ],
+      "source": "Objective Raids, p. 17"
+    },
+    {
+      "systemId": "Kaifeng",
+      "date": "3054-01-01",
+      "faction": "FC",
+      "units": [
+        "Kaifeng SMM"
+      ],
+      "source": "Objective Raids, p. 17"
+    },
+    {
+      "systemId": "Lesalles",
+      "date": "3054-01-01",
+      "faction": "FC",
+      "units": [
+        "4th F-C RCT"
+      ],
+      "source": "Objective Raids, p. 17"
+    },
+    {
+      "systemId": "Liao (Cynthiana 2202-)",
+      "date": "3054-01-01",
+      "faction": "FC",
+      "units": [
+        "Liao SMM"
+      ],
+      "source": "Objective Raids, p. 17"
+    },
+    {
+      "systemId": "New Canton",
+      "date": "3054-01-01",
+      "faction": "FC",
+      "units": [
+        "1st Kestral Grenadiers"
+      ],
+      "source": "Objective Raids, p. 17"
+    },
+    {
+      "systemId": "Old Kentucky",
+      "date": "3054-01-01",
+      "faction": "FC",
+      "units": [
+        "12th Vegan Rangers, Gamma Regiment"
+      ],
+      "source": "Objective Raids, p. 17"
+    },
+    {
+      "systemId": "Phact",
+      "date": "3054-01-01",
+      "faction": "FC",
+      "units": [
+        "2nd Robinson Rangers"
+      ],
+      "source": "Objective Raids, p. 17"
+    },
+    {
+      "systemId": "Saiph",
+      "date": "3054-01-01",
+      "faction": "FC",
+      "units": [
+        "5th Lyran Regulars, 1st Battalion"
+      ],
+      "source": "Objective Raids, p. 17"
+    },
+    {
+      "systemId": "Sarmaxa",
+      "date": "3054-01-01",
+      "faction": "FC",
+      "units": [
+        "Grim Determination"
+      ],
+      "source": "Objective Raids, p. 17"
+    },
+    {
+      "systemId": "Sarna",
+      "date": "3054-01-01",
+      "faction": "FC",
+      "units": [
+        "3rd F-C RCT",
+        "Sarna Martial Academy Training Group (1 Battalion)"
+      ],
+      "source": "Objective Raids, p. 17"
+    },
+    {
+      "systemId": "Second Try",
+      "date": "3054-01-01",
+      "faction": "FC",
+      "units": [
+        "8th F-C RCT"
+      ],
+      "source": "Objective Raids, p. 17"
+    },
+    {
+      "systemId": "Shensi",
+      "date": "3054-01-01",
+      "faction": "FC",
+      "units": [
+        "5th Crucis Lancers RCT"
+      ],
+      "source": "Objective Raids, p. 17"
+    },
+    {
+      "systemId": "Styk",
+      "date": "3054-01-01",
+      "faction": "FC",
+      "units": [
+        "3rd Donegal Guards"
+      ],
+      "source": "Objective Raids, p. 17"
+    },
+    {
+      "systemId": "Tall Trees",
+      "date": "3054-01-01",
+      "faction": "FC",
+      "units": [
+        "5th Lyran Regulars, 2nd Battalion",
+        "5th Lyran Regulars, 3rd Battalion"
+      ],
+      "source": "Objective Raids, p. 17"
+    },
+    {
+      "systemId": "Tigress",
+      "date": "3054-01-01",
+      "faction": "FC",
+      "units": [
+        "Laurel's Legion"
+      ],
+      "source": "Objective Raids, p. 17"
+    },
+    {
+      "systemId": "Tikonov",
+      "date": "3054-01-01",
+      "faction": "FC",
+      "units": [
+        "Tikonov Martial Academy Training Group"
+      ],
+      "source": "Objective Raids, p. 17"
+    },
+    {
+      "systemId": "Truth",
+      "date": "3054-01-01",
+      "faction": "FC",
+      "units": [
+        "20th Avalon Hussars RCT"
+      ],
+      "source": "Objective Raids, p. 17"
+    },
+    {
+      "systemId": "Tsinghai (New Sarna)",
+      "date": "3054-01-01",
+      "faction": "FC",
+      "units": [
+        "12th Vegan Rangers, Beta Regiment"
+      ],
+      "source": "Objective Raids, p. 17"
+    },
+    {
+      "systemId": "Tsingtao",
+      "date": "3054-01-01",
+      "faction": "FC",
+      "units": [
+        "36th Lyran Guards RCT"
+      ],
+      "source": "Objective Raids, p. 17"
+    },
+    {
+      "systemId": "Tsitsang",
+      "date": "3054-01-01",
+      "faction": "FC",
+      "units": [
+        "5th F-C RCT"
+      ],
+      "source": "Objective Raids, p. 17"
+    },
+    {
+      "systemId": "Wazan",
+      "date": "3054-01-01",
+      "faction": "FC",
+      "units": [
+        "6th Syrtis Fusiliers RCT"
+      ],
+      "source": "Objective Raids, p. 17"
+    },
+    {
+      "systemId": "Wei",
+      "date": "3054-01-01",
+      "faction": "FC",
+      "units": [
+        "Wei SMM"
+      ],
+      "source": "Objective Raids, p. 17"
+    },
+    {
+      "systemId": "Accrington",
+      "date": "3054-01-01",
+      "faction": "FC",
+      "units": [
+        "Accrington SMM"
+      ],
+      "source": "Objective Raids, p. 18"
+    },
+    {
+      "systemId": "Alexandria (LC)",
+      "date": "3054-01-01",
+      "faction": "FC",
+      "units": [
+        "Alexandria SMM"
+      ],
+      "source": "Objective Raids, p. 18"
+    },
+    {
+      "systemId": "Elgin (Chisholm 2878-)",
+      "date": "3054-01-01",
+      "faction": "FC",
+      "units": [
+        "5th Republican"
+      ],
+      "source": "Objective Raids, p. 18"
+    },
+    {
+      "systemId": "Epsilon Eridani",
+      "date": "3054-01-01",
+      "faction": "FC",
+      "units": [
+        "Epsilon Eridani SMM"
+      ],
+      "source": "Objective Raids, p. 18"
+    },
+    {
+      "systemId": "Hall",
+      "date": "3054-01-01",
+      "faction": "FC",
+      "units": [
+        "4th Republican"
+      ],
+      "source": "Objective Raids, p. 18"
+    },
+    {
+      "systemId": "Hsien",
+      "date": "3054-01-01",
+      "faction": "FC",
+      "units": [
+        "2nd F-C RCT"
+      ],
+      "source": "Objective Raids, p. 18"
+    },
+    {
+      "systemId": "Nanking",
+      "date": "3054-01-01",
+      "faction": "FC",
+      "units": [
+        "Nanking SMM"
+      ],
+      "source": "Objective Raids, p. 18"
+    },
+    {
+      "systemId": "New Home",
+      "date": "3054-01-01",
+      "faction": "FC",
+      "units": [
+        "30th Lyran Guards RCT"
+      ],
+      "source": "Objective Raids, p. 18"
+    },
+    {
+      "systemId": "Port Moseby",
+      "date": "3054-01-01",
+      "faction": "FC",
+      "units": [
+        "3rd Royal Guards RCT"
+      ],
+      "source": "Objective Raids, p. 18"
+    },
+    {
+      "systemId": "Small World",
+      "date": "3054-01-01",
+      "faction": "FC",
+      "units": [
+        "6th F-C RCT"
+      ],
+      "source": "Objective Raids, p. 18"
+    },
+    {
+      "systemId": "Talitha",
+      "date": "3054-01-01",
+      "faction": "FC",
+      "units": [
+        "1st Republican"
+      ],
+      "source": "Objective Raids, p. 18"
+    },
+    {
+      "systemId": "Van Diemen IV",
+      "date": "3054-01-01",
+      "faction": "FC",
+      "units": [
+        "3rd Republican"
+      ],
+      "source": "Objective Raids, p. 18"
+    },
+    {
+      "systemId": "Wasat",
+      "date": "3054-01-01",
+      "faction": "FC",
+      "units": [
+        "2nd Republican"
+      ],
+      "source": "Objective Raids, p. 18"
+    },
+    {
+      "systemId": "Callison",
+      "date": "3054-01-01",
+      "faction": "FC",
+      "units": [
+        "11th Lyran Guards RCT"
+      ],
+      "source": "Objective Raids, p. 19"
+    },
+    {
+      "systemId": "Dar-es-Salaam",
+      "date": "3054-01-01",
+      "faction": "FC",
+      "units": [
+        "Dar-es-Salaam TMM"
+      ],
+      "source": "Objective Raids, p. 19"
+    },
+    {
+      "systemId": "Denebola",
+      "date": "3054-01-01",
+      "faction": "FC",
+      "units": [
+        "Denebola SMM"
+      ],
+      "source": "Objective Raids, p. 19"
+    },
+    {
+      "systemId": "Edasich",
+      "date": "3054-01-01",
+      "faction": "FC",
+      "units": [
+        "Cranston Snord's Irregulars (1 Battalion)"
+      ],
+      "source": "Objective Raids, p. 19"
+    },
+    {
+      "systemId": "Ford",
+      "date": "3054-01-01",
+      "faction": "FC",
+      "units": [
+        "14th Lyran Guards RCT"
+      ],
+      "source": "Objective Raids, p. 19"
+    },
+    {
+      "systemId": "Furillo",
+      "date": "3054-01-01",
+      "faction": "FC",
+      "units": [
+        "Furillo TMM"
+      ],
+      "source": "Objective Raids, p. 19"
+    },
+    {
+      "systemId": "Gacrux",
+      "date": "3054-01-01",
+      "faction": "FC",
+      "units": [
+        "Gacrux SMM"
+      ],
+      "source": "Objective Raids, p. 19"
+    },
+    {
+      "systemId": "Giausar",
+      "date": "3054-01-01",
+      "faction": "FC",
+      "units": [
+        "4th Crucis Lancers RCT"
+      ],
+      "source": "Objective Raids, p. 19"
+    },
+    {
+      "systemId": "Gienah",
+      "date": "3054-01-01",
+      "faction": "FC",
+      "units": [
+        "2nd Donegal Guards RCT"
+      ],
+      "source": "Objective Raids, p. 19"
+    },
+    {
+      "systemId": "Hesperus II",
+      "date": "3054-01-01",
+      "faction": "FC",
+      "units": [
+        "15th Lyran Guards RCT",
+        "3rd Davion Guards RCT"
+      ],
+      "source": "Objective Raids, p. 19"
+    },
+    {
+      "systemId": "Launam",
+      "date": "3054-01-01",
+      "faction": "FC",
+      "units": [
+        "7th Donegal Guards (3rd Battalion)"
+      ],
+      "source": "Objective Raids, p. 19"
+    },
+    {
+      "systemId": "Lyons",
+      "date": "3054-01-01",
+      "faction": "FC",
+      "units": [
+        "Lyons SMM"
+      ],
+      "source": "Objective Raids, p. 19"
+    },
+    {
+      "systemId": "Marcus",
+      "date": "3054-01-01",
+      "faction": "FC",
+      "units": [
+        "12th F-C RCT"
+      ],
+      "source": "Objective Raids, p. 19"
+    },
+    {
+      "systemId": "Nekkar",
+      "date": "3054-01-01",
+      "faction": "FC",
+      "units": [
+        "Nekkar SMM"
+      ],
+      "source": "Objective Raids, p. 19"
+    },
+    {
+      "systemId": "New Earth (Tau Ceti 2116-)",
+      "date": "3054-01-01",
+      "faction": "FC",
+      "units": [
+        "3rd NAIS Cadet Cadre (3rd Battalion)"
+      ],
+      "source": "Objective Raids, p. 19"
+    },
+    {
+      "systemId": "New Kyoto",
+      "date": "3054-01-01",
+      "faction": "FC",
+      "units": [
+        "10th Skye Rangers"
+      ],
+      "source": "Objective Raids, p. 19"
+    },
+    {
+      "systemId": "Oliver",
+      "date": "3054-01-01",
+      "faction": "FC",
+      "units": [
+        "3rd NAIS Cadet Cadre (1st and 2nd Battalions)"
+      ],
+      "source": "Objective Raids, p. 19"
+    },
+    {
+      "systemId": "Phecda",
+      "date": "3054-01-01",
+      "faction": "FC",
+      "units": [
+        "Harlock's Warriors"
+      ],
+      "source": "Objective Raids, p. 19"
+    },
+    {
+      "systemId": "Rahne",
+      "date": "3054-01-01",
+      "faction": "FC",
+      "units": [
+        "7th Donegal Guards (1st and 2nd Battalions)"
+      ],
+      "source": "Objective Raids, p. 19"
+    },
+    {
+      "systemId": "Skye",
+      "date": "3054-01-01",
+      "faction": "FC",
+      "units": [
+        "11th F-C RCT"
+      ],
+      "source": "Objective Raids, p. 19"
+    },
+    {
+      "systemId": "Solaris",
+      "date": "3054-01-01",
+      "faction": "FC",
+      "units": [
+        "32nd Lyran Guards RCT"
+      ],
+      "source": "Objective Raids, p. 19"
+    },
+    {
+      "systemId": "Summer",
+      "date": "3054-01-01",
+      "faction": "FC",
+      "units": [
+        "Kilbourne Academy Training Battalion"
+      ],
+      "source": "Objective Raids, p. 19"
+    },
+    {
+      "systemId": "Wyatt",
+      "date": "3054-01-01",
+      "faction": "FC",
+      "units": [
+        "17th Arcturan Guards RCT"
+      ],
+      "source": "Objective Raids, p. 19"
+    },
+    {
+      "systemId": "Alekseyevka",
+      "date": "3054-01-01",
+      "faction": "FC",
+      "units": [
+        "Alekseyevka PMM"
+      ],
+      "source": "Objective Raids, p. 20"
+    },
+    {
+      "systemId": "Buena",
+      "date": "3054-01-01",
+      "faction": "FC",
+      "units": [
+        "Buena War College Training Battalion"
+      ],
+      "source": "Objective Raids, p. 20"
+    },
+    {
+      "systemId": "Cavanaugh II",
+      "date": "3054-01-01",
+      "faction": "FC",
+      "units": [
+        "6th Donegal Guards RCT"
+      ],
+      "source": "Objective Raids, p. 20"
+    },
+    {
+      "systemId": "Dixie",
+      "date": "3054-01-01",
+      "faction": "FC",
+      "units": [
+        "Dixie TMM"
+      ],
+      "source": "Objective Raids, p. 20"
+    },
+    {
+      "systemId": "Florida",
+      "date": "3054-01-01",
+      "faction": "FC",
+      "units": [
+        "Florida PMM"
+      ],
+      "source": "Objective Raids, p. 20"
+    },
+    {
+      "systemId": "Khon Kaen",
+      "date": "3054-01-01",
+      "faction": "FC",
+      "units": [
+        "Mobile Fire, 1st Battalion"
+      ],
+      "source": "Objective Raids, p. 20"
+    },
+    {
+      "systemId": "Langhorne",
+      "date": "3054-01-01",
+      "faction": "FC",
+      "units": [
+        "6th Crucis Lancers RCT"
+      ],
+      "source": "Objective Raids, p. 20"
+    },
+    {
+      "systemId": "Loric",
+      "date": "3054-01-01",
+      "faction": "FC",
+      "units": [
+        "7th Lyran Regulars"
+      ],
+      "source": "Objective Raids, p. 20"
+    },
+    {
+      "systemId": "Madiun",
+      "date": "3054-01-01",
+      "faction": "FC",
+      "units": [
+        "Mobile Fire, 2nd Battalion"
+      ],
+      "source": "Objective Raids, p. 20"
+    },
+    {
+      "systemId": "New India",
+      "date": "3054-01-01",
+      "faction": "FC",
+      "units": [
+        "8th Lyran Regulars"
+      ],
+      "source": "Objective Raids, p. 20"
+    },
+    {
+      "systemId": "Penobscot",
+      "date": "3054-01-01",
+      "faction": "FC",
+      "units": [
+        "Penobscot TMM"
+      ],
+      "source": "Objective Raids, p. 20"
+    },
+    {
+      "systemId": "Poulsbo",
+      "date": "3054-01-01",
+      "faction": "FC",
+      "units": [
+        "42nd Avalon Hussars RCT"
+      ],
+      "source": "Objective Raids, p. 20"
+    },
+    {
+      "systemId": "Son Hoa",
+      "date": "3054-01-01",
+      "faction": "FC",
+      "units": [
+        "Mobile Fire, 3rd Battalion"
+      ],
+      "source": "Objective Raids, p. 20"
+    },
+    {
+      "systemId": "Teyvareb",
+      "date": "3054-01-01",
+      "faction": "FC",
+      "units": [
+        "Teyvareb PMM"
+      ],
+      "source": "Objective Raids, p. 20"
+    },
+    {
+      "systemId": "Timbiqui",
+      "date": "3054-01-01",
+      "faction": "FC",
+      "units": [
+        "10th Lyran Regulars"
+      ],
+      "source": "Objective Raids, p. 20"
+    },
+    {
+      "systemId": "Timbuktu",
+      "date": "3054-01-01",
+      "faction": "FC",
+      "units": [
+        "11th Arcturan Guards RCT"
+      ],
+      "source": "Objective Raids, p. 20"
+    },
+    {
+      "systemId": "Alarion",
+      "date": "3054-01-01",
+      "faction": "FC",
+      "units": [
+        "Alarion DMM"
+      ],
+      "source": "Objective Raids, p. 21"
+    },
+    {
+      "systemId": "Carlisle",
+      "date": "3054-01-01",
+      "faction": "FC",
+      "units": [
+        "Carlisle DMM"
+      ],
+      "source": "Objective Raids, p. 21"
+    },
+    {
+      "systemId": "Chahar",
+      "date": "3054-01-01",
+      "faction": "FC",
+      "units": [
+        "Chahar PMM",
+        "1st Ceti Hussars RCT",
+        "The Knights of St. Cameron"
+      ],
+      "source": "Objective Raids, p. 21"
+    },
+    {
+      "systemId": "Donegal",
+      "date": "3054-01-01",
+      "faction": "FC",
+      "units": [
+        "24th Lyran Guards RCT"
+      ],
+      "source": "Objective Raids, p. 21"
+    },
+    {
+      "systemId": "Engadine",
+      "date": "3054-01-01",
+      "faction": "FC",
+      "units": [
+        "22nd Skye Rangers"
+      ],
+      "source": "Objective Raids, p. 21"
+    },
+    {
+      "systemId": "Hood IV",
+      "date": "3054-01-01",
+      "faction": "FC",
+      "units": [
+        "15th Lyran Regulars"
+      ],
+      "source": "Objective Raids, p. 21"
+    },
+    {
+      "systemId": "Main Street",
+      "date": "3054-01-01",
+      "faction": "FC",
+      "units": [
+        "9th Lyran Regulars"
+      ],
+      "source": "Objective Raids, p. 21"
+    },
+    {
+      "systemId": "Neerabup",
+      "date": "3054-01-01",
+      "faction": "FC",
+      "units": [
+        "Neerabup PMM"
+      ],
+      "source": "Objective Raids, p. 21"
+    },
+    {
+      "systemId": "Qanatir",
+      "date": "3054-01-01",
+      "faction": "FC",
+      "units": [
+        "Qanatir PMM"
+      ],
+      "source": "Objective Raids, p. 21"
+    },
+    {
+      "systemId": "Tharkad",
+      "date": "3054-01-01",
+      "faction": "FC",
+      "units": [
+        "1st Royal Guards RCT",
+        "2nd Royal Guards RCT"
+      ],
+      "source": "Objective Raids, p. 21"
+    },
+    {
+      "systemId": "Winter",
+      "date": "3054-01-01",
+      "faction": "FC",
+      "units": [
+        "7th Crucis Lancers RCT"
+      ],
+      "source": "Objective Raids, p. 21"
+    },
+    {
+      "systemId": "A Place",
+      "date": "3054-01-01",
+      "faction": "FC",
+      "units": [
+        "23rd Arcturan Guards RCT",
+        "Lindon's Battalion (formerly Lindon's Regiment)"
+      ],
+      "source": "Objective Raids, p. 22"
+    },
+    {
+      "systemId": "Ballynure",
+      "date": "3054-01-01",
+      "faction": "FC",
+      "units": [
+        "1st Crucis Lancers RCT",
+        "The Fighting Urakhai, 8th Striker (2 Battalions)",
+        "The Fighting Urakhai, Roman's Bar Hounds (1 Battalion)"
+      ],
+      "source": "Objective Raids, p. 22"
+    },
+    {
+      "systemId": "Barcelona",
+      "date": "3054-01-01",
+      "faction": "FC",
+      "units": [
+        "24th Arcturan Guards RCT",
+        "17th Skye Rangers"
+      ],
+      "source": "Objective Raids, p. 22"
+    },
+    {
+      "systemId": "Blue Hole",
+      "date": "3054-01-01",
+      "faction": "FC",
+      "units": [
+        "2nd Davion Guards RCT",
+        "Stirling's Fusiliers (1 Battalion)"
+      ],
+      "source": "Objective Raids, p. 22"
+    },
+    {
+      "systemId": "Clermont",
+      "date": "3054-01-01",
+      "faction": "FC",
+      "units": [
+        "22nd Avalon Hussars RCT (2 Battalions)",
+        "Narhal's Raiders (4 Battalions)"
+      ],
+      "source": "Objective Raids, p. 22"
+    },
+    {
+      "systemId": "Dustball",
+      "date": "3054-01-01",
+      "faction": "FC",
+      "units": [
+        "11th Avalon Hussars RCT"
+      ],
+      "source": "Objective Raids, p. 22"
+    },
+    {
+      "systemId": "Glengarry",
+      "date": "3054-01-01",
+      "faction": "FC",
+      "units": [
+        "Gray Death Legion"
+      ],
+      "source": "Objective Raids, p. 22"
+    },
+    {
+      "systemId": "Graceland",
+      "date": "3054-01-01",
+      "faction": "FC",
+      "units": [
+        "11th Donegal Guards (1 Battalion)",
+        "3rd Lyran Guards RCT"
+      ],
+      "source": "Objective Raids, p. 22"
+    },
+    {
+      "systemId": "Kikuyu",
+      "date": "3054-01-01",
+      "faction": "FC",
+      "units": [
+        "2nd Crucis Lancers RCT (1 Battalion)",
+        "8th Deneb Light Cavalry RCT",
+        "Eridani Light Horse, 21st Striker (2 Battalions)"
+      ],
+      "source": "Objective Raids, p. 22"
+    },
+    {
+      "systemId": "Koniz",
+      "date": "3054-01-01",
+      "faction": "FC",
+      "units": [
+        "1st Kathil Uhlans",
+        "Koniz TMM"
+      ],
+      "source": "Objective Raids, p. 22"
+    },
+    {
+      "systemId": "Macintosh",
+      "date": "3054-01-01",
+      "faction": "FC",
+      "units": [
+        "DeMaestri's Sluggers, 2nd Battalion"
+      ],
+      "source": "Objective Raids, p. 22"
+    },
+    {
+      "systemId": "Mogyorod",
+      "date": "3054-01-01",
+      "faction": "FC",
+      "units": [
+        "Eridani Light Horse, 151st Light Horse",
+        "1st Kearney Highlanders"
+      ],
+      "source": "Objective Raids, p. 22"
+    },
+    {
+      "systemId": "Pandora",
+      "date": "3054-01-01",
+      "faction": "FC",
+      "units": [
+        "4th Davion Guards RCT",
+        "10th F-C RCT",
+        "Pandora College Training Battalion"
+      ],
+      "source": "Objective Raids, p. 22"
+    },
+    {
+      "systemId": "Panpour",
+      "date": "3054-01-01",
+      "faction": "FC",
+      "units": [
+        "DeMaestri's Sluggers, 3rd Battalion, 1st and 2nd Companies",
+        "DeMaestri's Sluggers, 3rd Battalion, 3rd Company"
+      ],
+      "source": "Objective Raids, p. 22"
+    },
+    {
+      "systemId": "Pasig",
+      "date": "3054-01-01",
+      "faction": "FC",
+      "units": [
+        "12th Deneb Light Cavalry (1 Battalion)"
+      ],
+      "source": "Objective Raids, p. 22"
+    },
+    {
+      "systemId": "Babaeski",
+      "date": "3054-01-01",
+      "faction": "FC",
+      "units": [
+        "3rd Crucis Lancers RCT",
+        "10th Deneb Light Cavalry RCT"
+      ],
+      "source": "Objective Raids, p. 23"
+    },
+    {
+      "systemId": "Coventry",
+      "date": "3054-01-01",
+      "faction": "FC",
+      "units": [
+        "Coventry DMM"
+      ],
+      "source": "Objective Raids, p. 23"
+    },
+    {
+      "systemId": "Crimond",
+      "date": "3054-01-01",
+      "faction": "FC",
+      "units": [
+        "1st Argyle Lancers",
+        "2nd Chisholm's Raiders (2 Battalions)",
+        "The Dioscuri (1 Battalion)"
+      ],
+      "source": "Objective Raids, p. 23"
+    },
+    {
+      "systemId": "Fort Loudon",
+      "date": "3054-01-01",
+      "faction": "FC",
+      "units": [
+        "10th Lyran Guards RCT"
+      ],
+      "source": "Objective Raids, p. 23"
+    },
+    {
+      "systemId": "Kelenfold",
+      "date": "3054-01-01",
+      "faction": "FC",
+      "units": [
+        "Kelenfold TMM"
+      ],
+      "source": "Objective Raids, p. 23"
+    },
+    {
+      "systemId": "Kooken's Pleasure Pit",
+      "date": "3054-01-01",
+      "faction": "FC",
+      "units": [
+        "The Grave Walkers",
+        "1st Robinson Rangers RCT"
+      ],
+      "source": "Objective Raids, p. 23"
+    },
+    {
+      "systemId": "Meacham",
+      "date": "3054-01-01",
+      "faction": "FC",
+      "units": [
+        "13th Donegal Guards"
+      ],
+      "source": "Objective Raids, p. 23"
+    },
+    {
+      "systemId": "Mkuranga",
+      "date": "3054-01-01",
+      "faction": "FC",
+      "units": [
+        "25th Arcturan Guards RCT",
+        "5th Davion Guards"
+      ],
+      "source": "Objective Raids, p. 23"
+    },
+    {
+      "systemId": "Morges",
+      "date": "3054-01-01",
+      "faction": "FC",
+      "units": [
+        "20th Arcturan Guards RCT (1 Battalion)",
+        "4th Skye Rangers RCT (2 Battalions)"
+      ],
+      "source": "Objective Raids, p. 23"
+    },
+    {
+      "systemId": "Outreach",
+      "date": "3054-01-01",
+      "faction": "FC",
+      "units": [
+        "Wolf's Dragoons (5 Regiments)"
+      ],
+      "source": "Objective Raids, p. 23"
+    },
+    {
+      "systemId": "Pasig",
+      "date": "3054-01-01",
+      "faction": "FC",
+      "units": [
+        "Davion Light Guards RCT"
+      ],
+      "source": "Objective Raids, p. 23"
+    },
+    {
+      "systemId": "Rasalgethi",
+      "date": "3054-01-01",
+      "faction": "FC",
+      "units": [
+        "Blue Star Irregulars (1894th Light Horse)",
+        "6th Lyran Guards RCT"
+      ],
+      "source": "Objective Raids, p. 23"
+    },
+    {
+      "systemId": "Tomans",
+      "date": "3054-01-01",
+      "faction": "FC",
+      "units": [
+        "Barber's Marauder II's (1 Battalion)",
+        "The Kell Hounds (2 Regiments)"
+      ],
+      "source": "Objective Raids, p. 23"
+    },
+    {
+      "systemId": "Al Na'ir",
+      "date": "3054-01-01",
+      "faction": "DC",
+      "units": [
+        "15th Dieron Regulars, 1st Battalion",
+        "15th Dieron Regulars, 3rd Battalion"
+      ],
+      "source": "Objective Raids, p. 25"
+    },
+    {
+      "systemId": "Altair",
+      "date": "3054-01-01",
+      "faction": "DC",
+      "units": [
+        "3rd Dieron Regulars, 3rd Battalion"
+      ],
+      "source": "Objective Raids, p. 25"
+    },
+    {
+      "systemId": "Dieron",
+      "date": "3054-01-01",
+      "faction": "DC",
+      "units": [
+        "3rd Dieron Regulars, 1st Battalion",
+        "3rd Dieron Regulars, 2nd Battalion"
+      ],
+      "source": "Objective Raids, p. 25"
+    },
+    {
+      "systemId": "Kessel",
+      "date": "3054-01-01",
+      "faction": "DC",
+      "units": [
+        "40th Dieron Regulars"
+      ],
+      "source": "Objective Raids, p. 25"
+    },
+    {
+      "systemId": "Nirasaki",
+      "date": "3054-01-01",
+      "faction": "DC",
+      "units": [
+        "15th Dieron Regulars, 2nd Battalion"
+      ],
+      "source": "Objective Raids, p. 25"
+    },
+    {
+      "systemId": "Bad News",
+      "date": "3054-01-01",
+      "faction": "DC",
+      "units": [
+        "19th Galedon Regulars"
+      ],
+      "source": "Objective Raids, p. 26"
+    },
+    {
+      "systemId": "Hachiman",
+      "date": "3054-01-01",
+      "faction": "DC",
+      "units": [
+        "16th Galedon Regulars"
+      ],
+      "source": "Objective Raids, p. 26"
+    },
+    {
+      "systemId": "New Samarkand",
+      "date": "3054-01-01",
+      "faction": "DC",
+      "units": [
+        "6th Galedon Regulars"
+      ],
+      "source": "Objective Raids, p. 26"
+    },
+    {
+      "systemId": "Arkab",
+      "date": "3054-01-01",
+      "faction": "DC",
+      "units": [
+        "6th Arkab Legion"
+      ],
+      "source": "Objective Raids, p. 27"
+    },
+    {
+      "systemId": "Babuyan",
+      "date": "3054-01-01",
+      "faction": "DC",
+      "units": [
+        "1st Ghost"
+      ],
+      "source": "Objective Raids, p. 27"
+    },
+    {
+      "systemId": "Baldur",
+      "date": "3054-01-01",
+      "faction": "DC",
+      "units": [
+        "2nd Sword of Light"
+      ],
+      "source": "Objective Raids, p. 27"
+    },
+    {
+      "systemId": "Baruun Urt",
+      "date": "3054-01-01",
+      "faction": "DC",
+      "units": [
+        "7th Ghost"
+      ],
+      "source": "Objective Raids, p. 27"
+    },
+    {
+      "systemId": "Bicester",
+      "date": "3054-01-01",
+      "faction": "DC",
+      "units": [
+        "12th Galedon Regulars (2 Battalions)"
+      ],
+      "source": "Objective Raids, p. 27"
+    },
+    {
+      "systemId": "Braunton",
+      "date": "3054-01-01",
+      "faction": "DC",
+      "units": [
+        "2nd Galedon Regulars",
+        "8th Galedon Regulars (1 Battalion)"
+      ],
+      "source": "Objective Raids, p. 27"
+    },
+    {
+      "systemId": "Chandler",
+      "date": "3054-01-01",
+      "faction": "DC",
+      "units": [
+        "17th Galedon Regulars"
+      ],
+      "source": "Objective Raids, p. 27"
+    },
+    {
+      "systemId": "Dover",
+      "date": "3054-01-01",
+      "faction": "DC",
+      "units": [
+        "6th Benjamin Regulars"
+      ],
+      "source": "Objective Raids, p. 27"
+    },
+    {
+      "systemId": "Dumaring",
+      "date": "3054-01-01",
+      "faction": "DC",
+      "units": [
+        "3rd Ghost"
+      ],
+      "source": "Objective Raids, p. 27"
+    },
+    {
+      "systemId": "Kiesen",
+      "date": "3054-01-01",
+      "faction": "DC",
+      "units": [
+        "12th Dieron Regulars (1 Battalion)"
+      ],
+      "source": "Objective Raids, p. 27"
+    },
+    {
+      "systemId": "Leiston",
+      "date": "3054-01-01",
+      "faction": "DC",
+      "units": [
+        "2nd An Ting Legion (2 Battalions)",
+        "34th Galedon Regulars (1 Battalion)"
+      ],
+      "source": "Objective Raids, p. 27"
+    },
+    {
+      "systemId": "Marduk",
+      "date": "3054-01-01",
+      "faction": "DC",
+      "units": [
+        "22nd Benjamin Regulars"
+      ],
+      "source": "Objective Raids, p. 27"
+    },
+    {
+      "systemId": "Meilen",
+      "date": "3054-01-01",
+      "faction": "DC",
+      "units": [
+        "11th Benjamin Regulars (1 Battalion)",
+        "10th Ghost"
+      ],
+      "source": "Objective Raids, p. 27"
+    },
+    {
+      "systemId": "Najha",
+      "date": "3054-01-01",
+      "faction": "DC",
+      "units": [
+        "11th Ghost",
+        "12th Ghost"
+      ],
+      "source": "Objective Raids, p. 27"
+    },
+    {
+      "systemId": "Odabasi",
+      "date": "3054-01-01",
+      "faction": "DC",
+      "units": [
+        "24th Dieron Regulars (1 Battalion)"
+      ],
+      "source": "Objective Raids, p. 27"
+    },
+    {
+      "systemId": "Ogano",
+      "date": "3054-01-01",
+      "faction": "DC",
+      "units": [
+        "2nd Arkab Legion (1 Battalion)",
+        "2nd Benjamin Regulars (2 Battalions)"
+      ],
+      "source": "Objective Raids, p. 27"
+    },
+    {
+      "systemId": "Paracale",
+      "date": "3054-01-01",
+      "faction": "DC",
+      "units": [
+        "3rd Benjamin Regulars (2 Battalions)",
+        "3rd Proserpina Hussars (1 Battalion)"
+      ],
+      "source": "Objective Raids, p. 27"
+    },
+    {
+      "systemId": "Proserpina",
+      "date": "3054-01-01",
+      "faction": "DC",
+      "units": [
+        "9th Benjamin Regulars"
+      ],
+      "source": "Objective Raids, p. 27"
+    },
+    {
+      "systemId": "Tanh Linh",
+      "date": "3054-01-01",
+      "faction": "DC",
+      "units": [
+        "5th Sword of Light"
+      ],
+      "source": "Objective Raids, p. 27"
+    },
+    {
+      "systemId": "Xinyang",
+      "date": "3054-01-01",
+      "faction": "DC",
+      "units": [
+        "15th Benjamin Regulars"
+      ],
+      "source": "Objective Raids, p. 27"
+    },
+    {
+      "systemId": "Yumesta",
+      "date": "3054-01-01",
+      "faction": "DC",
+      "units": [
+        "21st Galedon Regulars",
+        "1st Proserpina Hussars (2 Battalions)"
+      ],
+      "source": "Objective Raids, p. 27"
+    },
+    {
+      "systemId": "Altona",
+      "date": "3054-01-01",
+      "faction": "DC",
+      "units": [
+        "4th Alshain Regulars (1 Battalion)",
+        "5th Sun Zhang Academy Cadre (2 Battalions)"
+      ],
+      "source": "Objective Raids, p. 28"
+    },
+    {
+      "systemId": "Chatham",
+      "date": "3054-01-01",
+      "faction": "DC",
+      "units": [
+        "8th Sword of Light (2 Battalions)",
+        "7th Alshain Regulars (1 Battalion)",
+        "8th Alshain Regulars",
+        "11th Alshain Regulars (2 Battalions)",
+        "9th Pesht Regulars (2 Battalions)",
+        "11th Legion of Vega"
+      ],
+      "source": "Objective Raids, p. 28"
+    },
+    {
+      "systemId": "Gravenhage",
+      "date": "3054-01-01",
+      "faction": "DC",
+      "units": [
+        "10th Pesht Regulars"
+      ],
+      "source": "Objective Raids, p. 28"
+    },
+    {
+      "systemId": "Herndon",
+      "date": "3054-01-01",
+      "faction": "DC",
+      "units": [
+        "24th Dieron Regulars (2 Battalions)"
+      ],
+      "source": "Objective Raids, p. 28"
+    },
+    {
+      "systemId": "Kagoshima",
+      "date": "3054-01-01",
+      "faction": "DC",
+      "units": [
+        "6th Ghost"
+      ],
+      "source": "Objective Raids, p. 28"
+    },
+    {
+      "systemId": "Kilmarnock",
+      "date": "3054-01-01",
+      "faction": "DC",
+      "units": [
+        "1st Amphigean Light Assault Group"
+      ],
+      "source": "Objective Raids, p. 28"
+    },
+    {
+      "systemId": "Land's End",
+      "date": "3054-01-01",
+      "faction": "DC",
+      "units": [
+        "7th Pesht Regulars"
+      ],
+      "source": "Objective Raids, p. 28"
+    },
+    {
+      "systemId": "Lonaconing",
+      "date": "3054-01-01",
+      "faction": "DC",
+      "units": [
+        "3rd Alshain Regulars (1 Battalion)",
+        "4th Arkab Legion (2 Battalions)"
+      ],
+      "source": "Objective Raids, p. 28"
+    },
+    {
+      "systemId": "Luthien",
+      "date": "3054-01-01",
+      "faction": "DC",
+      "units": [
+        "1st Sword of Light (2 Battalions)",
+        "7th Sword of Light (2 Battalions)",
+        "Otomo (2 Battalions)",
+        "Ryuken-Ni",
+        "17th Benjamin Regulars",
+        "1st Genyosha",
+        "2nd Genyosha (1 Battalion)",
+        "1st Shin Legion",
+        "2nd Legion of Vega"
+      ],
+      "source": "Objective Raids, p. 28"
+    },
+    {
+      "systemId": "Maldonado",
+      "date": "3054-01-01",
+      "faction": "DC",
+      "units": [
+        "12th Dieron Regulars (2 Battalions)"
+      ],
+      "source": "Objective Raids, p. 28"
+    },
+    {
+      "systemId": "Matamoras",
+      "date": "3054-01-01",
+      "faction": "DC",
+      "units": [
+        "2nd Night Stalkers"
+      ],
+      "source": "Objective Raids, p. 28"
+    },
+    {
+      "systemId": "McAlister",
+      "date": "3054-01-01",
+      "faction": "DC",
+      "units": [
+        "22nd Dieron Regulars",
+        "8th Ghost (1 Battalion)"
+      ],
+      "source": "Objective Raids, p. 28"
+    },
+    {
+      "systemId": "Meinacos",
+      "date": "3054-01-01",
+      "faction": "DC",
+      "units": [
+        "8th Dieron Regulars"
+      ],
+      "source": "Objective Raids, p. 28"
+    },
+    {
+      "systemId": "Nowhere",
+      "date": "3054-01-01",
+      "faction": "DC",
+      "units": [
+        "5th Ghost"
+      ],
+      "source": "Objective Raids, p. 28"
+    },
+    {
+      "systemId": "Pesht",
+      "date": "3054-01-01",
+      "faction": "DC",
+      "units": [
+        "Ryuken (4 Regiments)",
+        "2nd Dieron Regulars",
+        "32nd Galedon Regulars",
+        "4th Pesht Regulars (2 Battalions)"
+      ],
+      "source": "Objective Raids, p. 28"
+    },
+    {
+      "systemId": "Qandahar",
+      "date": "3054-01-01",
+      "faction": "DC",
+      "units": [
+        "6th Pesht Regulars"
+      ],
+      "source": "Objective Raids, p. 28"
+    },
+    {
+      "systemId": "Antares",
+      "date": "3054-01-01",
+      "faction": "CSV",
+      "units": [
+        "195th Striker Cluster",
+        "5th Viper Regulars",
+        "11th Viper Regulars"
+      ],
+      "source": "Objective Raids, p. 30"
+    },
+    {
+      "systemId": "Benfled",
+      "date": "3054-01-01",
+      "faction": "CSV",
+      "units": [
+        "3rd Fang",
+        "4th Fang"
+      ],
+      "source": "Objective Raids, p. 30"
+    },
+    {
+      "systemId": "Blackjack",
+      "date": "3054-01-01",
+      "faction": "CSV",
+      "units": [
+        "80th Fang"
+      ],
+      "source": "Objective Raids, p. 30"
+    },
+    {
+      "systemId": "Blair Atholl",
+      "date": "3054-01-01",
+      "faction": "CSV",
+      "units": [
+        "4th Viper Guards",
+        "400th Assault Cluster",
+        "1st Legion"
+      ],
+      "source": "Objective Raids, p. 30"
+    },
+    {
+      "systemId": "Goat Path",
+      "date": "3054-01-01",
+      "faction": "CSV",
+      "units": [
+        "Viper Fusiliers",
+        "126th Striker Cluster"
+      ],
+      "source": "Objective Raids, p. 30"
+    },
+    {
+      "systemId": "Graus",
+      "date": "3054-01-01",
+      "faction": "CSV",
+      "units": [
+        "38th Phalanx",
+        "71st Phalanx"
+      ],
+      "source": "Objective Raids, p. 30"
+    },
+    {
+      "systemId": "Jabuka",
+      "date": "3054-01-01",
+      "faction": "CSV",
+      "units": [
+        "1st Viper Guards",
+        "2nd Viper Guards",
+        "5th Legion"
+      ],
+      "source": "Objective Raids, p. 30"
+    },
+    {
+      "systemId": "Montmarault",
+      "date": "3054-01-01",
+      "faction": "CSV",
+      "units": [
+        "141st Phalanx",
+        "164th Phalanx"
+      ],
+      "source": "Objective Raids, p. 30"
+    },
+    {
+      "systemId": "Orkney (LC)",
+      "date": "3054-01-01",
+      "faction": "CSV",
+      "units": [
+        "144th Phalanx",
+        "165th Phalanx"
+      ],
+      "source": "Objective Raids, p. 30"
+    },
+    {
+      "systemId": "Parakoila",
+      "date": "3054-01-01",
+      "faction": "CSV",
+      "units": [
+        "1st Fang",
+        "2nd Fang"
+      ],
+      "source": "Objective Raids, p. 30"
+    },
+    {
+      "systemId": "Persistence",
+      "date": "3054-01-01",
+      "faction": "CSV",
+      "units": [
+        "167th Phalanx"
+      ],
+      "source": "Objective Raids, p. 30"
+    },
+    {
+      "systemId": "Trell I",
+      "date": "3054-01-01",
+      "faction": "CSV",
+      "units": [
+        "51st Battle Cluster"
+      ],
+      "source": "Objective Raids, p. 30"
+    },
+    {
+      "systemId": "Twycross",
+      "date": "3054-01-01",
+      "faction": "CSV",
+      "units": [
+        "423rd Assault Cluster",
+        "428th Assault Cluster",
+        "94th Battle Cluster",
+        "57th Striker Cluster"
+      ],
+      "source": "Objective Raids, p. 30"
+    },
+    {
+      "systemId": "Waldorff",
+      "date": "3054-01-01",
+      "faction": "CSV",
+      "units": [
+        "9th Fang",
+        "10th Fang"
+      ],
+      "source": "Objective Raids, p. 30"
+    },
+    {
+      "systemId": "Alyina",
+      "date": "3054-01-01",
+      "faction": "CJF",
+      "units": [
+        "2nd Falcon Jaegers"
+      ],
+      "source": "Objective Raids, p. 31"
+    },
+    {
+      "systemId": "Apolakkia",
+      "date": "3054-01-01",
+      "faction": "CJF",
+      "units": [
+        "10th Talon"
+      ],
+      "source": "Objective Raids, p. 31"
+    },
+    {
+      "systemId": "Apollo",
+      "date": "3054-01-01",
+      "faction": "CJF",
+      "units": [
+        "17th Falcon Regulars"
+      ],
+      "source": "Objective Raids, p. 31"
+    },
+    {
+      "systemId": "Baker 3",
+      "date": "3054-01-01",
+      "faction": "CJF",
+      "units": [
+        "305th Assault Cluster"
+      ],
+      "source": "Objective Raids, p. 31"
+    },
+    {
+      "systemId": "Beta VII",
+      "date": "3054-01-01",
+      "faction": "CJF",
+      "units": [
+        "18th Falcon Regulars"
+      ],
+      "source": "Objective Raids, p. 31"
+    },
+    {
+      "systemId": "Black Earth",
+      "date": "3054-01-01",
+      "faction": "CJF",
+      "units": [
+        "89th Striker Cluster"
+      ],
+      "source": "Objective Raids, p. 31"
+    },
+    {
+      "systemId": "Bone-Norman",
+      "date": "3054-01-01",
+      "faction": "CJF",
+      "units": [
+        "94th Striker Cluster"
+      ],
+      "source": "Objective Raids, p. 31"
+    },
+    {
+      "systemId": "Botany Bay",
+      "date": "3054-01-01",
+      "faction": "CJF",
+      "units": [
+        "3rd Talon"
+      ],
+      "source": "Objective Raids, p. 31"
+    },
+    {
+      "systemId": "Butler",
+      "date": "3054-01-01",
+      "faction": "CJF",
+      "units": [
+        "7th Talon"
+      ],
+      "source": "Objective Raids, p. 31"
+    },
+    {
+      "systemId": "Colmar",
+      "date": "3054-01-01",
+      "faction": "CJF",
+      "units": [
+        "12th Falcon Regulars"
+      ],
+      "source": "Objective Raids, p. 31"
+    },
+    {
+      "systemId": "Denizli",
+      "date": "3054-01-01",
+      "faction": "CJF",
+      "units": [
+        "9th Talon"
+      ],
+      "source": "Objective Raids, p. 31"
+    },
+    {
+      "systemId": "Derf",
+      "date": "3054-01-01",
+      "faction": "CJF",
+      "units": [
+        "5th Falcon Regulars"
+      ],
+      "source": "Objective Raids, p. 31"
+    },
+    {
+      "systemId": "Devin",
+      "date": "3054-01-01",
+      "faction": "CJF",
+      "units": [
+        "Choyer Garrison Cluster"
+      ],
+      "source": "Objective Raids, p. 31"
+    },
+    {
+      "systemId": "Evciler",
+      "date": "3054-01-01",
+      "faction": "CJF",
+      "units": [
+        "7th Falcon Regulars"
+      ],
+      "source": "Objective Raids, p. 31"
+    },
+    {
+      "systemId": "Gotterdammerung",
+      "date": "3054-01-01",
+      "faction": "CJF",
+      "units": [
+        "4th Provisional Garrison Cluster"
+      ],
+      "source": "Objective Raids, p. 31"
+    },
+    {
+      "systemId": "Here",
+      "date": "3054-01-01",
+      "faction": "CJF",
+      "units": [
+        "14th Falcon Regulars"
+      ],
+      "source": "Objective Raids, p. 31"
+    },
+    {
+      "systemId": "Hot Springs",
+      "date": "3054-01-01",
+      "faction": "CJF",
+      "units": [
+        "5th Battle Cluster"
+      ],
+      "source": "Objective Raids, p. 31"
+    },
+    {
+      "systemId": "La Grave",
+      "date": "3054-01-01",
+      "faction": "CJF",
+      "units": [
+        "1st Falcon Jaegers",
+        "Gurbeng Garrison Cluster"
+      ],
+      "source": "Objective Raids, p. 31"
+    },
+    {
+      "systemId": "Last Chance",
+      "date": "3054-01-01",
+      "faction": "CJF",
+      "units": [
+        "4th Talon"
+      ],
+      "source": "Objective Raids, p. 31"
+    },
+    {
+      "systemId": "Leskovik",
+      "date": "3054-01-01",
+      "faction": "CJF",
+      "units": [
+        "9th Provisional Garrison Cluster"
+      ],
+      "source": "Objective Raids, p. 31"
+    },
+    {
+      "systemId": "Malibu",
+      "date": "3054-01-01",
+      "faction": "CJF",
+      "units": [
+        "124th Striker Cluster"
+      ],
+      "source": "Objective Raids, p. 31"
+    },
+    {
+      "systemId": "Maxie's Planet",
+      "date": "3054-01-01",
+      "faction": "CJF",
+      "units": [
+        "8th Talon"
+      ],
+      "source": "Objective Raids, p. 31"
+    },
+    {
+      "systemId": "Quarell",
+      "date": "3054-01-01",
+      "faction": "CJF",
+      "units": [
+        "1st Falcon Velites",
+        "Nega Garrison Cluster"
+      ],
+      "source": "Objective Raids, p. 31"
+    },
+    {
+      "systemId": "Roadside",
+      "date": "3054-01-01",
+      "faction": "CJF",
+      "units": [
+        "4th Falcon Velites"
+      ],
+      "source": "Objective Raids, p. 31"
+    },
+    {
+      "systemId": "Romulus",
+      "date": "3054-01-01",
+      "faction": "CJF",
+      "units": [
+        "7th Provisional Garrison Cluster"
+      ],
+      "source": "Objective Raids, p. 31"
+    },
+    {
+      "systemId": "Seiduts",
+      "date": "3054-01-01",
+      "faction": "CJF",
+      "units": [
+        "8th Provisional Garrison Cluster"
+      ],
+      "source": "Objective Raids, p. 31"
+    },
+    {
+      "systemId": "Steelton",
+      "date": "3054-01-01",
+      "faction": "CJF",
+      "units": [
+        "5th Provisional Garrison Cluster"
+      ],
+      "source": "Objective Raids, p. 31"
+    },
+    {
+      "systemId": "Sudeten",
+      "date": "3054-01-01",
+      "faction": "CJF",
+      "units": [
+        "Falcon Guards",
+        "Dorbeng Garrison Cluster",
+        "8th Falcon Regulars"
+      ],
+      "source": "Objective Raids, p. 31"
+    },
+    {
+      "systemId": "Toland",
+      "date": "3054-01-01",
+      "faction": "CJF",
+      "units": [
+        "5th Talon"
+      ],
+      "source": "Objective Raids, p. 31"
+    },
+    {
+      "systemId": "Winfield (Treeline 2863-)",
+      "date": "3054-01-01",
+      "faction": "CJF",
+      "units": [
+        "6th Provisional Garrison Cluster"
+      ],
+      "source": "Objective Raids, p. 31"
+    },
+    {
+      "systemId": "Zoetermeer",
+      "date": "3054-01-01",
+      "faction": "CJF",
+      "units": [
+        "10th Provisional Garrison Cluster"
+      ],
+      "source": "Objective Raids, p. 31"
+    },
+    {
+      "systemId": "Alphecca",
+      "date": "3054-01-01",
+      "faction": "CW",
+      "units": [
+        "Nega Garrison Cluster, Command Binary",
+        "Nega Garrison Cluster, 4th Nova"
+      ],
+      "source": "Objective Raids, p. 32"
+    },
+    {
+      "systemId": "Altenmarkt",
+      "date": "3054-01-01",
+      "faction": "CW",
+      "units": [
+        "13th Wolf Guards (Wolf Spiders), Trinary Delta"
+      ],
+      "source": "Objective Raids, p. 32"
+    },
+    {
+      "systemId": "Balsta",
+      "date": "3054-01-01",
+      "faction": "CW",
+      "units": [
+        "95th Phalanx"
+      ],
+      "source": "Objective Raids, p. 32"
+    },
+    {
+      "systemId": "Biota",
+      "date": "3054-01-01",
+      "faction": "CW",
+      "units": [
+        "1st Cavalry"
+      ],
+      "source": "Objective Raids, p. 32"
+    },
+    {
+      "systemId": "Butte Hold",
+      "date": "3054-01-01",
+      "faction": "CW",
+      "units": [
+        "Nega Garrison Cluster, Assault Trinary"
+      ],
+      "source": "Objective Raids, p. 32"
+    },
+    {
+      "systemId": "Carse",
+      "date": "3054-01-01",
+      "faction": "CW",
+      "units": [
+        "24th Wolf Rangers"
+      ],
+      "source": "Objective Raids, p. 32"
+    },
+    {
+      "systemId": "Chateau",
+      "date": "3054-01-01",
+      "faction": "CW",
+      "units": [
+        "4th Wolf Guards Striker Cluster"
+      ],
+      "source": "Objective Raids, p. 32"
+    },
+    {
+      "systemId": "Csesztreg",
+      "date": "3054-01-01",
+      "faction": "CW",
+      "units": [
+        "12th Wolf Regulars"
+      ],
+      "source": "Objective Raids, p. 32"
+    },
+    {
+      "systemId": "Cusset",
+      "date": "3054-01-01",
+      "faction": "CW",
+      "units": [
+        "5th Wolf Regulars"
+      ],
+      "source": "Objective Raids, p. 32"
+    },
+    {
+      "systemId": "Dawn",
+      "date": "3054-01-01",
+      "faction": "CW",
+      "units": [
+        "15th Wolf Chasseurs"
+      ],
+      "source": "Objective Raids, p. 32"
+    },
+    {
+      "systemId": "Dell",
+      "date": "3054-01-01",
+      "faction": "CW",
+      "units": [
+        "20th Wolf Regulars"
+      ],
+      "source": "Objective Raids, p. 32"
+    },
+    {
+      "systemId": "Diosd",
+      "date": "3054-01-01",
+      "faction": "CW",
+      "units": [
+        "3rd Battle Cluster"
+      ],
+      "source": "Objective Raids, p. 32"
+    },
+    {
+      "systemId": "Domain",
+      "date": "3054-01-01",
+      "faction": "CW",
+      "units": [
+        "11th Battle Cluster"
+      ],
+      "source": "Objective Raids, p. 32"
+    },
+    {
+      "systemId": "Engadin",
+      "date": "3054-01-01",
+      "faction": "CW",
+      "units": [
+        "11th Wolf Chasseurs"
+      ],
+      "source": "Objective Raids, p. 32"
+    },
+    {
+      "systemId": "Ferleiten",
+      "date": "3054-01-01",
+      "faction": "CW",
+      "units": [
+        "11th Wolf Chasseurs"
+      ],
+      "source": "Objective Raids, p. 32"
+    },
+    {
+      "systemId": "Harvest",
+      "date": "3054-01-01",
+      "faction": "CW",
+      "units": [
+        "13th Wolf Regulars"
+      ],
+      "source": "Objective Raids, p. 32"
+    },
+    {
+      "systemId": "Icar",
+      "date": "3054-01-01",
+      "faction": "CW",
+      "units": [
+        "2nd Cavalry"
+      ],
+      "source": "Objective Raids, p. 32"
+    },
+    {
+      "systemId": "Kirchbach",
+      "date": "3054-01-01",
+      "faction": "CW",
+      "units": [
+        "11th Wolf Guards"
+      ],
+      "source": "Objective Raids, p. 32"
+    },
+    {
+      "systemId": "Laurent",
+      "date": "3054-01-01",
+      "faction": "CW",
+      "units": [
+        "Gurbeng Garrison Cluster"
+      ],
+      "source": "Objective Raids, p. 32"
+    },
+    {
+      "systemId": "Leoben",
+      "date": "3054-01-01",
+      "faction": "CW",
+      "units": [
+        "15th Wolf Chasseurs"
+      ],
+      "source": "Objective Raids, p. 32"
+    },
+    {
+      "systemId": "Lothan",
+      "date": "3054-01-01",
+      "faction": "CW",
+      "units": [
+        "279th Battle Cluster"
+      ],
+      "source": "Objective Raids, p. 32"
+    },
+    {
+      "systemId": "Maestu",
+      "date": "3054-01-01",
+      "faction": "CW",
+      "units": [
+        "Dorbeng Garrison Cluster"
+      ],
+      "source": "Objective Raids, p. 32"
+    },
+    {
+      "systemId": "Nox",
+      "date": "3054-01-01",
+      "faction": "CW",
+      "units": [
+        "4th Striker Cluster"
+      ],
+      "source": "Objective Raids, p. 32"
+    },
+    {
+      "systemId": "Oberon VI",
+      "date": "3054-01-01",
+      "faction": "CW",
+      "units": [
+        "Nega Garrison Cluster, Battle Trinary"
+      ],
+      "source": "Objective Raids, p. 32"
+    },
+    {
+      "systemId": "Planting",
+      "date": "3054-01-01",
+      "faction": "CW",
+      "units": [
+        "6th Wolf Regulars"
+      ],
+      "source": "Objective Raids, p. 32"
+    },
+    {
+      "systemId": "Ramsau",
+      "date": "3054-01-01",
+      "faction": "CW",
+      "units": [
+        "341st Assault Cluster"
+      ],
+      "source": "Objective Raids, p. 32"
+    },
+    {
+      "systemId": "Rasalhague",
+      "date": "3054-01-01",
+      "faction": "CW",
+      "units": [
+        "328th Assault Cluster"
+      ],
+      "source": "Objective Raids, p. 32"
+    },
+    {
+      "systemId": "Rastaban",
+      "date": "3054-01-01",
+      "faction": "CW",
+      "units": [
+        "4th Cavalry"
+      ],
+      "source": "Objective Raids, p. 32"
+    },
+    {
+      "systemId": "Satalice",
+      "date": "3054-01-01",
+      "faction": "CW",
+      "units": [
+        "352nd Assault Cluster"
+      ],
+      "source": "Objective Raids, p. 32"
+    },
+    {
+      "systemId": "Sevren",
+      "date": "3054-01-01",
+      "faction": "CW",
+      "units": [
+        "Choyer Garrison Cluster"
+      ],
+      "source": "Objective Raids, p. 32"
+    },
+    {
+      "systemId": "Shaula (Perrot 3025-)",
+      "date": "3054-01-01",
+      "faction": "CW",
+      "units": [
+        "3rd Cavalry"
+      ],
+      "source": "Objective Raids, p. 32"
+    },
+    {
+      "systemId": "Sigurd",
+      "date": "3054-01-01",
+      "faction": "CW",
+      "units": [
+        "Nega Garrison Cluster, Infantry Trinary"
+      ],
+      "source": "Objective Raids, p. 32"
+    },
+    {
+      "systemId": "Skallevoll",
+      "date": "3054-01-01",
+      "faction": "CW",
+      "units": [
+        "95th Phalanx"
+      ],
+      "source": "Objective Raids, p. 32"
+    },
+    {
+      "systemId": "Stanzach",
+      "date": "3054-01-01",
+      "faction": "CW",
+      "units": [
+        "5th Wolf Chasseurs"
+      ],
+      "source": "Objective Raids, p. 32"
+    },
+    {
+      "systemId": "Star's End (Novo Cressidas)",
+      "date": "3054-01-01",
+      "faction": "CW",
+      "units": [
+        "1st Wolf Regulars"
+      ],
+      "source": "Objective Raids, p. 32"
+    },
+    {
+      "systemId": "Suk II",
+      "date": "3054-01-01",
+      "faction": "CW",
+      "units": [
+        "15th Wolf Regulars"
+      ],
+      "source": "Objective Raids, p. 32"
+    },
+    {
+      "systemId": "Svarstaad",
+      "date": "3054-01-01",
+      "faction": "CW",
+      "units": [
+        "17th Wolf Regulars"
+      ],
+      "source": "Objective Raids, p. 32"
+    },
+    {
+      "systemId": "Tamar",
+      "date": "3054-01-01",
+      "faction": "CW",
+      "units": [
+        "4th Wolf Guards Assault Cluster",
+        "13th Wolf Guards (Wolf Spiders), Trinary Charlie"
+      ],
+      "source": "Objective Raids, p. 32"
+    },
+    {
+      "systemId": "The Rock",
+      "date": "3054-01-01",
+      "faction": "CW",
+      "units": [
+        "Nega Garrison Cluster, First Supernova"
+      ],
+      "source": "Objective Raids, p. 32"
+    },
+    {
+      "systemId": "Vantaa",
+      "date": "3054-01-01",
+      "faction": "CW",
+      "units": [
+        "10th Wolf Regulars"
+      ],
+      "source": "Objective Raids, p. 32"
+    },
+    {
+      "systemId": "Vorarlberg",
+      "date": "3054-01-01",
+      "faction": "CW",
+      "units": [
+        "5th Wolf Chasseurs"
+      ],
+      "source": "Objective Raids, p. 32"
+    },
+    {
+      "systemId": "Vulcan",
+      "date": "3054-01-01",
+      "faction": "CW",
+      "units": [
+        "13th Wolf Guards (Wolf Spiders), Trinary Alpha, Trinary Bravo"
+      ],
+      "source": "Objective Raids, p. 32"
+    },
+    {
+      "systemId": "Wheel",
+      "date": "3054-01-01",
+      "faction": "CW",
+      "units": [
+        "101st Phalanx"
+      ],
+      "source": "Objective Raids, p. 32"
+    },
+    {
+      "systemId": "Alshain",
+      "date": "3054-01-01",
+      "faction": "CGB",
+      "units": [
+        "48th Battle Cluster",
+        "243rd Battle Cluster"
+      ],
+      "source": "Objective Raids, p. 33"
+    },
+    {
+      "systemId": "Ardoz",
+      "date": "3054-01-01",
+      "faction": "CGB",
+      "units": [
+        "68th Striker Cluster"
+      ],
+      "source": "Objective Raids, p. 33"
+    },
+    {
+      "systemId": "Casere",
+      "date": "3054-01-01",
+      "faction": "CGB",
+      "units": [
+        "140th Striker Cluster"
+      ],
+      "source": "Objective Raids, p. 33"
+    },
+    {
+      "systemId": "Constance",
+      "date": "3054-01-01",
+      "faction": "CGB",
+      "units": [
+        "297th Battle Cluster"
+      ],
+      "source": "Objective Raids, p. 33"
+    },
+    {
+      "systemId": "Eguilles",
+      "date": "3054-01-01",
+      "faction": "CGB",
+      "units": [
+        "14th Battle Cluster"
+      ],
+      "source": "Objective Raids, p. 33"
+    },
+    {
+      "systemId": "Goito",
+      "date": "3054-01-01",
+      "faction": "CGB",
+      "units": [
+        "1st Bear Regulars"
+      ],
+      "source": "Objective Raids, p. 33"
+    },
+    {
+      "systemId": "Halesowen",
+      "date": "3054-01-01",
+      "faction": "CGB",
+      "units": [
+        "2nd Bear Regulars"
+      ],
+      "source": "Objective Raids, p. 33"
+    },
+    {
+      "systemId": "Holmsbu",
+      "date": "3054-01-01",
+      "faction": "CGB",
+      "units": [
+        "9th Provisional Garrison Cluster"
+      ],
+      "source": "Objective Raids, p. 33"
+    },
+    {
+      "systemId": "Jarett",
+      "date": "3054-01-01",
+      "faction": "CGB",
+      "units": [
+        "283rd Battle Cluster"
+      ],
+      "source": "Objective Raids, p. 33"
+    },
+    {
+      "systemId": "Jezersko",
+      "date": "3054-01-01",
+      "faction": "CGB",
+      "units": [
+        "29th Provisional Garrison Cluster"
+      ],
+      "source": "Objective Raids, p. 33"
+    },
+    {
+      "systemId": "Kaesong",
+      "date": "3054-01-01",
+      "faction": "CGB",
+      "units": [
+        "10th Provisional Garrison Cluster"
+      ],
+      "source": "Objective Raids, p. 33"
+    },
+    {
+      "systemId": "Kempten",
+      "date": "3054-01-01",
+      "faction": "CGB",
+      "units": [
+        "2nd Bear Regulars"
+      ],
+      "source": "Objective Raids, p. 33"
+    },
+    {
+      "systemId": "Krenice",
+      "date": "3054-01-01",
+      "faction": "CGB",
+      "units": [
+        "1st Bear Guards, Trinary Alpha, Trinary Delta"
+      ],
+      "source": "Objective Raids, p. 33"
+    },
+    {
+      "systemId": "Mannedorf",
+      "date": "3054-01-01",
+      "faction": "CGB",
+      "units": [
+        "139th Striker Cluster"
+      ],
+      "source": "Objective Raids, p. 33"
+    },
+    {
+      "systemId": "Marawi",
+      "date": "3054-01-01",
+      "faction": "CGB",
+      "units": [
+        "115th Striker Cluster"
+      ],
+      "source": "Objective Raids, p. 33"
+    },
+    {
+      "systemId": "Maule",
+      "date": "3054-01-01",
+      "faction": "CGB",
+      "units": [
+        "304th Assault Cluster"
+      ],
+      "source": "Objective Raids, p. 33"
+    },
+    {
+      "systemId": "Polcenigo",
+      "date": "3054-01-01",
+      "faction": "CGB",
+      "units": [
+        "1st Bear Guards, Trinary Charlie"
+      ],
+      "source": "Objective Raids, p. 33"
+    },
+    {
+      "systemId": "Pomme De Terre",
+      "date": "3054-01-01",
+      "faction": "CGB",
+      "units": [
+        "37th Provisional Garrison Cluster"
+      ],
+      "source": "Objective Raids, p. 33"
+    },
+    {
+      "systemId": "Porthos",
+      "date": "3054-01-01",
+      "faction": "CGB",
+      "units": [
+        "13th Phalanx"
+      ],
+      "source": "Objective Raids, p. 33"
+    },
+    {
+      "systemId": "Predlitz",
+      "date": "3054-01-01",
+      "faction": "CGB",
+      "units": [
+        "37th Provisional Garrison Cluster"
+      ],
+      "source": "Objective Raids, p. 33"
+    },
+    {
+      "systemId": "Radlje",
+      "date": "3054-01-01",
+      "faction": "CGB",
+      "units": [
+        "18th Provisional Garrison Cluster"
+      ],
+      "source": "Objective Raids, p. 33"
+    },
+    {
+      "systemId": "Radstadt",
+      "date": "3054-01-01",
+      "faction": "CGB",
+      "units": [
+        "1st Bear Regulars"
+      ],
+      "source": "Objective Raids, p. 33"
+    },
+    {
+      "systemId": "Rubigen",
+      "date": "3054-01-01",
+      "faction": "CGB",
+      "units": [
+        "332nd Assault Cluster"
+      ],
+      "source": "Objective Raids, p. 33"
+    },
+    {
+      "systemId": "Santander V (Santander's World)",
+      "date": "3054-01-01",
+      "faction": "CGB",
+      "units": [
+        "5th Phalanx"
+      ],
+      "source": "Objective Raids, p. 33"
+    },
+    {
+      "systemId": "Setubal",
+      "date": "3054-01-01",
+      "faction": "CGB",
+      "units": [
+        "73rd Battle Cluster"
+      ],
+      "source": "Objective Raids, p. 33"
+    },
+    {
+      "systemId": "Sheliak",
+      "date": "3054-01-01",
+      "faction": "CGB",
+      "units": [
+        "42nd Provisional Garrison Cluster"
+      ],
+      "source": "Objective Raids, p. 33"
+    },
+    {
+      "systemId": "Soverzene",
+      "date": "3054-01-01",
+      "faction": "CGB",
+      "units": [
+        "23rd Provisional Garrison Cluster"
+      ],
+      "source": "Objective Raids, p. 33"
+    },
+    {
+      "systemId": "Spittal",
+      "date": "3054-01-01",
+      "faction": "CGB",
+      "units": [
+        "18th Battle Cluster"
+      ],
+      "source": "Objective Raids, p. 33"
+    },
+    {
+      "systemId": "Sternwerde",
+      "date": "3054-01-01",
+      "faction": "CGB",
+      "units": [
+        "12th Bear Chevaliers"
+      ],
+      "source": "Objective Raids, p. 33"
+    },
+    {
+      "systemId": "Susquehanna",
+      "date": "3054-01-01",
+      "faction": "CGB",
+      "units": [
+        "9th Provisional Garrison Cluster"
+      ],
+      "source": "Objective Raids, p. 33"
+    },
+    {
+      "systemId": "Thessalonika",
+      "date": "3054-01-01",
+      "faction": "CGB",
+      "units": [
+        "56th Provisional Garrison Cluster"
+      ],
+      "source": "Objective Raids, p. 33"
+    },
+    {
+      "systemId": "Thule",
+      "date": "3054-01-01",
+      "faction": "CGB",
+      "units": [
+        "54th Provisional Garrison Cluster"
+      ],
+      "source": "Objective Raids, p. 33"
+    },
+    {
+      "systemId": "Toffen",
+      "date": "3054-01-01",
+      "faction": "CGB",
+      "units": [
+        "8th Bear Cuirassiers"
+      ],
+      "source": "Objective Raids, p. 33"
+    },
+    {
+      "systemId": "Trondheim (DC)",
+      "date": "3054-01-01",
+      "faction": "CGB",
+      "units": [
+        "3rd Bear Guards"
+      ],
+      "source": "Objective Raids, p. 33"
+    },
+    {
+      "systemId": "Utrecht",
+      "date": "3054-01-01",
+      "faction": "CGB",
+      "units": [
+        "1st Bear Guards, Trinary Bravo"
+      ],
+      "source": "Objective Raids, p. 33"
+    },
+    {
+      "systemId": "Vipaava",
+      "date": "3054-01-01",
+      "faction": "CGB",
+      "units": [
+        "18th Provisional Garrison Cluster"
+      ],
+      "source": "Objective Raids, p. 33"
+    },
+    {
+      "systemId": "Albiero",
+      "date": "3054-01-01",
+      "faction": "CSJ",
+      "units": [
+        "11th Jaguar Regulars"
+      ],
+      "source": "Objective Raids, p. 34"
+    },
+    {
+      "systemId": "Asgard",
+      "date": "3054-01-01",
+      "faction": "CSJ",
+      "units": [
+        "4th Jaguar Dragoons"
+      ],
+      "source": "Objective Raids, p. 34"
+    },
+    {
+      "systemId": "Avon",
+      "date": "3054-01-01",
+      "faction": "CSJ",
+      "units": [
+        "1st Jaguar Guards"
+      ],
+      "source": "Objective Raids, p. 34"
+    },
+    {
+      "systemId": "Bangor",
+      "date": "3054-01-01",
+      "faction": "CSJ",
+      "units": [
+        "51st Garrison Cluster"
+      ],
+      "source": "Objective Raids, p. 34"
+    },
+    {
+      "systemId": "Byesville",
+      "date": "3054-01-01",
+      "faction": "CSJ",
+      "units": [
+        "17th Jaguar Regulars"
+      ],
+      "source": "Objective Raids, p. 34"
+    },
+    {
+      "systemId": "Caripare",
+      "date": "3054-01-01",
+      "faction": "CSJ",
+      "units": [
+        "2nd Jaguar Guards, Trinary Charlie, Trinary Delta"
+      ],
+      "source": "Objective Raids, p. 34"
+    },
+    {
+      "systemId": "Garstedt",
+      "date": "3054-01-01",
+      "faction": "CSJ",
+      "units": [
+        "143rd Garrison Cluster"
+      ],
+      "source": "Objective Raids, p. 34"
+    },
+    {
+      "systemId": "Hanover",
+      "date": "3054-01-01",
+      "faction": "CSJ",
+      "units": [
+        "17th Garrison Cluster"
+      ],
+      "source": "Objective Raids, p. 34"
+    },
+    {
+      "systemId": "Hyner",
+      "date": "3054-01-01",
+      "faction": "CSJ",
+      "units": [
+        "3rd Jaguar Cavaliers"
+      ],
+      "source": "Objective Raids, p. 34"
+    },
+    {
+      "systemId": "Idlewind",
+      "date": "3054-01-01",
+      "faction": "CSJ",
+      "units": [
+        "5th Provisional Garrison Cluster"
+      ],
+      "source": "Objective Raids, p. 34"
+    },
+    {
+      "systemId": "Jeronimo",
+      "date": "3054-01-01",
+      "faction": "CSJ",
+      "units": [
+        "2nd Jaguar Regulars"
+      ],
+      "source": "Objective Raids, p. 34"
+    },
+    {
+      "systemId": "Juazeiro",
+      "date": "3054-01-01",
+      "faction": "CSJ",
+      "units": [
+        "8th Provisional Garrison Cluster"
+      ],
+      "source": "Objective Raids, p. 34"
+    },
+    {
+      "systemId": "Kabah",
+      "date": "3054-01-01",
+      "faction": "CSJ",
+      "units": [
+        "19th Striker Cluster"
+      ],
+      "source": "Objective Raids, p. 34"
+    },
+    {
+      "systemId": "Kiamba",
+      "date": "3054-01-01",
+      "faction": "CSJ",
+      "units": [
+        "362nd Assault Cluster"
+      ],
+      "source": "Objective Raids, p. 34"
+    },
+    {
+      "systemId": "Labrea",
+      "date": "3054-01-01",
+      "faction": "CSJ",
+      "units": [
+        "168th Garrison Cluster"
+      ],
+      "source": "Objective Raids, p. 34"
+    },
+    {
+      "systemId": "Luzerne",
+      "date": "3054-01-01",
+      "faction": "CSJ",
+      "units": [
+        "4th Provisional Garrison Cluster"
+      ],
+      "source": "Objective Raids, p. 34"
+    },
+    {
+      "systemId": "Nykvarn",
+      "date": "3054-01-01",
+      "faction": "CSJ",
+      "units": [
+        "124th Garrison Cluster"
+      ],
+      "source": "Objective Raids, p. 34"
+    },
+    {
+      "systemId": "Outer Volta",
+      "date": "3054-01-01",
+      "faction": "CSJ",
+      "units": [
+        "7th Provisional Garrison Cluster"
+      ],
+      "source": "Objective Raids, p. 34"
+    },
+    {
+      "systemId": "Richmond",
+      "date": "3054-01-01",
+      "faction": "CSJ",
+      "units": [
+        "47th Garrison Cluster"
+      ],
+      "source": "Objective Raids, p. 34"
+    },
+    {
+      "systemId": "Savinsville",
+      "date": "3054-01-01",
+      "faction": "CSJ",
+      "units": [
+        "3rd Provisional Garrison Cluster"
+      ],
+      "source": "Objective Raids, p. 34"
+    },
+    {
+      "systemId": "Schuyler",
+      "date": "3054-01-01",
+      "faction": "CSJ",
+      "units": [
+        "2nd Jaguar Guards, Trinary Alpha, Trinary Bravo",
+        "4th Jaguar Regulars",
+        "12th Jaguar Regulars"
+      ],
+      "source": "Objective Raids, p. 34"
+    },
+    {
+      "systemId": "Schwartz",
+      "date": "3054-01-01",
+      "faction": "CSJ",
+      "units": [
+        "189th Garrison Cluster"
+      ],
+      "source": "Objective Raids, p. 34"
+    },
+    {
+      "systemId": "Stapelfeld",
+      "date": "3054-01-01",
+      "faction": "CSJ",
+      "units": [
+        "19th Garrison Cluster"
+      ],
+      "source": "Objective Raids, p. 34"
+    },
+    {
+      "systemId": "Tarazed",
+      "date": "3054-01-01",
+      "faction": "CSJ",
+      "units": [
+        "7th Jaguar Dragoons"
+      ],
+      "source": "Objective Raids, p. 34"
+    },
+    {
+      "systemId": "Teniente",
+      "date": "3054-01-01",
+      "faction": "CSJ",
+      "units": [
+        "267th Battle Cluster"
+      ],
+      "source": "Objective Raids, p. 34"
+    },
+    {
+      "systemId": "Tinaca",
+      "date": "3054-01-01",
+      "faction": "CSJ",
+      "units": [
+        "10th Provisional Garrison Cluster"
+      ],
+      "source": "Objective Raids, p. 34"
+    },
+    {
+      "systemId": "Yamarovka",
+      "date": "3054-01-01",
+      "faction": "CSJ",
+      "units": [
+        "11th Garrison Cluster"
+      ],
+      "source": "Objective Raids, p. 34"
+    },
+    {
+      "systemId": "Avon",
+      "date": "3054-01-01",
+      "faction": "CNC",
+      "units": [
+        "1st Nova Cat Guards, Trinary Alpha",
+        "1st Garrison Cluster",
+        "3rd Garrison Cluster"
+      ],
+      "source": "Objective Raids, p. 35"
+    },
+    {
+      "systemId": "Bjarred",
+      "date": "3054-01-01",
+      "faction": "CNC",
+      "units": [
+        "189th Striker Cluster",
+        "115th Garrison Cluster"
+      ],
+      "source": "Objective Raids, p. 35"
+    },
+    {
+      "systemId": "Caripare",
+      "date": "3054-01-01",
+      "faction": "CNC",
+      "units": [
+        "1st Nova Cat Guards, Trinary Bravo, Trinary Delta",
+        "5th Nova Cat Regulars"
+      ],
+      "source": "Objective Raids, p. 35"
+    },
+    {
+      "systemId": "Courchevel",
+      "date": "3054-01-01",
+      "faction": "CNC",
+      "units": [
+        "46th Nova Cat Cavaliers",
+        "14th Garrison Cluster"
+      ],
+      "source": "Objective Raids, p. 35"
+    },
+    {
+      "systemId": "Cyrenaica",
+      "date": "3054-01-01",
+      "faction": "CNC",
+      "units": [
+        "449th Assault Cluster",
+        "4th Nova Cat Regulars"
+      ],
+      "source": "Objective Raids, p. 35"
+    },
+    {
+      "systemId": "Irece",
+      "date": "3054-01-01",
+      "faction": "CNC",
+      "units": [
+        "1st Nova Cat Guards, Trinary Charlie",
+        "5th Garrison Cluster",
+        "6th Garrison Cluster"
+      ],
+      "source": "Objective Raids, p. 35"
+    },
+    {
+      "systemId": "Itabaiana",
+      "date": "3054-01-01",
+      "faction": "CNC",
+      "units": [
+        "44th Nova Cat Cavaliers",
+        "13th Garrison Cluster"
+      ],
+      "source": "Objective Raids, p. 35"
+    },
+    {
+      "systemId": "Jeanette",
+      "date": "3054-01-01",
+      "faction": "CNC",
+      "units": [
+        "Nova Cat Lancers",
+        "10th Garrison Cluster"
+      ],
+      "source": "Objective Raids, p. 35"
+    },
+    {
+      "systemId": "Juazeiro",
+      "date": "3054-01-01",
+      "faction": "CNC",
+      "units": [
+        "274th Battle Cluster",
+        "6th Nova Cat Regulars"
+      ],
+      "source": "Objective Raids, p. 35"
+    },
+    {
+      "systemId": "Kanowit",
+      "date": "3054-01-01",
+      "faction": "CNC",
+      "units": [
+        "489th Assault Cluster",
+        "9th Nova Cat Regulars"
+      ],
+      "source": "Objective Raids, p. 35"
+    },
+    {
+      "systemId": "Mualang",
+      "date": "3054-01-01",
+      "faction": "CNC",
+      "units": [
+        "119th Striker Cluster",
+        "15th Garrison Cluster"
+      ],
+      "source": "Objective Raids, p. 35"
+    },
+    {
+      "systemId": "Port Arthur",
+      "date": "3054-01-01",
+      "faction": "CNC",
+      "units": [
+        "4th Nova Cat Guards",
+        "12th Nova Cat Regulars"
+      ],
+      "source": "Objective Raids, p. 35"
+    },
+    {
+      "systemId": "Sawyer",
+      "date": "3054-01-01",
+      "faction": "CNC",
+      "units": [
+        "179th Striker Cluster",
+        "12th Garrison Cluster"
+      ],
+      "source": "Objective Raids, p. 35"
+    },
+    {
+      "systemId": "Tarnby",
+      "date": "3054-01-01",
+      "faction": "CNC",
+      "units": [
+        "100th Striker Cluster",
+        "153rd Garrison Cluster"
+      ],
+      "source": "Objective Raids, p. 35"
+    },
+    {
+      "systemId": "Virentofta",
+      "date": "3054-01-01",
+      "faction": "CNC",
+      "units": [
+        "246th Battle Cluster",
+        "11th Garrison Cluster"
+      ],
+      "source": "Objective Raids, p. 35"
+    },
+    {
+      "systemId": "Andurien",
+      "date": "3054-01-01",
+      "faction": "FWL",
+      "units": [
+        "1st Legionnaires (Free Worlds Legionnaires)"
+      ],
+      "source": "Objective Raids, p. 37"
+    },
+    {
+      "systemId": "Bella I",
+      "date": "3054-01-01",
+      "faction": "FWL",
+      "units": [
+        "2nd Guards (Free Worlds Guards)"
+      ],
+      "source": "Objective Raids, p. 37"
+    },
+    {
+      "systemId": "Berenson",
+      "date": "3054-01-01",
+      "faction": "FWL",
+      "units": [
+        "1st Guards (Free Worlds Guards)"
+      ],
+      "source": "Objective Raids, p. 37"
+    },
+    {
+      "systemId": "Calloway VI",
+      "date": "3054-01-01",
+      "faction": "FWL",
+      "units": [
+        "11th Dragoons, 3rd Battalion (Atrean Dragoons)"
+      ],
+      "source": "Objective Raids, p. 37"
+    },
+    {
+      "systemId": "Leyda",
+      "date": "3054-01-01",
+      "faction": "FWL",
+      "units": [
+        "3rd Legionnaires, 1st Battalion (Free Worlds Legionnaires)",
+        "3rd Legionnaires, 3rd Battalion (Free Worlds Legionnaires)"
+      ],
+      "source": "Objective Raids, p. 37"
+    },
+    {
+      "systemId": "Ling",
+      "date": "3054-01-01",
+      "faction": "FWL",
+      "units": [
+        "Atrean Hussars"
+      ],
+      "source": "Objective Raids, p. 37"
+    },
+    {
+      "systemId": "Lopez",
+      "date": "3054-01-01",
+      "faction": "FWL",
+      "units": [
+        "5th Legionnaires (Free Worlds Legionnaires)"
+      ],
+      "source": "Objective Raids, p. 37"
+    },
+    {
+      "systemId": "Marik",
+      "date": "3054-01-01",
+      "faction": "FWL",
+      "units": [
+        "4th Legionnaires, 2nd Battalion (Free Worlds Legionnaires)"
+      ],
+      "source": "Objective Raids, p. 37"
+    },
+    {
+      "systemId": "Matheran",
+      "date": "3054-01-01",
+      "faction": "FWL",
+      "units": [
+        "11th Dragoons, 1st Battalion (Atrean Dragoons)",
+        "11th Dragoons, 2nd Battalion (Atrean Dragoons)"
+      ],
+      "source": "Objective Raids, p. 37"
+    },
+    {
+      "systemId": "McKenna",
+      "date": "3054-01-01",
+      "faction": "FWL",
+      "units": [
+        "1st Dragoons (Atrean Dragoons)"
+      ],
+      "source": "Objective Raids, p. 37"
+    },
+    {
+      "systemId": "Miaplacidus",
+      "date": "3054-01-01",
+      "faction": "FWL",
+      "units": [
+        "4th Legionnaires, 1st Battalion (Free Worlds Legionnaires)",
+        "4th Legionnaires, 3rd Battalion (Free Worlds Legionnaires)"
+      ],
+      "source": "Objective Raids, p. 37"
+    },
+    {
+      "systemId": "Sadurni",
+      "date": "3054-01-01",
+      "faction": "FWL",
+      "units": [
+        "2nd Legionnaires (Free Worlds Legionnaires)"
+      ],
+      "source": "Objective Raids, p. 37"
+    },
+    {
+      "systemId": "Umka",
+      "date": "3054-01-01",
+      "faction": "FWL",
+      "units": [
+        "3rd Legionnaires, 2nd Battalion (Free Worlds Legionnaires)"
+      ],
+      "source": "Objective Raids, p. 37"
+    },
+    {
+      "systemId": "Vanra",
+      "date": "3054-01-01",
+      "faction": "FWL",
+      "units": [
+        "12th Dragoons (Atrean Dragoons)"
+      ],
+      "source": "Objective Raids, p. 37"
+    },
+    {
+      "systemId": "Zion",
+      "date": "3054-01-01",
+      "faction": "FWL",
+      "units": [
+        "3rd Guards (Free Worlds Guards)"
+      ],
+      "source": "Objective Raids, p. 37"
+    },
+    {
+      "systemId": "Amity",
+      "date": "3054-01-01",
+      "faction": "FWL",
+      "units": [
+        "31st Militia, 3rd Battalion (Marik Militia)"
+      ],
+      "source": "Objective Raids, p. 38"
+    },
+    {
+      "systemId": "Atreus (FWL)",
+      "date": "3054-01-01",
+      "faction": "FWL",
+      "units": [
+        "4th Hussars (Oriente Hussars)"
+      ],
+      "source": "Objective Raids, p. 38"
+    },
+    {
+      "systemId": "Augustine",
+      "date": "3054-01-01",
+      "faction": "FWL",
+      "units": [
+        "2nd Lancers (Sirian Lancers)"
+      ],
+      "source": "Objective Raids, p. 38"
+    },
+    {
+      "systemId": "Berenson",
+      "date": "3054-01-01",
+      "faction": "FWL",
+      "units": [
+        "15th Militia (Marik Militia)"
+      ],
+      "source": "Objective Raids, p. 38"
+    },
+    {
+      "systemId": "Bernardo",
+      "date": "3054-01-01",
+      "faction": "FWL",
+      "units": [
+        "10th Militia (Marik Militia)"
+      ],
+      "source": "Objective Raids, p. 38"
+    },
+    {
+      "systemId": "Bordon",
+      "date": "3054-01-01",
+      "faction": "FWL",
+      "units": [
+        "Iron Guards (Protectorate Guard)"
+      ],
+      "source": "Objective Raids, p. 38"
+    },
+    {
+      "systemId": "Carbonis",
+      "date": "3054-01-01",
+      "faction": "FWL",
+      "units": [
+        "9th Militia (Marik Militia)"
+      ],
+      "source": "Objective Raids, p. 38"
+    },
+    {
+      "systemId": "Concord",
+      "date": "3054-01-01",
+      "faction": "FWL",
+      "units": [
+        "20th Militia (Marik Militia)"
+      ],
+      "source": "Objective Raids, p. 38"
+    },
+    {
+      "systemId": "Connaught",
+      "date": "3054-01-01",
+      "faction": "FWL",
+      "units": [
+        "18th Militia (Marik Militia)"
+      ],
+      "source": "Objective Raids, p. 38"
+    },
+    {
+      "systemId": "Dalton",
+      "date": "3054-01-01",
+      "faction": "FWL",
+      "units": [
+        "3rd Hussars, 3rd Battalion, Charlie Company (Oriente Hussars)"
+      ],
+      "source": "Objective Raids, p. 38"
+    },
+    {
+      "systemId": "Dieudonné",
+      "date": "3054-01-01",
+      "faction": "FWL",
+      "units": [
+        "25th Militia (Marik Militia)"
+      ],
+      "source": "Objective Raids, p. 38"
+    },
+    {
+      "systemId": "Dubhe",
+      "date": "3054-01-01",
+      "faction": "FWL",
+      "units": [
+        "Falcons (Silver Hawk Irregulars)"
+      ],
+      "source": "Objective Raids, p. 38"
+    },
+    {
+      "systemId": "Fletcher (FWL)",
+      "date": "3054-01-01",
+      "faction": "FWL",
+      "units": [
+        "1st Militia (Marik Militia)"
+      ],
+      "source": "Objective Raids, p. 38"
+    },
+    {
+      "systemId": "Griffith",
+      "date": "3054-01-01",
+      "faction": "FWL",
+      "units": [
+        "1st Brigade (Fusiliers of Oriente)"
+      ],
+      "source": "Objective Raids, p. 38"
+    },
+    {
+      "systemId": "Hassad",
+      "date": "3054-01-01",
+      "faction": "FWL",
+      "units": [
+        "2nd Militia (Marik Militia)"
+      ],
+      "source": "Objective Raids, p. 38"
+    },
+    {
+      "systemId": "Holt",
+      "date": "3054-01-01",
+      "faction": "FWL",
+      "units": [
+        "6th Militia (Marik Militia)"
+      ],
+      "source": "Objective Raids, p. 38"
+    },
+    {
+      "systemId": "Ipswich",
+      "date": "3054-01-01",
+      "faction": "FWL",
+      "units": [
+        "3rd Hussars, 1st Battalion (Oriente Hussars)",
+        "3rd Hussars, 2nd Battalion (Oriente Hussars)"
+      ],
+      "source": "Objective Raids, p. 38"
+    },
+    {
+      "systemId": "Irian",
+      "date": "3054-01-01",
+      "faction": "FWL",
+      "units": [
+        "13th Militia (Marik Militia)"
+      ],
+      "source": "Objective Raids, p. 38"
+    },
+    {
+      "systemId": "Kalidasa",
+      "date": "3054-01-01",
+      "faction": "FWL",
+      "units": [
+        "Gryphons (Silver Hawk Irregulars)"
+      ],
+      "source": "Objective Raids, p. 38"
+    },
+    {
+      "systemId": "Keystone",
+      "date": "3054-01-01",
+      "faction": "FWL",
+      "units": [
+        "23rd Militia (Marik Militia)"
+      ],
+      "source": "Objective Raids, p. 38"
+    },
+    {
+      "systemId": "Kosciusko",
+      "date": "3054-01-01",
+      "faction": "FWL",
+      "units": [
+        "Steel Guards (Protectorate Guard)"
+      ],
+      "source": "Objective Raids, p. 38"
+    },
+    {
+      "systemId": "Les Halles",
+      "date": "3054-01-01",
+      "faction": "FWL",
+      "units": [
+        "5th Militia (Marik Militia)"
+      ],
+      "source": "Objective Raids, p. 38"
+    },
+    {
+      "systemId": "Maxwell",
+      "date": "3054-01-01",
+      "faction": "FWL",
+      "units": [
+        "2nd Brigade (Fusiliers of Oriente)"
+      ],
+      "source": "Objective Raids, p. 38"
+    },
+    {
+      "systemId": "Oriente",
+      "date": "3054-01-01",
+      "faction": "FWL",
+      "units": [
+        "4th Brigade (Fusiliers of Oriente)",
+        "2nd Hussars, 1st Battalion (Oriente Hussars)",
+        "2nd Hussars, 3rd Battalion (Oriente Hussars)"
+      ],
+      "source": "Objective Raids, p. 38"
+    },
+    {
+      "systemId": "Park Place",
+      "date": "3054-01-01",
+      "faction": "FWL",
+      "units": [
+        "4th Militia (Marik Militia)"
+      ],
+      "source": "Objective Raids, p. 38"
+    },
+    {
+      "systemId": "Promised Land",
+      "date": "3054-01-01",
+      "faction": "FWL",
+      "units": [
+        "3rd Brigade (Fusiliers of Oriente)"
+      ],
+      "source": "Objective Raids, p. 38"
+    },
+    {
+      "systemId": "Savannah",
+      "date": "3054-01-01",
+      "faction": "FWL",
+      "units": [
+        "1st Lancers (Sirian Lancers)"
+      ],
+      "source": "Objective Raids, p. 38"
+    },
+    {
+      "systemId": "Shiloh",
+      "date": "3054-01-01",
+      "faction": "FWL",
+      "units": [
+        "3rd Lancers (Sirian Lancers)"
+      ],
+      "source": "Objective Raids, p. 38"
+    },
+    {
+      "systemId": "Shiro III",
+      "date": "3054-01-01",
+      "faction": "FWL",
+      "units": [
+        "2nd Hussars, 2nd Battalion (Oriente Hussars)"
+      ],
+      "source": "Objective Raids, p. 38"
+    },
+    {
+      "systemId": "Sierra",
+      "date": "3054-01-01",
+      "faction": "FWL",
+      "units": [
+        "5th Hussars (Oriente Hussars)"
+      ],
+      "source": "Objective Raids, p. 38"
+    },
+    {
+      "systemId": "Tamarind",
+      "date": "3054-01-01",
+      "faction": "FWL",
+      "units": [
+        "Ducal Guard (Fusiliers of Oriente)"
+      ],
+      "source": "Objective Raids, p. 38"
+    },
+    {
+      "systemId": "Thermopolis",
+      "date": "3054-01-01",
+      "faction": "FWL",
+      "units": [
+        "5th Brigade (Fusiliers of Oriente)"
+      ],
+      "source": "Objective Raids, p. 38"
+    },
+    {
+      "systemId": "Trellisane",
+      "date": "3054-01-01",
+      "faction": "FWL",
+      "units": [
+        "1st Hussars (Oriente Hussars)"
+      ],
+      "source": "Objective Raids, p. 38"
+    },
+    {
+      "systemId": "Uhuru",
+      "date": "3054-01-01",
+      "faction": "FWL",
+      "units": [
+        "31st Militia, 1st Battalion (Marik Militia)",
+        "31st Militia, 2nd Battalion (Marik Militia)"
+      ],
+      "source": "Objective Raids, p. 38"
+    },
+    {
+      "systemId": "Wing",
+      "date": "3054-01-01",
+      "faction": "FWL",
+      "units": [
+        "30th Militia (Marik Militia)"
+      ],
+      "source": "Objective Raids, p. 38"
+    },
+    {
+      "systemId": "Asuncion",
+      "date": "3054-01-01",
+      "faction": "FWL",
+      "units": [
+        "2nd Smithson's Chinese Bandits"
+      ],
+      "source": "Objective Raids, p. 39"
+    },
+    {
+      "systemId": "Avior",
+      "date": "3054-01-01",
+      "faction": "FWL",
+      "units": [
+        "2nd Hussars (Regulan Hussars)"
+      ],
+      "source": "Objective Raids, p. 39"
+    },
+    {
+      "systemId": "Cascade",
+      "date": "3054-01-01",
+      "faction": "FWL",
+      "units": [
+        "Crater-Cobras, Black Cobras"
+      ],
+      "source": "Objective Raids, p. 39"
+    },
+    {
+      "systemId": "Cerillos",
+      "date": "3054-01-01",
+      "faction": "FWL",
+      "units": [
+        "6th Grenadiers (Orloff Grenadiers)"
+      ],
+      "source": "Objective Raids, p. 39"
+    },
+    {
+      "systemId": "Chertan",
+      "date": "3054-01-01",
+      "faction": "FWL",
+      "units": [
+        "5th Hussars (Regulan Hussars)"
+      ],
+      "source": "Objective Raids, p. 39"
+    },
+    {
+      "systemId": "Claybrooke",
+      "date": "3054-01-01",
+      "faction": "FWL",
+      "units": [
+        "Kristen's Krushers"
+      ],
+      "source": "Objective Raids, p. 39"
+    },
+    {
+      "systemId": "Colfax",
+      "date": "3054-01-01",
+      "faction": "FWL",
+      "units": [
+        "Langendorf Lancers"
+      ],
+      "source": "Objective Raids, p. 39"
+    },
+    {
+      "systemId": "Conquista",
+      "date": "3054-01-01",
+      "faction": "FWL",
+      "units": [
+        "Always Faithful"
+      ],
+      "source": "Objective Raids, p. 39"
+    },
+    {
+      "systemId": "Cronulla",
+      "date": "3054-01-01",
+      "faction": "FWL",
+      "units": [
+        "Blackhearts"
+      ],
+      "source": "Objective Raids, p. 39"
+    },
+    {
+      "systemId": "Galisteo",
+      "date": "3054-01-01",
+      "faction": "FWL",
+      "units": [
+        "Swann's Cavaliers"
+      ],
+      "source": "Objective Raids, p. 39"
+    },
+    {
+      "systemId": "Harsefeld",
+      "date": "3054-01-01",
+      "faction": "FWL",
+      "units": [
+        "Redfield Renegades"
+      ],
+      "source": "Objective Raids, p. 39"
+    },
+    {
+      "systemId": "Kendall",
+      "date": "3054-01-01",
+      "faction": "FWL",
+      "units": [
+        "Bad Dream"
+      ],
+      "source": "Objective Raids, p. 39"
+    },
+    {
+      "systemId": "Kyrkbacken",
+      "date": "3054-01-01",
+      "faction": "FWL",
+      "units": [
+        "1st Smithson's Chinese Bandits"
+      ],
+      "source": "Objective Raids, p. 39"
+    },
+    {
+      "systemId": "Lesnovo",
+      "date": "3054-01-01",
+      "faction": "FWL",
+      "units": [
+        "8th Grenadiers, 1st Battalion (Orloff Grenadiers)",
+        "8th Grenadiers, 2nd Battalion (Orloff Grenadiers)"
+      ],
+      "source": "Objective Raids, p. 39"
+    },
+    {
+      "systemId": "Mackenzie",
+      "date": "3054-01-01",
+      "faction": "FWL",
+      "units": [
+        "4th Hussars, 2nd Battalion (Regulan Hussars)"
+      ],
+      "source": "Objective Raids, p. 39"
+    },
+    {
+      "systemId": "McAffe",
+      "date": "3054-01-01",
+      "faction": "FWL",
+      "units": [
+        "9th Hussars (Regulan Hussars)"
+      ],
+      "source": "Objective Raids, p. 39"
+    },
+    {
+      "systemId": "Megrez",
+      "date": "3054-01-01",
+      "faction": "FWL",
+      "units": [
+        "Crater-Cobras, 789th Striker"
+      ],
+      "source": "Objective Raids, p. 39"
+    },
+    {
+      "systemId": "Nestor",
+      "date": "3054-01-01",
+      "faction": "FWL",
+      "units": [
+        "21st Centauri Lancers"
+      ],
+      "source": "Objective Raids, p. 39"
+    },
+    {
+      "systemId": "Nockatunga",
+      "date": "3054-01-01",
+      "faction": "FWL",
+      "units": [
+        "Greenburg's Godzillas"
+      ],
+      "source": "Objective Raids, p. 39"
+    },
+    {
+      "systemId": "Payvand",
+      "date": "3054-01-01",
+      "faction": "FWL",
+      "units": [
+        "Barrett's Fusiliers (Stewart Dragoons)"
+      ],
+      "source": "Objective Raids, p. 39"
+    },
+    {
+      "systemId": "Regulus",
+      "date": "3054-01-01",
+      "faction": "FWL",
+      "units": [
+        "1st Hussars, 1st Battalion (Regulan Hussars)",
+        "1st Hussars, 2nd Battalion (Regulan Hussars)"
+      ],
+      "source": "Objective Raids, p. 39"
+    },
+    {
+      "systemId": "Rochelle",
+      "date": "3054-01-01",
+      "faction": "FWL",
+      "units": [
+        "Dragon's Breath"
+      ],
+      "source": "Objective Raids, p. 39"
+    },
+    {
+      "systemId": "Shuen Wan",
+      "date": "3054-01-01",
+      "faction": "FWL",
+      "units": [
+        "Barrett's Fusiliers"
+      ],
+      "source": "Objective Raids, p. 39"
+    },
+    {
+      "systemId": "Stewart",
+      "date": "3054-01-01",
+      "faction": "FWL",
+      "units": [
+        "Home Guards (Stewart Dragoons)"
+      ],
+      "source": "Objective Raids, p. 39"
+    },
+    {
+      "systemId": "Suzano",
+      "date": "3054-01-01",
+      "faction": "FWL",
+      "units": [
+        "Carson's Renegades (1 Battalion)"
+      ],
+      "source": "Objective Raids, p. 39"
+    },
+    {
+      "systemId": "Tematagi",
+      "date": "3054-01-01",
+      "faction": "FWL",
+      "units": [
+        "8th Grenadiers, 3rd Battalion (Orloff Grenadiers)"
+      ],
+      "source": "Objective Raids, p. 39"
+    },
+    {
+      "systemId": "Thurrock",
+      "date": "3054-01-01",
+      "faction": "FWL",
+      "units": [
+        "Hermann's Hermits"
+      ],
+      "source": "Objective Raids, p. 39"
+    },
+    {
+      "systemId": "Tiber (FWL)",
+      "date": "3054-01-01",
+      "faction": "FWL",
+      "units": [
+        "4th Hussars, 1st Battalion (Regulan Hussars)",
+        "4th Hussars, 3rd Battalion (Regulan Hussars)"
+      ],
+      "source": "Objective Raids, p. 39"
+    },
+    {
+      "systemId": "Vanra",
+      "date": "3054-01-01",
+      "faction": "FWL",
+      "units": [
+        "1st Grenadiers (Orloff Grenadiers)"
+      ],
+      "source": "Objective Raids, p. 39"
+    },
+    {
+      "systemId": "Ventabren",
+      "date": "3054-01-01",
+      "faction": "FWL",
+      "units": [
+        "Stealthy Tigers"
+      ],
+      "source": "Objective Raids, p. 39"
+    },
+    {
+      "systemId": "Wallis",
+      "date": "3054-01-01",
+      "faction": "FWL",
+      "units": [
+        "1st Hussars, 3rd Battalion (Regulan Hussars)"
+      ],
+      "source": "Objective Raids, p. 39"
+    },
+    {
+      "systemId": "Barras",
+      "date": "3054-01-01",
+      "faction": "CC",
+      "units": [
+        "Ishara's Grenadiers, 2nd Battalion (Sarna Reserves)"
+      ],
+      "source": "Objective Raids, p. 41"
+    },
+    {
+      "systemId": "Buenos Aires",
+      "date": "3054-01-01",
+      "faction": "CC",
+      "units": [
+        "Ishara's Grenadiers, 1st Battalion (Sarna Reserves)"
+      ],
+      "source": "Objective Raids, p. 41"
+    },
+    {
+      "systemId": "Capella",
+      "date": "3054-01-01",
+      "faction": "CC",
+      "units": [
+        "Blanford's Grenadiers (Capellan Hussars)"
+      ],
+      "source": "Objective Raids, p. 41"
+    },
+    {
+      "systemId": "Eom",
+      "date": "3054-01-01",
+      "faction": "CC",
+      "units": [
+        "Stapelton's Grenadiers, 3rd Battalion (Capellan Reserves)"
+      ],
+      "source": "Objective Raids, p. 41"
+    },
+    {
+      "systemId": "Gei-Fu",
+      "date": "3054-01-01",
+      "faction": "CC",
+      "units": [
+        "Gordon's Demons (McCarron's Armored Cavalry)"
+      ],
+      "source": "Objective Raids, p. 41"
+    },
+    {
+      "systemId": "Harloc",
+      "date": "3054-01-01",
+      "faction": "CC",
+      "units": [
+        "Christobal's Regiment (McCarron's Armored Cavalry)"
+      ],
+      "source": "Objective Raids, p. 41"
+    },
+    {
+      "systemId": "Hurik",
+      "date": "3054-01-01",
+      "faction": "CC",
+      "units": [
+        "Kamakura's Hussars, 1st Battalion (Sarna Reserves)"
+      ],
+      "source": "Objective Raids, p. 41"
+    },
+    {
+      "systemId": "Hustaing",
+      "date": "3054-01-01",
+      "faction": "CC",
+      "units": [
+        "Nightriders (McCarron's Armored Cavalry)"
+      ],
+      "source": "Objective Raids, p. 41"
+    },
+    {
+      "systemId": "Ingersoll",
+      "date": "3054-01-01",
+      "faction": "CC",
+      "units": [
+        "Stapelton's Grenadiers, 1st Battalion (Capellan Reserves)"
+      ],
+      "source": "Objective Raids, p. 41"
+    },
+    {
+      "systemId": "Larsha",
+      "date": "3054-01-01",
+      "faction": "CC",
+      "units": [
+        "5th Confederation Reserve Cavalry, 2nd Battalion (Confederation Reserve Cavalry)"
+      ],
+      "source": "Objective Raids, p. 41"
+    },
+    {
+      "systemId": "Minnacora",
+      "date": "3054-01-01",
+      "faction": "CC",
+      "units": [
+        "Kingston's Legionnaires (Chesterton Reserves)",
+        "Kincade's Rangers, 2nd Battalion (Periphery Guard)"
+      ],
+      "source": "Objective Raids, p. 41"
+    },
+    {
+      "systemId": "Overton",
+      "date": "3054-01-01",
+      "faction": "CC",
+      "units": [
+        "The Wild Ones (McCarron's Armored Cavalry)"
+      ],
+      "source": "Objective Raids, p. 41"
+    },
+    {
+      "systemId": "Propus",
+      "date": "3054-01-01",
+      "faction": "CC",
+      "units": [
+        "Stapelton's Grenadiers, 2nd Battalion (Capellan Reserves)"
+      ],
+      "source": "Objective Raids, p. 41"
+    },
+    {
+      "systemId": "Purvo",
+      "date": "3054-01-01",
+      "faction": "CC",
+      "units": [
+        "2nd Confederation Reserve Cavalry (Confederation Reserve Cavalry)"
+      ],
+      "source": "Objective Raids, p. 41"
+    },
+    {
+      "systemId": "Relevow",
+      "date": "3054-01-01",
+      "faction": "CC",
+      "units": [
+        "Victor's Renegades (McCarron's Armored Cavalry)"
+      ],
+      "source": "Objective Raids, p. 41"
+    },
+    {
+      "systemId": "Repulse",
+      "date": "3054-01-01",
+      "faction": "CC",
+      "units": [
+        "Kincade's Rangers, 1st Battalion (Periphery Guard)"
+      ],
+      "source": "Objective Raids, p. 41"
+    },
+    {
+      "systemId": "Rollis",
+      "date": "3054-01-01",
+      "faction": "CC",
+      "units": [
+        "Sung's Cuirassiers (Chesterton Reserves)"
+      ],
+      "source": "Objective Raids, p. 41"
+    },
+    {
+      "systemId": "Sian",
+      "date": "3054-01-01",
+      "faction": "CC",
+      "units": [
+        "Red Lancers (Capellan Hussars)"
+      ],
+      "source": "Objective Raids, p. 41"
+    },
+    {
+      "systemId": "Ward",
+      "date": "3054-01-01",
+      "faction": "CC",
+      "units": [
+        "Kamakura's Hussars, 2nd Battalion (Sarna Reserves)"
+      ],
+      "source": "Objective Raids, p. 41"
+    },
+    {
+      "systemId": "Yuris",
+      "date": "3054-01-01",
+      "faction": "CC",
+      "units": [
+        "5th Confederation Reserve Cavalry, 1st Battalion (Confederation Reserve Cavalry)"
+      ],
+      "source": "Objective Raids, p. 41"
+    },
+    {
+      "systemId": "Altorra",
+      "date": "3054-01-01",
+      "faction": "CC",
+      "units": [
+        "Olson's Rangers, 1st Battalion"
+      ],
+      "source": "Objective Raids, p. 42"
+    },
+    {
+      "systemId": "Andarmax",
+      "date": "3054-01-01",
+      "faction": "CC",
+      "units": [
+        "Little Richard's Panzer Brigade, 2nd Battalion"
+      ],
+      "source": "Objective Raids, p. 42"
+    },
+    {
+      "systemId": "Ares",
+      "date": "3054-01-01",
+      "faction": "CC",
+      "units": [
+        "15th Dracon, 1st Battalion"
+      ],
+      "source": "Objective Raids, p. 42"
+    },
+    {
+      "systemId": "Bandora",
+      "date": "3054-01-01",
+      "faction": "CC",
+      "units": [
+        "Rivaldi's Hussars (1 Battalion)"
+      ],
+      "source": "Objective Raids, p. 42"
+    },
+    {
+      "systemId": "Betelgeuse",
+      "date": "3054-01-01",
+      "faction": "CC",
+      "units": [
+        "House Kamata (2 Battalions)"
+      ],
+      "source": "Objective Raids, p. 42"
+    },
+    {
+      "systemId": "Bithinia",
+      "date": "3054-01-01",
+      "faction": "CC",
+      "units": [
+        "House Matsukai (2 Battalions)"
+      ],
+      "source": "Objective Raids, p. 42"
+    },
+    {
+      "systemId": "Capricorn III",
+      "date": "3054-01-01",
+      "faction": "CC",
+      "units": [
+        "15th Dracon, 3rd Battalion"
+      ],
+      "source": "Objective Raids, p. 42"
+    },
+    {
+      "systemId": "Drozan",
+      "date": "3054-01-01",
+      "faction": "CC",
+      "units": [
+        "House Daidachi (2 Battalions)"
+      ],
+      "source": "Objective Raids, p. 42"
+    },
+    {
+      "systemId": "Frondas",
+      "date": "3054-01-01",
+      "faction": "CC",
+      "units": [
+        "Olson's Rangers, 2nd Battalion"
+      ],
+      "source": "Objective Raids, p. 42"
+    },
+    {
+      "systemId": "Fronde",
+      "date": "3054-01-01",
+      "faction": "CC",
+      "units": [
+        "Olson's Rangers, 3rd Battalion"
+      ],
+      "source": "Objective Raids, p. 42"
+    },
+    {
+      "systemId": "Grand Base",
+      "date": "3054-01-01",
+      "faction": "CC",
+      "units": [
+        "House Fujita, 1st Battalion"
+      ],
+      "source": "Objective Raids, p. 42"
+    },
+    {
+      "systemId": "Holloway",
+      "date": "3054-01-01",
+      "faction": "CC",
+      "units": [
+        "House Fujita, 2nd Battalion"
+      ],
+      "source": "Objective Raids, p. 42"
+    },
+    {
+      "systemId": "Homestead",
+      "date": "3054-01-01",
+      "faction": "CC",
+      "units": [
+        "Marshigama's Legionnaires"
+      ],
+      "source": "Objective Raids, p. 42"
+    },
+    {
+      "systemId": "Ito",
+      "date": "3054-01-01",
+      "faction": "CC",
+      "units": [
+        "Lockhardt's Ironsides, 1st Battalion"
+      ],
+      "source": "Objective Raids, p. 42"
+    },
+    {
+      "systemId": "Jacson",
+      "date": "3054-01-01",
+      "faction": "CC",
+      "units": [
+        "House LuSann, 2nd Battalion"
+      ],
+      "source": "Objective Raids, p. 42"
+    },
+    {
+      "systemId": "Jasmine",
+      "date": "3054-01-01",
+      "faction": "CC",
+      "units": [
+        "House Ijori, 1st Battalion"
+      ],
+      "source": "Objective Raids, p. 42"
+    },
+    {
+      "systemId": "Mitchel",
+      "date": "3054-01-01",
+      "faction": "CC",
+      "units": [
+        "House LuSann, 1st Battalion"
+      ],
+      "source": "Objective Raids, p. 42"
+    },
+    {
+      "systemId": "Necromo",
+      "date": "3054-01-01",
+      "faction": "CC",
+      "units": [
+        "15th Dracon, 2nd Battalion"
+      ],
+      "source": "Objective Raids, p. 42"
+    },
+    {
+      "systemId": "New Roland",
+      "date": "3054-01-01",
+      "faction": "CC",
+      "units": [
+        "Clifton's Rangers (1 Battalion)",
+        "St. Cyr's Armored Grenadiers (1 Battalion)"
+      ],
+      "source": "Objective Raids, p. 42"
+    },
+    {
+      "systemId": "New Sagan",
+      "date": "3054-01-01",
+      "faction": "CC",
+      "units": [
+        "15th Dracon, 4th Battalion"
+      ],
+      "source": "Objective Raids, p. 42"
+    },
+    {
+      "systemId": "Niomede",
+      "date": "3054-01-01",
+      "faction": "CC",
+      "units": [
+        "Tooth of Ymir, 1st Battalion"
+      ],
+      "source": "Objective Raids, p. 42"
+    },
+    {
+      "systemId": "No Return",
+      "date": "3054-01-01",
+      "faction": "CC",
+      "units": [
+        "House Hiritsu, 1st Battalion"
+      ],
+      "source": "Objective Raids, p. 42"
+    },
+    {
+      "systemId": "Palladaine",
+      "date": "3054-01-01",
+      "faction": "CC",
+      "units": [
+        "Lockhardt's Ironsides, 3rd Battalion"
+      ],
+      "source": "Objective Raids, p. 42"
+    },
+    {
+      "systemId": "Pella II",
+      "date": "3054-01-01",
+      "faction": "CC",
+      "units": [
+        "House Ijori, 2nd Battalion"
+      ],
+      "source": "Objective Raids, p. 42"
+    },
+    {
+      "systemId": "Principia",
+      "date": "3054-01-01",
+      "faction": "CC",
+      "units": [
+        "Little Richard's Panzer Brigade, 3rd Battalion"
+      ],
+      "source": "Objective Raids, p. 42"
+    },
+    {
+      "systemId": "Purvo",
+      "date": "3054-01-01",
+      "faction": "CC",
+      "units": [
+        "The Green Machine"
+      ],
+      "source": "Objective Raids, p. 42"
+    },
+    {
+      "systemId": "Randar",
+      "date": "3054-01-01",
+      "faction": "CC",
+      "units": [
+        "House Hiritsu, 2nd Battalion"
+      ],
+      "source": "Objective Raids, p. 42"
+    },
+    {
+      "systemId": "Rollis",
+      "date": "3054-01-01",
+      "faction": "CC",
+      "units": [
+        "Gregg's Long Striders"
+      ],
+      "source": "Objective Raids, p. 42"
+    },
+    {
+      "systemId": "Sax",
+      "date": "3054-01-01",
+      "faction": "CC",
+      "units": [
+        "Little Richard's Panzer Brigade, 1st Battalion"
+      ],
+      "source": "Objective Raids, p. 42"
+    },
+    {
+      "systemId": "Shiba",
+      "date": "3054-01-01",
+      "faction": "CC",
+      "units": [
+        "Tooth of Ymir, 2nd Battalion"
+      ],
+      "source": "Objective Raids, p. 42"
+    },
+    {
+      "systemId": "Sian",
+      "date": "3054-01-01",
+      "faction": "CC",
+      "units": [
+        "4th Tau Ceti Rangers (1 Battalion)",
+        "House Imarra (2 Battalions)"
+      ],
+      "source": "Objective Raids, p. 42"
+    },
+    {
+      "systemId": "Sigma Mare",
+      "date": "3054-01-01",
+      "faction": "CC",
+      "units": [
+        "Tooth of Ymir, 3rd Battalion"
+      ],
+      "source": "Objective Raids, p. 42"
+    },
+    {
+      "systemId": "Westerhand",
+      "date": "3054-01-01",
+      "faction": "CC",
+      "units": [
+        "Lockhardt's Ironsides, 2nd Battalion"
+      ],
+      "source": "Objective Raids, p. 42"
+    },
+    {
+      "systemId": "Xieng Khouang",
+      "date": "3054-01-01",
+      "faction": "CC",
+      "units": [
+        "Ambermarle's Highlanders (1 Battalion)"
+      ],
+      "source": "Objective Raids, p. 42"
+    },
+    {
+      "systemId": "Zanzibar",
+      "date": "3054-01-01",
+      "faction": "CC",
+      "units": [
+        "Bullard's Armored Cavalry (1 Battalion)"
+      ],
+      "source": "Objective Raids, p. 42"
+    },
+    {
+      "systemId": "Ambergrist",
+      "date": "3054-01-01",
+      "faction": "FC",
+      "units": [
+        "1st Illician Lancers, 1st Battalion"
+      ],
+      "source": "Objective Raids, p. 43"
+    },
+    {
+      "systemId": "Armaxa",
+      "date": "3054-01-01",
+      "faction": "SIC",
+      "units": [
+        "2nd St. Ives Lancers, 1st Battalion"
+      ],
+      "source": "Objective Raids, p. 43"
+    },
+    {
+      "systemId": "Brighton",
+      "date": "3054-01-01",
+      "faction": "SIC",
+      "units": [
+        "Raymond's Armored Infantry"
+      ],
+      "source": "Objective Raids, p. 43"
+    },
+    {
+      "systemId": "Denbar",
+      "date": "3054-01-01",
+      "faction": "SIC",
+      "units": [
+        "Blackwind Lancers, 2nd Battalion"
+      ],
+      "source": "Objective Raids, p. 43"
+    },
+    {
+      "systemId": "Indicass",
+      "date": "3054-01-01",
+      "faction": "SIC",
+      "units": [
+        "St. Ives Cheveau Legers"
+      ],
+      "source": "Objective Raids, p. 43"
+    },
+    {
+      "systemId": "Milos",
+      "date": "3054-01-01",
+      "faction": "SIC",
+      "units": [
+        "Blackwind Lancers, 1st Battalion"
+      ],
+      "source": "Objective Raids, p. 43"
+    },
+    {
+      "systemId": "Nashuar",
+      "date": "3054-01-01",
+      "faction": "SIC",
+      "units": [
+        "2nd St. Ives Lancers, 2nd Battalion"
+      ],
+      "source": "Objective Raids, p. 43"
+    },
+    {
+      "systemId": "Nashuar",
+      "date": "3054-01-01",
+      "faction": "FC",
+      "units": [
+        "7th F-C RCT"
+      ],
+      "source": "Objective Raids, p. 43"
+    },
+    {
+      "systemId": "St. Ives",
+      "date": "3054-01-01",
+      "faction": "SIC",
+      "units": [
+        "1st St. Ives Lancers",
+        "St. Ives Academy Training Group Battalion"
+      ],
+      "source": "Objective Raids, p. 43"
+    },
+    {
+      "systemId": "Taga",
+      "date": "3054-01-01",
+      "faction": "SIC",
+      "units": [
+        "2nd St. Ives Lancers, 3rd Battalion"
+      ],
+      "source": "Objective Raids, p. 43"
+    },
+    {
+      "systemId": "Taga",
+      "date": "3054-01-01",
+      "faction": "FC",
+      "units": [
+        "14th Donegal Guards RCT"
+      ],
+      "source": "Objective Raids, p. 43"
+    },
+    {
+      "systemId": "Texlos",
+      "date": "3054-01-01",
+      "faction": "SIC",
+      "units": [
+        "Blackwind Lancers, 3rd Battalion"
+      ],
+      "source": "Objective Raids, p. 43"
+    },
+    {
+      "systemId": "Texlos",
+      "date": "3054-01-01",
+      "faction": "FC",
+      "units": [
+        "1st Illician Lancers, 2nd Battalion",
+        "1st Illician Lancers, 3rd Battalion"
+      ],
+      "source": "Objective Raids, p. 43"
+    },
+    {
+      "systemId": "Vestallas",
+      "date": "3054-01-01",
+      "faction": "SIC",
+      "units": [
+        "Aliesha's Mounted Fusiliers"
+      ],
+      "source": "Objective Raids, p. 43"
+    },
+    {
+      "systemId": "Al Hillah",
+      "date": "3054-01-01",
+      "faction": "FRR",
+      "units": [
+        "4th Kavalleri, 1st Battalion"
+      ],
+      "source": "Objective Raids, p. 44"
+    },
+    {
+      "systemId": "Dehgolan",
+      "date": "3054-01-01",
+      "faction": "FRR",
+      "units": [
+        "2nd Freeman (2 Battalions)"
+      ],
+      "source": "Objective Raids, p. 44"
+    },
+    {
+      "systemId": "Grumium",
+      "date": "3054-01-01",
+      "faction": "FRR",
+      "units": [
+        "3rd Hussars (2 Battalions)"
+      ],
+      "source": "Objective Raids, p. 44"
+    },
+    {
+      "systemId": "Karbala",
+      "date": "3054-01-01",
+      "faction": "FRR",
+      "units": [
+        "The Black Outlaws (1 Battalion)"
+      ],
+      "source": "Objective Raids, p. 44"
+    },
+    {
+      "systemId": "Orestes",
+      "date": "3054-01-01",
+      "faction": "FRR",
+      "units": [
+        "4th Kavalleri, 3rd Battalion"
+      ],
+      "source": "Objective Raids, p. 44"
+    },
+    {
+      "systemId": "Tukayyid",
+      "date": "3054-01-01",
+      "faction": "FRR",
+      "units": [
+        "2nd Kavalleri"
+      ],
+      "source": "Objective Raids, p. 44"
+    },
+    {
+      "systemId": "Ueda",
+      "date": "3054-01-01",
+      "faction": "FRR",
+      "units": [
+        "3rd Drakons (1 Battalion)",
+        "4th Drakons (1 Battalion)"
+      ],
+      "source": "Objective Raids, p. 44"
+    },
+    {
+      "systemId": "Adherlwin",
+      "date": "3054-01-01",
+      "faction": "MOC",
+      "units": [
+        "Chasseurs a Cheval, 3rd Canopian Light Horse"
+      ],
+      "source": "Objective Raids, p. 47"
+    },
+    {
+      "systemId": "Afarsin",
+      "date": "3054-01-01",
+      "faction": "MOC",
+      "units": [
+        "Canopian Fusiliers, 2nd Canopian Fusiliers"
+      ],
+      "source": "Objective Raids, p. 47"
+    },
+    {
+      "systemId": "Alpheratz",
+      "date": "3054-01-01",
+      "faction": "OA",
+      "units": [
+        "Avellar Guards, 2nd Battalion",
+        "Avellar Guards, 3rd Battalion"
+      ],
+      "source": "Objective Raids, p. 47"
+    },
+    {
+      "systemId": "Baliggora",
+      "date": "3054-01-01",
+      "faction": "OA",
+      "units": [
+        "The Alliance Grenadiers, 2nd Battalion"
+      ],
+      "source": "Objective Raids, p. 47"
+    },
+    {
+      "systemId": "Bass",
+      "date": "3054-01-01",
+      "faction": "MOC",
+      "units": [
+        "1st Screaming Eagles, 2nd Battalion"
+      ],
+      "source": "Objective Raids, p. 47"
+    },
+    {
+      "systemId": "Bethonolog",
+      "date": "3054-01-01",
+      "faction": "MOC",
+      "units": [
+        "1st Screaming Eagles, 3rd Battalion"
+      ],
+      "source": "Objective Raids, p. 47"
+    },
+    {
+      "systemId": "Booker",
+      "date": "3054-01-01",
+      "faction": "MOC",
+      "units": [
+        "1st Screaming Eagles, 1st Battalion"
+      ],
+      "source": "Objective Raids, p. 47"
+    },
+    {
+      "systemId": "Brixtana",
+      "date": "3054-01-01",
+      "faction": "MOC",
+      "units": [
+        "Harcourt's Destructors, Harcourt's Aliens"
+      ],
+      "source": "Objective Raids, p. 47"
+    },
+    {
+      "systemId": "Canopus IV",
+      "date": "3054-01-01",
+      "faction": "MOC",
+      "units": [
+        "Magistracy Royal Guards, Raventhir's Iron Hand",
+        "Magistracy Royal Guards, 1st Canopian Cuirassiers",
+        "Magistracy Royal Guards, 2nd Canopian Cuirassiers"
+      ],
+      "source": "Objective Raids, p. 47"
+    },
+    {
+      "systemId": "Coraines",
+      "date": "3054-01-01",
+      "faction": "OA",
+      "units": [
+        "The Alliance Borderers, 2nd Battalion"
+      ],
+      "source": "Objective Raids, p. 47"
+    },
+    {
+      "systemId": "Dainmar Majoris",
+      "date": "3054-01-01",
+      "faction": "MOC",
+      "units": [
+        "Canopian Highlanders, Long's Light Lancers"
+      ],
+      "source": "Objective Raids, p. 47"
+    },
+    {
+      "systemId": "Dunianshire",
+      "date": "3054-01-01",
+      "faction": "MOC",
+      "units": [
+        "Canopian Highlanders, McGraw's Marauders"
+      ],
+      "source": "Objective Raids, p. 47"
+    },
+    {
+      "systemId": "Early Dawn",
+      "date": "3054-01-01",
+      "faction": "MOC",
+      "units": [
+        "Ramilie's Raiders, Command Battalion",
+        "Ramilie's Raiders, Assault Battalion"
+      ],
+      "source": "Objective Raids, p. 47"
+    },
+    {
+      "systemId": "Fanardir",
+      "date": "3054-01-01",
+      "faction": "MOC",
+      "units": [
+        "Chasseurs a Cheval, 2nd Canopian Light Horse"
+      ],
+      "source": "Objective Raids, p. 47"
+    },
+    {
+      "systemId": "Ferris (OA)",
+      "date": "3054-01-01",
+      "faction": "OA",
+      "units": [
+        "The Alliance Grenadiers, 3rd Battalion"
+      ],
+      "source": "Objective Raids, p. 47"
+    },
+    {
+      "systemId": "Gambilon",
+      "date": "3054-01-01",
+      "faction": "MOC",
+      "units": [
+        "2nd Screaming Eagles, 1st Battalion"
+      ],
+      "source": "Objective Raids, p. 47"
+    },
+    {
+      "systemId": "Lindenmarle",
+      "date": "3054-01-01",
+      "faction": "MOC",
+      "units": [
+        "Canopian Fusiliers, 1st Canopian Fusiliers"
+      ],
+      "source": "Objective Raids, p. 47"
+    },
+    {
+      "systemId": "Lockton",
+      "date": "3054-01-01",
+      "faction": "MOC",
+      "units": [
+        "Ramilie's Raiders, Caesar's Cohorts (1 Battalion)"
+      ],
+      "source": "Objective Raids, p. 47"
+    },
+    {
+      "systemId": "Luxen",
+      "date": "3054-01-01",
+      "faction": "MOC",
+      "units": [
+        "Canopian Highlanders, Nellie's Naughties"
+      ],
+      "source": "Objective Raids, p. 47"
+    },
+    {
+      "systemId": "Marantha",
+      "date": "3054-01-01",
+      "faction": "MOC",
+      "units": [
+        "Canopian Fusiliers, 3rd Canopian Fusiliers"
+      ],
+      "source": "Objective Raids, p. 47"
+    },
+    {
+      "systemId": "Megarez",
+      "date": "3054-01-01",
+      "faction": "MOC",
+      "units": [
+        "Chasseurs a Cheval, 1st Canopian Light Horse"
+      ],
+      "source": "Objective Raids, p. 47"
+    },
+    {
+      "systemId": "Mitchella",
+      "date": "3054-01-01",
+      "faction": "OA",
+      "units": [
+        "The Alliance Borderers, 3rd Battalion"
+      ],
+      "source": "Objective Raids, p. 47"
+    },
+    {
+      "systemId": "New Abilene",
+      "date": "3054-01-01",
+      "faction": "MOC",
+      "units": [
+        "Harcourt's Destructors, Drummond's Destroyers"
+      ],
+      "source": "Objective Raids, p. 47"
+    },
+    {
+      "systemId": "Palladix",
+      "date": "3054-01-01",
+      "faction": "MOC",
+      "units": [
+        "2nd Screaming Eagles, 2nd Battalion"
+      ],
+      "source": "Objective Raids, p. 47"
+    },
+    {
+      "systemId": "Praxton",
+      "date": "3054-01-01",
+      "faction": "OA",
+      "units": [
+        "The Alliance Grenadiers, 1st Battalion"
+      ],
+      "source": "Objective Raids, p. 47"
+    },
+    {
+      "systemId": "Ramora",
+      "date": "3054-01-01",
+      "faction": "OA",
+      "units": [
+        "The Alliance Borderers, 1st Battalion"
+      ],
+      "source": "Objective Raids, p. 47"
+    },
+    {
+      "systemId": "Sevon",
+      "date": "3054-01-01",
+      "faction": "OA",
+      "units": [
+        "Avellar Guards, 1st Battalion"
+      ],
+      "source": "Objective Raids, p. 47"
+    },
+    {
+      "systemId": "Techne's Revenge",
+      "date": "3054-01-01",
+      "faction": "MOC",
+      "units": [
+        "2nd Screaming Eagles, 3rd Battalion"
+      ],
+      "source": "Objective Raids, p. 47"
+    },
+    {
+      "systemId": "Atreus Prime",
+      "date": "3054-01-01",
+      "faction": "TC",
+      "units": [
+        "The Concordat Cuirassiers, 3rd Battalion"
+      ],
+      "source": "Objective Raids, p. 48"
+    },
+    {
+      "systemId": "Brinton",
+      "date": "3054-01-01",
+      "faction": "TC",
+      "units": [
+        "The Hyades Light Infantry, 2nd Battalion"
+      ],
+      "source": "Objective Raids, p. 48"
+    },
+    {
+      "systemId": "Brisbane",
+      "date": "3054-01-01",
+      "faction": "TC",
+      "units": [
+        "The Red Chasseurs, 2nd Battalion"
+      ],
+      "source": "Objective Raids, p. 48"
+    },
+    {
+      "systemId": "Burton",
+      "date": "3054-01-01",
+      "faction": "TC",
+      "units": [
+        "The Concordat Jaegers, 3rd Battalion"
+      ],
+      "source": "Objective Raids, p. 48"
+    },
+    {
+      "systemId": "Dicallus",
+      "date": "3054-01-01",
+      "faction": "TC",
+      "units": [
+        "Gordon's Armored Cavalry, Mitchell's Lancers"
+      ],
+      "source": "Objective Raids, p. 48"
+    },
+    {
+      "systemId": "Euschelus",
+      "date": "3054-01-01",
+      "faction": "TC",
+      "units": [
+        "Longwood's Bluecoats, Ivan's Marauders"
+      ],
+      "source": "Objective Raids, p. 48"
+    },
+    {
+      "systemId": "Grossbach",
+      "date": "3054-01-01",
+      "faction": "TC",
+      "units": [
+        "The Concordat Commandos, 3rd Battalion"
+      ],
+      "source": "Objective Raids, p. 48"
+    },
+    {
+      "systemId": "Hyades Cluster",
+      "date": "3054-01-01",
+      "faction": "TC",
+      "units": [
+        "The Taurian Guard, 1st Battalion",
+        "The Taurian Guard, 3rd Battalion",
+        "The Taurian Velites, 2nd Battalion",
+        "The Taurian Velites, 3rd Battalion"
+      ],
+      "source": "Objective Raids, p. 48"
+    },
+    {
+      "systemId": "Jamestown",
+      "date": "3054-01-01",
+      "faction": "TC",
+      "units": [
+        "The Hyades Light Infantry, 1st Battalion"
+      ],
+      "source": "Objective Raids, p. 48"
+    },
+    {
+      "systemId": "Landmark",
+      "date": "3054-01-01",
+      "faction": "TC",
+      "units": [
+        "The Red Chasseurs, 1st Battalion"
+      ],
+      "source": "Objective Raids, p. 48"
+    },
+    {
+      "systemId": "Logan's Land",
+      "date": "3054-01-01",
+      "faction": "TC",
+      "units": [
+        "The Red Chasseurs, 3rd Battalion"
+      ],
+      "source": "Objective Raids, p. 48"
+    },
+    {
+      "systemId": "New Vandenburg",
+      "date": "3054-01-01",
+      "faction": "TC",
+      "units": [
+        "The Concordat Jaegers, 1st Battalion",
+        "Gordon's Armored Cavalry, Simon's Banshees"
+      ],
+      "source": "Objective Raids, p. 48"
+    },
+    {
+      "systemId": "Organo",
+      "date": "3054-01-01",
+      "faction": "TC",
+      "units": [
+        "The Concordat Cuirassiers, 1st Battalion"
+      ],
+      "source": "Objective Raids, p. 48"
+    },
+    {
+      "systemId": "Perdition",
+      "date": "3054-01-01",
+      "faction": "TC",
+      "units": [
+        "The Concordat Cuirassiers, 2nd Battalion",
+        "Longwood's Bluecoats, Mac's Hell-Raisers"
+      ],
+      "source": "Objective Raids, p. 48"
+    },
+    {
+      "systemId": "Pinard",
+      "date": "3054-01-01",
+      "faction": "TC",
+      "units": [
+        "The Concordat Jaegers, 2nd Battalion",
+        "Gordon's Armored Cavalry, Arrow's Chasseurs"
+      ],
+      "source": "Objective Raids, p. 48"
+    },
+    {
+      "systemId": "Taurus",
+      "date": "3054-01-01",
+      "faction": "TC",
+      "units": [
+        "The Taurian Guard, 2nd Battalion",
+        "The Taurian Velites, 1st Battalion",
+        "The Concordat Commandos, 1st Battalion",
+        "The Concordat Commandos, 2nd Battalion"
+      ],
+      "source": "Objective Raids, p. 48"
+    },
+    {
+      "systemId": "Addhara",
+      "date": "3054-01-01",
+      "faction": "IND",
+      "units": [
+        "1st Marian Legion"
+      ],
+      "source": "Objective Raids, p. 49"
+    },
+    {
+      "systemId": "Althea's Choice",
+      "date": "3054-01-01",
+      "faction": "TC",
+      "units": [
+        "The Pleiades Lancers, 1st Battalion"
+      ],
+      "source": "Objective Raids, p. 49"
+    },
+    {
+      "systemId": "Amber Grove",
+      "date": "3054-01-01",
+      "faction": "TC",
+      "units": [
+        "Vandelay's Valkyries"
+      ],
+      "source": "Objective Raids, p. 49"
+    },
+    {
+      "systemId": "Antallos (Port Krin)",
+      "date": "3054-01-01",
+      "faction": "IND",
+      "units": [
+        "Vinson's Vigilantes (location queried in the book)"
+      ],
+      "source": "Objective Raids, p. 49"
+    },
+    {
+      "systemId": "Celentaro",
+      "date": "3054-01-01",
+      "faction": "TC",
+      "units": [
+        "The Pleiades Hussars, 2nd Battalion",
+        "The Pleiades Hussars, 3rd Battalion"
+      ],
+      "source": "Objective Raids, p. 49"
+    },
+    {
+      "systemId": "Circinus",
+      "date": "3054-01-01",
+      "faction": "IND",
+      "units": [
+        "Black Warriors"
+      ],
+      "source": "Objective Raids, p. 49"
+    },
+    {
+      "systemId": "Cyrton",
+      "date": "3054-01-01",
+      "faction": "TC",
+      "units": [
+        "The Pleiades Lancers, 2nd Battalion"
+      ],
+      "source": "Objective Raids, p. 49"
+    },
+    {
+      "systemId": "Illiushin",
+      "date": "3054-01-01",
+      "faction": "TC",
+      "units": [
+        "The Taurian Lancers (1st Regiment), 2nd Battalion"
+      ],
+      "source": "Objective Raids, p. 49"
+    },
+    {
+      "systemId": "Illyria",
+      "date": "3054-01-01",
+      "faction": "IND",
+      "units": [
+        "Right Arm of Thor (1 Battalion)",
+        "Left Arm of Thor (1 Battalion)"
+      ],
+      "source": "Objective Raids, p. 49"
+    },
+    {
+      "systemId": "Jansen's Hold",
+      "date": "3054-01-01",
+      "faction": "TC",
+      "units": [
+        "The Taurian Lancers (2nd Regiment), 3rd Battalion"
+      ],
+      "source": "Objective Raids, p. 49"
+    },
+    {
+      "systemId": "Laconis",
+      "date": "3054-01-01",
+      "faction": "TC",
+      "units": [
+        "The Taurian Lancers (1st Regiment), 3rd Battalion"
+      ],
+      "source": "Objective Raids, p. 49"
+    },
+    {
+      "systemId": "Lothario",
+      "date": "3054-01-01",
+      "faction": "IND",
+      "units": [
+        "242nd Hussars"
+      ],
+      "source": "Objective Raids, p. 49"
+    },
+    {
+      "systemId": "MacLeod's Land",
+      "date": "3054-01-01",
+      "faction": "TC",
+      "units": [
+        "Bannockburn's Bandits, Morgan's Lancers",
+        "Bannockburn's Bandits, Carter's Commandos"
+      ],
+      "source": "Objective Raids, p. 49"
+    },
+    {
+      "systemId": "Mithron",
+      "date": "3054-01-01",
+      "faction": "TC",
+      "units": [
+        "The Lone Star Regiment"
+      ],
+      "source": "Objective Raids, p. 49"
+    },
+    {
+      "systemId": "New Ganymede",
+      "date": "3054-01-01",
+      "faction": "TC",
+      "units": [
+        "The Pleiades Hussars, 1st Battalion",
+        "The Taurian Lancers (2nd Regiment), 1st Battalion"
+      ],
+      "source": "Objective Raids, p. 49"
+    },
+    {
+      "systemId": "New Vallis",
+      "date": "3054-01-01",
+      "faction": "TC",
+      "units": [
+        "The Taurian Lancers (2nd Regiment), 2nd Battalion"
+      ],
+      "source": "Objective Raids, p. 49"
+    },
+    {
+      "systemId": "Norman's World",
+      "date": "3054-01-01",
+      "faction": "TC",
+      "units": [
+        "The Taurian Lancers (1st Regiment), 1st Battalion"
+      ],
+      "source": "Objective Raids, p. 49"
+    },
+    {
+      "systemId": "Oberon VI",
+      "date": "3054-01-01",
+      "faction": "IND",
+      "units": [
+        "Oberon Guards (Disarmed by Clans)"
+      ],
+      "source": "Objective Raids, p. 49"
+    },
+    {
+      "systemId": "Organo",
+      "date": "3054-01-01",
+      "faction": "TC",
+      "units": [
+        "The Pleiades Lancers, 3rd Battalion"
+      ],
+      "source": "Objective Raids, p. 49"
+    },
+    {
+      "systemId": "Stafford",
+      "date": "3054-01-01",
+      "faction": "IND",
+      "units": [
+        "Simonson's Cutthroats"
+      ],
+      "source": "Objective Raids, p. 49"
+    },
+    {
+      "systemId": "Tortuga Prime",
+      "date": "3054-01-01",
+      "faction": "IND",
+      "units": [
+        "Fuchida's Fusiliers (1 Battalion) (location queried in the book)"
+      ],
+      "source": "Objective Raids, p. 49"
+    }
+  ]
+}

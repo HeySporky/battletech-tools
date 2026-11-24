@@ -22,6 +22,9 @@ export const mechMyomerTypes: IMyomerType[] = [
 	{
 		name: "Standard",
 		tag: "standard",
+		rulesLevel: 1,
+		techBase: "universal",
+		editions: ["total-warfare", "battlemech-manual", "core-rulebook"],
 		criticals: 0,
 		costPerTon: 2000,
 		bvWeightMultiplier: 1,
@@ -36,6 +39,8 @@ export const mechMyomerTypes: IMyomerType[] = [
 	{
 		name: "Triple-Strength Myomer",
 		tag: "tsm",
+		altNames: ["TSM"],
+		editions: ["battletech-compendium", "compendium-rules-of-warfare", "master-rules", "master-rules-revised", "total-warfare", "battlemech-manual", "core-rulebook"],
 		introducedInEdition: "battletech-compendium", editionStats: { "battletech-compendium": { book: "BTC", page: 122, name: "Triple Strength Myomer", criticals: 6, notes: "Works only when the BattleMech ends a turn at heat 9 or higher: for the next turn it ignores the -1 MP heat effect at 5, walks 1 MP faster, doubles punch, kick and club damage and doubles its lifting ability. 6 critical slots anywhere; hits on them are re-rolled. Incompatible with MASC (BTC p.122). Musculature cost: tonnage x 16,000 C-bills (BTC p.128)." }, "compendium-rules-of-warfare": { book: "BTC:RoW", page: 121, name: "Triple-Strength Myomer", criticals: 6, notes: "Not available to Clan BattleMechs. Works only when the BattleMech ends a turn at heat 9 or higher: for the next turn it ignores the -1 MP heat effect at 5, adds 1 to its Walking MP, doubles punch, kick, club and hatchet damage and doubles its lifting ability. No tonnage; 6 critical slots, and hits on them are rerolled. Cannot be used with MASC (BTC:RoW pp.106, 121-122). Musculature cost: tonnage x 16,000 C-bills (BTC:RoW p.123)." }, "master-rules": { book: "BMR", page: 134, name: "Triple-Strength Myomer", criticals: 6, notes: "Not available to Clan BattleMechs. Works only when the BattleMech ends a turn at heat 9 or higher: for the next turn it ignores the -1 MP heat effect at 5, adds 1 to its Walking MP, doubles punch, kick, club and hatchet or sword damage and doubles its lifting ability. No tonnage; 6 critical slots anywhere, which may be spread over any number of locations, and hits on them are rerolled. Cannot be combined with MASC (BMR pp.114, 116, 134). Musculature cost: tonnage x 16,000 C-bills (BMR p.136)." }, "master-rules-revised": { book: "BMR(R)", page: 148, name: "Triple-Strength Myomer", criticals: 6, notes: "Not available to Clan BattleMechs. Works only when the BattleMech ends a turn at heat 9 or higher: for the next turn it ignores the -1 MP heat effect at 5, adds 1 to its Walking MP, doubles punch, kick, club and hatchet or sword damage and doubles its lifting ability. No tonnage; 6 critical slots anywhere, which may be spread over any number of locations, and hits on them are rerolled. Cannot be combined with MASC (BMR(R) pp.120, 122, 148). Musculature cost: tonnage x 16,000 C-bills (BMR(R) p.149)." } },
 		criticals: 6,
 		costPerTon: 16000,
@@ -53,6 +58,8 @@ export const mechMyomerTypes: IMyomerType[] = [
 	{
 		name: "Industrial Triple-Strength Myomer",
 		tag: "industrial-tsm",
+		altNames: ["Industrial TSM"],
+		editions: ["total-warfare", "battlemech-manual", "core-rulebook"],
 		criticals: 12,
 		costPerTon: 12000,
 		bvWeightMultiplier: 1.15,
@@ -69,6 +76,7 @@ export const mechMyomerTypes: IMyomerType[] = [
 	{
 		name: "Prototype Triple-Strength Myomer",
 		tag: "prototype-tsm",
+		editions: ["total-warfare", "battlemech-manual", "core-rulebook"],
 		criticals: 6,
 		costPerTon: 32000,
 		bvWeightMultiplier: 1.5,
@@ -85,6 +93,8 @@ export const mechMyomerTypes: IMyomerType[] = [
 	{
 		name: "Super-Cooled Myomer",
 		tag: "risc-super-cooled-myomer",
+		rulesLevel: 4,
+		editions: ["total-warfare", "battlemech-manual", "core-rulebook"],
 		criticals: 6,
 		costPerTon: 10000,
 		bvWeightMultiplier: 1,

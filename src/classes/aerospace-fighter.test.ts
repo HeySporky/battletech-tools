@@ -138,3 +138,104 @@ describe("Aerospace fighter construction (TechManual)", () => {
         expect(normalizeAerospaceFighterExport(fighter.export()).fighter!.tonnage).toBe(75);
     });
 });
+
+describe("Aerospace fighter ammunition", () => {
+    it("caps an Artemis launcher's rounds at the launcher's unmodified value (TM p.312)", () => {
+        const fighter = sabutai();
+        fighter.addEquipmentFromTag("clan-lrm-20-artemis-iv", "nose");
+        for (let ton = 0; ton < 9; ton++) fighter.addEquipmentFromTag("ammo-clan-lrm-artemis-iv", "nose");
+        // 9 tons of Clan LRM rounds: over the LRM-20's 220, under the 264 it counts with Artemis IV.
+        const ammo = fighter.getBattleValueBreakdown("total-warfare").steps.find((step) => step.id === "af.bv2.off.ammo.cap");
+        expect([ammo?.label, ammo?.value, ammo?.detail]).toEqual(["Ammunition for Clan LRM 20 + Artemis IV", 220, "243, capped at the weapons' unmodified 220"]);
+    });
+});
+
+describe("Aerospace fighter tech dates (design 2026-10-24-catalog-consolidation §2)", () => {
+    it("mixed tech takes the production window over a prototype", () => {
+        const fighter = new AerospaceFighter();
+        fighter.setTech("mis");
+        fighter.setEra("clan-inv");
+        // Inner Sphere prototype only in 3050-3061; Clan production from 3055.
+        const item = { prototype: 3040, introduced: 3070, extinct: null, reintroduced: null, clanDates: { introduced: 3055, extinct: null, reintroduced: null } };
+        const availability = (fighter as unknown as { _techDatesAvailability: (item: object, level: number) => { available: boolean; asPrototype: boolean } })
+            ._techDatesAvailability(item, 4);
+        expect(availability).toEqual({ available: true, asPrototype: false });
+    });
+});
+
+// The Clans fielded Star League Ferro-Aluminum until Clan Ferro-Aluminum was in production (2825). Clan Founding
+// Years (2800-2840) holds both windows, so a Clan fighter there may mount either, each at its own figures (#168).
+describe("Star League Ferro-Aluminum on a Clan fighter", () => {
+    const clanFighter = (era: string): AerospaceFighter => {
+        const fighter = new AerospaceFighter();
+        fighter.setTech("clan");
+        fighter.setEra(era);
+        fighter.setTonnage(50);
+        return fighter;
+    };
+    const offered = (fighter: AerospaceFighter, tag: string) => fighter.getAvailableArmorTypes().find((armor) => armor.tag === tag);
+
+    it("offers both versions while the era holds both, the Star League one at Inner Sphere figures", () => {
+        const fighter = clanFighter("clan-founding-years");
+        expect(offered(fighter, "ferro-aluminum")?.available).toBe(true);
+        expect(offered(fighter, "clan-ferro-aluminum")?.available).toBe(true);
+        expect(fighter.setArmorType("ferro-aluminum").tag).toBe("ferro-aluminum");
+        expect(fighter.getArmorPointsPerTon()).toBe(17.92);
+        expect([fighter.getArcSlots("leftWing"), fighter.getArcSlots("nose")]).toEqual([4, 5]);
+        fighter.setArmorType("clan-ferro-aluminum");
+        expect(fighter.getArmorPointsPerTon()).toBe(19.2);
+    });
+
+    it("drops the Star League version once the Clan one is the only one in the era", () => {
+        expect(offered(clanFighter("clan-golden-years"), "ferro-aluminum")).toBeUndefined();
+        // An Inner Sphere fighter still sees its own Ferro-Aluminum again from its 3040 reintroduction.
+        const inner = new AerospaceFighter();
+        inner.setTech("is");
+        inner.setEra("clan-inv");
+        expect(offered(inner, "ferro-aluminum")?.available).toBe(true);
+        expect(offered(inner, "clan-ferro-aluminum")).toBeUndefined();
+    });
+});
+
+describe("E-War carrier (#642)", () => {
+    const build = () => {
+        const unit = new AerospaceFighter();
+        unit.setTonnage(50);
+        unit.addEquipmentFromTag("is-ams");
+        unit.addEquipmentFromTag("ecm-suite");
+        unit.addEquipmentFromTag("medium-laser");
+        return unit;
+    };
+
+    it("lists its E-War gear", () => {
+        const gear = build().getEWarGear();
+        expect(gear.map((item) => item.kind).sort()).toEqual(["ams", "ecm-guardian"]);
+        for (const item of gear) {
+            expect(item.name).toBeTruthy();
+            expect(item.uuid).toBeTruthy();
+            expect(item.destroyed).toBe(false);
+        }
+    });
+
+    it("reports destroyed E-War gear", () => {
+        const unit = build();
+        const ecm = unit.getEWarGear().find((item) => item.kind === "ecm-guardian")!;
+        unit.setWeaponDestroyed(ecm.uuid!, true);
+        expect(unit.getEWarGear().map((item) => [item.kind, item.destroyed]).sort()).toEqual([["ams", false], ["ecm-guardian", true]]);
+    });
+
+    // No stealth armor test: the aerospace armor catalog (aerospace-armor-types.ts) has no stealth type for fighters, so there is no armor entry to list.
+
+    it("saves E-War state and loads old saves without it", () => {
+        const unit = build();
+        expect(unit.export().ewarPlay).toBeUndefined();
+        unit.ewarPlay.inHostileEcm = true;
+        const saved = JSON.parse(JSON.stringify(unit.export()));
+        expect(saved.ewarPlay).toEqual({ inHostileEcm: true });
+        expect(unit.export(true).ewarPlay).toBeUndefined();
+        const loaded = new AerospaceFighter(JSON.stringify(saved));
+        expect(loaded.ewarPlay).toEqual({ inHostileEcm: true });
+        delete saved.ewarPlay;
+        expect(new AerospaceFighter(JSON.stringify(saved)).ewarPlay).toEqual({});
+    });
+});

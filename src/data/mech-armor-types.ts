@@ -18,7 +18,10 @@ export const mechArmorTypes: IArmorType[] = [
 	{
 		name: "Standard",
 		tag: "standard",
-		altNames: ["Standard Armor"],
+		rulesLevel: 1,
+		techBase: "universal",
+		editions: ["battledroids", "battletech-2nd-edition", "battletech-manual", "battletech-compendium", "battletech-3rd-edition", "compendium-rules-of-warfare", "battletech-4th-edition", "master-rules", "master-rules-revised", "total-warfare", "battlemech-manual", "core-rulebook"],
+		altNames: ["Standard Armor", "Heavy Industrial Armor"],
 		patchwork: { slots: { is: 0, clan: 0 }, vehicleSlots: { is: 0, clan: 0 }, tonsPerPoint: { is: 0.0625, clan: 0.0625 } },
 		combatVehicleSlots: { is: 0, clan: 0 },
 		unitTypes: {
@@ -52,7 +55,7 @@ export const mechArmorTypes: IArmorType[] = [
 		editionStats: {
 			battledroids: {
 				book: "BD", page: 24, name: "Armor", pointsPerTon: 16,
-				notes: "An Armor Value of 16 weighs 1 ton; added in .5- or 1-ton units (BD p.24). A location holds at most twice its internal structure boxes, and the head up to 9; the torsos split front and rear (BD p.25).",
+				notes: "An Armor Value of 16 weighs 1 ton; added in .5- or 1-ton units (BD p.24). A location holds at most twice its internal structure boxes, and the head up to 9; a torso's front and rear sections are capped apart, each at twice its boxes (BD p.25).",
 			},
 			"battletech-2nd-edition": null,
 			"battletech-manual": null,
@@ -68,6 +71,8 @@ export const mechArmorTypes: IArmorType[] = [
 	{
 		name: "Ferro Fibrous",
 		tag: "ferro-fibrous",
+		techBase: "universal",
+		editions: ["battletech-compendium", "compendium-rules-of-warfare", "master-rules", "master-rules-revised", "total-warfare", "battlemech-manual", "core-rulebook"],
 		introducedInEdition: "battletech-compendium", editionStats: { "battletech-compendium": { book: "BTC", page: 119, name: "Ferro-Fibrous Armor", notes: "Standard weight, more points: work out the normal Armor Value and multiply by 1.12 (Inner Sphere) or 1.2 (Clan), rounding to the nearest whole number, .5 down. Takes 14 critical slots (Inner Sphere) or 7 (Clan), placed anywhere; hits on them are re-rolled. The location maximums do not change (BTC pp.113, 119). 20,000 C-bills a ton of armor (BTC p.128)." }, "compendium-rules-of-warfare": { book: "BTC:RoW", page: 116, name: "Ferro-Fibrous Armor", notes: "Standard weight, more points: multiply the normal Armor Points by 1.12 (Inner Sphere) or 1.2 (Clan), rounding to the nearest whole number (round .5 down). Takes 14 critical slots (Inner Sphere) or 7 (Clan), the same as endo steel. On a vehicle it uses up 2 items (Inner Sphere) or 1 (Clan) (BTC:RoW pp.101, 116). 20,000 C-bills a ton of armor (BTC:RoW p.123)." }, "master-rules": { book: "BMR", page: 127, name: "Ferro-Fibrous Armor", notes: "Standard weight, more points: work out the normal Armor Points and multiply by 1.12 (Inner Sphere) or 1.2 (Clan). The book gives the rounding two ways: \"rounded normally (up on .5)\" in Construction (BMR pp.113, 119) and \"round .5 down\" in Equipment (BMR p.127). Takes 14 critical slots (Inner Sphere) or 7 (Clan), placed anywhere; hits on them are rerolled. On a vehicle it uses up 2 items (Inner Sphere) or 1 (Clan) (BMR p.127). 20,000 C-bills a ton of armor (BMR p.136)." }, "master-rules-revised": { book: "BMR(R)", page: 137, name: "Ferro-Fibrous Armor", notes: "Standard weight, more points: work out the normal Armor Points and multiply by 1.12 (Inner Sphere) or 1.2 (Clan). The book still gives the rounding two ways: \"rounded normally (up on .5)\" in Construction (BMR(R) pp.119, 128) and \"round .5 down\" in Equipment (BMR(R) p.137). Takes 14 critical slots (Inner Sphere) or 7 (Clan), placed anywhere; hits on them are rerolled. On a vehicle it uses up 2 items (Inner Sphere) or 1 (Clan) (BMR(R) p.137). 20,000 C-bills a ton of armor (BMR(R) p.149)." } },
 		altNames: ["Ferro-Fibrous"],
 		patchwork: { slots: { is: 2, clan: 1 }, vehicleSlots: { is: 1, clan: 1 }, tonsPerPoint: { is: 0.0558, clan: 0.0521 } },
@@ -96,7 +101,7 @@ export const mechArmorTypes: IArmorType[] = [
 		introduced: 2571,
 		extinct: 2810,
 		reintroduced: 3040,
-		notes: "IS Ferro-Fibrous 2571 (Star League); Clan Ferro-Fibrous 2825. The Clans' earlier use of Star League Ferro-Fibrous is not modelled separately.",
+		notes: "IS Ferro-Fibrous 2571 (Star League); Clan Ferro-Fibrous 2825. A Clan 'Mech may mount the Star League version while its era holds both windows (#168).",
 		page: 205,
 		book: "TM",
 		clanDates: { prototype: 2820, introduced: 2825, extinct: null, reintroduced: null },
@@ -105,6 +110,8 @@ export const mechArmorTypes: IArmorType[] = [
 	{
 		name: "Light Ferro Fibrous",
 		tag: "light-ferro-fibrous",
+		techBase: "universal",
+		editions: ["total-warfare", "battlemech-manual", "core-rulebook"],
 		altNames: ["Light Ferro-Fibrous"],
 		patchwork: { slots: { is: 1 }, vehicleSlots: { is: 1 }, tonsPerPoint: { is: 0.0590 } },
 		combatVehicleSlots: { is: 1 },
@@ -139,6 +146,8 @@ export const mechArmorTypes: IArmorType[] = [
 	{
 		name: "Heavy Ferro Fibrous",
 		tag: "heavy-ferro-fibrous",
+		techBase: "universal",
+		editions: ["total-warfare", "battlemech-manual", "core-rulebook"],
 		altNames: ["Heavy Ferro-Fibrous"],
 		patchwork: { slots: { is: 3 }, vehicleSlots: { is: 2 }, tonsPerPoint: { is: 0.0504 } },
 		combatVehicleSlots: { is: 3 },
@@ -173,6 +182,8 @@ export const mechArmorTypes: IArmorType[] = [
 	{
 		name: "Basic Stealth",
 		tag: "stealth-basic",
+		techBase: "universal",
+		editions: ["master-rules-revised", "total-warfare", "battlemech-manual", "core-rulebook"],
 		introducedInEdition: "master-rules-revised", editionStats: { "master-rules-revised": { book: "BMR(R)", page: 147, name: "Stealth Armor System", notes: "Inner Sphere BattleMechs only; vehicles cannot mount it. The standard 16 Armor Points a ton (BMR(R) p.119). Takes 12 critical slots, 2 in each arm, leg and side torso, and the 'Mech must mount a Guardian ECM Suite, without which the system cannot work. Turned on or off in an End Phase. While it is on: the 'Mech itself suffers the effects of being inside an enemy ECM suite's radius; attacks on it take +3 at medium range in place of the standard medium-range modifier and +6 at long range; active probes cannot find it when hidden; it cannot be attacked as a secondary target; and it generates 10 Heat Points a turn (BMR(R) p.147). 50,000 C-bills a ton of armor (BMR(R) p.149)." } },
 		altNames: ["Stealth Armor"],
 		patchwork: { slots: { is: 2 }, tonsPerPoint: { is: 0.0625 } },
@@ -215,6 +226,9 @@ export const mechArmorTypes: IArmorType[] = [
 	{
 		name: "Vehicular Stealth Armor",
 		tag: "vehicular-stealth",
+		rulesLevel: 4,
+		techBase: "universal",
+		editions: ["total-warfare", "battlemech-manual", "core-rulebook"],
 		patchwork: { slots: {}, vehicleSlots: { is: 1 }, tonsPerPoint: { is: 0.0625 } },
 		combatVehicleSlots: { is: 2 },
 		alphaStrikeAbility: "STL",
@@ -251,6 +265,9 @@ export const mechArmorTypes: IArmorType[] = [
 	{
 		name: "Hardened Armor",
 		tag: "hardened",
+		rulesLevel: 4,
+		techBase: "universal",
+		editions: ["total-warfare", "battlemech-manual", "core-rulebook"],
 		patchwork: { slots: { is: 0, clan: 0 }, vehicleSlots: { is: 0, clan: 0 }, tonsPerPoint: { is: 0.1250, clan: 0.1250 } },
 		combatVehicleSlots: { is: 1, clan: 1 },
 		alphaStrikeAbility: "CR",
@@ -288,6 +305,9 @@ export const mechArmorTypes: IArmorType[] = [
 	{
 		name: "Laser Reflective Armor",
 		tag: "laser-reflective",
+		rulesLevel: 4,
+		techBase: "universal",
+		editions: ["total-warfare", "battlemech-manual", "core-rulebook"],
 		altNames: ["Laser-Reflective"],
 		patchwork: { slots: { is: 2, clan: 1 }, vehicleSlots: { is: 1, clan: 1 }, tonsPerPoint: { is: 0.0625, clan: 0.0625 } },
 		combatVehicleSlots: { is: 1, clan: 1 },
@@ -326,6 +346,9 @@ export const mechArmorTypes: IArmorType[] = [
 	{
 		name: "Reactive Armor",
 		tag: "reactive",
+		rulesLevel: 4,
+		techBase: "universal",
+		editions: ["total-warfare", "battlemech-manual", "core-rulebook"],
 		patchwork: { slots: { is: 2, clan: 1 }, vehicleSlots: { is: 1, clan: 1 }, tonsPerPoint: { is: 0.0625, clan: 0.0625 } },
 		combatVehicleSlots: { is: 2, clan: 1 },
 		alphaStrikeAbility: "RCA",
@@ -360,6 +383,9 @@ export const mechArmorTypes: IArmorType[] = [
 	{
 		name: "Ferro-Lamellor Armor",
 		tag: "ferro-lamellor",
+		rulesLevel: 4,
+		techBase: "universal",
+		editions: ["total-warfare", "battlemech-manual", "core-rulebook"],
 		altNames: ["Ferro-Lamellor"],
 		patchwork: { slots: { clan: 2 }, vehicleSlots: { clan: 1 }, tonsPerPoint: { clan: 0.0714 } },
 		combatVehicleSlots: { clan: 1 },
@@ -397,6 +423,9 @@ export const mechArmorTypes: IArmorType[] = [
 	{
 		name: "Ballistic-Reinforced Armor",
 		tag: "ballistic-reinforced",
+		rulesLevel: 3,
+		techBase: "universal",
+		editions: ["total-warfare", "battlemech-manual", "core-rulebook"],
 		patchwork: { slots: { is: 2 }, vehicleSlots: { is: 1 }, tonsPerPoint: { is: 0.0833 } },
 		combatVehicleSlots: { is: 1 },
 		alphaStrikeAbility: "BRA",
@@ -427,6 +456,8 @@ export const mechArmorTypes: IArmorType[] = [
 	{
 		name: "Primitive Armor",
 		tag: "primitive",
+		techBase: "universal",
+		editions: ["total-warfare", "battlemech-manual", "core-rulebook"],
 		unitTypes: {
 			battlemech: true,
 			protomech: false,
@@ -457,6 +488,8 @@ export const mechArmorTypes: IArmorType[] = [
 	{
 		name: "Ferro-Aluminum Armor",
 		tag: "ferro-aluminum",
+		techBase: "universal",
+		editions: ["battletech-compendium", "total-warfare", "battlemech-manual", "core-rulebook"],
 		introducedInEdition: "battletech-compendium", editionStats: { "battletech-compendium": { book: "BTC", page: 119, name: "Ferro-Aluminum Armor", notes: "Ferro-Fibrous armor for AeroSpace fighters and vehicles, with the same multipliers (1.12 Inner Sphere, 1.2 Clan). A fighter mounting it carries 2 fewer weapons on each of its right and left sides (BTC pp.119, 127). 20,000 C-bills a ton of armor (BTC p.131)." } },
 		unitTypes: {
 			battlemech: false,
@@ -492,6 +525,8 @@ export const mechArmorTypes: IArmorType[] = [
 	{
 		name: "Industrial Armor",
 		tag: "industrial",
+		techBase: "universal",
+		editions: ["total-warfare", "battlemech-manual", "core-rulebook"],
 		patchwork: { slots: { is: 0, clan: 0 }, tonsPerPoint: { is: 0.0933, clan: 0.0933 } },
 		industrialMechOnly: true,
 		unitTypes: {
@@ -523,11 +558,13 @@ export const mechArmorTypes: IArmorType[] = [
 		prototype: 2430,
 		book: "TM",
 		page: 205,
-		notes: "IndustrialMech only, either tech base. BAR 10; 16 x 0.67 points per ton, rounded down (TM p.72). 5,000 C-bills per ton, rating C (TM p.278)."
+		notes: "IndustrialMech only, either tech base. BAR 10; 16 x 0.67 points per ton, rounded down (TM p.72). 5,000 C-bills per ton, rating C (TM p.278). BV x1.0 (TM p.315)."
 	},
 	{
 		name: "Commercial Armor",
 		tag: "commercial",
+		techBase: "universal",
+		editions: ["total-warfare", "battlemech-manual", "core-rulebook"],
 		patchwork: { slots: { is: 0, clan: 0 }, tonsPerPoint: { is: 0.0417, clan: 0.0417 } },
 		industrialMechOnly: true,
 		unitTypes: {
@@ -559,11 +596,14 @@ export const mechArmorTypes: IArmorType[] = [
 		prototype: 2290,
 		book: "TM",
 		page: 205,
-		notes: "IndustrialMech only (TM p.206). BAR 5; 16 x 1.5 points per ton (TM p.72)."
+		notes: "IndustrialMech only (TM p.206). BAR 5; 16 x 1.5 points per ton (TM p.72). BV x0.5 (TM p.315)."
 	},
 	{
 		name: "Modular Armor",
 		tag: "modular",
+		rulesLevel: 4,
+		techBase: "universal",
+		editions: ["total-warfare", "battlemech-manual", "core-rulebook"],
 		constructionStatus: "implemented",
 		constructionMode: "equipment",
 		unitTypes: {
@@ -599,6 +639,8 @@ export const mechArmorTypes: IArmorType[] = [
 	{
 		name: "Mimetic Armor",
 		tag: "mimetic",
+		techBase: "universal",
+		editions: ["total-warfare", "battlemech-manual", "core-rulebook"],
 		alphaStrikeAbility: "MAS",
 		unitTypes: {
 			battlemech: false,
@@ -633,6 +675,8 @@ export const mechArmorTypes: IArmorType[] = [
 	{
 		name: "Improved Stealth Armor",
 		tag: "stealth-improved",
+		techBase: "universal",
+		editions: ["total-warfare", "battlemech-manual", "core-rulebook"],
 		unitTypes: {
 			battlemech: false,
 			protomech: false,
@@ -667,6 +711,9 @@ export const mechArmorTypes: IArmorType[] = [
 	{
 		name: "Patchwork Armor",
 		tag: "patchwork",
+		rulesLevel: 3,
+		techBase: "universal",
+		editions: ["total-warfare", "battlemech-manual", "core-rulebook"],
 		altNames: ["Patchwork Armor Setup"],
 		constructionStatus: "implemented",
 		unitTypes: {
@@ -701,6 +748,8 @@ export const mechArmorTypes: IArmorType[] = [
 	{
 		name: "ProtoMech Standard Armor",
 		tag: "protomech-standard",
+		techBase: "universal",
+		editions: ["total-warfare", "battlemech-manual", "core-rulebook"],
 		unitTypes: {
 			battlemech: false,
 			protomech: true,
@@ -734,6 +783,9 @@ export const mechArmorTypes: IArmorType[] = [
 	{
 		name: "Electric Discharge ProtoMech (EDP) Armor",
 		tag: "protomech-edp",
+		rulesLevel: 4,
+		techBase: "universal",
+		editions: ["total-warfare", "battlemech-manual", "core-rulebook"],
 		unitTypes: {
 			battlemech: false,
 			protomech: true,
@@ -767,6 +819,9 @@ export const mechArmorTypes: IArmorType[] = [
 	{
 		name: "Ferro-Fibrous Prototype",
 		tag: "ferro-fibrous-prototype",
+		altNames: ["Prototype Ferro-Fibrous"],
+		techBase: "universal",
+		editions: ["total-warfare", "battlemech-manual", "core-rulebook"],
 		combatVehicleSlots: { is: 3 },
 		unitTypes: { battlemech: true, protomech: false, combatVehicle: true, supportVehicle: true, aerospaceFighter: false, smallCraft: false, dropShip: false, battleArmor: false, jumpShip: false, warShip: false },
 		crits: { clan: 0, is: 16 },
@@ -783,6 +838,9 @@ export const mechArmorTypes: IArmorType[] = [
 	{
 		name: "Heat-Dissipating Armor",
 		tag: "heat-dissipating",
+		rulesLevel: 3,
+		techBase: "universal",
+		editions: ["total-warfare", "battlemech-manual", "core-rulebook"],
 		patchwork: { slots: { is: 1, clan: 1 }, tonsPerPoint: { is: 0.1000, clan: 0.1000 } },
 		unitTypes: { battlemech: true, protomech: false, combatVehicle: false, supportVehicle: false, aerospaceFighter: false, smallCraft: false, dropShip: false, battleArmor: false, jumpShip: false, warShip: false },
 		crits: { clan: 6, is: 6 },
@@ -800,6 +858,9 @@ export const mechArmorTypes: IArmorType[] = [
 	{
 		name: "Impact-Resistant Armor",
 		tag: "impact-resistant",
+		rulesLevel: 3,
+		techBase: "universal",
+		editions: ["total-warfare", "battlemech-manual", "core-rulebook"],
 		patchwork: { slots: { is: 2 }, tonsPerPoint: { is: 0.0714 } },
 		unitTypes: { battlemech: true, protomech: false, combatVehicle: false, supportVehicle: false, aerospaceFighter: false, smallCraft: false, dropShip: false, battleArmor: false, jumpShip: false, warShip: false },
 		crits: { clan: 0, is: 10 },
@@ -815,6 +876,10 @@ export const mechArmorTypes: IArmorType[] = [
 	{
 		name: "Anti-Penetrative Ablation Armor",
 		tag: "anti-penetrative-ablation",
+		rulesLevel: 3,
+		techBase: "universal",
+		altNames: ["Ablation Armor"],
+		editions: ["total-warfare", "battlemech-manual", "core-rulebook"],
 		patchwork: { slots: { is: 1 }, vehicleSlots: { is: 1 }, tonsPerPoint: { is: 0.0833 } },
 		combatVehicleSlots: { is: 1 },
 		unitTypes: { battlemech: true, protomech: false, combatVehicle: true, supportVehicle: true, aerospaceFighter: true, smallCraft: false, dropShip: false, battleArmor: false, jumpShip: false, warShip: false },

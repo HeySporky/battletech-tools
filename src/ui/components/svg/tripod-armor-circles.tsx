@@ -1,14 +1,14 @@
 import React, { type JSX } from 'react';
 import { BattleMech } from '../../../classes/battlemech';
 import BipedArmorCircles from './biped-armor-circles';
+import { drawnBubble } from './armor-bubble-layouts';
 import DamageCircleSVG from './damage-circle-svg';
-import { TRIPOD_CENTER_LEG_BUBBLES } from './tripod-diagram-svg';
+import { TRIPOD_ARMOR_CENTER_LEG_LAYOUT, tripodCenterLegBubbles } from './tripod-diagram-svg';
 
 /*
-* Tripod shares Biped's head/torso/arm/leg armor layout, plus a unique Center Leg
-* location neither Biped nor Quad have a slot for. Rather than duplicating the
-* entire Biped pip grid, this wraps it and adds a compact Center Leg pip block
-* below the existing legs (see TODO.md for the Tripod diagram art backlog item).
+* Tripod shares Biped's head/torso/arm/leg armor layout, plus a Center Leg drawn between
+* the legs (TripodArmorDiagramSVG, issue 77). This wraps the Biped pips and adds the
+* Center Leg's label and pips inside that leg.
 */
 export default class TripodArmorCircles extends React.Component<ITripodArmorCirclesProps, ITripodArmorCirclesState> {
 
@@ -22,22 +22,30 @@ export default class TripodArmorCircles extends React.Component<ITripodArmorCirc
     }
 
     render = (): JSX.Element => {
+        const layout = TRIPOD_ARMOR_CENTER_LEG_LAYOUT;
         const centerLegArmor = this.props.mechData.getArmorAllocation().centerLeg ?? 0;
-        const centerX = this.armorBoxCenterX();
-        const centerLegTop = this.props.armorBoxTop + 680;
+        const centerX = this.props.armorBoxLeft + this.props.armorBoxWidth / 2;
+        const strokeColor = this.props.strokeColor ?? "rgb(0,0,0)";
 
         return (
             <>
-                <BipedArmorCircles {...this.props} />
+                <BipedArmorCircles
+                    {...this.props}
+                    // The Center Leg fills the gap between the legs, so the button goes beside the left foot.
+                    takeDamageButton={{ x: this.props.armorBoxLeft + 12, y: this.props.armorBoxTop + 925, size: 100 }}
+                />
 
-                {TRIPOD_CENTER_LEG_BUBBLES.slice(0, centerLegArmor).map((position, index) => {
+                <text x={centerX} y={this.props.armorBoxTop + layout.labelY} textAnchor="middle" fontFamily="sans-serif" fill={strokeColor} style={{fontWeight: 700}} fontSize={14}>CENTER LEG</text>
+                <text x={centerX} y={this.props.armorBoxTop + layout.labelY + 16} textAnchor="middle" fontFamily="sans-serif" fill={strokeColor} style={{fontWeight: 700}} fontSize={14}>[{centerLegArmor}]</text>
+
+                {tripodCenterLegBubbles(Math.min(centerLegArmor, this.props.mechData.getMaxLocationArmor("centerLeg")), layout).map((position, index) => {
                     return (
                         <DamageCircleSVG
                             key={index}
                             isFilled={this.props.mechData.armorDamaged("cl", index)}
                             xLoc={centerX + position.x}
-                            yLoc={centerLegTop + position.y}
-                            radius={13}
+                            yLoc={this.props.armorBoxTop + layout.firstRowY + position.y}
+                            {...drawnBubble(position.radius)}
                             inPlay={this.props.inPlay}
                             clickLocation="cl"
                             clickIndex={index}
@@ -47,10 +55,6 @@ export default class TripodArmorCircles extends React.Component<ITripodArmorCirc
                 })}
             </>
         )
-    }
-
-    armorBoxCenterX = (): number => {
-        return this.props.armorBoxLeft + this.props.armorBoxWidth / 2;
     }
 }
 

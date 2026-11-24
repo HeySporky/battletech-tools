@@ -4,19 +4,20 @@ import { Link } from 'react-router';
 import { makeRange } from '../../../../utils/makeRange';
 import { IAppGlobals } from '../../../app-router';
 import InputCheckbox from '../../../components/form_elements/input_checkbox';
-import MechCreatorSideMenu from '../../../components/mech-creator-side-menu';
+import { MechCreatorSideMenu } from '../../../components/creator-side-menus';
 import MechCreatorStatusbar from '../../../components/mech-creator-status-bar';
 import SanitizedHTML from '../../../components/sanitized-html';
 import BipedArmorDiagramSVG from '../../../components/svg/biped-armor-diagram';
 import QuadArmorDiagramSVG from '../../../components/svg/quad-armor-diagram-svg';
-import TripodDiagramSVG from '../../../components/svg/tripod-diagram-svg';
+import { TripodArmorDiagramSVG } from '../../../components/svg/tripod-diagram-svg';
 import TextSection from '../../../components/text-section';
 import UIPage from '../../../components/ui-page';
 import './home.scss';
 import './step4.scss';
 import { availabilityOptionLabel, isOptionShown } from '../../../components/availability-options';
-import DesignLockColumn from '../../../components/design-lock';
+import DesignLockColumn, { mechRulesLevel } from '../../../components/design-lock';
 import EditionChoice from '../../../components/edition-choice';
+import ComponentTechBaseChoice from '../../../components/component-tech-base-choice';
 const ArrowCircleLeft = FaArrowCircleLeft as any;
 const ArrowCircleRight = FaArrowCircleRight as any;
 
@@ -32,7 +33,7 @@ export default class MechCreatorStep4 extends React.Component<IHomeProps, IHomeS
 
     allocateSanely = (): void => {
       if( this.props.appGlobals.currentBattleMech ) {
-        let currentMech = this.props.appGlobals.currentBattleMech;
+        const currentMech = this.props.appGlobals.currentBattleMech;
         currentMech.allocateArmorSane();
         this.props.appGlobals.saveCurrentBattleMech( currentMech );
       }
@@ -40,7 +41,7 @@ export default class MechCreatorStep4 extends React.Component<IHomeProps, IHomeS
 
     allocateMax = (): void => {
       if( this.props.appGlobals.currentBattleMech ) {
-        let currentMech = this.props.appGlobals.currentBattleMech;
+        const currentMech = this.props.appGlobals.currentBattleMech;
         currentMech.allocateArmorMax();
         this.props.appGlobals.saveCurrentBattleMech( currentMech );
       }
@@ -48,7 +49,7 @@ export default class MechCreatorStep4 extends React.Component<IHomeProps, IHomeS
 
     allocateClear = (): void => {
       if( this.props.appGlobals.currentBattleMech ) {
-        let currentMech = this.props.appGlobals.currentBattleMech;
+        const currentMech = this.props.appGlobals.currentBattleMech;
         currentMech.allocateArmorClear();
         this.props.appGlobals.saveCurrentBattleMech( currentMech );
       }
@@ -56,7 +57,7 @@ export default class MechCreatorStep4 extends React.Component<IHomeProps, IHomeS
 
     toggleMirrorArmorAllocations = (): void => {
       if( this.props.appGlobals.currentBattleMech ) {
-        let currentMech = this.props.appGlobals.currentBattleMech;
+        const currentMech = this.props.appGlobals.currentBattleMech;
         currentMech.toggleMirrorArmorAllocations();
         this.props.appGlobals.saveCurrentBattleMech( currentMech );
       }
@@ -64,7 +65,7 @@ export default class MechCreatorStep4 extends React.Component<IHomeProps, IHomeS
 
     setArmorLocationValue = ( locationAbbr: string, newValue: number ): void => {
       if( this.props.appGlobals.currentBattleMech ) {
-        let currentMech = this.props.appGlobals.currentBattleMech;
+        const currentMech = this.props.appGlobals.currentBattleMech;
         switch( locationAbbr.toLowerCase().trim() ) {
           case "hd": {
             currentMech.setHeadArmor( newValue);
@@ -136,7 +137,7 @@ export default class MechCreatorStep4 extends React.Component<IHomeProps, IHomeS
 
     setArmorWeight = ( event: React.FormEvent<HTMLSelectElement>): void => {
       if( this.props.appGlobals.currentBattleMech ) {
-        let currentMech = this.props.appGlobals.currentBattleMech;
+        const currentMech = this.props.appGlobals.currentBattleMech;
         currentMech.setArmorWeight( +event.currentTarget.value);
         this.props.appGlobals.saveCurrentBattleMech( currentMech );
       }
@@ -144,7 +145,7 @@ export default class MechCreatorStep4 extends React.Component<IHomeProps, IHomeS
 
     setPatchworkArmorType = ( locationKey: string, armorTag: string ): void => {
       if( this.props.appGlobals.currentBattleMech ) {
-        let currentMech = this.props.appGlobals.currentBattleMech;
+        const currentMech = this.props.appGlobals.currentBattleMech;
         currentMech.setPatchworkArmorType( locationKey, armorTag );
         this.props.appGlobals.saveCurrentBattleMech( currentMech );
       }
@@ -152,7 +153,7 @@ export default class MechCreatorStep4 extends React.Component<IHomeProps, IHomeS
 
     setFractionalArmorPoints = ( event: React.FormEvent<HTMLInputElement>): void => {
       if( this.props.appGlobals.currentBattleMech ) {
-        let currentMech = this.props.appGlobals.currentBattleMech;
+        const currentMech = this.props.appGlobals.currentBattleMech;
         currentMech.setFractionalArmorPoints( +event.currentTarget.value);
         this.props.appGlobals.saveCurrentBattleMech( currentMech );
       }
@@ -160,7 +161,7 @@ export default class MechCreatorStep4 extends React.Component<IHomeProps, IHomeS
 
     setArmorType = ( event: React.FormEvent<HTMLSelectElement>): void => {
       if( this.props.appGlobals.currentBattleMech ) {
-        let currentMech = this.props.appGlobals.currentBattleMech;
+        const currentMech = this.props.appGlobals.currentBattleMech;
         currentMech.setArmorType( event.currentTarget.value);
         this.props.appGlobals.saveCurrentBattleMech( currentMech );
       }
@@ -205,7 +206,7 @@ export default class MechCreatorStep4 extends React.Component<IHomeProps, IHomeS
                                       onChange={this.setArmorType}
                                     >
                                       {/* <option value={0}>-Select Jumping Speed-</option> */}
-                                      {this.props.appGlobals.currentBattleMech.getAvailableArmorTypes(this.props.appGlobals.appSettings.mechRulesFilter)
+                                      {this.props.appGlobals.currentBattleMech.getAvailableArmorTypes(mechRulesLevel(this.props.appGlobals))
                                         .filter( (armorData) => isOptionShown(armorData, armorData.tag === this.props.appGlobals.currentBattleMech?.getArmorType()) )
                                         .map( (armorData, armorIndex) => (
                                           <option key={armorIndex} value={armorData.tag}>{availabilityOptionLabel(armorData)}</option>
@@ -213,6 +214,13 @@ export default class MechCreatorStep4 extends React.Component<IHomeProps, IHomeS
                                     </select>
                                   </label>
                             </EditionChoice>
+                            <ComponentTechBaseChoice
+                              label="Armor Version"
+                              choices={this.props.appGlobals.currentBattleMech.getComponentTechBases("armor")}
+                              value={this.props.appGlobals.currentBattleMech.getArmorTechBase()}
+                              clanDesign={this.props.appGlobals.currentBattleMech.getTech().tag === "clan"}
+                              onChange={(techBase) => { const mech = this.props.appGlobals.currentBattleMech; if (mech) { mech.setArmorTechBase(techBase); this.props.appGlobals.saveCurrentBattleMech(mech); } }}
+                            />
                             </div>
                             <div className="col-xs-12 col-md-6">
                             {this.props.appGlobals.currentBattleMech.isPatchworkArmor() ? (
@@ -269,7 +277,7 @@ export default class MechCreatorStep4 extends React.Component<IHomeProps, IHomeS
                                   {this.props.appGlobals.currentBattleMech.getPatchworkLocations().map( (location) => {
                                     const currentMech = this.props.appGlobals.currentBattleMech!;
                                     const current = currentMech.getPatchworkArmorType(location.key);
-                                    const offered = currentMech.getAvailablePatchworkArmorTypes(this.props.appGlobals.appSettings.mechRulesFilter);
+                                    const offered = currentMech.getAvailablePatchworkArmorTypes(mechRulesLevel(this.props.appGlobals));
                                     const options = offered.some(armor => armor.tag === current.tag) ? offered : [current, ...offered];
                                     const allocation = currentMech.getArmorAllocation() as unknown as Record<string, number | undefined>;
                                     const points = (allocation[location.key] ?? 0) + (allocation[`${location.key}Rear`] ?? 0);
@@ -352,7 +360,7 @@ export default class MechCreatorStep4 extends React.Component<IHomeProps, IHomeS
       onChange={(event: React.FormEvent<HTMLSelectElement>) => this.setArmorLocationValue( "hd", +event.currentTarget.value)}
       title="Change this BattleMech's head armor value"
     >
-      {makeRange(0, 9).map( (armorValue) => {
+      {makeRange(0, this.props.appGlobals.currentBattleMech.getMaxHeadArmor()).map( (armorValue) => {
         return (
           <option key={armorValue} value={armorValue}>{armorValue}</option>
         )
@@ -528,10 +536,8 @@ export default class MechCreatorStep4 extends React.Component<IHomeProps, IHomeS
   </label>
 
   {this.props.appGlobals.currentBattleMech.isTripod() ? (
-    <TripodDiagramSVG
-      kind="armor"
+    <TripodArmorDiagramSVG
       className="tripod-armor-diagram"
-      preserveAspectRatio="none"
       strokeColor="rgb(100,100,100)"
     />
   ) : (
@@ -561,7 +567,7 @@ export default class MechCreatorStep4 extends React.Component<IHomeProps, IHomeS
       onChange={(event: React.FormEvent<HTMLSelectElement>) => this.setArmorLocationValue( "hd", +event.currentTarget.value)}
       title="Change this BattleMech's head armor value"
     >
-      {makeRange(0, 9).map( (armorValue) => {
+      {makeRange(0, this.props.appGlobals.currentBattleMech.getMaxHeadArmor()).map( (armorValue) => {
         return (
           <option key={armorValue} value={armorValue}>{armorValue}</option>
         )

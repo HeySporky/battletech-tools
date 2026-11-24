@@ -122,7 +122,7 @@ test("'Mech Creator: a battle armor weapon is Experimental and turns Fractional 
     const weaponRow = () => page.getByRole("row").filter({ has: page.getByRole("cell", { name: "BA-Medium Recoilless Rifle", exact: true }) });
 
     await page.goto("classic-battletech/mech-creator/step1");
-    await page.getByLabel("Mech Era").selectOption(DARK_AGE);
+    await page.getByLabel("Era:").selectOption(DARK_AGE);
     await page.getByLabel("Rules Level").selectOption(STANDARD);
 
     await page.goto("classic-battletech/mech-creator/step5");
@@ -174,7 +174,7 @@ test("Vehicle Creator: a battle armor energy weapon runs off heat sinks or power
     const option = page.getByTestId("fractional-accounting-option");
 
     await page.goto("classic-battletech/vehicle-creator/step1");
-    await page.getByLabel("Vehicle Era").selectOption(DARK_AGE);
+    await page.getByLabel("Era:").selectOption(DARK_AGE);
     await page.getByLabel("Rules Level").selectOption(EXPERIMENTAL);
 
     await page.goto("classic-battletech/vehicle-creator/equipment-selection");
@@ -202,7 +202,7 @@ test("Vehicle Creator: non-weapon battle armor equipment is offered at its own w
     const option = page.getByTestId("fractional-accounting-option");
 
     await page.goto("classic-battletech/vehicle-creator/step1");
-    await page.getByLabel("Vehicle Era").selectOption(DARK_AGE);
+    await page.getByLabel("Era:").selectOption(DARK_AGE);
     await page.getByLabel("Rules Level").selectOption(EXPERIMENTAL);
 
     await page.goto("classic-battletech/vehicle-creator/equipment-selection");
@@ -214,6 +214,8 @@ test("Vehicle Creator: non-weapon battle armor equipment is offered at its own w
     await page.getByPlaceholder("Filter Equipment").fill("BA-Cutting Torch");
     await expect(row("BA-Cutting Torch").first()).toContainText("0.005");
     // The battle armor weapons with rules of their own are offered too; the Bomb Rack is Clan only.
+    // Ammunition is listed for mounted weapons only, unless all ammunition is shown.
+    await page.getByLabel(/Show all ammunition/).check();
     for (const name of ["BA-Taser", "BA-Pop-Up Mine", "BA-Tube Artillery", "BA-Tube Artillery Ammo"]) {
         await page.getByPlaceholder("Filter Equipment").fill(name);
         await expect(row(name).first()).toBeVisible();
@@ -314,7 +316,7 @@ test("ProtoMech Creator: Clan battle armor weapons are offered at the Experiment
     await page.goto("classic-battletech/protomech-creator");
     await page.getByRole("button", { name: /Start Over/ }).click();
     await page.getByRole("link", { name: /Start Building/ }).click();
-    await page.getByTestId("pm-era").selectOption(DARK_AGE);
+    await page.getByLabel("Era:").selectOption(DARK_AGE);
     await page.getByLabel("Rules Level").selectOption(STANDARD);
     await page.goto("classic-battletech/protomech-creator/equipment");
     await expect(page.getByTestId("pm-add-ba-clan-er-small-laser")).toHaveCount(0);

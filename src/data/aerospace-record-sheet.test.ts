@@ -1,6 +1,6 @@
 import { describe, expect, it } from "vitest";
 import { IEquipmentItem } from "./data-interfaces";
-import { AEROSPACE_HEAT_SCALE, getAerospaceDamageByBracket, toCapitalScale } from "./aerospace-record-sheet";
+import { AEROSPACE_HEAT_SCALE, FIGHTER_RETURN_TABLE, GROUND_MAP_STRAIGHT_MOVEMENT, getAerospaceDamageByBracket, toCapitalScale } from "./aerospace-record-sheet";
 
 const weapon = (fields: Partial<IEquipmentItem>): IEquipmentItem => ({ name: "Test", tag: "test", ...fields } as IEquipmentItem);
 
@@ -30,5 +30,23 @@ describe("aerospace record sheet values", () => {
         expect(at("Random Movement")).toEqual([5, 10, 15, 20, 25]);
         expect(at("Ammo Exp.")).toEqual([19, 23, 28]);
         expect(at("Pilot Damage")).toEqual([21, 27]);
+    });
+});
+
+describe("conventional fighter sheet tables", () => {
+    it("ground map straight movement: velocity 1-12 for fighters, Small Craft and DropShips (TW p. 92)", () => {
+        expect(GROUND_MAP_STRAIGHT_MOVEMENT.map((row) => row.velocity)).toEqual([1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12]);
+        expect(GROUND_MAP_STRAIGHT_MOVEMENT[0]).toEqual({ velocity: 1, fighter: 8, smallCraft: 8, dropShip: 8 });
+        expect(GROUND_MAP_STRAIGHT_MOVEMENT[1]).toEqual({ velocity: 2, fighter: 12, smallCraft: 14, dropShip: 16 });
+        expect(GROUND_MAP_STRAIGHT_MOVEMENT[11]).toEqual({ velocity: 12, fighter: 52, smallCraft: 74, dropShip: 96 });
+    });
+
+    it("fighter return table: safe thrust to turns before the fighter returns", () => {
+        expect(FIGHTER_RETURN_TABLE).toEqual([
+            { safeThrust: "1-4", turns: 3 },
+            { safeThrust: "5-8", turns: 2 },
+            { safeThrust: "9-12", turns: 1 },
+            { safeThrust: "13+", turns: 0 },
+        ]);
     });
 });

@@ -2,10 +2,9 @@ import React, { type JSX } from 'react';
 import { Link } from 'react-router';
 import { FaArrowCircleRight, FaFile, FaFolderOpen, FaSave, FaTrash } from "react-icons/fa";
 import BattleArmor, { IBattleArmorExport } from '../../../../classes/battle-armor';
-import { importBattleArmorBlk } from '../../../../classes/battle-armor-blk';
-import { MAX_BLK_FILE_LENGTH } from '../../../../utils/blk-file';
+import BlkImportSection from '../../../components/blk-import-section';
 import { IAppGlobals } from '../../../app-router';
-import BattleArmorCreatorSideMenu from '../../../components/battle-armor-creator-side-menu';
+import { BattleArmorCreatorSideMenu } from '../../../components/creator-side-menus';
 import TextSection from '../../../components/text-section';
 import UIPage from '../../../components/ui-page';
 import { findBattleArmorWeightClass } from '../../../../data/battle-armor-construction';
@@ -16,33 +15,17 @@ const FolderOpen = FaFolderOpen as any;
 const Save = FaSave as any;
 const Trash = FaTrash as any;
 
-export default class BattleArmorCreatorHome extends React.Component<IHomeProps, IHomeState> {
+export default class BattleArmorCreatorHome extends React.Component<IHomeProps> {
     constructor(props: IHomeProps) {
         super(props);
-        this.state = { importName: "", importIssues: null };
         this.props.appGlobals.makeDocumentTitle("Battle Armor Creator");
     }
 
-    // Reads a MegaMek ".blk" battle armor file into the editor, and lists what could not be carried over.
-    importFile = (e: React.ChangeEvent<HTMLInputElement>): void => {
-        const input = e.currentTarget;
-        const file = input.files && input.files[0];
-        if (!file) return;
-        if (file.size > MAX_BLK_FILE_LENGTH) {
-            this.setState({ importName: file.name, importIssues: ["The file is too large to be a unit file."] });
-            input.value = "";
-            return;
-        }
-        const reader = new FileReader();
-        reader.onload = () => {
-            const result = importBattleArmorBlk(typeof reader.result === "string" ? reader.result : "");
-            const suit = result.suit;
-            if (suit) this.replaceDesign(() => this.props.appGlobals.saveCurrentBattleArmor(suit));
-            this.setState({ importName: file.name, importIssues: result.suit ? [...result.issues, ...result.suit.getIssues()] : result.issues, importLoaded: !!result.suit });
-        };
-        reader.onerror = () => this.setState({ importName: file.name, importIssues: ["The file could not be read."], importLoaded: false });
-        reader.readAsText(file);
-        input.value = "";
+    // A MegaMek file of the kind, read by the shared MegaMek reader.
+    loadBlk = (unit: unknown): string[] => {
+        const suit = unit as BattleArmor;
+        this.replaceDesign(() => this.props.appGlobals.saveCurrentBattleArmor(suit));
+        return suit.getIssues();
     }
 
     // Before the design is replaced, offer to save it first.
@@ -147,31 +130,8 @@ export default class BattleArmorCreatorHome extends React.Component<IHomeProps, 
                             </div>
                         </TextSection>
 
-                        <TextSection label="Import a MegaMek File">
-                            <p>
-                                Load a battle armor design from a MegaMek or MegaMekLab <code>.blk</code> file. The design replaces the one in the
-                                editor; save your current design first if you want to keep it.
-                            </p>
-                            <label>
-                                Choose a .blk file:{" "}
-                                <input type="file" accept=".blk,text/plain" data-testid="ba-import-file" style={{ width: "auto" }} onChange={this.importFile} aria-label="Choose a .blk file" />
-                            </label>
-                            {this.state.importIssues !== null ? (
-                                <div data-testid="ba-import-result">
-                                    <p><strong>{this.state.importName}</strong>: {this.state.importLoaded ? "loaded into the editor." : "not loaded."}</p>
-                                    {this.state.importIssues.length > 0 ? (
-                                        <ul className={this.state.importLoaded ? "" : "color-red"}>
-                                            {this.state.importIssues.map((issue, index) => <li key={index}>{issue}</li>)}
-                                        </ul>
-                                    ) : <p>Everything in the file was carried over, and the suit is legal.</p>}
-                                </div>
-                            ) : null}
-                            <p className="smaller-text">
-                                The file's equipment names are matched to the Battle Armor Equipment Tables; anything without a match is left off
-                                and listed. A mixed-technology suit keeps each item's own technology base. Equipment the file gives to every
-                                trooper is the squad's; what only one trooper carries stays that trooper's.
-                            </p>
-                        </TextSection>
+                        <BlkImportSection accept={["battle-armor"]} testId="ba" onLoad={this.loadBlk}
+                            note={"The file's equipment names are matched to the Battle Armor Equipment Tables; anything without a match is left off and listed. A mixed-technology suit keeps each item's own technology base. Equipment the file gives to every trooper is the squad's; what only one trooper carries stays that trooper's."} />
 
                         <TextSection
                             label="Your Saved Battle Armor"
@@ -187,7 +147,7 @@ export default class BattleArmorCreatorHome extends React.Component<IHomeProps, 
                                         <th>Name</th>
                                         <th>Class</th>
                                         <th>Troopers</th>
-                                        <th></th>
+                                        <th><span className="visually-hidden">Actions</span></th>
                                     </tr>
                                 </thead>
                                 <tbody>
@@ -227,9 +187,3 @@ interface IHomeProps {
     appGlobals: IAppGlobals;
 }
 
-interface IHomeState {
-    importName: string;
-    /** What the last import reported; null before any import. */
-    importIssues: string[] | null;
-    importLoaded?: boolean;
-}

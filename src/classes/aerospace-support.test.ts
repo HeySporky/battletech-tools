@@ -1,5 +1,7 @@
 import { describe, expect, it } from "vitest";
 import AerospaceFighter from "./aerospace-fighter";
+import { BattleMechGroup } from "./battlemech-group";
+import { formatBattleValue } from "../data/battle-value";
 
 // Airship, Fixed-Wing and Satellite Support Vehicles built in the fighter builder, checked against the worked
 // examples: the Jetta Coruna and the Dixon (TM pp.116-141), the Cloud Nine and the Starcomm (TO:AUE pp.56-71).
@@ -230,5 +232,30 @@ describe("Large Airships and Satellites (TO:AUE pp.56-71)", () => {
         plane.setSupportChassisModification("prop", true);
         expect(plane.getIssues().join(" ")).not.toContain("Prop modification");
         expect(supportAircraft("airship", 50).getAvailableSupportChassisModifications()).not.toContain("armored");
+    });
+});
+
+describe("satellite-only equipment (TO:AUE pp.135, 138, 144)", () => {
+    it("a light sail is 10% of a satellite, and only satellites take it or the space mine dispenser", () => {
+        const satellite = supportAircraft("satellite", 42);
+        expect(satellite.addEquipmentFromTag("light-sail", "aft")?.weight).toBe(5);
+        expect(satellite.addEquipmentFromTag("naval-comm-scanner-suite-small", "nose")).not.toBeNull();
+        expect(satellite.addEquipmentFromTag("naval-comm-scanner-suite-large", "nose")).toBeNull();
+        const airship = supportAircraft("airship", 42);
+        expect(airship.addEquipmentFromTag("light-sail", "aft")).toBeNull();
+        expect(airship.addEquipmentFromTag("space-mine-dispenser", "nose")).toBeNull();
+    });
+
+    // #599 review: fighter BV1 is entered for the Master Rules; a Support Vehicle aircraft has none, so under a BV1
+    // edition it shows no BV1 figure and keeps the TechManual skill table with its BV2.
+    it("has no BV1 under the Master Rules, even though fighters now do", () => {
+        const plane = coruna();
+        expect(plane.getBattleValueUnitType()).toBe("support-aircraft");
+        expect(formatBattleValue((edition) => plane.getBattleValue(edition), plane.getBattleValueUnitType(), "master-rules")).toMatch(/^— \(BV2: /);
+        plane.getPilot().gunnery = 3;
+        expect(plane.getPilotAdjustedBattleValue("master-rules")).toBe(plane.getPilotAdjustedBattleValue("total-warfare"));
+        const group = new BattleMechGroup();
+        group.fighters.push(plane);
+        expect(group.getBattleValueUnitTypes()).toEqual(["support-aircraft"]);
     });
 });

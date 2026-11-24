@@ -23,7 +23,7 @@ export function replaceAll(
             replace = " " + replace;
         }
         let iterations = 0
-        let maxIterations = 1000;
+        const maxIterations = 1000;
         while( haystack.indexOf( needle ) > -1 ) {
             if( maxIterations < iterations ) {
                 console.error("replaceAll - max Iterations reached!")
@@ -48,20 +48,20 @@ export function replaceAll(
         if( wholeWordOnly ) {
 
             if( caseSensitive ) {
-                let re = new RegExp("\\b" + needle + "\\b","g");
+                const re = new RegExp("\\b" + needle + "\\b","g");
                 return haystack.replace(re, replace);
             } else {
-                let re = new RegExp("\\b" + needle + "\\b","gi");
+                const re = new RegExp("\\b" + needle + "\\b","gi");
                 return haystack.replace(re, replace);
             }
 
         } else {
 
             if( caseSensitive ) {
-                let re = new RegExp(needle,"gi");
+                const re = new RegExp(needle,"gi");
                 return haystack.replace(re, replace);
             }else {
-                let re = new RegExp(needle,"g");
+                const re = new RegExp(needle,"g");
                 return haystack.replace(re, replace);
             }
 

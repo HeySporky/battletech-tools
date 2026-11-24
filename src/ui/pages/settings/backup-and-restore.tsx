@@ -36,7 +36,7 @@ export default class SettingsBackupAndRestore extends React.Component<ISettingsB
     }
 
     getFullBackupString = async() => {
-      let fullBackupString = await getFullBackup(this.props.appGlobals.appSettings);
+      const fullBackupString = await getFullBackup(this.props.appGlobals.appSettings);
       this.setState({
         fullBackupString: fullBackupString,
       })
@@ -118,7 +118,7 @@ export default class SettingsBackupAndRestore extends React.Component<ISettingsB
     selectFile = async (e: React.FormEvent<HTMLInputElement>): Promise<void> => {
       e.preventDefault();
       if( e.currentTarget.files && e.currentTarget.files.length > 0 ) {
-        let foundFile = e.currentTarget.files[0];
+        const foundFile = e.currentTarget.files[0];
         // console.log( "test", foundFIle );
         if( foundFile.type === "application/json" ) {
           this.fileReader = new FileReader();
@@ -131,14 +131,14 @@ export default class SettingsBackupAndRestore extends React.Component<ISettingsB
 
     handleFileRead = (_e: any) => {
       if( this.fileReader ) {
-        let content = this.fileReader.result;
+        const content = this.fileReader.result;
 
         try {
           if( content ) {
-            let data: IFullBackup = JSON.parse( content.toString() )
+            const data: IFullBackup = JSON.parse( content.toString() )
 
             if( checkFullRestoreData( data ) ) {
-              let restoreMessages = restoreFullBackup(
+              const restoreMessages = restoreFullBackup(
                 data,
                 this.props.appGlobals,
                 false,
@@ -188,7 +188,7 @@ export default class SettingsBackupAndRestore extends React.Component<ISettingsB
 
     render = (): JSX.Element => {
 
-      let restoreFileName = this.restoreFileName + "-" + (new Date()).toLocaleString() + ".json";
+      const restoreFileName = this.restoreFileName + "-" + (new Date()).toLocaleString() + ".json";
       return (
         <UIPage current="settings-backup-and-restore" appGlobals={this.props.appGlobals}>
             <div className="row">

@@ -5,6 +5,7 @@ import { ESaveDataMode } from '../../../dataSaves';
 import { IAppGlobals } from '../../app-router';
 import InputCheckbox from '../../components/form_elements/input_checkbox';
 import UIPage from '../../components/ui-page';
+import MordelKeySettings from './_mordel-key-settings';
 
 export default class SettingsHome extends React.Component<ISettingsHomeProps, ISettingsHomeState> {
     // [openPicker, data, authResponse] = useDrivePicker();
@@ -20,19 +21,19 @@ export default class SettingsHome extends React.Component<ISettingsHomeProps, IS
     }
 
     setUITheme = ( event: React.FormEvent<HTMLSelectElement>): void => {
-      let appSettingsHome = this.props.appGlobals.appSettings;
+      const appSettingsHome = this.props.appGlobals.appSettings;
       appSettingsHome.uiTheme = event.currentTarget.value;
       this.props.appGlobals.saveAppSettings( appSettingsHome );
     }
 
     setDeveloperMenu = ( event: React.FormEvent<HTMLInputElement>): void => {
-      let appSettingsHome = this.props.appGlobals.appSettings;
+      const appSettingsHome = this.props.appGlobals.appSettings;
       appSettingsHome.developerMenu = event.currentTarget.checked;
       this.props.appGlobals.saveAppSettings( appSettingsHome );
     }
 
     setAlphaStrikeMeasurementsInHexes = ( event: React.FormEvent<HTMLInputElement>): void => {
-      let appSettingsHome = this.props.appGlobals.appSettings;
+      const appSettingsHome = this.props.appGlobals.appSettings;
       appSettingsHome.alphaStrikeMeasurementsInHexes = event.currentTarget.checked;
       this.props.appGlobals.saveAppSettings( appSettingsHome );
     }
@@ -112,6 +113,16 @@ export default class SettingsHome extends React.Component<ISettingsHomeProps, IS
                       </>
                     ) : null} */}
                   </fieldset>
+                <MordelKeySettings developerMenu={this.props.appGlobals.appSettings.developerMenu} />
+                {this.props.appGlobals.appSettings.developerMenu ? (
+                  <fieldset className="fieldset">
+                    <legend>Developer Tools</legend>
+                    <ul>
+                      <li><Link to={`${process.env.PUBLIC_URL}/settings/equipment-editor`}>Equipment Editor</Link></li>
+                      <li><Link to={`${process.env.PUBLIC_URL}/settings/custom-mul-editor`}>Custom MUL Editor</Link></li>
+                    </ul>
+                  </fieldset>
+                ) : null}
               </div>
             </div>
 

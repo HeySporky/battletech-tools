@@ -28,14 +28,16 @@ test("a motorized laser rifle platoon can be built, checked, saved and printed",
     // Base Range 2: -2 in its own hex, out to +4 at 6 hexes.
     await expect(page.getByTestId("infantry-ranges").getByRole("cell")).toHaveText(["0", "1", "2", "3", "4", "5", "6", "-2", "0", "0", "+2", "+2", "+4", "+4"]);
 
-    await page.getByRole("link", { name: /Next: Summary/ }).click();
+    await page.getByRole("link", { name: /Next: Technical Readout/ }).click();
+    await expect(page.getByText("Step 3: Technical Readout (optional)")).toBeVisible();
+    await page.getByRole("link", { name: "Summary", exact: true }).click();
     await expect(page.getByText("This platoon is legal under the TechManual construction rules.")).toBeVisible();
     await expect(page.getByText("Summary: Third Crucis Lancers")).toBeVisible();
     await expect(page.getByTestId("infantry-summary")).toContainText("Cost: 3,167,838 C-bills");
 
     await page.getByRole("link", { name: "View Record Sheet" }).click();
-    await expect(page.getByRole("heading", { name: "Third Crucis Lancers" })).toBeVisible();
-    await expect(page.getByTestId("infantry-sheet-line")).toHaveCount(1);
+    await expect(page.getByTestId("inf-platoon-1")).toContainText("Third Crucis Lancers");
+    await expect(page.locator("[data-testid^='inf-platoon-'][data-blank='false']")).toHaveCount(1);
 
     await page.goto("classic-battletech/infantry-creator");
     await page.getByRole("button", { name: /Save as New/ }).click();
@@ -107,11 +109,13 @@ test("infantry armor is offered at the Advanced rules level and the era limits t
     await expect(page.getByLabel("Primary Weapon:").locator("option[value='inf-auto-pistol-stetta']")).toHaveCount(0);
     await expect(page.getByLabel("Primary Weapon:").locator("option[value='inf-auto-rifle']")).toHaveCount(1);
 
-    await page.getByRole("link", { name: /Next: Summary/ }).click();
+    await page.getByRole("link", { name: /Next: Technical Readout/ }).click();
+    await expect(page.getByText("Step 3: Technical Readout (optional)")).toBeVisible();
+    await page.getByRole("link", { name: "Summary", exact: true }).click();
     await expect(page.getByText("Infantry Armor: Ballistic Plate, Standard (damage divisor 2)")).toBeVisible();
     await expect(page.getByText(/Encumbering armor: -1 MP/)).toBeVisible();
     await page.getByRole("link", { name: "View Record Sheet" }).click();
-    await expect(page.getByText(/Damage Divisor 2E/)).toBeVisible();
+    await expect(page.getByTestId("inf-platoon-1")).toContainText("Damage Divisor:2E");
 
     expect(errors).toEqual([]);
 });

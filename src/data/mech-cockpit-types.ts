@@ -19,6 +19,9 @@ export const mechCockpitTypes: ICockpitType[] = [
 	{
 		name: "Cockpit",
 		tag: "standard",
+		rulesLevel: 1,
+		techBase: "universal",
+		editions: ["battledroids", "battletech-2nd-edition", "battletech-manual", "battletech-compendium", "battletech-3rd-edition", "compendium-rules-of-warfare", "battletech-4th-edition", "master-rules", "master-rules-revised", "total-warfare", "battlemech-manual", "core-rulebook"],
 		weight: 3,
 		cost: 200000,
 		constructionStatus: "implemented",
@@ -48,6 +51,8 @@ export const mechCockpitTypes: ICockpitType[] = [
 	{
 		name: "Small Cockpit",
 		tag: "small",
+		techBase: "universal",
+		editions: ["total-warfare", "battlemech-manual", "core-rulebook"],
 		weight: 2,
 		cost: 175000,
 		bvMultiplier: 0.95,
@@ -64,6 +69,8 @@ export const mechCockpitTypes: ICockpitType[] = [
 	{
 		name: "IndustrialMech Cockpit",
 		tag: "industrial",
+		techBase: "universal",
+		editions: ["total-warfare", "battlemech-manual", "core-rulebook"],
 		weight: 3,
 		cost: 100000,
 		constructionStatus: "implemented",
@@ -78,6 +85,8 @@ export const mechCockpitTypes: ICockpitType[] = [
 	{
 		name: "IndustrialMech Cockpit (Advanced Fire Control)",
 		tag: "industrial-advanced-fire-control",
+		techBase: "universal",
+		editions: ["total-warfare", "battlemech-manual", "core-rulebook"],
 		weight: 3,
 		cost: 200000,
 		constructionStatus: "implemented",
@@ -92,6 +101,8 @@ export const mechCockpitTypes: ICockpitType[] = [
 	{
 		name: "Primitive BattleMech Cockpit",
 		tag: "primitive",
+		techBase: "universal",
+		editions: ["total-warfare", "battlemech-manual", "core-rulebook"],
 		weight: 5,
 		cost: 200000,
 		constructionStatus: "implemented",
@@ -106,6 +117,8 @@ export const mechCockpitTypes: ICockpitType[] = [
 	{
 		name: "Primitive IndustrialMech Cockpit",
 		tag: "primitive-industrial",
+		techBase: "universal",
+		editions: ["total-warfare", "battlemech-manual", "core-rulebook"],
 		weight: 5,
 		cost: 100000,
 		constructionStatus: "implemented",
@@ -120,6 +133,8 @@ export const mechCockpitTypes: ICockpitType[] = [
 	{
 		name: "Primitive IndustrialMech Cockpit (Advanced Fire Control)",
 		tag: "primitive-industrial-advanced-fire-control",
+		techBase: "universal",
+		editions: ["total-warfare", "battlemech-manual", "core-rulebook"],
 		weight: 5,
 		cost: 200000,
 		constructionStatus: "implemented",
@@ -134,10 +149,13 @@ export const mechCockpitTypes: ICockpitType[] = [
 	{
 		name: "Torso-Mounted Cockpit",
 		tag: "torso-mounted",
+		techBase: "universal",
+		editions: ["total-warfare", "battlemech-manual", "core-rulebook"],
 		weight: 4,
 		cost: 750000,
 		bvMultiplier: 0.95,
-		constructionStatus: "deferred",
+		rulesLevel: 4,
+		constructionStatus: "implemented",
 		book: "TO:AUE",
 		page: 113,
 		notes: "Experimental. 2 center torso slots (cockpit and sensors); Life Support moves to the side torsos; no Command Console (TO:AUE p.112). Cost TO:AUE p.219. BV: center torso armor counts double, final BV x0.95 (TO:AUE p.193).",
@@ -150,10 +168,13 @@ export const mechCockpitTypes: ICockpitType[] = [
 	{
 		name: "Cockpit Command Console",
 		tag: "command-console",
+		techBase: "universal",
+		editions: ["total-warfare", "battlemech-manual", "core-rulebook"],
 		weight: 3,
 		cost: 500000,
 		addOn: true,
-		constructionStatus: "deferred",
+		rulesLevel: 3,
+		constructionStatus: "implemented",
 		book: "TO:AUE",
 		page: 113,
 		notes: "Add-on: 1 slot in the same location as the cockpit (TO:AUE p.112). Not with Torso-Mounted, QuadVee or tripod cockpits. Cost TO:AUE p.219.",
@@ -166,12 +187,17 @@ export const mechCockpitTypes: ICockpitType[] = [
 	{
 		name: "BattleMech Interface Cockpit (Machina Domini)",
 		tag: "interface",
+		techBase: "universal",
+		editions: ["total-warfare", "battlemech-manual", "core-rulebook"],
 		weight: 4,
 		cost: 1500000,
-		constructionStatus: "deferred",
+		bvMultiplier: 1.3,
+		rulesLevel: 4,
+		altNames: ["Interface Cockpit"],
+		constructionStatus: "implemented",
 		book: "IO:AE",
 		page: 110,
-		notes: "Experimental prototype; never reached production. Takes one extra Cockpit slot; the 'Mech may be built without a gyro (IO:AE p.110). Cost IO:AE p.213, which prints ~3078 for the Inner Sphere prototype against ~3074 on p.33.",
+		notes: "Experimental prototype; never reached production. Takes one extra Cockpit slot (head slot 4, as MegaMek); BattleMechs only, not in a torso, no component armor, no Command Console or other cockpit; the 'Mech may be built without a gyro (IO:AE p.110). BV: final BV x1.30 (p.199). Cost IO:AE p.213, which prints ~3078 for the Inner Sphere prototype against ~3074 on p.33.",
 		prototype: 3074,
 		introduced: null,
 		extinct: null,
@@ -181,6 +207,8 @@ export const mechCockpitTypes: ICockpitType[] = [
 	{
 		name: "Direct Neural Interface Cockpit Modification",
 		tag: "direct-neural-interface",
+		rulesLevel: 3,
+		editions: ["total-warfare", "battlemech-manual", "core-rulebook"],
 		weight: 0,
 		cost: 250000,
 		techBase: "is",
@@ -197,6 +225,8 @@ export const mechCockpitTypes: ICockpitType[] = [
 	{
 		name: "Damage Interrupt Circuit",
 		tag: "damage-interrupt-circuit",
+		rulesLevel: 4,
+		editions: ["total-warfare", "battlemech-manual", "core-rulebook"],
 		weight: 0,
 		cost: 150,
 		techBase: "is",
@@ -213,6 +243,8 @@ export const mechCockpitTypes: ICockpitType[] = [
 	{
 		name: "SLDF Advanced Neurohelmet",
 		tag: "sldf-advanced-neurohelmet",
+		rulesLevel: 3,
+		editions: ["total-warfare", "battlemech-manual", "core-rulebook"],
 		weight: 0,
 		cost: 5000,
 		techBase: "is",
@@ -229,11 +261,23 @@ export const mechCockpitTypes: ICockpitType[] = [
 	{
 		name: "Enhanced Imaging (EI) Interface",
 		tag: "enhanced-imaging-interface",
+		// EI prints no level of its own; it falls under the Experimental augmented warrior rules (IO:AE p.68).
+		rulesLevel: 4,
+		altNames: ["EI Interface", "EIInterface"],
+		editions: ["master-rules-revised", "total-warfare", "battlemech-manual", "core-rulebook"],
+		editionLevels: { "master-rules-revised": 3 },
+		introducedInEdition: "master-rules-revised",
+		editionStats: {
+			"master-rules-revised": {
+				book: "MaxTech", page: 60, name: "Enhanced Imaging", cbills: 200000,
+				notes: "Maximum Tech's Level 3 EI cockpit system (pp.60-61): the 'Mech's own system, no implanted pilot needed (plan ruling R1). One cockpit system only, so not with a small, torso-mounted or command console cockpit (p.60). The Enhanced Imaging Display cockpit costs 400,000 against the standard 200,000 (p.87), so it adds 200,000. BV1: Piloting -1 for skill, +5% of the weapons as a targeting computer, -25 defensive (p.91).",
+			},
+		},
 		weight: 0,
 		cost: 1500000,
 		techBase: "clan",
 		addOn: true,
-		constructionStatus: "deferred",
+		constructionStatus: "implemented",
 		book: "IO:AE",
 		page: 69,
 		notes: "Clan 'Mech and battle armor cockpits, no weight or slots; built into every ProtoMech. Lets a pilot with EI implants use them, and gives a 1-hex active probe even without them (IO:AE p.69). BV 0 (p.190). IO:AE prints no cost for the interface itself (it points to pp.178-183, which give none): 1,500,000 follows MegaMek, flagged. Dated with the Clan EI implants (3040, p.52). Experimental.",
@@ -244,6 +288,8 @@ export const mechCockpitTypes: ICockpitType[] = [
 	{
 		name: "Virtual Reality Piloting Pod",
 		tag: "virtual-reality-piloting-pod",
+		rulesLevel: 4,
+		editions: ["total-warfare", "battlemech-manual", "core-rulebook"],
 		weight: 3,
 		cost: 1250000,
 		techBase: "is",
@@ -259,6 +305,7 @@ export const mechCockpitTypes: ICockpitType[] = [
 	{
 		name: "QuadVee Cockpit",
 		tag: "quadvee",
+		editions: ["total-warfare", "battlemech-manual", "core-rulebook"],
 		weight: 4,
 		cost: 375000,
 		techBase: "clan",
@@ -274,6 +321,7 @@ export const mechCockpitTypes: ICockpitType[] = [
 	{
 		name: "Tripod 'Mech Cockpit",
 		tag: "tripod",
+		editions: ["total-warfare", "battlemech-manual", "core-rulebook"],
 		weight: 4,
 		cost: 400000,
 		techBase: "is",
@@ -289,6 +337,7 @@ export const mechCockpitTypes: ICockpitType[] = [
 	{
 		name: "Superheavy BattleMech Cockpit",
 		tag: "superheavy",
+		editions: ["total-warfare", "battlemech-manual", "core-rulebook"],
 		weight: 4,
 		cost: 300000,
 		techBase: "is",
@@ -303,7 +352,9 @@ export const mechCockpitTypes: ICockpitType[] = [
 	},
 	{
 		name: "Superheavy IndustrialMech Cockpit",
+		altNames: ["Superheavy Industrial Cockpit"],
 		tag: "superheavy-industrial",
+		editions: ["total-warfare", "battlemech-manual", "core-rulebook"],
 		weight: 4,
 		cost: 200000,
 		techBase: "is",
@@ -319,6 +370,7 @@ export const mechCockpitTypes: ICockpitType[] = [
 	{
 		name: "Superheavy Tripod 'Mech Cockpit",
 		tag: "superheavy-tripod",
+		editions: ["total-warfare", "battlemech-manual", "core-rulebook"],
 		weight: 5,
 		cost: 500000,
 		techBase: "is",
@@ -333,8 +385,37 @@ export const mechCockpitTypes: ICockpitType[] = [
 	}
 ];
 
+
+/** Custom Homebrew cockpits (fan content): kept apart so the guards on the official catalog above stay as they are. */
+export const customCockpitTypes: ICockpitType[] = [
+	{
+		name: "Pilot Suit Cockpit (Pleiades Mechworks)",
+		tag: "pilot-suit",
+		techBase: "is",
+		weight: 5,
+		cost: 1500000,
+		rulesLevel: 6,
+		altNames: ["Pilot Suit", "Pilot Suit Cockpit"],
+		constructionStatus: "implemented",
+		book: "https://www.reddit.com/r/NormalBattletech/",
+		page: 0,
+		notes: "Custom Homebrew by u/PleiadesMechworks (r/NormalBattletech, Pleiades Mechworks equipment post). A 5-ton cockpit that includes the Pilot Suit and always a full-head ejection system. "
+			+ "With a MechWarrior in the suit, -1 to all Piloting and Gunnery rolls. It cannot be piloted without the suit (it has no ordinary controls). A 'Mech with it need not mount a gyro, but without one it cannot stay standing if the pilot is knocked out. "
+			+ "A prototype in alpha testing in 3151, stored after the Pleiades War; built by reverse-engineering a Word of Blake Gestalt cockpit. All the post's. "
+			+ "Ours: its two head slots and its placement limits are the Interface Cockpit's (BattleMechs only, not in a torso, the 'Mech may go without a gyro; IO:AE p.110), 1,500,000 C-bills as the Interface Cockpit, "
+			+ "and no Battle Value multiplier: the -1/-1 counts through the pilot skills used for Battle Value instead. The full-head ejection system is part of the 5 tons (no separate item, weight or cost).",
+		rules: "Piloting and Gunnery are 1 better with a MechWarrior in the suit. Full-head ejection system built in. No gyro needed, but a 'Mech without one falls if the MechWarrior is knocked out. Two head slots.",
+		lore: "Pleiades Mechworks reverse-engineered a Word of Blake Gestalt cockpit into a suit the MechWarrior wears: the 'Mech has no ordinary controls and cannot be piloted without it. "
+			+ "It was in alpha testing in 3151, the same year as the Blue Saviour, and was stored away after the Pleiades War. The Hardsuit battle armor is built on the same suit technology.",
+		prototype: 3151,
+		introduced: null,
+		extinct: null,
+		reintroduced: null
+	}
+];
+
 export function getCockpitType(tag: string): ICockpitType {
-	const cockpit = mechCockpitTypes.find(item => item.tag === tag);
+	const cockpit = mechCockpitTypes.find(item => item.tag === tag) ?? customCockpitTypes.find(item => item.tag === tag);
 	if (!cockpit) throw new Error(`Unknown cockpit type: ${tag}`);
 	return cockpit;
 }

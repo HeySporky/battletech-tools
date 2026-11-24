@@ -1,0 +1,1515 @@
+# Bundled conventional infantry: build report
+
+317 designs kept, 1503 files left out.
+
+| Reason | Files |
+|---|---|
+| no Master Unit List entry to check its BV against | 1276 |
+| BV differs from the MUL | 207 |
+| the import could not carry all of it over | 20 |
+
+## Left out
+
+- `infantry/3085/Clan/Clan Anti-Infantry Clan Jade Falcon Police.blk`: BV differs from the MUL: BV 70, MUL 56
+- `infantry/3085/Clan/Motorized Infantry Dark Caste Bandits.blk`: BV differs from the MUL: BV 99, MUL 80
+- `infantry/3085/Comstar/Bridge-builder Engineers Take the Time III-chi Forty-eighth Division.blk`: BV differs from the MUL: BV 51, MUL 42
+- `infantry/3085/Comstar/Motorized XCT Infantry Explorer Corps Hostile Environment.blk`: BV differs from the MUL: BV 105, MUL 85
+- `infantry/3085/Comstar/Surveillance Specialist Com Guards Battlefield Data Miners.blk`: BV differs from the MUL: BV 74, MUL 54
+- `infantry/3085/Corporations/Heavy Support Infantry Irian Technologies SWAT Team.blk`: BV differs from the MUL: BV 118, MUL 95
+- `infantry/3085/Corporations/Hover Assault Infantry Johnston Industries Rapid Response Force.blk`: BV differs from the MUL: BV 74, MUL 52
+- `infantry/3085/Corporations/VTOL Infantry Hachiman Taro Enterprise Extraction Force.blk`: BV differs from the MUL: BV 88, MUL 61
+- `infantry/3085/Davion/Firefighter Twenty-fourth Hellfire Firefighting Battalion 84th Avalon LI 17th Avalon Hussars.blk`: no Master Unit List entry to check its BV against
+- `infantry/3085/Davion/SpecOps Paratrooper MI6 Extraction Team.blk`: BV differs from the MUL: BV 119, MUL 108
+- `infantry/3085/FRR/Clan Mechanized Infantry MimirWatch Counter Insurgency Point.blk`: BV differs from the MUL: BV 115, MUL 103
+- `infantry/3085/FRR/Motorized Heavy Infantry MotstandMimir Troop.blk`: BV differs from the MUL: BV 114, MUL 91
+- `infantry/3085/Hell Horses/AA Mechanized Infantry Mechanized AA Infantry.blk`: BV differs from the MUL: BV 106, MUL 85
+- `infantry/3085/Hell Horses/Fast Recon Cavalry Point.blk`: BV differs from the MUL: BV 268, MUL 188
+- `infantry/3085/Kurita/Mechanized Field Artillery 71st Mechanized.blk`: BV differs from the MUL: BV 84, MUL 67
+- `infantry/3085/Kurita/Recon Infantry Recon Battalion 201st Pesht Assault Team 3rd Proserpina Hussars.blk`: BV differs from the MUL: BV 22, MUL 16
+- `infantry/3085/Liao/Missile Artillery Infantry Kommando Special Forces.blk`: BV differs from the MUL: BV 216, MUL 173
+- `infantry/3085/Mercenary/Submersible Mechanized Infantry Kraken Unleashed - The Mermen.blk`: BV differs from the MUL: BV 123, MUL 78
+- `infantry/3085/Mercenary/TAG Spotter Infantry Stalwart Support - Spotter Infantry.blk`: BV differs from the MUL: BV 82, MUL 75
+- `infantry/3085/MoC/Heavy Mountain Infantry Magistracy Cavaliers.blk`: no Master Unit List entry to check its BV against
+- `infantry/3085/Periphery Pirate/Pirate Lady Death's Pacification Squads.blk`: BV differs from the MUL: BV 87, MUL 69
+- `infantry/3085/RAF/Motorized MG Galatean Support Wheels.blk`: BV differs from the MUL: BV 104, MUL 83
+- `infantry/3085/Steiner/Anti-Infantry Unit Second Lyran Armored Infantry.blk`: BV differs from the MUL: BV 150, MUL 168
+- `infantry/3085/Steiner/Combat Engineer Royal Engineers 1st Lyran Royal Guards RCT.blk`: BV differs from the MUL: BV 58, MUL 47
+- `infantry/3085/Steiner/HALO Paratrooper Lyran Paratrooper Corps.blk`: BV differs from the MUL: BV 115, MUL 110
+- `infantry/3085/Steiner/Heavy Infantry Heavy Urban Response Platoon.blk`: BV differs from the MUL: BV 209, MUL 167
+- `infantry/3085/Taurian/Field Gun Infantry Motorized Batteries.blk`: BV differs from the MUL: BV 387, MUL 310
+- `infantry/3085/Taurian/Minesweepers Thirty-fifth Cluster Support Force Red Chasseurs.blk`: BV differs from the MUL: BV 90, MUL 74
+- `infantry/3085/Taurian/XCT Marine Special Asteroid Support Forces.blk`: BV differs from the MUL: BV 153, MUL 145
+- `infantry/3085/Word of Blake/Mechanized Assault XCT Word of Blake Militia NBC.blk`: BV differs from the MUL: BV 214, MUL 161
+- `infantry/3085/Word of Blake/Riot Police Word of Blake Protectorate Militia Pacification Unit.blk`: BV differs from the MUL: BV 63, MUL 50
+- `infantry/3085/Word of Blake/Tau Wraith Manei Domini Recon Squad.blk`: BV differs from the MUL: BV 54, MUL 48
+- `infantry/3085/Word of Blake/Tau Zombie Manei Domini Attack Squad.blk`: BV differs from the MUL: BV 123, MUL 113
+- `infantry/AFFS/Field Artillery Platoon (AFFS) (Motorized Arrow IV 3067+).blk`: no Master Unit List entry to check its BV against
+- `infantry/AFFS/Field Artillery Platoon (AFFS) (Motorized Sniper 3067+).blk`: no Master Unit List entry to check its BV against
+- `infantry/AFFS/Field Artillery Platoon (AFFS) (Motorized Sniper Cannon 3079+).blk`: no Master Unit List entry to check its BV against
+- `infantry/AFFS/Field Artillery Platoon (AFFS) (Motorized Thumper 3067+).blk`: no Master Unit List entry to check its BV against
+- `infantry/AFFS/Field Artillery Platoon (AFFS) (Motorized Thumper Cannon 3079+).blk`: no Master Unit List entry to check its BV against
+- `infantry/AFFS/Field Artillery Platoon (AFFS) (Tracked Arrow IV 3067+).blk`: no Master Unit List entry to check its BV against
+- `infantry/AFFS/Field Artillery Platoon (AFFS) (Tracked Sniper 3067+).blk`: no Master Unit List entry to check its BV against
+- `infantry/AFFS/Field Artillery Platoon (AFFS) (Tracked Sniper Cannon 3079+).blk`: no Master Unit List entry to check its BV against
+- `infantry/AFFS/Field Artillery Platoon (AFFS) (Tracked Thumper 3067+).blk`: no Master Unit List entry to check its BV against
+- `infantry/AFFS/Field Artillery Platoon (AFFS) (Tracked Thumper Cannon 3079+).blk`: no Master Unit List entry to check its BV against
+- `infantry/AFFS/Field Artillery Platoon (AFFS) (Wheeled Arrow IV 3067+).blk`: no Master Unit List entry to check its BV against
+- `infantry/AFFS/Field Artillery Platoon (AFFS) (Wheeled Sniper 3067+).blk`: no Master Unit List entry to check its BV against
+- `infantry/AFFS/Field Artillery Platoon (AFFS) (Wheeled Sniper Cannon 3079+).blk`: no Master Unit List entry to check its BV against
+- `infantry/AFFS/Field Artillery Platoon (AFFS) (Wheeled Thumper 3067+).blk`: no Master Unit List entry to check its BV against
+- `infantry/AFFS/Field Artillery Platoon (AFFS) (Wheeled Thumper Cannon 3079+).blk`: no Master Unit List entry to check its BV against
+- `infantry/AFFS/Field Gun Platoon (AFFS) (Motorized AC10 3067+).blk`: no Master Unit List entry to check its BV against
+- `infantry/AFFS/Field Gun Platoon (AFFS) (Motorized AC2 3067+).blk`: no Master Unit List entry to check its BV against
+- `infantry/AFFS/Field Gun Platoon (AFFS) (Motorized AC20 3067+).blk`: no Master Unit List entry to check its BV against
+- `infantry/AFFS/Field Gun Platoon (AFFS) (Motorized AC5 3067+).blk`: no Master Unit List entry to check its BV against
+- `infantry/AFFS/Field Gun Platoon (AFFS) (Motorized Gauss 3067+).blk`: no Master Unit List entry to check its BV against
+- `infantry/AFFS/Field Gun Platoon (AFFS) (Motorized LAC2 3067+).blk`: no Master Unit List entry to check its BV against
+- `infantry/AFFS/Field Gun Platoon (AFFS) (Motorized LAC5 3067+).blk`: no Master Unit List entry to check its BV against
+- `infantry/AFFS/Field Gun Platoon (AFFS) (Motorized LBX10 3067+).blk`: no Master Unit List entry to check its BV against
+- `infantry/AFFS/Field Gun Platoon (AFFS) (Motorized LBX2 3067+).blk`: no Master Unit List entry to check its BV against
+- `infantry/AFFS/Field Gun Platoon (AFFS) (Motorized LBX20 3067+).blk`: no Master Unit List entry to check its BV against
+- `infantry/AFFS/Field Gun Platoon (AFFS) (Motorized LBX5 3067+).blk`: no Master Unit List entry to check its BV against
+- `infantry/AFFS/Field Gun Platoon (AFFS) (Motorized RAC2 3067+).blk`: no Master Unit List entry to check its BV against
+- `infantry/AFFS/Field Gun Platoon (AFFS) (Motorized RAC5 3067+).blk`: no Master Unit List entry to check its BV against
+- `infantry/AFFS/Field Gun Platoon (AFFS) (Motorized UAC10 3067+).blk`: no Master Unit List entry to check its BV against
+- `infantry/AFFS/Field Gun Platoon (AFFS) (Motorized UAC2 3067+).blk`: no Master Unit List entry to check its BV against
+- `infantry/AFFS/Field Gun Platoon (AFFS) (Motorized UAC20 3067+).blk`: no Master Unit List entry to check its BV against
+- `infantry/AFFS/Field Gun Platoon (AFFS) (Motorized UAC5 3067+).blk`: no Master Unit List entry to check its BV against
+- `infantry/AFFS/Field Gun Platoon (AFFS) (Tracked AC10 3067+).blk`: no Master Unit List entry to check its BV against
+- `infantry/AFFS/Field Gun Platoon (AFFS) (Tracked AC2 3067+).blk`: no Master Unit List entry to check its BV against
+- `infantry/AFFS/Field Gun Platoon (AFFS) (Tracked AC20 3067+).blk`: no Master Unit List entry to check its BV against
+- `infantry/AFFS/Field Gun Platoon (AFFS) (Tracked AC5 3067+).blk`: no Master Unit List entry to check its BV against
+- `infantry/AFFS/Field Gun Platoon (AFFS) (Tracked Gauss 3067+).blk`: no Master Unit List entry to check its BV against
+- `infantry/AFFS/Field Gun Platoon (AFFS) (Tracked LAC2 3067+).blk`: no Master Unit List entry to check its BV against
+- `infantry/AFFS/Field Gun Platoon (AFFS) (Tracked LAC5 3067+).blk`: no Master Unit List entry to check its BV against
+- `infantry/AFFS/Field Gun Platoon (AFFS) (Tracked LBX10 3067+).blk`: no Master Unit List entry to check its BV against
+- `infantry/AFFS/Field Gun Platoon (AFFS) (Tracked LBX2 3067+).blk`: no Master Unit List entry to check its BV against
+- `infantry/AFFS/Field Gun Platoon (AFFS) (Tracked LBX20 3067+).blk`: no Master Unit List entry to check its BV against
+- `infantry/AFFS/Field Gun Platoon (AFFS) (Tracked LBX5 3067+).blk`: no Master Unit List entry to check its BV against
+- `infantry/AFFS/Field Gun Platoon (AFFS) (Tracked RAC2 3067+).blk`: no Master Unit List entry to check its BV against
+- `infantry/AFFS/Field Gun Platoon (AFFS) (Tracked RAC5 3067+).blk`: no Master Unit List entry to check its BV against
+- `infantry/AFFS/Field Gun Platoon (AFFS) (Tracked UAC10 3067+).blk`: no Master Unit List entry to check its BV against
+- `infantry/AFFS/Field Gun Platoon (AFFS) (Tracked UAC2 3067+).blk`: no Master Unit List entry to check its BV against
+- `infantry/AFFS/Field Gun Platoon (AFFS) (Tracked UAC20 3067+).blk`: no Master Unit List entry to check its BV against
+- `infantry/AFFS/Field Gun Platoon (AFFS) (Tracked UAC5 3067+).blk`: no Master Unit List entry to check its BV against
+- `infantry/AFFS/Field Gun Platoon (AFFS) (Wheeled AC10 3067+).blk`: no Master Unit List entry to check its BV against
+- `infantry/AFFS/Field Gun Platoon (AFFS) (Wheeled AC2 3067+).blk`: no Master Unit List entry to check its BV against
+- `infantry/AFFS/Field Gun Platoon (AFFS) (Wheeled AC20 3067+).blk`: no Master Unit List entry to check its BV against
+- `infantry/AFFS/Field Gun Platoon (AFFS) (Wheeled AC5 3067+).blk`: no Master Unit List entry to check its BV against
+- `infantry/AFFS/Field Gun Platoon (AFFS) (Wheeled Gauss 3067+).blk`: no Master Unit List entry to check its BV against
+- `infantry/AFFS/Field Gun Platoon (AFFS) (Wheeled LAC2 3067+).blk`: no Master Unit List entry to check its BV against
+- `infantry/AFFS/Field Gun Platoon (AFFS) (Wheeled LAC5 3067+).blk`: no Master Unit List entry to check its BV against
+- `infantry/AFFS/Field Gun Platoon (AFFS) (Wheeled LBX10 3067+).blk`: no Master Unit List entry to check its BV against
+- `infantry/AFFS/Field Gun Platoon (AFFS) (Wheeled LBX2 3067+).blk`: no Master Unit List entry to check its BV against
+- `infantry/AFFS/Field Gun Platoon (AFFS) (Wheeled LBX20 3067+).blk`: no Master Unit List entry to check its BV against
+- `infantry/AFFS/Field Gun Platoon (AFFS) (Wheeled LBX5 3067+).blk`: no Master Unit List entry to check its BV against
+- `infantry/AFFS/Field Gun Platoon (AFFS) (Wheeled RAC2 3067+).blk`: no Master Unit List entry to check its BV against
+- `infantry/AFFS/Field Gun Platoon (AFFS) (Wheeled RAC5 3067+).blk`: no Master Unit List entry to check its BV against
+- `infantry/AFFS/Field Gun Platoon (AFFS) (Wheeled UAC10 3067+).blk`: no Master Unit List entry to check its BV against
+- `infantry/AFFS/Field Gun Platoon (AFFS) (Wheeled UAC2 3067+).blk`: no Master Unit List entry to check its BV against
+- `infantry/AFFS/Field Gun Platoon (AFFS) (Wheeled UAC20 3067+).blk`: no Master Unit List entry to check its BV against
+- `infantry/AFFS/Field Gun Platoon (AFFS) (Wheeled UAC5 3067+).blk`: no Master Unit List entry to check its BV against
+- `infantry/AFFS/Foot Platoon (AFFS) (Gauss 3067+).blk`: no Master Unit List entry to check its BV against
+- `infantry/AFFS/Foot Platoon (AFFS) (Laser Heavy 3067+).blk`: no Master Unit List entry to check its BV against
+- `infantry/AFFS/Foot Platoon (AFFS) (Laser Marine 3067+).blk`: no Master Unit List entry to check its BV against
+- `infantry/AFFS/Foot Platoon (AFFS) (Laser Paratrooper 3067+).blk`: the import could not carry all of it over: 2 InfantryFederatedBarrettM61A per squad are over the 1 secondary weapon a squad of Paratroops may carry (TO:AUE p.153); 1 used.
+- `infantry/AFFS/Foot Platoon (AFFS) (Laser XCT 3067+).blk`: the import could not carry all of it over: The file's specialization is not one this platoon can have: XCT troops wear Federated Suns (3067+), which suits no XCT environment.
+- `infantry/AFFS/Foot Platoon (AFFS) (Recoilless 3067+).blk`: no Master Unit List entry to check its BV against
+- `infantry/AFFS/Foot Platoon (AFFS) (Rifle AA 3067+).blk`: no Master Unit List entry to check its BV against
+- `infantry/AFFS/Foot Platoon (AFFS) (Rifle Heavy 3067+).blk`: no Master Unit List entry to check its BV against
+- `infantry/AFFS/Foot Platoon (AFFS) (Riot Police 3067+).blk`: no Master Unit List entry to check its BV against
+- `infantry/AFFS/Foot Platoon (AFFS) (Sappers 2315+).blk`: no Master Unit List entry to check its BV against
+- `infantry/AFFS/Foot Platoon (AFFS) (Sniper Detachment 2505+).blk`: no Master Unit List entry to check its BV against
+- `infantry/AFFS/Foot Platoon (AFFS) (SpecOps Fireteam 2860+).blk`: the import could not carry all of it over: 2 Laser Rifle (Blazer) per squad are over the 1 secondary weapon a squad of Paratroops may carry (TO:AUE p.153); 1 used.
+- `infantry/AFFS/Foot Platoon (AFFS) (SpecOps Fireteam 3028+).blk`: the import could not carry all of it over: 2 Laser Rifle (Blazer) per squad are over the 1 secondary weapon a squad of Paratroops may carry (TO:AUE p.153); 1 used.
+- `infantry/AFFS/Foot Platoon (AFFS) (SpecOps Fireteam 3067+).blk`: the import could not carry all of it over: 2 InfantryFederatedBarrettM42B per squad are over the 1 secondary weapon a squad of Paratroops may carry (TO:AUE p.153); 1 used.
+- `infantry/AFFS/Jump Platoon (AFFS) (Gauss 3067+).blk`: no Master Unit List entry to check its BV against
+- `infantry/AFFS/Jump Platoon (AFFS) (Laser Anti-Mek 3067+).blk`: no Master Unit List entry to check its BV against
+- `infantry/AFFS/Jump Platoon (AFFS) (Rifle Heavy 3067+).blk`: no Master Unit List entry to check its BV against
+- `infantry/AFFS/Mechanized Hover Platoon (AFFS) (Gauss 3067+).blk`: no Master Unit List entry to check its BV against
+- `infantry/AFFS/Mechanized Hover Platoon (AFFS) (Laser Heavy 3067+).blk`: no Master Unit List entry to check its BV against
+- `infantry/AFFS/Mechanized Tracked Platoon (AFFS) (Combat Engineers 3067+).blk`: no Master Unit List entry to check its BV against
+- `infantry/AFFS/Mechanized Tracked Platoon (AFFS) (Gauss 3067+).blk`: no Master Unit List entry to check its BV against
+- `infantry/AFFS/Mechanized Tracked Platoon (AFFS) (Rifle AA 3067+).blk`: no Master Unit List entry to check its BV against
+- `infantry/AFFS/Mechanized Tracked Platoon (AFFS) (Rifle Heavy 3067+).blk`: no Master Unit List entry to check its BV against
+- `infantry/AFFS/Mechanized Tracked Platoon (AFFS) (Sappers 2315+).blk`: no Master Unit List entry to check its BV against
+- `infantry/AFFS/Mechanized Wheeled Platoon (AFFS) (Combat Engineers 3067+).blk`: no Master Unit List entry to check its BV against
+- `infantry/AFFS/Mechanized Wheeled Platoon (AFFS) (Gauss 3067+).blk`: no Master Unit List entry to check its BV against
+- `infantry/AFFS/Mechanized Wheeled Platoon (AFFS) (Laser XCT 3067+).blk`: no Master Unit List entry to check its BV against
+- `infantry/AFFS/Mechanized Wheeled Platoon (AFFS) (Recoilless 3067+).blk`: no Master Unit List entry to check its BV against
+- `infantry/AFFS/Mechanized Wheeled Platoon (AFFS) (Rifle AA 3067+).blk`: no Master Unit List entry to check its BV against
+- `infantry/AFFS/Mechanized Wheeled Platoon (AFFS) (Rifle Heavy 3067+).blk`: no Master Unit List entry to check its BV against
+- `infantry/AFFS/Motorized Platoon (AFFS) (Combat Engineers 3067+).blk`: no Master Unit List entry to check its BV against
+- `infantry/AFFS/Motorized Platoon (AFFS) (Gauss 3067+).blk`: no Master Unit List entry to check its BV against
+- `infantry/AFFS/Motorized Platoon (AFFS) (Laser Anti-Mek 3067+).blk`: no Master Unit List entry to check its BV against
+- `infantry/AFFS/Motorized Platoon (AFFS) (Laser XCT 3067+).blk`: no Master Unit List entry to check its BV against
+- `infantry/AFFS/Motorized Platoon (AFFS) (Recoilless 3067+).blk`: no Master Unit List entry to check its BV against
+- `infantry/AFFS/Motorized Platoon (AFFS) (Rifle AA 3067+).blk`: no Master Unit List entry to check its BV against
+- `infantry/AFFS/Motorized Platoon (AFFS) (Rifle Heavy 3067+).blk`: no Master Unit List entry to check its BV against
+- `infantry/AFFS/Motorized Platoon (AFFS) (Riot Police 3067+).blk`: no Master Unit List entry to check its BV against
+- `infantry/AFFS/Motorized Platoon (AFFS) (Sappers 2315+).blk`: no Master Unit List entry to check its BV against
+- `infantry/Beast Mounted/Branth/Beast Infantry (Branth)(Auto Rifle).blk`: no Master Unit List entry to check its BV against
+- `infantry/Beast Mounted/Branth/Beast Infantry (Branth)(Gyrojet).blk`: no Master Unit List entry to check its BV against
+- `infantry/Beast Mounted/Branth/Beast Infantry (Branth)(Laser Rifle).blk`: no Master Unit List entry to check its BV against
+- `infantry/Beast Mounted/Branth/Beast Infantry (Branth)(Needler).blk`: no Master Unit List entry to check its BV against
+- `infantry/Beast Mounted/Branth/Beast Infantry (Branth)(Pulse Laser).blk`: no Master Unit List entry to check its BV against
+- `infantry/Beast Mounted/Branth/Beast Infantry (Branth)(SMG).blk`: no Master Unit List entry to check its BV against
+- `infantry/Beast Mounted/Branth/Beast Infantry (Branth)(Shotgun).blk`: no Master Unit List entry to check its BV against
+- `infantry/Beast Mounted/Branth/Beast Infantry (Branth)(Sniper).blk`: no Master Unit List entry to check its BV against
+- `infantry/Beast Mounted/Camel/Beast Infantry (Camel)(Auto Rifle).blk`: no Master Unit List entry to check its BV against
+- `infantry/Beast Mounted/Camel/Beast Infantry (Camel)(Gyrojet).blk`: no Master Unit List entry to check its BV against
+- `infantry/Beast Mounted/Camel/Beast Infantry (Camel)(Laser Rifle).blk`: no Master Unit List entry to check its BV against
+- `infantry/Beast Mounted/Camel/Beast Infantry (Camel)(Needler).blk`: no Master Unit List entry to check its BV against
+- `infantry/Beast Mounted/Camel/Beast Infantry (Camel)(Pulse Laser).blk`: no Master Unit List entry to check its BV against
+- `infantry/Beast Mounted/Camel/Beast Infantry (Camel)(SMG).blk`: no Master Unit List entry to check its BV against
+- `infantry/Beast Mounted/Camel/Beast Infantry (Camel)(Shotgun).blk`: no Master Unit List entry to check its BV against
+- `infantry/Beast Mounted/Camel/Beast Infantry (Camel)(Sniper).blk`: no Master Unit List entry to check its BV against
+- `infantry/Beast Mounted/Coventry Kangaroo/Beast Infantry (Kangaroo)(Auto Rifle).blk`: no Master Unit List entry to check its BV against
+- `infantry/Beast Mounted/Coventry Kangaroo/Beast Infantry (Kangaroo)(Gyrojet).blk`: no Master Unit List entry to check its BV against
+- `infantry/Beast Mounted/Coventry Kangaroo/Beast Infantry (Kangaroo)(Laser Rifle).blk`: no Master Unit List entry to check its BV against
+- `infantry/Beast Mounted/Coventry Kangaroo/Beast Infantry (Kangaroo)(Needler).blk`: no Master Unit List entry to check its BV against
+- `infantry/Beast Mounted/Coventry Kangaroo/Beast Infantry (Kangaroo)(Pulse Laser).blk`: no Master Unit List entry to check its BV against
+- `infantry/Beast Mounted/Coventry Kangaroo/Beast Infantry (Kangaroo)(SMG).blk`: no Master Unit List entry to check its BV against
+- `infantry/Beast Mounted/Coventry Kangaroo/Beast Infantry (Kangaroo)(Shotgun).blk`: no Master Unit List entry to check its BV against
+- `infantry/Beast Mounted/Coventry Kangaroo/Beast Infantry (Kangaroo)(Sniper).blk`: no Master Unit List entry to check its BV against
+- `infantry/Beast Mounted/Donkey/Beast Infantry (Donkey)(Auto Rifle).blk`: no Master Unit List entry to check its BV against
+- `infantry/Beast Mounted/Donkey/Beast Infantry (Donkey)(Gyrojet).blk`: no Master Unit List entry to check its BV against
+- `infantry/Beast Mounted/Donkey/Beast Infantry (Donkey)(Laser Rifle).blk`: no Master Unit List entry to check its BV against
+- `infantry/Beast Mounted/Donkey/Beast Infantry (Donkey)(Needler).blk`: no Master Unit List entry to check its BV against
+- `infantry/Beast Mounted/Donkey/Beast Infantry (Donkey)(Pulse Laser).blk`: no Master Unit List entry to check its BV against
+- `infantry/Beast Mounted/Donkey/Beast Infantry (Donkey)(SMG).blk`: no Master Unit List entry to check its BV against
+- `infantry/Beast Mounted/Donkey/Beast Infantry (Donkey)(Shotgun).blk`: no Master Unit List entry to check its BV against
+- `infantry/Beast Mounted/Donkey/Beast Infantry (Donkey)(Sniper).blk`: no Master Unit List entry to check its BV against
+- `infantry/Beast Mounted/Elephant/Beast Infantry (Elephant)(Auto-Rifle_MG).blk`: no Master Unit List entry to check its BV against
+- `infantry/Beast Mounted/Elephant/Beast Infantry (Elephant)(Gyrojet_GL).blk`: no Master Unit List entry to check its BV against
+- `infantry/Beast Mounted/Elephant/Beast Infantry (Elephant)(Laser Rifle_MRR).blk`: no Master Unit List entry to check its BV against
+- `infantry/Beast Mounted/Elephant/Beast Infantry (Elephant)(Laser Rifle_Support PPC).blk`: no Master Unit List entry to check its BV against
+- `infantry/Beast Mounted/Elephant/Beast Infantry (Elephant)(Needler_SRM).blk`: no Master Unit List entry to check its BV against
+- `infantry/Beast Mounted/Elephant/Beast Infantry (Elephant)(Pistol_Mortar).blk`: no Master Unit List entry to check its BV against
+- `infantry/Beast Mounted/Elephant/Beast Infantry (Elephant)(Pulse Laser_Plasma Rifle).blk`: no Master Unit List entry to check its BV against
+- `infantry/Beast Mounted/Elephant/Beast Infantry (Elephant)(Pulse Laser_Support Pulse).blk`: no Master Unit List entry to check its BV against
+- `infantry/Beast Mounted/Hipposaur/Beast Infantry (Hipposaur)(Auto-Rifle_Auto-Cannon).blk`: the import could not carry all of it over: 4 Autocannon (Semi-Portable) per squad are over what a squad of 4 can crew; 3 used.
+- `infantry/Beast Mounted/Hipposaur/Beast Infantry (Hipposaur)(Auto-Rifle_LRR).blk`: the import could not carry all of it over: 4 InfantryLRR per squad are over what a squad of 4 can crew; 3 used.
+- `infantry/Beast Mounted/Hipposaur/Beast Infantry (Hipposaur)(Auto-Rifle_SRM).blk`: the import could not carry all of it over: 4 InfantryStandardSRM per squad are over what a squad of 4 can crew; 3 used.
+- `infantry/Beast Mounted/Hipposaur/Beast Infantry (Hipposaur)(Auto-Rifle_Support MG).blk`: the import could not carry all of it over: 4 Machine Gun (Support) per squad are over what a squad of 4 can crew; 3 used.
+- `infantry/Beast Mounted/Hipposaur/Beast Infantry (Hipposaur)(Laser Rifle_GL).blk`: the import could not carry all of it over: 4 InfantryAutoGL per squad are over what a squad of 4 can crew; 3 used.
+- `infantry/Beast Mounted/Hipposaur/Beast Infantry (Hipposaur)(SMG_GL).blk`: the import could not carry all of it over: 4 InfantryAutoGL per squad are over what a squad of 4 can crew; 3 used.
+- `infantry/Beast Mounted/Horse/Beast Infantry (Horse)(Auto Rifle).blk`: no Master Unit List entry to check its BV against
+- `infantry/Beast Mounted/Horse/Beast Infantry (Horse)(Gyrojet).blk`: no Master Unit List entry to check its BV against
+- `infantry/Beast Mounted/Horse/Beast Infantry (Horse)(Laser Rifle).blk`: no Master Unit List entry to check its BV against
+- `infantry/Beast Mounted/Horse/Beast Infantry (Horse)(Needler).blk`: no Master Unit List entry to check its BV against
+- `infantry/Beast Mounted/Horse/Beast Infantry (Horse)(Pulse Laser).blk`: no Master Unit List entry to check its BV against
+- `infantry/Beast Mounted/Horse/Beast Infantry (Horse)(SMG).blk`: no Master Unit List entry to check its BV against
+- `infantry/Beast Mounted/Horse/Beast Infantry (Horse)(Shotgun).blk`: no Master Unit List entry to check its BV against
+- `infantry/Beast Mounted/Horse/Beast Infantry (Horse)(Sniper).blk`: no Master Unit List entry to check its BV against
+- `infantry/Beast Mounted/Odessan Raxx/Beast Infantry (Odessan Raxx)(Auto-Rifle).blk`: no Master Unit List entry to check its BV against
+- `infantry/Beast Mounted/Odessan Raxx/Beast Infantry (Odessan Raxx)(Gyrojet).blk`: no Master Unit List entry to check its BV against
+- `infantry/Beast Mounted/Odessan Raxx/Beast Infantry (Odessan Raxx)(Laser Rifle).blk`: no Master Unit List entry to check its BV against
+- `infantry/Beast Mounted/Odessan Raxx/Beast Infantry (Odessan Raxx)(Needler).blk`: no Master Unit List entry to check its BV against
+- `infantry/Beast Mounted/Odessan Raxx/Beast Infantry (Odessan Raxx)(Pulse Laser).blk`: no Master Unit List entry to check its BV against
+- `infantry/Beast Mounted/Odessan Raxx/Beast Infantry (Odessan Raxx)(SMG).blk`: no Master Unit List entry to check its BV against
+- `infantry/Beast Mounted/Odessan Raxx/Beast Infantry (Odessan Raxx)(Shotgun).blk`: no Master Unit List entry to check its BV against
+- `infantry/Beast Mounted/Odessan Raxx/Beast Infantry (Odessan Raxx)(Sniper).blk`: no Master Unit List entry to check its BV against
+- `infantry/Beast Mounted/Orca/Beast Infantry (Orca)(Gyrojet_Support Laser).blk`: no Master Unit List entry to check its BV against
+- `infantry/Beast Mounted/Orca/Beast Infantry (Orca)(Laser Rifle).blk`: no Master Unit List entry to check its BV against
+- `infantry/Beast Mounted/Tabiranth/Beast Infantry (Tabiranth)(Auto Rifle).blk`: no Master Unit List entry to check its BV against
+- `infantry/Beast Mounted/Tabiranth/Beast Infantry (Tabiranth)(Gyrojet).blk`: no Master Unit List entry to check its BV against
+- `infantry/Beast Mounted/Tabiranth/Beast Infantry (Tabiranth)(Laser Rifle).blk`: no Master Unit List entry to check its BV against
+- `infantry/Beast Mounted/Tabiranth/Beast Infantry (Tabiranth)(Needler).blk`: no Master Unit List entry to check its BV against
+- `infantry/Beast Mounted/Tabiranth/Beast Infantry (Tabiranth)(Pulse Laser).blk`: no Master Unit List entry to check its BV against
+- `infantry/Beast Mounted/Tabiranth/Beast Infantry (Tabiranth)(SMG).blk`: no Master Unit List entry to check its BV against
+- `infantry/Beast Mounted/Tabiranth/Beast Infantry (Tabiranth)(Shotgun).blk`: no Master Unit List entry to check its BV against
+- `infantry/Beast Mounted/Tabiranth/Beast Infantry (Tabiranth)(Sniper).blk`: no Master Unit List entry to check its BV against
+- `infantry/Beast Mounted/Tariq/Beast Infantry (Tariq)(Auto-Rifle).blk`: no Master Unit List entry to check its BV against
+- `infantry/Beast Mounted/Tariq/Beast Infantry (Tariq)(Gyrojet).blk`: no Master Unit List entry to check its BV against
+- `infantry/Beast Mounted/Tariq/Beast Infantry (Tariq)(Laser Rifle).blk`: no Master Unit List entry to check its BV against
+- `infantry/Beast Mounted/Tariq/Beast Infantry (Tariq)(Needler).blk`: no Master Unit List entry to check its BV against
+- `infantry/Beast Mounted/Tariq/Beast Infantry (Tariq)(Pulse Laser).blk`: no Master Unit List entry to check its BV against
+- `infantry/Beast Mounted/Tariq/Beast Infantry (Tariq)(SMG).blk`: no Master Unit List entry to check its BV against
+- `infantry/Beast Mounted/Tariq/Beast Infantry (Tariq)(Shotgun).blk`: no Master Unit List entry to check its BV against
+- `infantry/Beast Mounted/Tariq/Beast Infantry (Tariq)(Sniper).blk`: no Master Unit List entry to check its BV against
+- `infantry/CCAF/Field Artillery Platoon (CCAF) (Motorized Arrow IV 3045+).blk`: no Master Unit List entry to check its BV against
+- `infantry/CCAF/Field Artillery Platoon (CCAF) (Motorized Arrow IV 3055+).blk`: no Master Unit List entry to check its BV against
+- `infantry/CCAF/Field Artillery Platoon (CCAF) (Motorized Sniper 2367+).blk`: no Master Unit List entry to check its BV against
+- `infantry/CCAF/Field Artillery Platoon (CCAF) (Motorized Sniper 3045+).blk`: no Master Unit List entry to check its BV against
+- `infantry/CCAF/Field Artillery Platoon (CCAF) (Motorized Sniper 3055+).blk`: no Master Unit List entry to check its BV against
+- `infantry/CCAF/Field Artillery Platoon (CCAF) (Motorized Sniper Cannon 3079+).blk`: no Master Unit List entry to check its BV against
+- `infantry/CCAF/Field Artillery Platoon (CCAF) (Motorized Thumper 2367+).blk`: no Master Unit List entry to check its BV against
+- `infantry/CCAF/Field Artillery Platoon (CCAF) (Motorized Thumper 3045+).blk`: no Master Unit List entry to check its BV against
+- `infantry/CCAF/Field Artillery Platoon (CCAF) (Motorized Thumper 3055+).blk`: no Master Unit List entry to check its BV against
+- `infantry/CCAF/Field Artillery Platoon (CCAF) (Motorized Thumper Cannon 3079+).blk`: no Master Unit List entry to check its BV against
+- `infantry/CCAF/Field Artillery Platoon (CCAF) (Tracked Arrow IV 3045+).blk`: no Master Unit List entry to check its BV against
+- `infantry/CCAF/Field Artillery Platoon (CCAF) (Tracked Arrow IV 3055+).blk`: no Master Unit List entry to check its BV against
+- `infantry/CCAF/Field Artillery Platoon (CCAF) (Tracked Sniper 2367+).blk`: no Master Unit List entry to check its BV against
+- `infantry/CCAF/Field Artillery Platoon (CCAF) (Tracked Sniper 3045+).blk`: no Master Unit List entry to check its BV against
+- `infantry/CCAF/Field Artillery Platoon (CCAF) (Tracked Sniper 3055+).blk`: no Master Unit List entry to check its BV against
+- `infantry/CCAF/Field Artillery Platoon (CCAF) (Tracked Sniper Cannon 3079+).blk`: no Master Unit List entry to check its BV against
+- `infantry/CCAF/Field Artillery Platoon (CCAF) (Tracked Thumper 2367+).blk`: no Master Unit List entry to check its BV against
+- `infantry/CCAF/Field Artillery Platoon (CCAF) (Tracked Thumper 3045+).blk`: no Master Unit List entry to check its BV against
+- `infantry/CCAF/Field Artillery Platoon (CCAF) (Tracked Thumper 3055+).blk`: no Master Unit List entry to check its BV against
+- `infantry/CCAF/Field Artillery Platoon (CCAF) (Tracked Thumper Cannon 3079+).blk`: no Master Unit List entry to check its BV against
+- `infantry/CCAF/Field Artillery Platoon (CCAF) (Wheeled Arrow IV 3045+).blk`: no Master Unit List entry to check its BV against
+- `infantry/CCAF/Field Artillery Platoon (CCAF) (Wheeled Arrow IV 3055+).blk`: no Master Unit List entry to check its BV against
+- `infantry/CCAF/Field Artillery Platoon (CCAF) (Wheeled Sniper 2367+).blk`: no Master Unit List entry to check its BV against
+- `infantry/CCAF/Field Artillery Platoon (CCAF) (Wheeled Sniper 3045+).blk`: no Master Unit List entry to check its BV against
+- `infantry/CCAF/Field Artillery Platoon (CCAF) (Wheeled Sniper 3055+).blk`: no Master Unit List entry to check its BV against
+- `infantry/CCAF/Field Artillery Platoon (CCAF) (Wheeled Sniper Cannon 3079+).blk`: no Master Unit List entry to check its BV against
+- `infantry/CCAF/Field Artillery Platoon (CCAF) (Wheeled Thumper 2367+).blk`: no Master Unit List entry to check its BV against
+- `infantry/CCAF/Field Artillery Platoon (CCAF) (Wheeled Thumper 3045+).blk`: no Master Unit List entry to check its BV against
+- `infantry/CCAF/Field Artillery Platoon (CCAF) (Wheeled Thumper 3055+).blk`: no Master Unit List entry to check its BV against
+- `infantry/CCAF/Field Artillery Platoon (CCAF) (Wheeled Thumper Cannon 3079+).blk`: no Master Unit List entry to check its BV against
+- `infantry/CCAF/Field Gun Platoon (CCAF) (Motorized AC10 2465+).blk`: no Master Unit List entry to check its BV against
+- `infantry/CCAF/Field Gun Platoon (CCAF) (Motorized AC10 3045+).blk`: no Master Unit List entry to check its BV against
+- `infantry/CCAF/Field Gun Platoon (CCAF) (Motorized AC10 3055+).blk`: no Master Unit List entry to check its BV against
+- `infantry/CCAF/Field Gun Platoon (CCAF) (Motorized AC2 2367+).blk`: no Master Unit List entry to check its BV against
+- `infantry/CCAF/Field Gun Platoon (CCAF) (Motorized AC2 3045+).blk`: no Master Unit List entry to check its BV against
+- `infantry/CCAF/Field Gun Platoon (CCAF) (Motorized AC2 3055+).blk`: no Master Unit List entry to check its BV against
+- `infantry/CCAF/Field Gun Platoon (CCAF) (Motorized AC20 2502+).blk`: no Master Unit List entry to check its BV against
+- `infantry/CCAF/Field Gun Platoon (CCAF) (Motorized AC20 3045+).blk`: no Master Unit List entry to check its BV against
+- `infantry/CCAF/Field Gun Platoon (CCAF) (Motorized AC20 3055+).blk`: no Master Unit List entry to check its BV against
+- `infantry/CCAF/Field Gun Platoon (CCAF) (Motorized AC5 2367+).blk`: no Master Unit List entry to check its BV against
+- `infantry/CCAF/Field Gun Platoon (CCAF) (Motorized AC5 3045+).blk`: no Master Unit List entry to check its BV against
+- `infantry/CCAF/Field Gun Platoon (CCAF) (Motorized AC5 3055+).blk`: no Master Unit List entry to check its BV against
+- `infantry/CCAF/Field Gun Platoon (CCAF) (Motorized HVAC10 3059+).blk`: no Master Unit List entry to check its BV against
+- `infantry/CCAF/Field Gun Platoon (CCAF) (Motorized HVAC2 3059+).blk`: no Master Unit List entry to check its BV against
+- `infantry/CCAF/Field Gun Platoon (CCAF) (Motorized HVAC5 3059+).blk`: no Master Unit List entry to check its BV against
+- `infantry/CCAF/Field Gun Platoon (CCAF) (Motorized Heavy Cannon 2367+).blk`: no Master Unit List entry to check its BV against
+- `infantry/CCAF/Field Gun Platoon (CCAF) (Motorized LAC2 3070+).blk`: no Master Unit List entry to check its BV against
+- `infantry/CCAF/Field Gun Platoon (CCAF) (Motorized LAC5 3070+).blk`: no Master Unit List entry to check its BV against
+- `infantry/CCAF/Field Gun Platoon (CCAF) (Motorized Medium Cannon 2367+).blk`: no Master Unit List entry to check its BV against
+- `infantry/CCAF/Field Gun Platoon (CCAF) (Tracked AC10 2465+).blk`: no Master Unit List entry to check its BV against
+- `infantry/CCAF/Field Gun Platoon (CCAF) (Tracked AC10 3045+).blk`: no Master Unit List entry to check its BV against
+- `infantry/CCAF/Field Gun Platoon (CCAF) (Tracked AC10 3055+).blk`: no Master Unit List entry to check its BV against
+- `infantry/CCAF/Field Gun Platoon (CCAF) (Tracked AC2 2367+).blk`: no Master Unit List entry to check its BV against
+- `infantry/CCAF/Field Gun Platoon (CCAF) (Tracked AC2 3045+).blk`: no Master Unit List entry to check its BV against
+- `infantry/CCAF/Field Gun Platoon (CCAF) (Tracked AC2 3055+).blk`: no Master Unit List entry to check its BV against
+- `infantry/CCAF/Field Gun Platoon (CCAF) (Tracked AC20 2502+).blk`: no Master Unit List entry to check its BV against
+- `infantry/CCAF/Field Gun Platoon (CCAF) (Tracked AC20 3045+).blk`: no Master Unit List entry to check its BV against
+- `infantry/CCAF/Field Gun Platoon (CCAF) (Tracked AC20 3055+).blk`: no Master Unit List entry to check its BV against
+- `infantry/CCAF/Field Gun Platoon (CCAF) (Tracked AC5 2367+).blk`: no Master Unit List entry to check its BV against
+- `infantry/CCAF/Field Gun Platoon (CCAF) (Tracked AC5 3045+).blk`: no Master Unit List entry to check its BV against
+- `infantry/CCAF/Field Gun Platoon (CCAF) (Tracked AC5 3055+).blk`: no Master Unit List entry to check its BV against
+- `infantry/CCAF/Field Gun Platoon (CCAF) (Tracked HVAC10 3059+).blk`: no Master Unit List entry to check its BV against
+- `infantry/CCAF/Field Gun Platoon (CCAF) (Tracked HVAC2 3059+).blk`: no Master Unit List entry to check its BV against
+- `infantry/CCAF/Field Gun Platoon (CCAF) (Tracked HVAC5 3059+).blk`: no Master Unit List entry to check its BV against
+- `infantry/CCAF/Field Gun Platoon (CCAF) (Tracked Heavy Cannon 2367+).blk`: no Master Unit List entry to check its BV against
+- `infantry/CCAF/Field Gun Platoon (CCAF) (Tracked LBX10 3055+).blk`: no Master Unit List entry to check its BV against
+- `infantry/CCAF/Field Gun Platoon (CCAF) (Tracked LBX2 3060+).blk`: no Master Unit List entry to check its BV against
+- `infantry/CCAF/Field Gun Platoon (CCAF) (Tracked LBX20 3060+).blk`: no Master Unit List entry to check its BV against
+- `infantry/CCAF/Field Gun Platoon (CCAF) (Tracked LBX5 3060+).blk`: no Master Unit List entry to check its BV against
+- `infantry/CCAF/Field Gun Platoon (CCAF) (Tracked Medium Cannon 2367+).blk`: no Master Unit List entry to check its BV against
+- `infantry/CCAF/Field Gun Platoon (CCAF) (Tracked UAC10 3060+).blk`: no Master Unit List entry to check its BV against
+- `infantry/CCAF/Field Gun Platoon (CCAF) (Tracked UAC2 3060+).blk`: no Master Unit List entry to check its BV against
+- `infantry/CCAF/Field Gun Platoon (CCAF) (Tracked UAC20 3061+).blk`: no Master Unit List entry to check its BV against
+- `infantry/CCAF/Field Gun Platoon (CCAF) (Tracked UAC5 3055+).blk`: no Master Unit List entry to check its BV against
+- `infantry/CCAF/Field Gun Platoon (CCAF) (Wheeled AC10 2465+).blk`: no Master Unit List entry to check its BV against
+- `infantry/CCAF/Field Gun Platoon (CCAF) (Wheeled AC10 3045+).blk`: no Master Unit List entry to check its BV against
+- `infantry/CCAF/Field Gun Platoon (CCAF) (Wheeled AC10 3055+).blk`: no Master Unit List entry to check its BV against
+- `infantry/CCAF/Field Gun Platoon (CCAF) (Wheeled AC2 2367+).blk`: no Master Unit List entry to check its BV against
+- `infantry/CCAF/Field Gun Platoon (CCAF) (Wheeled AC2 3045+).blk`: no Master Unit List entry to check its BV against
+- `infantry/CCAF/Field Gun Platoon (CCAF) (Wheeled AC2 3055+).blk`: no Master Unit List entry to check its BV against
+- `infantry/CCAF/Field Gun Platoon (CCAF) (Wheeled AC20 2502+).blk`: no Master Unit List entry to check its BV against
+- `infantry/CCAF/Field Gun Platoon (CCAF) (Wheeled AC20 3045+).blk`: no Master Unit List entry to check its BV against
+- `infantry/CCAF/Field Gun Platoon (CCAF) (Wheeled AC20 3055+).blk`: no Master Unit List entry to check its BV against
+- `infantry/CCAF/Field Gun Platoon (CCAF) (Wheeled AC5 2367+).blk`: no Master Unit List entry to check its BV against
+- `infantry/CCAF/Field Gun Platoon (CCAF) (Wheeled AC5 3045+).blk`: no Master Unit List entry to check its BV against
+- `infantry/CCAF/Field Gun Platoon (CCAF) (Wheeled AC5 3055+).blk`: no Master Unit List entry to check its BV against
+- `infantry/CCAF/Field Gun Platoon (CCAF) (Wheeled HVAC10 3059+).blk`: no Master Unit List entry to check its BV against
+- `infantry/CCAF/Field Gun Platoon (CCAF) (Wheeled HVAC2 3059+).blk`: no Master Unit List entry to check its BV against
+- `infantry/CCAF/Field Gun Platoon (CCAF) (Wheeled HVAC5 3059+).blk`: no Master Unit List entry to check its BV against
+- `infantry/CCAF/Field Gun Platoon (CCAF) (Wheeled Heavy Cannon 2367+).blk`: no Master Unit List entry to check its BV against
+- `infantry/CCAF/Field Gun Platoon (CCAF) (Wheeled LBX10 3055+).blk`: no Master Unit List entry to check its BV against
+- `infantry/CCAF/Field Gun Platoon (CCAF) (Wheeled LBX2 3060+).blk`: no Master Unit List entry to check its BV against
+- `infantry/CCAF/Field Gun Platoon (CCAF) (Wheeled LBX20 3060+).blk`: no Master Unit List entry to check its BV against
+- `infantry/CCAF/Field Gun Platoon (CCAF) (Wheeled LBX5 3060+).blk`: no Master Unit List entry to check its BV against
+- `infantry/CCAF/Field Gun Platoon (CCAF) (Wheeled Medium Cannon 2367+).blk`: the import could not carry all of it over: 5 Medium Rifle are over what 24 troopers can crew; 4 used.
+- `infantry/CCAF/Field Gun Platoon (CCAF) (Wheeled UAC10 3060+).blk`: no Master Unit List entry to check its BV against
+- `infantry/CCAF/Field Gun Platoon (CCAF) (Wheeled UAC2 3060+).blk`: no Master Unit List entry to check its BV against
+- `infantry/CCAF/Field Gun Platoon (CCAF) (Wheeled UAC20 3061+).blk`: no Master Unit List entry to check its BV against
+- `infantry/CCAF/Field Gun Platoon (CCAF) (Wheeled UAC5 3055+).blk`: no Master Unit List entry to check its BV against
+- `infantry/CCAF/Foot Platoon (CCAF) (Flamer 2367+).blk`: no Master Unit List entry to check its BV against
+- `infantry/CCAF/Foot Platoon (CCAF) (Flamer 3045+).blk`: no Master Unit List entry to check its BV against
+- `infantry/CCAF/Foot Platoon (CCAF) (Flamer 3055+).blk`: no Master Unit List entry to check its BV against
+- `infantry/CCAF/Foot Platoon (CCAF) (LRM 3057+).blk`: no Master Unit List entry to check its BV against
+- `infantry/CCAF/Foot Platoon (CCAF) (Laser 2367+).blk`: no Master Unit List entry to check its BV against
+- `infantry/CCAF/Foot Platoon (CCAF) (Laser 3045+).blk`: no Master Unit List entry to check its BV against
+- `infantry/CCAF/Foot Platoon (CCAF) (Laser Marine 2367+).blk`: no Master Unit List entry to check its BV against
+- `infantry/CCAF/Foot Platoon (CCAF) (Laser XCT 2367+).blk`: no Master Unit List entry to check its BV against
+- `infantry/CCAF/Foot Platoon (CCAF) (Laser XCT 2400+).blk`: no Master Unit List entry to check its BV against
+- `infantry/CCAF/Foot Platoon (CCAF) (MG 2367+).blk`: no Master Unit List entry to check its BV against
+- `infantry/CCAF/Foot Platoon (CCAF) (MG 3045+).blk`: no Master Unit List entry to check its BV against
+- `infantry/CCAF/Foot Platoon (CCAF) (MG 3055+).blk`: no Master Unit List entry to check its BV against
+- `infantry/CCAF/Foot Platoon (CCAF) (Mortar 2367+).blk`: no Master Unit List entry to check its BV against
+- `infantry/CCAF/Foot Platoon (CCAF) (Plasma 3063+).blk`: no Master Unit List entry to check its BV against
+- `infantry/CCAF/Foot Platoon (CCAF) (Recoilless 2367+).blk`: no Master Unit List entry to check its BV against
+- `infantry/CCAF/Foot Platoon (CCAF) (Recoilless 3055+).blk`: no Master Unit List entry to check its BV against
+- `infantry/CCAF/Foot Platoon (CCAF) (Rifle 2367+).blk`: no Master Unit List entry to check its BV against
+- `infantry/CCAF/Foot Platoon (CCAF) (Rifle 3045+).blk`: no Master Unit List entry to check its BV against
+- `infantry/CCAF/Foot Platoon (CCAF) (Rifle 3055+).blk`: no Master Unit List entry to check its BV against
+- `infantry/CCAF/Foot Platoon (CCAF) (Rifle AA 2590+).blk`: no Master Unit List entry to check its BV against
+- `infantry/CCAF/Foot Platoon (CCAF) (Rifle AA 3056+).blk`: no Master Unit List entry to check its BV against
+- `infantry/CCAF/Foot Platoon (CCAF) (Riot Police 2367+).blk`: no Master Unit List entry to check its BV against
+- `infantry/CCAF/Foot Platoon (CCAF) (Riot Police 3030+).blk`: no Master Unit List entry to check its BV against
+- `infantry/CCAF/Foot Platoon (CCAF) (Riot Police 3045+).blk`: no Master Unit List entry to check its BV against
+- `infantry/CCAF/Foot Platoon (CCAF) (SRM 2400+).blk`: no Master Unit List entry to check its BV against
+- `infantry/CCAF/Foot Platoon (CCAF) (SRM 3045+).blk`: no Master Unit List entry to check its BV against
+- `infantry/CCAF/Foot Platoon (CCAF) (SRM 3055+).blk`: no Master Unit List entry to check its BV against
+- `infantry/CCAF/Foot Platoon (CCAF) (Sappers 2367+).blk`: no Master Unit List entry to check its BV against
+- `infantry/CCAF/Foot Platoon (CCAF) (Sniper Detachment 2505+).blk`: no Master Unit List entry to check its BV against
+- `infantry/CCAF/Foot Platoon (CCAF) (Sniper Detachment 3055+).blk`: no Master Unit List entry to check its BV against
+- `infantry/CCAF/Foot Platoon (CCAF) (SpecOps Demoteam 3028+).blk`: no Master Unit List entry to check its BV against
+- `infantry/CCAF/Foot Platoon (CCAF) (SpecOps Demoteam 3055+).blk`: no Master Unit List entry to check its BV against
+- `infantry/CCAF/Foot Platoon (CCAF) (SpecOps Fireteam 2505+).blk`: the import could not carry all of it over: 2 Laser Rifle (Blazer) per squad are over the 1 secondary weapon a squad of Paratroops may carry (TO:AUE p.153); 1 used.
+- `infantry/CCAF/Foot Platoon (CCAF) (SpecOps Fireteam 3055+).blk`: no Master Unit List entry to check its BV against
+- `infantry/CCAF/Foot Platoon (CCAF) (SpecOps Fireteam 3063+).blk`: no Master Unit List entry to check its BV against
+- `infantry/CCAF/Jump Platoon (CCAF) (ER Laser 3052+).blk`: no Master Unit List entry to check its BV against
+- `infantry/CCAF/Jump Platoon (CCAF) (Flamer 2367+).blk`: no Master Unit List entry to check its BV against
+- `infantry/CCAF/Jump Platoon (CCAF) (Flamer 3045+).blk`: no Master Unit List entry to check its BV against
+- `infantry/CCAF/Jump Platoon (CCAF) (Flamer 3055+).blk`: no Master Unit List entry to check its BV against
+- `infantry/CCAF/Jump Platoon (CCAF) (Gauss 3063+).blk`: no Master Unit List entry to check its BV against
+- `infantry/CCAF/Jump Platoon (CCAF) (LRM 3057+).blk`: no Master Unit List entry to check its BV against
+- `infantry/CCAF/Jump Platoon (CCAF) (Laser 2367+).blk`: no Master Unit List entry to check its BV against
+- `infantry/CCAF/Jump Platoon (CCAF) (Laser 2500+).blk`: no Master Unit List entry to check its BV against
+- `infantry/CCAF/Jump Platoon (CCAF) (Laser 3045+).blk`: no Master Unit List entry to check its BV against
+- `infantry/CCAF/Jump Platoon (CCAF) (Laser TAG 3051+).blk`: no Master Unit List entry to check its BV against
+- `infantry/CCAF/Jump Platoon (CCAF) (MG 2367+).blk`: no Master Unit List entry to check its BV against
+- `infantry/CCAF/Jump Platoon (CCAF) (MG 3045+).blk`: no Master Unit List entry to check its BV against
+- `infantry/CCAF/Jump Platoon (CCAF) (MG 3055+).blk`: no Master Unit List entry to check its BV against
+- `infantry/CCAF/Jump Platoon (CCAF) (Plasma 3063+).blk`: no Master Unit List entry to check its BV against
+- `infantry/CCAF/Jump Platoon (CCAF) (Rifle 2367+).blk`: no Master Unit List entry to check its BV against
+- `infantry/CCAF/Jump Platoon (CCAF) (Rifle 2500+).blk`: no Master Unit List entry to check its BV against
+- `infantry/CCAF/Jump Platoon (CCAF) (Rifle 3045+).blk`: no Master Unit List entry to check its BV against
+- `infantry/CCAF/Jump Platoon (CCAF) (Rifle 3055+).blk`: no Master Unit List entry to check its BV against
+- `infantry/CCAF/Jump Platoon (CCAF) (SRM 2400+).blk`: no Master Unit List entry to check its BV against
+- `infantry/CCAF/Jump Platoon (CCAF) (SRM 3045+).blk`: no Master Unit List entry to check its BV against
+- `infantry/CCAF/Jump Platoon (CCAF) (SRM 3055+).blk`: no Master Unit List entry to check its BV against
+- `infantry/CCAF/Mechanized Hover Platoon (CCAF) (Flamer 2367+).blk`: no Master Unit List entry to check its BV against
+- `infantry/CCAF/Mechanized Hover Platoon (CCAF) (Flamer 3045+).blk`: no Master Unit List entry to check its BV against
+- `infantry/CCAF/Mechanized Hover Platoon (CCAF) (Flamer 3055+).blk`: no Master Unit List entry to check its BV against
+- `infantry/CCAF/Mechanized Hover Platoon (CCAF) (Gauss 3063+).blk`: no Master Unit List entry to check its BV against
+- `infantry/CCAF/Mechanized Hover Platoon (CCAF) (LRM 3057+).blk`: no Master Unit List entry to check its BV against
+- `infantry/CCAF/Mechanized Hover Platoon (CCAF) (Laser 2367+).blk`: no Master Unit List entry to check its BV against
+- `infantry/CCAF/Mechanized Hover Platoon (CCAF) (Laser 3045+).blk`: no Master Unit List entry to check its BV against
+- `infantry/CCAF/Mechanized Hover Platoon (CCAF) (Laser TAG 3051+).blk`: no Master Unit List entry to check its BV against
+- `infantry/CCAF/Mechanized Hover Platoon (CCAF) (MG 2367+).blk`: no Master Unit List entry to check its BV against
+- `infantry/CCAF/Mechanized Hover Platoon (CCAF) (MG 3045+).blk`: no Master Unit List entry to check its BV against
+- `infantry/CCAF/Mechanized Hover Platoon (CCAF) (MG 3055+).blk`: no Master Unit List entry to check its BV against
+- `infantry/CCAF/Mechanized Hover Platoon (CCAF) (Plasma 3063+).blk`: no Master Unit List entry to check its BV against
+- `infantry/CCAF/Mechanized Hover Platoon (CCAF) (Rifle 2367+).blk`: no Master Unit List entry to check its BV against
+- `infantry/CCAF/Mechanized Hover Platoon (CCAF) (Rifle 3045+).blk`: no Master Unit List entry to check its BV against
+- `infantry/CCAF/Mechanized Hover Platoon (CCAF) (Rifle 3055+).blk`: no Master Unit List entry to check its BV against
+- `infantry/CCAF/Mechanized Hover Platoon (CCAF) (SRM 2400+).blk`: no Master Unit List entry to check its BV against
+- `infantry/CCAF/Mechanized Hover Platoon (CCAF) (SRM 3045+).blk`: no Master Unit List entry to check its BV against
+- `infantry/CCAF/Mechanized Hover Platoon (CCAF) (SRM 3055+).blk`: no Master Unit List entry to check its BV against
+- `infantry/CCAF/Mechanized Tracked Platoon (CCAF) (Combat Engineers 2367+).blk`: no Master Unit List entry to check its BV against
+- `infantry/CCAF/Mechanized Tracked Platoon (CCAF) (Combat Engineers 3045+).blk`: no Master Unit List entry to check its BV against
+- `infantry/CCAF/Mechanized Tracked Platoon (CCAF) (Flamer 2367+).blk`: no Master Unit List entry to check its BV against
+- `infantry/CCAF/Mechanized Tracked Platoon (CCAF) (Flamer 3045+).blk`: no Master Unit List entry to check its BV against
+- `infantry/CCAF/Mechanized Tracked Platoon (CCAF) (Flamer 3055+).blk`: no Master Unit List entry to check its BV against
+- `infantry/CCAF/Mechanized Tracked Platoon (CCAF) (Gauss 3063+).blk`: no Master Unit List entry to check its BV against
+- `infantry/CCAF/Mechanized Tracked Platoon (CCAF) (LRM 3057+).blk`: no Master Unit List entry to check its BV against
+- `infantry/CCAF/Mechanized Tracked Platoon (CCAF) (Laser 2367+).blk`: no Master Unit List entry to check its BV against
+- `infantry/CCAF/Mechanized Tracked Platoon (CCAF) (Laser 3045+).blk`: no Master Unit List entry to check its BV against
+- `infantry/CCAF/Mechanized Tracked Platoon (CCAF) (Laser TAG 3051+).blk`: no Master Unit List entry to check its BV against
+- `infantry/CCAF/Mechanized Tracked Platoon (CCAF) (MG 2367+).blk`: no Master Unit List entry to check its BV against
+- `infantry/CCAF/Mechanized Tracked Platoon (CCAF) (MG 3045+).blk`: no Master Unit List entry to check its BV against
+- `infantry/CCAF/Mechanized Tracked Platoon (CCAF) (MG 3055+).blk`: no Master Unit List entry to check its BV against
+- `infantry/CCAF/Mechanized Tracked Platoon (CCAF) (Mortar 2367+).blk`: no Master Unit List entry to check its BV against
+- `infantry/CCAF/Mechanized Tracked Platoon (CCAF) (Plasma 3063+).blk`: no Master Unit List entry to check its BV against
+- `infantry/CCAF/Mechanized Tracked Platoon (CCAF) (Recoilless 2367+).blk`: no Master Unit List entry to check its BV against
+- `infantry/CCAF/Mechanized Tracked Platoon (CCAF) (Rifle 2367+).blk`: no Master Unit List entry to check its BV against
+- `infantry/CCAF/Mechanized Tracked Platoon (CCAF) (Rifle 3045+).blk`: no Master Unit List entry to check its BV against
+- `infantry/CCAF/Mechanized Tracked Platoon (CCAF) (Rifle 3055+).blk`: no Master Unit List entry to check its BV against
+- `infantry/CCAF/Mechanized Tracked Platoon (CCAF) (Rifle AA 2590+).blk`: no Master Unit List entry to check its BV against
+- `infantry/CCAF/Mechanized Tracked Platoon (CCAF) (Rifle AA 3056+).blk`: no Master Unit List entry to check its BV against
+- `infantry/CCAF/Mechanized Tracked Platoon (CCAF) (SRM 2400+).blk`: no Master Unit List entry to check its BV against
+- `infantry/CCAF/Mechanized Tracked Platoon (CCAF) (SRM 3045+).blk`: no Master Unit List entry to check its BV against
+- `infantry/CCAF/Mechanized Tracked Platoon (CCAF) (SRM 3055+).blk`: no Master Unit List entry to check its BV against
+- `infantry/CCAF/Mechanized Tracked Platoon (CCAF) (Sappers 2367+).blk`: no Master Unit List entry to check its BV against
+- `infantry/CCAF/Mechanized Wheeled Platoon (CCAF) (Combat Engineers 2367+).blk`: no Master Unit List entry to check its BV against
+- `infantry/CCAF/Mechanized Wheeled Platoon (CCAF) (Combat Engineers 3045+).blk`: no Master Unit List entry to check its BV against
+- `infantry/CCAF/Mechanized Wheeled Platoon (CCAF) (Flamer 2367+).blk`: no Master Unit List entry to check its BV against
+- `infantry/CCAF/Mechanized Wheeled Platoon (CCAF) (Flamer 3045+).blk`: no Master Unit List entry to check its BV against
+- `infantry/CCAF/Mechanized Wheeled Platoon (CCAF) (Flamer 3055+).blk`: no Master Unit List entry to check its BV against
+- `infantry/CCAF/Mechanized Wheeled Platoon (CCAF) (Gauss 3063+).blk`: no Master Unit List entry to check its BV against
+- `infantry/CCAF/Mechanized Wheeled Platoon (CCAF) (LRM 3057+).blk`: no Master Unit List entry to check its BV against
+- `infantry/CCAF/Mechanized Wheeled Platoon (CCAF) (Laser 2367+).blk`: no Master Unit List entry to check its BV against
+- `infantry/CCAF/Mechanized Wheeled Platoon (CCAF) (Laser 3045+).blk`: no Master Unit List entry to check its BV against
+- `infantry/CCAF/Mechanized Wheeled Platoon (CCAF) (Laser TAG 3051+).blk`: no Master Unit List entry to check its BV against
+- `infantry/CCAF/Mechanized Wheeled Platoon (CCAF) (Laser XCT 2367+).blk`: no Master Unit List entry to check its BV against
+- `infantry/CCAF/Mechanized Wheeled Platoon (CCAF) (Laser XCT 2380+).blk`: no Master Unit List entry to check its BV against
+- `infantry/CCAF/Mechanized Wheeled Platoon (CCAF) (MG 2367+).blk`: no Master Unit List entry to check its BV against
+- `infantry/CCAF/Mechanized Wheeled Platoon (CCAF) (MG 3045+).blk`: no Master Unit List entry to check its BV against
+- `infantry/CCAF/Mechanized Wheeled Platoon (CCAF) (MG 3055+).blk`: no Master Unit List entry to check its BV against
+- `infantry/CCAF/Mechanized Wheeled Platoon (CCAF) (Mortar 2367+).blk`: no Master Unit List entry to check its BV against
+- `infantry/CCAF/Mechanized Wheeled Platoon (CCAF) (Plasma 3063+).blk`: no Master Unit List entry to check its BV against
+- `infantry/CCAF/Mechanized Wheeled Platoon (CCAF) (Recoilless 2367+).blk`: no Master Unit List entry to check its BV against
+- `infantry/CCAF/Mechanized Wheeled Platoon (CCAF) (Recoilless 3055+).blk`: no Master Unit List entry to check its BV against
+- `infantry/CCAF/Mechanized Wheeled Platoon (CCAF) (Rifle 2367+).blk`: no Master Unit List entry to check its BV against
+- `infantry/CCAF/Mechanized Wheeled Platoon (CCAF) (Rifle 3045+).blk`: no Master Unit List entry to check its BV against
+- `infantry/CCAF/Mechanized Wheeled Platoon (CCAF) (Rifle 3055+).blk`: no Master Unit List entry to check its BV against
+- `infantry/CCAF/Mechanized Wheeled Platoon (CCAF) (Rifle AA 2590+).blk`: no Master Unit List entry to check its BV against
+- `infantry/CCAF/Mechanized Wheeled Platoon (CCAF) (Rifle AA 3056+).blk`: no Master Unit List entry to check its BV against
+- `infantry/CCAF/Mechanized Wheeled Platoon (CCAF) (SRM 2400+).blk`: no Master Unit List entry to check its BV against
+- `infantry/CCAF/Mechanized Wheeled Platoon (CCAF) (SRM 3045+).blk`: no Master Unit List entry to check its BV against
+- `infantry/CCAF/Mechanized Wheeled Platoon (CCAF) (SRM 3055+).blk`: no Master Unit List entry to check its BV against
+- `infantry/CCAF/Motorized Platoon (CCAF) (Combat Engineers 2367+).blk`: no Master Unit List entry to check its BV against
+- `infantry/CCAF/Motorized Platoon (CCAF) (Combat Engineers 3045+).blk`: no Master Unit List entry to check its BV against
+- `infantry/CCAF/Motorized Platoon (CCAF) (Flamer 2367+).blk`: no Master Unit List entry to check its BV against
+- `infantry/CCAF/Motorized Platoon (CCAF) (Flamer 3045+).blk`: no Master Unit List entry to check its BV against
+- `infantry/CCAF/Motorized Platoon (CCAF) (Flamer 3055+).blk`: no Master Unit List entry to check its BV against
+- `infantry/CCAF/Motorized Platoon (CCAF) (Gauss 3063+).blk`: no Master Unit List entry to check its BV against
+- `infantry/CCAF/Motorized Platoon (CCAF) (LRM 3057+).blk`: no Master Unit List entry to check its BV against
+- `infantry/CCAF/Motorized Platoon (CCAF) (Laser 2367+).blk`: no Master Unit List entry to check its BV against
+- `infantry/CCAF/Motorized Platoon (CCAF) (Laser 2500+).blk`: no Master Unit List entry to check its BV against
+- `infantry/CCAF/Motorized Platoon (CCAF) (Laser 3045+).blk`: no Master Unit List entry to check its BV against
+- `infantry/CCAF/Motorized Platoon (CCAF) (Laser TAG 3051+).blk`: no Master Unit List entry to check its BV against
+- `infantry/CCAF/Motorized Platoon (CCAF) (Laser XCT 2367+).blk`: no Master Unit List entry to check its BV against
+- `infantry/CCAF/Motorized Platoon (CCAF) (Laser XCT 2400+).blk`: no Master Unit List entry to check its BV against
+- `infantry/CCAF/Motorized Platoon (CCAF) (MG 2367+).blk`: no Master Unit List entry to check its BV against
+- `infantry/CCAF/Motorized Platoon (CCAF) (MG 3045+).blk`: no Master Unit List entry to check its BV against
+- `infantry/CCAF/Motorized Platoon (CCAF) (MG 3055+).blk`: no Master Unit List entry to check its BV against
+- `infantry/CCAF/Motorized Platoon (CCAF) (Mortar 2367+).blk`: no Master Unit List entry to check its BV against
+- `infantry/CCAF/Motorized Platoon (CCAF) (Plasma 3063+).blk`: no Master Unit List entry to check its BV against
+- `infantry/CCAF/Motorized Platoon (CCAF) (Recoilless 2367+).blk`: no Master Unit List entry to check its BV against
+- `infantry/CCAF/Motorized Platoon (CCAF) (Recoilless 3055+).blk`: no Master Unit List entry to check its BV against
+- `infantry/CCAF/Motorized Platoon (CCAF) (Rifle 2367+).blk`: no Master Unit List entry to check its BV against
+- `infantry/CCAF/Motorized Platoon (CCAF) (Rifle 2500+).blk`: no Master Unit List entry to check its BV against
+- `infantry/CCAF/Motorized Platoon (CCAF) (Rifle 3045+).blk`: no Master Unit List entry to check its BV against
+- `infantry/CCAF/Motorized Platoon (CCAF) (Rifle 3055+).blk`: no Master Unit List entry to check its BV against
+- `infantry/CCAF/Motorized Platoon (CCAF) (Rifle AA 2590+).blk`: no Master Unit List entry to check its BV against
+- `infantry/CCAF/Motorized Platoon (CCAF) (Rifle AA 3056+).blk`: no Master Unit List entry to check its BV against
+- `infantry/CCAF/Motorized Platoon (CCAF) (Riot Police 2367+).blk`: no Master Unit List entry to check its BV against
+- `infantry/CCAF/Motorized Platoon (CCAF) (Riot Police 3030+).blk`: no Master Unit List entry to check its BV against
+- `infantry/CCAF/Motorized Platoon (CCAF) (Riot Police 3045+).blk`: no Master Unit List entry to check its BV against
+- `infantry/CCAF/Motorized Platoon (CCAF) (SRM 2400+).blk`: no Master Unit List entry to check its BV against
+- `infantry/CCAF/Motorized Platoon (CCAF) (SRM 3045+).blk`: no Master Unit List entry to check its BV against
+- `infantry/CCAF/Motorized Platoon (CCAF) (SRM 3055+).blk`: no Master Unit List entry to check its BV against
+- `infantry/CCAF/Motorized Platoon (CCAF) (Sappers 2367+).blk`: no Master Unit List entry to check its BV against
+- `infantry/CS WOB/Field Artillery Level I (ComGuards) (Tracked Arrow IV).blk`: no Master Unit List entry to check its BV against
+- `infantry/CS WOB/Field Artillery Level I (ComGuards) (Tracked Sniper).blk`: no Master Unit List entry to check its BV against
+- `infantry/CS WOB/Field Artillery Level I (ComGuards) (Tracked Thumper).blk`: no Master Unit List entry to check its BV against
+- `infantry/CS WOB/Field Artillery Level I (ComGuards) (Wheeled Arrow IV).blk`: no Master Unit List entry to check its BV against
+- `infantry/CS WOB/Field Artillery Level I (ComGuards) (Wheeled Sniper).blk`: no Master Unit List entry to check its BV against
+- `infantry/CS WOB/Field Artillery Level I (ComGuards) (Wheeled Thumper).blk`: no Master Unit List entry to check its BV against
+- `infantry/CS WOB/Field Artillery Level I (WOBM) (Tracked Arrow IV).blk`: no Master Unit List entry to check its BV against
+- `infantry/CS WOB/Field Artillery Level I (WOBM) (Tracked Sniper).blk`: no Master Unit List entry to check its BV against
+- `infantry/CS WOB/Field Artillery Level I (WOBM) (Tracked Thumper).blk`: no Master Unit List entry to check its BV against
+- `infantry/CS WOB/Field Artillery Level I (WOBM) (Wheeled Arrow IV).blk`: no Master Unit List entry to check its BV against
+- `infantry/CS WOB/Field Artillery Level I (WOBM) (Wheeled Sniper).blk`: no Master Unit List entry to check its BV against
+- `infantry/CS WOB/Field Artillery Level I (WOBM) (Wheeled Thumper).blk`: no Master Unit List entry to check its BV against
+- `infantry/CS WOB/Field Artillery Platoon (ComStar) (Tracked Arrow IV).blk`: no Master Unit List entry to check its BV against
+- `infantry/CS WOB/Field Artillery Platoon (ComStar) (Tracked Sniper).blk`: no Master Unit List entry to check its BV against
+- `infantry/CS WOB/Field Artillery Platoon (ComStar) (Tracked Thumper).blk`: no Master Unit List entry to check its BV against
+- `infantry/CS WOB/Field Artillery Platoon (ComStar) (Wheeled Arrow IV).blk`: no Master Unit List entry to check its BV against
+- `infantry/CS WOB/Field Artillery Platoon (ComStar) (Wheeled Sniper).blk`: no Master Unit List entry to check its BV against
+- `infantry/CS WOB/Field Artillery Platoon (ComStar) (Wheeled Thumper).blk`: no Master Unit List entry to check its BV against
+- `infantry/CS WOB/Field Artillery demi-I (ComGuards) (Motorized Arrow IV).blk`: no Master Unit List entry to check its BV against
+- `infantry/CS WOB/Field Artillery demi-I (ComGuards) (Motorized Sniper).blk`: no Master Unit List entry to check its BV against
+- `infantry/CS WOB/Field Artillery demi-I (ComGuards) (Motorized Thumper).blk`: no Master Unit List entry to check its BV against
+- `infantry/CS WOB/Field Artillery demi-I (WOBM) (Motorized Arrow IV).blk`: no Master Unit List entry to check its BV against
+- `infantry/CS WOB/Field Artillery demi-I (WOBM) (Motorized Sniper).blk`: no Master Unit List entry to check its BV against
+- `infantry/CS WOB/Field Artillery demi-I (WOBM) (Motorized Thumper).blk`: no Master Unit List entry to check its BV against
+- `infantry/CS WOB/Field Gun Level I (ComGuards) (Tracked AC10).blk`: no Master Unit List entry to check its BV against
+- `infantry/CS WOB/Field Gun Level I (ComGuards) (Tracked AC2).blk`: no Master Unit List entry to check its BV against
+- `infantry/CS WOB/Field Gun Level I (ComGuards) (Tracked AC20).blk`: no Master Unit List entry to check its BV against
+- `infantry/CS WOB/Field Gun Level I (ComGuards) (Tracked AC5).blk`: no Master Unit List entry to check its BV against
+- `infantry/CS WOB/Field Gun Level I (ComGuards) (Tracked Gauss).blk`: no Master Unit List entry to check its BV against
+- `infantry/CS WOB/Field Gun Level I (ComGuards) (Tracked LAC2).blk`: no Master Unit List entry to check its BV against
+- `infantry/CS WOB/Field Gun Level I (ComGuards) (Tracked LAC5).blk`: no Master Unit List entry to check its BV against
+- `infantry/CS WOB/Field Gun Level I (ComGuards) (Tracked LBX10).blk`: no Master Unit List entry to check its BV against
+- `infantry/CS WOB/Field Gun Level I (ComGuards) (Tracked LBX2).blk`: no Master Unit List entry to check its BV against
+- `infantry/CS WOB/Field Gun Level I (ComGuards) (Tracked LBX20).blk`: no Master Unit List entry to check its BV against
+- `infantry/CS WOB/Field Gun Level I (ComGuards) (Tracked LBX5).blk`: no Master Unit List entry to check its BV against
+- `infantry/CS WOB/Field Gun Level I (ComGuards) (Tracked Light Gauss).blk`: no Master Unit List entry to check its BV against
+- `infantry/CS WOB/Field Gun Level I (ComGuards) (Tracked RAC2).blk`: no Master Unit List entry to check its BV against
+- `infantry/CS WOB/Field Gun Level I (ComGuards) (Tracked RAC5).blk`: no Master Unit List entry to check its BV against
+- `infantry/CS WOB/Field Gun Level I (ComGuards) (Tracked UAC10).blk`: no Master Unit List entry to check its BV against
+- `infantry/CS WOB/Field Gun Level I (ComGuards) (Tracked UAC2).blk`: no Master Unit List entry to check its BV against
+- `infantry/CS WOB/Field Gun Level I (ComGuards) (Tracked UAC20).blk`: no Master Unit List entry to check its BV against
+- `infantry/CS WOB/Field Gun Level I (ComGuards) (Tracked UAC5).blk`: no Master Unit List entry to check its BV against
+- `infantry/CS WOB/Field Gun Level I (ComGuards) (Wheeled AC10).blk`: no Master Unit List entry to check its BV against
+- `infantry/CS WOB/Field Gun Level I (ComGuards) (Wheeled AC2).blk`: no Master Unit List entry to check its BV against
+- `infantry/CS WOB/Field Gun Level I (ComGuards) (Wheeled AC20).blk`: no Master Unit List entry to check its BV against
+- `infantry/CS WOB/Field Gun Level I (ComGuards) (Wheeled AC5).blk`: no Master Unit List entry to check its BV against
+- `infantry/CS WOB/Field Gun Level I (ComGuards) (Wheeled Gauss).blk`: no Master Unit List entry to check its BV against
+- `infantry/CS WOB/Field Gun Level I (ComGuards) (Wheeled LAC2).blk`: no Master Unit List entry to check its BV against
+- `infantry/CS WOB/Field Gun Level I (ComGuards) (Wheeled LAC5).blk`: no Master Unit List entry to check its BV against
+- `infantry/CS WOB/Field Gun Level I (ComGuards) (Wheeled LBX10).blk`: no Master Unit List entry to check its BV against
+- `infantry/CS WOB/Field Gun Level I (ComGuards) (Wheeled LBX2).blk`: no Master Unit List entry to check its BV against
+- `infantry/CS WOB/Field Gun Level I (ComGuards) (Wheeled LBX20).blk`: no Master Unit List entry to check its BV against
+- `infantry/CS WOB/Field Gun Level I (ComGuards) (Wheeled LBX5).blk`: no Master Unit List entry to check its BV against
+- `infantry/CS WOB/Field Gun Level I (ComGuards) (Wheeled Light Gauss).blk`: no Master Unit List entry to check its BV against
+- `infantry/CS WOB/Field Gun Level I (ComGuards) (Wheeled RAC2).blk`: no Master Unit List entry to check its BV against
+- `infantry/CS WOB/Field Gun Level I (ComGuards) (Wheeled RAC5).blk`: no Master Unit List entry to check its BV against
+- `infantry/CS WOB/Field Gun Level I (ComGuards) (Wheeled UAC10).blk`: no Master Unit List entry to check its BV against
+- `infantry/CS WOB/Field Gun Level I (ComGuards) (Wheeled UAC2).blk`: no Master Unit List entry to check its BV against
+- `infantry/CS WOB/Field Gun Level I (ComGuards) (Wheeled UAC20).blk`: no Master Unit List entry to check its BV against
+- `infantry/CS WOB/Field Gun Level I (ComGuards) (Wheeled UAC5).blk`: no Master Unit List entry to check its BV against
+- `infantry/CS WOB/Field Gun Level I (WOBM) (Tracked AC10).blk`: no Master Unit List entry to check its BV against
+- `infantry/CS WOB/Field Gun Level I (WOBM) (Tracked AC2).blk`: no Master Unit List entry to check its BV against
+- `infantry/CS WOB/Field Gun Level I (WOBM) (Tracked AC20).blk`: no Master Unit List entry to check its BV against
+- `infantry/CS WOB/Field Gun Level I (WOBM) (Tracked AC5).blk`: no Master Unit List entry to check its BV against
+- `infantry/CS WOB/Field Gun Level I (WOBM) (Tracked Gauss).blk`: no Master Unit List entry to check its BV against
+- `infantry/CS WOB/Field Gun Level I (WOBM) (Tracked LAC2).blk`: no Master Unit List entry to check its BV against
+- `infantry/CS WOB/Field Gun Level I (WOBM) (Tracked LAC5).blk`: no Master Unit List entry to check its BV against
+- `infantry/CS WOB/Field Gun Level I (WOBM) (Tracked LBX10).blk`: no Master Unit List entry to check its BV against
+- `infantry/CS WOB/Field Gun Level I (WOBM) (Tracked LBX2).blk`: no Master Unit List entry to check its BV against
+- `infantry/CS WOB/Field Gun Level I (WOBM) (Tracked LBX20).blk`: no Master Unit List entry to check its BV against
+- `infantry/CS WOB/Field Gun Level I (WOBM) (Tracked LBX5).blk`: no Master Unit List entry to check its BV against
+- `infantry/CS WOB/Field Gun Level I (WOBM) (Tracked Light Gauss).blk`: no Master Unit List entry to check its BV against
+- `infantry/CS WOB/Field Gun Level I (WOBM) (Tracked RAC2).blk`: no Master Unit List entry to check its BV against
+- `infantry/CS WOB/Field Gun Level I (WOBM) (Tracked RAC5).blk`: no Master Unit List entry to check its BV against
+- `infantry/CS WOB/Field Gun Level I (WOBM) (Tracked UAC10).blk`: no Master Unit List entry to check its BV against
+- `infantry/CS WOB/Field Gun Level I (WOBM) (Tracked UAC2).blk`: no Master Unit List entry to check its BV against
+- `infantry/CS WOB/Field Gun Level I (WOBM) (Tracked UAC20).blk`: no Master Unit List entry to check its BV against
+- `infantry/CS WOB/Field Gun Level I (WOBM) (Tracked UAC5).blk`: no Master Unit List entry to check its BV against
+- `infantry/CS WOB/Field Gun Level I (WOBM) (Wheeled AC10).blk`: no Master Unit List entry to check its BV against
+- `infantry/CS WOB/Field Gun Level I (WOBM) (Wheeled AC2).blk`: no Master Unit List entry to check its BV against
+- `infantry/CS WOB/Field Gun Level I (WOBM) (Wheeled AC20).blk`: no Master Unit List entry to check its BV against
+- `infantry/CS WOB/Field Gun Level I (WOBM) (Wheeled AC5).blk`: no Master Unit List entry to check its BV against
+- `infantry/CS WOB/Field Gun Level I (WOBM) (Wheeled Gauss).blk`: no Master Unit List entry to check its BV against
+- `infantry/CS WOB/Field Gun Level I (WOBM) (Wheeled LAC2).blk`: no Master Unit List entry to check its BV against
+- `infantry/CS WOB/Field Gun Level I (WOBM) (Wheeled LAC5).blk`: no Master Unit List entry to check its BV against
+- `infantry/CS WOB/Field Gun Level I (WOBM) (Wheeled LBX10).blk`: no Master Unit List entry to check its BV against
+- `infantry/CS WOB/Field Gun Level I (WOBM) (Wheeled LBX2).blk`: no Master Unit List entry to check its BV against
+- `infantry/CS WOB/Field Gun Level I (WOBM) (Wheeled LBX20).blk`: no Master Unit List entry to check its BV against
+- `infantry/CS WOB/Field Gun Level I (WOBM) (Wheeled LBX5).blk`: no Master Unit List entry to check its BV against
+- `infantry/CS WOB/Field Gun Level I (WOBM) (Wheeled Light Gauss).blk`: no Master Unit List entry to check its BV against
+- `infantry/CS WOB/Field Gun Level I (WOBM) (Wheeled RAC2).blk`: no Master Unit List entry to check its BV against
+- `infantry/CS WOB/Field Gun Level I (WOBM) (Wheeled RAC5).blk`: no Master Unit List entry to check its BV against
+- `infantry/CS WOB/Field Gun Level I (WOBM) (Wheeled UAC10).blk`: no Master Unit List entry to check its BV against
+- `infantry/CS WOB/Field Gun Level I (WOBM) (Wheeled UAC2).blk`: no Master Unit List entry to check its BV against
+- `infantry/CS WOB/Field Gun Level I (WOBM) (Wheeled UAC20).blk`: no Master Unit List entry to check its BV against
+- `infantry/CS WOB/Field Gun Level I (WOBM) (Wheeled UAC5).blk`: no Master Unit List entry to check its BV against
+- `infantry/CS WOB/Field Gun Platoon (ComStar) (Tracked AC10).blk`: no Master Unit List entry to check its BV against
+- `infantry/CS WOB/Field Gun Platoon (ComStar) (Tracked AC2).blk`: no Master Unit List entry to check its BV against
+- `infantry/CS WOB/Field Gun Platoon (ComStar) (Tracked AC20).blk`: no Master Unit List entry to check its BV against
+- `infantry/CS WOB/Field Gun Platoon (ComStar) (Tracked AC5).blk`: no Master Unit List entry to check its BV against
+- `infantry/CS WOB/Field Gun Platoon (ComStar) (Tracked LBX10).blk`: no Master Unit List entry to check its BV against
+- `infantry/CS WOB/Field Gun Platoon (ComStar) (Tracked UAC5).blk`: no Master Unit List entry to check its BV against
+- `infantry/CS WOB/Field Gun Platoon (ComStar) (Wheeled AC10).blk`: no Master Unit List entry to check its BV against
+- `infantry/CS WOB/Field Gun Platoon (ComStar) (Wheeled AC2).blk`: no Master Unit List entry to check its BV against
+- `infantry/CS WOB/Field Gun Platoon (ComStar) (Wheeled AC20).blk`: no Master Unit List entry to check its BV against
+- `infantry/CS WOB/Field Gun Platoon (ComStar) (Wheeled AC5).blk`: no Master Unit List entry to check its BV against
+- `infantry/CS WOB/Field Gun Platoon (ComStar) (Wheeled LBX10).blk`: no Master Unit List entry to check its BV against
+- `infantry/CS WOB/Field Gun Platoon (ComStar) (Wheeled UAC5).blk`: no Master Unit List entry to check its BV against
+- `infantry/CS WOB/Field Gun demi-I (ComGuards) (Motorized AC10).blk`: no Master Unit List entry to check its BV against
+- `infantry/CS WOB/Field Gun demi-I (ComGuards) (Motorized AC2).blk`: no Master Unit List entry to check its BV against
+- `infantry/CS WOB/Field Gun demi-I (ComGuards) (Motorized AC20).blk`: no Master Unit List entry to check its BV against
+- `infantry/CS WOB/Field Gun demi-I (ComGuards) (Motorized AC5).blk`: no Master Unit List entry to check its BV against
+- `infantry/CS WOB/Field Gun demi-I (ComGuards) (Motorized Gauss).blk`: no Master Unit List entry to check its BV against
+- `infantry/CS WOB/Field Gun demi-I (ComGuards) (Motorized LAC2).blk`: no Master Unit List entry to check its BV against
+- `infantry/CS WOB/Field Gun demi-I (ComGuards) (Motorized LAC5).blk`: no Master Unit List entry to check its BV against
+- `infantry/CS WOB/Field Gun demi-I (ComGuards) (Motorized LBX10).blk`: no Master Unit List entry to check its BV against
+- `infantry/CS WOB/Field Gun demi-I (ComGuards) (Motorized LBX2).blk`: no Master Unit List entry to check its BV against
+- `infantry/CS WOB/Field Gun demi-I (ComGuards) (Motorized LBX20).blk`: no Master Unit List entry to check its BV against
+- `infantry/CS WOB/Field Gun demi-I (ComGuards) (Motorized LBX5).blk`: no Master Unit List entry to check its BV against
+- `infantry/CS WOB/Field Gun demi-I (ComGuards) (Motorized Light Gauss).blk`: no Master Unit List entry to check its BV against
+- `infantry/CS WOB/Field Gun demi-I (ComGuards) (Motorized RAC2).blk`: no Master Unit List entry to check its BV against
+- `infantry/CS WOB/Field Gun demi-I (ComGuards) (Motorized RAC5).blk`: no Master Unit List entry to check its BV against
+- `infantry/CS WOB/Field Gun demi-I (ComGuards) (Motorized UAC10).blk`: no Master Unit List entry to check its BV against
+- `infantry/CS WOB/Field Gun demi-I (ComGuards) (Motorized UAC2).blk`: no Master Unit List entry to check its BV against
+- `infantry/CS WOB/Field Gun demi-I (ComGuards) (Motorized UAC20).blk`: no Master Unit List entry to check its BV against
+- `infantry/CS WOB/Field Gun demi-I (ComGuards) (Motorized UAC5).blk`: no Master Unit List entry to check its BV against
+- `infantry/CS WOB/Field Gun demi-I (WOBM) (Motorized AC10).blk`: no Master Unit List entry to check its BV against
+- `infantry/CS WOB/Field Gun demi-I (WOBM) (Motorized AC2).blk`: no Master Unit List entry to check its BV against
+- `infantry/CS WOB/Field Gun demi-I (WOBM) (Motorized AC20).blk`: no Master Unit List entry to check its BV against
+- `infantry/CS WOB/Field Gun demi-I (WOBM) (Motorized AC5).blk`: no Master Unit List entry to check its BV against
+- `infantry/CS WOB/Field Gun demi-I (WOBM) (Motorized Gauss).blk`: no Master Unit List entry to check its BV against
+- `infantry/CS WOB/Field Gun demi-I (WOBM) (Motorized LAC2).blk`: no Master Unit List entry to check its BV against
+- `infantry/CS WOB/Field Gun demi-I (WOBM) (Motorized LAC5).blk`: no Master Unit List entry to check its BV against
+- `infantry/CS WOB/Field Gun demi-I (WOBM) (Motorized LBX10).blk`: no Master Unit List entry to check its BV against
+- `infantry/CS WOB/Field Gun demi-I (WOBM) (Motorized LBX2).blk`: no Master Unit List entry to check its BV against
+- `infantry/CS WOB/Field Gun demi-I (WOBM) (Motorized LBX20).blk`: no Master Unit List entry to check its BV against
+- `infantry/CS WOB/Field Gun demi-I (WOBM) (Motorized LBX5).blk`: no Master Unit List entry to check its BV against
+- `infantry/CS WOB/Field Gun demi-I (WOBM) (Motorized Light Gauss).blk`: no Master Unit List entry to check its BV against
+- `infantry/CS WOB/Field Gun demi-I (WOBM) (Motorized RAC2).blk`: no Master Unit List entry to check its BV against
+- `infantry/CS WOB/Field Gun demi-I (WOBM) (Motorized RAC5).blk`: no Master Unit List entry to check its BV against
+- `infantry/CS WOB/Field Gun demi-I (WOBM) (Motorized UAC10).blk`: no Master Unit List entry to check its BV against
+- `infantry/CS WOB/Field Gun demi-I (WOBM) (Motorized UAC2).blk`: no Master Unit List entry to check its BV against
+- `infantry/CS WOB/Field Gun demi-I (WOBM) (Motorized UAC20).blk`: no Master Unit List entry to check its BV against
+- `infantry/CS WOB/Field Gun demi-I (WOBM) (Motorized UAC5).blk`: no Master Unit List entry to check its BV against
+- `infantry/CS WOB/Foot Platoon (ComStar) (Flamer).blk`: BV differs from the MUL: BV 116, MUL 74
+- `infantry/CS WOB/Foot Platoon (ComStar) (Laser).blk`: BV differs from the MUL: BV 127, MUL 85
+- `infantry/CS WOB/Foot Platoon (ComStar) (MG).blk`: BV differs from the MUL: BV 126, MUL 84
+- `infantry/CS WOB/Foot Platoon (ComStar) (Rifle).blk`: BV differs from the MUL: BV 132, MUL 90
+- `infantry/CS WOB/Foot Platoon (ComStar) (SRM).blk`: BV differs from the MUL: BV 115, MUL 79
+- `infantry/CS WOB/Foot demi-I (Domini) (Flamer).blk`: no Master Unit List entry to check its BV against
+- `infantry/CS WOB/Foot demi-I (Domini) (Laser Scout).blk`: no Master Unit List entry to check its BV against
+- `infantry/CS WOB/Foot demi-I (Domini) (Laser).blk`: no Master Unit List entry to check its BV against
+- `infantry/CS WOB/Foot demi-I (Domini) (MG).blk`: no Master Unit List entry to check its BV against
+- `infantry/CS WOB/Foot demi-I (Domini) (SRM).blk`: no Master Unit List entry to check its BV against
+- `infantry/CS WOB/Hover Platoon (ComStar) (Flamer).blk`: BV differs from the MUL: BV 86, MUL 37
+- `infantry/CS WOB/Hover Platoon (ComStar) (Laser).blk`: BV differs from the MUL: BV 101, MUL 45
+- `infantry/CS WOB/Hover Platoon (ComStar) (MG).blk`: BV differs from the MUL: BV 97, MUL 45
+- `infantry/CS WOB/Hover Platoon (ComStar) (Rifle).blk`: BV differs from the MUL: BV 104, MUL 47
+- `infantry/CS WOB/Hover Platoon (ComStar) (SRM).blk`: BV differs from the MUL: BV 84, MUL 41
+- `infantry/CS WOB/Jump Level I (Domini) (Laser).blk`: no Master Unit List entry to check its BV against
+- `infantry/CS WOB/Jump Level I (Domini) (MG).blk`: no Master Unit List entry to check its BV against
+- `infantry/CS WOB/Jump Level I (Domini) (SRM).blk`: no Master Unit List entry to check its BV against
+- `infantry/CS WOB/Jump Platoon (ComStar) (Flamer).blk`: BV differs from the MUL: BV 104, MUL 70
+- `infantry/CS WOB/Jump Platoon (ComStar) (Laser).blk`: BV differs from the MUL: BV 122, MUL 84
+- `infantry/CS WOB/Jump Platoon (ComStar) (MG).blk`: BV differs from the MUL: BV 116, MUL 81
+- `infantry/CS WOB/Jump Platoon (ComStar) (Rifle).blk`: no Master Unit List entry to check its BV against
+- `infantry/CS WOB/Jump Platoon (ComStar) (SRM).blk`: BV differs from the MUL: BV 107, MUL 77
+- `infantry/CS WOB/Motorized Platoon (ComStar) (Flamer).blk`: BV differs from the MUL: BV 131, MUL 71
+- `infantry/CS WOB/Motorized Platoon (ComStar) (Laser).blk`: BV differs from the MUL: BV 154, MUL 86
+- `infantry/CS WOB/Motorized Platoon (ComStar) (MG).blk`: BV differs from the MUL: BV 146, MUL 83
+- `infantry/CS WOB/Motorized Platoon (ComStar) (Rifle).blk`: BV differs from the MUL: BV 161, MUL 92
+- `infantry/CS WOB/Motorized Platoon (ComStar) (SRM).blk`: BV differs from the MUL: BV 135, MUL 79
+- `infantry/CS WOB/Motorized demi-I (Domini) (Laser Scout).blk`: no Master Unit List entry to check its BV against
+- `infantry/CS WOB/Motorized demi-I (Domini) (Laser).blk`: no Master Unit List entry to check its BV against
+- `infantry/CS WOB/Motorized demi-I (Domini) (MG).blk`: no Master Unit List entry to check its BV against
+- `infantry/CS WOB/Motorized demi-I (Domini) (SRM).blk`: no Master Unit List entry to check its BV against
+- `infantry/CS WOB/Tracked Platoon (ComStar) (Flamer).blk`: BV differs from the MUL: BV 120, MUL 66
+- `infantry/CS WOB/Tracked Platoon (ComStar) (Laser).blk`: BV differs from the MUL: BV 123, MUL 69
+- `infantry/CS WOB/Tracked Platoon (ComStar) (MG).blk`: BV differs from the MUL: BV 129, MUL 75
+- `infantry/CS WOB/Tracked Platoon (ComStar) (Rifle).blk`: BV differs from the MUL: BV 127, MUL 72
+- `infantry/CS WOB/Tracked Platoon (ComStar) (SRM).blk`: BV differs from the MUL: BV 117, MUL 69
+- `infantry/CS WOB/Wheeled Platoon (ComStar) (Flamer).blk`: BV differs from the MUL: BV 102, MUL 50
+- `infantry/CS WOB/Wheeled Platoon (ComStar) (Laser).blk`: BV differs from the MUL: BV 109, MUL 56
+- `infantry/CS WOB/Wheeled Platoon (ComStar) (MG).blk`: BV differs from the MUL: BV 111, MUL 57
+- `infantry/CS WOB/Wheeled Platoon (ComStar) (Rifle).blk`: BV differs from the MUL: BV 113, MUL 59
+- `infantry/CS WOB/Wheeled Platoon (ComStar) (SRM).blk`: BV differs from the MUL: BV 99, MUL 52
+- `infantry/Clan/Clan Engineer Point (Demolition).blk`: no Master Unit List entry to check its BV against
+- `infantry/Clan/Clan Engineer Point (Fieldworks).blk`: no Master Unit List entry to check its BV against
+- `infantry/Clan/Clan Engineer Point (Minesweeper).blk`: no Master Unit List entry to check its BV against
+- `infantry/Clan/Clan Field Artillery Point (Tracked Arrow IV).blk`: no Master Unit List entry to check its BV against
+- `infantry/Clan/Clan Field Artillery Point (Tracked Sniper).blk`: no Master Unit List entry to check its BV against
+- `infantry/Clan/Clan Field Artillery Point (Tracked Thumper).blk`: no Master Unit List entry to check its BV against
+- `infantry/Clan/Clan Field Artillery Point (Wheeled Arrow IV).blk`: no Master Unit List entry to check its BV against
+- `infantry/Clan/Clan Field Artillery Point (Wheeled Sniper).blk`: no Master Unit List entry to check its BV against
+- `infantry/Clan/Clan Field Artillery Point (Wheeled Thumper).blk`: no Master Unit List entry to check its BV against
+- `infantry/Clan/Clan Field Gun Point (Motorized AC2 Basic).blk`: no Master Unit List entry to check its BV against
+- `infantry/Clan/Clan Field Gun Point (Motorized AC5 Basic).blk`: no Master Unit List entry to check its BV against
+- `infantry/Clan/Clan Field Gun Point (Motorized AP Gauss Advanced).blk`: no Master Unit List entry to check its BV against
+- `infantry/Clan/Clan Field Gun Point (Motorized PAC2 Advanced).blk`: no Master Unit List entry to check its BV against
+- `infantry/Clan/Clan Field Gun Point (Motorized PAC4 Advanced).blk`: no Master Unit List entry to check its BV against
+- `infantry/Clan/Clan Field Gun Point (Motorized PAC8 Advanced).blk`: no Master Unit List entry to check its BV against
+- `infantry/Clan/Clan Field Gun Point (Tracked AC10 Advanced).blk`: no Master Unit List entry to check its BV against
+- `infantry/Clan/Clan Field Gun Point (Tracked AC10 Basic).blk`: no Master Unit List entry to check its BV against
+- `infantry/Clan/Clan Field Gun Point (Tracked AC2 Advanced).blk`: no Master Unit List entry to check its BV against
+- `infantry/Clan/Clan Field Gun Point (Tracked AC2 Basic).blk`: no Master Unit List entry to check its BV against
+- `infantry/Clan/Clan Field Gun Point (Tracked AC20 Advanced).blk`: no Master Unit List entry to check its BV against
+- `infantry/Clan/Clan Field Gun Point (Tracked AC20 Basic).blk`: no Master Unit List entry to check its BV against
+- `infantry/Clan/Clan Field Gun Point (Tracked AC5 Advanced).blk`: no Master Unit List entry to check its BV against
+- `infantry/Clan/Clan Field Gun Point (Tracked AC5 Basic).blk`: no Master Unit List entry to check its BV against
+- `infantry/Clan/Clan Field Gun Point (Tracked CLBX10 Advanced).blk`: no Master Unit List entry to check its BV against
+- `infantry/Clan/Clan Field Gun Point (Tracked CLBX10 Basic).blk`: no Master Unit List entry to check its BV against
+- `infantry/Clan/Clan Field Gun Point (Tracked CLBX2 Advanced).blk`: no Master Unit List entry to check its BV against
+- `infantry/Clan/Clan Field Gun Point (Tracked CLBX2 Basic).blk`: no Master Unit List entry to check its BV against
+- `infantry/Clan/Clan Field Gun Point (Tracked CLBX20 Advanced).blk`: no Master Unit List entry to check its BV against
+- `infantry/Clan/Clan Field Gun Point (Tracked CLBX20 Basic).blk`: no Master Unit List entry to check its BV against
+- `infantry/Clan/Clan Field Gun Point (Tracked CLBX5 Advanced).blk`: no Master Unit List entry to check its BV against
+- `infantry/Clan/Clan Field Gun Point (Tracked CLBX5 Basic).blk`: no Master Unit List entry to check its BV against
+- `infantry/Clan/Clan Field Gun Point (Tracked CUAC10 Advanced).blk`: no Master Unit List entry to check its BV against
+- `infantry/Clan/Clan Field Gun Point (Tracked CUAC10 Basic).blk`: no Master Unit List entry to check its BV against
+- `infantry/Clan/Clan Field Gun Point (Tracked CUAC2 Advanced).blk`: no Master Unit List entry to check its BV against
+- `infantry/Clan/Clan Field Gun Point (Tracked CUAC2 Basic).blk`: no Master Unit List entry to check its BV against
+- `infantry/Clan/Clan Field Gun Point (Tracked CUAC20 Advanced).blk`: no Master Unit List entry to check its BV against
+- `infantry/Clan/Clan Field Gun Point (Tracked CUAC20 Basic).blk`: no Master Unit List entry to check its BV against
+- `infantry/Clan/Clan Field Gun Point (Tracked CUAC5 Advanced).blk`: no Master Unit List entry to check its BV against
+- `infantry/Clan/Clan Field Gun Point (Tracked CUAC5 Basic).blk`: no Master Unit List entry to check its BV against
+- `infantry/Clan/Clan Field Gun Point (Tracked LBX10 Basic).blk`: no Master Unit List entry to check its BV against
+- `infantry/Clan/Clan Field Gun Point (Tracked PAC2 Advanced).blk`: no Master Unit List entry to check its BV against
+- `infantry/Clan/Clan Field Gun Point (Tracked PAC4 Advanced).blk`: no Master Unit List entry to check its BV against
+- `infantry/Clan/Clan Field Gun Point (Tracked PAC8 Advanced).blk`: no Master Unit List entry to check its BV against
+- `infantry/Clan/Clan Field Gun Point (Tracked UAC5 Basic).blk`: no Master Unit List entry to check its BV against
+- `infantry/Clan/Clan Field Gun Point (Wheeled AC10 Advanced).blk`: no Master Unit List entry to check its BV against
+- `infantry/Clan/Clan Field Gun Point (Wheeled AC10 Basic).blk`: no Master Unit List entry to check its BV against
+- `infantry/Clan/Clan Field Gun Point (Wheeled AC2 Advanced).blk`: no Master Unit List entry to check its BV against
+- `infantry/Clan/Clan Field Gun Point (Wheeled AC2 Basic).blk`: no Master Unit List entry to check its BV against
+- `infantry/Clan/Clan Field Gun Point (Wheeled AC20 Advanced).blk`: no Master Unit List entry to check its BV against
+- `infantry/Clan/Clan Field Gun Point (Wheeled AC20 Basic).blk`: no Master Unit List entry to check its BV against
+- `infantry/Clan/Clan Field Gun Point (Wheeled AC5 Advanced).blk`: no Master Unit List entry to check its BV against
+- `infantry/Clan/Clan Field Gun Point (Wheeled AC5 Basic).blk`: no Master Unit List entry to check its BV against
+- `infantry/Clan/Clan Field Gun Point (Wheeled CLBX10 Advanced).blk`: no Master Unit List entry to check its BV against
+- `infantry/Clan/Clan Field Gun Point (Wheeled CLBX10 Basic).blk`: no Master Unit List entry to check its BV against
+- `infantry/Clan/Clan Field Gun Point (Wheeled CLBX2 Advanced).blk`: no Master Unit List entry to check its BV against
+- `infantry/Clan/Clan Field Gun Point (Wheeled CLBX2 Basic).blk`: no Master Unit List entry to check its BV against
+- `infantry/Clan/Clan Field Gun Point (Wheeled CLBX20 Advanced).blk`: no Master Unit List entry to check its BV against
+- `infantry/Clan/Clan Field Gun Point (Wheeled CLBX20 Basic).blk`: no Master Unit List entry to check its BV against
+- `infantry/Clan/Clan Field Gun Point (Wheeled CLBX5 Advanced).blk`: no Master Unit List entry to check its BV against
+- `infantry/Clan/Clan Field Gun Point (Wheeled CLBX5 Basic).blk`: no Master Unit List entry to check its BV against
+- `infantry/Clan/Clan Field Gun Point (Wheeled CUAC10 Advanced).blk`: no Master Unit List entry to check its BV against
+- `infantry/Clan/Clan Field Gun Point (Wheeled CUAC10 Basic).blk`: no Master Unit List entry to check its BV against
+- `infantry/Clan/Clan Field Gun Point (Wheeled CUAC2 Advanced).blk`: no Master Unit List entry to check its BV against
+- `infantry/Clan/Clan Field Gun Point (Wheeled CUAC2 Basic).blk`: no Master Unit List entry to check its BV against
+- `infantry/Clan/Clan Field Gun Point (Wheeled CUAC20 Advanced).blk`: no Master Unit List entry to check its BV against
+- `infantry/Clan/Clan Field Gun Point (Wheeled CUAC20 Basic).blk`: no Master Unit List entry to check its BV against
+- `infantry/Clan/Clan Field Gun Point (Wheeled CUAC5 Advanced).blk`: no Master Unit List entry to check its BV against
+- `infantry/Clan/Clan Field Gun Point (Wheeled CUAC5 Basic).blk`: no Master Unit List entry to check its BV against
+- `infantry/Clan/Clan Field Gun Point (Wheeled LBX10 Basic).blk`: no Master Unit List entry to check its BV against
+- `infantry/Clan/Clan Field Gun Point (Wheeled PAC2 Advanced).blk`: no Master Unit List entry to check its BV against
+- `infantry/Clan/Clan Field Gun Point (Wheeled PAC4 Advanced).blk`: no Master Unit List entry to check its BV against
+- `infantry/Clan/Clan Field Gun Point (Wheeled PAC8 Advanced).blk`: no Master Unit List entry to check its BV against
+- `infantry/Clan/Clan Field Gun Point (Wheeled UAC5 Basic).blk`: no Master Unit List entry to check its BV against
+- `infantry/Clan/Clan Foot Point (Flamer Basic).blk`: BV differs from the MUL: BV 63, MUL 54
+- `infantry/Clan/Clan Foot Point (Laser Marine).blk`: no Master Unit List entry to check its BV against
+- `infantry/Clan/Clan Foot Point (MG Basic).blk`: BV differs from the MUL: BV 76, MUL 89
+- `infantry/Clan/Clan Foot Point (Mauser 960 Basic).blk`: no Master Unit List entry to check its BV against
+- `infantry/Clan/Clan Foot Point (Rifle AA Advanced).blk`: no Master Unit List entry to check its BV against
+- `infantry/Clan/Clan Foot Point (Rifle AA Basic).blk`: no Master Unit List entry to check its BV against
+- `infantry/Clan/Clan Foot Point (Rifle Light).blk`: no Master Unit List entry to check its BV against
+- `infantry/Clan/Clan Foot Point (Watch Detachment Advanced).blk`: no Master Unit List entry to check its BV against
+- `infantry/Clan/Clan Jump Point (ER Laser Advanced).blk`: no Master Unit List entry to check its BV against
+- `infantry/Clan/Clan Jump Point (ER Laser Basic).blk`: no Master Unit List entry to check its BV against
+- `infantry/Clan/Clan Jump Point (Flamer Basic).blk`: BV differs from the MUL: BV 63, MUL 60
+- `infantry/Clan/Clan Jump Point (LRM Advanced).blk`: BV differs from the MUL: BV 127, MUL 95
+- `infantry/Clan/Clan Jump Point (Laser Basic).blk`: BV differs from the MUL: BV 80, MUL 76
+- `infantry/Clan/Clan Jump Point (MG Basic).blk`: BV differs from the MUL: BV 79, MUL 75
+- `infantry/Clan/Clan Jump Point (Mauser 960 Advanced).blk`: no Master Unit List entry to check its BV against
+- `infantry/Clan/Clan Jump Point (Mauser 960 Basic).blk`: the import could not carry all of it over: "SLDF Infantry Kit" (Troopers Equipment) has no match in this catalog and was left off.
+- `infantry/Clan/Clan Jump Point (Mauser IIC Advanced).blk`: no Master Unit List entry to check its BV against
+- `infantry/Clan/Clan Jump Point (Rifle Basic).blk`: BV differs from the MUL: BV 85, MUL 81
+- `infantry/Clan/Clan Jump Point (SRM Basic).blk`: BV differs from the MUL: BV 88, MUL 84
+- `infantry/Clan/Clan Mechanized Hover Point (ER Laser Advanced).blk`: no Master Unit List entry to check its BV against
+- `infantry/Clan/Clan Mechanized Hover Point (Flamer Advanced).blk`: BV differs from the MUL: BV 86, MUL 60
+- `infantry/Clan/Clan Mechanized Hover Point (Flamer Basic).blk`: BV differs from the MUL: BV 53, MUL 37
+- `infantry/Clan/Clan Mechanized Hover Point (LRM Advanced).blk`: BV differs from the MUL: BV 107, MUL 56
+- `infantry/Clan/Clan Mechanized Hover Point (Laser Advanced).blk`: BV differs from the MUL: BV 101, MUL 70
+- `infantry/Clan/Clan Mechanized Hover Point (Laser Basic).blk`: BV differs from the MUL: BV 65, MUL 45
+- `infantry/Clan/Clan Mechanized Hover Point (MG Advanced).blk`: BV differs from the MUL: BV 97, MUL 68
+- `infantry/Clan/Clan Mechanized Hover Point (MG Basic).blk`: BV differs from the MUL: BV 64, MUL 45
+- `infantry/Clan/Clan Mechanized Hover Point (Mauser IIC Advanced).blk`: no Master Unit List entry to check its BV against
+- `infantry/Clan/Clan Mechanized Hover Point (Rifle Advanced).blk`: BV differs from the MUL: BV 104, MUL 73
+- `infantry/Clan/Clan Mechanized Hover Point (Rifle Basic).blk`: BV differs from the MUL: BV 68, MUL 47
+- `infantry/Clan/Clan Mechanized Hover Point (SRM Advanced).blk`: BV differs from the MUL: BV 103, MUL 54
+- `infantry/Clan/Clan Mechanized Hover Point (SRM Basic).blk`: BV differs from the MUL: BV 70, MUL 37
+- `infantry/Clan/Clan Mechanized Tracked Point (ER Laser Advanced).blk`: no Master Unit List entry to check its BV against
+- `infantry/Clan/Clan Mechanized Tracked Point (Flamer Advanced).blk`: BV differs from the MUL: BV 84, MUL 94
+- `infantry/Clan/Clan Mechanized Tracked Point (Flamer Basic).blk`: BV differs from the MUL: BV 51, MUL 57
+- `infantry/Clan/Clan Mechanized Tracked Point (LRM Advanced).blk`: BV differs from the MUL: BV 102, MUL 92
+- `infantry/Clan/Clan Mechanized Tracked Point (Laser Advanced).blk`: BV differs from the MUL: BV 88, MUL 99
+- `infantry/Clan/Clan Mechanized Tracked Point (Laser Basic).blk`: BV differs from the MUL: BV 55, MUL 65
+- `infantry/Clan/Clan Mechanized Tracked Point (MG Advanced).blk`: BV differs from the MUL: BV 93, MUL 105
+- `infantry/Clan/Clan Mechanized Tracked Point (MG Basic).blk`: BV differs from the MUL: BV 60, MUL 67
+- `infantry/Clan/Clan Mechanized Tracked Point (Mauser 960 Basic).blk`: no Master Unit List entry to check its BV against
+- `infantry/Clan/Clan Mechanized Tracked Point (Mauser IIC Advanced).blk`: no Master Unit List entry to check its BV against
+- `infantry/Clan/Clan Mechanized Tracked Point (Rifle AA Advanced).blk`: no Master Unit List entry to check its BV against
+- `infantry/Clan/Clan Mechanized Tracked Point (Rifle AA Basic).blk`: no Master Unit List entry to check its BV against
+- `infantry/Clan/Clan Mechanized Tracked Point (Rifle Advanced).blk`: BV differs from the MUL: BV 90, MUL 102
+- `infantry/Clan/Clan Mechanized Tracked Point (Rifle Basic).blk`: BV differs from the MUL: BV 57, MUL 65
+- `infantry/Clan/Clan Mechanized Tracked Point (SRM Advanced).blk`: BV differs from the MUL: BV 99, MUL 111
+- `infantry/Clan/Clan Mechanized Tracked Point (SRM Basic).blk`: BV differs from the MUL: BV 66, MUL 74
+- `infantry/Clan/Clan Mechanized Wheeled Point (Flamer Advanced).blk`: BV differs from the MUL: BV 84, MUL 67
+- `infantry/Clan/Clan Mechanized Wheeled Point (Flamer Basic).blk`: BV differs from the MUL: BV 51, MUL 41
+- `infantry/Clan/Clan Mechanized Wheeled Point (LRM Advanced).blk`: BV differs from the MUL: BV 102, MUL 61
+- `infantry/Clan/Clan Mechanized Wheeled Point (Laser Advanced).blk`: BV differs from the MUL: BV 91, MUL 73
+- `infantry/Clan/Clan Mechanized Wheeled Point (Laser Basic).blk`: BV differs from the MUL: BV 58, MUL 47
+- `infantry/Clan/Clan Mechanized Wheeled Point (MG Advanced).blk`: BV differs from the MUL: BV 93, MUL 74
+- `infantry/Clan/Clan Mechanized Wheeled Point (MG Basic).blk`: BV differs from the MUL: BV 60, MUL 48
+- `infantry/Clan/Clan Mechanized Wheeled Point (Mauser IIC Advanced).blk`: no Master Unit List entry to check its BV against
+- `infantry/Clan/Clan Mechanized Wheeled Point (Rifle AA Advanced).blk`: no Master Unit List entry to check its BV against
+- `infantry/Clan/Clan Mechanized Wheeled Point (Rifle AA Basic).blk`: no Master Unit List entry to check its BV against
+- `infantry/Clan/Clan Mechanized Wheeled Point (Rifle Advanced).blk`: BV differs from the MUL: BV 94, MUL 75
+- `infantry/Clan/Clan Mechanized Wheeled Point (Rifle Basic).blk`: BV differs from the MUL: BV 61, MUL 49
+- `infantry/Clan/Clan Mechanized Wheeled Point (SRM Advanced).blk`: BV differs from the MUL: BV 99, MUL 79
+- `infantry/Clan/Clan Mechanized Wheeled Point (SRM Basic).blk`: BV differs from the MUL: BV 66, MUL 52
+- `infantry/Clan/Clan Motorized Point (Bearhunter Advanced).blk`: no Master Unit List entry to check its BV against
+- `infantry/Clan/Clan Motorized Point (Flamer Advanced).blk`: BV differs from the MUL: BV 113, MUL 90
+- `infantry/Clan/Clan Motorized Point (Flamer Basic).blk`: BV differs from the MUL: BV 75, MUL 57
+- `infantry/Clan/Clan Motorized Point (LRM Advanced).blk`: BV differs from the MUL: BV 151, MUL 121
+- `infantry/Clan/Clan Motorized Point (Laser Advanced).blk`: BV differs from the MUL: BV 138, MUL 110
+- `infantry/Clan/Clan Motorized Point (Laser Basic).blk`: BV differs from the MUL: BV 96, MUL 73
+- `infantry/Clan/Clan Motorized Point (MG Advanced).blk`: BV differs from the MUL: BV 132, MUL 106
+- `infantry/Clan/Clan Motorized Point (MG Basic).blk`: BV differs from the MUL: BV 94, MUL 57
+- `infantry/Clan/Clan Motorized Point (Rifle Advanced).blk`: BV differs from the MUL: BV 144, MUL 115
+- `infantry/Clan/Clan Motorized Point (Rifle Basic).blk`: BV differs from the MUL: BV 102, MUL 78
+- `infantry/Clan/Clan Motorized Point (Rifle Light).blk`: no Master Unit List entry to check its BV against
+- `infantry/Clan/Clan Motorized Point (SRM Advanced).blk`: BV differs from the MUL: BV 144, MUL 115
+- `infantry/Clan/Clan Motorized Point (SRM Basic).blk`: BV differs from the MUL: BV 106, MUL 81
+- `infantry/DCMS/Field Artillery Platoon (DCMS) (Motorized Arrow IV 3044+).blk`: no Master Unit List entry to check its BV against
+- `infantry/DCMS/Field Artillery Platoon (DCMS) (Motorized Sniper 2620+).blk`: no Master Unit List entry to check its BV against
+- `infantry/DCMS/Field Artillery Platoon (DCMS) (Motorized Sniper Cannon 3079+).blk`: no Master Unit List entry to check its BV against
+- `infantry/DCMS/Field Artillery Platoon (DCMS) (Motorized Thumper 2620+).blk`: no Master Unit List entry to check its BV against
+- `infantry/DCMS/Field Artillery Platoon (DCMS) (Motorized Thumper Cannon 3079+).blk`: no Master Unit List entry to check its BV against
+- `infantry/DCMS/Field Artillery Platoon (DCMS) (Tracked Arrow IV 3044+).blk`: no Master Unit List entry to check its BV against
+- `infantry/DCMS/Field Artillery Platoon (DCMS) (Tracked Sniper 2620+).blk`: no Master Unit List entry to check its BV against
+- `infantry/DCMS/Field Artillery Platoon (DCMS) (Tracked Sniper Cannon 3079+).blk`: no Master Unit List entry to check its BV against
+- `infantry/DCMS/Field Artillery Platoon (DCMS) (Tracked Thumper 2620+).blk`: no Master Unit List entry to check its BV against
+- `infantry/DCMS/Field Artillery Platoon (DCMS) (Tracked Thumper Cannon 3079+).blk`: no Master Unit List entry to check its BV against
+- `infantry/DCMS/Field Artillery Platoon (DCMS) (Wheeled Arrow IV 3044+).blk`: no Master Unit List entry to check its BV against
+- `infantry/DCMS/Field Artillery Platoon (DCMS) (Wheeled Sniper 2620+).blk`: no Master Unit List entry to check its BV against
+- `infantry/DCMS/Field Artillery Platoon (DCMS) (Wheeled Sniper Cannon 3079+).blk`: no Master Unit List entry to check its BV against
+- `infantry/DCMS/Field Artillery Platoon (DCMS) (Wheeled Thumper 2620+).blk`: no Master Unit List entry to check its BV against
+- `infantry/DCMS/Field Artillery Platoon (DCMS) (Wheeled Thumper Cannon 3079+).blk`: no Master Unit List entry to check its BV against
+- `infantry/DCMS/Field Gun Platoon (DCMS) (Motorized AC10 2620+).blk`: no Master Unit List entry to check its BV against
+- `infantry/DCMS/Field Gun Platoon (DCMS) (Motorized AC2 2620+).blk`: no Master Unit List entry to check its BV against
+- `infantry/DCMS/Field Gun Platoon (DCMS) (Motorized AC20 2620+).blk`: no Master Unit List entry to check its BV against
+- `infantry/DCMS/Field Gun Platoon (DCMS) (Motorized AC5 2620+).blk`: no Master Unit List entry to check its BV against
+- `infantry/DCMS/Field Gun Platoon (DCMS) (Motorized LAC2 3070+).blk`: no Master Unit List entry to check its BV against
+- `infantry/DCMS/Field Gun Platoon (DCMS) (Motorized LAC5 3070+).blk`: no Master Unit List entry to check its BV against
+- `infantry/DCMS/Field Gun Platoon (DCMS) (Tracked AC10 2620+).blk`: no Master Unit List entry to check its BV against
+- `infantry/DCMS/Field Gun Platoon (DCMS) (Tracked AC2 2620+).blk`: no Master Unit List entry to check its BV against
+- `infantry/DCMS/Field Gun Platoon (DCMS) (Tracked AC20 2620+).blk`: no Master Unit List entry to check its BV against
+- `infantry/DCMS/Field Gun Platoon (DCMS) (Tracked AC5 2620+).blk`: no Master Unit List entry to check its BV against
+- `infantry/DCMS/Field Gun Platoon (DCMS) (Tracked Gauss 3040+).blk`: no Master Unit List entry to check its BV against
+- `infantry/DCMS/Field Gun Platoon (DCMS) (Tracked LBX10 3040+).blk`: no Master Unit List entry to check its BV against
+- `infantry/DCMS/Field Gun Platoon (DCMS) (Tracked LBX2 3060+).blk`: no Master Unit List entry to check its BV against
+- `infantry/DCMS/Field Gun Platoon (DCMS) (Tracked LBX20 3060+).blk`: no Master Unit List entry to check its BV against
+- `infantry/DCMS/Field Gun Platoon (DCMS) (Tracked LBX5 3060+).blk`: no Master Unit List entry to check its BV against
+- `infantry/DCMS/Field Gun Platoon (DCMS) (Tracked UAC10 3060+).blk`: no Master Unit List entry to check its BV against
+- `infantry/DCMS/Field Gun Platoon (DCMS) (Tracked UAC2 3060+).blk`: no Master Unit List entry to check its BV against
+- `infantry/DCMS/Field Gun Platoon (DCMS) (Tracked UAC20 3061+).blk`: no Master Unit List entry to check its BV against
+- `infantry/DCMS/Field Gun Platoon (DCMS) (Tracked UAC5 3040+).blk`: no Master Unit List entry to check its BV against
+- `infantry/DCMS/Field Gun Platoon (DCMS) (Wheeled AC10 2620+).blk`: no Master Unit List entry to check its BV against
+- `infantry/DCMS/Field Gun Platoon (DCMS) (Wheeled AC2 2620+).blk`: no Master Unit List entry to check its BV against
+- `infantry/DCMS/Field Gun Platoon (DCMS) (Wheeled AC20 2620+).blk`: no Master Unit List entry to check its BV against
+- `infantry/DCMS/Field Gun Platoon (DCMS) (Wheeled AC5 2620+).blk`: no Master Unit List entry to check its BV against
+- `infantry/DCMS/Field Gun Platoon (DCMS) (Wheeled Gauss 3040+).blk`: no Master Unit List entry to check its BV against
+- `infantry/DCMS/Field Gun Platoon (DCMS) (Wheeled LBX10 3040+).blk`: no Master Unit List entry to check its BV against
+- `infantry/DCMS/Field Gun Platoon (DCMS) (Wheeled LBX2 3060+).blk`: no Master Unit List entry to check its BV against
+- `infantry/DCMS/Field Gun Platoon (DCMS) (Wheeled LBX20 3060+).blk`: no Master Unit List entry to check its BV against
+- `infantry/DCMS/Field Gun Platoon (DCMS) (Wheeled LBX5 3060+).blk`: no Master Unit List entry to check its BV against
+- `infantry/DCMS/Field Gun Platoon (DCMS) (Wheeled UAC10 3060+).blk`: no Master Unit List entry to check its BV against
+- `infantry/DCMS/Field Gun Platoon (DCMS) (Wheeled UAC2 3060+).blk`: no Master Unit List entry to check its BV against
+- `infantry/DCMS/Field Gun Platoon (DCMS) (Wheeled UAC20 3061+).blk`: no Master Unit List entry to check its BV against
+- `infantry/DCMS/Field Gun Platoon (DCMS) (Wheeled UAC5 3040+).blk`: no Master Unit List entry to check its BV against
+- `infantry/DCMS/Foot Platoon (DCMS) (Gauss 3053+).blk`: no Master Unit List entry to check its BV against
+- `infantry/DCMS/Foot Platoon (DCMS) (Laser 2620+).blk`: BV differs from the MUL: BV 82, MUL 85
+- `infantry/DCMS/Foot Platoon (DCMS) (Laser Marine 2460+).blk`: no Master Unit List entry to check its BV against
+- `infantry/DCMS/Foot Platoon (DCMS) (Laser XCT 2460+).blk`: no Master Unit List entry to check its BV against
+- `infantry/DCMS/Foot Platoon (DCMS) (MRM 3063+).blk`: no Master Unit List entry to check its BV against
+- `infantry/DCMS/Foot Platoon (DCMS) (Rifle AA 3057+).blk`: no Master Unit List entry to check its BV against
+- `infantry/DCMS/Foot Platoon (DCMS) (Rifle Light 2620+).blk`: no Master Unit List entry to check its BV against
+- `infantry/DCMS/Foot Platoon (DCMS) (Riot Police 2620+).blk`: no Master Unit List entry to check its BV against
+- `infantry/DCMS/Foot Platoon (DCMS) (SRM 2620+).blk`: BV differs from the MUL: BV 90, MUL 79
+- `infantry/DCMS/Foot Platoon (DCMS) (Sappers 2315+).blk`: no Master Unit List entry to check its BV against
+- `infantry/DCMS/Foot Platoon (DCMS) (Sniper Detachment 2500+).blk`: no Master Unit List entry to check its BV against
+- `infantry/DCMS/Foot Platoon (DCMS) (Sniper Detachment 2785+).blk`: no Master Unit List entry to check its BV against
+- `infantry/DCMS/Foot Platoon (DCMS) (SpecOps Fireteam 2500+).blk`: the import could not carry all of it over: 2 Laser Rifle (Blazer) per squad are over the 1 secondary weapon a squad of Paratroops may carry (TO:AUE p.153); 1 used.
+- `infantry/DCMS/Foot Platoon (DCMS) (SpecOps Fireteam 2785+).blk`: the import could not carry all of it over: 2 Laser Rifle (Blazer) per squad are over the 1 secondary weapon a squad of Paratroops may carry (TO:AUE p.153); 1 used.
+- `infantry/DCMS/Jump Platoon (DCMS) (Gauss 3053+).blk`: no Master Unit List entry to check its BV against
+- `infantry/DCMS/Jump Platoon (DCMS) (LRM 3065+).blk`: BV differs from the MUL: BV 92, MUL 70
+- `infantry/DCMS/Jump Platoon (DCMS) (Laser 2620+).blk`: BV differs from the MUL: BV 81, MUL 84
+- `infantry/DCMS/Jump Platoon (DCMS) (Laser TAG 3051+).blk`: no Master Unit List entry to check its BV against
+- `infantry/DCMS/Jump Platoon (DCMS) (SRM 2620+).blk`: BV differs from the MUL: BV 88, MUL 77
+- `infantry/DCMS/Mechanized Hover Platoon (DCMS) (Flamer 2620+).blk`: BV differs from the MUL: BV 53, MUL 37
+- `infantry/DCMS/Mechanized Hover Platoon (DCMS) (Gauss 3053+).blk`: no Master Unit List entry to check its BV against
+- `infantry/DCMS/Mechanized Hover Platoon (DCMS) (LRM 3065+).blk`: BV differs from the MUL: BV 74, MUL 32
+- `infantry/DCMS/Mechanized Hover Platoon (DCMS) (Laser 2620+).blk`: BV differs from the MUL: BV 63, MUL 45
+- `infantry/DCMS/Mechanized Hover Platoon (DCMS) (MG 2620+).blk`: BV differs from the MUL: BV 64, MUL 45
+- `infantry/DCMS/Mechanized Hover Platoon (DCMS) (MRM 3063+).blk`: no Master Unit List entry to check its BV against
+- `infantry/DCMS/Mechanized Hover Platoon (DCMS) (Rifle 2620+).blk`: BV differs from the MUL: BV 68, MUL 47
+- `infantry/DCMS/Mechanized Hover Platoon (DCMS) (SRM 2620+).blk`: BV differs from the MUL: BV 70, MUL 41
+- `infantry/DCMS/Mechanized Tracked Platoon (DCMS) (Combat Engineers 2620+).blk`: no Master Unit List entry to check its BV against
+- `infantry/DCMS/Mechanized Tracked Platoon (DCMS) (Flamer 2620+).blk`: BV differs from the MUL: BV 74, MUL 66
+- `infantry/DCMS/Mechanized Tracked Platoon (DCMS) (Gauss 3053+).blk`: no Master Unit List entry to check its BV against
+- `infantry/DCMS/Mechanized Tracked Platoon (DCMS) (LRM 3065+).blk`: BV differs from the MUL: BV 92, MUL 62
+- `infantry/DCMS/Mechanized Tracked Platoon (DCMS) (Laser 2620+).blk`: BV differs from the MUL: BV 75, MUL 69
+- `infantry/DCMS/Mechanized Tracked Platoon (DCMS) (MG 2620+).blk`: BV differs from the MUL: BV 83, MUL 75
+- `infantry/DCMS/Mechanized Tracked Platoon (DCMS) (MG Support 3053+).blk`: no Master Unit List entry to check its BV against
+- `infantry/DCMS/Mechanized Tracked Platoon (DCMS) (MRM 3063+).blk`: no Master Unit List entry to check its BV against
+- `infantry/DCMS/Mechanized Tracked Platoon (DCMS) (PPC 3075+).blk`: no Master Unit List entry to check its BV against
+- `infantry/DCMS/Mechanized Tracked Platoon (DCMS) (Rifle 2620+).blk`: BV differs from the MUL: BV 80, MUL 72
+- `infantry/DCMS/Mechanized Tracked Platoon (DCMS) (Rifle AA 3057+).blk`: no Master Unit List entry to check its BV against
+- `infantry/DCMS/Mechanized Tracked Platoon (DCMS) (SRM 2620+).blk`: BV differs from the MUL: BV 89, MUL 69
+- `infantry/DCMS/Mechanized Tracked Platoon (DCMS) (SRM Support 3053+).blk`: no Master Unit List entry to check its BV against
+- `infantry/DCMS/Mechanized Tracked Platoon (DCMS) (Sappers 2315+).blk`: no Master Unit List entry to check its BV against
+- `infantry/DCMS/Mechanized Wheeled Platoon (DCMS) (Combat Engineers 2620+).blk`: no Master Unit List entry to check its BV against
+- `infantry/DCMS/Mechanized Wheeled Platoon (DCMS) (Flamer 2620+).blk`: BV differs from the MUL: BV 62, MUL 50
+- `infantry/DCMS/Mechanized Wheeled Platoon (DCMS) (Gauss 3053+).blk`: no Master Unit List entry to check its BV against
+- `infantry/DCMS/Mechanized Wheeled Platoon (DCMS) (LRM 3065+).blk`: BV differs from the MUL: BV 80, MUL 46
+- `infantry/DCMS/Mechanized Wheeled Platoon (DCMS) (Laser 2620+).blk`: BV differs from the MUL: BV 68, MUL 56
+- `infantry/DCMS/Mechanized Wheeled Platoon (DCMS) (Laser XCT 2460+).blk`: no Master Unit List entry to check its BV against
+- `infantry/DCMS/Mechanized Wheeled Platoon (DCMS) (MG 2620+).blk`: BV differs from the MUL: BV 71, MUL 57
+- `infantry/DCMS/Mechanized Wheeled Platoon (DCMS) (MRM 3063+).blk`: no Master Unit List entry to check its BV against
+- `infantry/DCMS/Mechanized Wheeled Platoon (DCMS) (Rifle 2620+).blk`: BV differs from the MUL: BV 73, MUL 59
+- `infantry/DCMS/Mechanized Wheeled Platoon (DCMS) (Rifle AA 3057+).blk`: no Master Unit List entry to check its BV against
+- `infantry/DCMS/Mechanized Wheeled Platoon (DCMS) (SRM 2620+).blk`: BV differs from the MUL: BV 77, MUL 52
+- `infantry/DCMS/Motorized Platoon (DCMS) (Combat Engineers 2620+).blk`: no Master Unit List entry to check its BV against
+- `infantry/DCMS/Motorized Platoon (DCMS) (Flamer 2620+).blk`: BV differs from the MUL: BV 89, MUL 71
+- `infantry/DCMS/Motorized Platoon (DCMS) (Gauss 3053+).blk`: no Master Unit List entry to check its BV against
+- `infantry/DCMS/Motorized Platoon (DCMS) (Laser 2620+).blk`: BV differs from the MUL: BV 104, MUL 86
+- `infantry/DCMS/Motorized Platoon (DCMS) (Laser XCT 2460+).blk`: no Master Unit List entry to check its BV against
+- `infantry/DCMS/Motorized Platoon (DCMS) (MG 2620+).blk`: BV differs from the MUL: BV 104, MUL 83
+- `infantry/DCMS/Motorized Platoon (DCMS) (MRM 3063+).blk`: no Master Unit List entry to check its BV against
+- `infantry/DCMS/Motorized Platoon (DCMS) (Rifle 2620+).blk`: BV differs from the MUL: BV 115, MUL 92
+- `infantry/DCMS/Motorized Platoon (DCMS) (Rifle AA 3057+).blk`: no Master Unit List entry to check its BV against
+- `infantry/DCMS/Motorized Platoon (DCMS) (Rifle Light 2620+).blk`: no Master Unit List entry to check its BV against
+- `infantry/DCMS/Motorized Platoon (DCMS) (Riot Police 2620+).blk`: no Master Unit List entry to check its BV against
+- `infantry/DCMS/Motorized Platoon (DCMS) (SRM 2620+).blk`: BV differs from the MUL: BV 114, MUL 79
+- `infantry/DCMS/Motorized Platoon (DCMS) (Sappers 2315+).blk`: no Master Unit List entry to check its BV against
+- `infantry/FWLM/Field Artillery Platoon (FWLM) (Motorized Arrow IV 3044+).blk`: no Master Unit List entry to check its BV against
+- `infantry/FWLM/Field Artillery Platoon (FWLM) (Motorized Sniper Cannon 3079+).blk`: no Master Unit List entry to check its BV against
+- `infantry/FWLM/Field Artillery Platoon (FWLM) (Motorized Thumper Cannon 3079+).blk`: no Master Unit List entry to check its BV against
+- `infantry/FWLM/Field Artillery Platoon (FWLM) (Tracked Arrow IV 3044+).blk`: no Master Unit List entry to check its BV against
+- `infantry/FWLM/Field Artillery Platoon (FWLM) (Tracked Sniper 3035+).blk`: no Master Unit List entry to check its BV against
+- `infantry/FWLM/Field Artillery Platoon (FWLM) (Tracked Sniper Cannon 3079+).blk`: no Master Unit List entry to check its BV against
+- `infantry/FWLM/Field Artillery Platoon (FWLM) (Tracked Thumper 3035+).blk`: no Master Unit List entry to check its BV against
+- `infantry/FWLM/Field Artillery Platoon (FWLM) (Tracked Thumper Cannon 3079+).blk`: no Master Unit List entry to check its BV against
+- `infantry/FWLM/Field Artillery Platoon (FWLM) (Wheeled Arrow IV 3044+).blk`: no Master Unit List entry to check its BV against
+- `infantry/FWLM/Field Artillery Platoon (FWLM) (Wheeled Sniper 3035+).blk`: no Master Unit List entry to check its BV against
+- `infantry/FWLM/Field Artillery Platoon (FWLM) (Wheeled Sniper Cannon 3079+).blk`: no Master Unit List entry to check its BV against
+- `infantry/FWLM/Field Artillery Platoon (FWLM) (Wheeled Thumper 3035+).blk`: no Master Unit List entry to check its BV against
+- `infantry/FWLM/Field Artillery Platoon (FWLM) (Wheeled Thumper Cannon 3079+).blk`: no Master Unit List entry to check its BV against
+- `infantry/FWLM/Field Gun Platoon (FWLM) (Motorized AC10 3035+).blk`: no Master Unit List entry to check its BV against
+- `infantry/FWLM/Field Gun Platoon (FWLM) (Motorized AC2 3035+).blk`: no Master Unit List entry to check its BV against
+- `infantry/FWLM/Field Gun Platoon (FWLM) (Motorized AC20 3035+).blk`: no Master Unit List entry to check its BV against
+- `infantry/FWLM/Field Gun Platoon (FWLM) (Motorized AC5 3035+).blk`: no Master Unit List entry to check its BV against
+- `infantry/FWLM/Field Gun Platoon (FWLM) (Motorized LAC2 3070+).blk`: no Master Unit List entry to check its BV against
+- `infantry/FWLM/Field Gun Platoon (FWLM) (Motorized LAC5 3070+).blk`: no Master Unit List entry to check its BV against
+- `infantry/FWLM/Field Gun Platoon (FWLM) (Tracked AC10 3035+).blk`: no Master Unit List entry to check its BV against
+- `infantry/FWLM/Field Gun Platoon (FWLM) (Tracked AC2 3035+).blk`: no Master Unit List entry to check its BV against
+- `infantry/FWLM/Field Gun Platoon (FWLM) (Tracked AC20 3035+).blk`: no Master Unit List entry to check its BV against
+- `infantry/FWLM/Field Gun Platoon (FWLM) (Tracked AC5 3035+).blk`: no Master Unit List entry to check its BV against
+- `infantry/FWLM/Field Gun Platoon (FWLM) (Tracked Gauss 3040+).blk`: no Master Unit List entry to check its BV against
+- `infantry/FWLM/Field Gun Platoon (FWLM) (Tracked LBX10 3040+).blk`: no Master Unit List entry to check its BV against
+- `infantry/FWLM/Field Gun Platoon (FWLM) (Tracked LBX2 3060+).blk`: no Master Unit List entry to check its BV against
+- `infantry/FWLM/Field Gun Platoon (FWLM) (Tracked LBX20 3060+).blk`: no Master Unit List entry to check its BV against
+- `infantry/FWLM/Field Gun Platoon (FWLM) (Tracked LBX5 3060+).blk`: no Master Unit List entry to check its BV against
+- `infantry/FWLM/Field Gun Platoon (FWLM) (Tracked Light Gauss 3056+).blk`: no Master Unit List entry to check its BV against
+- `infantry/FWLM/Field Gun Platoon (FWLM) (Tracked UAC10 3057+).blk`: no Master Unit List entry to check its BV against
+- `infantry/FWLM/Field Gun Platoon (FWLM) (Tracked UAC2 3057+).blk`: no Master Unit List entry to check its BV against
+- `infantry/FWLM/Field Gun Platoon (FWLM) (Tracked UAC20 3060+).blk`: no Master Unit List entry to check its BV against
+- `infantry/FWLM/Field Gun Platoon (FWLM) (Tracked UAC5 3040+).blk`: no Master Unit List entry to check its BV against
+- `infantry/FWLM/Field Gun Platoon (FWLM) (Wheeled AC10 3035+).blk`: no Master Unit List entry to check its BV against
+- `infantry/FWLM/Field Gun Platoon (FWLM) (Wheeled AC2 3035+).blk`: no Master Unit List entry to check its BV against
+- `infantry/FWLM/Field Gun Platoon (FWLM) (Wheeled AC20 3035+).blk`: no Master Unit List entry to check its BV against
+- `infantry/FWLM/Field Gun Platoon (FWLM) (Wheeled AC5 3035+).blk`: no Master Unit List entry to check its BV against
+- `infantry/FWLM/Field Gun Platoon (FWLM) (Wheeled Gauss 3040+).blk`: no Master Unit List entry to check its BV against
+- `infantry/FWLM/Field Gun Platoon (FWLM) (Wheeled LBX10 3040+).blk`: no Master Unit List entry to check its BV against
+- `infantry/FWLM/Field Gun Platoon (FWLM) (Wheeled LBX2 3060+).blk`: no Master Unit List entry to check its BV against
+- `infantry/FWLM/Field Gun Platoon (FWLM) (Wheeled LBX20 3060+).blk`: no Master Unit List entry to check its BV against
+- `infantry/FWLM/Field Gun Platoon (FWLM) (Wheeled LBX5 3060+).blk`: no Master Unit List entry to check its BV against
+- `infantry/FWLM/Field Gun Platoon (FWLM) (Wheeled Light Gauss 3056+).blk`: no Master Unit List entry to check its BV against
+- `infantry/FWLM/Field Gun Platoon (FWLM) (Wheeled UAC10 3057+).blk`: no Master Unit List entry to check its BV against
+- `infantry/FWLM/Field Gun Platoon (FWLM) (Wheeled UAC2 3057+).blk`: no Master Unit List entry to check its BV against
+- `infantry/FWLM/Field Gun Platoon (FWLM) (Wheeled UAC20 3060+).blk`: no Master Unit List entry to check its BV against
+- `infantry/FWLM/Field Gun Platoon (FWLM) (Wheeled UAC5 3040+).blk`: no Master Unit List entry to check its BV against
+- `infantry/FWLM/Foot Platoon (FWLM) (Gauss 3060+).blk`: no Master Unit List entry to check its BV against
+- `infantry/FWLM/Foot Platoon (FWLM) (Laser Marine 2880+).blk`: no Master Unit List entry to check its BV against
+- `infantry/FWLM/Foot Platoon (FWLM) (Laser XCT 2880+).blk`: no Master Unit List entry to check its BV against
+- `infantry/FWLM/Foot Platoon (FWLM) (Rifle AA 3056+).blk`: no Master Unit List entry to check its BV against
+- `infantry/FWLM/Foot Platoon (FWLM) (Riot Police 3035+).blk`: no Master Unit List entry to check its BV against
+- `infantry/FWLM/Foot Platoon (FWLM) (Sappers 2315+).blk`: no Master Unit List entry to check its BV against
+- `infantry/FWLM/Foot Platoon (FWLM) (Sniper Detachment 2505+).blk`: no Master Unit List entry to check its BV against
+- `infantry/FWLM/Foot Platoon (FWLM) (SpecOps Fireteam 2505+).blk`: the import could not carry all of it over: 2 Laser Rifle (Blazer) per squad are over the 1 secondary weapon a squad of Paratroops may carry (TO:AUE p.153); 1 used.
+- `infantry/FWLM/Foot Platoon (FWLM) (SpecOps Fireteam 3050+).blk`: the import could not carry all of it over: 2 Laser Rifle (ER [Sunbeam Starfire]) per squad are over the 1 secondary weapon a squad of Paratroops may carry (TO:AUE p.153); 1 used.
+- `infantry/FWLM/Jump Platoon (FWLM) (Gauss 3060+).blk`: no Master Unit List entry to check its BV against
+- `infantry/FWLM/Jump Platoon (FWLM) (Laser Anti-Mek 3052+).blk`: no Master Unit List entry to check its BV against
+- `infantry/FWLM/Jump Platoon (FWLM) (Laser TAG 3051+).blk`: no Master Unit List entry to check its BV against
+- `infantry/FWLM/Mechanized Hover Platoon (FWLM) (ER Laser 3052+).blk`: no Master Unit List entry to check its BV against
+- `infantry/FWLM/Mechanized Hover Platoon (FWLM) (Gauss 3060+).blk`: no Master Unit List entry to check its BV against
+- `infantry/FWLM/Mechanized Tracked Platoon (FWLM) (Combat Engineers 3035+).blk`: no Master Unit List entry to check its BV against
+- `infantry/FWLM/Mechanized Tracked Platoon (FWLM) (ER Laser Heavy 3059+).blk`: no Master Unit List entry to check its BV against
+- `infantry/FWLM/Mechanized Tracked Platoon (FWLM) (Gauss 3060+).blk`: no Master Unit List entry to check its BV against
+- `infantry/FWLM/Mechanized Tracked Platoon (FWLM) (Rifle AA 3056+).blk`: no Master Unit List entry to check its BV against
+- `infantry/FWLM/Mechanized Tracked Platoon (FWLM) (Sappers 2315+).blk`: no Master Unit List entry to check its BV against
+- `infantry/FWLM/Mechanized Wheeled Platoon (FWLM) (Combat Engineers 3035+).blk`: no Master Unit List entry to check its BV against
+- `infantry/FWLM/Mechanized Wheeled Platoon (FWLM) (Gauss 3060+).blk`: no Master Unit List entry to check its BV against
+- `infantry/FWLM/Mechanized Wheeled Platoon (FWLM) (Laser XCT 2880+).blk`: no Master Unit List entry to check its BV against
+- `infantry/FWLM/Mechanized Wheeled Platoon (FWLM) (Rifle AA 3056+).blk`: no Master Unit List entry to check its BV against
+- `infantry/FWLM/Motorized Platoon (FWLM) (Combat Engineers 3035+).blk`: no Master Unit List entry to check its BV against
+- `infantry/FWLM/Motorized Platoon (FWLM) (Gauss 3060+).blk`: no Master Unit List entry to check its BV against
+- `infantry/FWLM/Motorized Platoon (FWLM) (Laser XCT 2880+).blk`: no Master Unit List entry to check its BV against
+- `infantry/FWLM/Motorized Platoon (FWLM) (Rifle AA 3056+).blk`: no Master Unit List entry to check its BV against
+- `infantry/FWLM/Motorized Platoon (FWLM) (Riot Police 3035+).blk`: no Master Unit List entry to check its BV against
+- `infantry/FWLM/Motorized Platoon (FWLM) (Sappers 2315+).blk`: no Master Unit List entry to check its BV against
+- `infantry/Field Gunners/Clan Field Artillery (ArrowIV).blk`: no Master Unit List entry to check its BV against
+- `infantry/Field Gunners/Clan Field Artillery (Sniper).blk`: BV differs from the MUL: BV 117, MUL 26
+- `infantry/Field Gunners/Clan Field Artillery (Thumper).blk`: no Master Unit List entry to check its BV against
+- `infantry/Field Gunners/Clan Field Gunners (Gauss).blk`: no Master Unit List entry to check its BV against
+- `infantry/Field Gunners/Clan Field Gunners (LBX10).blk`: no Master Unit List entry to check its BV against
+- `infantry/Field Gunners/Clan Field Gunners (LBX2).blk`: no Master Unit List entry to check its BV against
+- `infantry/Field Gunners/Clan Field Gunners (LBX20).blk`: no Master Unit List entry to check its BV against
+- `infantry/Field Gunners/Clan Field Gunners (LBX5).blk`: no Master Unit List entry to check its BV against
+- `infantry/Field Gunners/Clan Field Gunners (RAC2).blk`: no Master Unit List entry to check its BV against
+- `infantry/Field Gunners/Clan Field Gunners (RAC5).blk`: no Master Unit List entry to check its BV against
+- `infantry/Field Gunners/Clan Field Gunners (UAC10).blk`: no Master Unit List entry to check its BV against
+- `infantry/Field Gunners/Clan Field Gunners (UAC2).blk`: no Master Unit List entry to check its BV against
+- `infantry/Field Gunners/Clan Field Gunners (UAC20).blk`: no Master Unit List entry to check its BV against
+- `infantry/Field Gunners/Clan Field Gunners (UAC5).blk`: no Master Unit List entry to check its BV against
+- `infantry/Field Gunners/Field Artillery (Arrow IV).blk`: no Master Unit List entry to check its BV against
+- `infantry/Field Gunners/Field Artillery (Sniper).blk`: BV differs from the MUL: BV 118, MUL 26
+- `infantry/Field Gunners/Field Artillery (Thumper).blk`: no Master Unit List entry to check its BV against
+- `infantry/Field Gunners/Field Gunners (AC10).blk`: no Master Unit List entry to check its BV against
+- `infantry/Field Gunners/Field Gunners (AC2).blk`: no Master Unit List entry to check its BV against
+- `infantry/Field Gunners/Field Gunners (AC20).blk`: no Master Unit List entry to check its BV against
+- `infantry/Field Gunners/Field Gunners (AC5).blk`: no Master Unit List entry to check its BV against
+- `infantry/Field Gunners/Field Gunners (Gauss).blk`: no Master Unit List entry to check its BV against
+- `infantry/Field Gunners/Field Gunners (LAC2).blk`: no Master Unit List entry to check its BV against
+- `infantry/Field Gunners/Field Gunners (LAC5).blk`: no Master Unit List entry to check its BV against
+- `infantry/Field Gunners/Field Gunners (LBX10).blk`: no Master Unit List entry to check its BV against
+- `infantry/Field Gunners/Field Gunners (LBX2).blk`: no Master Unit List entry to check its BV against
+- `infantry/Field Gunners/Field Gunners (LBX20).blk`: no Master Unit List entry to check its BV against
+- `infantry/Field Gunners/Field Gunners (LBX5).blk`: no Master Unit List entry to check its BV against
+- `infantry/Field Gunners/Field Gunners (Light Gauss).blk`: no Master Unit List entry to check its BV against
+- `infantry/Field Gunners/Field Gunners (RAC2).blk`: no Master Unit List entry to check its BV against
+- `infantry/Field Gunners/Field Gunners (RAC5).blk`: no Master Unit List entry to check its BV against
+- `infantry/Field Gunners/Field Gunners (UAC10).blk`: no Master Unit List entry to check its BV against
+- `infantry/Field Gunners/Field Gunners (UAC2).blk`: no Master Unit List entry to check its BV against
+- `infantry/Field Gunners/Field Gunners (UAC20).blk`: no Master Unit List entry to check its BV against
+- `infantry/Field Gunners/Field Gunners (UAC5).blk`: no Master Unit List entry to check its BV against
+- `infantry/HBHM/Jump Platoon (Rifle AA).blk`: no Master Unit List entry to check its BV against
+- `infantry/HBHM/Mechanized Hover Platoon (Rifle AA).blk`: BV differs from the MUL: BV 79, MUL 55
+- `infantry/HBHM/Mechanized Tracked Platoon (Rifle AA).blk`: BV differs from the MUL: BV 96, MUL 87
+- `infantry/HBHM/Mechanized Wheeled Platoon (Rifle AA).blk`: BV differs from the MUL: BV 85, MUL 68
+- `infantry/HBHM/Motorized Platoon (Rifle AA).blk`: BV differs from the MUL: BV 126, MUL 101
+- `infantry/HBHS/Motorized Platoon (Flechette).blk`: no Master Unit List entry to check its BV against
+- `infantry/LCAF/Field Artillery Platoon (LCAF) (Motorized Arrow IV 3058+).blk`: no Master Unit List entry to check its BV against
+- `infantry/LCAF/Field Artillery Platoon (LCAF) (Motorized Sniper 3058+).blk`: no Master Unit List entry to check its BV against
+- `infantry/LCAF/Field Artillery Platoon (LCAF) (Motorized Sniper Cannon 3079+).blk`: no Master Unit List entry to check its BV against
+- `infantry/LCAF/Field Artillery Platoon (LCAF) (Motorized Thumper 3058+).blk`: no Master Unit List entry to check its BV against
+- `infantry/LCAF/Field Artillery Platoon (LCAF) (Motorized Thumper Cannon 3079+).blk`: no Master Unit List entry to check its BV against
+- `infantry/LCAF/Field Artillery Platoon (LCAF) (Tracked Arrow IV 3058+).blk`: no Master Unit List entry to check its BV against
+- `infantry/LCAF/Field Artillery Platoon (LCAF) (Tracked Sniper 3058+).blk`: no Master Unit List entry to check its BV against
+- `infantry/LCAF/Field Artillery Platoon (LCAF) (Tracked Sniper Cannon 3079+).blk`: no Master Unit List entry to check its BV against
+- `infantry/LCAF/Field Artillery Platoon (LCAF) (Tracked Thumper 3058+).blk`: no Master Unit List entry to check its BV against
+- `infantry/LCAF/Field Artillery Platoon (LCAF) (Tracked Thumper Cannon 3079+).blk`: no Master Unit List entry to check its BV against
+- `infantry/LCAF/Field Artillery Platoon (LCAF) (Wheeled Arrow IV 3058+).blk`: no Master Unit List entry to check its BV against
+- `infantry/LCAF/Field Artillery Platoon (LCAF) (Wheeled Sniper 3058+).blk`: no Master Unit List entry to check its BV against
+- `infantry/LCAF/Field Artillery Platoon (LCAF) (Wheeled Sniper Cannon 3079+).blk`: no Master Unit List entry to check its BV against
+- `infantry/LCAF/Field Artillery Platoon (LCAF) (Wheeled Thumper 3058+).blk`: no Master Unit List entry to check its BV against
+- `infantry/LCAF/Field Artillery Platoon (LCAF) (Wheeled Thumper Cannon 3079+).blk`: no Master Unit List entry to check its BV against
+- `infantry/LCAF/Field Gun Platoon (LCAF) (Motorized AC10 3058+).blk`: no Master Unit List entry to check its BV against
+- `infantry/LCAF/Field Gun Platoon (LCAF) (Motorized AC2 3058+).blk`: no Master Unit List entry to check its BV against
+- `infantry/LCAF/Field Gun Platoon (LCAF) (Motorized AC20 3058+).blk`: no Master Unit List entry to check its BV against
+- `infantry/LCAF/Field Gun Platoon (LCAF) (Motorized AC5 3058+).blk`: no Master Unit List entry to check its BV against
+- `infantry/LCAF/Field Gun Platoon (LCAF) (Motorized RAC2 3071+).blk`: no Master Unit List entry to check its BV against
+- `infantry/LCAF/Field Gun Platoon (LCAF) (Motorized RAC5 3071+).blk`: no Master Unit List entry to check its BV against
+- `infantry/LCAF/Field Gun Platoon (LCAF) (Tracked AC10 3058+).blk`: no Master Unit List entry to check its BV against
+- `infantry/LCAF/Field Gun Platoon (LCAF) (Tracked AC2 3058+).blk`: no Master Unit List entry to check its BV against
+- `infantry/LCAF/Field Gun Platoon (LCAF) (Tracked AC20 3058+).blk`: no Master Unit List entry to check its BV against
+- `infantry/LCAF/Field Gun Platoon (LCAF) (Tracked AC5 3058+).blk`: no Master Unit List entry to check its BV against
+- `infantry/LCAF/Field Gun Platoon (LCAF) (Tracked Gauss 3058+).blk`: no Master Unit List entry to check its BV against
+- `infantry/LCAF/Field Gun Platoon (LCAF) (Tracked LBX10 3058+).blk`: no Master Unit List entry to check its BV against
+- `infantry/LCAF/Field Gun Platoon (LCAF) (Tracked LBX2 3060+).blk`: no Master Unit List entry to check its BV against
+- `infantry/LCAF/Field Gun Platoon (LCAF) (Tracked LBX20 3060+).blk`: no Master Unit List entry to check its BV against
+- `infantry/LCAF/Field Gun Platoon (LCAF) (Tracked LBX5 3060+).blk`: no Master Unit List entry to check its BV against
+- `infantry/LCAF/Field Gun Platoon (LCAF) (Tracked SB Gauss 3080+).blk`: no Master Unit List entry to check its BV against
+- `infantry/LCAF/Field Gun Platoon (LCAF) (Tracked UAC10 3060+).blk`: no Master Unit List entry to check its BV against
+- `infantry/LCAF/Field Gun Platoon (LCAF) (Tracked UAC2 3060+).blk`: no Master Unit List entry to check its BV against
+- `infantry/LCAF/Field Gun Platoon (LCAF) (Tracked UAC20 3060+).blk`: no Master Unit List entry to check its BV against
+- `infantry/LCAF/Field Gun Platoon (LCAF) (Tracked UAC5 3058+).blk`: no Master Unit List entry to check its BV against
+- `infantry/LCAF/Field Gun Platoon (LCAF) (Wheeled AC10 3058+).blk`: no Master Unit List entry to check its BV against
+- `infantry/LCAF/Field Gun Platoon (LCAF) (Wheeled AC2 3058+).blk`: no Master Unit List entry to check its BV against
+- `infantry/LCAF/Field Gun Platoon (LCAF) (Wheeled AC20 3058+).blk`: no Master Unit List entry to check its BV against
+- `infantry/LCAF/Field Gun Platoon (LCAF) (Wheeled AC5 3058+).blk`: no Master Unit List entry to check its BV against
+- `infantry/LCAF/Field Gun Platoon (LCAF) (Wheeled Gauss 3058+).blk`: no Master Unit List entry to check its BV against
+- `infantry/LCAF/Field Gun Platoon (LCAF) (Wheeled LBX10 3058+).blk`: no Master Unit List entry to check its BV against
+- `infantry/LCAF/Field Gun Platoon (LCAF) (Wheeled LBX2 3060+).blk`: no Master Unit List entry to check its BV against
+- `infantry/LCAF/Field Gun Platoon (LCAF) (Wheeled LBX20 3060+).blk`: no Master Unit List entry to check its BV against
+- `infantry/LCAF/Field Gun Platoon (LCAF) (Wheeled LBX5 3060+).blk`: no Master Unit List entry to check its BV against
+- `infantry/LCAF/Field Gun Platoon (LCAF) (Wheeled SB Gauss 3080+).blk`: no Master Unit List entry to check its BV against
+- `infantry/LCAF/Field Gun Platoon (LCAF) (Wheeled UAC10 3060+).blk`: no Master Unit List entry to check its BV against
+- `infantry/LCAF/Field Gun Platoon (LCAF) (Wheeled UAC2 3060+).blk`: no Master Unit List entry to check its BV against
+- `infantry/LCAF/Field Gun Platoon (LCAF) (Wheeled UAC20 3060+).blk`: no Master Unit List entry to check its BV against
+- `infantry/LCAF/Field Gun Platoon (LCAF) (Wheeled UAC5 3058+).blk`: no Master Unit List entry to check its BV against
+- `infantry/LCAF/Foot Platoon (LCAF) (Flamer 3058+).blk`: no Master Unit List entry to check its BV against
+- `infantry/LCAF/Foot Platoon (LCAF) (Flechette 3058+).blk`: no Master Unit List entry to check its BV against
+- `infantry/LCAF/Foot Platoon (LCAF) (Gauss 3065+).blk`: no Master Unit List entry to check its BV against
+- `infantry/LCAF/Foot Platoon (LCAF) (LRM 3065+).blk`: no Master Unit List entry to check its BV against
+- `infantry/LCAF/Foot Platoon (LCAF) (Laser 3058+).blk`: no Master Unit List entry to check its BV against
+- `infantry/LCAF/Foot Platoon (LCAF) (Laser Marine 2341+).blk`: no Master Unit List entry to check its BV against
+- `infantry/LCAF/Foot Platoon (LCAF) (Laser XCT 3057+).blk`: no Master Unit List entry to check its BV against
+- `infantry/LCAF/Foot Platoon (LCAF) (MG 3058+).blk`: no Master Unit List entry to check its BV against
+- `infantry/LCAF/Foot Platoon (LCAF) (Rifle 3058+).blk`: no Master Unit List entry to check its BV against
+- `infantry/LCAF/Foot Platoon (LCAF) (Rifle AA 3058+).blk`: no Master Unit List entry to check its BV against
+- `infantry/LCAF/Foot Platoon (LCAF) (Riot Police 3058+).blk`: no Master Unit List entry to check its BV against
+- `infantry/LCAF/Foot Platoon (LCAF) (SRM 3058+).blk`: no Master Unit List entry to check its BV against
+- `infantry/LCAF/Foot Platoon (LCAF) (Sappers 2341+).blk`: no Master Unit List entry to check its BV against
+- `infantry/LCAF/Foot Platoon (LCAF) (Sniper Detachment 2505+).blk`: no Master Unit List entry to check its BV against
+- `infantry/LCAF/Foot Platoon (LCAF) (SpecOps Fireteam 2505+).blk`: the import could not carry all of it over: 2 Laser Rifle (Blazer) per squad are over the 1 secondary weapon a squad of Paratroops may carry (TO:AUE p.153); 1 used.
+- `infantry/LCAF/Foot Platoon (LCAF) (SpecOps Fireteam 3057+).blk`: the import could not carry all of it over: 2 Laser Rifle (Blazer) per squad are over the 1 secondary weapon a squad of Paratroops may carry (TO:AUE p.153); 1 used.
+- `infantry/LCAF/Jump Platoon (LCAF) (Flamer 3058+).blk`: no Master Unit List entry to check its BV against
+- `infantry/LCAF/Jump Platoon (LCAF) (Gauss 3065+).blk`: no Master Unit List entry to check its BV against
+- `infantry/LCAF/Jump Platoon (LCAF) (LRM 3065+).blk`: no Master Unit List entry to check its BV against
+- `infantry/LCAF/Jump Platoon (LCAF) (Laser 3058+).blk`: no Master Unit List entry to check its BV against
+- `infantry/LCAF/Jump Platoon (LCAF) (MG 3058+).blk`: no Master Unit List entry to check its BV against
+- `infantry/LCAF/Jump Platoon (LCAF) (Rifle 3058+).blk`: no Master Unit List entry to check its BV against
+- `infantry/LCAF/Jump Platoon (LCAF) (SRM 3058+).blk`: no Master Unit List entry to check its BV against
+- `infantry/LCAF/Mechanized Hover Platoon (LCAF) (Flamer 3058+).blk`: no Master Unit List entry to check its BV against
+- `infantry/LCAF/Mechanized Hover Platoon (LCAF) (Gauss 3065+).blk`: no Master Unit List entry to check its BV against
+- `infantry/LCAF/Mechanized Hover Platoon (LCAF) (LRM 3065+).blk`: no Master Unit List entry to check its BV against
+- `infantry/LCAF/Mechanized Hover Platoon (LCAF) (Laser 3058+).blk`: no Master Unit List entry to check its BV against
+- `infantry/LCAF/Mechanized Hover Platoon (LCAF) (MG 3058+).blk`: no Master Unit List entry to check its BV against
+- `infantry/LCAF/Mechanized Hover Platoon (LCAF) (Rifle 3058+).blk`: no Master Unit List entry to check its BV against
+- `infantry/LCAF/Mechanized Hover Platoon (LCAF) (SRM 3058+).blk`: no Master Unit List entry to check its BV against
+- `infantry/LCAF/Mechanized Tracked Platoon (LCAF) (Combat Engineers 3058+).blk`: no Master Unit List entry to check its BV against
+- `infantry/LCAF/Mechanized Tracked Platoon (LCAF) (Flamer 3058+).blk`: no Master Unit List entry to check its BV against
+- `infantry/LCAF/Mechanized Tracked Platoon (LCAF) (Gauss 3065+).blk`: no Master Unit List entry to check its BV against
+- `infantry/LCAF/Mechanized Tracked Platoon (LCAF) (Gauss 3074+).blk`: no Master Unit List entry to check its BV against
+- `infantry/LCAF/Mechanized Tracked Platoon (LCAF) (LRM 3065+).blk`: no Master Unit List entry to check its BV against
+- `infantry/LCAF/Mechanized Tracked Platoon (LCAF) (Laser 3058+).blk`: no Master Unit List entry to check its BV against
+- `infantry/LCAF/Mechanized Tracked Platoon (LCAF) (MG 3058+).blk`: no Master Unit List entry to check its BV against
+- `infantry/LCAF/Mechanized Tracked Platoon (LCAF) (Rifle 3058+).blk`: no Master Unit List entry to check its BV against
+- `infantry/LCAF/Mechanized Tracked Platoon (LCAF) (Rifle AA 3058+).blk`: no Master Unit List entry to check its BV against
+- `infantry/LCAF/Mechanized Tracked Platoon (LCAF) (SRM 3058+).blk`: no Master Unit List entry to check its BV against
+- `infantry/LCAF/Mechanized Tracked Platoon (LCAF) (Sappers 2341+).blk`: no Master Unit List entry to check its BV against
+- `infantry/LCAF/Mechanized Wheeled Platoon (LCAF) (Combat Engineers 3058+).blk`: no Master Unit List entry to check its BV against
+- `infantry/LCAF/Mechanized Wheeled Platoon (LCAF) (Flamer 3058+).blk`: no Master Unit List entry to check its BV against
+- `infantry/LCAF/Mechanized Wheeled Platoon (LCAF) (Gauss 3065+).blk`: no Master Unit List entry to check its BV against
+- `infantry/LCAF/Mechanized Wheeled Platoon (LCAF) (Gauss 3074+).blk`: no Master Unit List entry to check its BV against
+- `infantry/LCAF/Mechanized Wheeled Platoon (LCAF) (LRM 3065+).blk`: no Master Unit List entry to check its BV against
+- `infantry/LCAF/Mechanized Wheeled Platoon (LCAF) (Laser 3058+).blk`: no Master Unit List entry to check its BV against
+- `infantry/LCAF/Mechanized Wheeled Platoon (LCAF) (Laser XCT 3057+).blk`: no Master Unit List entry to check its BV against
+- `infantry/LCAF/Mechanized Wheeled Platoon (LCAF) (MG 3058+).blk`: no Master Unit List entry to check its BV against
+- `infantry/LCAF/Mechanized Wheeled Platoon (LCAF) (Rifle 3058+).blk`: no Master Unit List entry to check its BV against
+- `infantry/LCAF/Mechanized Wheeled Platoon (LCAF) (Rifle AA 3058+).blk`: no Master Unit List entry to check its BV against
+- `infantry/LCAF/Mechanized Wheeled Platoon (LCAF) (SRM 3058+).blk`: no Master Unit List entry to check its BV against
+- `infantry/LCAF/Motorized Platoon (LCAF) (Combat Engineers 3058+).blk`: no Master Unit List entry to check its BV against
+- `infantry/LCAF/Motorized Platoon (LCAF) (Flamer 3058+).blk`: no Master Unit List entry to check its BV against
+- `infantry/LCAF/Motorized Platoon (LCAF) (Flechette 3058+).blk`: no Master Unit List entry to check its BV against
+- `infantry/LCAF/Motorized Platoon (LCAF) (Gauss 3065+).blk`: no Master Unit List entry to check its BV against
+- `infantry/LCAF/Motorized Platoon (LCAF) (LRM 3065+).blk`: no Master Unit List entry to check its BV against
+- `infantry/LCAF/Motorized Platoon (LCAF) (Laser 3058+).blk`: no Master Unit List entry to check its BV against
+- `infantry/LCAF/Motorized Platoon (LCAF) (Laser XCT 3057+).blk`: no Master Unit List entry to check its BV against
+- `infantry/LCAF/Motorized Platoon (LCAF) (MG 3058+).blk`: no Master Unit List entry to check its BV against
+- `infantry/LCAF/Motorized Platoon (LCAF) (Rifle 3058+).blk`: no Master Unit List entry to check its BV against
+- `infantry/LCAF/Motorized Platoon (LCAF) (Rifle AA 3058+).blk`: no Master Unit List entry to check its BV against
+- `infantry/LCAF/Motorized Platoon (LCAF) (Riot Police 3058+).blk`: no Master Unit List entry to check its BV against
+- `infantry/LCAF/Motorized Platoon (LCAF) (SRM 3058+).blk`: no Master Unit List entry to check its BV against
+- `infantry/LCAF/Motorized Platoon (LCAF) (Sappers 2341+).blk`: no Master Unit List entry to check its BV against
+- `infantry/MHAF/Field Artillery Century (MHAF) (Motorized Long Tom 3049+).blk`: no Master Unit List entry to check its BV against
+- `infantry/MHAF/Field Artillery Century (MHAF) (Motorized Long Tom).blk`: no Master Unit List entry to check its BV against
+- `infantry/MHAF/Field Artillery Century (MHAF) (Motorized Sniper 3049+).blk`: no Master Unit List entry to check its BV against
+- `infantry/MHAF/Field Artillery Century (MHAF) (Motorized Sniper).blk`: no Master Unit List entry to check its BV against
+- `infantry/MHAF/Field Artillery Century (MHAF) (Motorized Thumper 3049+).blk`: no Master Unit List entry to check its BV against
+- `infantry/MHAF/Field Artillery Century (MHAF) (Motorized Thumper).blk`: no Master Unit List entry to check its BV against
+- `infantry/MHAF/Field Artillery Century (MHAF) (Tracked Arrow IV).blk`: no Master Unit List entry to check its BV against
+- `infantry/MHAF/Field Artillery Century (MHAF) (Tracked Sniper 3049+).blk`: no Master Unit List entry to check its BV against
+- `infantry/MHAF/Field Artillery Century (MHAF) (Tracked Sniper Cannon).blk`: no Master Unit List entry to check its BV against
+- `infantry/MHAF/Field Artillery Century (MHAF) (Tracked Sniper).blk`: no Master Unit List entry to check its BV against
+- `infantry/MHAF/Field Artillery Century (MHAF) (Tracked Thumper 3049+).blk`: no Master Unit List entry to check its BV against
+- `infantry/MHAF/Field Artillery Century (MHAF) (Tracked Thumper Cannon).blk`: no Master Unit List entry to check its BV against
+- `infantry/MHAF/Field Artillery Century (MHAF) (Tracked Thumper).blk`: no Master Unit List entry to check its BV against
+- `infantry/MHAF/Field Artillery Century (MHAF) (Wheeled Sniper 3049+).blk`: no Master Unit List entry to check its BV against
+- `infantry/MHAF/Field Artillery Century (MHAF) (Wheeled Sniper Cannon).blk`: no Master Unit List entry to check its BV against
+- `infantry/MHAF/Field Artillery Century (MHAF) (Wheeled Sniper).blk`: no Master Unit List entry to check its BV against
+- `infantry/MHAF/Field Artillery Century (MHAF) (Wheeled Thumper 3049+).blk`: no Master Unit List entry to check its BV against
+- `infantry/MHAF/Field Artillery Century (MHAF) (Wheeled Thumper Cannon).blk`: no Master Unit List entry to check its BV against
+- `infantry/MHAF/Field Artillery Century (MHAF) (Wheeled Thumper).blk`: no Master Unit List entry to check its BV against
+- `infantry/MHAF/Field Gun Century (MHAF) (Motorized AC10 3049+).blk`: no Master Unit List entry to check its BV against
+- `infantry/MHAF/Field Gun Century (MHAF) (Motorized AC10).blk`: no Master Unit List entry to check its BV against
+- `infantry/MHAF/Field Gun Century (MHAF) (Motorized AC2 3049+).blk`: no Master Unit List entry to check its BV against
+- `infantry/MHAF/Field Gun Century (MHAF) (Motorized AC2).blk`: no Master Unit List entry to check its BV against
+- `infantry/MHAF/Field Gun Century (MHAF) (Motorized AC20 3049+).blk`: no Master Unit List entry to check its BV against
+- `infantry/MHAF/Field Gun Century (MHAF) (Motorized AC20).blk`: no Master Unit List entry to check its BV against
+- `infantry/MHAF/Field Gun Century (MHAF) (Motorized AC5 3049+).blk`: no Master Unit List entry to check its BV against
+- `infantry/MHAF/Field Gun Century (MHAF) (Motorized AC5).blk`: no Master Unit List entry to check its BV against
+- `infantry/MHAF/Field Gun Century (MHAF) (Motorized Heavy Cannon).blk`: no Master Unit List entry to check its BV against
+- `infantry/MHAF/Field Gun Century (MHAF) (Motorized LAC2).blk`: no Master Unit List entry to check its BV against
+- `infantry/MHAF/Field Gun Century (MHAF) (Motorized LAC5).blk`: no Master Unit List entry to check its BV against
+- `infantry/MHAF/Field Gun Century (MHAF) (Motorized Light Cannon).blk`: no Master Unit List entry to check its BV against
+- `infantry/MHAF/Field Gun Century (MHAF) (Motorized Medium Cannon).blk`: no Master Unit List entry to check its BV against
+- `infantry/MHAF/Field Gun Century (MHAF) (Tracked AC10 3049+).blk`: no Master Unit List entry to check its BV against
+- `infantry/MHAF/Field Gun Century (MHAF) (Tracked AC10).blk`: no Master Unit List entry to check its BV against
+- `infantry/MHAF/Field Gun Century (MHAF) (Tracked AC2 3049+).blk`: no Master Unit List entry to check its BV against
+- `infantry/MHAF/Field Gun Century (MHAF) (Tracked AC2).blk`: no Master Unit List entry to check its BV against
+- `infantry/MHAF/Field Gun Century (MHAF) (Tracked AC20 3049+).blk`: no Master Unit List entry to check its BV against
+- `infantry/MHAF/Field Gun Century (MHAF) (Tracked AC20).blk`: no Master Unit List entry to check its BV against
+- `infantry/MHAF/Field Gun Century (MHAF) (Tracked AC5 3049+).blk`: no Master Unit List entry to check its BV against
+- `infantry/MHAF/Field Gun Century (MHAF) (Tracked AC5).blk`: no Master Unit List entry to check its BV against
+- `infantry/MHAF/Field Gun Century (MHAF) (Tracked LBX10).blk`: no Master Unit List entry to check its BV against
+- `infantry/MHAF/Field Gun Century (MHAF) (Tracked Light Gauss).blk`: no Master Unit List entry to check its BV against
+- `infantry/MHAF/Field Gun Century (MHAF) (Tracked UAC10).blk`: no Master Unit List entry to check its BV against
+- `infantry/MHAF/Field Gun Century (MHAF) (Tracked UAC5).blk`: no Master Unit List entry to check its BV against
+- `infantry/MHAF/Field Gun Century (MHAF) (Wheeled AC10 3049+).blk`: no Master Unit List entry to check its BV against
+- `infantry/MHAF/Field Gun Century (MHAF) (Wheeled AC10).blk`: no Master Unit List entry to check its BV against
+- `infantry/MHAF/Field Gun Century (MHAF) (Wheeled AC2 3049+).blk`: no Master Unit List entry to check its BV against
+- `infantry/MHAF/Field Gun Century (MHAF) (Wheeled AC2).blk`: no Master Unit List entry to check its BV against
+- `infantry/MHAF/Field Gun Century (MHAF) (Wheeled AC20 3049+).blk`: no Master Unit List entry to check its BV against
+- `infantry/MHAF/Field Gun Century (MHAF) (Wheeled AC20).blk`: no Master Unit List entry to check its BV against
+- `infantry/MHAF/Field Gun Century (MHAF) (Wheeled AC5 3049+).blk`: no Master Unit List entry to check its BV against
+- `infantry/MHAF/Field Gun Century (MHAF) (Wheeled AC5).blk`: no Master Unit List entry to check its BV against
+- `infantry/MHAF/Field Gun Century (MHAF) (Wheeled Heavy Cannon).blk`: no Master Unit List entry to check its BV against
+- `infantry/MHAF/Field Gun Century (MHAF) (Wheeled LAC2).blk`: no Master Unit List entry to check its BV against
+- `infantry/MHAF/Field Gun Century (MHAF) (Wheeled LAC5).blk`: no Master Unit List entry to check its BV against
+- `infantry/MHAF/Field Gun Century (MHAF) (Wheeled Light Cannon).blk`: no Master Unit List entry to check its BV against
+- `infantry/MHAF/Field Gun Century (MHAF) (Wheeled Medium Cannon).blk`: no Master Unit List entry to check its BV against
+- `infantry/MHAF/Foot Contubernium (MHAF) (Command 3049+).blk`: no Master Unit List entry to check its BV against
+- `infantry/MHAF/Foot Contubernium (MHAF) (Command).blk`: no Master Unit List entry to check its BV against
+- `infantry/MHAF/Foot Contubernium (MHAF) (Rifle).blk`: no Master Unit List entry to check its BV against
+- `infantry/MHAF/Foot Duplus Contubernium (MHAF) (Flamer 3049+).blk`: no Master Unit List entry to check its BV against
+- `infantry/MHAF/Foot Duplus Contubernium (MHAF) (Flamer).blk`: no Master Unit List entry to check its BV against
+- `infantry/MHAF/Foot Duplus Contubernium (MHAF) (LRM 3049+).blk`: no Master Unit List entry to check its BV against
+- `infantry/MHAF/Foot Duplus Contubernium (MHAF) (LRM).blk`: no Master Unit List entry to check its BV against
+- `infantry/MHAF/Foot Duplus Contubernium (MHAF) (Laser 3049+).blk`: no Master Unit List entry to check its BV against
+- `infantry/MHAF/Foot Duplus Contubernium (MHAF) (Laser).blk`: no Master Unit List entry to check its BV against
+- `infantry/MHAF/Foot Duplus Contubernium (MHAF) (MG 3049+).blk`: no Master Unit List entry to check its BV against
+- `infantry/MHAF/Foot Duplus Contubernium (MHAF) (MG).blk`: no Master Unit List entry to check its BV against
+- `infantry/MHAF/Foot Duplus Contubernium (MHAF) (Rifle 3049+).blk`: no Master Unit List entry to check its BV against
+- `infantry/MHAF/Foot Duplus Contubernium (MHAF) (Rifle).blk`: no Master Unit List entry to check its BV against
+- `infantry/MHAF/Foot Duplus Contubernium (MHAF) (SRM 3049+).blk`: no Master Unit List entry to check its BV against
+- `infantry/MHAF/Foot Duplus Contubernium (MHAF) (SRM).blk`: no Master Unit List entry to check its BV against
+- `infantry/MHAF/Foot Triplus Contubernium (MHAF) (Flamer 3049).blk`: no Master Unit List entry to check its BV against
+- `infantry/MHAF/Foot Triplus Contubernium (MHAF) (Flamer).blk`: no Master Unit List entry to check its BV against
+- `infantry/MHAF/Foot Triplus Contubernium (MHAF) (LRM 3049+).blk`: no Master Unit List entry to check its BV against
+- `infantry/MHAF/Foot Triplus Contubernium (MHAF) (LRM).blk`: no Master Unit List entry to check its BV against
+- `infantry/MHAF/Foot Triplus Contubernium (MHAF) (Laser 3049+).blk`: no Master Unit List entry to check its BV against
+- `infantry/MHAF/Foot Triplus Contubernium (MHAF) (Laser).blk`: no Master Unit List entry to check its BV against
+- `infantry/MHAF/Foot Triplus Contubernium (MHAF) (MG 3049+).blk`: no Master Unit List entry to check its BV against
+- `infantry/MHAF/Foot Triplus Contubernium (MHAF) (MG).blk`: no Master Unit List entry to check its BV against
+- `infantry/MHAF/Foot Triplus Contubernium (MHAF) (Rifle 3049+).blk`: no Master Unit List entry to check its BV against
+- `infantry/MHAF/Foot Triplus Contubernium (MHAF) (Rifle).blk`: no Master Unit List entry to check its BV against
+- `infantry/MHAF/Foot Triplus Contubernium (MHAF) (SRM 3049+).blk`: no Master Unit List entry to check its BV against
+- `infantry/MHAF/Foot Triplus Contubernium (MHAF) (SRM).blk`: no Master Unit List entry to check its BV against
+- `infantry/MHAF/Jump Contubernium (MHAF) (Command 3049+).blk`: no Master Unit List entry to check its BV against
+- `infantry/MHAF/Jump Contubernium (MHAF) (Command).blk`: no Master Unit List entry to check its BV against
+- `infantry/MHAF/Jump Duplus Contubernium (MHAF) (Flamer 3049+).blk`: no Master Unit List entry to check its BV against
+- `infantry/MHAF/Jump Duplus Contubernium (MHAF) (Flamer).blk`: no Master Unit List entry to check its BV against
+- `infantry/MHAF/Jump Duplus Contubernium (MHAF) (LRM 3049+).blk`: no Master Unit List entry to check its BV against
+- `infantry/MHAF/Jump Duplus Contubernium (MHAF) (LRM).blk`: no Master Unit List entry to check its BV against
+- `infantry/MHAF/Jump Duplus Contubernium (MHAF) (Laser 3049+).blk`: no Master Unit List entry to check its BV against
+- `infantry/MHAF/Jump Duplus Contubernium (MHAF) (Laser).blk`: no Master Unit List entry to check its BV against
+- `infantry/MHAF/Jump Duplus Contubernium (MHAF) (MG 3049+).blk`: no Master Unit List entry to check its BV against
+- `infantry/MHAF/Jump Duplus Contubernium (MHAF) (MG).blk`: no Master Unit List entry to check its BV against
+- `infantry/MHAF/Jump Duplus Contubernium (MHAF) (Rifle 3049+).blk`: no Master Unit List entry to check its BV against
+- `infantry/MHAF/Jump Duplus Contubernium (MHAF) (Rifle).blk`: no Master Unit List entry to check its BV against
+- `infantry/MHAF/Jump Duplus Contubernium (MHAF) (SRM 3049+).blk`: no Master Unit List entry to check its BV against
+- `infantry/MHAF/Jump Duplus Contubernium (MHAF) (SRM).blk`: no Master Unit List entry to check its BV against
+- `infantry/MHAF/Jump Triplus Contubernium (MHAF) (Flamer 3049+).blk`: no Master Unit List entry to check its BV against
+- `infantry/MHAF/Jump Triplus Contubernium (MHAF) (Flamer).blk`: no Master Unit List entry to check its BV against
+- `infantry/MHAF/Jump Triplus Contubernium (MHAF) (LRM 3049+).blk`: no Master Unit List entry to check its BV against
+- `infantry/MHAF/Jump Triplus Contubernium (MHAF) (LRM).blk`: no Master Unit List entry to check its BV against
+- `infantry/MHAF/Jump Triplus Contubernium (MHAF) (Laser 3049+).blk`: no Master Unit List entry to check its BV against
+- `infantry/MHAF/Jump Triplus Contubernium (MHAF) (Laser).blk`: no Master Unit List entry to check its BV against
+- `infantry/MHAF/Jump Triplus Contubernium (MHAF) (MG 3049+).blk`: no Master Unit List entry to check its BV against
+- `infantry/MHAF/Jump Triplus Contubernium (MHAF) (MG).blk`: no Master Unit List entry to check its BV against
+- `infantry/MHAF/Jump Triplus Contubernium (MHAF) (SRM 3049+).blk`: no Master Unit List entry to check its BV against
+- `infantry/MHAF/Jump Triplus Contubernium (MHAF) (SRM).blk`: no Master Unit List entry to check its BV against
+- `infantry/MHAF/Motorized Duplus Contubernium (MHAF) (Flamer 3049+).blk`: no Master Unit List entry to check its BV against
+- `infantry/MHAF/Motorized Duplus Contubernium (MHAF) (Flamer).blk`: no Master Unit List entry to check its BV against
+- `infantry/MHAF/Motorized Duplus Contubernium (MHAF) (LRM 3049+).blk`: no Master Unit List entry to check its BV against
+- `infantry/MHAF/Motorized Duplus Contubernium (MHAF) (LRM).blk`: no Master Unit List entry to check its BV against
+- `infantry/MHAF/Motorized Duplus Contubernium (MHAF) (Laser 3049+).blk`: no Master Unit List entry to check its BV against
+- `infantry/MHAF/Motorized Duplus Contubernium (MHAF) (Laser).blk`: no Master Unit List entry to check its BV against
+- `infantry/MHAF/Motorized Duplus Contubernium (MHAF) (MG 3049+).blk`: no Master Unit List entry to check its BV against
+- `infantry/MHAF/Motorized Duplus Contubernium (MHAF) (MG).blk`: no Master Unit List entry to check its BV against
+- `infantry/MHAF/Motorized Duplus Contubernium (MHAF) (Rifle 3049+).blk`: no Master Unit List entry to check its BV against
+- `infantry/MHAF/Motorized Duplus Contubernium (MHAF) (Rifle).blk`: no Master Unit List entry to check its BV against
+- `infantry/MHAF/Motorized Duplus Contubernium (MHAF) (SRM 3049+).blk`: no Master Unit List entry to check its BV against
+- `infantry/MHAF/Motorized Duplus Contubernium (MHAF) (SRM).blk`: no Master Unit List entry to check its BV against
+- `infantry/MHAF/Motorized Triplus Contubernium (MHAF) (Flamer 3049+).blk`: no Master Unit List entry to check its BV against
+- `infantry/MHAF/Motorized Triplus Contubernium (MHAF) (Flamer).blk`: no Master Unit List entry to check its BV against
+- `infantry/MHAF/Motorized Triplus Contubernium (MHAF) (LRM 3049+).blk`: no Master Unit List entry to check its BV against
+- `infantry/MHAF/Motorized Triplus Contubernium (MHAF) (LRM).blk`: no Master Unit List entry to check its BV against
+- `infantry/MHAF/Motorized Triplus Contubernium (MHAF) (Laser 3049+).blk`: no Master Unit List entry to check its BV against
+- `infantry/MHAF/Motorized Triplus Contubernium (MHAF) (Laser).blk`: no Master Unit List entry to check its BV against
+- `infantry/MHAF/Motorized Triplus Contubernium (MHAF) (MG 3049+).blk`: no Master Unit List entry to check its BV against
+- `infantry/MHAF/Motorized Triplus Contubernium (MHAF) (MG).blk`: no Master Unit List entry to check its BV against
+- `infantry/MHAF/Motorized Triplus Contubernium (MHAF) (Rifle 3049+).blk`: no Master Unit List entry to check its BV against
+- `infantry/MHAF/Motorized Triplus Contubernium (MHAF) (Rifle).blk`: no Master Unit List entry to check its BV against
+- `infantry/MHAF/Motorized Triplus Contubernium (MHAF) (SRM 3049+).blk`: no Master Unit List entry to check its BV against
+- `infantry/MHAF/Motorized Triplus Contubernium (MHAF) (SRM).blk`: no Master Unit List entry to check its BV against
+- `infantry/Mobs/Mob (Huge).blk`: no Master Unit List entry to check its BV against
+- `infantry/Mobs/Mob (Large).blk`: no Master Unit List entry to check its BV against
+- `infantry/Mobs/Mob (Medium).blk`: no Master Unit List entry to check its BV against
+- `infantry/Mobs/Mob (Small).blk`: no Master Unit List entry to check its BV against
+- `infantry/Mobs/VIP.blk`: no Master Unit List entry to check its BV against
+- `infantry/Support Units/Clan Support Person (1 person).blk`: no Master Unit List entry to check its BV against
+- `infantry/Support Units/Clan Support Point (25 person).blk`: no Master Unit List entry to check its BV against
+- `infantry/Support Units/Clan Support Squad (2 person).blk`: no Master Unit List entry to check its BV against
+- `infantry/Support Units/Clan Support Squad (3 person).blk`: no Master Unit List entry to check its BV against
+- `infantry/Support Units/Clan Support Squad (4 person).blk`: no Master Unit List entry to check its BV against
+- `infantry/Support Units/Clan Support Squad (5 person).blk`: no Master Unit List entry to check its BV against
+- `infantry/Support Units/Clan Support Squad (6 person).blk`: no Master Unit List entry to check its BV against
+- `infantry/Support Units/Clan Support Squad (7 person).blk`: no Master Unit List entry to check its BV against
+- `infantry/Support Units/ComStar Support Level I (18 person).blk`: no Master Unit List entry to check its BV against
+- `infantry/Support Units/ComStar Support Person (1 person).blk`: no Master Unit List entry to check its BV against
+- `infantry/Support Units/ComStar Support Squad (2 person).blk`: no Master Unit List entry to check its BV against
+- `infantry/Support Units/ComStar Support Squad (3 person).blk`: no Master Unit List entry to check its BV against
+- `infantry/Support Units/ComStar Support Squad (4 person).blk`: no Master Unit List entry to check its BV against
+- `infantry/Support Units/ComStar Support Squad (5 person).blk`: no Master Unit List entry to check its BV against
+- `infantry/Support Units/ComStar Support Squad (6 person).blk`: no Master Unit List entry to check its BV against
+- `infantry/Support Units/ComStar Support Squad (7 person).blk`: no Master Unit List entry to check its BV against
+- `infantry/Support Units/Support Person (1 person).blk`: no Master Unit List entry to check its BV against
+- `infantry/Support Units/Support Platoon (28 person).blk`: no Master Unit List entry to check its BV against
+- `infantry/Support Units/Support Squad (2 person).blk`: no Master Unit List entry to check its BV against
+- `infantry/Support Units/Support Squad (3 person).blk`: no Master Unit List entry to check its BV against
+- `infantry/Support Units/Support Squad (4 person).blk`: no Master Unit List entry to check its BV against
+- `infantry/Support Units/Support Squad (5 person).blk`: no Master Unit List entry to check its BV against
+- `infantry/Support Units/Support Squad (6 person).blk`: no Master Unit List entry to check its BV against
+- `infantry/Support Units/Support Squad (7 person).blk`: no Master Unit List entry to check its BV against
+- `infantry/TP Vega 3039/Field Gun Infantry AC10.blk`: BV differs from the MUL: BV 293, MUL 234
+- `infantry/TW/AntiMek Trained/Clan Foot Point AMT (Flamer).blk`: no Master Unit List entry to check its BV against
+- `infantry/TW/AntiMek Trained/Clan Foot Point AMT (LRM).blk`: no Master Unit List entry to check its BV against
+- `infantry/TW/AntiMek Trained/Clan Foot Point AMT (Laser).blk`: no Master Unit List entry to check its BV against
+- `infantry/TW/AntiMek Trained/Clan Foot Point AMT (MG).blk`: no Master Unit List entry to check its BV against
+- `infantry/TW/AntiMek Trained/Clan Foot Point AMT (Rifle).blk`: no Master Unit List entry to check its BV against
+- `infantry/TW/AntiMek Trained/Clan Foot Point AMT (SRM).blk`: no Master Unit List entry to check its BV against
+- `infantry/TW/AntiMek Trained/Clan Foot Squad AMT (Flamer).blk`: no Master Unit List entry to check its BV against
+- `infantry/TW/AntiMek Trained/Clan Foot Squad AMT (LRM).blk`: no Master Unit List entry to check its BV against
+- `infantry/TW/AntiMek Trained/Clan Foot Squad AMT (Laser).blk`: no Master Unit List entry to check its BV against
+- `infantry/TW/AntiMek Trained/Clan Foot Squad AMT (MG).blk`: no Master Unit List entry to check its BV against
+- `infantry/TW/AntiMek Trained/Clan Foot Squad AMT (Rifle).blk`: no Master Unit List entry to check its BV against
+- `infantry/TW/AntiMek Trained/Clan Foot Squad AMT (SRM).blk`: no Master Unit List entry to check its BV against
+- `infantry/TW/AntiMek Trained/Foot Platoon AMT (Flamer).blk`: no Master Unit List entry to check its BV against
+- `infantry/TW/AntiMek Trained/Foot Platoon AMT (LRM).blk`: no Master Unit List entry to check its BV against
+- `infantry/TW/AntiMek Trained/Foot Platoon AMT (Laser).blk`: no Master Unit List entry to check its BV against
+- `infantry/TW/AntiMek Trained/Foot Platoon AMT (MG).blk`: no Master Unit List entry to check its BV against
+- `infantry/TW/AntiMek Trained/Foot Platoon AMT (Rifle).blk`: no Master Unit List entry to check its BV against
+- `infantry/TW/AntiMek Trained/Foot Platoon AMT (SRM).blk`: no Master Unit List entry to check its BV against
+- `infantry/TW/AntiMek Trained/Foot Squad AMT (Flamer).blk`: no Master Unit List entry to check its BV against
+- `infantry/TW/AntiMek Trained/Foot Squad AMT (LRM).blk`: no Master Unit List entry to check its BV against
+- `infantry/TW/AntiMek Trained/Foot Squad AMT (Laser).blk`: no Master Unit List entry to check its BV against
+- `infantry/TW/AntiMek Trained/Foot Squad AMT (MG).blk`: no Master Unit List entry to check its BV against
+- `infantry/TW/AntiMek Trained/Foot Squad AMT (Rifle).blk`: no Master Unit List entry to check its BV against
+- `infantry/TW/AntiMek Trained/Foot Squad AMT (SRM).blk`: no Master Unit List entry to check its BV against
+- `infantry/TW/Clan Points/Clan Mechanized Hover Point (Flamer).blk`: BV differs from the MUL: BV 86, MUL 60
+- `infantry/TW/Clan Points/Clan Mechanized Hover Point (LRM).blk`: BV differs from the MUL: BV 80, MUL 56
+- `infantry/TW/Clan Points/Clan Mechanized Hover Point (Laser).blk`: BV differs from the MUL: BV 101, MUL 70
+- `infantry/TW/Clan Points/Clan Mechanized Hover Point (MG).blk`: BV differs from the MUL: BV 97, MUL 68
+- `infantry/TW/Clan Points/Clan Mechanized Hover Point (Rifle).blk`: BV differs from the MUL: BV 104, MUL 73
+- `infantry/TW/Clan Points/Clan Mechanized Hover Point (SRM).blk`: BV differs from the MUL: BV 77, MUL 54
+- `infantry/TW/Clan Points/Clan Mechanized Tracked Point (Flamer).blk`: BV differs from the MUL: BV 105, MUL 94
+- `infantry/TW/Clan Points/Clan Mechanized Tracked Point (LRM).blk`: BV differs from the MUL: BV 102, MUL 92
+- `infantry/TW/Clan Points/Clan Mechanized Tracked Point (Laser).blk`: BV differs from the MUL: BV 110, MUL 99
+- `infantry/TW/Clan Points/Clan Mechanized Tracked Point (MG).blk`: BV differs from the MUL: BV 116, MUL 105
+- `infantry/TW/Clan Points/Clan Mechanized Tracked Point (Rifle).blk`: BV differs from the MUL: BV 113, MUL 102
+- `infantry/TW/Clan Points/Clan Mechanized Tracked Point (SRM).blk`: BV differs from the MUL: BV 123, MUL 111
+- `infantry/TW/Clan Points/Clan Mechanized Wheeled Point (Flamer).blk`: BV differs from the MUL: BV 84, MUL 67
+- `infantry/TW/Clan Points/Clan Mechanized Wheeled Point (LRM).blk`: BV differs from the MUL: BV 76, MUL 61
+- `infantry/TW/Clan Points/Clan Mechanized Wheeled Point (Laser).blk`: BV differs from the MUL: BV 91, MUL 73
+- `infantry/TW/Clan Points/Clan Mechanized Wheeled Point (MG).blk`: BV differs from the MUL: BV 93, MUL 74
+- `infantry/TW/Clan Points/Clan Mechanized Wheeled Point (Rifle).blk`: BV differs from the MUL: BV 94, MUL 75
+- `infantry/TW/Clan Points/Clan Mechanized Wheeled Point (SRM).blk`: BV differs from the MUL: BV 99, MUL 79
+- `infantry/TW/Clan Points/Clan Motorized Point (Flamer).blk`: BV differs from the MUL: BV 113, MUL 90
+- `infantry/TW/Clan Points/Clan Motorized Point (LRM).blk`: BV differs from the MUL: BV 151, MUL 121
+- `infantry/TW/Clan Points/Clan Motorized Point (Laser).blk`: BV differs from the MUL: BV 138, MUL 110
+- `infantry/TW/Clan Points/Clan Motorized Point (MG).blk`: BV differs from the MUL: BV 132, MUL 106
+- `infantry/TW/Clan Points/Clan Motorized Point (Rifle).blk`: BV differs from the MUL: BV 144, MUL 115
+- `infantry/TW/Clan Points/Clan Motorized Point (SRM).blk`: BV differs from the MUL: BV 144, MUL 115
+- `infantry/TW/Clan Squads/Clan Foot Squad (Flamer).blk`: no Master Unit List entry to check its BV against
+- `infantry/TW/Clan Squads/Clan Foot Squad (LRM).blk`: no Master Unit List entry to check its BV against
+- `infantry/TW/Clan Squads/Clan Foot Squad (Laser).blk`: no Master Unit List entry to check its BV against
+- `infantry/TW/Clan Squads/Clan Foot Squad (MG).blk`: no Master Unit List entry to check its BV against
+- `infantry/TW/Clan Squads/Clan Foot Squad (Rifle).blk`: no Master Unit List entry to check its BV against
+- `infantry/TW/Clan Squads/Clan Foot Squad (SRM).blk`: no Master Unit List entry to check its BV against
+- `infantry/TW/Clan Squads/Clan Jump Squad (Flamer).blk`: no Master Unit List entry to check its BV against
+- `infantry/TW/Clan Squads/Clan Jump Squad (LRM).blk`: no Master Unit List entry to check its BV against
+- `infantry/TW/Clan Squads/Clan Jump Squad (Laser).blk`: no Master Unit List entry to check its BV against
+- `infantry/TW/Clan Squads/Clan Jump Squad (MG).blk`: no Master Unit List entry to check its BV against
+- `infantry/TW/Clan Squads/Clan Jump Squad (Rifle).blk`: no Master Unit List entry to check its BV against
+- `infantry/TW/Clan Squads/Clan Jump Squad (SRM).blk`: no Master Unit List entry to check its BV against
+- `infantry/TW/Clan Squads/Clan Mechanized Hover Squad (Flamer).blk`: no Master Unit List entry to check its BV against
+- `infantry/TW/Clan Squads/Clan Mechanized Hover Squad (LRM).blk`: no Master Unit List entry to check its BV against
+- `infantry/TW/Clan Squads/Clan Mechanized Hover Squad (Laser).blk`: no Master Unit List entry to check its BV against
+- `infantry/TW/Clan Squads/Clan Mechanized Hover Squad (MG).blk`: no Master Unit List entry to check its BV against
+- `infantry/TW/Clan Squads/Clan Mechanized Hover Squad (Rifle).blk`: no Master Unit List entry to check its BV against
+- `infantry/TW/Clan Squads/Clan Mechanized Hover Squad (SRM).blk`: no Master Unit List entry to check its BV against
+- `infantry/TW/Clan Squads/Clan Mechanized Tracked Squad (Flamer).blk`: no Master Unit List entry to check its BV against
+- `infantry/TW/Clan Squads/Clan Mechanized Tracked Squad (LRM).blk`: no Master Unit List entry to check its BV against
+- `infantry/TW/Clan Squads/Clan Mechanized Tracked Squad (Laser).blk`: no Master Unit List entry to check its BV against
+- `infantry/TW/Clan Squads/Clan Mechanized Tracked Squad (MG).blk`: no Master Unit List entry to check its BV against
+- `infantry/TW/Clan Squads/Clan Mechanized Tracked Squad (Rifle).blk`: no Master Unit List entry to check its BV against
+- `infantry/TW/Clan Squads/Clan Mechanized Tracked Squad (SRM).blk`: no Master Unit List entry to check its BV against
+- `infantry/TW/Clan Squads/Clan Mechanized Wheeled Squad (Flamer).blk`: no Master Unit List entry to check its BV against
+- `infantry/TW/Clan Squads/Clan Mechanized Wheeled Squad (LRM).blk`: no Master Unit List entry to check its BV against
+- `infantry/TW/Clan Squads/Clan Mechanized Wheeled Squad (Laser).blk`: no Master Unit List entry to check its BV against
+- `infantry/TW/Clan Squads/Clan Mechanized Wheeled Squad (MG).blk`: no Master Unit List entry to check its BV against
+- `infantry/TW/Clan Squads/Clan Mechanized Wheeled Squad (Rifle).blk`: no Master Unit List entry to check its BV against
+- `infantry/TW/Clan Squads/Clan Mechanized Wheeled Squad (SRM).blk`: no Master Unit List entry to check its BV against
+- `infantry/TW/Clan Squads/Clan Motorized Squad (Flamer).blk`: no Master Unit List entry to check its BV against
+- `infantry/TW/Clan Squads/Clan Motorized Squad (LRM).blk`: no Master Unit List entry to check its BV against
+- `infantry/TW/Clan Squads/Clan Motorized Squad (Laser).blk`: no Master Unit List entry to check its BV against
+- `infantry/TW/Clan Squads/Clan Motorized Squad (MG).blk`: no Master Unit List entry to check its BV against
+- `infantry/TW/Clan Squads/Clan Motorized Squad (Rifle).blk`: no Master Unit List entry to check its BV against
+- `infantry/TW/Clan Squads/Clan Motorized Squad (SRM).blk`: no Master Unit List entry to check its BV against
+- `infantry/TW/Generic Infantry/Bandit Motorized Point (Rifle).blk`: no Master Unit List entry to check its BV against
+- `infantry/TW/Generic Infantry/Ceremonial Platoon (Close Combat).blk`: no Master Unit List entry to check its BV against
+- `infantry/TW/Generic Infantry/Ceremonial Platoon (MG Heavy).blk`: no Master Unit List entry to check its BV against
+- `infantry/TW/Generic Infantry/Foot Platoon (LRM Heavy).blk`: no Master Unit List entry to check its BV against
+- `infantry/TW/Generic Infantry/Foot Platoon (Laser Heavy XCT).blk`: no Master Unit List entry to check its BV against
+- `infantry/TW/Generic Infantry/Foot Platoon (Laser Marine).blk`: no Master Unit List entry to check its BV against
+- `infantry/TW/Generic Infantry/Foot Platoon (Laser TAG).blk`: no Master Unit List entry to check its BV against
+- `infantry/TW/Generic Infantry/Foot Platoon (Laser XCT).blk`: no Master Unit List entry to check its BV against
+- `infantry/TW/Generic Infantry/Foot Platoon (Light Scout).blk`: no Master Unit List entry to check its BV against
+- `infantry/TW/Generic Infantry/Foot Platoon (Rifle Light).blk`: no Master Unit List entry to check its BV against
+- `infantry/TW/Generic Infantry/Foot Platoon (Rifle Mountain).blk`: no Master Unit List entry to check its BV against
+- `infantry/TW/Generic Infantry/Foot Platoon (Rifle Paratrooper).blk`: no Master Unit List entry to check its BV against
+- `infantry/TW/Generic Infantry/Foot Squad (Medic).blk`: no Master Unit List entry to check its BV against
+- `infantry/TW/Generic Infantry/Foot Stealth Platoon (Rifle Paratrooper).blk`: no Master Unit List entry to check its BV against
+- `infantry/TW/Generic Infantry/Foot Stealth Squad (Sniper Paratrooper).blk`: no Master Unit List entry to check its BV against
+- `infantry/TW/Generic Infantry/Jump Platoon (Anti-Mech) (Laser).blk`: no Master Unit List entry to check its BV against
+- `infantry/TW/Generic Infantry/Jump Platoon (GL).blk`: no Master Unit List entry to check its BV against
+- `infantry/TW/Generic Infantry/Jump Platoon (Laser Heavy).blk`: no Master Unit List entry to check its BV against
+- `infantry/TW/Generic Infantry/Jump Stealth Platoon (Laser).blk`: no Master Unit List entry to check its BV against
+- `infantry/TW/Generic Infantry/Jump Stealth Platoon (Needler Demolition).blk`: no Master Unit List entry to check its BV against
+- `infantry/TW/Generic Infantry/Mechanized Hover Platoon (Demolition).blk`: no Master Unit List entry to check its BV against
+- `infantry/TW/Generic Infantry/Mechanized Sub Platoon (SRM SCUBA).blk`: no Master Unit List entry to check its BV against
+- `infantry/TW/Generic Infantry/Mechanized Tracked Platoon (Bridging).blk`: no Master Unit List entry to check its BV against
+- `infantry/TW/Generic Infantry/Mechanized Wheeled Platoon (Laser XCT).blk`: no Master Unit List entry to check its BV against
+- `infantry/TW/Generic Infantry/Motorized Platoon (Fieldworks).blk`: no Master Unit List entry to check its BV against
+- `infantry/TW/Generic Infantry/Motorized Platoon (Firefighters).blk`: no Master Unit List entry to check its BV against
+- `infantry/TW/Generic Infantry/Motorized Platoon (Gauss Heavy).blk`: no Master Unit List entry to check its BV against
+- `infantry/TW/Generic Infantry/Motorized Platoon (Laser XCT).blk`: no Master Unit List entry to check its BV against
+- `infantry/TW/Generic Infantry/Motorized Platoon (Needler Heavy).blk`: no Master Unit List entry to check its BV against
+- `infantry/TW/Generic Infantry/Motorized Platoon (Nonlethal).blk`: no Master Unit List entry to check its BV against
+- `infantry/TW/Generic Infantry/Motorized Platoon (Plasma Heavy).blk`: no Master Unit List entry to check its BV against
+- `infantry/TW/Generic Infantry/Motorized Sub Platoon (Laser SCUBA).blk`: no Master Unit List entry to check its BV against
+- `infantry/TW/IS Platoons/Mechanized Hover Platoon (Flamer).blk`: BV differs from the MUL: BV 53, MUL 37
+- `infantry/TW/IS Platoons/Mechanized Hover Platoon (LRM).blk`: BV differs from the MUL: BV 46, MUL 32
+- `infantry/TW/IS Platoons/Mechanized Hover Platoon (Laser).blk`: BV differs from the MUL: BV 65, MUL 45
+- `infantry/TW/IS Platoons/Mechanized Hover Platoon (MG).blk`: BV differs from the MUL: BV 64, MUL 45
+- `infantry/TW/IS Platoons/Mechanized Hover Platoon (Rifle).blk`: BV differs from the MUL: BV 68, MUL 47
+- `infantry/TW/IS Platoons/Mechanized Hover Platoon (SRM).blk`: BV differs from the MUL: BV 58, MUL 41
+- `infantry/TW/IS Platoons/Mechanized Tracked Platoon (Flamer).blk`: BV differs from the MUL: BV 74, MUL 66
+- `infantry/TW/IS Platoons/Mechanized Tracked Platoon (LRM).blk`: BV differs from the MUL: BV 69, MUL 62
+- `infantry/TW/IS Platoons/Mechanized Tracked Platoon (Laser).blk`: BV differs from the MUL: BV 77, MUL 69
+- `infantry/TW/IS Platoons/Mechanized Tracked Platoon (MG).blk`: BV differs from the MUL: BV 83, MUL 75
+- `infantry/TW/IS Platoons/Mechanized Tracked Platoon (Rifle).blk`: BV differs from the MUL: BV 80, MUL 72
+- `infantry/TW/IS Platoons/Mechanized Tracked Platoon (SRM).blk`: BV differs from the MUL: BV 77, MUL 69
+- `infantry/TW/IS Platoons/Mechanized Wheeled Platoon (Flamer).blk`: BV differs from the MUL: BV 62, MUL 50
+- `infantry/TW/IS Platoons/Mechanized Wheeled Platoon (LRM).blk`: BV differs from the MUL: BV 57, MUL 46
+- `infantry/TW/IS Platoons/Mechanized Wheeled Platoon (Laser).blk`: BV differs from the MUL: BV 70, MUL 56
+- `infantry/TW/IS Platoons/Mechanized Wheeled Platoon (MG).blk`: BV differs from the MUL: BV 71, MUL 57
+- `infantry/TW/IS Platoons/Mechanized Wheeled Platoon (Rifle).blk`: BV differs from the MUL: BV 73, MUL 59
+- `infantry/TW/IS Platoons/Mechanized Wheeled Platoon (SRM).blk`: BV differs from the MUL: BV 66, MUL 52
+- `infantry/TW/IS Platoons/Motorized Platoon (Flamer).blk`: BV differs from the MUL: BV 89, MUL 71
+- `infantry/TW/IS Platoons/Motorized Platoon (LRM).blk`: BV differs from the MUL: BV 91, MUL 72
+- `infantry/TW/IS Platoons/Motorized Platoon (Laser).blk`: BV differs from the MUL: BV 108, MUL 86
+- `infantry/TW/IS Platoons/Motorized Platoon (MG).blk`: BV differs from the MUL: BV 104, MUL 83
+- `infantry/TW/IS Platoons/Motorized Platoon (Rifle).blk`: BV differs from the MUL: BV 115, MUL 92
+- `infantry/TW/IS Platoons/Motorized Platoon (SRM).blk`: BV differs from the MUL: BV 99, MUL 79
+- `infantry/TW/IS Squads/Foot Squad (Flamer).blk`: no Master Unit List entry to check its BV against
+- `infantry/TW/IS Squads/Foot Squad (LRM).blk`: no Master Unit List entry to check its BV against
+- `infantry/TW/IS Squads/Foot Squad (Laser).blk`: no Master Unit List entry to check its BV against
+- `infantry/TW/IS Squads/Foot Squad (MG).blk`: no Master Unit List entry to check its BV against
+- `infantry/TW/IS Squads/Foot Squad (Rifle).blk`: no Master Unit List entry to check its BV against
+- `infantry/TW/IS Squads/Foot Squad (SRM).blk`: no Master Unit List entry to check its BV against
+- `infantry/TW/IS Squads/Jump Squad (Flamer).blk`: no Master Unit List entry to check its BV against
+- `infantry/TW/IS Squads/Jump Squad (LRM).blk`: no Master Unit List entry to check its BV against
+- `infantry/TW/IS Squads/Jump Squad (Laser).blk`: no Master Unit List entry to check its BV against
+- `infantry/TW/IS Squads/Jump Squad (MG).blk`: no Master Unit List entry to check its BV against
+- `infantry/TW/IS Squads/Jump Squad (Rifle).blk`: no Master Unit List entry to check its BV against
+- `infantry/TW/IS Squads/Jump Squad (SRM).blk`: no Master Unit List entry to check its BV against
+- `infantry/TW/IS Squads/Mechanized Hover Squad (Flamer).blk`: no Master Unit List entry to check its BV against
+- `infantry/TW/IS Squads/Mechanized Hover Squad (LRM).blk`: no Master Unit List entry to check its BV against
+- `infantry/TW/IS Squads/Mechanized Hover Squad (Laser).blk`: no Master Unit List entry to check its BV against
+- `infantry/TW/IS Squads/Mechanized Hover Squad (MG).blk`: no Master Unit List entry to check its BV against
+- `infantry/TW/IS Squads/Mechanized Hover Squad (Rifle).blk`: no Master Unit List entry to check its BV against
+- `infantry/TW/IS Squads/Mechanized Hover Squad (SRM).blk`: no Master Unit List entry to check its BV against
+- `infantry/TW/IS Squads/Mechanized Tracked Squad (Flamer).blk`: no Master Unit List entry to check its BV against
+- `infantry/TW/IS Squads/Mechanized Tracked Squad (LRM).blk`: no Master Unit List entry to check its BV against
+- `infantry/TW/IS Squads/Mechanized Tracked Squad (Laser).blk`: no Master Unit List entry to check its BV against
+- `infantry/TW/IS Squads/Mechanized Tracked Squad (MG).blk`: no Master Unit List entry to check its BV against
+- `infantry/TW/IS Squads/Mechanized Tracked Squad (Rifle).blk`: no Master Unit List entry to check its BV against
+- `infantry/TW/IS Squads/Mechanized Tracked Squad (SRM).blk`: no Master Unit List entry to check its BV against
+- `infantry/TW/IS Squads/Mechanized Wheeled Squad (Flamer).blk`: no Master Unit List entry to check its BV against
+- `infantry/TW/IS Squads/Mechanized Wheeled Squad (LRM).blk`: no Master Unit List entry to check its BV against
+- `infantry/TW/IS Squads/Mechanized Wheeled Squad (Laser).blk`: no Master Unit List entry to check its BV against
+- `infantry/TW/IS Squads/Mechanized Wheeled Squad (MG).blk`: no Master Unit List entry to check its BV against
+- `infantry/TW/IS Squads/Mechanized Wheeled Squad (Rifle).blk`: no Master Unit List entry to check its BV against
+- `infantry/TW/IS Squads/Mechanized Wheeled Squad (SRM).blk`: no Master Unit List entry to check its BV against
+- `infantry/TW/IS Squads/Motorized Squad (Flamer).blk`: no Master Unit List entry to check its BV against
+- `infantry/TW/IS Squads/Motorized Squad (LRM).blk`: no Master Unit List entry to check its BV against
+- `infantry/TW/IS Squads/Motorized Squad (Laser).blk`: no Master Unit List entry to check its BV against
+- `infantry/TW/IS Squads/Motorized Squad (MG).blk`: no Master Unit List entry to check its BV against
+- `infantry/TW/IS Squads/Motorized Squad (Rifle).blk`: no Master Unit List entry to check its BV against
+- `infantry/TW/IS Squads/Motorized Squad (SRM).blk`: no Master Unit List entry to check its BV against
+- `infantry/Taurian Infantry/Motorized Platoon TC (Flamer).blk`: BV differs from the MUL: BV 99, MUL 79
+- `infantry/Taurian Infantry/Motorized Platoon TC (LRM).blk`: BV differs from the MUL: BV 121, MUL 97
+- `infantry/Taurian Infantry/Motorized Platoon TC (Laser).blk`: BV differs from the MUL: BV 116, MUL 92
+- `infantry/Taurian Infantry/Motorized Platoon TC (MG).blk`: BV differs from the MUL: BV 110, MUL 88
+- `infantry/Taurian Infantry/Motorized Platoon TC (Rifle).blk`: BV differs from the MUL: BV 123, MUL 98
+- `infantry/Taurian Infantry/Motorized Platoon TC (SRM).blk`: BV differs from the MUL: BV 117, MUL 94
+- `infantry/Taurian Infantry/Motorized Platoon TC 3047+ (Flamer).blk`: BV differs from the MUL: BV 99, MUL 79
+- `infantry/Taurian Infantry/Motorized Platoon TC 3047+ (LRM).blk`: BV differs from the MUL: BV 121, MUL 97
+- `infantry/Taurian Infantry/Motorized Platoon TC 3047+ (Laser).blk`: BV differs from the MUL: BV 116, MUL 92
+- `infantry/Taurian Infantry/Motorized Platoon TC 3047+ (MG).blk`: BV differs from the MUL: BV 110, MUL 88
+- `infantry/Taurian Infantry/Motorized Platoon TC 3047+ (Rifle).blk`: BV differs from the MUL: BV 123, MUL 98
+- `infantry/Taurian Infantry/Motorized Platoon TC 3047+ (SRM).blk`: BV differs from the MUL: BV 117, MUL 94

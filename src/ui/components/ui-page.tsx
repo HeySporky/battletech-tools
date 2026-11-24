@@ -10,10 +10,12 @@ export default class UIPage extends React.Component<IUIPageProps, IUIPageState> 
         return (
         <div className={this.props.appGlobals.showMobile ? "ui-page show-mobile" : "ui-page"}>
           <TopMenu current={this.props.current} sub={this.props.sub} appGlobals={this.props.appGlobals} />
-          <div className="content">
+          <main className="content">
+            {/* Each page's sections are h2s; the site's name is the page heading for screen readers. */}
+            <h1 className="visually-hidden">Jeff's BattleTech Tools</h1>
             <ShowAlerts appGlobals={this.props.appGlobals} />
             <ErrorBoundary>{this.props.children}</ErrorBoundary>
-          </div>
+          </main>
         </div>
         )
     }

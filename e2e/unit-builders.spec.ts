@@ -40,7 +40,7 @@ const builders: IBuilder[] = [
         },
     },
     { name: "Small Craft", link: "Small Craft Creator", path: "small-craft-creator", saved: "Your Saved Small Craft", sheet: /Small Craft/, card: true, cardTestId: "small-craft-as-card" },
-    { name: "JumpShips and WarShips", link: "JumpShip and WarShip Creator", path: "capital-ship-creator", saved: "Your Saved Vessels", sheet: /JumpShip Data|WarShip Data/, card: true, cardTestId: "capital-ship-as-card" },
+    { name: "JumpShips and WarShips", link: "JumpShip and WarShip Creator", path: "capital-ship-creator", saved: "Your Saved Vessels", sheet: /JumpShip Data|WarShip Data/i, card: true, cardTestId: "capital-ship-as-card" },
     { name: "buildings", link: "Building Creator", path: "building-creator", saved: "Your Saved Buildings", sheet: /Building|Structure/, card: false },
 ];
 
@@ -60,7 +60,8 @@ for (const builder of builders) {
 
         await page.goto(`classic-battletech/${builder.path}/record-sheet`);
         await expect(page.locator("body")).toContainText(builder.sheet);
-        await expect(page.locator("body")).not.toContainText("404");
+        // The 404 page's own words: a building sheet's hex map labels a hex "0404".
+        await expect(page.locator("body")).not.toContainText("404 - Not Found");
 
         if (builder.card) {
             await page.goto(`classic-battletech/${builder.path}/print-as`);

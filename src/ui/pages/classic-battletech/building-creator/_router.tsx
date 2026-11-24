@@ -7,6 +7,8 @@ import BuildingCreatorStructure from './structure';
 import BuildingCreatorEquipment from './equipment';
 import BuildingCreatorSummary from './summary';
 import BuildingCreatorRecordSheet from './record-sheet';
+import { CreatorPrintTRO, CreatorTechnicalReadoutStep } from '../../../components/creator-tro-pages';
+import { BUILDING_TRO } from '../creator-tro-configs';
 
 import type { JSX } from "react";
 
@@ -26,6 +28,9 @@ export default class BuildingCreatorRouter extends React.Component<IBuildingCrea
                 <Route path={`equipment`} element={
                     <BuildingCreatorEquipment appGlobals={this.props.appGlobals} />
                 }/>
+
+                <Route path={`technical-readout`} element={<CreatorTechnicalReadoutStep appGlobals={this.props.appGlobals} config={BUILDING_TRO} />} />
+                <Route path={`print-tro`} element={<CreatorPrintTRO appGlobals={this.props.appGlobals} config={BUILDING_TRO} />} />
 
                 <Route path={`summary`} element={
                     <BuildingCreatorSummary appGlobals={this.props.appGlobals} />

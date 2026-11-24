@@ -17,6 +17,12 @@ describe("Replacing the design in a creator", () => {
         droidless.setRulesEdition("battledroids");
         expect(designWouldBeLost(droidless, blankMech, [])).toBe(false);
         expect(designWouldBeLost(null, blankMech, [])).toBe(false);
+        // The game settings block's level and rulesets are settings, not design work (#324).
+        const levelled = new BattleMech();
+        levelled.applyGameSettings({ ...levelled.getGameSettings(2), rulesLevel: 0, rulesets: ["sample-no-clans"] });
+        expect(designWouldBeLost(levelled, blankMech, [])).toBe(false);
+        levelled.setTonnage(55);
+        expect(designWouldBeLost(levelled, blankMech, [JSON.parse(levelled.exportJSON())])).toBe(false);
     });
 
     it("offers to save first, to discard, or to cancel", () => {

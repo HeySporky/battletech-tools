@@ -1,5 +1,5 @@
 import { describe, expect, it } from "vitest";
-import { btEraOptions, findEraByTag, getClosestEraForTech, getErasForTech } from "./era-options";
+import { btEraOptions, findEraByTag, fitTechToEra, getClosestEraForTech, getErasForTech, getTechTagsForEra } from "./era-options";
 import { btTechOptions } from "./tech-options";
 
 const tags = (techTag: string) => getErasForTech(techTag).map((era) => era.tag);
@@ -7,9 +7,9 @@ const era = (tag: string) => btEraOptions.find((option) => option.tag === tag)!;
 const fromClanInvasion = ["clan-inv", "civil-war", "jihad", "early-rep", "late-rep", "dark-ages"];
 
 describe("eras by tech base", () => {
-    it("runs the Clan eras from the Star League through the Founding and Golden Years (IO:AE p.9)", () => {
+    it("runs the Clan eras from the Founding Years, never the Star League (user ruling 2026-10-21; IO:AE p.9)", () => {
         expect(tags("clan")).toEqual([
-            "star-league", "clan-founding-years", "clan-golden-years",
+            "clan-founding-years", "clan-golden-years",
             ...fromClanInvasion, "clan-post-reaving", "ilClan",
         ]);
     });
@@ -55,8 +55,35 @@ describe("eras by tech base", () => {
         expect(getClosestEraForTech(era("late-sw-lt"), "clan").tag).toBe("clan-golden-years");
         // Nothing Clan covers 2781-2799, so the next Clan era.
         expect(getClosestEraForTech(era("early-sw"), "clan").tag).toBe("clan-founding-years");
-        expect(getClosestEraForTech(era("age-of-war"), "clan").tag).toBe("star-league");
+        expect(getClosestEraForTech(era("age-of-war"), "clan").tag).toBe("clan-founding-years");
+        expect(getClosestEraForTech(era("star-league"), "clan").tag).toBe("clan-founding-years");
         expect(getClosestEraForTech(era("star-league"), "mclan").tag).toBe("clan-inv");
         expect(getClosestEraForTech(era("jihad"), "mis").tag).toBe("jihad");
+    });
+});
+
+describe("the era decides the tech base (user ruling 2026-10-21)", () => {
+    it("offers only the Inner Sphere in the Star League", () => {
+        expect(getTechTagsForEra(era("star-league"))).toEqual(["is"]);
+        expect(getTechTagsForEra(era("clan-founding-years"))).toEqual(["clan"]);
+    });
+
+    it("keeps a tech base the era allows", () => {
+        expect(fitTechToEra("mclan", era("jihad"))).toBe("mclan");
+        expect(fitTechToEra("clan", era("clan-golden-years"))).toBe("clan");
+    });
+
+    it("switches Mixed to its base, then Clan and Inner Sphere to each other", () => {
+        expect(fitTechToEra("mclan", era("clan-golden-years"))).toBe("clan");
+        expect(fitTechToEra("mis", era("star-league"))).toBe("is");
+        expect(fitTechToEra("clan", era("star-league"))).toBe("is");
+        expect(fitTechToEra("is", era("clan-founding-years"))).toBe("clan");
+        expect(fitTechToEra("mis", era("clan-golden-years"))).toBe("clan");
+        expect(fitTechToEra("mclan", era("late-sw-rn"))).toBe("is");
+    });
+
+    it("leaves the tech base alone when the era allows a limited set it is already in", () => {
+        expect(fitTechToEra("mclan", era("clan-post-reaving"))).toBe("mclan");
+        expect(fitTechToEra("mis", era("clan-post-reaving"))).toBe("mclan");
     });
 });

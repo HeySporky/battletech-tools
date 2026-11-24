@@ -94,7 +94,7 @@ describe("aerospace and large-craft armor catalog", () => {
         expect(find("heavy-ferro-aluminum")).toMatchObject({ costMultiplier: 25000, techBase: "is", prototype: 3056, introduced: 3069 });
         expect(find("primitive-aerospace-fighter")).toMatchObject({ costMultiplier: 5000, techBase: "is", techRating: "c", availability: "B-C-B-B", prototype: 2100, introduced: 2300, book: "IO:AE", page: 119 });
         expect(getAerospaceArmorPointsPerTon("primitive-aerospace-fighter", "aerospace-fighter", "is")).toBeCloseTo(10.72, 6);
-        expect(find("capital-standard")).toMatchObject({ costMultiplier: 10000, techBase: "both", book: "SO", page: 140 });
+        expect(find("capital-standard")).toMatchObject({ costMultiplier: 10000, techBase: "universal", book: "SO", page: 140 });
         expect(find("improved-ferro-aluminum")).toMatchObject({ costMultiplier: 50000, techRating: "e", availability: "E-X-E-D", prototype: 2500, introduced: 2520, extinct: 2950, reintroduced: 3052 });
         expect(find("ferro-carbide")).toMatchObject({ costMultiplier: 75000, availability: "E-F-E-D", prototype: 2550, introduced: 2570, extinct: 2950, reintroduced: 3055 });
         expect(find("lamellor-ferro-carbide")).toMatchObject({ costMultiplier: 100000, availability: "E-F-E-D", prototype: 2600, introduced: 2615, extinct: 2950, reintroduced: 3055 });

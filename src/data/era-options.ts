@@ -18,13 +18,13 @@ import { findByTag } from "./tag-match";
  */
 
 // Tech bases that can design in each era (Interstellar Operations: Alternate Eras, pp.8-11). Clan designs run
-// from the Star League through the Clan Founding Years and Golden Years, then join the Inner Sphere eras at
-// the Clan Invasion; after the Jihad, Homeworld Clan designs may also use the Post-Reaving era. Mixed Tech
+// from the Clan Founding Years through the Golden Years, then join the Inner Sphere eras at the Clan Invasion;
+// after the Jihad, Homeworld Clan designs may also use the Post-Reaving era. The Star League era is Inner Sphere
+// only: the Clans did not exist yet (user ruling 2026-10-21, replacing the 2026-09-30 decision). Mixed Tech
 // (either base) starts at the Clan Invasion: before it, Clan designs use the Clans' own copies of Star League
 // equipment.
 const IS_ONLY = ["is"];
 const CLAN_ONLY = ["clan"];
-const IS_AND_CLAN = ["is", "clan"];
 const CLAN_BASE = ["clan", "mclan"];
 const ALL_TECH = ["is", "clan", "mis", "mclan"];
 
@@ -44,7 +44,7 @@ export const btEraOptions: IEras[] = [
 		tag: "star-league",
 		yearStart: 2571,
 		yearEnd: 2780,
-		techBases: IS_AND_CLAN
+		techBases: IS_ONLY
 	},
 	{
 		id: 14,
@@ -176,6 +176,31 @@ export function getEraForYear(year: number, techTag: string): IEras | undefined 
 	return eras.find((era) => era.yearStart <= year && (era.yearEnd ?? Infinity) >= year)
 		?? eras.find((era) => era.yearStart > year)
 		?? eras[eras.length - 1];
+}
+
+/** The tech bases (tech option tags) a design in this era can use, in the era's order. */
+export function getTechTagsForEra(era: IEras): string[] {
+	return [...era.techBases];
+}
+
+// The tech base a design switches to when its era closes the current one: Mixed first to the other Mixed base,
+// then each base to its own side before the other (user ruling 2026-10-21: the era decides the tech base).
+const TECH_FALLBACKS: Record<string, string[]> = {
+	is: ["is", "mis", "clan", "mclan"],
+	mis: ["mis", "mclan", "is", "clan"],
+	clan: ["clan", "mclan", "is", "mis"],
+	mclan: ["mclan", "mis", "clan", "is"],
+};
+
+/** `techTag` when `era` allows it, else the nearest base the era does allow. */
+export function fitTechToEra(techTag: string, era: IEras): string {
+	return fitTechToBases(techTag, era.techBases);
+}
+
+/** `techTag` when it is one of `bases`, else the nearest of them (see TECH_FALLBACKS). */
+export function fitTechToBases(techTag: string, bases: string[]): string {
+	const order = TECH_FALLBACKS[techTag] ?? [techTag, ...bases];
+	return order.find((tag) => bases.includes(tag)) ?? bases[0] ?? techTag;
 }
 
 export function isEraAvailableForTech(era: IEras, techTag: string): boolean {

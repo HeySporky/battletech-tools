@@ -20,6 +20,8 @@ describe.skipIf(!dir)("SSW corpus audit", () => {
         const names = new Map<string, { kind: string; name: string; count: number; designs: string[] }>();
         const skipped = new Map<string, number>();
         const failures: { file: string; error: string }[] = [];
+        // Items the import couldn't place in the slots the file gives (#43), by name.
+        const unplaced = new Map<string, { name: string; count: number; designs: string[] }>();
         let designs = 0;
         let clean = 0;
         for (const file of listFiles(dir!)) {
@@ -34,6 +36,13 @@ describe.skipIf(!dir)("SSW corpus audit", () => {
                 const mech = new BattleMech();
                 mech.importSSWXML(xml);
                 designs++;
+                for (const item of mech.getUnallocatedCriticals()) {
+                    const name = String(item.name ?? item.tag);
+                    const entry = unplaced.get(name) ?? { name, count: 0, designs: [] };
+                    entry.count++;
+                    if (entry.designs.length < 5 && !entry.designs.includes(`${mech.name} ${mech.model}`)) entry.designs.push(`${mech.name} ${mech.model}`);
+                    unplaced.set(name, entry);
+                }
                 const unresolved = mech.getSSWUnresolved();
                 if (unresolved.length === 0) clean++;
                 for (const item of unresolved) {
@@ -50,6 +59,7 @@ describe.skipIf(!dir)("SSW corpus audit", () => {
         const report = {
             designs, clean, skipped: Object.fromEntries(skipped), failures,
             unresolved: [...names.values()].sort((a, b) => b.count - a.count),
+            unplaced: [...unplaced.values()].sort((a, b) => b.count - a.count),
         };
         writeFileSync(process.env.SSW_AUDIT_OUT ?? "ssw-audit.json", JSON.stringify(report, null, 2));
     }, 1_800_000);

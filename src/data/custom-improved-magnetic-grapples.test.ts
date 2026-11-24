@@ -1,19 +1,13 @@
 import { describe, expect, it } from "vitest";
 import { BattleMech } from "../classes/battlemech";
 import { CUSTOM_HOMEBREW_RULES_LEVEL } from "./rules-level-options";
+import { buildMech } from "../test-support/builders";
 
 // Improved Magnetic Grapples (Custom Homebrew): an upgrade on the magnetic sole plates every 'Mech has (Explorer Corps p.86).
 
 const TAG = "custom-mech-improved-magnetic-grapples";
 
-const build = (): BattleMech => {
-    const mech = new BattleMech();
-    mech.setTech("is");
-    mech.setEra("dark-ages");
-    mech.setTonnage(50);
-    mech.setWalkSpeed(4);
-    return mech;
-};
+const build = (): BattleMech => buildMech();
 const add = (mech: BattleMech) => mech.addEquipmentFromTag(TAG, "custom", "", false, undefined, "", false, [], undefined, undefined)!;
 const place = (mech: BattleMech, item: { uuid?: string }, loc: string, key: string) =>
     mech.moveCritical("un", mech.unallocatedCriticals.findIndex(critical => critical?.uuid === item.uuid), loc, (mech.getCriticals() as any)[key].findIndex((critical: unknown) => !critical));

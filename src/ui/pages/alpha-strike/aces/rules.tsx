@@ -75,7 +75,7 @@ export default class AcesRulesPage extends React.Component<IAcesRulesPageProps, 
                     Summaries only, with page numbers from the BattleTech: Aces rulebook (and Scouring Sands, marked SS).
                     Check the full wording in your own book.
                 </p>
-                <h4>Golden rules (<em>Aces</em> p.10)</h4>
+                <h3 className="h4">Golden rules (<em>Aces</em> p.10)</h3>
                 <ol>
                     {acesGoldenRules.map( ( rule, index ) => <li key={index}>{rule}</li> )}
                 </ol>
@@ -88,7 +88,7 @@ export default class AcesRulesPage extends React.Component<IAcesRulesPageProps, 
             <TextSection label="Turn Sequence">
                 <div className="row">
                     <div className="col-lg-4">
-                        <h4>Initiative (<em>Aces</em> p.32)</h4>
+                        <h3 className="h4">Initiative (<em>Aces</em> p.32)</h3>
                         <ul>
                             <li>Won Initiative last turn: {ACES_INITIATIVE_LAST_WINNER_MODIFIER}</li>
                             <li>Force commander destroyed: {ACES_INITIATIVE_COMMANDER_DESTROYED_MODIFIER}</li>
@@ -98,18 +98,18 @@ export default class AcesRulesPage extends React.Component<IAcesRulesPageProps, 
                         </ul>
                     </div>
                     <div className="col-lg-4">
-                        <h4>Movement activation (<em>Aces</em> p.11)</h4>
+                        <h3 className="h4">Movement activation (<em>Aces</em> p.11)</h3>
                         <ol>
                             {acesMovementSteps.map( ( step, index ) => <li key={index}>{step}</li> )}
                         </ol>
-                        <h4>Combat activation (<em>Aces</em> p.18)</h4>
+                        <h3 className="h4">Combat activation (<em>Aces</em> p.18)</h3>
                         <ol>
                             {acesCombatSteps.map( ( step, index ) => <li key={index}>{step}</li> )}
                         </ol>
                         <p className="aces-muted">An automated unit ignores targets it would need {ACES_MAX_AUTOMATED_TARGET_NUMBER + 1}+ to hit.</p>
                     </div>
                     <div className="col-lg-4">
-                        <h4>End Phase (<em>Aces</em> p.32)</h4>
+                        <h3 className="h4">End Phase (<em>Aces</em> p.32)</h3>
                         <ol>
                             {acesEndPhaseSteps.map( ( step, index ) => <li key={index}>{step}</li> )}
                         </ol>
@@ -142,7 +142,7 @@ export default class AcesRulesPage extends React.Component<IAcesRulesPageProps, 
             <TextSection label="Vehicles and Infantry">
                 <div className="row">
                     <div className="col-lg-6">
-                        <h4>Motive Systems Damage (<em>Aces</em> p.4)</h4>
+                        <h3 className="h4">Motive Systems Damage (<em>Aces</em> p.4)</h3>
                         <table className="table tighter-padding">
                             <thead><tr><th>2D6</th><th>Effect</th></tr></thead>
                             <tbody>
@@ -154,7 +154,7 @@ export default class AcesRulesPage extends React.Component<IAcesRulesPageProps, 
                         <p className="aces-muted">Hover and wheeled units add +{ACES_MOTIVE_HOVER_WHEELED_MODIFIER} to the roll.</p>
                     </div>
                     <div className="col-lg-6">
-                        <h4>Vehicle Critical Hits (<em>Aces</em> p.4)</h4>
+                        <h3 className="h4">Vehicle Critical Hits (<em>Aces</em> p.4)</h3>
                         <table className="table tighter-padding">
                             <thead><tr><th>2D6</th><th>Effect</th></tr></thead>
                             <tbody>
@@ -165,7 +165,7 @@ export default class AcesRulesPage extends React.Component<IAcesRulesPageProps, 
                         </table>
                     </div>
                 </div>
-                <h4>Movement costs (<em>Aces</em> pp.4-5)</h4>
+                <h3 className="h4">Movement costs (<em>Aces</em> pp.4-5)</h3>
                 <table className="table tighter-padding">
                     <thead>
                         <tr><th>Terrain</th><th>Tracked</th><th>Wheeled</th><th>Hover</th><th>Infantry</th><th>Note</th></tr>
@@ -188,13 +188,13 @@ export default class AcesRulesPage extends React.Component<IAcesRulesPageProps, 
             <TextSection label="Difficulty">
                 <div className="row">
                     <div className="col-lg-6">
-                        <h4>Single games (<em>Aces</em> p.38)</h4>
+                        <h3 className="h4">Single games (<em>Aces</em> p.38)</h3>
                         <ul>
                             {acesNonCampaignDifficulty.map( ( option ) => <li key={option.id}>{option.label}</li> )}
                         </ul>
                     </div>
                     <div className="col-lg-6">
-                        <h4>Campaigns (<em>Aces</em> pp.28-29)</h4>
+                        <h3 className="h4">Campaigns (<em>Aces</em> pp.28-29)</h3>
                         <table className="table tighter-padding">
                             <thead><tr><th>Level</th><th>PV</th><th>SP earned</th></tr></thead>
                             <tbody>
@@ -207,7 +207,7 @@ export default class AcesRulesPage extends React.Component<IAcesRulesPageProps, 
                                 ) )}
                             </tbody>
                         </table>
-                        <h4>Existing force (<em>Aces</em> p.29)</h4>
+                        <h3 className="h4">Existing force (<em>Aces</em> p.29)</h3>
                         <table className="table tighter-padding">
                             <thead><tr><th>Total Named Pilot SP</th><th>PV</th></tr></thead>
                             <tbody>
@@ -226,15 +226,15 @@ export default class AcesRulesPage extends React.Component<IAcesRulesPageProps, 
             <TextSection label="Campaign Play">
                 <div className="row">
                     <div className="col-lg-6">
-                        <h4>Required optional rules (<em>Aces</em> p.24)</h4>
+                        <h3 className="h4">Required optional rules (<em>Aces</em> p.24)</h3>
                         <ul>
                             {acesRequiredOptionalRules.map( ( rule, index ) => <li key={index}>{rule}</li> )}
                         </ul>
-                        <h4>Edge (<em>Aces</em> p.24)</h4>
+                        <h3 className="h4">Edge (<em>Aces</em> p.24)</h3>
                         <ul>
                             {acesEdgeUses.map( ( use, index ) => <li key={index}>{use}</li> )}
                         </ul>
-                        <h4>Waypoint scan range (<em>Aces</em> p.24)</h4>
+                        <h3 className="h4">Waypoint scan range (<em>Aces</em> p.24)</h3>
                         <p>
                             {ACES_WAYPOINT_SCAN_RANGE}" base
                             {acesWaypointScanRanges.map( ( scan ) => ", " + scan.ability + " " + scan.range + "\"" ).join( "" )}.
@@ -242,7 +242,7 @@ export default class AcesRulesPage extends React.Component<IAcesRulesPageProps, 
                         </p>
                     </div>
                     <div className="col-lg-6">
-                        <h4>After the sortie (<em>Aces</em> pp.33-36)</h4>
+                        <h3 className="h4">After the sortie (<em>Aces</em> pp.33-36)</h3>
                         <ul>
                             <li>Salvage Check on 2D6: {Object.keys( acesSalvageTargets ).map( ( type ) => type + " " + acesSalvageTargets[type] + "+" ).join( ", " )}</li>
                             <li>Crew roll on 2D6: {acesCrewTable.map( ( row ) => rollRange( row ) + " " + row.effect ).join( ", " )}</li>
@@ -251,7 +251,7 @@ export default class AcesRulesPage extends React.Component<IAcesRulesPageProps, 
                             <li>MVP bonus: {ACES_MVP_BONUS} SP, not taken from the warchest</li>
                             <li>Buy at PV x{ACES_PURCHASE_SP_PER_PV} SP, sell at PV x{ACES_SELL_SP_PER_PV} SP (Skill 4 PV)</li>
                         </ul>
-                        <h4>Named Pilot tracks (<em>Aces</em> pp.27, 29)</h4>
+                        <h3 className="h4">Named Pilot tracks (<em>Aces</em> pp.27, 29)</h3>
                         <table className="table tighter-padding">
                             <thead><tr><th>Track</th><th>SP needed</th></tr></thead>
                             <tbody>

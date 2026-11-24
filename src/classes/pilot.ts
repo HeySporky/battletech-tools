@@ -6,6 +6,11 @@ export interface IPilot {
     gunnery: number;
     wounds: number;
     alphaStrikeAbilities: number[];
+    /** Clan enhanced imaging neural implants (IO:AE p.69); older saves leave it out. */
+    eiImplants?: boolean;
+    /** A LAM or PAM pilot second skill pair, for the aerospace functions (IO:AE p.100); older saves leave it out. */
+    aeroPiloting?: number;
+    aeroGunnery?: number;
 }
 
 export default class Pilot {
@@ -14,6 +19,10 @@ export default class Pilot {
     gunnery: number = 4;
     wounds: number = 0;
     alphaStrikeAbilities: number[] = [];
+    eiImplants: boolean = false;
+    /** The aerospace skills of a LAM or PAM pilot (IO:AE p.100); undefined until set, then the BattleMech skills stand for both. */
+    aeroPiloting?: number;
+    aeroGunnery?: number;
 
     constructor(importObj: IPilot | null = null ) {
         if( importObj ) {
@@ -33,17 +42,24 @@ export default class Pilot {
             }
             this.piloting = skill(importObj.piloting, this.piloting);
             this.gunnery = skill(importObj.gunnery, this.gunnery);
+            // Wounds are exported, so they are read back: whole, 0 to 6 (the sixth kills the MechWarrior).
+            if( typeof importObj.wounds === "number" && Number.isFinite(importObj.wounds) ) {
+                this.wounds = Math.min(6, Math.max(0, Math.floor(importObj.wounds)));
+            }
             if( Array.isArray(importObj.alphaStrikeAbilities) ) {
                 this.alphaStrikeAbilities = importObj.alphaStrikeAbilities.filter((id): id is number => typeof id === "number" && Number.isFinite(id));
             }
+            this.eiImplants = importObj.eiImplants === true;
+            this.aeroPiloting = typeof importObj.aeroPiloting === "number" && Number.isFinite(importObj.aeroPiloting) ? skill(importObj.aeroPiloting, 5) : undefined;
+            this.aeroGunnery = typeof importObj.aeroGunnery === "number" && Number.isFinite(importObj.aeroGunnery) ? skill(importObj.aeroGunnery, 4) : undefined;
         }
     }
 
     getASAbilities(): IASPilotAbility[] {
-        let rv: IASPilotAbility[] = [];
+        const rv: IASPilotAbility[] = [];
 
-        for( let id of this.alphaStrikeAbilities ) {
-            for( let abi of CONST_AS_PILOT_ABILITIES) {
+        for( const id of this.alphaStrikeAbilities ) {
+            for( const abi of CONST_AS_PILOT_ABILITIES) {
                 if( abi.id === id ) {
                     rv.push( abi );
                     break;
@@ -56,13 +72,16 @@ export default class Pilot {
 
 
     export(): IPilot {
-        let rv: IPilot = {
+        const rv: IPilot = {
             name: this.name,
             piloting: this.piloting,
             gunnery: this.gunnery,
             wounds: this.wounds,
             alphaStrikeAbilities: this.alphaStrikeAbilities,
+            eiImplants: this.eiImplants,
         }
+        if( this.aeroPiloting !== undefined ) rv.aeroPiloting = this.aeroPiloting;
+        if( this.aeroGunnery !== undefined ) rv.aeroGunnery = this.aeroGunnery;
 
         return rv;
     }

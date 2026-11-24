@@ -2,7 +2,9 @@ import * as React from 'react';
 import { FaTrash } from 'react-icons/fa';
 import ProtoMech, { PROTOMECH_POINT_SIZE } from '../../../../classes/protomech';
 import { IAppGlobals } from '../../../app-router';
+import MULSearchButton from './_mulSearchButton';
 import StatBar from '../../../components/stat-bar';
+import { formatBattleValue } from '../../../../data/battle-value';
 const Trash = FaTrash as any;
 
 /**
@@ -75,7 +77,7 @@ export default class ProtoMechGroupTable extends React.Component<IProtoMechGroup
             <table className="table" data-testid="protomech-group-table">
                 <thead>
                     <tr>
-                        {this.props.showEdit ? <th className="min-width no-wrap"></th> : null}
+                        {this.props.showEdit ? <th className="min-width no-wrap"><span className="visually-hidden">Actions</span></th> : null}
                         <th>ProtoMech Point</th>
                         <th>ProtoMechs</th>
                         <th>Tech</th>
@@ -84,8 +86,8 @@ export default class ProtoMechGroupTable extends React.Component<IProtoMechGroup
                     </tr>
                 </thead>
                 {points.map( (point, index) => {
-                    const adjustedBV = point.getSkillAdjustedPointBattleValue();
-                    const baseBV = point.getPointBattleValue();
+                    const adjustedBV = formatBattleValue((edition) => point.getSkillAdjustedPointBattleValue(edition), "protomech", this.props.appGlobals.currentCBTForce?.rulesEdition);
+                    const baseBV = formatBattleValue((edition) => point.getPointBattleValue(edition), "protomech", this.props.appGlobals.currentCBTForce?.rulesEdition);
                     return (
                         <tbody key={point.getUUID()}>
                             <tr>
@@ -102,7 +104,7 @@ export default class ProtoMechGroupTable extends React.Component<IProtoMechGroup
                                 ) : null}
                                 <td>
                                     {point.getDisplayName()}
-                                    <div className='small-text'>{point.getTons()}-ton {point.getChassisName()} ProtoMech, {point.getMovementText()}; {point.getBattleValue()} BV each</div>
+                                    <div className='small-text'>{point.getTons()}-ton {point.getChassisName()} ProtoMech, {point.getMovementText()}; {formatBattleValue((edition) => point.getBattleValue(edition), "protomech", this.props.appGlobals.currentCBTForce?.rulesEdition)} BV each</div>
                                 </td>
                                 <td className="min-width no-wrap text-center">
                                     {this.props.showEdit ? (
@@ -176,6 +178,7 @@ export default class ProtoMechGroupTable extends React.Component<IProtoMechGroup
                                 ) : (
                                     <span className="small-text">Save designs in the ProtoMech Creator to add them to this group.</span>
                                 )}
+                                <MULSearchButton unitLabel="ProtoMechs" onClick={this.props.onSearchMUL} />
                             </td>
                         </tr>
                     </tfoot>
@@ -189,6 +192,7 @@ interface IProtoMechGroupTableProps {
     appGlobals: IAppGlobals;
     bmGroupIndex: number;
     showAdd: boolean;
+    onSearchMUL?: ( e: React.FormEvent<HTMLButtonElement> ) => void;
     showEdit: boolean;
 }
 

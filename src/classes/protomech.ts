@@ -1,15 +1,24 @@
 import { generateUUID } from "../utils/generateUUID";
-import { DEFAULT_RULES_EDITION, getSelectableRulesEditionTag } from "../data/rules-editions";
+import { getEWarKind, normalizeEWarPlay, type IEWarGear, type IEWarPlayState } from "../utils/ewar-play";
+import { IGameSettingsUnit, UnitGameSettings } from "./unit-game-settings";
+import { TechnicalReadout } from "./technical-readout";
+import type { ITechnicalReadoutExport } from "../data/technical-readout-interfaces";
+import { DEFAULT_RULES_EDITION, getRulesEdition, getSelectableRulesEditionTag } from "../data/rules-editions";
 import { IEquipmentItem, IEras } from "../data/data-interfaces";
-import { btEraOptions, findEraByTag, getErasForTech } from "../data/era-options";
-import { CUSTOM_HOMEBREW_RULES_LEVEL, getAlphaStrikeEquipmentAbilityCodes, getAmmoBattleValuePerTon, getAmmoRoundsPerTon, getBattleArmorScaleListByTech, getCompatibleAmmo, getEquipmentListByTech, getEquipmentRulesLevel, getWeaponShotsPerTon } from "../data/equipment-registry";
+import { btEraOptions, findEraByTag } from "../data/era-options";
+import { getUnitTypeEras } from "../data/game-settings";
+import { allowsAlphaStrikeAbilityCode, CUSTOM_HOMEBREW_RULES_LEVEL, getAlphaStrikeEquipmentAbilityCodes, getAmmoBattleValuePerTon, getAmmoRoundsPerTon, getBattleArmorScaleListByTech, getCompatibleAmmo, getEquipmentListByTech, getEquipmentRulesLevel, getWeaponShotsPerTon } from "../data/equipment-registry";
 import { mechEngineOptions } from "../data/mech-engine-options";
+import { mechJumpPack } from "../data/mech-jump-jet-types";
+import { getHandheldRules, mechHandheldWeapon } from "../data/mech-handheld-weapon";
+import { analyseHandheld, getHandheldIssue, IHandheldAnalysis, IHandheldDesign } from "./handheld-weapon";
 import { getProtoMechJumpJetWeightKg, protoMechComponents } from "../data/protomech-components";
 import {
     IProtoMechEquipment,
     IProtoMechMissile,
     PROTOMECH_ADVANCED_RULES_LEVEL,
     PROTOMECH_ARMOR_KG,
+    PROTOMECH_BV1_MISSILES,
     PROTOMECH_CHASSIS,
     PROTOMECH_COSTS,
     PROTOMECH_EDP_ARMOR_KG,
@@ -43,7 +52,10 @@ import {
     protoMechEquipment,
     protoMechMissiles,
 } from "../data/protomech-construction";
-import { getSkillMultiplier } from "../data/skill-multipliers";
+import { editionHasBattleValue, getBattleValueFor, getBattleValueSkillEdition, getSkillMultiplier, isBattleValue1Defensive, rateBattleValue1 } from "../data/battle-value";
+import { CalcTrace, formatCalcNumber, formatCalcStep, type ICalcBreakdown, type ICalcCitation, type ICalcStep } from "../data/calc-steps";
+import { PROTOMECH_BV1_STEPS, PROTOMECH_BV2_STEPS, PROTOMECH_COST_STEPS } from "../data/calc-steps-protomech";
+import { NO_BATTLE_VALUE_STEPS } from "../data/calc-steps-mech-bv1";
 import { findByTag } from "../data/tag-match";
 import { getMovementModifier } from "../utils";
 import { AlphaStrikeUnit, IASMULUnit } from "./alpha-strike-unit";
@@ -64,9 +76,9 @@ const MACHINE_GUN_TAGS = ["clan-machine-gun", "clan-light-machine-gun", "clan-he
  */
 export const PROTOMECH_PUBLISHED_EXCEPTIONS: { name: RegExp; mainGunArmor: number; note: string }[] = [
     {
-        name: /^svartalfa ultra\b/i,
+        name: /^svartalfa(\s+ultra\b.*)?$/i,
         mainGunArmor: 7,
-        note: "The published Svartalfa Ultra carries 7 points of armor on its main gun (TRO: Prototypes p.91), one over the limit of 6 (IO:AE p.96); allowed as published.",
+        note: "The published Svartalfa Ultra (MegaMek's file names it plain Svartalfa) carries 7 points of armor on its main gun (TRO: Prototypes p.91), one over the limit of 6 (IO:AE p.96); allowed as published.",
     },
 ];
 /** Critical hit boxes by location (TW pp.186-187); the main gun has none. */
@@ -85,7 +97,7 @@ export const PROTOMECH_HIT_LOCATIONS: Record<number, ProtoMechLocation | null> =
     2: "mainGun", 3: null, 4: "ra", 5: "legs", 6: "torso", 7: "torso", 8: "torso", 9: "legs", 10: "la", 11: null, 12: "head",
 };
 
-export type ProtoMechJumpType = "none" | "standard" | "extended" | "umu";
+export type ProtoMechJumpType = "none" | "standard" | "extended" | "umu" | "pack";
 export type ProtoMechArmorType = "standard" | "edp";
 
 export interface IProtoMechMount {
@@ -112,6 +124,8 @@ export interface IProtoMechUnitInPlay {
     /** Mounts destroyed by a torso critical hit, by mount index. */
     lost?: number[];
     pilotHits?: number;
+    /** Where this ProtoMech's handheld weapon is when it is not carried whole (#611); absent while carried. */
+    handheld?: { state: "carried" | "dropped" | "destroyed"; armorLeft: number };
 }
 
 export interface IProtoMechInPlay {
@@ -130,10 +144,13 @@ export interface IFrankenProtoDonor {
 export interface IProtoMechExport {
     /** The rules edition it is built under (rules-editions.ts); absent means Total Warfare. */
     rulesEdition?: string;
+    rulesLevel?: number;
+    rulesets?: string[];
     version: 1;
     /** FrankenProto (Custom Homebrew): each location's donor; present only on a FrankenProto. */
     frankenProto?: Partial<Record<FrankenProtoLocation, IFrankenProtoDonor>>;
     uuid: string;
+    tro?: ITechnicalReadoutExport;
     name: string;
     tons: number;
     chassis: ProtoMechChassis;
@@ -141,9 +158,13 @@ export interface IProtoMechExport {
     walkMP: number;
     jumpType: ProtoMechJumpType;
     jumpMP: number;
+    /** Tons of jump pack (TO:AUE p.105) when `jumpType` is "pack". */
+    jumpPackTons?: number;
     myomerBooster?: boolean;
     mainGun?: boolean;
     interfaceCockpit?: boolean;
+    /** The handheld weapon every ProtoMech of the Point carries (TO:AUE pp.126-128). */
+    handheldWeapon?: IHandheldDesign;
     armorType: ProtoMechArmorType;
     armor: Partial<Record<ProtoMechLocation, number>>;
     mounts: IProtoMechMount[];
@@ -151,6 +172,7 @@ export interface IProtoMechExport {
     gunnery: number;
     pointSize: number;
     inPlay?: IProtoMechInPlay;
+    ewarPlay?: IEWarPlayState;
     lastUpdated?: string;
 }
 
@@ -201,6 +223,9 @@ const roundToHalf = (value: number): number => Math.round(value * 2 + 1e-9) / 2;
 
 const round2 = (value: number): number => Math.round(value * 100) / 100;
 const roundNormally = (value: number): number => Math.floor(value + 0.5);
+/** A Battle Value worked out as cited steps. */
+interface IProtoMechBvResult { value: number; result: number | null; log: string[]; steps: ICalcStep[] }
+interface IProtoMechCostResult { value: number; log: string[]; steps: ICalcStep[] }
 const clampInt = (value: unknown, min: number, max: number, fallback: number): number => {
     const n = Math.round(Number(value));
     return Number.isFinite(n) ? Math.min(max, Math.max(min, n)) : fallback;
@@ -216,7 +241,7 @@ const LOCATIONS: ProtoMechLocation[] = ["head", "torso", "la", "ra", "legs", "ma
 const MOUNT_LOCATIONS: ProtoMechMountLocation[] = ["torso", "la", "ra", "mainGun"];
 const CHASSIS_TAGS: ProtoMechChassis[] = ["biped", "quad", "glider"];
 const FRANKEN_PROTO_LOCATIONS: FrankenProtoLocation[] = ["head", "la", "ra", "legs"];
-const JUMP_TYPES: ProtoMechJumpType[] = ["none", "standard", "extended", "umu"];
+const JUMP_TYPES: ProtoMechJumpType[] = ["none", "standard", "extended", "umu", "pack"];
 
 let clanCatalog: IEquipmentItem[] | null = null;
 const getClanCatalog = (): IEquipmentItem[] => {
@@ -253,29 +278,37 @@ export const normalizeProtoMechExport = (raw: unknown): { proto: IProtoMechExpor
     return { proto: proto.export(), issues: proto.getImportIssues() };
 };
 
-export default class ProtoMech {
+export default class ProtoMech implements IGameSettingsUnit {
     public lastUpdated: Date = new Date();
 
     private _uuid: string = generateUUID();
+    public tro: TechnicalReadout = new TechnicalReadout();
     private _name: string = "";
     private _rulesEdition: string = DEFAULT_RULES_EDITION;
+    /** The rules level and Special Rulesets the design is built under (#324). */
+    public readonly gameSettings = new UnitGameSettings();
     private _tons: number = 5;
     private _chassis: ProtoMechChassis = "biped";
     private _walkMP: number = 4;
     private _jumpType: ProtoMechJumpType = "none";
     private _jumpMP: number = 0;
+    private _jumpPackTons: number = 0;
     private _myomerBooster: boolean = false;
     private _mainGun: boolean = false;
     private _interfaceCockpit: boolean = false;
     private _armorType: ProtoMechArmorType = "standard";
     private _armor: Record<ProtoMechLocation, number> = { head: 0, torso: 0, la: 0, ra: 0, legs: 0, mainGun: 0 };
     private _mounts: IProtoMechMount[] = [];
+    /** The handheld weapon carried (#611): its own small design, outside the ProtoMech's weight and slots. */
+    private _handheld: IHandheldDesign | null = null;
     /** FrankenProto donors by location; null on an ordinary ProtoMech. */
     private _frankenProto: Partial<Record<FrankenProtoLocation, Partial<IFrankenProtoDonor>>> | null = null;
     private _era: IEras = findEraByTag("jihad") ?? btEraOptions[btEraOptions.length - 1];
     private _gunnery: number = 4;
     private _pointSize: number = PROTOMECH_POINT_SIZE;
     private _inPlay: IProtoMechInPlay = { units: [] };
+    /** What the unit has switched on, been hit by or been told by the force board in E-War play (#642). */
+    public ewarPlay: IEWarPlayState = {};
     private _importIssues: string[] = [];
 
     constructor(json: string = "") {
@@ -293,6 +326,10 @@ export default class ProtoMech {
         this._rulesEdition = getSelectableRulesEditionTag(editionTag, "protomech");
         return this._rulesEdition;
     }
+    /** A ProtoMech is Clan technology only. */
+    public getTechTag(): string { return "clan"; }
+    public setTechTag(_tag: string): void { /* Clan only */ }
+    public chooseEra(tag: string): void { this.setEra(tag); }
 
     public setName(name: string): void {
         this._name = String(name ?? "").slice(0, MAX_PROTOMECH_NAME_LENGTH);
@@ -539,27 +576,43 @@ export default class ProtoMech {
     public getAvailableJumpTypes(): ProtoMechJumpType[] { return this.isGlider() ? ["none"] : JUMP_TYPES; }
     /** Jump jets and UMUs up to the Walking MP; extended jump jets up to the Running MP (TM p.84; IO:AE p.59). */
     public getMaxJumpJets(type: ProtoMechJumpType = this.getJumpType()): number {
-        if (type === "none") return 0;
+        if (type === "none" || type === "pack") return 0;
         return type === "extended" ? this.getRunMP() : this._walkMP;
     }
     /** Jump jets, extended jump jets or UMUs mounted. */
-    public getJumpJets(): number { return this.getJumpType() === "none" ? 0 : this._jumpMP; }
+    public getJumpJets(): number { return this.getJumpType() === "none" || this.getJumpType() === "pack" ? 0 : this._jumpMP; }
     public setJump(type: string, mp: number = this._jumpMP): void {
         this._jumpType = JUMP_TYPES.includes(type as ProtoMechJumpType) ? type as ProtoMechJumpType : "none";
-        this._jumpMP = this._jumpType === "none" ? 0 : clampInt(mp, 1, this.getMaxJumpJets(this._jumpType), 1);
+        this._jumpMP = this._jumpType === "none" || this._jumpType === "pack" ? 0 : clampInt(mp, 1, this.getMaxJumpJets(this._jumpType), 1);
         this._clamp();
     }
+    // The jump pack (TO:AUE p.105): strapped-on cargo, no design weight, so a unit with one has no jump jets. Its Jump MP and
+    // fuel read the Jump Pack Table row of the unit's weight; MP are at most Walking MP.
+    private _jumpPackRow() { return mechJumpPack.packByTonnage?.find((row) => this._tons <= row.upTo); }
+    public getMaxJumpPackTons(): number { return Math.min(this._tons, mechJumpPack.maxPackTons ?? this._tons); }
+    public getJumpPackTons(): number { return this.getJumpType() === "pack" ? Math.min(this._jumpPackTons, this.getMaxJumpPackTons()) : 0; }
+    /** Strap on a pack of `tons` in half-ton steps, 0 for none; returns the tons carried. */
+    public setJumpPackTons(tons: number): number {
+        this._jumpPackTons = Math.max(0, Math.round(+tons * 2) / 2);
+        return this.getJumpPackTons();
+    }
+    public getJumpPackMP(): number {
+        const mp = Math.ceil(this.getJumpPackTons() * (this._jumpPackRow()?.mpPerTon ?? 0));
+        return Math.min(mp, this._walkMP);
+    }
+    /** Fuel Points: per pack ton, rounded up (TO:AUE p.105). */
+    public getJumpPackFuel(): number { return Math.ceil(this.getJumpPackTons() * (this._jumpPackRow()?.fuelPerTon ?? 0)); }
     public hasPartialWing(): boolean { return this._mounts.some((mount) => mount.tag === "protomech-partial-wing"); }
     /** Jumping MP, with the partial wing's 2 in a standard atmosphere (TO:AUE p.107); UMUs give none. */
     public getJumpMP(): number {
         const type = this.getJumpType();
-        if (type === "none" || type === "umu") return 0;
+        if (type === "none" || type === "umu" || type === "pack") return 0;
         return this._jumpMP + (this.hasPartialWing() ? 2 : 0);
     }
     public getUMUMP(): number { return this.getJumpType() === "umu" ? this._jumpMP : 0; }
     public getJumpWeight(): number {
         const type = this.getJumpType();
-        if (type === "none") return 0;
+        if (type === "none" || type === "pack") return 0;
         return getProtoMechJumpJetWeightKg(type === "extended" ? "protomech-extended-jump-jets" : "protomech-jump-jets", this._tons, this._jumpMP) ?? 0;
     }
 
@@ -572,7 +625,8 @@ export default class ProtoMech {
         if (this.isGlider()) return `1 / 1 on the ground; WiGE ${this._walkMP} / ${this.getRunMP()}`;
         const run = this.hasMyomerBooster() ? `${this.getRunMP()} (${this.getBoostedRunMP()})` : `${this.getRunMP()}`;
         const jump = this.getUMUMP() > 0 ? `; UMU ${this.getUMUMP()}` : ` / ${this.getJumpMP()}`;
-        return `${this._walkMP} / ${run}${jump}`;
+        const pack = this.getJumpPackTons() > 0 ? `; jump pack ${this.getJumpPackMP()}` : "";
+        return `${this._walkMP} / ${run}${jump}${pack}`;
     }
 
     // Weapons and equipment ------------------------------------------------------------------------------------
@@ -750,7 +804,8 @@ export default class ProtoMech {
             { label: this.isUltraheavy() ? "Ultraheavy cockpit" : "Cockpit", kg: this.getCockpitWeight() },
         ];
         const jump = this.getJumpType();
-        if (jump !== "none") lines.push({ label: `${jump === "umu" ? "UMUs" : jump === "extended" ? "Extended jump jets" : "Jump jets"} (${this._jumpMP})`, kg: this.getJumpWeight() });
+        // A jump pack is strapped-on cargo with no design weight (TO:AUE p.105): no line here.
+        if (jump !== "none" && jump !== "pack") lines.push({ label: `${jump === "umu" ? "UMUs" : jump === "extended" ? "Extended jump jets" : "Jump jets"} (${this._jumpMP})`, kg: this.getJumpWeight() });
         if (this.hasMyomerBooster()) lines.push({ label: "Myomer booster", kg: this.getMyomerBoosterWeight() });
         if (this.getHeatSinks() > 0) lines.push({ label: `Heat sinks (${this.getHeatSinks()})`, kg: this.getHeatSinkWeight() });
         if (this.getTotalArmor() > 0) lines.push({ label: `${this._armorType === "edp" ? "EDP armor" : "Armor"} (${this.getTotalArmor()} points)`, kg: this.getArmorWeight() });
@@ -764,12 +819,119 @@ export default class ProtoMech {
     public getMaxWeight(): number { return this._tons * 1000; }
     public getRemainingWeight(): number { return round2(this.getMaxWeight() - this.getWeight()); }
 
+    // Handheld weapon (#611): Tactical Operations: Advanced Units & Equipment pp.126-128 and p.193 ----------------
+
+    /** A biped ProtoMech with both arms may carry one; the editions that print the rules are Total Warfare and later (ProtoMechs have no Master Rules). */
+    public canCarryHandheld(): { allowed: boolean; reason: string } {
+        if (getHandheldRules(this._rulesEdition)?.id !== "toaue") return { allowed: false, reason: "This edition prints no handheld weapon rules for ProtoMechs." };
+        if (this.isQuad() || this.isGlider()) return { allowed: false, reason: `A ${this.getChassisName()} ProtoMech has no arms and hands to carry a handheld weapon (TO:AUE p.126).` };
+        return { allowed: true, reason: "" };
+    }
+
+    /** The handheld weapon as the equipment step offers it: Experimental (TO:AUE p.126). */
+    public getHandheldOption(rulesLevel: number = 7) {
+        return { ...mechHandheldWeapon, available: this.canCarryHandheld().allowed && rulesLevel >= (mechHandheldWeapon.rulesLevel ?? 4), availableAsPrototype: false };
+    }
+
+    /** The weapons a handheld weapon on this Clan ProtoMech may hold. */
+    public getHandheldWeaponChoices(): IEquipmentItem[] {
+        return getEquipmentListByTech("clan").filter((item) => !item.isAmmo && getHandheldIssue(item, this._rulesEdition) === null);
+    }
+
+    public getHandheldWeapon(): IHandheldDesign | null {
+        return this._handheld && this.canCarryHandheld().allowed ? { entries: this._handheld.entries.map((entry) => ({ ...entry })), armor: this._handheld.armor } : null;
+    }
+
+    /** Builds, or with null removes, the handheld weapon; false when this ProtoMech cannot carry one. */
+    public setHandheldWeapon(design: IHandheldDesign | null): boolean {
+        if (design === null || design.entries.length === 0 && design.armor <= 0) {
+            this._handheld = null;
+            for (const unit of this._inPlay.units) delete unit.handheld;
+            return true;
+        }
+        if (!this.canCarryHandheld().allowed) return false;
+        this._handheld = { entries: design.entries.map((entry) => ({ ...entry })), armor: Math.max(0, Math.floor(design.armor)) };
+        for (const unit of this._inPlay.units) delete unit.handheld;
+        return true;
+    }
+
+    public getHandheldAnalysis(): IHandheldAnalysis | undefined {
+        const design = this.getHandheldWeapon();
+        return design ? analyseHandheld(design, this._rulesEdition, "clan") : undefined;
+    }
+
+    /** A handheld weapon counts toward the cargo limit, 10 percent of the unit's weight (TO:AUE p.128). */
+    public getHandheldCargoLimit(): number { return this._tons * 0.1; }
+
+    public getHandheldIssues(): string[] {
+        const analysis = this.getHandheldAnalysis();
+        if (!analysis) return [];
+        const issues = [...analysis.issues];
+        if (analysis.weight > this.getHandheldCargoLimit()) issues.push(`The handheld weapon weighs ${analysis.weight} t, over the cargo limit of ${this.getHandheldCargoLimit()} t (10 percent of the ProtoMech's tonnage).`);
+        return issues;
+    }
+
+    /** Where one ProtoMech's handheld weapon is: carried with its armor, dropped in its hex, or destroyed. */
+    public getHandheldPlay(unit: number): { state: "carried" | "dropped" | "destroyed"; armorLeft: number } {
+        return this._peek(unit).handheld ?? { state: "carried", armorLeft: this._handheld?.armor ?? 0 };
+    }
+
+    /** Either arm destroyed: a handheld weapon needs two functioning hands (TO:AUE p.128), so the weapon is dropped. */
+    public handheldMustDrop(unit: number): boolean {
+        return !!this.getHandheldWeapon() && this.getHandheldPlay(unit).state === "carried" && (this.isLocationDestroyed(unit, "la") || this.isLocationDestroyed(unit, "ra"));
+    }
+
+    private _setHandheldPlay(unit: number, play: { state: "carried" | "dropped" | "destroyed"; armorLeft: number }): void {
+        this._unit(unit).handheld = play;
+    }
+
+    /** Dropped in the End Phase in the ProtoMech's hex; returns the log line. */
+    public dropHandheld(unit: number): string {
+        const play = this.getHandheldPlay(unit);
+        if (!this.getHandheldWeapon() || play.state !== "carried" || unit < 0 || unit >= this._pointSize) return "";
+        this._setHandheldPlay(unit, { ...play, state: "dropped" });
+        return "Handheld weapon dropped in the ProtoMech's hex in the End Phase (TO:AUE p.128).";
+    }
+
+    /** Picked up in an End Phase of a later turn than the drop (the player keeps the turns), with both arms whole. */
+    public pickUpHandheld(unit: number): string {
+        const play = this.getHandheldPlay(unit);
+        if (!this.getHandheldWeapon() || play.state !== "dropped" || this.isLocationDestroyed(unit, "la") || this.isLocationDestroyed(unit, "ra")) return "";
+        this._setHandheldPlay(unit, { ...play, state: "carried" });
+        return "Handheld weapon picked up in the End Phase; it can be used from the next turn (TO:AUE p.128).";
+    }
+
+    public isHandheldUsable(unit: number): boolean {
+        return !!this.getHandheldWeapon() && this.getHandheldPlay(unit).state === "carried" && !this.handheldMustDrop(unit);
+    }
+
+    /** A hit to either arm: on a 1D6 of 6 the weapon takes it, destroyed past its armor with the excess going to the arm (TO:AUE p.128). */
+    public armHitStrikesHandheld(unit: number, roll: number): boolean {
+        const rules = getHandheldRules(this._rulesEdition);
+        return !!rules && !!this.getHandheldWeapon() && this.getHandheldPlay(unit).state === "carried" && rules.hitOn.includes(roll);
+    }
+
+    public strikeHandheld(unit: number, damage: number): { destroyed: boolean; excess: number } {
+        const play = this.getHandheldPlay(unit);
+        if (!this.getHandheldWeapon() || play.state !== "carried") return { destroyed: false, excess: 0 };
+        if (damage > play.armorLeft) {
+            this._setHandheldPlay(unit, { state: "destroyed", armorLeft: 0 });
+            return { destroyed: true, excess: damage - play.armorLeft };
+        }
+        this._setHandheldPlay(unit, { ...play, armorLeft: play.armorLeft - damage });
+        return { destroyed: false, excess: 0 };
+    }
+
     // Rules level, era, validation -----------------------------------------------------------------------------
 
     public getRequiredRulesLevel(): number {
         let level = PROTOMECH_RULES_LEVEL;
         if (this._chassis !== "biped" || this.isUltraheavy()) level = Math.max(level, PROTOMECH_ADVANCED_RULES_LEVEL);
+        // The jump pack is Advanced (TO:AUE p.105).
+        if (this.getJumpPackTons() > 0) level = Math.max(level, PROTOMECH_ADVANCED_RULES_LEVEL);
         if (this._interfaceCockpit) level = Math.max(level, PROTOMECH_INTERFACE_COCKPIT.rulesLevel);
+        // A handheld weapon is Experimental (TO:AUE p.126).
+        if (this.getHandheldWeapon()) level = Math.max(level, (mechHandheldWeapon.rulesLevel ?? 4));
         if (this._armorType === "edp" || this.getJumpType() === "umu") level = Math.max(level, PROTOMECH_EXPERIMENTAL_RULES_LEVEL);
         if (this._frankenProto) level = Math.max(level, CUSTOM_HOMEBREW_RULES_LEVEL);
         for (const mount of this._mounts) {
@@ -782,7 +944,7 @@ export default class ProtoMech {
     }
 
     public getEra(): IEras { return this._era; }
-    public getAvailableEras(): IEras[] { return getErasForTech("clan").filter((era) => (era.yearEnd ?? Infinity) >= 3055); }
+    public getAvailableEras(): IEras[] { return getUnitTypeEras("protomech", "clan"); }
     public setEra(tag: string): boolean {
         const era = this.getAvailableEras().find((item) => item.tag === tag);
         if (era) this._era = era;
@@ -865,7 +1027,7 @@ export default class ProtoMech {
         if (this.hasPartialWing() && this.getJumpType() === "umu") issues.push("A ProtoMech with UMUs has no jump jets for a partial wing to help.");
         const over = -this.getRemainingWeight();
         if (over > 0) issues.push(`${over} kg over its ${this._tons} tons.`);
-        return [...issues, ...this.getEraIssues()];
+        return [...issues, ...this.getHandheldIssues(), ...this.getEraIssues()];
     }
     public isLegal(): boolean { return this.getIssues().length === 0; }
 
@@ -878,6 +1040,9 @@ export default class ProtoMech {
         if (this.isUltraheavy()) notes.push("Ultraheavy: Frenzy attack damage 3; the pilot may eject (IO:AE pp.94-95).");
         if (this._interfaceCockpit) notes.push("Inner Sphere ProtoMech Interface: Mixed Technology; the pilot has no ejection system (IO:AE p.96).");
         if (this._armorType === "edp") notes.push("EDP armor: a successful Frenzy attack also hits as a BattleMech Taser at -2 on its effects table; six turns to recharge, during which weapons that need heat sinks do not work (IO:AE p.59).");
+        const handheld = this.getHandheldAnalysis();
+        if (handheld) notes.push(`Handheld weapon: ${handheld.lines.filter((line) => line.battleValue > 0 || line.tons > 0).map((line) => line.label).join(", ")}; ${handheld.weight} t, BV ${handheld.battleValue}. Carried in both arms: no punching or pushing, no arm, torso or main gun weapons unless rear-facing; a hit to an arm strikes it on a 1D6 of 6; an arm destroyed drops it (TO:AUE p.128). No Alpha Strike conversion is printed (TO:AUE, Alpha Strike Companion), so the card leaves it out.`);
+        if (this.getJumpPackTons() > 0) notes.push(`Jump pack: ${this.getJumpPackTons()} tons, ${this.getJumpPackMP()} Jump MP, ${this.getJumpPackFuel()} fuel points (1 a Jump MP). Strapped on as unprotected cargo: no heat, no design weight; destroyed by a hit through the rear arc, and jettisoned when empty. In a combat drop it burns all its fuel and drops on landing (TO:AUE p.105).`);
         if (this.hasPartialWing()) notes.push("Partial wing: +2 Jumping MP in a standard atmosphere, +1 in a trace one, +3 in a high or very high one, none in vacuum (TO:AUE p.107).");
         notes.push(...this.getAllowedExceptions());
         if (this._mounts.some((mount) => mount.tag === PROTOMECH_MACHINE_GUN_ARRAY)) notes.push("Machine gun array: the linked machine guns fire as one weapon and may be mounted anywhere on the ProtoMech (TM p.228).");
@@ -918,9 +1083,10 @@ export default class ProtoMech {
         if (missile) return missile.bv[(mount.tubes ?? 1) - 1] ?? 0;
         const special = this.getSpecial(mount);
         if (special) {
-            // The added Frenzy damage x 1.25 (TO:AUE p.199; IO:AE p.190).
+            // The added Frenzy damage x 1.25 (TO:AUE p.199). The quad system counts the base Frenzy damage too
+            // (IO:AE p.190 "Dmg x 1.25"; WoR p.210 Basilisk (Quad) 258; user ruling 2026-11-02).
             if (special.bv === "melee") return Math.ceil(this._tons / 5) * 1.25;
-            if (special.bv === "quad-melee") return 2 * Math.ceil(this._tons / 5) * 1.25;
+            if (special.bv === "quad-melee") return (getProtoMechFrenzyDamage(this._tons) + 2 * Math.ceil(this._tons / 5)) * 1.25;
             return special.bv;
         }
         return findCatalogItem(mount.tag)?.battleValue ?? 0;
@@ -939,12 +1105,32 @@ export default class ProtoMech {
     private _isDefensive(mount: IProtoMechMount): boolean { return !this.getMissile(mount) && !this.getSpecial(mount) && !!findCatalogItem(mount.tag)?.battleValueDefensive; }
     private _mountKey(mount: IProtoMechMount): string { return `${mount.tag}:${mount.tubes ?? 0}`; }
 
-    private _calcBattleValue(): { value: number; log: string[] } {
-        const log: string[] = [];
+    /**
+     * The mount's Battle Value 2 step, with the equipment table it is read from where that is not the TechManual's (TO:AUE pp.196-197
+     * for the ProtoMech weapons and improved heavy lasers, IO:AE p.190 for the Wars of Reaving items).
+     */
+    private _mountStepId(mount: IProtoMechMount): { id: string; cites: ICalcCitation[] } {
+        if (mount.tag === PROTOMECH_MACHINE_GUN_ARRAY) return { id: "pm.bv2.off.weapon.mg-array", cites: [] };
+        if (this.getMissile(mount)) return { id: "pm.bv2.off.weapon.missile", cites: this.getMissile(mount)!.family === "streak-lrm" ? [{ source: "toaue", page: "197" }] : [] };
+        const special = this.getSpecial(mount);
+        if (special?.bv === "melee") return { id: "pm.bv2.off.weapon.melee", cites: [] };
+        if (special?.bv === "quad-melee") return { id: "pm.bv2.off.weapon.quad-melee", cites: [] };
+        if (special) return { id: "pm.bv2.off.weapon", cites: [{ source: "ioae", page: "190" }] };
+        if (/protomech|improved-heavy|chemical/.test(mount.tag)) return { id: "pm.bv2.off.weapon", cites: [{ source: "toaue", page: "196-197" }] };
+        return { id: "pm.bv2.off.weapon", cites: [] };
+    }
+
+    /**
+     * Battle Value 2 as cited steps (TM p.306, worked Delphyne-2 p.307; tables p.316; EDP armor, quad melee, clamps IO:AE p.190): each step is
+     * recorded with its page (PROTOMECH_BV2_STEPS), and the log is those steps as text.
+     */
+    private _calcBattleValue(): IProtoMechBvResult {
+        const trace = new CalcTrace(PROTOMECH_BV2_STEPS);
+        const fmt = formatCalcNumber;
         const armor = this.getTotalArmor() * 2.5;
         const structure = this.getTotalStructure() * 1.5;
-        log.push(`Armor: ${this.getTotalArmor()} points x 2.5 = ${round2(armor)}`);
-        log.push(`Internal structure: ${this.getTotalStructure()} points x 1.5 = ${round2(structure)}`);
+        trace.add("pm.bv2.def.armor", { label: "Armor", detail: `${this.getTotalArmor()} points x 2.5`, value: round2(armor) });
+        trace.add("pm.bv2.def.structure", { label: "Internal structure", detail: `${this.getTotalStructure()} points x 1.5`, value: round2(structure) });
         // Defensive equipment, with anti-missile ammunition up to the systems' own value.
         let defensiveEquipment = 0;
         const defensiveByKey: Record<string, { weapon: number; ammo: number }> = {};
@@ -956,7 +1142,7 @@ export default class ProtoMech {
         for (const [tag, entry] of Object.entries(defensiveByKey)) {
             const value = entry.weapon + Math.min(entry.ammo, entry.weapon);
             defensiveEquipment += value;
-            log.push(`Defensive equipment: ${findCatalogItem(tag)?.name ?? tag} = ${round2(value)}`);
+            trace.add("pm.bv2.def.equipment", { label: `Defensive equipment: ${findCatalogItem(tag)?.name ?? tag}`, value: round2(value) });
         }
         // The highest target movement modifier: running (boosted), jumping (+1), a Glider's WiGE flank (+1) or UMUs.
         const run = this.isGlider() ? this.getRunMP() : this.getBoostedRunMP();
@@ -965,9 +1151,13 @@ export default class ProtoMech {
         if (this.getUMUMP() > 0) modifiers.push(getMovementModifier(this.getUMUMP()));
         const modifier = Math.max(...modifiers);
         const defensiveFactor = round2(1 + modifier / 10 + 0.1);
-        const defensive = (armor + structure + defensiveEquipment) * defensiveFactor;
-        log.push(`Defensive Factor: 1 + ${round2(modifier / 10)} (target movement modifier +${modifier}) + 0.1 (ProtoMech) = ${defensiveFactor}`);
-        log.push(`Defensive Battle Rating: ${round2(armor + structure + defensiveEquipment)} x ${defensiveFactor} = ${round2(defensive)}`);
+        const subtotal = armor + structure + defensiveEquipment;
+        const defensive = subtotal * defensiveFactor;
+        trace.add("pm.bv2.def.subtotal", { label: "Armor, structure and defensive equipment", value: round2(subtotal), emphasis: true });
+        trace.add(this.isGlider() ? "pm.bv2.def.factor.glider" : "pm.bv2.def.factor", {
+            label: "Defensive Factor", detail: `1 + ${fmt(round2(modifier / 10))} (target movement modifier +${modifier}) + 0.1 (ProtoMech)`, value: defensiveFactor,
+        });
+        trace.add("pm.bv2.def.rating", { label: "Defensive Battle Rating", detail: `${fmt(round2(subtotal))} x ${defensiveFactor}`, value: round2(defensive), total: round2(defensive), emphasis: true });
 
         const offensiveMounts = this._mounts.filter((mount) => !this._isDefensive(mount));
         const arc = (rear: boolean): number => offensiveMounts.filter((mount) => !!mount.rear === rear && mount.location === "torso").reduce((sum, mount) => sum + this._mountBattleValue(mount), 0);
@@ -982,32 +1172,179 @@ export default class ProtoMech {
             const entry = byKey[this._mountKey(mount)] ?? (byKey[this._mountKey(mount)] = { weapon: 0, ammo: 0, name: this.getMountName(mount) });
             entry.weapon += this._mountBattleValue(mount);
             entry.ammo += this._ammoBattleValue(mount);
-            log.push(`${this.getMountName(mount)} (${this.getLocationName(mount.location)}${mount.rear ? ", rear" : ""}) = ${round2(value)}${halved ? " (x 0.5)" : ""}`);
+            const { id, cites } = this._mountStepId(mount);
+            trace.add(halved ? "pm.bv2.off.weapon.rear" : id, {
+                label: `${this.getMountName(mount)} (${this.getLocationName(mount.location)}${mount.rear ? ", rear" : ""})`,
+                detail: halved ? `${fmt(round2(this._mountBattleValue(mount)))} x 0.5` : undefined, value: round2(value), cites,
+            });
         }
         let ammo = 0;
         for (const entry of Object.values(byKey)) {
             if (entry.ammo <= 0) continue;
             const value = Math.min(entry.ammo, entry.weapon);
             ammo += value;
-            log.push(`Ammunition: ${entry.name} = ${round2(value)}${value < entry.ammo ? " (held to the weapon's value)" : ""}`);
+            trace.add(value < entry.ammo ? "pm.bv2.off.ammo.cap" : "pm.bv2.off.ammo", {
+                label: `Ammunition: ${entry.name}`, detail: value < entry.ammo ? `${fmt(round2(entry.ammo))}, held to the weapon's ${fmt(round2(entry.weapon))}` : undefined, value: round2(value),
+            });
         }
         const edp = this._armorType === "edp" ? 32 : 0;
-        if (edp) log.push("EDP armor = 32 (IO:AE p.190)");
+        if (edp) trace.add("pm.bv2.off.edp", { label: "Electric Discharge ProtoMech Armor", detail: "counted as a weapon", value: 32 });
         // Running MP + half the Jumping MP, rounded up, + 1 for a myomer booster (TM p.306); a Glider's WiGE Flanking MP (IO:AE p.190).
-        const speedMP = (this.isGlider() ? this.getRunMP() : this.getGroundRunMP()) + Math.ceil(this.getJumpMP() / 2) + (this.hasMyomerBooster() ? 1 : 0);
+        const baseMP = this.isGlider() ? this.getRunMP() : this.getGroundRunMP();
+        const jumpMP = Math.ceil(this.getJumpMP() / 2);
+        const booster = this.hasMyomerBooster() ? 1 : 0;
+        const speedMP = baseMP + jumpMP + booster;
         const factor = speedFactor(speedMP);
+        const speedDetail = `${this.isGlider() ? "WiGE Flank MP" : "Running MP"} ${baseMP}${jumpMP ? ` + half the Jumping MP ${jumpMP}` : ""}${booster ? " + 1 (myomer booster)" : ""} = ${speedMP}`;
+        trace.add("pm.bv2.off.weapons.total", { label: "Weapons, ammunition and equipment", value: round2(weapons + ammo + edp), emphasis: true });
+        trace.add(booster ? "pm.bv2.off.speed" : this.isGlider() ? "pm.bv2.off.speed.glider" : "pm.bv2.off.speed.plain", { label: "Speed Factor", detail: speedDetail, value: factor });
         const offensive = (weapons + ammo + edp) * factor;
-        log.push(`Offensive Battle Rating: ${round2(weapons + ammo + edp)} x ${factor} (Speed Factor, ${speedMP}) = ${round2(offensive)}`);
-        const value = roundNormally(defensive + offensive);
-        log.push(`Battle Value: ${round2(defensive)} + ${round2(offensive)} = ${round2(defensive + offensive)}, or ${value}`);
-        return { value, log };
+        trace.add("pm.bv2.off.rating", { label: "Offensive Battle Rating", detail: `${fmt(round2(weapons + ammo + edp))} x ${factor} (Speed Factor, ${speedMP})`, value: round2(offensive), total: round2(offensive), emphasis: true });
+        const rounded = roundNormally(defensive + offensive);
+        trace.add("pm.bv2.final.sum", { label: "Battle Value", detail: `${fmt(round2(defensive))} + ${fmt(round2(offensive))} = ${fmt(round2(defensive + offensive))}, rounded`, value: rounded, emphasis: true });
+        // A handheld weapon has its own BV, added directly to the final BV (TO:AUE p.193 prints it for a 'Mech carrier; the same figure is
+        // used for a ProtoMech, which TO:AUE p.128 lets carry one and prints no other BV for; inferred).
+        const handheld = this.getHandheldAnalysis()?.battleValue ?? 0;
+        const value = rounded + handheld;
+        if (handheld > 0) {
+            trace.add("pm.bv2.final.handheld", { label: "Handheld weapon", detail: "its weapons and ammunition + armor x 2", value: handheld });
+            trace.add("pm.bv2.final.with-handheld", { label: "Battle Value with the handheld weapon", detail: `${rounded} + ${handheld} = ${value}`, value, emphasis: true });
+        }
+        return { value, result: value, log: trace.steps.map(formatCalcStep), steps: trace.steps };
     }
-    public getBattleValue(): number { return this._calcBattleValue().value; }
-    public getBattleValueLog(): string[] { return this._calcBattleValue().log; }
-    public getPointBattleValue(): number { return this.getBattleValue() * this._pointSize; }
+
+    /**
+     * Battle Value 1 as cited steps under the Master Rules, Revised Edition (BMR(R) pp.154-156; TRO 3060 (FanPro) p.195 for the changes): armor +
+     * half the structure + the ProtoMech's tonnage, with defensive equipment, times the Defensive Movement Factor + 0.1; the weapons and ammunition at their
+     * BV1 figures (a launcher of a non-standard size from the ProtoMech Missile Weapons BV table) times the Speed Factor of Running MP + Jumping MP.
+     */
+    private _calcBattleValue1(edition: string): IProtoMechBvResult {
+        const trace = new CalcTrace(PROTOMECH_BV1_STEPS);
+        const fmt = formatCalcNumber;
+        const rate = (item: IEquipmentItem, weapon?: IEquipmentItem): { value: number; unlisted: boolean } => {
+            const rating = rateBattleValue1(edition, "clan", false, item, weapon);
+            return { value: rating.value, unlisted: rating.source === "unlisted" };
+        };
+        const tubeRow = (mount: IProtoMechMount): { bv: number; ammo: number; srm5: boolean } | undefined => {
+            const missile = this.getMissile(mount);
+            const row = missile ? PROTOMECH_BV1_MISSILES[missile.family]?.[mount.tubes ?? 1] : undefined;
+            return row ? { bv: row[0], ammo: row[1], srm5: missile!.family === "srm" && mount.tubes === 5 } : undefined;
+        };
+        /** A mount's BV1 and the BV1 of a ton of its ammunition, and whether it is the catalog's BV2 figure standing in. */
+        const mountValue = (mount: IProtoMechMount): { bv: number; ammoPerTon: number; unlisted: boolean; srm5: boolean; table: boolean } => {
+            const row = tubeRow(mount);
+            if (row) return { bv: row.bv, ammoPerTon: row.ammo, unlisted: false, srm5: row.srm5, table: true };
+            const missile = this.getMissile(mount);
+            const item = this.getCatalogItem(mount) ?? undefined;
+            if (missile) {
+                // A standard rack size is the Clan launcher of that size.
+                const standard = findCatalogItem(`${missile.catalogTag.replace(/-\d+$/, "")}-${mount.tubes ?? 1}`);
+                if (standard) { const bv = rate(standard); const ammo = this.getAmmo(mount); return { bv: bv.value, ammoPerTon: ammo ? rate(ammo, standard).value : 0, unlisted: bv.unlisted, srm5: false, table: false }; }
+                const bv2 = (missile.bv[(mount.tubes ?? 1) - 1] ?? 0);
+                return { bv: bv2, ammoPerTon: missile.ammoBV[(mount.tubes ?? 1) - 1] ?? 0, unlisted: true, srm5: false, table: false };
+            }
+            const special = this.getSpecial(mount);
+            if (special) return { bv: this._mountBattleValue(mount), ammoPerTon: 0, unlisted: true, srm5: false, table: false };
+            if (mount.tag === PROTOMECH_MACHINE_GUN_ARRAY) return { bv: this._mountBattleValue(mount), ammoPerTon: 0, unlisted: true, srm5: false, table: false };
+            if (!item) return { bv: 0, ammoPerTon: 0, unlisted: false, srm5: false, table: false };
+            const bv = rate(item);
+            const ammo = this.getAmmo(mount);
+            return { bv: bv.value, ammoPerTon: ammo ? rate(ammo, item).value : 0, unlisted: bv.unlisted, srm5: false, table: false };
+        };
+        // Defensive equipment is antimissile systems and ECM suites (BMR(R) p.154); a probe is offensive equipment here, as it is for a BattleMech.
+        const isDefensive = (mount: IProtoMechMount): boolean => this._isDefensive(mount) && isBattleValue1Defensive(findCatalogItem(mount.tag)!);
+
+        const armor = this.getTotalArmor();
+        const structure = this.getTotalStructure() / 2;
+        trace.add("pm.bv1.def.armor", { label: "Armor", detail: `${armor} points`, value: armor });
+        trace.add("pm.bv1.def.structure", { label: "Internal structure", detail: `${this.getTotalStructure()} points ÷ 2`, value: structure });
+        trace.add("pm.bv1.def.tonnage", { label: "ProtoMech tonnage", detail: `${this._tons} tons`, value: this._tons });
+        let defensiveEquipment = 0;
+        const defensiveByKey: Record<string, { weapon: number; ammo: number }> = {};
+        for (const mount of this._mounts.filter(isDefensive)) {
+            const value = mountValue(mount);
+            const entry = defensiveByKey[mount.tag] ?? (defensiveByKey[mount.tag] = { weapon: 0, ammo: 0 });
+            entry.weapon += value.bv;
+            entry.ammo += this.usesAmmo(mount) ? this.getShots(mount) * this.getShotWeight(mount) / 1000 * value.ammoPerTon : 0;
+        }
+        for (const [tag, entry] of Object.entries(defensiveByKey)) {
+            const value = entry.weapon + Math.min(entry.ammo, entry.weapon);
+            defensiveEquipment += value;
+            trace.add("pm.bv1.def.equipment", { label: `Defensive equipment: ${findCatalogItem(tag)?.name ?? tag}`, value: round2(value) });
+        }
+        const run = this.isGlider() ? this.getRunMP() : this.getBoostedRunMP();
+        const modifiers = [getMovementModifier(run) + (this.isGlider() ? 1 : 0)];
+        if (this.getJumpMP() > 0) modifiers.push(getMovementModifier(this.getJumpMP()) + 1);
+        if (this.getUMUMP() > 0) modifiers.push(getMovementModifier(this.getUMUMP()));
+        const modifier = Math.max(...modifiers);
+        const defensiveFactor = round2(1 + modifier / 10 + 0.1);
+        const subtotal = armor + structure + this._tons + defensiveEquipment;
+        const defensive = subtotal * defensiveFactor;
+        trace.add("pm.bv1.def.subtotal", { label: "Armor, structure ÷ 2, tonnage and defensive equipment", value: round2(subtotal), emphasis: true });
+        trace.add("pm.bv1.def.factor", { label: "Defensive Movement Factor", detail: `1 + ${fmt(round2(modifier / 10))} (target movement modifier +${modifier}) + 0.1 (ProtoMech)`, value: defensiveFactor });
+        trace.add("pm.bv1.def.rating", { label: "Defensive Battle Rating", detail: `${fmt(round2(subtotal))} x ${defensiveFactor}`, value: round2(defensive), total: round2(defensive), emphasis: true });
+
+        const offensiveMounts = this._mounts.filter((mount) => !isDefensive(mount));
+        const arc = (rear: boolean): number => offensiveMounts.filter((mount) => !!mount.rear === rear && mount.location === "torso").reduce((sum, mount) => sum + mountValue(mount).bv, 0);
+        const halveRear = arc(true) <= arc(false);
+        const byKey: Record<string, { weapon: number; ammo: number; name: string }> = {};
+        let weapons = 0;
+        for (const mount of offensiveMounts) {
+            const value = mountValue(mount);
+            const halved = mount.location === "torso" && arc(true) > 0 && !!mount.rear === halveRear;
+            const counted = value.bv * (halved ? 0.5 : 1);
+            weapons += counted;
+            const entry = byKey[this._mountKey(mount)] ?? (byKey[this._mountKey(mount)] = { weapon: 0, ammo: 0, name: this.getMountName(mount) });
+            entry.weapon += value.bv;
+            entry.ammo += this.usesAmmo(mount) ? this.getShots(mount) * this.getShotWeight(mount) / 1000 * value.ammoPerTon : 0;
+            trace.add(halved ? "pm.bv1.off.weapon.rear" : value.srm5 ? "pm.bv1.off.weapon.srm5" : value.unlisted ? "pm.bv1.off.weapon.unlisted" : value.table ? "pm.bv1.off.weapon.missile" : "pm.bv1.off.weapon", {
+                label: `${this.getMountName(mount)} (${this.getLocationName(mount.location)}${mount.rear ? ", rear" : ""})`, detail: halved ? `${fmt(round2(value.bv))} x 0.5` : undefined, value: round2(counted),
+            });
+        }
+        let ammo = 0;
+        for (const entry of Object.values(byKey)) {
+            if (entry.ammo <= 0) continue;
+            const value = Math.min(entry.ammo, entry.weapon);
+            ammo += value;
+            trace.add("pm.bv1.off.ammo", { label: `Ammunition: ${entry.name}`, detail: value < entry.ammo ? `${fmt(round2(entry.ammo))}, held to the weapon's ${fmt(round2(entry.weapon))}` : undefined, value: round2(value) });
+        }
+        const baseMP = this.isGlider() ? this.getRunMP() : this.getGroundRunMP();
+        const booster = this.hasMyomerBooster() ? 1 : 0;
+        const speedMP = baseMP + this.getJumpMP() + booster;
+        const factor = speedFactor(speedMP);
+        trace.add("pm.bv1.off.weapons.total", { label: "Base weapon rating", detail: "weapons, ammunition and equipment", value: round2(weapons + ammo), emphasis: true });
+        trace.add("pm.bv1.off.speed", { label: "Speed Factor", detail: `${this.isGlider() ? "WiGE Flank MP" : "Running MP"} ${baseMP}${this.getJumpMP() ? ` + Jumping MP ${this.getJumpMP()}` : ""}${booster ? " + 1 (myomer booster)" : ""} = ${speedMP}`, value: factor });
+        const offensive = (weapons + ammo) * factor;
+        trace.add("pm.bv1.off.rating", { label: "Offensive Battle Rating", detail: `${fmt(round2(weapons + ammo))} x ${factor} (Speed Factor, ${speedMP})`, value: round2(offensive), total: round2(offensive), emphasis: true });
+        const value = roundNormally(defensive + offensive);
+        trace.add("pm.bv1.final.sum", { label: "Battle Value 1", detail: `${fmt(round2(defensive))} + ${fmt(round2(offensive))} = ${fmt(round2(defensive + offensive))}, rounded`, value, emphasis: true });
+        return { value, result: value, log: trace.steps.map(formatCalcStep), steps: trace.steps };
+    }
+
+    private _bvFor(edition: string): IProtoMechBvResult {
+        return getBattleValueFor<IProtoMechBvResult>(edition, "protomech", { bv1: () => this._calcBattleValue1(edition), bv2: () => this._calcBattleValue() });
+    }
+    public getBattleValue(edition: string = this._rulesEdition): number { return this._bvFor(edition).value; }
+    /** The calculation, one plain-text line per step, each with its page. */
+    public getBattleValueLog(edition: string = this._rulesEdition): string[] { return this._bvFor(edition).log; }
+    /**
+     * The Battle Value steps under `edition`, each with its page (#599): BV2 under a Total Warfare edition, BV1 under the Master Rules, Revised
+     * Edition, and one step with a null result under an edition older than the ProtoMech's Battle Value (the 1998 Master Rules have no ProtoMechs).
+     */
+    public getBattleValueBreakdown(edition: string = this._rulesEdition): ICalcBreakdown {
+        if (!editionHasBattleValue(edition, "protomech")) {
+            const trace = new CalcTrace(NO_BATTLE_VALUE_STEPS);
+            trace.add("none.no-battle-value", { label: `${getRulesEdition(edition).name} has no Battle Value for a ProtoMech. ProtoMechs first appear in the Master Rules, Revised Edition` });
+            return { kind: "battle-value", edition, scheme: "none", steps: trace.steps, result: null };
+        }
+        const bv1 = getBattleValueFor<boolean>(edition, "protomech", { bv1: () => true, bv2: () => false });
+        const calculated = this._bvFor(edition);
+        return { kind: "battle-value", edition, scheme: bv1 ? "bv1" : "bv2", steps: calculated.steps, result: calculated.result };
+    }
+    public getPointBattleValue(edition?: string): number { return this.getBattleValue(edition) * this._pointSize; }
     /** ProtoMechs have no Piloting Skill; the multiplier is read from the Piloting 5 column. */
-    public getSkillMultiplier(edition?: string): number { return getSkillMultiplier(this._gunnery, 5, "protomech", edition) ?? 1; }
-    public getSkillAdjustedBattleValue(edition?: string): number { return roundNormally(this.getBattleValue() * this.getSkillMultiplier(edition)); }
+    public getSkillMultiplier(edition?: string): number { return getSkillMultiplier(this._gunnery, 5, "protomech", getBattleValueSkillEdition(edition ?? this._rulesEdition, "protomech")) ?? 1; }
+    public getSkillAdjustedBattleValue(edition?: string): number { return roundNormally(this.getBattleValue(edition) * this.getSkillMultiplier(edition)); }
     public getSkillAdjustedPointBattleValue(edition?: string): number { return this.getSkillAdjustedBattleValue(edition) * this._pointSize; }
 
     // Cost (TM pp.279, 283, 285), without ammunition -----------------------------------------------------------
@@ -1019,35 +1356,60 @@ export default class ProtoMech {
         if (special) return special.cost === "partial-wing" ? 50000 * getProtoMechEquipmentKg(special, this._tons) / 1000 : special.cost;
         return findCatalogItem(mount.tag)?.cbills ?? 0;
     }
-    private _calcCost(): { value: number; log: string[] } {
+    private _calcCost(): IProtoMechCostResult {
+        const trace = new CalcTrace(PROTOMECH_COST_STEPS);
         const component = (tag: string): number => protoMechComponents.find((item) => item.tag === tag)?.cost.value ?? 0;
         const tons = this._tons;
         const jets = this.getJumpJets();
         const jump = this.getJumpType();
-        const lines: [string, number][] = [
-            ["Cockpit", this._interfaceCockpit ? PROTOMECH_INTERFACE_COCKPIT.cost : component(this.isUltraheavy() ? "protomech-ultraheavy-cockpit" : "protomech-cockpit")],
-            ["Life support", PROTOMECH_COSTS.lifeSupport],
-            ["Sensors", PROTOMECH_COSTS.sensorsPerTon * tons],
-            ["Musculature", PROTOMECH_COSTS.musculaturePerTon * tons],
-            ["Internal structure", component(this.isGlider() ? "protomech-glider-structure" : this.isQuad() ? "protomech-quad-structure" : "protomech-structure") * tons],
-            ["Arm actuators", this.isQuad() ? 0 : 2 * PROTOMECH_COSTS.armActuatorPerTon * tons],
-            ["Leg actuators", PROTOMECH_COSTS.legActuatorsPerTon * tons],
-            ["Engine", 5000 * this.getInstalledEngineRating() * tons / 75],
-            [jump === "umu" ? "UMUs" : "Jump jets", (jump === "umu" ? PROTOMECH_UMU.costFactor : jump === "extended" ? component("protomech-extended-jump-jets") : component("protomech-jump-jets")) * jets * jets * tons],
-            ["Myomer booster", 1000 * this.getInstalledEngineRating() * this.getMyomerBoosterWeight() / 1000],
-            ["Heat sinks", component("protomech-heat-sink") * this.getHeatSinks()],
-            ["Armor", (this._armorType === "edp" ? PROTOMECH_COSTS.edpArmorPerPoint : PROTOMECH_COSTS.armorPerPoint) * this.getTotalArmor()],
-            ["Weapons and equipment", this._mounts.reduce((sum, mount) => sum + this._mountCost(mount), 0)],
-        ];
-        const subtotal = lines.reduce((sum, line) => sum + line[1], 0);
+        const rate = this.getInstalledEngineRating();
+        const money = (value: number): string => Math.round(value).toLocaleString("en-US");
+        const lines: { id: string; label: string; detail: string; value: number }[] = [];
+        const add = (id: string, label: string, detail: string, value: number): void => { if (value > 0) lines.push({ id, label, detail, value }); };
+        add(this._interfaceCockpit ? "pm.cost.cockpit.interface" : this.isUltraheavy() ? "pm.cost.cockpit.ultraheavy" : "pm.cost.cockpit", "Cockpit", "", this._interfaceCockpit ? PROTOMECH_INTERFACE_COCKPIT.cost : component(this.isUltraheavy() ? "protomech-ultraheavy-cockpit" : "protomech-cockpit"));
+        add("pm.cost.life-support", "Life support", "", PROTOMECH_COSTS.lifeSupport);
+        add("pm.cost.sensors", "Sensors", `${money(PROTOMECH_COSTS.sensorsPerTon)} x ${tons} tons`, PROTOMECH_COSTS.sensorsPerTon * tons);
+        add("pm.cost.musculature", "Musculature", `${money(PROTOMECH_COSTS.musculaturePerTon)} x ${tons} tons`, PROTOMECH_COSTS.musculaturePerTon * tons);
+        const structureTag = this.isGlider() ? "protomech-glider-structure" : this.isQuad() ? "protomech-quad-structure" : "protomech-structure";
+        add(this.isGlider() ? "pm.cost.structure.glider" : this.isQuad() ? "pm.cost.structure.quad" : this.isUltraheavy() ? "pm.cost.structure.ultraheavy" : "pm.cost.structure", "Internal structure", `${money(component(structureTag))} x ${tons} tons`, component(structureTag) * tons);
+        add("pm.cost.actuators.arms", "Arm actuators", `2 x ${money(PROTOMECH_COSTS.armActuatorPerTon)} x ${tons} tons`, this.isQuad() ? 0 : 2 * PROTOMECH_COSTS.armActuatorPerTon * tons);
+        add("pm.cost.actuators.legs", "Leg actuators", `${money(PROTOMECH_COSTS.legActuatorsPerTon)} x ${tons} tons`, PROTOMECH_COSTS.legActuatorsPerTon * tons);
+        add("pm.cost.engine", "Engine", `5,000 x rating ${rate} x ${tons} tons ÷ 75`, 5000 * rate * tons / 75);
+        const jumpEach = jump === "umu" ? PROTOMECH_UMU.costFactor : jump === "extended" ? component("protomech-extended-jump-jets") : component("protomech-jump-jets");
+        add(jump === "umu" ? "pm.cost.jump-jets.umu" : jump === "extended" ? "pm.cost.jump-jets.extended" : "pm.cost.jump-jets", jump === "umu" ? "UMUs" : "Jump jets", `${money(jumpEach)} x ${jets}² x ${tons} tons`, jumpEach * jets * jets * tons);
+        add("pm.cost.jump-pack", "Jump pack", `${money(mechJumpPack.costMultiplier)} x ${this.getJumpPackTons()} tons`, mechJumpPack.costMultiplier * this.getJumpPackTons());
+        add("pm.cost.booster", "Myomer booster", `1,000 x rating ${rate} x ${this.getMyomerBoosterWeight() / 1000} tons`, 1000 * rate * this.getMyomerBoosterWeight() / 1000);
+        add("pm.cost.heat-sinks", "Heat sinks", `${money(component("protomech-heat-sink"))} x ${this.getHeatSinks()}`, component("protomech-heat-sink") * this.getHeatSinks());
+        const armorEach = this._armorType === "edp" ? PROTOMECH_COSTS.edpArmorPerPoint : PROTOMECH_COSTS.armorPerPoint;
+        add(this._armorType === "edp" ? "pm.cost.armor.edp" : "pm.cost.armor", "Armor", `${money(armorEach)} x ${this.getTotalArmor()} points`, armorEach * this.getTotalArmor());
+        for (const line of lines) trace.add(line.id, { label: line.label, detail: line.detail || undefined, value: Math.round(line.value) });
+        const structural = lines.reduce((sum, line) => sum + line.value, 0);
+        trace.add("pm.cost.structural-total", { label: "Structural cost", value: Math.round(structural), emphasis: true });
+        let equipment = 0;
+        for (const mount of this._mounts) {
+            const price = this._mountCost(mount);
+            equipment += price;
+            if (price <= 0) continue;
+            const missile = this.getMissile(mount);
+            trace.add(missile ? "pm.cost.weapons.tubes" : "pm.cost.weapons.record", {
+                label: `${this.getMountName(mount)} (${this.getLocationName(mount.location)})`, detail: missile ? `${mount.tubes ?? 1} tubes` : undefined, value: Math.round(price),
+            });
+        }
+        const handheldCost = this.getHandheldAnalysis()?.cost ?? 0;
+        if (handheldCost > 0) trace.add("pm.cost.handheld", { label: "Handheld weapon", detail: "2 x its parts", value: Math.round(handheldCost) });
+        const subtotal = structural + equipment + handheldCost;
         const multiplier = 1 + tons / 100;
         const value = Math.round(subtotal * multiplier);
-        const log = lines.filter((line) => line[1] > 0).map((line) => `${line[0]}: ${Math.round(line[1]).toLocaleString("en-US")}`);
-        log.push(`Total: ${Math.round(subtotal).toLocaleString("en-US")} x ${multiplier} (1 + ${tons} tons / 100) = ${value.toLocaleString("en-US")} C-bills, without ammunition`);
-        return { value, log };
+        trace.add("pm.cost.final", { label: "Cost, without ammunition", detail: `${money(subtotal)} x ${multiplier} (1 + ${tons} tons ÷ 100)`, value, emphasis: true });
+        return { value, log: trace.steps.map(formatCalcStep), steps: trace.steps };
     }
     public getCBillCost(): number { return this._calcCost().value; }
     public getCBillCostLog(): string[] { return this._calcCost().log; }
+    /** The C-bill cost as cited steps (#599). */
+    public getCostBreakdown(): ICalcBreakdown {
+        const cost = this._calcCost();
+        return { kind: "cost", edition: this._rulesEdition, steps: cost.steps, result: cost.value };
+    }
     public getPointCBillCost(): number { return this.getCBillCost() * this._pointSize; }
 
     // Alpha Strike (Alpha Strike Companion pp.92-141, with errata v1.6) ----------------------------------------
@@ -1143,7 +1505,7 @@ export default class ProtoMech {
         if (heatRatings.some((rating) => rating > 0)) add(`HT${heatRatings.map((rating) => rating || "-").join("/")}`);
         for (const mount of this._mounts) {
             const item = this.getSpecial(mount) ? undefined : this.getMissile(mount) ? undefined : findCatalogItem(mount.tag);
-            if (item) for (const code of getAlphaStrikeEquipmentAbilityCodes(item)) add(code);
+            if (item) for (const code of getAlphaStrikeEquipmentAbilityCodes(item)) if (allowsAlphaStrikeAbilityCode(code, this.getRequiredRulesLevel())) add(code);
             if (mount.tag === "protomech-magnetic-clamp") add(this.isUltraheavy() ? "UCS" : "MCS");
             if (mount.tag === "protomech-melee-weapon" || mount.tag === "protomech-quad-melee-system") add("MEL");
         }
@@ -1259,7 +1621,11 @@ export default class ProtoMech {
         } as unknown as IASMULUnit;
         const unit = new AlphaStrikeUnit();
         unit.importMUL(record);
+        // The unit picture stored in the design (#95); with none, the picture the MUL record gave stays.
+        if (this.tro.getImage()) unit.imageURL = this.tro.getImage();
         unit.rulesLevel = Math.max(2, this.getRequiredRulesLevel());
+        // The card credits the Special Rulesets the design is built under (#324).
+        unit.rulesets = this.gameSettings.getRulesets();
         return unit;
     }
 
@@ -1293,7 +1659,21 @@ export default class ProtoMech {
     // Play -----------------------------------------------------------------------------------------------------
 
     public getInPlay(): IProtoMechInPlay { return this._inPlay; }
-    public resetInPlay(): void { this._inPlay = { units: [] }; }
+    public resetInPlay(): void { this._inPlay = { units: [] }; this.ewarPlay = {}; }
+    /**
+     * Every piece of E-War gear mounted (#642), listed once for the Point. Mounts carry no uuid, and a ProtoMech has only
+     * standard or EDP armor, so no armor entry. Destroyed is isMountLost for every ProtoMech still standing in the Point
+     * (one survivor keeps the gear working), or true when none stand.
+     */
+    public getEWarGear(): IEWarGear[] {
+        const gear: IEWarGear[] = [];
+        const standing = Array.from({ length: this._pointSize }, (_unused, unit) => unit).filter((unit) => !this.isUnitDestroyed(unit));
+        this._mounts.forEach((mount, index) => {
+            const kind = getEWarKind(mount.tag);
+            if (kind) gear.push({ kind, tag: mount.tag, name: this.getMountName(mount), location: mount.location, destroyed: standing.every((unit) => this.isMountLost(unit, index)) });
+        });
+        return gear;
+    }
     private _unit(unit: number): IProtoMechUnitInPlay {
         while (this._inPlay.units.length <= unit) this._inPlay.units.push({});
         return this._inPlay.units[unit];
@@ -1383,12 +1763,20 @@ export default class ProtoMech {
         return this.getLocations().includes(location) ? location : location === "la" || location === "ra" ? "legs" : "torso";
     }
 
-    public applyDamage(unit: number, location: ProtoMechLocation, points: number): string[] {
+    public applyDamage(unit: number, location: ProtoMechLocation, points: number, handheldRoll?: number): string[] {
         const log: string[] = [];
         if (unit < 0 || unit >= this._pointSize || points <= 0) return log;
         let target: ProtoMechLocation = this.resolveHitLocation(location);
         if (target !== location) log.push(`No ${PROTOMECH_LOCATION_NAMES[location]}: the hit goes to the ${this.getLocationName(target)}.`);
         let left = Math.round(points);
+        // A hit to either arm may strike the handheld weapon instead: 1D6, on a 6 (TO:AUE p.128).
+        if (handheldRoll !== undefined && (target === "la" || target === "ra") && this.armHitStrikesHandheld(unit, handheldRoll)) {
+            const struck = this.strikeHandheld(unit, left);
+            left = struck.excess;
+            log.push(struck.destroyed
+                ? `The handheld weapon is hit (1D6 ${handheldRoll}) and destroyed${left > 0 ? `; ${left} damage goes on to the ${this.getLocationName(target)}` : ""}.`
+                : `The handheld weapon is hit (1D6 ${handheldRoll}) and takes the damage on its armor (${this.getHandheldPlay(unit).armorLeft} left).`);
+        }
         for (let pass = 0; pass < 2 && left > 0; pass++) {
             const room = this.getLocationCapacity(target) - this.getLocationDamage(unit, target);
             const taken = Math.min(room, left);
@@ -1413,7 +1801,7 @@ export default class ProtoMech {
         this._pruneFrankenProto();
         this._walkMP = Math.min(this.getMaxWalkMP(), Math.max(this.getMinWalkMP(), this._walkMP));
         if (this.isGlider()) { this._jumpType = "none"; this._jumpMP = 0; this._myomerBooster = false; }
-        if (this._jumpType === "none") this._jumpMP = 0;
+        if (this._jumpType === "none" || this._jumpType === "pack") this._jumpMP = 0;
         else this._jumpMP = Math.min(this.getMaxJumpJets(this._jumpType), Math.max(1, this._jumpMP));
         if (!this._mainGun) this._mounts = this._mounts.filter((mount) => mount.location !== "mainGun");
         if (this.isQuad()) this._mounts = this._mounts.filter((mount) => mount.location !== "la" && mount.location !== "ra");
@@ -1427,16 +1815,20 @@ export default class ProtoMech {
         const data: IProtoMechExport = {
             version: 1,
             uuid: this._uuid,
+            tro: this.tro.export(),
             name: this._name,
             ...(this._rulesEdition !== DEFAULT_RULES_EDITION ? { rulesEdition: this._rulesEdition } : {}),
+            ...this.gameSettings.export(),
             tons: this._tons,
             chassis: this._chassis,
             walkMP: this._walkMP,
             jumpType: this.getJumpType(),
             jumpMP: this.getJumpJets(),
+            jumpPackTons: this.getJumpPackTons() || undefined,
             myomerBooster: this.hasMyomerBooster() || undefined,
             mainGun: this._mainGun || undefined,
             interfaceCockpit: this._interfaceCockpit || undefined,
+            handheldWeapon: this._handheld ? { entries: this._handheld.entries.map((entry) => ({ ...entry })), armor: this._handheld.armor } : undefined,
             frankenProto: this._frankenProto
                 ? Object.fromEntries(this.getFrankenProtoLocations().map((location) => [location, this.getFrankenProtoDonor(location)]))
                 : undefined,
@@ -1449,6 +1841,7 @@ export default class ProtoMech {
             lastUpdated: this.lastUpdated.toISOString(),
         };
         if (!noInPlayVariables && this._inPlay.units.some((unit) => Object.keys(unit).length > 0)) data.inPlay = JSON.parse(JSON.stringify(this._inPlay));
+        if (!noInPlayVariables && Object.keys(this.ewarPlay).length) data.ewarPlay = JSON.parse(JSON.stringify(this.ewarPlay));
         return data;
     }
     public exportJSON(): string { return JSON.stringify(this.export()); }
@@ -1457,8 +1850,10 @@ export default class ProtoMech {
         if (!data || typeof data !== "object" || typeof data.tons !== "number") return false;
         this._importIssues = [];
         this._uuid = typeof data.uuid === "string" && data.uuid ? data.uuid.slice(0, 64) : generateUUID();
+        this.tro.import(data.tro);
         this.setName(typeof data.name === "string" ? data.name : "");
         this._rulesEdition = getSelectableRulesEditionTag(data.rulesEdition, "protomech");
+        this.gameSettings.import(data);
         this._chassis = CHASSIS_TAGS.includes(data.chassis) ? data.chassis : "biped";
         this._tons = clampInt(data.tons, this.getMinTons(), PROTOMECH_MAX_TONS, 5);
         this._mainGun = data.mainGun === true;
@@ -1467,8 +1862,10 @@ export default class ProtoMech {
         this._walkMP = clampInt(data.walkMP, this.getMinWalkMP(), this.getMaxWalkMP(), this.getMinWalkMP());
         this._jumpType = JUMP_TYPES.includes(data.jumpType) ? data.jumpType : "none";
         this._jumpMP = clampInt(data.jumpMP, 0, 40, 0);
+        this._jumpPackTons = Math.max(0, Math.round(+(data.jumpPackTons ?? 0) * 2) / 2) || 0;
         this._armorType = data.armorType === "edp" ? "edp" : "standard";
         this._armor = { head: 0, torso: 0, la: 0, ra: 0, legs: 0, mainGun: 0 };
+        this._handheld = null;
         this._mounts = [];
         for (const raw of Array.isArray(data.mounts) ? data.mounts.slice(0, MAX_PROTOMECH_MOUNTS) : []) {
             if (!raw || typeof raw.tag !== "string" || !MOUNT_LOCATIONS.includes(raw.location)) continue;
@@ -1485,6 +1882,19 @@ export default class ProtoMech {
             this._mounts.push(mount);
         }
         this._clamp();
+        const handheld: unknown = data.handheldWeapon;
+        if (handheld && typeof handheld === "object" && Array.isArray((handheld as IHandheldDesign).entries)) {
+            const design = handheld as IHandheldDesign;
+            this._handheld = {
+                entries: design.entries.slice(0, 20).filter((entry) => entry && typeof entry.tag === "string").map((entry) => ({
+                    tag: entry.tag.slice(0, 80),
+                    ...(entry.count ? { count: clampInt(entry.count, 1, 20, 1) } : {}),
+                    ...(entry.shots ? { shots: clampInt(entry.shots, 0, MAX_PROTOMECH_SHOTS, 0) } : {}),
+                    ...(typeof entry.ammoTag === "string" ? { ammoTag: entry.ammoTag.slice(0, 80) } : {}),
+                })),
+                armor: clampInt(design.armor, 0, 200, 0),
+            };
+        }
         // FrankenProto donors set the structure, so they come before the armor; each is checked as it is set.
         this._frankenProto = null;
         const franken: unknown = data.frankenProto;
@@ -1502,6 +1912,7 @@ export default class ProtoMech {
         this._gunnery = clampInt(data.gunnery, 0, 8, 4);
         this._pointSize = clampInt(data.pointSize, 1, PROTOMECH_POINT_SIZE, PROTOMECH_POINT_SIZE);
         this._inPlay = { units: [] };
+        this.ewarPlay = normalizeEWarPlay(data.ewarPlay);
         const units = Array.isArray(data.inPlay?.units) ? data.inPlay?.units ?? [] : [];
         units.slice(0, this._pointSize).forEach((raw, unit) => {
             if (!raw || typeof raw !== "object") return;
@@ -1512,6 +1923,9 @@ export default class ProtoMech {
             if (raw.pilotHits) this.setPilotHits(unit, Number(raw.pilotHits));
             for (const [index, shots] of Object.entries(raw.fired ?? {})) this.setShotsFired(unit, Number(index), Number(shots));
             for (const index of Array.isArray(raw.lost) ? raw.lost : []) this.setMountLost(unit, Number(index), true);
+            if (raw.handheld && ["carried", "dropped", "destroyed"].includes(raw.handheld.state)) {
+                this._unit(unit).handheld = { state: raw.handheld.state, armorLeft: clampInt(raw.handheld.armorLeft, 0, 200, 0) };
+            }
         });
         const saved = typeof data.lastUpdated === "string" ? new Date(data.lastUpdated) : new Date();
         this.lastUpdated = Number.isNaN(saved.getTime()) ? new Date() : saved;

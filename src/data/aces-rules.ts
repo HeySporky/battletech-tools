@@ -88,7 +88,83 @@ export const acesVehicleCriticalHitTable: IAcesTableRow<TAcesVehicleCritical>[] 
     { min: 12, max: 12, effect: "engine", label: "Engine Hit (Vehicles): halve Move, TMM and damage; second hit destroys" },
 ];
 
-export const lookupAcesTable = <T>( table: IAcesTableRow<T>[], roll: number ): IAcesTableRow<T> => {
+export type TAsceCritical =
+    "ammo" | "engine" | "fire-control" | "weapon" | "mp" | "none" | "destroyed" | "crew-killed" | "crew-stunned" |
+    "fuel" | "crew-hit" | "thruster" | "kf-boom" | "docking-collar" | "door";
+
+/**
+ * Alpha Strike: Commander's Edition critical hit tables, 2D6. The ground table is on p.50 (reprinted p.201), the
+ * aerospace tables on p.187; the effects are on pp.50 and 184. Checked against the 5th printing and Errata v7.02.
+ * Tripods, Quads and OmniMechs use the 'Mech column; an IndustrialMech rolls twice (p.50). Conventional infantry
+ * and battle armor never roll for a critical hit (p.49).
+ */
+const asceRow = ( min: number, max: number, effect: TAsceCritical, label: string ): IAcesTableRow<TAsceCritical> => ( { min, max, effect, label } );
+
+export const asceMechCriticalTable: IAcesTableRow<TAsceCritical>[] = [
+    asceRow( 2, 2, "ammo", "Ammo Hit: destroyed unless it has CASE II or ENE (CASE: 1 extra damage)" ),
+    asceRow( 3, 3, "engine", "Engine Hit: 1 heat whenever it fires; a second hit destroys it" ),
+    asceRow( 4, 4, "fire-control", "Fire Control Hit: +2 to weapon attacks" ),
+    asceRow( 5, 5, "none", "No Critical Hit" ),
+    asceRow( 6, 6, "weapon", "Weapon Hit: -1 damage at all ranges" ),
+    asceRow( 7, 7, "mp", "MP Hit: lose half Move and TMM (at least 2 inches and 1 TMM)" ),
+    asceRow( 8, 8, "weapon", "Weapon Hit: -1 damage at all ranges" ),
+    asceRow( 9, 9, "none", "No Critical Hit" ),
+    asceRow( 10, 10, "fire-control", "Fire Control Hit: +2 to weapon attacks" ),
+    asceRow( 11, 11, "engine", "Engine Hit: 1 heat whenever it fires; a second hit destroys it" ),
+    asceRow( 12, 12, "destroyed", "Unit Destroyed" ),
+];
+
+export const asceProtoMechCriticalTable: IAcesTableRow<TAsceCritical>[] = [
+    asceRow( 2, 3, "weapon", "Weapon Hit: -1 damage at all ranges" ),
+    asceRow( 4, 4, "fire-control", "Fire Control Hit: +2 to weapon attacks" ),
+    asceRow( 5, 5, "mp", "MP Hit: lose half Move and TMM (at least 2 inches and 1 TMM)" ),
+    asceRow( 6, 6, "none", "No Critical Hit" ),
+    asceRow( 7, 7, "mp", "MP Hit: lose half Move and TMM (at least 2 inches and 1 TMM)" ),
+    asceRow( 8, 8, "none", "No Critical Hit" ),
+    asceRow( 9, 9, "mp", "MP Hit: lose half Move and TMM (at least 2 inches and 1 TMM)" ),
+    asceRow( 10, 10, "destroyed", "Unit Destroyed" ),
+    asceRow( 11, 12, "weapon", "Weapon Hit: -1 damage at all ranges" ),
+];
+
+/** Combat and support vehicles under ASCE (not the Aces table, which differs). */
+export const asceVehicleCriticalTable: IAcesTableRow<TAsceCritical>[] = [
+    asceRow( 2, 2, "ammo", "Ammo Hit: destroyed unless it has CASE II or ENE (CASE: 1 extra damage)" ),
+    asceRow( 3, 3, "crew-stunned", "Crew Stunned: cannot move or attack next turn; counts as immobile" ),
+    asceRow( 4, 5, "fire-control", "Fire Control Hit: +2 to weapon attacks" ),
+    asceRow( 6, 8, "none", "No Critical Hit" ),
+    asceRow( 9, 10, "weapon", "Weapon Hit: -1 damage at all ranges" ),
+    asceRow( 11, 11, "crew-killed", "Crew Killed: the unit is destroyed" ),
+    asceRow( 12, 12, "engine", "Engine Hit: halve Move, TMM and damage; a second hit destroys it" ),
+];
+
+export const asceAerospaceCriticalTable: IAcesTableRow<TAsceCritical>[] = [
+    asceRow( 2, 2, "fuel", "Fuel Hit: the unit crashes and is destroyed" ),
+    asceRow( 3, 3, "fire-control", "Fire Control Hit: +2 to weapon attacks" ),
+    asceRow( 4, 4, "engine", "Engine Hit: Thrust halved; a second hit takes Thrust to 0 and it crashes" ),
+    asceRow( 5, 5, "weapon", "Weapon Hit: -1 damage at all ranges" ),
+    asceRow( 6, 8, "none", "No Critical Hit" ),
+    asceRow( 9, 9, "weapon", "Weapon Hit: -1 damage at all ranges" ),
+    asceRow( 10, 10, "engine", "Engine Hit: Thrust halved; a second hit takes Thrust to 0 and it crashes" ),
+    asceRow( 11, 11, "fire-control", "Fire Control Hit: +2 to weapon attacks" ),
+    asceRow( 12, 12, "crew-killed", "Crew Killed: the unit is destroyed" ),
+];
+
+/** DropShips and small craft. */
+export const asceDropShipCriticalTable: IAcesTableRow<TAsceCritical>[] = [
+    asceRow( 2, 2, "kf-boom", "KF Boom Hit: no effect in standard play" ),
+    asceRow( 3, 3, "docking-collar", "Docking Collar Hit: no effect in standard play" ),
+    asceRow( 4, 4, "none", "No Critical Hit" ),
+    asceRow( 5, 5, "fire-control", "Fire Control Hit: +2 to weapon attacks" ),
+    asceRow( 6, 6, "weapon", "Weapon Hit: -1 damage at all ranges" ),
+    asceRow( 7, 7, "thruster", "Thruster Hit: -1 Thrust (once per unit), +4 to the End Phase Control Roll" ),
+    asceRow( 8, 8, "weapon", "Weapon Hit: -1 damage at all ranges" ),
+    asceRow( 9, 9, "door", "Door Hit: one random cargo bay can no longer be used" ),
+    asceRow( 10, 10, "none", "No Critical Hit" ),
+    asceRow( 11, 11, "engine", "Engine Hit: Thrust -25%, then -50% of original, then 0 and it crashes" ),
+    asceRow( 12, 12, "crew-hit", "Crew Hit: +2 to attacks and Control Rolls; a second hit kills the crew" ),
+];
+
+export const lookupAcesTable =<T>( table: IAcesTableRow<T>[], roll: number ): IAcesTableRow<T> => {
     const clamped = Math.max( table[0].min, Math.min( table[table.length - 1].max, roll ) );
     for( const row of table ) {
         if( clamped >= row.min && clamped <= row.max ) {
@@ -285,6 +361,33 @@ export const ACES_MIN_NAMED_PILOTS = 2;
 export const ACES_MAX_NAMED_PILOTS = 6;
 export const ACES_NAMED_PILOT_STARTING_SP = 150;
 export const ACES_NAMED_PILOT_TYPES = [ "BM", "CV", "BA" ];
+
+/**
+ * Unit types the campaign's "custom units" switch adds to advanced force creation and
+ * Named Pilots. Custom Homebrew, not in Aces: Micro-Mechs (TRO - JBT: Micro-Mechs) and
+ * walkers (TRO - JBT: Walkers). An industrial walker (IWK) is left out, as an IndustrialMech is.
+ */
+export const ACES_CUSTOM_UNIT_TYPES = [ "MM", "WK" ];
+
+/**
+ * The unit type Aces and ASCE rules read a card as. A walker (WK) is a four-legged 'Mech and
+ * reads as BM, an industrial walker (IWK) as IM (Custom Homebrew, TRO - JBT: Walkers); every
+ * other type is its own. Upper case, trimmed.
+ */
+export const getAcesRulesType = ( type: string ): string => {
+    const upper = type.trim().toUpperCase();
+    if( upper === "WK" ) return "BM";
+    if( upper === "IWK" ) return "IM";
+    return upper;
+};
+
+export const getAcesAdvancedForceTypes = ( customUnits: boolean ): string[] => {
+    return customUnits ? [ ...ACES_ADVANCED_FORCE_TYPES, ...ACES_CUSTOM_UNIT_TYPES ] : [ ...ACES_ADVANCED_FORCE_TYPES ];
+};
+
+export const getAcesNamedPilotTypes = ( customUnits: boolean ): string[] => {
+    return customUnits ? [ ...ACES_NAMED_PILOT_TYPES, ...ACES_CUSTOM_UNIT_TYPES ] : [ ...ACES_NAMED_PILOT_TYPES ];
+};
 
 /** SP thresholds printed on the Named Pilot card: cumulative SP in a column to reach each value (Aces pp.27, 29). */
 export interface IAcesPilotThreshold {

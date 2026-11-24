@@ -3,7 +3,9 @@ import { FaTrash } from 'react-icons/fa';
 import AerospaceFighter from '../../../../classes/aerospace-fighter';
 import Pilot from '../../../../classes/pilot';
 import { IAppGlobals } from '../../../app-router';
+import MULSearchButton from './_mulSearchButton';
 import StatBar from '../../../components/stat-bar';
+import { formatBattleValue } from '../../../../data/battle-value';
 const Trash = FaTrash as any;
 
 /**
@@ -87,7 +89,7 @@ export default class FighterGroupTable extends React.Component<IFighterGroupTabl
             <table className="table">
                 <thead>
                     <tr>
-                        {this.props.showEdit ? <th className="min-width no-wrap"></th> : null}
+                        {this.props.showEdit ? <th className="min-width no-wrap"><span className="visually-hidden">Actions</span></th> : null}
                         <th>Fighter</th>
                         <th>Tons</th>
                         <th>Tech</th>
@@ -98,8 +100,8 @@ export default class FighterGroupTable extends React.Component<IFighterGroupTabl
                 </thead>
                 {fighters.map( (fighter, index) => {
                     const pilot = fighter.getPilot();
-                    const pilotBV = fighter.getPilotAdjustedBattleValue();
-                    const baseBV = fighter.getBattleValue();
+                    const pilotBV = formatBattleValue((edition) => fighter.getPilotAdjustedBattleValue(edition), "fighter", this.props.appGlobals.currentCBTForce?.rulesEdition);
+                    const baseBV = formatBattleValue((edition) => fighter.getBattleValue(edition), "fighter", this.props.appGlobals.currentCBTForce?.rulesEdition);
                     return (
                         <tbody key={fighter.getUUID()}>
                             <tr>
@@ -210,6 +212,7 @@ export default class FighterGroupTable extends React.Component<IFighterGroupTabl
                                 ) : (
                                     <span className="small-text">Save fighters in the Fighter Creator to add them to this group.</span>
                                 )}
+                                <MULSearchButton unitLabel="fighters" onClick={this.props.onSearchMUL} />
                             </td>
                         </tr>
                     </tfoot>
@@ -233,6 +236,7 @@ interface IFighterGroupTableProps {
     appGlobals: IAppGlobals;
     bmGroupIndex: number;
     showAdd: boolean;
+    onSearchMUL?: ( e: React.FormEvent<HTMLButtonElement> ) => void;
     showEdit: boolean;
 }
 

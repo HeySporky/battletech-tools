@@ -6,10 +6,11 @@ import { GRAV_DECKS } from '../../../../data/advanced-aerospace-construction';
 import { findTransportBayType, quartersTypes, transportBayTypes } from '../../../../data/small-craft-construction';
 import { IAppGlobals } from '../../../app-router';
 import NumberField from "./_numberField";
-import CapitalShipCreatorSideMenu from '../../../components/capital-ship-creator-side-menu';
+import { CapitalShipCreatorSideMenu } from '../../../components/creator-side-menus';
 import TextSection from '../../../components/text-section';
 import UIPage from '../../../components/ui-page';
 import CapitalShipStatusBar from './_statusBar';
+import { unitRulesLevel } from '../../../components/game-settings-block';
 const ArrowCircleLeft = FaArrowCircleLeft as any;
 const ArrowCircleRight = FaArrowCircleRight as any;
 const Trash = FaTrash as any;
@@ -31,10 +32,11 @@ export default class CapitalShipCreatorCrew extends React.Component<ICrewProps> 
     render = (): JSX.Element => {
         const ship = this.props.appGlobals.currentCapitalShip;
         if (!ship) return <></>;
-        const rulesLevel = this.props.appGlobals.appSettings.mechRulesFilter;
+        const rulesLevel = unitRulesLevel(this.props.appGlobals.currentCapitalShip, this.props.appGlobals.appSettings);
         const people = ship.getPeopleNeedingQuarters();
         const techBase = ship.getChassisTechBase();
-        const bayOptions = transportBayTypes.filter((type) => !type.tech || type.tech === techBase || ship.isMixedTech());
+        // A homebrew bay (the Micro-Mech Bay) is offered at its rules level.
+        const bayOptions = transportBayTypes.filter((type) => (!type.largeCraftOnly || type.largeCraftOnly.includes(ship.getShipType() as "jumpShip" | "spaceStation" | "warShip")) &&(!type.tech || type.tech === techBase || ship.isMixedTech()) && (type.rulesLevel ?? 0) <= rulesLevel);
         const remaining = ship.getRemainingTonnage();
 
         return (
@@ -122,7 +124,7 @@ export default class CapitalShipCreatorCrew extends React.Component<ICrewProps> 
                         <TextSection label="Transport Bays">
                             <table className="table" data-testid="cs-bays">
                                 <thead>
-                                    <tr><th>Bay</th><th>Amount</th><th>Doors</th><th>Tons</th><th>Holds</th><th></th></tr>
+                                    <tr><th>Bay</th><th>Amount</th><th>Doors</th><th>Tons</th><th>Holds</th><th><span className="visually-hidden">Actions</span></th></tr>
                                 </thead>
                                 <tbody>
                                     {ship.getBays().map((bay, index) => {
@@ -183,7 +185,7 @@ export default class CapitalShipCreatorCrew extends React.Component<ICrewProps> 
 
                             <div className="clear-both overflow-hidden">
                                 <hr />
-                                <Link to={`${process.env.PUBLIC_URL}/classic-battletech/capital-ship-creator/summary`} className="btn btn-primary pull-right btn-sm">Next: Summary <ArrowCircleRight /></Link>
+                                <Link to={`${process.env.PUBLIC_URL}/classic-battletech/capital-ship-creator/technical-readout`} className="btn btn-primary pull-right btn-sm">Next: Technical Readout <ArrowCircleRight /></Link>
                                 <Link to={`${process.env.PUBLIC_URL}/classic-battletech/capital-ship-creator/equipment`} className="btn btn-primary btn-sm"><ArrowCircleLeft /> Previous Step</Link>
                             </div>
                         </TextSection>

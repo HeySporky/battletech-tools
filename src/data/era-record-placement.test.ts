@@ -1,64 +1,70 @@
 import { describe, expect, it } from "vitest";
 import { getStarLeagueCarryOverDates, parseTechYear } from "./equipment-registry";
 import { getEraForYear } from "./era-options";
-import { mechClanAmmo } from "./mech-clan-ammo";
-import { mechClanEquipmentArtillery } from "./mech-clan-equipment-weapons-artillery";
-import { mechCustomEquipmentBallistic } from "./mech-custom-equipment-weapons-ballistic";
-import { mechCustomEquipmentEnergy } from "./mech-custom-equipment-weapons-energy";
-import { mechCustomEquipmentMisc } from "./mech-custom-equipment-weapons-misc";
+import { ballisticCustom } from "./ballistic-custom";
+import { energyCustom } from "./energy-custom";
+import { miscCustom } from "./misc-custom";
 import { mechHeatSinkTypes } from "./mech-heat-sink-types";
 import { mechInternalStructureTypes } from "./mech-internal-structure-types";
-import { mechISEquipmentArtillery } from "./mech-is-equipment-weapons-artillery";
-import { mechISEquipmentEnergy } from "./mech-is-equipment-weapons-energy";
-import { mechClanEquipmentMisc } from "./mech-clan-equipment-weapons-misc";
-import { mechISAmmo } from "./mech-is-ammo";
-import { mechISEquipmentMisc } from "./mech-is-equipment-weapons-misc";
-import { mechUniversalAmmo } from "./mech-universal-ammo";
-import { mechUniversalEquipment } from "./mech-universal-equipment";
+import { equipmentArtillery } from "./equipment-artillery";
+import { equipmentEnergy } from "./equipment-energy";
+import { ammoCatalog } from "./ammo";
+import { equipmentMisc } from "./equipment-misc";
+import { universalEquipment } from "./universal-equipment";
+
+const isAmmoList = ammoCatalog.filter((item) => item.techBase === "is");
+const clanAmmoList = ammoCatalog.filter((item) => item.techBase === "clan");
+const universalAmmoList = ammoCatalog.filter((item) => item.techBase === "universal");
+
+const isArtilleryList = equipmentArtillery.filter((item) => item.techBase === "is");
+const clanArtilleryList = equipmentArtillery.filter((item) => item.techBase === "clan");
+const isMiscList = equipmentMisc.filter((item) => item.techBase === "is");
+const clanMiscList = equipmentMisc.filter((item) => item.techBase === "clan");
+
+const isEnergyList = equipmentEnergy.filter((item) => item.techBase === "is");
 
 const hasTag = (list: { tag: string }[], tag: string) => list.some((item) => item.tag === tag);
 
 describe("records whose IS and Clan dates differ are not universal", () => {
     it("keeps Listen-Kill ammo Inner Sphere only (IO p.62: IS, prototype 3037, extinct 3040)", () => {
         for (const launcher of ["lrm", "srm"]) {
-            expect(hasTag(mechUniversalAmmo, `ammo-${launcher}-listen-kill`)).toBe(false);
-            const ammo = mechISAmmo.find((item) => item.tag === `ammo-is-${launcher}-listen-kill`)!;
+            expect(hasTag(universalAmmoList, `ammo-${launcher}-listen-kill`)).toBe(false);
+            const ammo = isAmmoList.find((item) => item.tag === `ammo-is-${launcher}-listen-kill`)!;
             expect(ammo.altTags).toContain(`ammo-${launcher}-listen-kill`);
             expect(ammo).toMatchObject({ introduced: null, prototype: 3037, extinct: 3040 });
         }
     });
 
     // TO:AUE p.134 gives "Reintroduced: N/A"; the 3073 the record once carried had no source.
-    it("splits the Laser Insulator: the IS lost it in 2820, the Clans never did (TO:AUE p.134; IO:AE p.38)", () => {
-        expect(hasTag(mechUniversalEquipment, "laser-insulator")).toBe(false);
-        expect(mechISEquipmentMisc.find((item) => item.tag === "laser-insulator"))
-            .toMatchObject({ extinct: 2820, reintroduced: null });
-        const clan = mechClanEquipmentMisc.find((item) => item.tag === "clan-laser-insulator")!;
-        expect(clan.altTags).toContain("laser-insulator");
-        expect(clan.extinct).toBeNull();
+    // Catalog consolidation §2: a pair that differs only in dates is one universal record with the Clan dates apart.
+    it("keeps one Laser Insulator: the IS lost it in 2820, the Clans never did (TO:AUE p.134; IO:AE p.38)", () => {
+        const record = universalEquipment.find((item) => item.tag === "laser-insulator")!;
+        expect(record).toMatchObject({ extinct: 2820, reintroduced: null });
+        expect(record.altTags).toContain("clan-laser-insulator");
+        expect(record.clanDates?.extinct).toBeNull();
+        expect(hasTag([...isMiscList, ...clanMiscList], "clan-laser-insulator")).toBe(false);
     });
 });
 
-describe("artillery cannons split by side (TO:AUE pp.97, 217; IO:AE p.31)", () => {
-    // The table gives "3012P / 3032P" and one production year, 3079, for both sides.
+describe("artillery cannons, one record for both sides (TO:AUE pp.97, 217; IO:AE p.31)", () => {
+    // The table gives "3012P / 3032P" and one production year, 3079, for both sides: the Clan dates sit in clanDates.
     it("gives the IS cannons a 3012 prototype and the Clan ones 3032, both in production from 3079", () => {
         for (const gun of ["long-tom", "sniper", "thumper"]) {
-            expect(hasTag(mechUniversalEquipment, `${gun}-cannon`)).toBe(false);
-            expect(mechISEquipmentArtillery.find((item) => item.tag === `${gun}-cannon`))
-                .toMatchObject({ prototype: 3012, introduced: 3079 });
-            const clan = mechClanEquipmentArtillery.find((item) => item.tag === `clan-${gun}-cannon`)!;
-            expect(clan).toMatchObject({ prototype: 3032, introduced: 3079 });
-            expect(clan.altTags).toContain(`${gun}-cannon`);
+            const record = universalEquipment.find((item) => item.tag === `${gun}-cannon`)!;
+            expect(record).toMatchObject({ prototype: 3012, introduced: 3079 });
+            expect(record.clanDates).toMatchObject({ prototype: 3032, introduced: 3079 });
+            expect(record.altTags).toContain(`clan-${gun}-cannon`);
+            expect(hasTag([...isArtilleryList, ...clanArtilleryList], `clan-${gun}-cannon`)).toBe(false);
         }
     });
 
     it("keeps one universal shell record per cannon, answering to the old per-side tags", () => {
         for (const gun of ["long-tom", "sniper", "thumper"]) {
-            const shells = mechUniversalAmmo.find((item) => item.tag === `ammo-${gun}-cannon-standard`)!;
+            const shells = universalAmmoList.find((item) => item.tag === `ammo-${gun}-cannon-standard`)!;
             expect(shells).toMatchObject({ prototype: 3012, introduced: 3079 });
             expect(shells.altTags).toEqual(expect.arrayContaining([`ammo-is-${gun}-cannon-standard`, `ammo-clan-${gun}-cannon-standard`]));
-            expect(hasTag(mechISAmmo, `ammo-is-${gun}-cannon-standard`)).toBe(false);
-            expect(hasTag(mechClanAmmo, `ammo-clan-${gun}-cannon-standard`)).toBe(false);
+            expect(hasTag(isAmmoList, `ammo-is-${gun}-cannon-standard`)).toBe(false);
+            expect(hasTag(clanAmmoList, `ammo-clan-${gun}-cannon-standard`)).toBe(false);
         }
     });
 });
@@ -70,7 +76,7 @@ describe("date corrections", () => {
             "er-ppc-capacitor": 3060, "snub-nose-ppc-capacitor": 3067,
         };
         for (const [tag, prototype] of Object.entries(prototypes)) {
-            expect(mechISEquipmentEnergy.find((item) => item.tag === tag), tag).toMatchObject({ introduced: 3081, prototype });
+            expect(isEnergyList.find((item) => item.tag === tag), tag).toMatchObject({ introduced: 3081, prototype });
         }
     });
 
@@ -80,11 +86,11 @@ describe("date corrections", () => {
     });
 
     it("dates custom items from the canon item they are built on (IO p.38, p.43, p.45)", () => {
-        expect(mechCustomEquipmentBallistic.find((item) => item.tag === "custom-ac-15"))
+        expect(ballisticCustom.find((item) => item.tag === "custom-ac-15"))
             .toMatchObject({ prototype: 2488, introduced: 2500 }); // AC/20
-        expect(mechCustomEquipmentEnergy.find((item) => item.tag === "custom-disruptor"))
+        expect(energyCustom.find((item) => item.tag === "custom-disruptor"))
             .toMatchObject({ prototype: 2306, introduced: 2316 }); // Large Laser
-        expect(mechCustomEquipmentMisc.find((item) => item.tag === "custom-null-signature-system"))
+        expect(miscCustom.find((item) => item.tag === "custom-null-signature-system"))
             .toMatchObject({ prototype: 2615, introduced: 2630, extinct: 2790, reintroduced: 3110 }); // Null-Signature System
     });
 });
@@ -116,7 +122,7 @@ describe("getEraForYear (SSW import sets the design's era from its year)", () =>
 	it("picks the tech base's era containing the year", () => {
 		expect(getEraForYear(2867, "clan")?.tag).toBe("clan-golden-years");
 		expect(getEraForYear(2867, "is")?.tag).toBe("early-sw");
-		expect(getEraForYear(2750, "clan")?.tag).toBe("star-league");
+		expect(getEraForYear(2750, "clan")?.tag).toBe("clan-founding-years");
 		expect(getEraForYear(3055, "clan")?.tag).toBe("clan-inv");
 	});
 	it("uses the next era when the year falls in a gap, and the latest after the last", () => {

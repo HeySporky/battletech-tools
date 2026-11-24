@@ -1,18 +1,26 @@
 import { generateUUID } from "../utils/generateUUID";
-import { DEFAULT_RULES_EDITION, getSelectableRulesEditionTag } from "../data/rules-editions";
-import { aerospaceArmorTypes, getAerospaceArmorPointsPerTon } from "../data/aerospace-armor-types";
+import { getEWarKind, normalizeEWarPlay, type IEWarGear, type IEWarPlayState } from "../utils/ewar-play";
+import { IGameSettingsUnit, UnitGameSettings } from "./unit-game-settings";
+import { chooseEra } from "../data/era-choice";
+import { findUnitCatalogRecord, copyCatalogRecord, getUnitCatalogRecords } from "../data/equipment-lookup";
+import { IAssignedQuirk, IQuirkTargets, QuirkUnitType } from "../data/quirk-interfaces";
+import { getQuirkIssues, getQuirkTargets, quirkBayTarget } from "../data/quirk-registry";
+import { QuirkList } from "./quirk-list";
+import { TechnicalReadout } from "./technical-readout";
+import type { ITechnicalReadoutExport } from "../data/technical-readout-interfaces";
+import { DEFAULT_RULES_EDITION, getSelectableRulesEditionTag, isOfferedInEdition } from "../data/rules-editions";
+import { aerospaceArmorTypes, getAerospaceArmorDates, getAerospaceArmorPointsPerTon } from "../data/aerospace-armor-types";
 import { mechHeatSinkTypes } from "../data/mech-heat-sink-types";
 import { btTechOptions } from "../data/tech-options";
 import { btEraOptions, findEraByTag, getClosestEraForTech, getErasForTech } from "../data/era-options";
 import SmallCraft from "./small-craft";
 import Pilot, { IPilot } from "./pilot";
-import { getSkillMultiplier } from "../data/skill-multipliers";
+import { getBattleValueFor, getBattleValueSkillEdition, getSkillMultiplier } from "../data/battle-value";
 import { CAPITAL_MISSILE_CRITICAL_CHANCE, CAPITAL_SHIP_CRITICAL_NAMES, CapitalShipAttackDirection, ICapitalShipHit, getCapitalShipHitLocation } from "../data/capital-ship-hit-tables";
-import { CUSTOM_HOMEBREW_RULES_LEVEL, getArtemisLauncherBattleValue, getAmmoBattleValuePerTon, getCompatibleAmmo, getEquipmentRulesLevel, getEffectiveIntroduction, getEquipmentListByTech, getWeaponShotsPerTon, isEquipmentWithinRulesLevel } from "../data/equipment-registry";
+import { CUSTOM_HOMEBREW_RULES_LEVEL, getArtemisLauncherBattleValue, getItemBattleValue, getAmmoBattleValuePerTon, getCompatibleAmmo, getEquipmentRulesLevel, getEffectiveIntroduction, getEquipmentListByTech, getWeaponShotsPerTon, isEquipmentOffered, isUnderUnitLimit, getTechDatesAvailability, getAlphaStrikeEquipmentSpecials } from "../data/equipment-registry";
 import { findByTag } from "../data/tag-match";
-import { sizeDroneSystems } from "../data/variable-equipment";
-import { getEquipmentSubtype } from "../data/equipment-subtypes";
-import { getAerospaceDamageByBracket } from "../data/aerospace-record-sheet";
+import { sizeTonnageScaledEquipment } from "../data/variable-equipment";
+import { IWeaponBay, capitalBayWeapon, groupWeaponBays, standardBayWeapon } from "../data/weapon-bays";
 import { ADVANCED_RULES_LEVEL } from "../data/rules-level-options";
 import {
     CAPITAL_WEAPON_ALPHA_STRIKE, ILargeCraftASDamageValue, LARGE_CRAFT_AS_ATTACK_CLASSES, LARGE_CRAFT_AS_DEFENSIVE_ABILITY_FACTORS, LargeCraftASAttackClass,
@@ -22,11 +30,11 @@ import {
 import { IAerospaceArmorType, ICapitalWeapon, IEquipmentItem, IEras, IHeatSync, ITechDates, ITechOptions } from "../data/data-interfaces";
 import { CAPITAL_WEAPON_CATALOG, findCapitalWeapon, getCapitalAmmoBattleValue, getCapitalAmmoCost, getCapitalAmmoTags, getCapitalAmmoTons } from "../data/capital-weapon-helpers";
 import {
-    BAY_DOOR_COST, ESCAPE_SYSTEM_COST, ESCAPE_SYSTEM_TONS, QuartersTag, findTransportBayType, quartersTypes,
+    BAY_DOOR_COST, ESCAPE_SYSTEM_COST, ESCAPE_SYSTEM_TONS, QuartersTag, findTransportBayType, getTransportBaysRulesLevel, quartersTypes,
 } from "../data/small-craft-construction";
 import {
     ADVANCED_AEROSPACE_ARC_NAMES, ADVANCED_AEROSPACE_BV_ARMOR_FACTOR, ADVANCED_AEROSPACE_BV_SI_FACTOR, ADVANCED_AEROSPACE_FACINGS, ADVANCED_AEROSPACE_MAX_BAY_CAPITAL_DAMAGE, ADVANCED_AEROSPACE_MAX_SI_FACTOR,
-    ADVANCED_AEROSPACE_OPPOSITE_ARC, AdvancedAerospaceArc, AdvancedAerospaceFacing, AdvancedAerospaceType, DOCKING_COLLAR_TONS, GRAV_DECKS,
+    ADVANCED_AEROSPACE_OPPOSITE_ARC, AdvancedAerospaceArc, AdvancedAerospaceFacing, AdvancedAerospaceType, DOCKING_COLLAR_TONS, ENERGY_STORAGE_BATTERY_COST, ENERGY_STORAGE_BATTERY_TONS, FIRE_CONTROL_PRICE_PER_TON, SDS_DRONE_NOTES, SDS_JAMMER_COST, SDS_JAMMER_TONS, SDS_MAX_WARSHIP_TONS, SDS_RULES_LEVEL, SDS_SELF_DESTRUCT_COST, SDS_SELF_DESTRUCT_NOTES, SDS_WARSHIP_LIMIT_MESSAGE, SdsCraftKind, SdsLevel, getSdsControlCost, getSdsControlWeight, getSdsRamDamage, getSdsSelfDestructWeight, getSdsSkills, getSdsSupportQuarters, GRAV_DECKS,
     GravDeckSize, advancedAerospaceTypes, getAdvancedAerospaceArcs, getAdvancedAerospaceArmorPoints, getAdvancedAerospaceBaseCrew,
     getAdvancedAerospaceControlsWeight, getAdvancedAerospaceCostMultiplier, getAdvancedAerospaceEngineWeight, getAdvancedAerospaceFireControlWeight,
     getAdvancedAerospaceFreeArmorPerFacing, getAdvancedAerospaceFreeHeatSinks, getAdvancedAerospaceFuelPointsPerTon, getAdvancedAerospaceFuelPumpWeight,
@@ -152,10 +160,16 @@ export interface ICapitalShipMountExport {
 export interface ICapitalShipExport {
     pilot?: IPilot;
     inPlay?: ICapitalShipInPlay;
+    ewarPlay?: IEWarPlayState;
     /** The rules edition it is built under (rules-editions.ts); absent means Total Warfare. */
     rulesEdition?: string;
+    rulesLevel?: number;
+    rulesets?: string[];
     version: number;
     uuid: string;
+    quirks?: IAssignedQuirk[];
+    /** The optional Technical Readout: makes and text for the printed TRO sheet. */
+    tro?: ITechnicalReadoutExport;
     lastUpdated: Date;
     name: string;
     model: string;
@@ -167,6 +181,13 @@ export interface ICapitalShipExport {
     structuralIntegrity: number;
     fuelTons: number;
     lithiumFusionBattery: boolean;
+    /** A station's energy storage batteries and its jump sail (SO:AA p.136). Older saves have neither. */
+    energyStorageBatteries?: number;
+    jumpSail?: boolean;
+    /** SDS (Caspar) drone control, its self-destruct and the SLDF jammer (IO:AE pp.134, 140-141). Older saves have none. */
+    sds?: SdsLevel;
+    sdsSelfDestruct?: boolean;
+    sdsJammer?: boolean;
     kfBoom: boolean;
     /** Custom Homebrew: a WarShip built without a K-F drive. Older saves have no field. */
     monitor?: boolean;
@@ -199,8 +220,6 @@ const isPlainObject = (value: unknown): value is Record<string, unknown> =>
     typeof value === "object" && value !== null && !Array.isArray(value);
 const wholeNumber = (value: number, min: number, max: number): number => Math.min(max, Math.max(min, Number.isFinite(value) ? Math.floor(value) : min));
 const halfTons = (value: number, max: number): number => Math.min(max, Math.max(0, Math.round((Number.isFinite(value) ? value : 0) * 2) / 2));
-/** The aerospace armor catalog writes an absent prototype year as null; ITechDates leaves it out. */
-const armorDates = (armor: IAerospaceArmorType): ITechDates => ({ ...armor, prototype: armor.prototype ?? undefined });
 /** Escapes text written into the HTML calculation log, which the summary page renders as markup. */
 const escapeLogText = (value: unknown): string => String(value ?? "")
     .replace(/&/g, "&amp;").replace(/</g, "&lt;").replace(/>/g, "&gt;").replace(/"/g, "&quot;").replace(/'/g, "&#39;");
@@ -219,26 +238,23 @@ export const normalizeCapitalShipExport = (raw: unknown): { ship: ICapitalShipEx
 };
 
 /** A weapon bay (SO:AA p.142) as the record sheet lists it (SO:AA p.146). */
-export interface ICapitalShipWeaponBay {
-    /** The weapon class. */
-    name: string;
-    /** Capital weapons: values are capital scale; otherwise standard scale. */
-    capital: boolean;
-    /** Capital-scale damage, for the 70-point bay limit. */
-    damage: number;
-    heat: number;
-    weapons: number;
-    weaponNames: string[];
-    /** Attack Values at Short, Medium, Long and Extreme; null when a weapon's are unknown. */
-    values: [number, number, number, number] | null;
-}
+export type ICapitalShipWeaponBay = IWeaponBay;
 
-export default class CapitalShip {
+export default class CapitalShip implements IGameSettingsUnit {
     private _uuid: string = generateUUID();
+
+    /** The design quirks assigned to this unit (quirk tables, Campaign Operations pp.228 and 232). */
+    public quirks: QuirkList = new QuirkList();
+    /** The optional Technical Readout (TRO fields round 2, #78). */
+    public tro: TechnicalReadout = new TechnicalReadout();
+    /** The force's "Game year", set by `BattleMechForce.syncQuirkPlayYear`; not saved with the unit. */
+    public quirkPlayYear: number | null = null;
     public lastUpdated: Date = new Date();
 
     private _name: string = "";
     private _rulesEdition: string = DEFAULT_RULES_EDITION;
+    /** The rules level and Special Rulesets the design is built under (#324). */
+    public readonly gameSettings = new UnitGameSettings();
     private _model: string = "";
     private _shipType: AdvancedAerospaceType = "warShip";
     private _tonnage: number = 100000;
@@ -248,6 +264,14 @@ export default class CapitalShip {
     private _structuralIntegrity: number = 2;
     private _fuelTons: number = 1000;
     private _lithiumFusionBattery: boolean = false;
+    /** A space station's energy storage batteries and the jump sail that collects their energy (SO:AA p.136; TO:AUE p.188). */
+    private _energyStorageBatteries: number = 0;
+    private _jumpSail: boolean = false;
+    /** SDS (Caspar) drone control, its self-destruct and the SLDF jammer (IO:AE pp.134, 140-141; #150). */
+    private _sds: SdsLevel = "none";
+    private _sdsSelfDestruct: boolean = false;
+    private _sdsJammer: boolean = false;
+    private _sdsRefusal: string = "";
     private _kfBoom: boolean = false;
     private _monitor: boolean = false;
     private _armorType: IAerospaceArmorType = aerospaceArmorTypes.find((armor) => armor.tag === "capital-standard") ?? aerospaceArmorTypes[0];
@@ -270,11 +294,15 @@ export default class CapitalShip {
     private _importIssues: string[] = [];
     private _pilot: Pilot = new Pilot();
     private _inPlay: ICapitalShipInPlay = newCapitalShipInPlay();
+    /** What the unit has switched on, been hit by or been told by the force board in E-War play (#642). */
+    public ewarPlay: IEWarPlayState = {};
 
-    private _weights: { name: string; weight: number }[] = [];
+    private _weights: { name: string; weight: number; item?: IEquipmentItem | ICapitalShipMount }[] = [];
     private _currentTonnage: number = 0;
-    private _cost: number = 0;
     private _calcLogCost: string = "";
+    private _costSubtotal: number = 0;
+    private _costFactor: number = 1;
+    private _costFactorLabel: string = "";
     private _battleValue: number = 0;
     private _calcLogBV: string = "";
 
@@ -287,6 +315,20 @@ export default class CapitalShip {
 
     public getUUID(): string { return this._uuid; }
     public newUUID(): void { this._uuid = generateUUID(); }
+
+    /** Which column of the quirk tables this unit is graded by. */
+    public getQuirkUnitType(): QuirkUnitType { return "large-craft"; }
+
+    /** What the quirk picker can attach quirks to on this unit: its weapons as their bays (CO p.225). */
+    public getQuirkTargets(): IQuirkTargets {
+        const bays = this.getArcs().flatMap((arc) => this.getArcWeaponBays(arc).map((bay) => quirkBayTarget(bay, this.getArcName(arc))));
+        return getQuirkTargets([], this._equipmentList.filter((item) => !item.isAmmo).map((item) => ({ ...item, label: item.name })), bays);
+    }
+
+    /** One line for each quirk this unit could not be given now: rules edition, rules level or unit type. */
+    public getQuirkIssues(rulesLevel: number): string[] {
+        return getQuirkIssues(this.quirks.getAll(), this.getQuirkUnitType(), this._rulesEdition, rulesLevel, undefined, this.getQuirkTargets());
+    }
 
     public getName(): string { return this._name; }
     public setName(name: string): string {
@@ -304,6 +346,9 @@ export default class CapitalShip {
         this._rulesEdition = getSelectableRulesEditionTag(editionTag, "capital-ship");
         return this._rulesEdition;
     }
+    public getTechTag(): string { return this.getTech().tag; }
+    public setTechTag(tag: string): void { this.setTech(tag); }
+    public chooseEra(tag: string): void { chooseEra(this, tag); }
 
     // Type, weight and tech -------------------------------------------------------------------------------------
 
@@ -425,8 +470,90 @@ export default class CapitalShip {
     public getKFDriveWeight(): number { return getKFDriveWeight(this._shipType, this._tonnage); }
     public getKFDriveIntegrity(): number { return getKFDriveIntegrity(this._shipType, this._tonnage); }
     /** Installing a K-F drive ends with its jump sail (SO:AA p.136). */
-    public getJumpSailWeight(): number { return this.hasKFDrive() ? getJumpSailWeight(this._shipType, this._tonnage) : 0; }
-    public getJumpSailIntegrity(): number { return this.hasKFDrive() ? getJumpSailIntegrity(this.getJumpSailWeight()) : 0; }
+    public getJumpSailWeight(): number {
+        if (this.hasKFDrive()) return getJumpSailWeight(this._shipType, this._tonnage);
+        // A station sail is computed like that of a JumpShip of equivalent size (SO:AA p.136).
+        return this.hasJumpSail() ? getJumpSailWeight("jumpShip", this._tonnage) : 0;
+    }
+    public getJumpSailIntegrity(): number { return this.hasJumpSail() ? getJumpSailIntegrity(this.getJumpSailWeight()) : 0; }
+    /** A K-F drive vessel has a sail; a station has one only with energy storage batteries, to collect their energy. */
+    public hasJumpSail(): boolean { return this.hasKFDrive() || (this.isSpaceStation() && this._jumpSail && this._energyStorageBatteries > 0); }
+    public setJumpSail(on: boolean): boolean {
+        this._jumpSail = on === true && this.getEnergyStorageBatteries() > 0;
+        this._calc();
+        return this.hasJumpSail();
+    }
+
+    /** Energy storage batteries: space stations only, any number, 100,000 tons and 1,000,000 C-bills each (TO:AUE pp.188, 221; SO:AA p.153). */
+    public getEnergyStorageBatteries(): number { return this.isSpaceStation() ? this._energyStorageBatteries : 0; }
+    public setEnergyStorageBatteries(count: number): number {
+        this._energyStorageBatteries = this.isSpaceStation() ? wholeNumber(count, 0, 20) : 0;
+        if (this._energyStorageBatteries === 0) this._jumpSail = false;
+        this._calc();
+        return this.getEnergyStorageBatteries();
+    }
+    public getEnergyStorageBatteryWeight(): number { return this.getEnergyStorageBatteries() * ENERGY_STORAGE_BATTERY_TONS; }
+    // SDS (Caspar) drone control (IO:AE pp.134, 140-141) ----------------------------------------------------------------
+
+    private _sdsKind(): SdsCraftKind | null { return this.isSpaceStation() ? "spaceStation" : this.isWarShip() ? "warShip" : null; }
+    public getSds(): SdsLevel { return this._sdsKind() ? this._sds : "none"; }
+    /** Why the last attempt to make the vessel an SDS drone was refused; empty when it was not. */
+    public getSdsRefusal(): string { return this._sdsRefusal; }
+    /** Space stations and WarShips only (a JumpShip is no drone); a WarShip of 800,000 tons or less. */
+    public setSds(level: SdsLevel): boolean {
+        this._sdsRefusal = "";
+        const kind = this._sdsKind();
+        if (level === "none") this._sds = "none";
+        else if (!kind) this._sdsRefusal = "An SDS (Caspar) drone control system goes on a Small Craft, DropShip, space station or WarShip (IO:AE p.134).";
+        else if (kind === "warShip" && this._tonnage > SDS_MAX_WARSHIP_TONS) this._sdsRefusal = SDS_WARSHIP_LIMIT_MESSAGE;
+        else this._sds = level === "improved" ? "improved" : "standard";
+        this._calc();
+        return level === "none" ? true : this.getSds() === level;
+    }
+    public getSdsSkills(): { gunnery: number; piloting: number } | null {
+        const kind = this._sdsKind();
+        return kind && this.getSds() !== "none" ? getSdsSkills(kind, this.getSds()) : null;
+    }
+    /** The percentage of the vessel on top of its standard controls, to the whole ton. */
+    public getSdsControlWeight(): number {
+        const kind = this._sdsKind();
+        return kind ? getSdsControlWeight(kind, this._tonnage, this.getSds(), Math.ceil) : 0;
+    }
+    /** Steerage quarters for half the minimum crew the human-operated equivalent needs (IO:AE p.134). */
+    public getSdsSupportQuarters(): number { return this.getSds() === "none" ? 0 : getSdsSupportQuarters(this.getMinimumCrew()); }
+    public getSdsSupportWeight(): number {
+        return this.getSdsSupportQuarters() * (quartersTypes.find((type) => type.tag === "steerage")?.tons ?? 5);
+    }
+    /** 500,000 + 50,000 x (controls + Caspar share), in place of the Bridge (IO:AE p.215); 0 with no drone control. */
+    public getSdsCost(): number { return this.getSds() === "none" ? 0 : getSdsControlCost(this.getControlsWeight(), this.getSdsControlWeight()); }
+    public setSdsSelfDestruct(on: boolean): boolean {
+        this._sdsSelfDestruct = on === true && !!this._sdsKind();
+        this._calc();
+        return this.hasSdsSelfDestruct();
+    }
+    public hasSdsSelfDestruct(): boolean { return this._sdsSelfDestruct && !!this._sdsKind(); }
+    public getSdsSelfDestructWeight(): number { return this.hasSdsSelfDestruct() ? getSdsSelfDestructWeight(this._tonnage) : 0; }
+    public getSdsRamDamage(): number { return this.hasSdsSelfDestruct() ? getSdsRamDamage(this.isWarShip() ? this._safeThrust : 0, this._tonnage) : 0; }
+    /** The SLDF SDS Jammer: 30,000 tons, WarShips only (IO:AE p.140). */
+    public setSdsJammer(on: boolean): boolean {
+        this._sdsJammer = on === true && this.isWarShip();
+        this._calc();
+        return this.hasSdsJammer();
+    }
+    public hasSdsJammer(): boolean { return this._sdsJammer && this.isWarShip(); }
+    public getSdsNotes(): string[] {
+        return [...(this.getSds() !== "none" ? SDS_DRONE_NOTES : []), ...(this.hasSdsSelfDestruct() ? SDS_SELF_DESTRUCT_NOTES : [])];
+    }
+
+    /** What a station with batteries offers a JumpShip: charges by microwave through the sail or by a direct cable (SO:AA pp.75-76; TO:AUE p.188). */
+    public getRechargeStationNotes(): string[] {
+        if (this.getEnergyStorageBatteries() === 0) return [];
+        return [
+            "Each battery prepares a new charge in 100 hours, while a K-F drive recharges (TO:AUE p.188).",
+            this.hasJumpSail() ? "Charge delivered through a jump sail by microwave follows the normal quick-charge rules." : "A charge reaches a ship only by a direct cable, the station having no sail.",
+            "A docked ship on a direct cable connection takes a -2 modifier on the Quick-Charge Table (to a minimum of 2); one battery feeds a direct connection at a time (SO:AA p.75).",
+        ];
+    }
 
     /** A lithium-fusion battery stores a second jump; only a vessel with a K-F drive has one (TO:AUE p.135). */
     public hasLithiumFusionBattery(): boolean { return this._lithiumFusionBattery && this.hasKFDrive(); }
@@ -457,7 +584,7 @@ export default class CapitalShip {
         const techBase = this.getChassisTechBase();
         return aerospaceArmorTypes
             .filter((armor) => getAerospaceArmorPointsPerTon(armor.tag, "advanced-aerospace", techBase, this._tonnage) !== null)
-            .map((armor) => ({ ...armor, available: this._datesAvailability(armorDates(armor), rulesLevel).available }));
+            .map((armor) => ({ ...armor, available: this._datesAvailability(getAerospaceArmorDates(armor, this._tech.tag), rulesLevel).available }));
     }
     public setArmorType(tag: string): IAerospaceArmorType {
         const armor = this.getAvailableArmorTypes().find((entry) => entry.tag === tag);
@@ -510,7 +637,7 @@ export default class CapitalShip {
     public getHeatSinkType(): IHeatSync { return this._heatSinkType; }
     public getAvailableHeatSinkTypes(rulesLevel: number = 2): (IHeatSync & { available: boolean })[] {
         return mechHeatSinkTypes.filter((type) => type.tag === "single" || type.tag === "double")
-            .map((type) => ({ ...type, available: type.tag === "single" || this._datesAvailability(type, rulesLevel).available }));
+            .map((type) => ({ ...type, available: type.tag === "single" || this._techDatesAvailability(type, rulesLevel).available }));
     }
     public setHeatSinkType(tag: string): IHeatSync {
         this._heatSinkType = this.getAvailableHeatSinkTypes().some((type) => type.tag === tag)
@@ -543,7 +670,9 @@ export default class CapitalShip {
      * Standard-scale equipment: whatever a DropShip may mount. SO:AA allows standard weapons on advanced aerospace
      * units (p.141) and the catalogs have no column of their own for them, so the DropShip one is read.
      */
-    public isEquipmentAllowed(item: IEquipmentItem): boolean { return (item.space?.dropShip ?? -1) >= 0; }
+    public isEquipmentAllowed(item: IEquipmentItem): boolean {
+        return (item.space?.dropShip ?? -1) >= 0 && (!item.aerospaceUnitTypes || item.aerospaceUnitTypes.includes(this._shipType));
+    }
     private _isWeapon(item: IEquipmentItem): boolean {
         return !item.isAmmo && !item.isEquipment && !item.battleValueDefensive && (item.battleValue || 0) > 0;
     }
@@ -562,20 +691,19 @@ export default class CapitalShip {
             for (const item of getEquipmentListByTech(list, includeCustom && (list === "is" || lists.length === 1))) {
                 if (!this.isEquipmentAllowed(item)) continue;
                 item.catalog = item.catalog ?? (item.category === "Custom Equipment" ? "custom" : list);
-                const availability = this._datesAvailability(item, rulesLevel);
+                const availability = this._techDatesAvailability(item, rulesLevel);
                 item.availableAsPrototype = availability.asPrototype;
-                item.available = availability.available;
+                item.available = availability.available && isUnderUnitLimit(item, this._equipmentList);
                 items.push(item);
             }
         }
         items.sort((a, b) => (a.sort > b.sort ? 1 : a.sort < b.sort ? -1 : 0));
         const offeredLevel = includeCustom ? Math.max(rulesLevel, CUSTOM_HOMEBREW_RULES_LEVEL) : rulesLevel;
-        return items.filter((item) => isEquipmentWithinRulesLevel(item, offeredLevel));
+        return items.filter((item) => isEquipmentOffered(item, this._rulesEdition, offeredLevel));
     }
-    private _catalog(): IEquipmentItem[] {
-        const techTag = this._tech.tag;
-        const own = getEquipmentListByTech(techTag, true);
-        return techTag === "is" || techTag === "clan" ? [...own, ...getEquipmentListByTech(techTag === "clan" ? "mclan" : "mis", true)] : own;
+    /** The catalog record for a tag, from the lookup every unit class shares (equipment-lookup.ts). */
+    private _findRecord(tag: unknown): IEquipmentItem | undefined {
+        return findUnitCatalogRecord(this._tech.tag, tag);
     }
     /** Weapons sit in a firing arc; ammunition and other equipment in the hull, or in an arc if given one. */
     private _validLocation(item: IEquipmentItem, location: unknown): string | undefined {
@@ -584,13 +712,13 @@ export default class CapitalShip {
     }
     private _newEquipment(catalogItem: IEquipmentItem, location?: unknown, uuid?: unknown): IEquipmentItem {
         const freshId = typeof uuid !== "string" || !uuid || this._equipmentList.some((item) => item.uuid === uuid);
-        const item: IEquipmentItem = { ...JSON.parse(JSON.stringify(catalogItem)), uuid: freshId ? generateUUID() : uuid as string };
+        const item: IEquipmentItem = { ...copyCatalogRecord(catalogItem), uuid: freshId ? generateUUID() : uuid as string };
         item.location = this._validLocation(item, location);
         return item;
     }
     public addEquipmentFromTag(tag: string, location?: string): IEquipmentItem | null {
-        const catalogItem = findByTag(this._catalog(), tag);
-        if (!catalogItem || !this.isEquipmentAllowed(catalogItem) || this._equipmentList.length >= MAX_CAPITAL_SHIP_EQUIPMENT) return null;
+        const catalogItem = this._findRecord(tag);
+        if (!catalogItem || !this.isEquipmentAllowed(catalogItem) || !isUnderUnitLimit(catalogItem, this._equipmentList) || this._equipmentList.length >= MAX_CAPITAL_SHIP_EQUIPMENT) return null;
         const item = this._newEquipment(catalogItem, location);
         this._equipmentList.push(item);
         this._clampToRules();
@@ -619,14 +747,14 @@ export default class CapitalShip {
      */
     public isCapitalWeaponAllowed(weapon: ICapitalWeapon): boolean { return (weapon.space[this._shipType] ?? weapon.space.dropShip ?? -1) >= 0; }
     private _capitalTechAllowed(weapon: ICapitalWeapon): boolean {
-        return weapon.techBase === "both" || this.isMixedTech() || weapon.techBase === this.getChassisTechBase();
+        return weapon.techBase === "universal" || this.isMixedTech() || weapon.techBase === this.getChassisTechBase();
     }
-    private _capitalDates(weapon: ICapitalWeapon): ITechDates {
-        return { introduced: weapon.introduced, extinct: weapon.extinct, reintroduced: weapon.reintroduced, prototype: weapon.prototype ?? undefined } as ITechDates;
+    private _capitalDates(weapon: ICapitalWeapon): ITechDates & { clanDates?: ITechDates } {
+        return { introduced: weapon.introduced, extinct: weapon.extinct, reintroduced: weapon.reintroduced, prototype: weapon.prototype ?? undefined, clanDates: weapon.clanDates } as ITechDates & { clanDates?: ITechDates };
     }
     public getAvailableCapitalWeapons(rulesLevel: number = 2): ICapitalWeapon[] {
         return CAPITAL_WEAPON_CATALOG.filter((weapon) => this.isCapitalWeaponAllowed(weapon) && this._capitalTechAllowed(weapon)
-            && weapon.rulesLevel <= rulesLevel && this._datesAvailability(this._capitalDates(weapon), rulesLevel).available);
+            && isOfferedInEdition(weapon, this._rulesEdition, rulesLevel) && this._techDatesAvailability(this._capitalDates(weapon), rulesLevel).available);
     }
     public getCapitalShots(mount: ICapitalShipMount): number { return Object.values(mount.shots).reduce((sum, shots) => sum + shots, 0); }
     public getCapitalAmmoWeight(mount: ICapitalShipMount): number {
@@ -694,8 +822,10 @@ export default class CapitalShip {
     public getArcFireControlWeight(arc: AdvancedAerospaceArc): number {
         const weapons = this.getArcItems(arc).filter((item) => this.needsArc(item));
         const tons = weapons.reduce((sum, item) => sum + (item.weight || 0), 0) + this.getArcCapitalWeapons(arc).reduce((sum, mount) => sum + mount.weapon.weight, 0);
-        return getAdvancedAerospaceFireControlWeight(this._shipType, this.getArcWeaponCount(arc), tons);
+        return getAdvancedAerospaceFireControlWeight(this._shipType, this.getArcWeaponCount(arc), tons) * this._fireControlMultiplier();
     }
+    /** A naval C3 network doubles the weight of the fire control systems (TO:AUE p.144). */
+    private _fireControlMultiplier(): number { return this._equipmentList.some((item) => item.variableFormula === "naval-c3") ? 2 : 1; }
     public getFireControlWeight(): number { return this.getArcs().reduce((sum, arc) => sum + this.getArcFireControlWeight(arc), 0); }
 
     /**
@@ -705,43 +835,10 @@ export default class CapitalShip {
      * damage / 10; the class is the weapon family (equipment-subtypes.ts) or the capital weapon category.
      */
     public getArcWeaponBays(arc: AdvancedAerospaceArc): ICapitalShipWeaponBay[] {
-        type Entry = { name: string; damage: number; heat: number; values: [number, number, number, number] | null };
-        const groups = new Map<string, { capital: boolean; weapons: Entry[] }>();
-        const add = (bayClass: string, capital: boolean, entry: Entry) => {
-            const group = groups.get(bayClass) ?? { capital, weapons: [] };
-            group.weapons.push(entry);
-            groups.set(bayClass, group);
-        };
-        for (const item of this.getArcItems(arc).filter((entry) => this._isWeapon(entry))) {
-            add(getEquipmentSubtype(item) ?? item.category, false, { name: item.name, damage: (item.damageAero ?? 0) / 10, heat: item.heatAero ?? item.heat ?? 0, values: getAerospaceDamageByBracket(item) });
-        }
-        for (const mount of this.getArcCapitalWeapons(arc)) {
-            const reach = mount.weapon.range ? ["short", "medium", "long", "extreme"].indexOf(mount.weapon.range) : -1;
-            const values = mount.weapon.damage === null || reach < 0 ? null
-                : [0, 1, 2, 3].map((bracket) => (bracket <= reach ? mount.weapon.damage as number : 0)) as [number, number, number, number];
-            add(mount.weapon.category, true, { name: mount.weapon.name, damage: mount.weapon.damage ?? 0, heat: this.getCapitalWeaponHeat(mount), values });
-        }
-        const bays: ICapitalShipWeaponBay[] = [];
-        for (const [bayClass, group] of groups) {
-            const total = group.weapons.reduce((sum, weapon) => sum + weapon.damage, 0);
-            const count = Math.max(1, Math.ceil(total / ADVANCED_AEROSPACE_MAX_BAY_CAPITAL_DAMAGE - 1e-9));
-            const newBay = (): ICapitalShipWeaponBay => ({ name: bayClass, capital: group.capital, damage: 0, heat: 0, weapons: 0, weaponNames: [], values: [0, 0, 0, 0] });
-            const classBays = Array.from({ length: count }, newBay);
-            for (const weapon of [...group.weapons].sort((a, b) => b.damage - a.damage)) {
-                let bay = classBays.reduce((low, entry) => (entry.damage < low.damage ? entry : low), classBays[0]);
-                if (bay.weapons > 0 && bay.damage + weapon.damage > ADVANCED_AEROSPACE_MAX_BAY_CAPITAL_DAMAGE + 1e-9) {
-                    bay = newBay();
-                    classBays.push(bay);
-                }
-                bay.damage += weapon.damage;
-                bay.heat += weapon.heat;
-                bay.weapons++;
-                bay.weaponNames.push(weapon.name);
-                bay.values = bay.values && weapon.values ? bay.values.map((value, index) => value + (weapon.values as number[])[index]) as [number, number, number, number] : null;
-            }
-            bays.push(...classBays);
-        }
-        return bays;
+        return groupWeaponBays([
+            ...this.getArcItems(arc).filter((entry) => this._isWeapon(entry)).map(standardBayWeapon),
+            ...this.getArcCapitalWeapons(arc).map((mount) => capitalBayWeapon(mount.weapon, this.getCapitalWeaponHeat(mount), mount.uuid)),
+        ], ADVANCED_AEROSPACE_MAX_BAY_CAPITAL_DAMAGE);
     }
     /** Heat sinks must cover the hottest single weapon bay (SO:AA p.142). */
     public getHottestBayHeat(): number {
@@ -820,6 +917,8 @@ export default class CapitalShip {
     public addBay(tag: string, amount: number = 1): ICapitalShipBay | null {
         const type = findTransportBayType(tag);
         if (!type || this._bays.length >= MAX_CAPITAL_SHIP_BAYS) return null;
+        // A Naval Repair Facility goes on JumpShips, space stations and WarShips only, a reinforced one not on a station (TO:AUE p.147).
+        if (type.largeCraftOnly && !type.largeCraftOnly.includes(this._shipType as "jumpShip" | "spaceStation" | "warShip")) return null;
         const bay: ICapitalShipBay = { tag: type.tag, amount: 1, doors: type.infantry || type.tonsEach === null ? 0 : 1 };
         this._bays.push(bay);
         this.setBay(this._bays.length - 1, amount, bay.doors);
@@ -830,7 +929,9 @@ export default class CapitalShip {
         const type = bay ? findTransportBayType(bay.tag) : undefined;
         if (bay && type) {
             const value = Number.isFinite(amount) ? amount : 1;
-            bay.amount = type.tonsEach === null ? Math.min(this._tonnage, Math.max(0.001, Math.round(value * 1000) / 1000))
+            // A repair facility is bought by whole tons of capacity, as many as its weight allows.
+            bay.amount = type.repair ? wholeNumber(value, 1, Math.max(1, Math.floor(this._tonnage / type.repair.weightFactor)))
+                : type.tonsEach === null ? Math.min(this._tonnage, Math.max(0.001, Math.round(value * 1000) / 1000))
                 : wholeNumber(value, 1, MAX_CAPITAL_SHIP_BAY_UNITS);
             bay.doors = wholeNumber(doors, 0, this.getMaxBayDoors());
         }
@@ -844,7 +945,18 @@ export default class CapitalShip {
     }
     public getBayWeight(bay: ICapitalShipBay): number {
         const type = findTransportBayType(bay.tag);
+        if (type?.repair) return Math.ceil(bay.amount * type.repair.weightFactor - 1e-9);
         return type ? (type.tonsEach === null ? bay.amount : type.tonsEach * bay.amount) : 0;
+    }
+    /** How a bay reads on a sheet or in the TRO: a repair facility by the tons it can take (TRO 3057R: "Pressurized Repair Facility (30,000 ton capacity)"). */
+    public getBayDisplay(bay: ICapitalShipBay): string {
+        const type = findTransportBayType(bay.tag);
+        if (type?.repair) return `${type.name} (${bay.amount.toLocaleString("en-US")} ton capacity)`;
+        return `${this.getBayName(bay)} (${type && type.tonsEach === null ? `${bay.amount} tons` : bay.amount})`;
+    }
+    /** Two docking collars come with each Naval Repair Facility and count against the maximum (TO:AUE p.146). */
+    public getRepairFacilityCollars(): number {
+        return this._bays.filter((bay) => findTransportBayType(bay.tag)?.repair).length * 2;
     }
     public getBayName(bay: ICapitalShipBay): string { return findTransportBayType(bay.tag)?.name ?? bay.tag; }
     public getBayDoors(): number { return this._bays.reduce((sum, bay) => sum + bay.doors, 0); }
@@ -899,18 +1011,19 @@ export default class CapitalShip {
         if (!this.isSpaceStation()) this._gravDecks.large = 0;
     }
 
-    public getWeights(): { name: string; weight: number }[] { return this._weights; }
+    /** Every weight line; equipment and capital weapon lines carry their item. */
+    public getWeights(): { name: string; weight: number; item?: IEquipmentItem | ICapitalShipMount }[] { return this._weights; }
     public getCurrentTonnage(): number { return this._currentTonnage; }
     public getRemainingTonnage(): number { return Math.round((this._tonnage - this._currentTonnage) * 1000) / 1000; }
 
     private _calc(): void {
-        // Drone carrier control systems: 2 tons plus 0.5 per drone (TO:AUE p.117).
-        sizeDroneSystems(this._equipmentList, this._tonnage);
+        // Drone systems, naval C3 and tug adaptor scale with the vessel (TO:AUE pp.117, 144-146).
+        sizeTonnageScaledEquipment(this._equipmentList, this._tonnage);
         const quarters = quartersTypes.filter((type) => this._quarters[type.tag] > 0)
             .map((type) => ({ name: `Quarters, ${type.name} (${this._quarters[type.tag]})`, weight: this._quarters[type.tag] * type.tons }));
         const bays = this._bays.map((bay) => {
             const type = findTransportBayType(bay.tag);
-            const amount = type && type.tonsEach === null ? `${bay.amount} tons` : `${bay.amount}`;
+            const amount = type?.repair ? `${bay.amount.toLocaleString("en-US")} ton capacity` : type && type.tonsEach === null ? `${bay.amount} tons` : `${bay.amount}`;
             return { name: `${this.getBayName(bay)} (${amount}, ${bay.doors} door${bay.doors === 1 ? "" : "s"})`, weight: this.getBayWeight(bay) };
         });
         const gravDecks = GRAV_DECKS.filter((deck) => this._gravDecks[deck.tag] > 0)
@@ -925,15 +1038,23 @@ export default class CapitalShip {
                 { name: `${this.isWarShip() ? "Compact" : "Standard"} K-F Drive (Integrity ${this.getKFDriveIntegrity()})`, weight: this.getKFDriveWeight() },
                 { name: `Jump Sail (Integrity ${this.getJumpSailIntegrity()})`, weight: this.getJumpSailWeight() },
             ] : []),
+            ...(this.isSpaceStation() && this.hasJumpSail() ? [{ name: `Jump Sail (Integrity ${this.getJumpSailIntegrity()})`, weight: this.getJumpSailWeight() }] : []),
+            ...(this.getEnergyStorageBatteries() > 0 ? [{ name: `Energy Storage Batteries (${this.getEnergyStorageBatteries()})`, weight: this.getEnergyStorageBatteryWeight() }] : []),
             ...(this.hasLithiumFusionBattery() ? [{ name: "Lithium-Fusion Battery", weight: this.getLithiumFusionBatteryWeight() }] : []),
             { name: "Control Systems", weight: this.getControlsWeight() },
+            ...(this.getSds() !== "none" ? [
+                { name: `SDS (Caspar) Drone Control System (${this.getSds()}, skills ${this.getSdsSkills()?.gunnery}/${this.getSdsSkills()?.piloting})`, weight: this.getSdsControlWeight() },
+                { name: `SDS Crew Support Quarters (${this.getSdsSupportQuarters()} steerage)`, weight: this.getSdsSupportWeight() },
+            ] : []),
+            ...(this.hasSdsSelfDestruct() ? [{ name: "SDS Self-Destruct System", weight: this.getSdsSelfDestructWeight() }] : []),
+            ...(this.hasSdsJammer() ? [{ name: "SLDF SDS Jammer", weight: SDS_JAMMER_TONS }] : []),
             { name: `Armor (${this._armorType.name}, ${this.getPurchasedArmorPoints()} points + ${this.getFreeArmorPerFacing()} free a facing)`, weight: this._armorTons },
             { name: `Heat Sinks (${this.getTotalHeatSinks()} ${this._heatSinkType.name}, ${this.getFreeHeatSinks()} free)`, weight: this._additionalHeatSinks },
             ...(this.getFireControlWeight() > 0 ? [{ name: "Expanded Fire Control", weight: this.getFireControlWeight() }] : []),
-            ...this._equipmentList.map((item) => ({ name: item.name, weight: item.weight || 0 })),
+            ...this._equipmentList.map((item) => ({ name: item.name, weight: item.weight || 0, item })),
             ...this._capitalWeapons.map((mount) => {
                 const shots = this.getCapitalShots(mount);
-                return { name: `${mount.weapon.name}${getCapitalAmmoTags(mount.weapon).length ? ` (${shots} shot${shots === 1 ? "" : "s"})` : ""}`, weight: this.getCapitalWeaponWeight(mount) };
+                return { name: `${mount.weapon.name}${getCapitalAmmoTags(mount.weapon).length ? ` (${shots} shot${shots === 1 ? "" : "s"})` : ""}`, weight: this.getCapitalWeaponWeight(mount), item: mount };
             }),
             ...(this._dockingCollars > 0 ? [{ name: `Docking Collars (${this._dockingCollars})`, weight: this._dockingCollars * DOCKING_COLLAR_TONS }] : []),
             ...gravDecks,
@@ -956,7 +1077,8 @@ export default class CapitalShip {
         for (const item of this._equipmentList) level = Math.max(level, getEquipmentRulesLevel(item));
         for (const mount of this._capitalWeapons) level = Math.max(level, mount.weapon.rulesLevel);
         if (this.isMonitor()) level = Math.max(level, CUSTOM_HOMEBREW_RULES_LEVEL);
-        return level;
+        // A bay from outside the rulebooks (the Micro-Mech Bay) needs its own level.
+        return Math.max(level, getTransportBaysRulesLevel(this._bays));
     }
 
     /** Damage Threshold of each facing: a tenth of its armor, rounded up (TW p.239), in capital points. */
@@ -1076,7 +1198,9 @@ export default class CapitalShip {
         if (this.hasLithiumFusionBattery()) specials.push("LF");
         if (this._dockingCollars > 0) specials.push(`DT${this._dockingCollars}`);
         for (const [code, tags] of [["AT", ["fighter"]], ["ST", ["small-craft"]], ["MT", ["mech"]], ["PT", ["protomech"]],
-            ["VTM", ["vehicle-light"]], ["VTH", ["vehicle-heavy"]], ["VTS", ["vehicle-superheavy"]]] as [string, string[]][]) {
+            ["VTM", ["vehicle-light"]], ["VTH", ["vehicle-heavy"]], ["VTS", ["vehicle-superheavy"]],
+            // Ours (Custom Homebrew): the Micro-Mech Bay, as the 'Mech bay gives MT.
+            ["MMT", ["micro-mech"]]] as [string, string[]][]) {
             const special = this._bayTransportSpecial(code, tags);
             if (special) specials.push(special);
         }
@@ -1093,14 +1217,13 @@ export default class CapitalShip {
         // Point Defense for the whole ship; MegaMek records it by arc, which the card's arc boxes allow.
         const pointDefense = Math.ceil(roundUpToTenth(this._equipmentList.reduce((sum, item) => sum + getLargeCraftASPointDefense(item), 0)) - 1e-9);
         if (pointDefense > 0) specials.push(`PNT${pointDefense}`);
-        const equipmentSpecials = new Set<string>();
-        for (const item of this._equipmentList) {
-            if (item.isAmmo) continue;
-            for (const code of item.alphaStrike?.specialAbility ?? []) {
-                if (!code.includes("#")) equipmentSpecials.add(code);
-            }
-        }
+        const equipmentSpecials = new Set(getAlphaStrikeEquipmentSpecials(this._equipmentList, this.getRequiredRulesLevel()));
         specials.push(...[...equipmentSpecials].filter((code) => !specials.includes(code)));
+        // SDS drone control (SDCS) and the SLDF jammer (JAM): conversion ASC p.130, rules AS:CE p.89. The Point Value adds
+        // nothing for them, as printed: the large craft PV (ASC p.144) takes only the Defensive Special Ability Factor Table
+        // (p.143), which lists neither.
+        if (this.getSds() !== "none") specials.push("SDCS");
+        if (this.hasSdsJammer()) specials.push("JAM");
         specials.sort();
 
         // Point Value (ASC p.144): standard and missile damage at Short, Medium and Long over every arc, plus a fifth of
@@ -1133,7 +1256,16 @@ export default class CapitalShip {
             issues.push(`${-this.getUnallocatedArmorPoints()} more armor points are allocated than the armor provides (${this.getPurchasedArmorPoints()}).`);
         }
         if (this.getArmorPointsPerTon() === null) issues.push(`${this._armorType.name} is not capital armor for this tech base.`);
-        else if (!this._datesAvailability(armorDates(this._armorType), rulesLevel).available) issues.push(`${this._armorType.name} is not available in the selected era.`);
+        else if (!this._datesAvailability(getAerospaceArmorDates(this._armorType, this._tech.tag), rulesLevel).available) issues.push(`${this._armorType.name} is not available in the selected era.`);
+        const repairBays = this._bays.filter((bay) => findTransportBayType(bay.tag)?.repair);
+        if (repairBays.length > 0 && this.getRepairFacilityCollars() + this._dockingCollars > this.getMaxDockingCollars()) {
+            issues.push(`Repair facilities use ${this.getRepairFacilityCollars()} docking collars (two each) and the ship has ${this._dockingCollars} more, over the maximum of ${this.getMaxDockingCollars()} (TO:AUE p.146).`);
+        }
+        if (repairBays.some((bay) => bay.doors < 1)) issues.push("A repair facility needs a bay door assigned to it (TO:AUE p.146).");
+        if (this.getSds() !== "none" || this.hasSdsSelfDestruct() || this.hasSdsJammer()) {
+            if (rulesLevel < SDS_RULES_LEVEL) issues.push("SDS (Caspar) drone control, its self-destruct and the SLDF jammer are Experimental (IO:AE pp.134, 140, 141).");
+            if (this.isWarShip() && this._tonnage > SDS_MAX_WARSHIP_TONS && (this.getSds() !== "none")) issues.push(SDS_WARSHIP_LIMIT_MESSAGE);
+        }
         const unplaced = this._equipmentList.filter((item) => !item.location).length + this._capitalWeapons.filter((mount) => !mount.location).length;
         if (unplaced > 0) issues.push(`${unplaced} weapon${unplaced === 1 ? " has" : "s have"} no firing arc yet.`);
         for (const item of this._equipmentList) {
@@ -1142,7 +1274,7 @@ export default class CapitalShip {
         for (const mount of this._capitalWeapons) {
             if (!this.isCapitalWeaponAllowed(mount.weapon)) issues.push(`${mount.weapon.name} cannot be mounted on a ${this.getShipTypeName()}.`);
             else if (mount.weapon.rulesLevel > rulesLevel) issues.push(`${mount.weapon.name} needs a higher rules level (${mount.weapon.book}).`);
-            else if (!this._capitalTechAllowed(mount.weapon) || !this._datesAvailability(this._capitalDates(mount.weapon), rulesLevel).available) {
+            else if (!this._capitalTechAllowed(mount.weapon) || !this._techDatesAvailability(this._capitalDates(mount.weapon), rulesLevel).available) {
                 issues.push(`${mount.weapon.name} is not available to this tech base in the selected era.`);
             }
             if (getCapitalAmmoTags(mount.weapon).length > 0 && this.getCapitalShots(mount) < CAPITAL_SHIP_MIN_SHOTS) {
@@ -1215,17 +1347,37 @@ export default class CapitalShip {
         return { available: inProduction || asPrototype, asPrototype };
     }
 
+    /** Availability using the Clan window for Clan designs; mixed tech may use either (getTechDatesAvailability). */
+    private _techDatesAvailability(item: ITechDates & { clanDates?: ITechDates }, rulesLevel: number): { available: boolean; asPrototype: boolean } {
+        return getTechDatesAvailability(item, this._tech.tag, rulesLevel, (introduced, extinct, reintroduced) => this._itemIsAvailable(introduced, extinct, reintroduced));
+    }
+
     // Cost (SO:AA p.146) --------------------------------------------------------------------------------------
 
-    public getCBillCost(): number { return this._cost; }
-    public getCBillCostLog(): string { return this._calcLogCost; }
+    /**
+     * Ours (NGCFells, 2026-11-22, #152): the books price no expanded fire control. At Custom Homebrew and Munchkin it costs
+     * 10,000 C-bills a ton, the TechManual targeting computer rate. SO:AA p.147 sums every component and then applies the final
+     * cost multiplier, so the price goes inside the type multiplier like every other line (ruled 2026-11-23). At the canon
+     * levels the line is 0 and says the books give no price.
+     */
+    public getFireControlPrice(): number {
+        return this.gameSettings.getRulesLevel(0) >= CUSTOM_HOMEBREW_RULES_LEVEL ? FIRE_CONTROL_PRICE_PER_TON * this.getFireControlWeight() : 0;
+    }
+    public getCBillCost(): number { return Math.round((this._costSubtotal + this.getFireControlPrice()) * this._costFactor); }
+    public getCBillCostLog(): string {
+        const tons = this.getFireControlWeight();
+        const price = this.getFireControlPrice();
+        const money = (value: number) => Math.round(value).toLocaleString("en-US");
+        const fire = tons > 0 ? `<br />Expanded Fire Control (${tons} t): ${money(price)} (${price > 0 ? "Ours (NGCFells, 2026-11-22): the books price none; 10,000 C-bills a ton, summed before the type multiplier (SO:AA p.147)" : "the books give no price"})` : "";
+        return this._calcLogCost + fire + `<br />Subtotal ${money(this._costSubtotal + price)} x ${this._costFactorLabel} = <strong>${money(this.getCBillCost())}</strong>`;
+    }
 
-    public getBattleValue(): number { return this._battleValue; }
-    public getBattleValueLog(): string { return this._calcLogBV; }
+    public getBattleValue(edition: string = this._rulesEdition): number { return getBattleValueFor(edition, "capital-ship", { bv2: () => this._battleValue }); }
+    public getBattleValueLog(edition: string = this._rulesEdition): string { return getBattleValueFor(edition, "capital-ship", { bv2: () => this._calcLogBV }); }
 
     /** A launcher with Artemis IV counts 20 percent more than the plain launcher (TM p.312), with Artemis V 30 percent (TO:AUE p.197). */
     private _weaponBaseBV(item: IEquipmentItem): number {
-        return getArtemisLauncherBattleValue(item, () => this._catalog());
+        return getArtemisLauncherBattleValue(item, () => getUnitCatalogRecords(this._tech.tag), this._tech.tag);
     }
 
     /**
@@ -1291,7 +1443,7 @@ export default class CapitalShip {
         }
         // Ammunition, capped at the unmodified BV of the weapons of its model, shared among their arcs.
         const weaponBVByTag: Record<string, number> = {};
-        for (const item of weapons) weaponBVByTag[item.tag] = (weaponBVByTag[item.tag] ?? 0) + (item.battleValue || 0);
+        for (const item of weapons) weaponBVByTag[item.tag] = (weaponBVByTag[item.tag] ?? 0) + getItemBattleValue(item, this._tech.tag);
         const ammoBVByTag: Record<string, number> = {};
         for (const ammo of this._equipmentList.filter((item) => item.isAmmo)) {
             const fed = weapons.find((weapon) => getCompatibleAmmo(weapon, ammo));
@@ -1300,7 +1452,7 @@ export default class CapitalShip {
         for (const [tag, value] of Object.entries(ammoBVByTag)) {
             const capped = Math.min(value, weaponBVByTag[tag] ?? 0);
             for (const item of weapons.filter((weapon) => weapon.tag === tag)) {
-                arcAmmoBV[item.location as string] += weaponBVByTag[tag] > 0 ? capped * (item.battleValue || 0) / weaponBVByTag[tag] : 0;
+                arcAmmoBV[item.location as string] += weaponBVByTag[tag] > 0 ? capped * getItemBattleValue(item, this._tech.tag) / weaponBVByTag[tag] : 0;
             }
             log += `Ammunition for ${escapeLogText(tag)} = ${capped.toFixed(2)}${capped < value ? " (capped at weapon BV)" : ""}, with the arcs of its weapons<br />`;
         }
@@ -1368,6 +1520,16 @@ export default class CapitalShip {
             lithiumFusionBattery: this.hasLithiumFusionBattery(),
             kfDrive: this.hasKFDrive(),
         }).map((row) => [row.name, row.cost]);
+        // SDS (Caspar) drone control replaces the cockpit/crew systems, the Bridge line (IO:AE cost rules, p.215).
+        if (this.getSds() !== "none") {
+            const bridge = rows.findIndex(([name]) => name === "Bridge");
+            if (bridge >= 0) rows.splice(bridge, 1);
+            rows.push([`SDS (Caspar) Drone Control System (500,000 + 50,000 x ${this.getControlsWeight() + this.getSdsControlWeight()} t)`, this.getSdsCost()]);
+        }
+        if (this.hasSdsSelfDestruct()) rows.push(["SDS Self-Destruct System", SDS_SELF_DESTRUCT_COST]);
+        if (this.hasSdsJammer()) rows.push(["SLDF SDS Jammer", SDS_JAMMER_COST]);
+        if (this.isSpaceStation() && this.hasJumpSail()) rows.push([`Jump Sail (${this.getJumpSailWeight()} t)`, 50000 * this.getJumpSailWeight()]);
+        if (this.getEnergyStorageBatteries() > 0) rows.push([`Energy Storage Batteries (${this.getEnergyStorageBatteries()})`, ENERGY_STORAGE_BATTERY_COST * this.getEnergyStorageBatteries()]);
         rows.push([`Armor (${this._armorType.name}, ${this._armorTons} t)`, this._armorTons * (this._armorType.costMultiplier || 10000)]);
         rows.push([`Heat Sinks (${this.getTotalHeatSinks()} ${this._heatSinkType.name})`, this.getTotalHeatSinks() * (this._heatSinkType.tag === "double" ? 6000 : 2000)]);
         const equipment = this._equipmentList.reduce((sum, item) => sum + (item.isAmmo ? (item.cbills || 0) * (item.weight || 0) : item.cbills || 0), 0);
@@ -1380,7 +1542,8 @@ export default class CapitalShip {
         for (const bay of this._bays) {
             const type = findTransportBayType(bay.tag);
             if (!type) continue;
-            const price = type.costPerTon ? type.cost * this.getBayWeight(bay) : type.cost * bay.amount;
+            // A repair facility is priced by the ton of capacity, not by its own weight (TO:AUE p.221).
+            const price = type.costPerTon && !type.repair ? type.cost * this.getBayWeight(bay) : type.cost * bay.amount;
             if (price > 0) rows.push([`${type.name} (${bay.amount})`, price]);
         }
         if (this.getBayDoors() > 0) rows.push([`Bay Doors (${this.getBayDoors()})`, this.getBayDoors() * BAY_DOOR_COST]);
@@ -1388,10 +1551,11 @@ export default class CapitalShip {
         if (escape > 0) rows.push([`Escape Pods and Lifeboats (${escape})`, escape * ESCAPE_SYSTEM_COST]);
         const subtotal = rows.reduce((sum, [, value]) => sum + value, 0);
         const multiplier = getAdvancedAerospaceCostMultiplier(this._shipType, this.hasKFBoom());
-        this._cost = Math.round(subtotal * multiplier);
+        this._costSubtotal = subtotal;
+        this._costFactor = multiplier;
+        this._costFactorLabel = `${multiplier} (${escapeLogText(this.getShipTypeName())}${this.hasKFBoom() ? " with a K-F boom" : ""})`;
         const money = (value: number) => Math.round(value).toLocaleString("en-US");
-        this._calcLogCost = rows.map(([name, value]) => `${escapeLogText(name)}: ${money(value)}`).join("<br />")
-            + `<br />Subtotal ${money(subtotal)} x ${multiplier} (${escapeLogText(this.getShipTypeName())}${this.hasKFBoom() ? " with a K-F boom" : ""}) = <strong>${money(this._cost)}</strong>`;
+        this._calcLogCost = rows.map(([name, value]) => `${escapeLogText(name)}: ${money(value)}`).join("<br />");
     }
 
     // Roster and play ------------------------------------------------------------------------------------------
@@ -1407,12 +1571,33 @@ export default class CapitalShip {
 
     /** Battle Value adjusted for the crew's skills, with the multipliers Small Craft use. */
     public getPilotAdjustedBattleValue(edition?: string): number {
-        const multiplier = getSkillMultiplier(this._pilot.gunnery ?? 4, this._pilot.piloting ?? 5, "fighter", edition) ?? 1;
-        return Math.round(this._battleValue * multiplier);
+        const multiplier = getSkillMultiplier(this._pilot.gunnery ?? 4, this._pilot.piloting ?? 5, "fighter", getBattleValueSkillEdition(edition ?? this._rulesEdition, "capital-ship")) ?? 1;
+        return Math.round(this.getBattleValue(edition) * multiplier);
+    }
+
+    /**
+     * Every piece of E-War gear on the ship (#642): equipment and capital mounts (a mount is classified by its
+     * catalog tag). A ship tracks damage by weapon bay, not by item, so a weapon is destroyed when its bay is
+     * (isBayDestroyed); gear outside a bay (ECM, probes, C3, AMS) has no damage model and is listed as working.
+     * Aerospace armor has no stealth type, so no armor entry is listed.
+     */
+    public getEWarGear(): IEWarGear[] {
+        const lostBayWeapons = new Set<string>();
+        for (const arc of this.getArcs()) this.getArcWeaponBays(arc).forEach((bay, index) => { if (this.isBayDestroyed(arc, index)) bay.uuids.forEach((id) => lostBayWeapons.add(id)); });
+        const gear: IEWarGear[] = [];
+        for (const item of this._equipmentList) {
+            const kind = getEWarKind(item.tag);
+            if (kind) gear.push({ kind, tag: item.tag, name: item.name, uuid: item.uuid, location: item.location, destroyed: item.uuid !== undefined && lostBayWeapons.has(item.uuid) });
+        }
+        for (const mount of this._capitalWeapons) {
+            const kind = getEWarKind(mount.weapon.tag);
+            if (kind) gear.push({ kind, tag: mount.weapon.tag, name: mount.weapon.name, uuid: mount.uuid, location: mount.location, destroyed: lostBayWeapons.has(mount.uuid) });
+        }
+        return gear;
     }
 
     public getInPlay(): ICapitalShipInPlay { return this._inPlay; }
-    public resetInPlay(): void { this._inPlay = newCapitalShipInPlay(); }
+    public resetInPlay(): void { this._inPlay = newCapitalShipInPlay(); this.ewarPlay = {}; }
     /** A new turn: no arc has fired yet. */
     public turnReset(): void { this._inPlay.firedArcs = []; }
 
@@ -1671,6 +1856,7 @@ export default class CapitalShip {
         return {
             ...(noInPlayVariables ? {} : {
                 pilot: this._pilot.export(),
+                ...(Object.keys(this.ewarPlay).length ? { ewarPlay: JSON.parse(JSON.stringify(this.ewarPlay)) as IEWarPlayState } : {}),
                 inPlay: {
                     ...this._inPlay, armorDamage: { ...this._inPlay.armorDamage }, destroyedBays: [...this._inPlay.destroyedBays],
                     firedArcs: [...this._inPlay.firedArcs], pendingWeaponCriticals: this._inPlay.pendingWeaponCriticals.map((entry) => ({ ...entry })),
@@ -1678,9 +1864,12 @@ export default class CapitalShip {
             }),
             version: 1,
             uuid: this._uuid,
+            quirks: this.quirks.export(),
+            tro: this.tro.export(),
             lastUpdated: this.lastUpdated,
             name: this._name,
             ...(this._rulesEdition !== DEFAULT_RULES_EDITION ? { rulesEdition: this._rulesEdition } : {}),
+            ...this.gameSettings.export(),
             model: this._model,
             shipType: this._shipType,
             tonnage: this._tonnage,
@@ -1690,6 +1879,11 @@ export default class CapitalShip {
             structuralIntegrity: this._structuralIntegrity,
             fuelTons: this._fuelTons,
             lithiumFusionBattery: this._lithiumFusionBattery,
+            ...(this._energyStorageBatteries > 0 ? { energyStorageBatteries: this._energyStorageBatteries } : {}),
+            ...(this._jumpSail ? { jumpSail: true } : {}),
+            ...(this.getSds() !== "none" ? { sds: this.getSds() } : {}),
+            ...(this._sdsSelfDestruct ? { sdsSelfDestruct: true } : {}),
+            ...(this._sdsJammer ? { sdsJammer: true } : {}),
             kfBoom: this._kfBoom,
             monitor: this._monitor,
             armorType: this._armorType.tag,
@@ -1734,11 +1928,14 @@ export default class CapitalShip {
         }
         const saved = parsed as Partial<Record<keyof ICapitalShipExport, unknown>>;
         this._uuid = savedString(saved.uuid).slice(0, 100) || generateUUID();
+        this.quirks.import(saved.quirks);
+        this.tro.import(saved.tro);
         const updated = typeof saved.lastUpdated === "string" || typeof saved.lastUpdated === "number" ? new Date(saved.lastUpdated) : new Date();
         this.lastUpdated = Number.isNaN(updated.getTime()) ? new Date() : updated;
         this.setName(savedString(saved.name));
         this.setModel(savedString(saved.model));
         this._rulesEdition = getSelectableRulesEditionTag(saved.rulesEdition, "capital-ship");
+        this.gameSettings.import(saved);
         if (saved.shipType !== undefined && !advancedAerospaceTypes.some((type) => type.tag === saved.shipType)) issue("Ignored an unknown vessel type");
         this._shipType = advancedAerospaceTypes.find((type) => type.tag === saved.shipType)?.tag ?? "warShip";
         this._kfBoom = saved.kfBoom === true;
@@ -1750,6 +1947,12 @@ export default class CapitalShip {
         this.setStructuralIntegrity(savedNumber(saved.structuralIntegrity, this.getMinStructuralIntegrity(), 0, 10000));
         this.setFuelTons(savedNumber(saved.fuelTons, 0, 0, this._tonnage));
         this._lithiumFusionBattery = saved.lithiumFusionBattery === true;
+        this.setEnergyStorageBatteries(savedNumber(saved.energyStorageBatteries, 0, 0, 20));
+        this._jumpSail = saved.jumpSail === true && this.getEnergyStorageBatteries() > 0;
+        // A saved drone keeps its level even past the WarShip limit (it is reported as an issue), so a save never loses it.
+        this._sds = saved.sds === "standard" || saved.sds === "improved" ? saved.sds : "none";
+        this._sdsSelfDestruct = saved.sdsSelfDestruct === true;
+        this._sdsJammer = saved.sdsJammer === true;
         const armorTag = savedString(saved.armorType);
         this.setArmorType(armorTag);
         if (armorTag && this._armorType.tag !== armorTag) issue(`Replaced armor "${armorTag.slice(0, 40)}" with ${this._armorType.name}`);
@@ -1764,9 +1967,8 @@ export default class CapitalShip {
         if (saved.equipment !== undefined && !Array.isArray(saved.equipment)) issue("Ignored an equipment list that is not a list");
         const entries = Array.isArray(saved.equipment) ? saved.equipment : [];
         if (entries.length > MAX_CAPITAL_SHIP_EQUIPMENT) issue(`Kept the first ${MAX_CAPITAL_SHIP_EQUIPMENT} of ${entries.length} equipment entries`);
-        const catalog = this._catalog();
         for (const entry of entries.slice(0, MAX_CAPITAL_SHIP_EQUIPMENT)) {
-            const catalogItem = isPlainObject(entry) && typeof entry.tag === "string" ? findByTag(catalog, entry.tag) : undefined;
+            const catalogItem = isPlainObject(entry) && typeof entry.tag === "string" ? this._findRecord(entry.tag) : undefined;
             if (!isPlainObject(entry) || !catalogItem) {
                 issue(`Skipped unknown equipment${isPlainObject(entry) && typeof entry.tag === "string" ? ` "${entry.tag.slice(0, 60)}"` : ""}`);
                 continue;
@@ -1809,6 +2011,7 @@ export default class CapitalShip {
         this.setLifeBoats(savedNumber(saved.lifeBoats, 0, 0, MAX_CAPITAL_SHIP_PEOPLE));
         this._calc();
         this._importPlay(saved.pilot, saved.inPlay);
+        this.ewarPlay = normalizeEWarPlay(saved.ewarPlay);
         this._clampToRules();
         this._calc();
     }

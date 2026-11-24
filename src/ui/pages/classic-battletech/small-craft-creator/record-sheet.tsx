@@ -2,6 +2,7 @@ import React, { type JSX } from 'react';
 import { IAppGlobals } from '../../../app-router';
 import PrintablePage from '../../../components/printable-page';
 import SmallCraftRecordSheet from '../../../components/small-craft-record-sheet';
+import { unitRulesLevel } from '../../../components/game-settings-block';
 
 export default class SmallCraftCreatorRecordSheet extends React.Component<IRecordSheetProps> {
     constructor(props: IRecordSheetProps) {
@@ -14,8 +15,8 @@ export default class SmallCraftCreatorRecordSheet extends React.Component<IRecor
         if (!craft) return <></>;
 
         return (
-            <PrintablePage backTo={`${process.env.PUBLIC_URL}/classic-battletech/small-craft-creator/summary`} appGlobals={this.props.appGlobals} requiredRulesLevel={craft.getRequiredRulesLevel()}>
-                <SmallCraftRecordSheet craft={craft} />
+            <PrintablePage backTo={`${process.env.PUBLIC_URL}/classic-battletech/small-craft-creator/summary`} appGlobals={this.props.appGlobals} requiredRulesLevel={craft.getRequiredRulesLevel()} rulesLevel={unitRulesLevel(craft, this.props.appGlobals.appSettings)}>
+                <SmallCraftRecordSheet craft={craft} showAlphaStrike={true} />
             </PrintablePage>
         );
     }

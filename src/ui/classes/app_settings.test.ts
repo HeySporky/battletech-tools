@@ -25,3 +25,24 @@ describe("AppSettings special ability filter", () => {
         expect(new AppSettings({} as never).alphaStrikeSearchAbilities).toEqual([]);
     });
 });
+describe("AppSettings MUL search rulesets (#324 round 4)", () => {
+    it("an older Classic search with no rulesets loads none", () => {
+        expect(new AppSettings({ cbtMULSearch: { term: "atlas" } } as never).cbtMULSearch.rulesets).toEqual([]);
+    });
+
+    it("a Classic search's rulesets that are not a list of strings are dropped", () => {
+        expect(new AppSettings({ cbtMULSearch: { rulesets: "sample-no-clans" } } as never).cbtMULSearch.rulesets).toEqual([]);
+        expect(new AppSettings({ cbtMULSearch: { rulesets: ["sample-no-clans", 3] } } as never).cbtMULSearch.rulesets).toEqual(["sample-no-clans"]);
+    });
+
+    it("a stored Alpha Strike Tech filter that is not text loads as All", () => {
+        expect(new AppSettings({ alphaStrikeSearchTech: null } as never).alphaStrikeSearchTech).toBe("");
+    });
+
+    it("the Alpha Strike search's rulesets round-trip and default to none", () => {
+        expect(new AppSettings({} as never).alphaStrikeSearchRulesets).toEqual([]);
+        const settings = new AppSettings({ alphaStrikeSearchRulesets: ["sample-no-clans", 3] } as never);
+        expect(settings.alphaStrikeSearchRulesets).toEqual(["sample-no-clans"]);
+        expect(settings.export().alphaStrikeSearchRulesets).toEqual(["sample-no-clans"]);
+    });
+});

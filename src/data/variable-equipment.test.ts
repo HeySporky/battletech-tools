@@ -1,5 +1,5 @@
 import { describe, expect, it } from "vitest";
-import { isTargetingComputerWeapon, roundUpHalfTon, sizeVariableEquipment } from "./variable-equipment";
+import { getBoobyTrapBlast, getBoobyTrapEngineRating, isTargetingComputerWeapon, roundUpHalfTon, sizeVariableEquipment } from "./variable-equipment";
 import { IEquipmentItem } from "./data-interfaces";
 
 const ctx = { tonnage: 75, engineRating: 300, engineWeight: 19, directFireWeaponWeight: 21 };
@@ -11,6 +11,15 @@ describe("variable equipment sizing", () => {
         // 2 tons plus 0.5 per drone; 10,000 a ton.
         expect(sizeVariableEquipment("drone-carrier-control", { ...ctx, drones: 4 })).toEqual({ weight: 4, slots: 1, cbills: 40000, battleValue: 0 });
         expect(sizeVariableEquipment("drone-carrier-control", ctx)?.weight).toBe(2.5);
+    });
+
+    it("sizes the naval C3, tug adaptor and light sail from the vessel (TO:AUE pp.135, 144, 146, 221)", () => {
+        expect(sizeVariableEquipment("naval-c3", { ...ctx, tonnage: 420000 })).toEqual({ weight: 4200, slots: 1, cbills: 420000000, battleValue: 0 });
+        expect(sizeVariableEquipment("naval-c3", { ...ctx, tonnage: 1250 })?.weight).toBe(12.5);
+        expect(sizeVariableEquipment("naval-tug-adaptor", { ...ctx, tonnage: 3500 })).toEqual({ weight: 450, slots: 1, cbills: 100000, battleValue: 0 });
+        // To the ton from 5 tons, to the kilogram below.
+        expect(sizeVariableEquipment("light-sail", { ...ctx, tonnage: 42 })).toEqual({ weight: 5, slots: 1, cbills: 500000, battleValue: 0 });
+        expect(sizeVariableEquipment("light-sail", { ...ctx, tonnage: 2.345 })?.weight).toBe(0.235);
     });
 
     it("rounds up to the half ton", () => {
@@ -36,6 +45,8 @@ describe("variable equipment sizing", () => {
         expect(sizeVariableEquipment("masc-is", ctx)).toMatchObject({ weight: 4, slots: 4, cbills: 1200000 });
         expect(sizeVariableEquipment("masc-clan", ctx)).toMatchObject({ weight: 3, slots: 3 });
         expect(sizeVariableEquipment("supercharger", ctx)).toMatchObject({ weight: 2, slots: 1, cbills: 3000000 });
+        // Under 5 tons, to the kilogram (TO:AUE p.156): the Death Trike's 190 kg engine takes a 19 kg supercharger.
+        expect(sizeVariableEquipment("supercharger", { ...ctx, tonnage: 0.56, engineRating: 6, engineWeight: 0.19 })?.weight).toBe(0.019);
         expect(sizeVariableEquipment("targeting-computer-is", ctx)).toMatchObject({ weight: 6, slots: 6, cbills: 60000 });
         expect(sizeVariableEquipment("targeting-computer-clan", ctx)).toMatchObject({ weight: 5, slots: 5 });
     });
@@ -46,6 +57,8 @@ describe("variable equipment sizing", () => {
         expect(sizeVariableEquipment("jump-booster", { ...ctx, size: 2 })).toMatchObject({ weight: 7.5, slots: 4, cbills: 150000 });
         expect(sizeVariableEquipment("jump-booster", { ...ctx, size: 2, isQuad: true })?.slots).toBe(8);
         expect(sizeVariableEquipment("tracks", ctx)).toMatchObject({ weight: 7.5, slots: 2, cbills: 150000 });
+        // QuadVee Wheels: 15% (half ton), (750 x rating x tonnage) / 75 (IO:AE pp.128, 181).
+        expect(sizeVariableEquipment("quadvee-wheels", { ...ctx, isQuad: true })).toMatchObject({ weight: 11.5, slots: 4, cbills: 225000 });
         // 7.5 tons rounds up to 8: "Round this figure up to the nearest full ton" (TM p.70).
         expect(sizeVariableEquipment("environmental-sealing", ctx)).toMatchObject({ weight: 8, slots: 8, cbills: 16875 });
         // 10 percent of the engine weight, rounded up to the half ton; a slot per ton, rounded up (TM p.244).
@@ -56,6 +69,16 @@ describe("variable equipment sizing", () => {
         expect(sizeVariableEquipment("talons", ctx)).toMatchObject({ weight: 5, slots: 4, battleValue: 8 });
     });
 
+    it("values a Ram Plate so the printed Rhino sheet is reproduced (OTP: Hanseatic Crusade pp.30, 40)", () => {
+        // 50 tons at 12 running MP: 60 charge damage, half is 30, plus 3 torsos of Spikes, times 1.1.
+        const rhino = sizeVariableEquipment("ram-plate", { ...ctx, tonnage: 50, isQuad: true, runMP: 12, torsoSpikes: 3 })!;
+        expect(rhino).toMatchObject({ weight: 5, slots: 3 });
+        expect(rhino.battleValue).toBeCloseTo(36.3, 6);
+        // 55 tons at 7 running MP: 38 charge damage (rounded down), half is 19.
+        expect(sizeVariableEquipment("ram-plate", { ...ctx, tonnage: 55, isQuad: true, runMP: 7 })!.battleValue).toBeCloseTo(20.9, 6);
+        expect(sizeVariableEquipment("ram-plate", { ...ctx, tonnage: 50, isQuad: true })!.battleValue).toBe(0);
+    });
+
     it("counts energy and ballistic weapons except flamers, machine guns and AMS toward a targeting computer", () => {
         const item = (tag: string, category: string) => ({ tag, category }) as IEquipmentItem;
         expect(isTargetingComputerWeapon(item("large-laser", "Energy Weapons"))).toBe(true);
@@ -64,5 +87,28 @@ describe("variable equipment sizing", () => {
         expect(isTargetingComputerWeapon(item("machine-gun", "Ballistic Weapons"))).toBe(false);
         expect(isTargetingComputerWeapon(item("ams", "Ballistic Weapons"))).toBe(false);
         expect(isTargetingComputerWeapon(item("lrm-10", "Missile Weapons"))).toBe(false);
+    });
+});
+
+// TO:AUE p.109 (Booby Trap): 10 percent of the unit weight, rounded up to the half ton (5 tons and over) or the kilogram.
+describe("Booby Trap (TO:AUE p.109)", () => {
+    it("weighs 10 percent of the unit, to the half ton at 5 tons and over and the kilogram below", () => {
+        expect(sizeVariableEquipment("booby-trap", { ...ctx, tonnage: 75 })).toMatchObject({ weight: 7.5, slots: 1, cbills: 100000, battleValue: 0 });
+        expect(sizeVariableEquipment("booby-trap", { ...ctx, tonnage: 100 })?.weight).toBe(10);
+        expect(sizeVariableEquipment("booby-trap", { ...ctx, tonnage: 5 })?.weight).toBe(0.5);
+        expect(sizeVariableEquipment("booby-trap", { ...ctx, tonnage: 3.5 })?.weight).toBe(0.35);
+        expect(sizeVariableEquipment("booby-trap", { ...ctx, tonnage: 4.25 })?.weight).toBe(0.425);
+        expect(sizeVariableEquipment("booby-trap", { ...ctx, tonnage: 53 })?.weight).toBe(5.5);
+    });
+
+    it("blasts the engine rating in the hex, then a half, a quarter and an eighth, rounded up (p.109)", () => {
+        expect(getBoobyTrapBlast(300)).toEqual({ ground: [300, 150, 75, 38], airborne: 75 });
+        expect(getBoobyTrapBlast(255).ground).toEqual([255, 128, 64, 32]);
+    });
+
+    it("uses Safe Thrust or Cruising MP times tonnage, to at most 500, where the unit has no engine rating", () => {
+        expect(getBoobyTrapEngineRating(null, 6, 80)).toBe(480);
+        expect(getBoobyTrapEngineRating(null, 8, 100)).toBe(500);
+        expect(getBoobyTrapEngineRating(240, 6, 80)).toBe(240);
     });
 });

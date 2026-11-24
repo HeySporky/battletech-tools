@@ -2,6 +2,7 @@ import React, { type JSX } from 'react';
 import { IAppGlobals } from '../../../app-router';
 import BuildingRecordSheet from '../../../components/building-record-sheet';
 import PrintablePage from '../../../components/printable-page';
+import { unitRulesLevel } from '../../../components/game-settings-block';
 
 export default class BuildingCreatorRecordSheet extends React.Component<IRecordSheetProps> {
     constructor(props: IRecordSheetProps) {
@@ -14,7 +15,7 @@ export default class BuildingCreatorRecordSheet extends React.Component<IRecordS
         if (!building) return <></>;
 
         return (
-            <PrintablePage backTo={`${process.env.PUBLIC_URL}/classic-battletech/building-creator/summary`} appGlobals={this.props.appGlobals} requiredRulesLevel={building.getRequiredRulesLevel()}>
+            <PrintablePage backTo={`${process.env.PUBLIC_URL}/classic-battletech/building-creator/summary`} appGlobals={this.props.appGlobals} rulesLevel={unitRulesLevel(building, this.props.appGlobals.appSettings)} requiredRulesLevel={building.getRequiredRulesLevel()}>
                 <BuildingRecordSheet building={building} />
             </PrintablePage>
         );

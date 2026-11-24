@@ -98,6 +98,8 @@ export function buildSupportVehicleLightWeapon(weapon: IInfantryWeapon, extraCli
         techRating: weapon.techRating.toLowerCase(),
         book: "TM",
         page: 136,
+        // A Custom Homebrew weapon keeps its level, so the vehicle's rules level takes it in.
+        ...(weapon.rulesLevel !== undefined ? { rulesLevel: weapon.rulesLevel } : {}),
         size: clips,
         sizeLabel: "Extra clips",
         sizeMax: SV_LIGHT_WEAPON_MAX_CLIPS,

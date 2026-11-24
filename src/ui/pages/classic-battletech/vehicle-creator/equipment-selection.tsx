@@ -5,10 +5,12 @@ import { IEquipmentItem } from '../../../../data/data-interfaces';
 import { CUSTOM_HOMEBREW_RULES_LEVEL } from '../../../../data/equipment-registry';
 import { IAppGlobals } from '../../../app-router';
 import AvailableEquipment from '../../../components/available-equipment';
-import VehicleCreatorSideMenu from '../../../components/vehicle-creator-side-menu';
+import { VehicleCreatorSideMenu } from '../../../components/creator-side-menus';
 import TextSection from '../../../components/text-section';
+import TonnageBar from '../../../components/tonnage-bar';
 import UIPage from '../../../components/ui-page';
 import VehicleLightWeapons from './_light-weapons';
+import { unitRulesLevel } from '../../../components/game-settings-block';
 const ArrowCircleLeft = FaArrowCircleLeft as any;
 const ArrowCircleRight = FaArrowCircleRight as any;
 const Trash = FaTrash as any;
@@ -41,6 +43,7 @@ export default class VehicleCreatorEquipmentSelection extends React.Component<IE
     render = (): JSX.Element => {
         const vehicle = this.props.appGlobals.currentVehicle;
         if (!vehicle) return <></>;
+        const rulesLevel = unitRulesLevel(vehicle, this.props.appGlobals.appSettings);
 
         return (
             <UIPage current="classic-battletech-vehicle-creator" appGlobals={this.props.appGlobals}>
@@ -54,7 +57,8 @@ export default class VehicleCreatorEquipmentSelection extends React.Component<IE
                                 <p><strong>Remaining Tonnage</strong>: {vehicle.getRemainingTonnage()}</p>
                                 <AvailableEquipment
                                     appGlobals={this.props.appGlobals}
-                                    equipment={vehicle.getAvailableEquipmentByCatalog("all", this.props.appGlobals.appSettings.mechRulesFilter >= CUSTOM_HOMEBREW_RULES_LEVEL, this.props.appGlobals.appSettings.mechRulesFilter)}
+                                    equipment={vehicle.getAvailableEquipmentByCatalog("all", rulesLevel >= CUSTOM_HOMEBREW_RULES_LEVEL, rulesLevel)}
+                                    mounted={vehicle.getEquipmentList()}
                                     addFunction={this.addEquipment}
                                 />
                                 {vehicle.isSupportVehicle() && vehicle.getTonnage() < 5 ? <VehicleLightWeapons appGlobals={this.props.appGlobals} /> : null}
@@ -72,7 +76,7 @@ export default class VehicleCreatorEquipmentSelection extends React.Component<IE
                             <TextSection label="Installed Equipment">
                                 <table className="table">
                                     <thead>
-                                        <tr><th>Name</th><th>Weight</th><th></th></tr>
+                                        <tr><th>Name</th><th>Weight</th><th><span className="visually-hidden">Actions</span></th></tr>
                                     </thead>
                                     <tbody>
                                         {vehicle.getEquipmentList().map((item) => (
@@ -92,6 +96,7 @@ export default class VehicleCreatorEquipmentSelection extends React.Component<IE
                         </div>
                     </div>
                 </div>
+                <TonnageBar used={vehicle.getCurrentTonnage()} total={vehicle.getTonnage()} slots={{ used: vehicle.getUsedItemSlots(), total: vehicle.getTotalItemSlots() }} />
             </UIPage>
         );
     }

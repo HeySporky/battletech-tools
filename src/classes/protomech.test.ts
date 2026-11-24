@@ -1,5 +1,7 @@
 import { describe, expect, it } from "vitest";
-import { getProtoMechLocationLimit, getProtoMechStructureRow, protoMechMissiles, protoMechStructureTable } from "../data/protomech-construction";
+import { findCalcDefProblems } from "../data/calc-steps";
+import { PROTOMECH_BV1_STEPS, PROTOMECH_BV2_STEPS, PROTOMECH_COST_STEPS } from "../data/calc-steps-protomech";
+import { PROTOMECH_ADVANCED_RULES_LEVEL, PROTOMECH_RULES_LEVEL, getProtoMechLocationLimit, getProtoMechStructureRow, protoMechMissiles, protoMechStructureTable } from "../data/protomech-construction";
 import ProtoMech, { PROTOMECH_HIT_LOCATIONS, formatProtoMechASDamage, getProtoMechCatalogItems, normalizeProtoMechExport } from "./protomech";
 import { importProtoMechBlk } from "./protomech-blk";
 import { BattleMechGroup } from "./battlemech-group";
@@ -207,6 +209,15 @@ describe("ProtoMech Battle Value and cost", () => {
         expect(proto.getPointBattleValue()).toBe(316 * 5);
     });
 
+    it("values the quad melee system at the whole Frenzy damage x 1.25 (IO:AE p.190; user ruling 2026-11-02)", () => {
+        const proto = new ProtoMech();
+        proto.setTons(7);
+        proto.setChassis("quad");
+        proto.addMount("protomech-quad-melee-system", "torso");
+        // Base Frenzy 2 + the system's 2 x 2 = 6 damage, x 1.25.
+        expect(proto.getBattleValueLog().some((line) => line.startsWith("ProtoMech Quad Melee Weapon System (Torso): 7.5 (TM p.306; IO:AE p.190)"))).toBe(true);
+    });
+
     it("costs the Delphyne-2 741,700 + 80,000 C-bills, x 1.09 (TM pp.279-285)", () => {
         expect(delphyne().getCBillCost()).toBe(Math.round(821700 * 1.09));
     });
@@ -315,6 +326,21 @@ describe("ProtoMech saves and MegaMek files", () => {
         expect(issues).toEqual(["Unknown or unmountable equipment 'Mystery Gun' (Torso) was left off."]);
         expect(importProtoMechBlk("<UnitType>\nBattleArmor\n</UnitType>").proto).toBeNull();
     });
+
+    it("brings a MegaMek file's Technical Readout fields across (TRO round 2, #78)", () => {
+        const text = [
+            "<UnitType>", "ProtoMek", "</UnitType>", "<Name>", "Test", "</Name>", "<Model>", "2", "</Model>",
+            "<cruiseMP>", "6", "</cruiseMP>", "<armor>", "3", "7", "2", "2", "4", "</armor>", "<tonnage>", "5.0", "</tonnage>",
+            "<manufacturer>", "Bowie Industries", "</manufacturer>", "<primaryFactory>", "Brim", "</primaryFactory>",
+            "<systemManufacturers>", "ENGINE:Kenhi", "JUMP_JET:Hellespont", "</systemManufacturers>",
+            "<overview>", "<p>A fast raider.</p>", "</overview>",
+        ].join("\n");
+        const { proto } = importProtoMechBlk(text);
+        expect(proto!.tro.getProduction("manufacturer")).toBe("Bowie Industries");
+        expect(proto!.tro.getProduction("primaryFactory")).toBe("Brim");
+        expect([proto!.tro.getComponent("engine"), proto!.tro.getComponent("jumpJets")]).toEqual(["Kenhi", "Hellespont"]);
+        expect(proto!.tro.getText("overview")).toBe("A fast raider.");
+    });
 });
 
 describe("ProtoMech designs in print", () => {
@@ -375,7 +401,7 @@ describe("ProtoMech machine gun arrays and special munitions", () => {
         expect(proto.getMountWeight(proto.getMounts()[2])).toBe(250);
         expect(proto.getMachineGunArrays()[0].length).toBe(2);
         // Two machine guns at 5: 10 x 0.67.
-        expect(proto.getBattleValueLog().join("\n")).toContain("Machine Gun Array (Clan) (Torso) = 6.7");
+        expect(proto.getBattleValueLog().join("\n")).toContain("Machine Gun Array (Clan) (Torso): 6.7");
         expect(proto.getIssues().some((issue) => issue.includes("machine gun array"))).toBe(false);
         proto.removeMount(1);
         expect(proto.getIssues().some((issue) => issue.includes("machine gun array links two to four"))).toBe(true);
@@ -408,7 +434,7 @@ describe("ProtoMech Points in a roster group", () => {
         point.setPointSize(4);
         point.applyDamage(1, "head", 2);
         group.protoMechs.push(point);
-        expect(group.getTotaBV2()).toBe(316 * 4);
+        expect(group.getTotalBattleValue()).toBe(316 * 4);
         expect(group.getTotalTons()).toBe(36);
         expect(group.getTotalUnits()).toBe(1);
         expect(group.getTech()).toBe("Clan");
@@ -520,5 +546,296 @@ describe("ProtoMech files with Inner Sphere equipment", () => {
         expect(proto?.getMounts()).toEqual([{ tag: "clan-angel-ecm", location: "torso" }]);
         expect(proto?.getMountWeight(proto.getMounts()[0])).toBe(2000);
         expect(proto?.getAlphaStrikeStats().specialAbilities).toContain("AECM");
+    });
+});
+
+describe("E-War carrier (#642)", () => {
+    const build = () => {
+        const proto = delphyne();
+        proto.addMount("clan-ecm-system", "torso");
+        proto.addMount("clan-ams", "torso");
+        return proto;
+    };
+
+    it("lists its E-War gear", () => {
+        // Mounts carry no uuid, so the gear is listed without one; the weapons are not E-War gear.
+        const gear = build().getEWarGear();
+        expect(gear.map(item => item.kind)).toEqual(["ecm-clan", "ams"]);
+        for (const item of gear) {
+            expect(item.name).toBeTruthy();
+            expect(item.destroyed).toBe(false);
+        }
+    });
+
+    it("reports destroyed E-War gear", () => {
+        // Destroyed when every ProtoMech still in the Point has lost the mount (isMountLost); one survivor keeps it working.
+        const proto = build();
+        const index = proto.getMounts().findIndex(mount => mount.tag === "clan-ecm-system");
+        proto.setMountLost(0, index, true);
+        expect(proto.getEWarGear().map(item => [item.kind, item.destroyed])).toEqual([["ecm-clan", false], ["ams", false]]);
+        for (let unit = 1; unit < 5; unit++) proto.setMountLost(unit, index, true);
+        expect(proto.getEWarGear().map(item => [item.kind, item.destroyed])).toEqual([["ecm-clan", true], ["ams", false]]);
+    });
+
+    it("lists its real Angel ECM tag", () => {
+        const proto = new ProtoMech();
+        proto.addMount("clan-angel-ecm", "torso");
+        expect(proto.getEWarGear().map(item => [item.tag, item.kind])).toEqual([["clan-angel-ecm", "ecm-angel"]]);
+    });
+
+    it("lists stealth armor", () => {
+        // A ProtoMech has only standard and EDP armor: no stealth type to list.
+        const proto = new ProtoMech();
+        proto.setArmorType("edp");
+        expect(proto.getEWarGear()).toEqual([]);
+    });
+
+    it("saves E-War state and loads old saves without it", () => {
+        const proto = build();
+        expect(proto.export().ewarPlay).toBeUndefined();
+        proto.ewarPlay.inHostileEcm = true;
+        const saved = JSON.parse(JSON.stringify(proto.export()));
+        expect(saved.ewarPlay).toEqual({ inHostileEcm: true });
+        expect(proto.export(true).ewarPlay).toBeUndefined();
+        expect(new ProtoMech(JSON.stringify(saved)).ewarPlay).toEqual({ inHostileEcm: true });
+        delete saved.ewarPlay;
+        expect(new ProtoMech(JSON.stringify(saved)).ewarPlay).toEqual({});
+    });
+});
+
+// TO:AUE p.105 (#612): the jump pack is Advanced equipment for ProtoMechs as well as 'Mechs. Pack tons give Jump MP and fuel
+// points from the Jump Pack Table by the unit's weight, rounded up, at most Walking MP; the pack adds no design weight.
+describe("ProtoMech jump pack (TO:AUE p.105)", () => {
+    const packed = (tons: number, walk: number, packTons: number): ProtoMech => {
+        const proto = new ProtoMech();
+        proto.setTons(tons);
+        proto.setWalkMP(walk);
+        proto.setJump("pack");
+        proto.setJumpPackTons(packTons);
+        return proto;
+    };
+
+    it("is offered to a biped and quad but not a Glider", () => {
+        expect(new ProtoMech().getAvailableJumpTypes()).toContain("pack");
+        const glider = new ProtoMech();
+        glider.setChassis("glider");
+        expect(glider.getAvailableJumpTypes()).not.toContain("pack");
+    });
+
+    it("gives MP and fuel from the Jump Pack Table row of the unit's weight, MP capped at Walking MP", () => {
+        // 9 tons is the 6 to 19 row: 5 Jump MP and 16 fuel a pack ton. 1 ton: 5 MP; half a ton rounds up to 3 MP.
+        expect([packed(9, 5, 1).getJumpPackMP(), packed(9, 5, 1).getJumpPackFuel()]).toEqual([5, 16]);
+        expect([packed(9, 5, 0.5).getJumpPackMP(), packed(9, 5, 0.5).getJumpPackFuel()]).toEqual([3, 8]);
+        expect(packed(9, 4, 3).getJumpPackMP()).toBe(4);
+        expect(packed(9, 4, 3).getJumpPackFuel()).toBe(48);
+        // 4 tons is the 1 to 5 row: 10 MP and 20 fuel a pack ton.
+        expect([packed(4, 6, 0.5).getJumpPackMP(), packed(4, 6, 0.5).getJumpPackFuel()]).toEqual([5, 10]);
+    });
+
+    it("adds no design weight, costs 20,000 C-bills a ton and gives the unit no Jumping MP for Battle Value or Alpha Strike", () => {
+        const plain = packed(9, 5, 0);
+        const withPack = packed(9, 5, 2);
+        expect(withPack.getJumpWeight()).toBe(0);
+        expect(withPack.getRemainingWeight()).toBe(plain.getRemainingWeight());
+        expect(withPack.getJumpJets()).toBe(0);
+        expect(withPack.getJumpMP()).toBe(0);
+        expect(withPack.getBattleValue()).toBe(plain.getBattleValue());
+        expect(Math.round(withPack.getCBillCost() - plain.getCBillCost())).toBe(Math.round(40000 * 1.09));
+    });
+
+    it("is no heavier than the unit or 20 tons, saves, loads and shows on the sheet notes", () => {
+        expect(packed(9, 5, 30).getJumpPackTons()).toBe(9);
+        const saved = packed(9, 5, 2).export();
+        expect([saved.jumpType, saved.jumpPackTons]).toEqual(["pack", 2]);
+        const loaded = new ProtoMech(JSON.stringify(saved));
+        expect([loaded.getJumpType(), loaded.getJumpPackTons(), loaded.getJumpPackMP()]).toEqual(["pack", 2, 5]);
+        expect(loaded.getNotes().join(" ")).toMatch(/jump pack: 2 tons, 5 Jump MP, 32 fuel points/i);
+        expect(loaded.getMovementText()).toContain("pack");
+    });
+
+    // TO:AUE p.105 rates the pack Advanced; it carries no design weight, so the weight list holds no jump jet line for it (Opus review).
+    it("makes the design Advanced and lists no jump jets in the weight", () => {
+        expect(packed(9, 5, 0).getRequiredRulesLevel()).toBe(PROTOMECH_RULES_LEVEL);
+        expect(packed(9, 5, 2).getRequiredRulesLevel()).toBe(PROTOMECH_ADVANCED_RULES_LEVEL);
+        expect(packed(9, 5, 2).getWeightLog().map((line) => line.label).join(" ")).not.toMatch(/jump jets/i);
+    });
+});
+
+/** The eight ProtoMechs of TRO 3060 as MegaMek's files give them: [name, BLK blocks, BV1 printed by the FanPro printing p.195, BV2 printed by the CGL 2010 printing]. */
+const TRO_3060_PROTOMECHS: [string, string[], number, number][] = [
+    ["Harpy", ["<cruiseMP>", "3", "</cruiseMP>", "<jumpingMP>", "3", "</jumpingMP>", "<armor>", "2", "4", "1", "1", "3", "</armor>",
+        "<Body Equipment>", "Clan Machine Gun Ammo - Proto (20)", "ProtoMechJumpJet", "ProtoMechJumpJet", "ProtoMechJumpJet", "EIInterface", "</Body Equipment>", "<Torso Equipment>", "CLMG", "</Torso Equipment>", "<tonnage>", "2.0", "</tonnage>"], 28, 56],
+    ["Siren", ["<cruiseMP>", "10", "</cruiseMP>", "<jumpingMP>", "0", "</jumpingMP>", "<armor>", "2", "5", "1", "1", "3", "</armor>",
+        "<Body Equipment>", "Clan Light Machine Gun Ammo - Proto (20)", "EIInterface", "</Body Equipment>", "<Torso Equipment>", "CLLightMG", "CLLightMG", "</Torso Equipment>", "<tonnage>", "3.0", "</tonnage>"], 52, 86],
+    ["Satyr", ["<cruiseMP>", "7", "</cruiseMP>", "<jumpingMP>", "0", "</jumpingMP>", "<armor>", "2", "5", "1", "1", "3", "</armor>",
+        "<Body Equipment>", "EIInterface", "</Body Equipment>", "<Torso Equipment>", "CLERSmallLaser", "CLLightActiveProbe", "</Torso Equipment>", "<tonnage>", "4.0", "</tonnage>"], 98, 133],
+    ["Hydra", ["<cruiseMP>", "4", "</cruiseMP>", "<jumpingMP>", "0", "</jumpingMP>", "<armor>", "3", "10", "3", "3", "7", "3", "</armor>",
+        "<Body Equipment>", "Clan Streak SRM 3 Ammo (10)", "EIInterface", "</Body Equipment>", "<Torso Equipment>", "CLMicroPulseLaser", "</Torso Equipment>", "<Main Gun Equipment>", "CLStreakSRM3", "</Main Gun Equipment>", "<tonnage>", "6.0", "</tonnage>"], 139, 209],
+    ["Roc", ["<cruiseMP>", "5", "</cruiseMP>", "<jumpingMP>", "5", "</jumpingMP>", "<armor>", "3", "10", "4", "4", "7", "3", "</armor>",
+        "<Body Equipment>", "ProtoMechJumpJet", "ProtoMechJumpJet", "ProtoMechJumpJet", "ProtoMechJumpJet", "ProtoMechJumpJet", "EIInterface", "</Body Equipment>", "<Main Gun Equipment>", "CLERMediumLaser", "</Main Gun Equipment>", "<tonnage>", "7.0", "</tonnage>"], 284, 336],
+    ["Gorgon", ["<cruiseMP>", "4", "</cruiseMP>", "<jumpingMP>", "0", "</jumpingMP>", "<armor>", "4", "12", "4", "4", "7", "3", "</armor>",
+        "<Body Equipment>", "Clan Ammo LRM-10 (12)", "EIInterface", "</Body Equipment>", "<Torso Equipment>", "CLERMicroLaser", "</Torso Equipment>", "<Main Gun Equipment>", "CLLRM10", "</Main Gun Equipment>", "<tonnage>", "8.0", "</tonnage>"], 213, 295],
+    ["Minotaur", ["<cruiseMP>", "3", "</cruiseMP>", "<jumpingMP>", "3", "</jumpingMP>", "<armor>", "5", "15", "3", "3", "10", "</armor>",
+        "<Body Equipment>", "ProtoMechJumpJet", "ProtoMechJumpJet", "ProtoMechJumpJet", "EIInterface", "</Body Equipment>", "<Torso Equipment>", "CLERMediumLaser", "CLERMediumLaser", "</Torso Equipment>", "<tonnage>", "9.0", "</tonnage>"], 367, 424],
+];
+const troProto = (name: string, blocks: string[]): ProtoMech => {
+    const text = ["<UnitType>", "ProtoMek", "</UnitType>", "<Name>", name, "</Name>", "<Model>", "", "</Model>", "<year>", "3060", "</year>", "<motion_type>", "Biped", "</motion_type>",
+        "<armor_type>", "42", "</armor_type>", ...blocks].join("\n");
+    const { proto } = importProtoMechBlk(text);
+    return proto!;
+};
+
+describe("ProtoMech Battle Value as cited steps (#599)", () => {
+    it("works the Delphyne-2 step by step, each step with its TM page (p.306, worked p.307)", () => {
+        const breakdown = delphyne().getBattleValueBreakdown("total-warfare");
+        expect(breakdown.scheme).toBe("bv2");
+        expect(breakdown.result).toBe(316);
+        const byId = (id: string) => breakdown.steps.filter((step) => step.id === id);
+        expect(byId("pm.bv2.def.armor")[0].value).toBe(100);
+        expect(byId("pm.bv2.def.structure")[0].value).toBe(30);
+        expect(byId("pm.bv2.def.factor")[0].value).toBe(1.4);
+        expect(byId("pm.bv2.def.rating")[0].value).toBe(182);
+        expect(byId("pm.bv2.off.weapons.total")[0].value).toBe(76.4);
+        expect(byId("pm.bv2.off.speed.plain")[0].value).toBe(1.76);
+        expect(byId("pm.bv2.final.sum")[0].value).toBe(316);
+        expect(breakdown.steps.every((step) => step.cites.length > 0)).toBe(true);
+        expect(breakdown.steps.filter((step) => step.status !== "cited")).toEqual([]);
+        expect(findCalcDefProblems(PROTOMECH_BV2_STEPS)).toEqual([]);
+        expect(findCalcDefProblems(PROTOMECH_BV1_STEPS)).toEqual([]);
+        expect(findCalcDefProblems(PROTOMECH_COST_STEPS)).toEqual([]);
+    });
+
+    it.each(TRO_3060_PROTOMECHS)("gives the %s the Battle Value 1 TRO 3060 (FanPro) p.195 prints, and the Battle Value 2 of the CGL printing", (name, blocks, bv1, bv2) => {
+        const proto = troProto(name, blocks);
+        expect(proto.getBattleValue("master-rules-revised")).toBe(bv1);
+        expect(proto.getBattleValueBreakdown("master-rules-revised").scheme).toBe("bv1");
+        expect(proto.getBattleValueBreakdown("master-rules-revised").result).toBe(bv1);
+        expect(proto.getBattleValue("total-warfare")).toBe(bv2);
+    });
+
+    it("values the Centaur at 190, not the 192 TRO 3060 (CGL) prints: that BV works the LRM 3 at the 2007 TechManual's 35 and 5 a ton (TM p.318, later printings 34 and 4)", () => {
+        const centaur = troProto("Centaur", ["<cruiseMP>", "6", "</cruiseMP>", "<jumpingMP>", "0", "</jumpingMP>", "<armor>", "3", "7", "2", "2", "4", "2", "</armor>",
+            "<Body Equipment>", "Clan Ammo SRM-2 (10)", "Clan Ammo ProtoMech LRM-3 (8)", "EIInterface", "</Body Equipment>", "<Torso Equipment>", "CLSRM2", "CLLRM3", "</Torso Equipment>",
+            "<Main Gun Equipment>", "CLERMicroLaser", "</Main Gun Equipment>", "<tonnage>", "5.0", "</tonnage>"]);
+        expect(centaur.getBattleValue("total-warfare")).toBe(190);
+        // BV1 works it at the Master Rules, Revised Edition's table (BMR(R) p.155: LRM 3 is 35, ammunition 5 a ton) and prints 140.
+        expect(centaur.getBattleValue("master-rules-revised")).toBe(140);
+        expect(centaur.getBattleValueBreakdown("master-rules-revised").steps.some((step) => step.id === "pm.bv1.off.weapon.missile" && step.value === 35)).toBe(true);
+    });
+
+    it("shows no Battle Value under the 1998 Master Rules and older editions, which have no ProtoMechs", () => {
+        const proto = delphyne();
+        expect(proto.getBattleValueBreakdown("master-rules").scheme).toBe("none");
+        expect(proto.getBattleValueBreakdown("master-rules").result).toBeNull();
+        expect(proto.getBattleValueBreakdown("battletech-4th-edition").result).toBeNull();
+    });
+
+    it("counts a probe as offensive equipment under BV1, as BMR(R) p.154 lists only AMS and ECM as defensive (the Satyr's 98)", () => {
+        const satyr = troProto(TRO_3060_PROTOMECHS[2][0], TRO_3060_PROTOMECHS[2][1]);
+        const steps = satyr.getBattleValueBreakdown("master-rules-revised").steps;
+        expect(steps.some((step) => step.id === "pm.bv1.def.equipment")).toBe(false);
+        expect(steps.find((step) => step.id === "pm.bv1.off.weapon" && step.label.startsWith("Light Active Probe"))?.value).toBe(7);
+    });
+
+    it("keeps a myomer booster's +1 to the Speed Factor as a provisional step with the note on the Master Unit List's reading (TM p.306)", () => {
+        const proto = new ProtoMech();
+        proto.setTons(3);
+        proto.setWalkMP(10);
+        proto.setMyomerBooster(true);
+        proto.setArmor("torso", 5); proto.setArmor("head", 2); proto.setArmor("la", 1); proto.setArmor("ra", 1); proto.setArmor("legs", 3);
+        proto.addMount("er-micro-laser", "torso");
+        const speed = proto.getBattleValueBreakdown("total-warfare").steps.find((step) => step.id === "pm.bv2.off.speed")!;
+        expect(speed.status).toBe("provisional");
+        expect(speed.detail).toContain("+ 1 (myomer booster)");
+        expect(speed.note).toContain("Siren 4");
+        expect(proto.getBattleValue()).toBe(84);
+    });
+
+    it("gives the cost as cited steps that add up to the cost (TM pp.279, 282, 285)", () => {
+        const breakdown = delphyne().getCostBreakdown();
+        expect(breakdown.result).toBe(Math.round(821700 * 1.09));
+        expect(breakdown.steps.find((step) => step.id === "pm.cost.structural-total")?.value).toBe(741700);
+        expect(breakdown.steps.find((step) => step.id === "pm.cost.final")?.cites.map((cite) => cite.page)).toEqual(["285"]);
+        expect(breakdown.steps.filter((step) => step.id === "pm.cost.weapons.tubes").length).toBe(2);
+    });
+});
+
+// TO:AUE pp.126-128, 193, 219 (#611): a ProtoMech with two arms may carry a handheld weapon, outside its weight and slots.
+describe("ProtoMech handheld weapon (TO:AUE pp.126-128)", () => {
+    const gun = { entries: [{ tag: "clan-light-machine-gun", shots: 40 }], armor: 0 };
+    const armed = (armor = 0): ProtoMech => {
+        const proto = delphyne();
+        expect(proto.setHandheldWeapon({ ...gun, armor })).toBe(true);
+        return proto;
+    };
+
+    it("is offered to a biped at Experimental rules, not to a Quad or a Glider", () => {
+        expect(delphyne().getHandheldOption(3).available).toBe(false);
+        expect(delphyne().getHandheldOption(4).available).toBe(true);
+        const quad = delphyne();
+        quad.setChassis("quad");
+        expect(quad.canCarryHandheld().allowed).toBe(false);
+        expect(quad.setHandheldWeapon(gun)).toBe(false);
+    });
+
+    it("adds no design weight, rates the design Experimental and holds its weight to 10 percent of the tonnage", () => {
+        const plain = delphyne();
+        const proto = armed();
+        expect(proto.getRemainingWeight()).toBe(plain.getRemainingWeight());
+        expect(proto.getRequiredRulesLevel()).toBe(4);
+        expect(plain.getRequiredRulesLevel()).toBeLessThan(4);
+        expect(proto.getHandheldCargoLimit()).toBeCloseTo(0.9);
+        expect(proto.getHandheldIssues()).toEqual([]);
+        proto.setHandheldWeapon({ entries: [{ tag: "er-micro-laser", count: 2 }], armor: 0 });
+        expect(proto.getHandheldIssues().join(" ")).toMatch(/cargo limit/i);
+    });
+
+    it("adds its own BV to the final BV and twice its parts to the cost", () => {
+        const plain = delphyne();
+        const proto = armed(8);
+        const analysis = proto.getHandheldAnalysis()!;
+        expect(analysis.battleValue).toBeGreaterThan(0);
+        expect(proto.getBattleValue()).toBe(plain.getBattleValue() + analysis.battleValue);
+        const steps = proto.getBattleValueBreakdown("total-warfare").steps;
+        expect(steps.find((step) => step.id === "pm.bv2.final.handheld")?.value).toBe(analysis.battleValue);
+        expect(steps.find((step) => step.id === "pm.bv2.final.with-handheld")?.value).toBe(proto.getBattleValue());
+        expect(plain.getBattleValueBreakdown("total-warfare").steps.some((step) => step.id === "pm.bv2.final.handheld")).toBe(false);
+        expect(Math.round(proto.getCBillCost() - plain.getCBillCost())).toBe(Math.round(analysis.cost * 1.09));
+    });
+
+    it("saves and loads the design and where each ProtoMech's weapon is", () => {
+        const proto = armed(8);
+        proto.dropHandheld(1);
+        proto.strikeHandheld(0, 3);
+        const loaded = new ProtoMech(JSON.stringify(proto.export()));
+        expect(loaded.getHandheldWeapon()).toEqual({ entries: [{ tag: "clan-light-machine-gun", shots: 40 }], armor: 8 });
+        expect(loaded.getHandheldPlay(1).state).toBe("dropped");
+        expect(loaded.getHandheldPlay(0)).toEqual({ state: "carried", armorLeft: 5 });
+        expect(loaded.getHandheldPlay(2)).toEqual({ state: "carried", armorLeft: 8 });
+    });
+
+    it("takes an arm hit on a 6, destroyed past its armor with the excess going to the arm", () => {
+        const proto = armed(4);
+        const log = proto.applyDamage(0, "ra", 3, 5);
+        expect(log.join(" ")).not.toMatch(/handheld/i);
+        expect(proto.getHandheldPlay(0).armorLeft).toBe(4);
+        expect(proto.applyDamage(0, "ra", 3, 6).join(" ")).toMatch(/handheld weapon is hit.*1 left|takes the damage on its armor \(1 left\)/i);
+        const before = proto.getLocationDamage(0, "ra");
+        expect(proto.applyDamage(0, "ra", 3, 6).join(" ")).toMatch(/destroyed; 2 damage goes on/i);
+        expect(proto.getHandheldPlay(0).state).toBe("destroyed");
+        expect(proto.getLocationDamage(0, "ra")).toBe(before + 2);
+    });
+
+    it("must be dropped when an arm is destroyed, and picked up again only with both arms whole", () => {
+        const proto = armed();
+        expect(proto.handheldMustDrop(0)).toBe(false);
+        proto.setLocationDamage(0, "la", proto.getLocationCapacity("la"));
+        expect(proto.handheldMustDrop(0)).toBe(true);
+        expect(proto.isHandheldUsable(0)).toBe(false);
+        expect(proto.dropHandheld(0)).toMatch(/dropped/i);
+        expect(proto.pickUpHandheld(0)).toBe("");
+        expect(proto.pickUpHandheld(1)).toBe("");
+        proto.dropHandheld(1);
+        expect(proto.pickUpHandheld(1)).toMatch(/picked up/i);
     });
 });

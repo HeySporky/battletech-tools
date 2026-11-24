@@ -27,7 +27,7 @@ export default class EquipmentEditForm extends React.Component<IEquipmentEditFor
         if( e && e.preventDefault ) {
             e.preventDefault();
         }
-        let item = this.props.editingItem;
+        const item = this.props.editingItem;
         item.cbills = +e.currentTarget.value;
 
         this.props.onChange( item );
@@ -39,7 +39,7 @@ export default class EquipmentEditForm extends React.Component<IEquipmentEditFor
         if( e && e.preventDefault ) {
             e.preventDefault();
         }
-        let item = this.props.editingItem;
+        const item = this.props.editingItem;
         item.battleValue = +e.currentTarget.value;
 
         this.props.onChange( item );
@@ -51,7 +51,7 @@ export default class EquipmentEditForm extends React.Component<IEquipmentEditFor
         if( e && e.preventDefault ) {
             e.preventDefault();
         }
-        let item = this.props.editingItem;
+        const item = this.props.editingItem;
         item.battleValueOneShot = +e.currentTarget.value;
 
         this.props.onChange( item );
@@ -75,7 +75,7 @@ export default class EquipmentEditForm extends React.Component<IEquipmentEditFor
         if( e && e.preventDefault ) {
             e.preventDefault();
         }
-        let item = this.props.editingItem;
+        const item = this.props.editingItem;
         item.battleValuePerItemDamage = +e.currentTarget.value;
 
         this.props.onChange( item );
@@ -87,14 +87,14 @@ export default class EquipmentEditForm extends React.Component<IEquipmentEditFor
         if( e && e.preventDefault ) {
             e.preventDefault();
         }
-        let item = this.props.editingItem;
+        const item = this.props.editingItem;
         item.reintroduced = parseTechYear(e.currentTarget.value);
 
         this.props.onChange( item );
     }
 
     updateCriticals = ( newValue: ICriticalSpace ) => {
-        let item = this.props.editingItem;
+        const item = this.props.editingItem;
         item.space = newValue;
         this.props.onChange( item );
     }
@@ -105,7 +105,7 @@ export default class EquipmentEditForm extends React.Component<IEquipmentEditFor
         if( e && e.preventDefault ) {
             e.preventDefault();
         }
-        let item = this.props.editingItem;
+        const item = this.props.editingItem;
         item.weight = +e.currentTarget.value;
 
         this.props.onChange( item );
@@ -117,7 +117,7 @@ export default class EquipmentEditForm extends React.Component<IEquipmentEditFor
         if( e && e.preventDefault ) {
             e.preventDefault();
         }
-        let item = this.props.editingItem;
+        const item = this.props.editingItem;
         item.roundsPerTon = +e.currentTarget.value;
         delete item.ammoPerTon;
 
@@ -130,7 +130,7 @@ export default class EquipmentEditForm extends React.Component<IEquipmentEditFor
         if( e && e.preventDefault ) {
             e.preventDefault();
         }
-        let item = this.props.editingItem;
+        const item = this.props.editingItem;
         item.shotsPerTon = +e.currentTarget.value;
         delete item.ammoPerTon;
 
@@ -143,8 +143,26 @@ export default class EquipmentEditForm extends React.Component<IEquipmentEditFor
         if( e && e.preventDefault ) {
             e.preventDefault();
         }
-        let item = this.props.editingItem;
+        const item = this.props.editingItem;
         item.notes = e.currentTarget.value;
+
+        this.props.onChange( item );
+    }
+
+    updateLore = (
+        e: React.ChangeEvent<HTMLTextAreaElement>,
+    ) => {
+        const item = this.props.editingItem;
+        item.lore = e.currentTarget.value;
+
+        this.props.onChange( item );
+    }
+
+    updateRules = (
+        e: React.ChangeEvent<HTMLTextAreaElement>,
+    ) => {
+        const item = this.props.editingItem;
+        item.rules = e.currentTarget.value;
 
         this.props.onChange( item );
     }
@@ -155,7 +173,7 @@ export default class EquipmentEditForm extends React.Component<IEquipmentEditFor
         if( e && e.preventDefault ) {
             e.preventDefault();
         }
-        let item = this.props.editingItem;
+        const item = this.props.editingItem;
         item.minAmmoTons = +e.currentTarget.value;
 
         this.props.onChange( item );
@@ -167,7 +185,7 @@ export default class EquipmentEditForm extends React.Component<IEquipmentEditFor
         if( e && e.preventDefault ) {
             e.preventDefault();
         }
-        let item = this.props.editingItem;
+        const item = this.props.editingItem;
         item.weightDivisor = +e.currentTarget.value;
 
         this.props.onChange( item );
@@ -177,7 +195,7 @@ export default class EquipmentEditForm extends React.Component<IEquipmentEditFor
         newValue: number,
     ) => {
 
-        let item = this.props.editingItem;
+        const item = this.props.editingItem;
         item.criticalsDivisor = newValue;
 
         this.props.onChange( item );
@@ -189,7 +207,7 @@ export default class EquipmentEditForm extends React.Component<IEquipmentEditFor
         if( e && e.preventDefault ) {
             e.preventDefault();
         }
-        let item = this.props.editingItem;
+        const item = this.props.editingItem;
 
         item.isAmmo = false;
         if( item.isEquipment  ) {
@@ -207,7 +225,7 @@ export default class EquipmentEditForm extends React.Component<IEquipmentEditFor
         if( e && e.preventDefault ) {
             e.preventDefault();
         }
-        let item = this.props.editingItem;
+        const item = this.props.editingItem;
 
         item.isEquipment = false;
         if( item.needsAmmo  ) {
@@ -224,7 +242,7 @@ export default class EquipmentEditForm extends React.Component<IEquipmentEditFor
         if( e && e.preventDefault ) {
             e.preventDefault();
         }
-        let item = this.props.editingItem;
+        const item = this.props.editingItem;
 
         item.isEquipment = false;
         if( item.isAmmo  ) {
@@ -244,7 +262,7 @@ export default class EquipmentEditForm extends React.Component<IEquipmentEditFor
         if( e && e.preventDefault ) {
             e.preventDefault();
         }
-        let item = this.props.editingItem;
+        const item = this.props.editingItem;
 
         item.heat = +e.currentTarget.value;
 
@@ -257,7 +275,7 @@ export default class EquipmentEditForm extends React.Component<IEquipmentEditFor
         if( e && e.preventDefault ) {
             e.preventDefault();
         }
-        let item = this.props.editingItem;
+        const item = this.props.editingItem;
 
         item.heatPerShot = e.currentTarget.checked;
 
@@ -270,7 +288,7 @@ export default class EquipmentEditForm extends React.Component<IEquipmentEditFor
         if( e && e.preventDefault ) {
             e.preventDefault();
         }
-        let item = this.props.editingItem;
+        const item = this.props.editingItem;
 
         item.isStreak = e.currentTarget.checked;
 
@@ -283,7 +301,7 @@ export default class EquipmentEditForm extends React.Component<IEquipmentEditFor
         if( e && e.preventDefault ) {
             e.preventDefault();
         }
-        let item = this.props.editingItem;
+        const item = this.props.editingItem;
 
         item.battleValueDefensive = e.currentTarget.checked;
 
@@ -296,7 +314,7 @@ export default class EquipmentEditForm extends React.Component<IEquipmentEditFor
         if( e && e.preventDefault ) {
             e.preventDefault();
         }
-        let item = this.props.editingItem;
+        const item = this.props.editingItem;
 
         item.explosive = e.currentTarget.checked;
 
@@ -309,7 +327,7 @@ export default class EquipmentEditForm extends React.Component<IEquipmentEditFor
         if( e && e.preventDefault ) {
             e.preventDefault();
         }
-        let item = this.props.editingItem;
+        const item = this.props.editingItem;
 
         item.isUltra = e.currentTarget.checked;
 
@@ -322,7 +340,7 @@ export default class EquipmentEditForm extends React.Component<IEquipmentEditFor
         if( e && e.preventDefault ) {
             e.preventDefault();
         }
-        let item = this.props.editingItem;
+        const item = this.props.editingItem;
 
         item.isRotary = e.currentTarget.checked;
 
@@ -335,7 +353,7 @@ export default class EquipmentEditForm extends React.Component<IEquipmentEditFor
         if( e && e.preventDefault ) {
             e.preventDefault();
         }
-        let item = this.props.editingItem;
+        const item = this.props.editingItem;
 
         item.heatAero = +e.currentTarget.value;
 
@@ -348,7 +366,7 @@ export default class EquipmentEditForm extends React.Component<IEquipmentEditFor
         if( e && e.preventDefault ) {
             e.preventDefault();
         }
-        let item = this.props.editingItem;
+        const item = this.props.editingItem;
 
         if( !item.weightDivisor || item.weightDivisor < 1 ) {
             item.weightDivisor = 1;
@@ -365,7 +383,7 @@ export default class EquipmentEditForm extends React.Component<IEquipmentEditFor
         if( e && e.preventDefault ) {
             e.preventDefault();
         }
-        let item = this.props.editingItem;
+        const item = this.props.editingItem;
         item.extinct = parseTechYear(e.currentTarget.value);
 
         this.props.onChange( item );
@@ -377,7 +395,7 @@ export default class EquipmentEditForm extends React.Component<IEquipmentEditFor
         if( e && e.preventDefault ) {
             e.preventDefault();
         }
-        let item = this.props.editingItem;
+        const item = this.props.editingItem;
         item.page = +e.currentTarget.value;
 
         this.props.onChange( item );
@@ -389,7 +407,7 @@ export default class EquipmentEditForm extends React.Component<IEquipmentEditFor
         if( e && e.preventDefault ) {
             e.preventDefault();
         }
-        let item = this.props.editingItem;
+        const item = this.props.editingItem;
         item.book = e.currentTarget.value;
 
         this.props.onChange( item );
@@ -401,7 +419,7 @@ export default class EquipmentEditForm extends React.Component<IEquipmentEditFor
         if( e && e.preventDefault ) {
             e.preventDefault();
         }
-        let item = this.props.editingItem;
+        const item = this.props.editingItem;
         item.introduced = parseTechYear(e.currentTarget.value);
 
         this.props.onChange( item );
@@ -413,7 +431,7 @@ export default class EquipmentEditForm extends React.Component<IEquipmentEditFor
         if( e && e.preventDefault ) {
             e.preventDefault();
         }
-        let item = this.props.editingItem;
+        const item = this.props.editingItem;
         item.prototype = parseTechYear(e.currentTarget.value) ?? undefined;
 
         this.props.onChange( item );
@@ -425,7 +443,7 @@ export default class EquipmentEditForm extends React.Component<IEquipmentEditFor
         if( e && e.preventDefault ) {
             e.preventDefault();
         }
-        let item = this.props.editingItem;
+        const item = this.props.editingItem;
         item.alternateName = e.currentTarget.value;
 
         this.props.onChange( item );
@@ -436,7 +454,7 @@ export default class EquipmentEditForm extends React.Component<IEquipmentEditFor
         if( e && e.preventDefault ) {
             e.preventDefault();
         }
-        let item = this.props.editingItem;
+        const item = this.props.editingItem;
         item.name = e.currentTarget.value;
 
         this.props.onChange( item );
@@ -448,7 +466,7 @@ export default class EquipmentEditForm extends React.Component<IEquipmentEditFor
         if( e && e.preventDefault ) {
             e.preventDefault();
         }
-        let item = this.props.editingItem;
+        const item = this.props.editingItem;
         item.sort = e.currentTarget.value;
 
         this.props.onChange( item );
@@ -460,7 +478,7 @@ export default class EquipmentEditForm extends React.Component<IEquipmentEditFor
         if( e && e.preventDefault ) {
             e.preventDefault();
         }
-        let item = this.props.editingItem;
+        const item = this.props.editingItem;
         item.tag = e.currentTarget.value;
 
         this.props.onChange( item );
@@ -731,6 +749,28 @@ export default class EquipmentEditForm extends React.Component<IEquipmentEditFor
                                 />
                             </fieldset>
                         ) : null}
+
+                        <fieldset className="fieldset">
+                            <legend>Lore and Rules</legend>
+                            <label>
+                                Lore
+                                <textarea
+                                    aria-label="Lore"
+                                    rows={5}
+                                    onChange={this.updateLore}
+                                    value={this.props.editingItem.lore ?? ""}
+                                />
+                            </label>
+                            <label>
+                                Rules
+                                <textarea
+                                    aria-label="Rules"
+                                    rows={5}
+                                    onChange={this.updateRules}
+                                    value={this.props.editingItem.rules ?? ""}
+                                />
+                            </label>
+                        </fieldset>
                     </div>
                 </div>
             </TextSection>

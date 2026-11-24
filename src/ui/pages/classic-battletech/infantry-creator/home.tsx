@@ -3,7 +3,8 @@ import { Link } from 'react-router';
 import { FaArrowCircleRight, FaFile, FaFolderOpen, FaSave, FaTrash } from "react-icons/fa";
 import InfantryPlatoon, { IInfantryPlatoonExport, INFANTRY_MOTIVE_TYPES } from '../../../../classes/infantry-platoon';
 import { IAppGlobals } from '../../../app-router';
-import InfantryCreatorSideMenu from '../../../components/infantry-creator-side-menu';
+import { InfantryCreatorSideMenu } from '../../../components/creator-side-menus';
+import BlkImportSection from '../../../components/blk-import-section';
 import TextSection from '../../../components/text-section';
 import UIPage from '../../../components/ui-page';
 import { confirmReplaceDesign, designWouldBeLost } from '../../../components/confirm-replace-design';
@@ -27,6 +28,13 @@ export default class InfantryCreatorHome extends React.Component<IHomeProps> {
             save: () => this.saveAsNew({ preventDefault: () => {} } as React.FormEvent<HTMLButtonElement>),
             replace,
         });
+    }
+
+    // A MegaMek conventional infantry file.
+    loadBlk = (unit: unknown): string[] => {
+        const platoon = unit as InfantryPlatoon;
+        this.replaceDesign(() => this.props.appGlobals.saveCurrentInfantry(platoon));
+        return platoon.getIssues();
     }
 
     startNew = (e: React.FormEvent<HTMLButtonElement>): void => {
@@ -122,6 +130,9 @@ export default class InfantryCreatorHome extends React.Component<IHomeProps> {
                             </div>
                         </TextSection>
 
+                        <BlkImportSection accept={["infantry"]} testId="inf" onLoad={this.loadBlk}
+                            note="The file's weapon and armor kit names are matched to the infantry tables; anything without a match, and field guns, beast mounts and specializations, are left off and listed." />
+
                         <TextSection
                             label="Your Saved Platoons"
                             labelButton={
@@ -136,7 +147,7 @@ export default class InfantryCreatorHome extends React.Component<IHomeProps> {
                                         <th>Name</th>
                                         <th>Motive Type</th>
                                         <th>Troopers</th>
-                                        <th></th>
+                                        <th><span className="visually-hidden">Actions</span></th>
                                     </tr>
                                 </thead>
                                 <tbody>

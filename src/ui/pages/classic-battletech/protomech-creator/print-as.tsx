@@ -2,6 +2,7 @@ import React, { type JSX } from 'react';
 import { IAppGlobals } from '../../../app-router';
 import PrintablePage from '../../../components/printable-page';
 import AlphaStrikeUnitSVG from '../../../components/svg/alpha-strike-unit-svg';
+import { unitRulesLevel } from '../../../components/game-settings-block';
 
 /** The converted Alpha Strike card of the ProtoMech; each ProtoMech of a Point is its own unit (ASC p.97). */
 export default class ProtoMechCreatorPrintAS extends React.Component<IPrintASProps> {
@@ -15,7 +16,7 @@ export default class ProtoMechCreatorPrintAS extends React.Component<IPrintASPro
         if (!proto) return <></>;
 
         return (
-            <PrintablePage backTo={`${process.env.PUBLIC_URL}/classic-battletech/protomech-creator/summary`} appGlobals={this.props.appGlobals}
+            <PrintablePage backTo={`${process.env.PUBLIC_URL}/classic-battletech/protomech-creator/summary`} appGlobals={this.props.appGlobals} rulesLevel={unitRulesLevel(proto, this.props.appGlobals.appSettings)}
                 requiredRulesLevel={proto.getRequiredRulesLevel()}
             >
                 <div className="print-page" data-testid="pm-as-card">

@@ -15,7 +15,7 @@ import { APOCRYPHAL_RULES_LEVEL, CUSTOM_HOMEBREW_RULES_LEVEL } from "./rules-lev
 export type PrintedDroidLocation = "hd" | "ct" | "lt" | "rt" | "la" | "ra" | "ll" | "rl";
 
 /**
- * A droid as a Battledroids-era record listing prints it: the book's ten, the SPI-5R Spider of Game News #3 and the
+ * A droid as a Battledroids-era record listing prints it: the book's ten and its Merlin construction example, the SPI-5R Spider of Game News #3 and the
  * TCI kit-back sheets. Every figure is as printed; corrections and anything that does not add up are in `notes`.
  */
 export interface IPrintedDroid {
@@ -43,6 +43,11 @@ export interface IPrintedDroid {
     printedArmorFactor: number;
     /** One entry per item; each ammunition line is one ton per critical box printed. */
     equipment: { tag: string; location: PrintedDroidLocation; rear?: boolean }[];
+    /**
+     * Heat sinks by location as the sheet's Critical Hit Chart prints them. Only the Merlin's chart is printed (BD
+     * p.25); every other listing gives no places, so its heat sinks are spread one to each location in turn.
+     */
+    heatSinkPlaces?: Partial<Record<PrintedDroidLocation, number>>;
     /** The figurine carries a turret here: items listed in it that do not fit its slots are mounted in the turret. */
     turret?: PrintedDroidLocation;
     notes: string[];
@@ -59,7 +64,7 @@ const shadowHawk2H: Pick<IPrintedDroid, "tonnage" | "engineRating" | "walk" | "j
     armor: { head: 9, centerTorso: 23, centerTorsoRear: 8, sideTorso: 18, sideTorsoRear: 6, arm: 16, leg: 16 },
     printedArmorFactor: 152,
     equipment: [
-        ...items(1, "autocannon-standard-b", "lt"), ...items(1, "ammo-is-ac-5-standard", "lt"), ...items(1, "lrm-5", "rt"),
+        ...items(1, "autocannon-standard-b", "lt"), ...items(1, "ammo-ac-5-standard", "lt"), ...items(1, "lrm-5", "rt"),
         ...items(1, "ammo-lrm-standard", "lt"), ...items(1, "medium-laser", "ra"), ...items(1, "srm-2", "hd"),
         ...items(1, "ammo-srm-standard", "lt"),
     ],
@@ -78,7 +83,7 @@ const wolverine = (id: string, model: string, kit: string): IPrintedDroid => ({
     printedArmorFactor: 168,
     equipment: [
         ...items(3, "srm-2", "lt"), ...items(1, "ammo-srm-standard", "lt"), ...items(1, "autocannon-standard-b", "ra"),
-        ...items(1, "ammo-is-ac-5-standard", "rt"), ...items(1, "medium-laser", "hd"),
+        ...items(1, "ammo-ac-5-standard", "rt"), ...items(1, "medium-laser", "hd"),
     ],
     notes: [
         "The locations add up to 156 armor boxes against the printed Armor Factor of 168; it is not clear which is wrong, so both are as printed (flagged).",
@@ -131,7 +136,7 @@ export const battledroidsPrintedDroids: IPrintedDroid[] = [
         printedArmorFactor: 120,
         equipment: [
             ...items(1, "large-laser", "ra"), ...items(1, "large-laser", "la"), ...items(1, "autocannon-standard-b", "ra"),
-            ...items(1, "autocannon-standard-b", "la"), ...items(1, "ammo-is-ac-5-standard", "ct"),
+            ...items(1, "autocannon-standard-b", "la"), ...items(1, "ammo-ac-5-standard", "ct"),
         ],
         notes: [
             "The engine is printed as a VOX 260 (13.5 tons), larger than the 240 that 4 Walking MP on 60 tons needs; the creator builds the 240, so it weighs less than the sheet's 60 tons.",
@@ -182,9 +187,26 @@ export const battledroidsPrintedDroids: IPrintedDroid[] = [
         printedArmorFactor: 184,
         equipment: [
             ...items(1, "standard-ppc", "ra"), ...items(1, "standard-ppc", "la"), ...items(1, "medium-laser", "ra"),
-            ...items(1, "medium-laser", "la"), ...items(1, "autocannon-standard-b", "rt"), ...items(1, "ammo-is-ac-5-standard", "lt"),
+            ...items(1, "medium-laser", "la"), ...items(1, "autocannon-standard-b", "rt"), ...items(1, "ammo-ac-5-standard", "lt"),
         ],
         notes: [],
+    },
+    {
+        // BD pp.23-25, the worked example of droid construction. The sheet's Type line reads "MERLIN"; it has no model code.
+        id: "merlin", model: "MERLIN", name: "Merlin", rulesLevel: 0, source: "BD", page: 24, mechType: "biped",
+        tonnage: 60, engineRating: 240, walk: 4, jump: 4, heatSinks: 18,
+        armor: { head: 9, centerTorso: 26, centerTorsoRear: 13, sideTorso: 19, sideTorsoRear: 9, arm: 20, leg: 24 },
+        printedArmorFactor: 192,
+        heatSinkPlaces: { ra: 3, hd: 1, la: 2, rt: 2, ct: 2, lt: 4, rl: 2, ll: 2 },
+        equipment: [
+            ...items(1, "standard-ppc", "rt"), ...items(1, "lrm-5", "rt"), ...items(1, "ammo-lrm-standard", "rt"),
+            ...items(1, "medium-laser", "ra"), ...items(1, "medium-laser", "la"), ...items(1, "machine-gun", "lt"),
+            ...items(1, "standard-flamer", "lt"), ...items(1, "ammo-machine-gun-standard", "lt"),
+        ],
+        notes: [
+            "The text prints Head 0 and Arms 28 apiece, which add up to 199 and put the arms over twice their 10 structure boxes; the armor diagram on p.25 leaves 9 head boxes and 20 on each arm open, which add up to the printed 192, so those are used.",
+            "The critical hit chart places the 18 heat sinks but not the two tons of ammunition; each goes in the torso beside its weapon.",
+        ],
     },
     {
         id: "spi-5r", model: "SPI-5R", name: "Spider", rulesLevel: APOCRYPHAL_RULES_LEVEL,
@@ -234,7 +256,7 @@ export const battledroidsPrintedDroids: IPrintedDroid[] = [
         kit: "Dougram", mechType: "biped",
         ...shadowHawk2H,
         equipment: [
-            ...items(1, "autocannon-standard-b", "lt"), ...items(1, "ammo-is-ac-5-standard", "lt"), ...items(1, "lrm-5", "rt"),
+            ...items(1, "autocannon-standard-b", "lt"), ...items(1, "ammo-ac-5-standard", "lt"), ...items(1, "lrm-5", "rt"),
             ...items(1, "ammo-lrm-standard", "lt"), ...items(1, "medium-laser", "ra"), ...items(1, "machine-gun", "hd"),
             ...items(1, "ammo-machine-gun-standard", "lt"),
         ],
@@ -329,7 +351,7 @@ export const battledroidsPrintedDroids: IPrintedDroid[] = [
         armor: { head: 9, centerTorso: 33, centerTorsoRear: 10, sideTorso: 22, sideTorsoRear: 8, arm: 22, leg: 30 },
         printedArmorFactor: 216,
         equipment: [
-            ...items(1, "large-laser", "ra"), ...items(1, "autocannon-standard-b", "la"), ...items(1, "ammo-is-ac-5-standard", "lt"),
+            ...items(1, "large-laser", "ra"), ...items(1, "autocannon-standard-b", "la"), ...items(1, "ammo-ac-5-standard", "lt"),
             ...items(1, "srm-6", "rt"), ...items(1, "srm-6", "lt"), ...items(1, "ammo-srm-standard", "rt"),
             ...items(1, "ammo-srm-standard", "lt"),
         ],

@@ -15,9 +15,9 @@ import { generateUUID } from "../utils/generateUUID";
  */
 
 export function generateAvailableScenarios(scenarioSet: IAlphaStrikeMPScenarioSet, numberOfScenarios: number): IAlphaStrikeMPScenario[] {
-    let returnScenarios: IAlphaStrikeMPScenario[] = [];
-    let totalScenarioWeight = scenarioSet.scenarioWeights.reduce((a, b) => a + b, 0);
-    let weightedScenarios: number[] = [];
+    const returnScenarios: IAlphaStrikeMPScenario[] = [];
+    const totalScenarioWeight = scenarioSet.scenarioWeights.reduce((a, b) => a + b, 0);
+    const weightedScenarios: number[] = [];
 
     for (let i = 0; i < scenarioSet.scenarioIds.length; i++) {
         for (let j = 0; j < scenarioSet.scenarioWeights[i]; j++) {
@@ -30,8 +30,8 @@ export function generateAvailableScenarios(scenarioSet: IAlphaStrikeMPScenarioSe
     }
 
     while(returnScenarios.length < numberOfScenarios) {
-        let randomIndex = Math.floor(Math.random() * totalScenarioWeight);
-        let scenarioId = weightedScenarios[randomIndex];
+        const randomIndex = Math.floor(Math.random() * totalScenarioWeight);
+        const scenarioId = weightedScenarios[randomIndex];
         if(returnScenarios.find((d) => d.id === scenarioId) !== undefined) {
             continue;
         }
@@ -42,7 +42,7 @@ export function generateAvailableScenarios(scenarioSet: IAlphaStrikeMPScenarioSe
 }
 
 export const getScenarioById = (scenarioId: number): IAlphaStrikeMPScenario => {
-    let scenario = alphaStrikeMPScenarios.find((d) => d.id === scenarioId);
+    const scenario = alphaStrikeMPScenarios.find((d) => d.id === scenarioId);
     if(scenario === undefined) {
         throw new Error(`Scenario with id ${scenarioId} not found`);
     }else{

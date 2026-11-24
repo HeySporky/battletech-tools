@@ -19,6 +19,10 @@ export default defineConfig({
     fullyParallel: true,
     forbidOnly: !!process.env.CI,
     retries: process.env.CI ? 1 : 0,
+    // Locally, Playwright's default (half the cores) starts enough browsers at once to starve the preview server, and
+    // pages time out loading. Four keeps a full run to about three minutes in Chromium. WebKit on Windows is slower
+    // still: if it times out, rerun the failures with --last-failed --workers=1.
+    workers: process.env.CI ? undefined : 4,
     reporter: process.env.CI ? [["github"], ["html", { open: "never" }]] : "list",
     // Cold starts are CPU-heavy (the app imports every bundled SSW mech in the background), and with many parallel
     // workers a redirect into a lazily loaded route can take several seconds to paint. 15 s instead of the default 5 s

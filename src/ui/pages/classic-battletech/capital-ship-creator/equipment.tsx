@@ -4,14 +4,16 @@ import { FaArrowCircleLeft, FaArrowCircleRight, FaTrash } from "react-icons/fa";
 import CapitalShip from '../../../../classes/capital-ship';
 import { IEquipmentItem } from '../../../../data/data-interfaces';
 import { CUSTOM_HOMEBREW_RULES_LEVEL } from '../../../../data/equipment-registry';
-import { findCapitalWeapon, getCapitalAmmoTags } from '../../../../data/capital-weapon-helpers';
+import { findCapitalWeapon, getCapitalAmmoTags, getCapitalWeaponEditionNotes } from '../../../../data/capital-weapon-helpers';
 import { getAdvancedAerospaceType } from '../../../../data/advanced-aerospace-construction';
 import { IAppGlobals } from '../../../app-router';
 import AvailableEquipment from '../../../components/available-equipment';
-import CapitalShipCreatorSideMenu from '../../../components/capital-ship-creator-side-menu';
+import { CapitalShipCreatorSideMenu } from '../../../components/creator-side-menus';
 import TextSection from '../../../components/text-section';
+import TonnageBar from '../../../components/tonnage-bar';
 import UIPage from '../../../components/ui-page';
 import CapitalShipStatusBar from './_statusBar';
+import { unitRulesLevel } from '../../../components/game-settings-block';
 const ArrowCircleLeft = FaArrowCircleLeft as any;
 const ArrowCircleRight = FaArrowCircleRight as any;
 const Trash = FaTrash as any;
@@ -67,9 +69,14 @@ export default class CapitalShipCreatorEquipment extends React.Component<IEquipm
                         </button>
                     </div>
                 ) : <p>No capital weapons are available to this tech base, era and rules level.</p>}
+                {selected && getCapitalWeaponEditionNotes(selected).length > 0 ? (
+                    <ul className="smaller-text" data-testid="cs-capital-editions">
+                        {getCapitalWeaponEditionNotes(selected).map((line) => <li key={line}>{line}</li>)}
+                    </ul>
+                ) : null}
                 <table className="table" data-testid="cs-capital-installed">
                     <thead>
-                        <tr><th>Name</th><th>Tons</th><th>Arc</th><th>Shots</th><th></th></tr>
+                        <tr><th>Name</th><th>Tons</th><th>Arc</th><th>Shots</th><th><span className="visually-hidden">Actions</span></th></tr>
                     </thead>
                     <tbody>
                         {mounts.map((mount) => (
@@ -109,7 +116,7 @@ export default class CapitalShipCreatorEquipment extends React.Component<IEquipm
     render = (): JSX.Element => {
         const ship = this.props.appGlobals.currentCapitalShip;
         if (!ship) return <></>;
-        const rulesLevel = this.props.appGlobals.appSettings.mechRulesFilter;
+        const rulesLevel = unitRulesLevel(this.props.appGlobals.currentCapitalShip, this.props.appGlobals.appSettings);
         const limit = getAdvancedAerospaceType(ship.getShipType()).weaponsPerArc;
 
         return (
@@ -126,6 +133,7 @@ export default class CapitalShipCreatorEquipment extends React.Component<IEquipm
                                     <AvailableEquipment
                                         appGlobals={this.props.appGlobals}
                                         equipment={ship.getAvailableEquipment(rulesLevel >= CUSTOM_HOMEBREW_RULES_LEVEL, rulesLevel)}
+                                        mounted={ship.getEquipmentList()}
                                         addFunction={this.addEquipment}
                                     />
                                     <div className="clear-both overflow-hidden">
@@ -154,7 +162,7 @@ export default class CapitalShipCreatorEquipment extends React.Component<IEquipm
                                     <p><strong>Gunners needed</strong>: {ship.getMinimumGunners()} (one for every six standard weapons and one for each capital weapon, SO:AA p.138)</p>
                                     <table className="table" data-testid="cs-installed">
                                         <thead>
-                                            <tr><th>Name</th><th>Tons</th><th>Location</th><th></th></tr>
+                                            <tr><th>Name</th><th>Tons</th><th>Location</th><th><span className="visually-hidden">Actions</span></th></tr>
                                         </thead>
                                         <tbody>
                                             {ship.getEquipmentList().map((item) => (
@@ -178,6 +186,7 @@ export default class CapitalShipCreatorEquipment extends React.Component<IEquipm
                         </div>
                     </div>
                 </div>
+                <TonnageBar used={ship.getCurrentTonnage()} total={ship.getTonnage()} />
             </UIPage>
         );
     }

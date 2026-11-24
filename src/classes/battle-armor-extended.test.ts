@@ -81,7 +81,7 @@ describe("Battle armor equipment from Tactical Operations (TO:AUE pp.91-161, 224
         suit.updateItem(1, { dwp: true });
         expect(suit.getItemWeight(suit.getItems()[1])).toBe(190);
         // The pack costs 18,000 on top of the weapon, and slows the suit while it is carried.
-        expect(suit.getCBillCostLog().join(" ")).toContain("Weapons, equipment and mounts: 90,000");
+        expect(suit.getCBillCostLog().join(" ")).toContain("Weapons, equipment and mounts: 90000");
         expect(suit.getPlayMovement().ground).toBe(1);
         suit.setPacksJettisoned(true);
         expect(suit.getPlayMovement().ground).toBe(2);
@@ -115,7 +115,7 @@ describe("Battle armor equipment from Tactical Operations (TO:AUE pp.91-161, 224
         // Its three slots are found anywhere on the suit, like armor slots.
         expect(suit.getUsedSlots("body")).toBe(0);
         expect(suit.getSpreadSlots()).toBe(3);
-        expect(suit.getCBillCostLog().join(" ")).toContain("Weapons, equipment and mounts: 150,000");
+        expect(suit.getCBillCostLog().join(" ")).toContain("Weapons, equipment and mounts: 150000");
         expect(suit.getAntiMechBonusDamage()).toBe(10);
         suit.setArmor("ba-stealth-basic");
         suit.setArmorPoints(2);
@@ -125,7 +125,7 @@ describe("Battle armor equipment from Tactical Operations (TO:AUE pp.91-161, 224
         assault.setWeightClass("assault");
         assault.addItem("clan-myomer-booster", "body");
         expect(assault.getTotalGroundMP()).toBe(2);
-        expect(assault.getCBillCostLog().join(" ")).toContain("Weapons, equipment and mounts: 75,000");
+        expect(assault.getCBillCostLog().join(" ")).toContain("Weapons, equipment and mounts: 75000");
     });
 
     it("gives a mechanical jump booster 1 Jumping MP and 1 Ground MP, at twice a jump MP's weight (TO:AUE pp.98, 225)", () => {
@@ -524,14 +524,43 @@ describe("MegaMek battle armor file import", () => {
         expect([suit.getTechBase(), suit.getWeightClass().tag, suit.getSquadSize()]).toEqual(["clan", "medium", 5]);
         expect(suit.getMovementText()).toBe("Ground 1 / Jump 3");
         expect([suit.getArmor().tag, suit.getArmorPoints()]).toEqual(["ba-standard", 10]);
-        expect(suit.getItems()).toEqual([{ tag: "clan-small-laser", location: "ra" }, { tag: "clan-srm-2", location: "body", shots: 2 }]);
+        expect(suit.getItems()).toMatchObject([{ tag: "clan-small-laser", location: "ra" }, { tag: "clan-srm-2", location: "body", shots: 2 }]);
         expect(suit.getAPMounts()).toEqual([{ location: "la", weapon: "inf-auto-rifle" }]);
         expect(suit.getManipulator("la").tag).toBe("battle-claw");
         expect(suit.getEra().yearStart).toBeLessThanOrEqual(2868);
         expect(suit.getIssues()).toEqual([]);
-        // Without the rifle in its mount this is the published Elemental: 447 for the Point.
+        // The published Elemental, 447 for the Point: the assault rifle in its mount adds nothing (the MUL values every
+        // suit carrying it that way so), and an empty mount nothing either. Another anti-personnel weapon adds its own.
+        expect(suit.getBattleValue()).toBe(447);
         suit.setAPMountWeapon(0, "");
         expect(suit.getBattleValue()).toBe(447);
+        const other = suit.getAntiPersonnelWeapons().find((weapon) => weapon.tag !== "inf-auto-rifle" && weapon.battleValue >= 1)!;
+        suit.setAPMountWeapon(0, other.tag);
+        expect(suit.getBattleValue()).toBeGreaterThan(447);
+    });
+
+    it("brings the file's Technical Readout fields across (TRO round 2, #78)", () => {
+        const { suit } = importBattleArmorBlk(`${BLK}<manufacturer>
+Olivetti Weaponry
+</manufacturer>
+<systemManufacturers>
+ARMOR:Ceres Arms
+JUMP_JET:Hellespont
+</systemManufacturers>
+<history>
+<p>First fielded in 2868.</p>
+</history>
+`);
+        expect(suit!.tro.getProduction("manufacturer")).toBe("Olivetti Weaponry");
+        expect([suit!.tro.getComponent("armor"), suit!.tro.getComponent("jumpJets")]).toEqual(["Ceres Arms", "Hellespont"]);
+        expect(suit!.tro.getText("battleHistory")).toBe("First fielded in 2868.");
+    });
+
+    it("brings the file's quirks across, on the weapon it names", () => {
+        const { suit, issues } = importBattleArmorBlk(`${BLK}<quirks>\nlow_profile\n</quirks>\n<weaponQuirks>\naccurate:Point:0:CLBASmall Laser\nstatic_feed:Point:1:ISPPC\n</weaponQuirks>\n`);
+        const laser = suit!.getItems().find((item) => item.tag === "clan-small-laser")!;
+        expect(suit!.quirks.getAll()).toEqual([{ tag: "quirk-narrow-low-profile" }, { tag: "quirk-accurate-weapon", equipmentUuid: laser.uuid }]);
+        expect(issues).toContain("Static Ammo Feed: no ISPPC in Point on this unit, left off.");
     });
 
     it("refuses a file for another unit type, and text that is not a unit file", () => {
@@ -548,5 +577,133 @@ describe("MegaMek battle armor file import", () => {
         expect([mixed.suit?.getTechBase(), mixed.suit?.isMixedTech()]).toEqual(["is", true]);
         expect(mixed.issues).toEqual(["'NotARealItem' is not in the battle armor equipment tables: left off."]);
         expect(mixed.suit?.getItems().map((entry) => entry.tag)).toEqual(["clan-small-laser", "clan-srm-2"]);
+    });
+});
+
+// Lines copied from MegaMek unit files (unit_files/battlearmor), the MUL value in each name.
+const blkOf = (head: string, equipment: string[], tail: string, troopers = 4, trooperOne: string[] = []): string => `<UnitType>
+BattleArmor
+</UnitType>
+<Name>
+Test Suit
+</Name>
+<Model>
+(Sqd${troopers})
+</Model>
+${head}
+<Squad Equipment>
+${equipment.join("\n")}
+</Squad Equipment>
+${Array.from({ length: troopers }, (_unused, index) => `<Trooper ${index + 1} Equipment>\n${index === 0 ? trooperOne.map((line) => `${line}\n`).join("") : ""}</Trooper ${index + 1} Equipment>`).join("\n")}
+${tail}
+<Trooper Count>
+${troopers}
+</Trooper Count>
+`;
+
+describe("Battle armor import, round two (#600)", () => {
+    it("keeps the jump of a Leg suit that lists jumping MP (Tengu Heavy BA (ML) (Sqd4): MUL 349, TM p.316 note)", () => {
+        const { suit, issues } = importBattleArmorBlk(blkOf(
+            "<type>\nIS Level 3\n</type>\n<motion_type>\nLeg\n</motion_type>\n<cruiseMP>\n2\n</cruiseMP>\n<armor_type>\n30\n</armor_type>\n<armor_tech>\n5\n</armor_tech>",
+            ["ISDetachableWeaponPack:LA", "ISBAMediumLaser:DWP", "BABasicManipulator:LA", "BABasicManipulator:RA", "BAAPMount:RA", "InfantryAssaultRifle:APM:RA",
+                "IS BA Advanced:Body", "IS BA Advanced:Body", "IS BA Advanced:Body", "IS BA Advanced:Body", "IS BA Advanced:Body"],
+            "<chassis>\nbiped\n</chassis>\n<jumpingMP>\n2\n</jumpingMP>\n<armor>\n12\n</armor>\n<weightclass>\n3\n</weightclass>"));
+        expect(issues).toEqual([]);
+        expect([suit!.getMotive(), suit!.getMotiveMP(), suit!.getGroundMP()]).toEqual(["jump", 2, 2]);
+        expect(suit!.getBattleValue()).toBe(349);
+    });
+
+    it("reads a myomer booster listed once for each location as one booster (Groundhog Exo Master Thief: MUL 4)", () => {
+        const { suit } = importBattleArmorBlk(blkOf(
+            "<type>\nMixed (IS Chassis) Advanced\n</type>\n<motion_type>\nLeg\n</motion_type>\n<cruiseMP>\n1\n</cruiseMP>\n<armor_type>\n28\n</armor_type>\n<armor_tech>\n7\n</armor_tech>",
+            ["BAArmoredGlove:LA", "BAArmoredGlove:RA", "CLBAMyomerBooster:Body", "CLBAMyomerBooster:LA", "CLBAMyomerBooster:RA", "Mission Equipment Storage:Body:SIZE:20.0"],
+            "<chassis>\nbiped\n</chassis>\n<exoskeleton>\ntrue\n</exoskeleton>\n<jumpingMP>\n0\n</jumpingMP>\n<armor>\n1\n</armor>\n<weightclass>\n0\n</weightclass>", 1));
+        expect(suit!.getItems().filter((item) => item.tag.endsWith("myomer-booster"))).toHaveLength(1);
+        expect(suit!.getBattleValue()).toBe(4);
+    });
+
+    it("adds up ammunition written as two lines (Phalanx BA (A) (Sqd4): two SRM 4 ammo lines of 1 shot each, MUL 292)", () => {
+        const { suit } = importBattleArmorBlk(blkOf(
+            "<type>\nIS Level 2\n</type>\n<motion_type>\nLeg\n</motion_type>\n<cruiseMP>\n2\n</cruiseMP>\n<armor_type>\n33\n</armor_type>\n<armor_tech>\n3\n</armor_tech>",
+            ["ISBASRM4:Body", "BA-SRM4 Ammo:Body:Shots1#", "BA-SRM4 Ammo:Body:Shots1#", "BABattleClaw:LA", "BAArmoredGlove:RA", "InfantryAssaultRifle:APM:RA",
+                "IS BA Stealth (Improved):Body", "IS BA Stealth (Improved):Body", "IS BA Stealth (Improved):RA", "IS BA Stealth (Improved):LA", "IS BA Stealth (Improved):LA", "ISBAKingDavidLightGaussRifle:RA"],
+            "<chassis>\nbiped\n</chassis>\n<jumpingMP>\n0\n</jumpingMP>\n<armor>\n7\n</armor>\n<weightclass>\n3\n</weightclass>"));
+        expect(suit!.getItems().find((item) => item.tag === "is-srm-4")?.shots).toBe(2);
+        expect(suit!.getBattleValue()).toBe(292);
+    });
+
+    it("counts ECM carried by one trooper for every suit of the squad (Kage Light BA [ECM] (Sqd5): MegaMek 152, MUL 153)", () => {
+        const { suit } = importBattleArmorBlk(blkOf(
+            "<type>\nIS Level 2\n</type>\n<motion_type>\nJump\n</motion_type>\n<cruiseMP>\n1\n</cruiseMP>\n<armor_type>\n31\n</armor_type>\n<armor_tech>\n3\n</armor_tech>",
+            ["BAArmoredGlove:LA", "BAArmoredGlove:RA", "InfantryAssaultRifle:APM:RA", "BAPartialWing:Body", "IS BA Stealth (Basic):Body", "IS BA Stealth (Basic):Body", "IS BA Stealth (Basic):RA"],
+            "<chassis>\nbiped\n</chassis>\n<jumpingMP>\n3\n</jumpingMP>\n<armor>\n5\n</armor>\n<weightclass>\n1\n</weightclass>", 5, ["IS BA ECM:Body"]));
+        expect(suit!.getItems().find((item) => item.tag === "is-ecm-suite")?.trooper).toBe(1);
+        expect(suit!.getBattleValue()).toBe(152);
+    });
+
+    it("lets a mixed-technology suit on an Inner Sphere chassis mount the Clan UMU or VTOL system (TM p.165; Sea Fox 130, Tornado G17 56)", () => {
+        const fox = importBattleArmorBlk(blkOf(
+            "<type>\nMixed (IS Chassis) Experimental\n</type>\n<motion_type>\nUMU\n</motion_type>\n<cruiseMP>\n2\n</cruiseMP>\n<armor_type>\n31\n</armor_type>\n<armor_tech>\n1\n</armor_tech>",
+            ["BACuttingTorch:RA", "ISBASRM1OS:LA", "CLBALightMG:Body", "BAExtendedLifeSupport:Body", "BAMechanicalJumpBooster:Body", "BAArmoredGlove:RA", "BAArmoredGlove:LA",
+                "InfantryAssaultRifle:APM:RA", "IS BA Stealth (Basic):RA", "IS BA Stealth (Basic):Body", "IS BA Stealth (Basic):Body"],
+            "<slotless_equipment>\nBAUMU\n</slotless_equipment>\n<chassis>\nbiped\n</chassis>\n<jumpingMP>\n3\n</jumpingMP>\n<armor>\n5\n</armor>\n<weightclass>\n1\n</weightclass>"));
+        expect(fox.issues).toEqual([]);
+        expect([fox.suit!.getMotive(), fox.suit!.getMotiveMP()]).toEqual(["umu", 3]);
+        expect(fox.suit!.getBattleValue()).toBe(130);
+        const tornado = importBattleArmorBlk(blkOf(
+            "<type>\nMixed (IS Chassis) Advanced\n</type>\n<motion_type>\nVTOL\n</motion_type>\n<cruiseMP>\n1\n</cruiseMP>\n<armor_type>\n33\n</armor_type>\n<armor_tech>\n2\n</armor_tech>",
+            ["BAArmoredGlove:LA", "BAArmoredGlove:RA", "InfantryAssaultRifle:APM", "BAExtendedLifeSupport:Body", "Clan BA Stealth (Improved):RA", "Clan BA Stealth (Improved):Body",
+                "Clan BA Stealth (Improved):LA", "Clan BA Stealth (Improved):LA", "Clan BA Stealth (Improved):RA"],
+            "<slotless_equipment>\nBAVTOL\n</slotless_equipment>\n<chassis>\nbiped\n</chassis>\n<jumpingMP>\n7\n</jumpingMP>\n<armor>\n2\n</armor>\n<weightclass>\n0\n</weightclass>"));
+        expect(tornado.issues).toEqual([]);
+        expect([tornado.suit!.getMotive(), tornado.suit!.getMotiveMP()]).toEqual(["vtol", 7]);
+        expect(tornado.suit!.getBattleValue()).toBe(56);
+        // An Inner Sphere suit with no Clan technology still may not.
+        const plain = new BattleArmor();
+        expect(plain.setMotive("umu", 2)).toBe(false);
+        expect(plain.setMotive("vtol", 2)).toBe(false);
+    });
+
+    it("reads an Inner Sphere heat sensor name on a Clan suit as the heat sensor, which both technology bases use (TM p.256; Headhunter Sqd4: MUL 223)", () => {
+        const { suit, issues } = importBattleArmorBlk(blkOf(
+            "<type>\nClan Level 2\n</type>\n<motion_type>\nJump\n</motion_type>\n<cruiseMP>\n1\n</cruiseMP>\n<armor_type>\n28\n</armor_type>\n<armor_tech>\n2\n</armor_tech>",
+            ["CLBAMG:RA", "CLImprovedSensors:Body", "ISBAHeatSensor:Body", "ISBARemoteSensorDispenser:Body", "BAAPMount:LA", "InfantryAssaultRifle:APM:LA", "BABattleClaw:LA"],
+            "<slotless_equipment>\nBAJumpJet\n</slotless_equipment>\n<chassis>\nbiped\n</chassis>\n<jumpingMP>\n3\n</jumpingMP>\n<armor>\n10\n</armor>\n<weightclass>\n2\n</weightclass>"));
+        expect(issues).toEqual([]);
+        expect(suit!.getItems().map((item) => item.tag)).toContain("clan-heat-sensor");
+        expect(suit!.getBattleValue()).toBe(223);
+    });
+
+    it("imports the Aegis Point Defense Suit with its advanced point defense system (IO:AE p.85; MUL 179, XTRO:Republic III prints 179/35)", () => {
+        const { suit, issues } = importBattleArmorBlk(blkOf(
+            "<type>\nIS Level 3\n</type>\n<motion_type>\nLeg\n</motion_type>\n<cruiseMP>\n3\n</cruiseMP>\n<armor_type>\n33\n</armor_type>\n<armor_tech>\n1\n</armor_tech>",
+            ["BABasicManipulator:LA", "BABasicManipulator:RA", "IS BA Stealth (Improved):Body", "IS BA Stealth (Improved):Body", "IS BA Stealth (Improved):Body",
+                "IS BA Stealth (Improved):LA", "IS BA Stealth (Improved):LA", "BAAPMount:LA", "InfantryAssaultRifle:APM", "ISBAAPDS:RA"],
+            "<chassis>\nbiped\n</chassis>\n<jumpingMP>\n0\n</jumpingMP>\n<armor>\n6\n</armor>\n<weightclass>\n2\n</weightclass>"));
+        expect(issues).toEqual([]);
+        expect(suit!.getItems().map((item) => item.tag)).toEqual(["is-advanced-point-defense-system"]);
+        expect(suit!.getBattleValue()).toBe(179);
+    });
+
+    it("imports the interface suits with the BattleMech Neural Interface Unit, a PA(L) item (IO:AE pp.110, 180, 187)", () => {
+        const { suit, issues } = importBattleArmorBlk(blkOf(
+            "<type>\nMixed (Clan Chassis) Experimental\n</type>\n<motion_type>\nLeg\n</motion_type>\n<cruiseMP>\n3\n</cruiseMP>\n<armor_type>\n28\n</armor_type>\n<armor_tech>\n8\n</armor_tech>",
+            ["BAArmoredGlove:LA", "BAArmoredGlove:RA", "BAAPMount:RA", "BAAPMount:LA", "Mission Equipment Storage:LA:SIZE:30.0", "Mission Equipment Storage:RA:SIZE:30.0", "BABattleMechNIU"],
+            "<chassis>\nbiped\n</chassis>\n<jumpingMP>\n0\n</jumpingMP>\n<armor>\n2\n</armor>\n<weightclass>\n0\n</weightclass>", 1));
+        expect(issues).toEqual([]);
+        expect(suit!.getItems().map((item) => item.tag)).toContain("clan-battlemech-neural-interface-unit");
+        // Battle Value 0 for the unit itself (IO:AE p.187): the suit is worth what its armor and speed make it, 7 (MegaMek 7).
+        expect(suit!.getBattleValue()).toBe(7);
+        const light = new BattleArmor();
+        light.setWeightClass("medium");
+        light.addItem("is-battlemech-neural-interface-unit", "body");
+        expect(light.getIssues().join(" ")).toContain("PA(L) suit only");
+    });
+
+    it("keeps the heavy grenade launcher at Battle Value 2 and cites the page that prints it (TM p.317, errata v6.0 p.34; MegaMek 1)", () => {
+        const heavy = battleArmorEquipment.find((entry) => entry.tag === "is-heavy-grenade-launcher");
+        expect([heavy?.bv, heavy?.bvSource]).toEqual([2, "TM p.317, errata v6.0 p.34; CBT Companion p.190"]);
+        expect(battleArmorEquipment.find((entry) => entry.tag === "clan-heavy-grenade-launcher")).toMatchObject({ bv: 2, bvSource: "TM p.318, errata v6.0 p.34; CBT Companion p.190" });
+        expect(battleArmorEquipment.find((entry) => entry.tag === "is-micro-grenade-launcher")?.bv).toBe(1);
     });
 });

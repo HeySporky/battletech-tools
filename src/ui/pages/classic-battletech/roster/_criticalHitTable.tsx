@@ -4,10 +4,21 @@ import { MdDangerous } from 'react-icons/md';
 import { BattleMech, ICriticalSlot } from '../../../../classes/battlemech';
 import { getLocationName } from '../../../../utils';
 import { makeRange } from '../../../../utils/makeRange';
+import { getCriticalTables } from '../../../../utils/critical-tables';
 import { IAppGlobals } from '../../../app-router';
 import type { JSX } from "react";
 const CheckSquare = FaCheckSquare as any;
 const Dangerous = MdDangerous as any;
+
+/**
+ * How many lines play mode shows for a location: the 'Mech's own count under Clell Flint's construction rules (#172),
+ * otherwise the sheet's canon tables (12 for torsos and arms, 6 for the head and legs; a quad's or QuadVee's front legs 6).
+ */
+export function getPlayCritSlotCount(mech: BattleMech, location: string): number {
+    if (mech.usesFutureWarsConstruction()) return mech.getLocationSlotCount(location);
+    const fourLegged = mech.isQuad() || mech.isQuadVee();
+    return ["hd", "ll", "rl", "cl"].includes(location) || (fourLegged && ["la", "ra", "fll", "frl"].includes(location)) ? 6 : 12;
+}
 
 export default class InPlayCriticalHitTable extends React.Component<IInPlayCriticalHitTableProps, IInPlayCriticalHitTableState> {
 
@@ -43,20 +54,17 @@ export default class InPlayCriticalHitTable extends React.Component<IInPlayCriti
                 {makeRange(0, this.props.numberCritSlots - 1).map( ( critSlotIndex ) => {
                     let crit: ICriticalSlot | null = null;
                     let hr: JSX.Element | null = null;
+                    // Tables of six (TW p.124; ours past 12 slots, #172), each with the die numbers that pick it.
+                    const tables = getCriticalTables(this.props.numberCritSlots);
+                    const table = tables.find( t => critSlotIndex >= t.start && critSlotIndex < t.start + t.length );
+                    const line = critSlotIndex - (table ? table.start : 0) + 1;
 
-                    if( critSlotIndex === 5 && this.props.numberCritSlots > 6)
+                    if( table && tables.length > 1 && table !== tables[tables.length - 1] && critSlotIndex === table.start + table.length - 1 )
                         hr = <tr><td colSpan={4}><hr /></td></tr>
 
                     let firstColData = <React.Fragment></React.Fragment>
-                    if( critSlotIndex === 6 ) {
-                        firstColData = <td rowSpan={6}>
-                            4-6
-                        </td>
-                    }
-                    if( critSlotIndex === 0 ) {
-                        firstColData = <td rowSpan={6}>
-                            1-3
-                        </td>
+                    if( table && tables.length > 1 && critSlotIndex === table.start ) {
+                        firstColData = <td rowSpan={table.length} data-testid="play-crit-table-dice">{table.label}</td>
                     }
 
                     if( this.props.critData[critSlotIndex]) {
@@ -69,12 +77,8 @@ export default class InPlayCriticalHitTable extends React.Component<IInPlayCriti
                             <tr>
                                 {firstColData}
 
-                                <td className={this.props.mechData.isCriticalDamaged( this.props.location, critSlotIndex  ) ? "color-brighter-red" : ""}>
-                                    {critSlotIndex > 5 ? (
-                                        <>{critSlotIndex - 5}</>
-                                    ) : (
-                                        <>{critSlotIndex + 1}</>
-                                    )}
+                                <td data-testid="play-crit-line" className={this.props.mechData.isCriticalDamaged( this.props.location, critSlotIndex  ) ? "color-brighter-red" : ""}>
+                                    {line}
                                 </td>
                                 <td
                                     className={this.props.mechData.isCriticalDamaged( this.props.location, critSlotIndex  ) ? "color-brighter-red cursor-pointer font-weight-700" : "cursor-pointer"}
@@ -96,12 +100,8 @@ export default class InPlayCriticalHitTable extends React.Component<IInPlayCriti
                             <React.Fragment key={critSlotIndex}>
                             <tr>
                                 {firstColData}
-                                <td className="color-light-gray font-weight-100">
-                                    {critSlotIndex > 5 ? (
-                                        <>{critSlotIndex - 5}</>
-                                    ) : (
-                                        <>{critSlotIndex + 1}</>
-                                    )}
+                                <td data-testid="play-crit-line" className="color-light-gray font-weight-100">
+                                    {line}
                                 </td>
                                 <td className="color-light-gray font-weight-100">
                                     ( Roll Again )

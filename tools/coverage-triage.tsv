@@ -1,0 +1,313 @@
+MegaMek name	Status	Note
+Altitude Bomb	not equipment	MegaMek attack action, not an item
+Space Bomb	not equipment	MegaMek attack action, not an item
+Dive Bomb	not equipment	MegaMek attack action, not an item
+Attack Swarmed Mek	not equipment	MegaMek attack action, not an item
+Swarm Mek	not equipment	MegaMek attack action, not an item
+Stop Swarm Attack	not equipment	MegaMek attack action, not an item
+Leg Attack	not equipment	MegaMek attack action, not an item
+Fire Extinguisher	not equipment	MegaMek attack action, not an item
+Rocket Launcher (Prototype) Pod	not a record	IO:AE p.67 one-shot mounting of the prototype RL (ledger Batch A)
+Anti-Ship Electronic Warfare (ASEW) Missiles	ammo record	bomb, held as a 'Bomb - ...' ammunition record
+Light Air-to-Air (LAA) Missiles	ammo record	bomb, held as a 'Bomb - ...' ammunition record
+Alamo Missile	capital	WMD, IO:AE p.169: the capital family's row
+Blade (Hatchet/Tomahawk) (Unofficial)	round 9	infantry / personal weapon (TM p.273, Shrapnel, AToW Companion)
+Blade (Jousting Lance)	round 9	infantry / personal weapon (TM p.273, Shrapnel, AToW Companion)
+LRM Launcher (Corean Farshot) w/Incendiary	round 9	infantry / personal weapon (TM p.273, Shrapnel, AToW Companion)
+MRM Launcher w/Incendiary	round 9	infantry / personal weapon (TM p.273, Shrapnel, AToW Companion)
+Laser Carbine (Brightstar L-15)	round 9	infantry / personal weapon (TM p.273, Shrapnel, AToW Companion)
+Mag-Pulse Harpoon Gun	round 9	infantry / personal weapon (TM p.273, Shrapnel, AToW Companion)
+Pulse Laser (Dragonsbane Disposable)	round 9	infantry / personal weapon (TM p.273, Shrapnel, AToW Companion)
+Support PPC (Snub-Nose)	round 9	infantry / personal weapon (TM p.273, Shrapnel, AToW Companion)
+Vintage Gatling Gun	round 9	infantry / personal weapon (TM p.273, Shrapnel, AToW Companion)
+Vintage MiniGun	round 9	infantry / personal weapon (TM p.273, Shrapnel, AToW Companion)
+Wire-Guided Missile Launcher	round 9	infantry / personal weapon (TM p.273, Shrapnel, AToW Companion)
+Machine Gun (Akai Ryu)	round 9	infantry / personal weapon (TM p.273, Shrapnel, AToW Companion)
+Machine Gun (Boone MGL 14A)	round 9	infantry / personal weapon (TM p.273, Shrapnel, AToW Companion)
+Machine Gun (Boone MGL 14D)	round 9	infantry / personal weapon (TM p.273, Shrapnel, AToW Companion)
+Machine Gun (Fogue Defender)	round 9	infantry / personal weapon (TM p.273, Shrapnel, AToW Companion)
+Machine Gun (HCK M-2MG)	round 9	infantry / personal weapon (TM p.273, Shrapnel, AToW Companion)
+Machine Gun (Huo Dushe)	round 9	infantry / personal weapon (TM p.273, Shrapnel, AToW Companion)
+Machine Gun (Nambu M-12)	round 9	infantry / personal weapon (TM p.273, Shrapnel, AToW Companion)
+Machine Gun (Peacekeeper-LB)	round 9	infantry / personal weapon (TM p.273, Shrapnel, AToW Companion)
+Machine Gun (Peacekeeper-LLB)	round 9	infantry / personal weapon (TM p.273, Shrapnel, AToW Companion)
+Machine Gun (Peacekeeper-LSB)	round 9	infantry / personal weapon (TM p.273, Shrapnel, AToW Companion)
+Machine Gun (Peacekeeper-SB)	round 9	infantry / personal weapon (TM p.273, Shrapnel, AToW Companion)
+Machine Gun (Sarcot MG-19)	round 9	infantry / personal weapon (TM p.273, Shrapnel, AToW Companion)
+Machine Gun (Tharwep Nachtgewitter)	round 9	infantry / personal weapon (TM p.273, Shrapnel, AToW Companion)
+Machine Gun (Type 17)	round 9	infantry / personal weapon (TM p.273, Shrapnel, AToW Companion)
+Prosthetic Ballistic	round 9	IO:AE p.78 prosthetic weapon, personal gear
+Prosthetic Blade	round 9	IO:AE p.78 prosthetic weapon, personal gear
+Prosthetic Climbing Claws	round 9	IO:AE p.78 prosthetic weapon, personal gear
+Prosthetic Dart Gun	round 9	IO:AE p.78 prosthetic weapon, personal gear
+Prosthetic Laser	round 9	IO:AE p.78 prosthetic weapon, personal gear
+Prosthetic Needle	round 9	IO:AE p.78 prosthetic weapon, personal gear
+Prosthetic Rumal/Garrote	round 9	IO:AE p.78 prosthetic weapon, personal gear
+Prosthetic Shocker	round 9	IO:AE p.78 prosthetic weapon, personal gear
+BAR 3 Armor	in src	support-vehicle-armor.ts: BAR 2-10 by tech rating (TM p.134)
+BAR 4 Armor	in src	support-vehicle-armor.ts: BAR 2-10 by tech rating (TM p.134)
+BAR 6 Armor	in src	support-vehicle-armor.ts: BAR 2-10 by tech rating (TM p.134)
+BAR 7 Armor	in src	support-vehicle-armor.ts: BAR 2-10 by tech rating (TM p.134)
+BAR 9 Armor	in src	support-vehicle-armor.ts: BAR 2-10 by tech rating (TM p.134)
+UMU [BA]	in src	battle-armor.ts motive "umu" (TM pp.164-165)
+BA Manipulator Adaptation [Modular Equipment Adaptor]	in src	battle-armor-construction.ts manipulator adaptation (TM p.260)
+Solar	in src	support vehicle engine "solar" (TM p.127)
+Superheavy Command Console	catalog	Cockpit Command Console on a biped or quad superheavy (IO:AE p.155)
+Small Command Console	catalog	Small Cockpit with a Cockpit Command Console; MegaMek's one-type spelling of the pair
+Tripod Industrial Cockpit	catalog	the tripod cockpits serve IndustrialMechs too (IO:AE pp.156, 159)
+Superheavy Tripod Industrial Cockpit	catalog	the tripod cockpits serve IndustrialMechs too (IO:AE pp.156, 159)
+Small Aerospace Cockpit	builder gap	TO:AUE p.112; the fighter builder has one cockpit (3 t, TM p.189)
+Endo Steel Prototype	builder gap	IO:AE p.65; structure types are hard-coded in battlemech.ts
+Prototype Ferro-Aluminum	builder gap	IO:AE p.66; aerospace armor types need builder support
+Hand	round 8	actuator catalog
+Hip	round 8	actuator catalog
+Foot	round 8	actuator catalog
+Anti-Mek Gear	in src	infantry-platoon.ts: Anti-'Mech kits, 15 kg a trooper (TM p.155)
+Combat Vehicle Chassis Mod [Dune Buggy]	in src	combat-vehicle-chassis-modifications.ts (TO:AUE pp.114-115)
+Combat Vehicle Chassis Mod [Environmental Sealing]	in src	combat-vehicle-chassis-modifications.ts (TO:AUE pp.114-115)
+Combat Vehicle Chassis Mod [Flotation Hull]	in src	combat-vehicle-chassis-modifications.ts (TO:AUE pp.114-115)
+Combat Vehicle Chassis Mod [Fully Amphibious]	in src	combat-vehicle-chassis-modifications.ts (TO:AUE pp.114-115)
+Combat Vehicle Chassis Mod [Limited Amphibious]	in src	combat-vehicle-chassis-modifications.ts (TO:AUE pp.114-115)
+Combustion (Liquid) Power Generator	in src	building-classifications.ts Power Generators Table (TO:AR p.132)
+Combustion (Solid) Power Generator	in src	building-classifications.ts Power Generators Table (TO:AR p.132)
+External Power Generator	in src	building-classifications.ts Power Generators Table (TO:AR p.132)
+Fission Power Generator	in src	building-classifications.ts Power Generators Table (TO:AR p.132)
+Fuel Cell Power Generator	in src	building-classifications.ts Power Generators Table (TO:AR p.132)
+Fusion Power Generator	in src	building-classifications.ts Power Generators Table (TO:AR p.132)
+Solar Power Generator	in src	building-classifications.ts Power Generators Table (TO:AR p.132)
+Steam Power Generator	in src	building-classifications.ts Power Generators Table (TO:AR p.132)
+External (PCMT) Power Generator	builder gap	building-classifications.ts leaves the PCMT-fed generator out (TO:AR p.132)
+Primitive Fighter	catalog	aerospace-armor-types.ts Primitive Aerospace Fighter Armor (IO:AE pp.119, 181)
+BattleMech Turret (Head)	builder gap	TO:AUE p.159: weight 10% of the turreted items, a turret location on the 'Mech
+BattleMech Turret (Quad)	builder gap	TO:AUE p.159: weight 10% of the turreted items, a turret location on the 'Mech
+BattleMech Turret (Shoulder)	builder gap	TO:AUE p.159: weight 10% of the turreted items, a turret location on the 'Mech
+Energy Storage Battery	builder gap	TO:AUE p.118: space stations only; the station builder has no batteries (capital-ship-record-sheet-svg.tsx)
+Power Collector and Microwave Transmitter (10 Tons)	builder gap	TO:AUE p.149: support vehicles and space stations, 10 t per unit of power
+Caspar II Advanced Smart Robotic Control System	builder gap	IO:AE pp.135-142 drone systems; robotic-control-systems.ts builds only the SRCS and improved SRCS
+Caspar II Advanced Smart Robotic Control System (Improved)	builder gap	IO:AE pp.135-142 drone systems; robotic-control-systems.ts builds only the SRCS and improved SRCS
+Shielded Aerospace Smart Robotic Control System	builder gap	IO:AE pp.135-142 drone systems; robotic-control-systems.ts builds only the SRCS and improved SRCS
+Shielded Aerospace Smart Robotic Control System (Elite)	builder gap	IO:AE pp.135-142 drone systems; robotic-control-systems.ts builds only the SRCS and improved SRCS
+Shielded Aerospace Smart Robotic Control System (Improved)	builder gap	IO:AE pp.135-142 drone systems; robotic-control-systems.ts builds only the SRCS and improved SRCS
+SDS Self-Destruct System	builder gap	IO:AE pp.135-142 drone systems; robotic-control-systems.ts builds only the SRCS and improved SRCS
+SLDF SDS Jammer System	builder gap	IO:AE pp.135-142 drone systems; robotic-control-systems.ts builds only the SRCS and improved SRCS
+Autonomous Tactical Analysis Computer (ATAC)	builder gap	IO:AE pp.135-142 drone systems; robotic-control-systems.ts builds only the SRCS and improved SRCS
+Direct Tactical Analysis Control (DTAC) System	builder gap	IO:AE pp.135-142 drone systems; robotic-control-systems.ts builds only the SRCS and improved SRCS
+BattleMech Neural Interface Unit	builder gap	IO:AE p.110: battle armor item that lets a suit pilot a 'Mech; no BA record yet
+Buzzsaw	catalog	equipment-misc.ts (Unbound p.70): IS prototype 3053, Experimental by user ruling
+Chain Drape (Apron)	round 10	PseudoTech UrbanFest p.16: CGL's in-universe arcade game; Munchkin pending the user's ruling
+Chain Drape (Cape)	round 10	PseudoTech UrbanFest p.16: CGL's in-universe arcade game; Munchkin pending the user's ruling
+Chain Drape (Poncho)	round 10	PseudoTech UrbanFest p.16: CGL's in-universe arcade game; Munchkin pending the user's ruling
+Ram Plate	catalog	equipment-misc.ts (OTP: Hanseatic Crusade p.30); Clan ~3140 per mordel.net, MegaMek says IS 2600
+Mine	not a record	MegaMek item with no rules reference; mines are the dispensers' ammunition
+Basic Lock Pick Set	round 9	A Time of War personal gear
+Basic Toolkit	round 9	A Time of War personal gear
+Compad	round 9	A Time of War personal gear
+Compass	round 9	A Time of War personal gear
+Deluxe Toolkit	round 9	A Time of War personal gear
+Demolition Charge	round 9	A Time of War personal gear
+Descartes MK XXI	round 9	A Time of War personal gear
+Descartes MK XXV	round 9	A Time of War personal gear
+Electronic Compass	round 9	A Time of War personal gear
+Lie Detector/Polygraph	round 9	A Time of War personal gear
+Neural Interrogation Computer	round 9	A Time of War personal gear
+Noteputer	round 9	A Time of War personal gear
+Personal Computer	round 9	A Time of War personal gear
+Pocket Transcriber	round 9	A Time of War personal gear
+Scanalyzer	round 9	A Time of War personal gear
+Telescan	round 9	A Time of War personal gear
+Tanker's Smock	round 9	A Time of War personal gear
+AC Bay	not equipment	MegaMek groups weapons into bays internally; the builders make bays from the weapons (SO:AA pp.141-143)
+AR10 Bay	not equipment	MegaMek groups weapons into bays internally; the builders make bays from the weapons (SO:AA pp.141-143)
+ATM Bay	not equipment	MegaMek groups weapons into bays internally; the builders make bays from the weapons (SO:AA pp.141-143)
+Capital AC Bay	not equipment	MegaMek groups weapons into bays internally; the builders make bays from the weapons (SO:AA pp.141-143)
+Capital Gauss Bay	not equipment	MegaMek groups weapons into bays internally; the builders make bays from the weapons (SO:AA pp.141-143)
+Capital Laser Bay	not equipment	MegaMek groups weapons into bays internally; the builders make bays from the weapons (SO:AA pp.141-143)
+Capital Mass Driver Bay	not equipment	MegaMek groups weapons into bays internally; the builders make bays from the weapons (SO:AA pp.141-143)
+Capital Missile Bay	not equipment	MegaMek groups weapons into bays internally; the builders make bays from the weapons (SO:AA pp.141-143)
+Capital PPC Bay	not equipment	MegaMek groups weapons into bays internally; the builders make bays from the weapons (SO:AA pp.141-143)
+Misc Bay	not equipment	MegaMek groups weapons into bays internally; the builders make bays from the weapons (SO:AA pp.141-143)
+Screen Launcher Bay	not equipment	MegaMek groups weapons into bays internally; the builders make bays from the weapons (SO:AA pp.141-143)
+Sub-Capital Cannon Bay	not equipment	MegaMek groups weapons into bays internally; the builders make bays from the weapons (SO:AA pp.141-143)
+Sub-Capital Laser Bay	not equipment	MegaMek groups weapons into bays internally; the builders make bays from the weapons (SO:AA pp.141-143)
+Sub-Capital Missile Bay	not equipment	MegaMek groups weapons into bays internally; the builders make bays from the weapons (SO:AA pp.141-143)
+Tele-Operated Capital Missile Bay	not equipment	MegaMek groups weapons into bays internally; the builders make bays from the weapons (SO:AA pp.141-143)
+Advanced Field Kit	round 9	A Time of War personal gear
+Advanced Medical Kit	round 9	A Time of War personal gear
+Aerospace Fighter Pilot Kit	round 9	A Time of War personal gear
+Aerospace Repair Kit	round 9	A Time of War personal gear
+Basic Field Kit	round 9	A Time of War personal gear
+Bionic Maintenance Kit	round 9	A Time of War personal gear
+Counter-Forgery Kit, Basic	round 9	A Time of War personal gear
+Cutting/Joining Kit	round 9	A Time of War personal gear
+Disguise/Make-Up Kit	round 9	A Time of War personal gear
+Electronic Security Bypass Kit	round 9	A Time of War personal gear
+Electronics Repair Kit	round 9	A Time of War personal gear
+Field Surgical Kit	round 9	A Time of War personal gear
+Fission/Fusion Repair Kit	round 9	A Time of War personal gear
+Forensics Analysis Kit, Basic	round 9	A Time of War personal gear
+Forgery Kit	round 9	A Time of War personal gear
+Medical Kit	round 9	A Time of War personal gear
+MekWarrior Kit (Advanced)	round 9	A Time of War personal gear
+MekWarrior Kit (Basic)	round 9	A Time of War personal gear
+MekWarrior Kit (Clan)	round 9	A Time of War personal gear
+Myomer/Actuator Repair Kit	round 9	A Time of War personal gear
+Vehicle Repair Kit	round 9	A Time of War personal gear
+Weapon Repair Kit	round 9	A Time of War personal gear
+SLDF Infantry Kit	round 9	AToW Companion p.195: an RPG armor kit (BAR values), converted with the personal gear
+Auto-Pistol (Nissan SG-12)	round 9	HB:HK p.176 prints tabletop stats (canon, though MegaMek marks the yumi unofficial) without BV, cost or dates; BV and cost come from the conversion rules
+Blade (Archaic Sword))	round 9	AToW Companion p.195: RPG stats only; converted with the personal gear
+Blade (Axe/Hatchet/Tomahawk)	catalog	TM pp.349-352 prints Blade (Axe) and Blade (Hatchet/Tomahawk) as separate records
+Blade (Dao/Katana/No-Dachi/Sword/Wakizashi)	catalog	TM pp.349-352 prints Dao, Katana/Scimitar, No-Dachi, Sword and Wakizashi as separate records
+Blade (Zweihander Sword)	round 9	AToW Companion p.195: RPG stats only; converted with the personal gear
+Bow (Primitive)	round 9	AToW Companion p.195: RPG stats only; converted with the personal gear
+Compound Yumi (Bow) (Unofficial)	round 9	HB:HK p.176 prints tabletop stats (canon, though MegaMek marks the yumi unofficial) without BV, cost or dates; BV and cost come from the conversion rules
+Crossbow (Heavy)(Unofficial)	not canon	MegaMek marks it unofficial; the TM rows Crossbow (Heavy) and Staff are catalog records
+Gauss Rifle (Gungnir Heavy Support)	round 9	AToW Companion p.176: RPG stats only; converted with the personal gear
+Girder Club	not equipment	A club a 'Mech picks up in play (TW p.146), not built into a unit
+Infantry Bridge Kit	no source	MegaMek item with no rules reference; no book in the library has it
+Laser Pistol (AWA Wiliby Mk4 Laser Pistol)	round 9	Shrapnel #9: A Time of War stats only; converted with the personal gear
+Laser Pistol (Brightstar L-12)	round 9	Shrapnel #9: A Time of War stats only; converted with the personal gear
+Laser Pistol (Brightstar L-15)	round 9	Shrapnel #9: A Time of War stats only; converted with the personal gear
+Laser Pistol (Brightstar L-7)	round 9	Shrapnel #9: A Time of War stats only; converted with the personal gear
+Laser Pistol (Darklight IV Laser Pistol)	round 9	Shrapnel #9: A Time of War stats only; converted with the personal gear
+Laser Pistol (Kelvin 000 Lancer 3-mm)	round 9	Shrapnel #9: A Time of War stats only; converted with the personal gear
+Laser Pistol (Xing Shan ER)	round 9	Shrapnel #9: A Time of War stats only; converted with the personal gear
+Laser Pistol (Xing Shan)	round 9	Shrapnel #9: A Time of War stats only; converted with the personal gear
+Laser Rifle (DWS L5S)	round 9	Shrapnel #9: A Time of War stats only; converted with the personal gear
+Laser Rifle (Darklight-CL Light Laser Rifle)	round 9	Shrapnel #9: A Time of War stats only; converted with the personal gear
+Laser Rifle (Federated-Barrett M61A) (Incendiary Grenades)	not a record	TM p.350 prints one row for the weapon; the incendiary-grenade variant is MegaMek's
+Laser Rifle (Mauser IIC IAS) (Incendiary Grenades)	not a record	TM p.350 prints one row for the weapon; the incendiary-grenade variant is MegaMek's
+Laser Rifle (Scorcher VI Blazer Rifle)	round 9	Shrapnel #9: A Time of War stats only; converted with the personal gear
+Laser Rifle (Syrtis Firebolt-12) (Repaired)	round 9	Shrapnel #9: A Time of War stats only; converted with the personal gear
+Laser Rifle (Syrtis Firebolt-12) (Unrepaired)	round 9	Shrapnel #9: A Time of War stats only; converted with the personal gear
+Laser Rifle (Wolf-Barron Sunraker)	round 9	Shrapnel #9: A Time of War stats only; converted with the personal gear
+Laser Rifle (Yang Lie)	round 9	Shrapnel #9: A Time of War stats only; converted with the personal gear
+Laser Sniper Rifle (DWS L5L)	round 9	Shrapnel #9: A Time of War stats only; converted with the personal gear
+Limb Club	not equipment	A club a 'Mech picks up in play (TW p.146), not built into a unit
+Machine Pistol (H-T Spec-7a)	round 9	HB:HK p.176 prints tabletop stats (canon, though MegaMek marks the yumi unofficial) without BV, cost or dates; BV and cost come from the conversion rules
+Pistol (AA Gemini)	round 9	Shrapnel #3: A Time of War stats only; converted with the personal gear
+Pistol (Camden HR-7)	round 9	Shrapnel #3: A Time of War stats only; converted with the personal gear
+Pistol (Dreamel J-4 Derringer)	round 9	Shrapnel #3: A Time of War stats only; converted with the personal gear
+Pistol (HCK P-14)	round 9	Shrapnel #3: A Time of War stats only; converted with the personal gear
+Pistol (Lemison Combat Revolver)	round 9	Shrapnel #3: A Time of War stats only; converted with the personal gear
+Pistol (Momo De Baoying (Special))	round 9	Shrapnel #3: A Time of War stats only; converted with the personal gear
+Pistol (Momo De Baoying (Standard))	round 9	Shrapnel #3: A Time of War stats only; converted with the personal gear
+Pistol (Nambu 380)	round 9	Shrapnel #3: A Time of War stats only; converted with the personal gear
+Pistol (Nambu 480)	round 9	Shrapnel #3: A Time of War stats only; converted with the personal gear
+Pistol (RFW Galahad)	round 9	Shrapnel #3: A Time of War stats only; converted with the personal gear
+Pistol (Serrek 7994 SF)	round 9	Shrapnel #3: A Time of War stats only; converted with the personal gear
+Pistol (Serrek 7994)	round 9	Shrapnel #3: A Time of War stats only; converted with the personal gear
+Pistol (Sturm Eagle Mk4M)	round 9	Shrapnel #3: A Time of War stats only; converted with the personal gear
+Pistol (Sturm Eagle Mk4P)	round 9	Shrapnel #3: A Time of War stats only; converted with the personal gear
+Pistol (Type 74D Pistol)	round 9	Shrapnel #3: A Time of War stats only; converted with the personal gear
+Pistol (Type 74P Pistol)	round 9	Shrapnel #3: A Time of War stats only; converted with the personal gear
+Pistol (Whisper-4 (Standard Rounds))	round 9	Shrapnel #3: A Time of War stats only; converted with the personal gear
+Pistol (Whisper-4 (Sub-Sonic))	round 9	Shrapnel #3: A Time of War stats only; converted with the personal gear
+Pistol (Wolf M30)	round 9	Shrapnel #3: A Time of War stats only; converted with the personal gear
+Pistol (Ya Njingshe)	round 9	Shrapnel #3: A Time of War stats only; converted with the personal gear
+Prosthetic Needler	round 9	IO:AE p.78 prosthetic weapon, with the prosthetics
+Prosthetic SMG	round 9	IO:AE p.78 prosthetic weapon, with the prosthetics
+Prosthetic Shotgun	round 9	IO:AE p.78 prosthetic weapon, with the prosthetics
+Prosthetic Sonic Stunner	round 9	IO:AE p.78 prosthetic weapon, with the prosthetics
+Prosthetic Vibro Blade	round 9	IO:AE p.78 prosthetic weapon, with the prosthetics
+Pulse Laser Pistol (Medusa III)	round 9	Shrapnel #9: A Time of War stats only; converted with the personal gear
+Pulse Laser Pistol (Medusa IV)	round 9	Shrapnel #9: A Time of War stats only; converted with the personal gear
+Pulse Laser Pistol (RDI Sunswarm Pulsar)	round 9	Shrapnel #9: A Time of War stats only; converted with the personal gear
+Pulse Laser Rifle (DWS L5C)	round 9	Shrapnel #9: A Time of War stats only; converted with the personal gear
+Rifle (Federated-Barrett M42B) (Incendiary Grenades)	not a record	TM p.350 prints one row for the weapon; the incendiary-grenade variant is MegaMek's
+Rifle (Vintage Assault)	round 9	AToW Companion p.195: RPG stats only; converted with the personal gear
+SMG (AWA Starling Mk7)	round 9	Shrapnel #5: A Time of War stats only; converted with the personal gear
+SMG (AWA Starling Mk7-LB)	round 9	Shrapnel #5: A Time of War stats only; converted with the personal gear
+SMG (AWA Starling Mk7-SF)	round 9	Shrapnel #5: A Time of War stats only; converted with the personal gear
+SMG (Blackfield Scorpion Mk 65)	round 9	Shrapnel #5: A Time of War stats only; converted with the personal gear
+SMG (Boudicca-4)	round 9	Shrapnel #5: A Time of War stats only; converted with the personal gear
+SMG (Boudicca-5)	round 9	Shrapnel #5: A Time of War stats only; converted with the personal gear
+SMG (Boudicca-7)	round 9	Shrapnel #5: A Time of War stats only; converted with the personal gear
+SMG (DSK Largo SGA)	round 9	Shrapnel #5: A Time of War stats only; converted with the personal gear
+SMG (DSK Largo SGB)	round 9	Shrapnel #5: A Time of War stats only; converted with the personal gear
+SMG (Hunkle V)	round 9	Shrapnel #5: A Time of War stats only; converted with the personal gear
+SMG (J-15 Hagel)	round 9	Shrapnel #5: A Time of War stats only; converted with the personal gear
+SMG (J-17 Hagel)	round 9	Shrapnel #5: A Time of War stats only; converted with the personal gear
+SMG (Jinse Yanjingshe (AP Rounds))	round 9	Shrapnel #5: A Time of War stats only; converted with the personal gear
+SMG (Jinse Yanjingshe (Standard))	round 9	Shrapnel #5: A Time of War stats only; converted with the personal gear
+SMG (Nambu Type S-124)	round 9	Shrapnel #5: A Time of War stats only; converted with the personal gear
+SMG (RFW Bedivere)	round 9	Shrapnel #5: A Time of War stats only; converted with the personal gear
+SMG (Spartacus)	round 9	Shrapnel #5: A Time of War stats only; converted with the personal gear
+SMG (Sturm Hornet Mk III)	round 9	Shrapnel #5: A Time of War stats only; converted with the personal gear
+SMG (Wolf-Barron A7)	round 9	Shrapnel #5: A Time of War stats only; converted with the personal gear
+Shotgun (AMI Keymaster-15)	round 9	Shrapnel #7: A Time of War stats only; converted with the personal gear
+Shotgun (AWA AS-105)	round 9	Shrapnel #7: A Time of War stats only; converted with the personal gear
+Shotgun (AWA SS-112)	round 9	Shrapnel #7: A Time of War stats only; converted with the personal gear
+Shotgun (Byron 15S)	round 9	Shrapnel #7: A Time of War stats only; converted with the personal gear
+Shotgun (CWI Jianhuren)	round 9	Shrapnel #7: A Time of War stats only; converted with the personal gear
+Shotgun (Daystar I (C))	round 9	Shrapnel #7: A Time of War stats only; converted with the personal gear
+Shotgun (Daystar I (M))	round 9	Shrapnel #7: A Time of War stats only; converted with the personal gear
+Shotgun (Daystar II (C))	round 9	Shrapnel #7: A Time of War stats only; converted with the personal gear
+Shotgun (Daystar II (M))	round 9	Shrapnel #7: A Time of War stats only; converted with the personal gear
+Shotgun (Daystar III (C))	round 9	Shrapnel #7: A Time of War stats only; converted with the personal gear
+Shotgun (Daystar III (M))	round 9	Shrapnel #7: A Time of War stats only; converted with the personal gear
+Shotgun (Daystar IV (C))	round 9	Shrapnel #7: A Time of War stats only; converted with the personal gear
+Shotgun (Daystar IV (M))	round 9	Shrapnel #7: A Time of War stats only; converted with the personal gear
+Shotgun (Daystar V (C))	round 9	Shrapnel #7: A Time of War stats only; converted with the personal gear
+Shotgun (Daystar V (M))	round 9	Shrapnel #7: A Time of War stats only; converted with the personal gear
+Shotgun (Duckett A-5)	round 9	Shrapnel #7: A Time of War stats only; converted with the personal gear
+Shotgun (Hastari III)	round 9	Shrapnel #7: A Time of War stats only; converted with the personal gear
+Shotgun (Marburg-20)	round 9	Shrapnel #7: A Time of War stats only; converted with the personal gear
+Shotgun (Marburg-20M)	round 9	Shrapnel #7: A Time of War stats only; converted with the personal gear
+Shotgun (Morrigan Stormsweeper)	round 9	Shrapnel #7: A Time of War stats only; converted with the personal gear
+Shotgun (SD Type-31)	round 9	Shrapnel #7: A Time of War stats only; converted with the personal gear
+Shotgun (Wakazashi O-12)	round 9	HB:HK p.176 prints tabletop stats (canon, though MegaMek marks the yumi unofficial) without BV, cost or dates; BV and cost come from the conversion rules
+Shotgun (Wrangleman Tri-Barrel)	round 9	Shrapnel #7: A Time of War stats only; converted with the personal gear
+Sniper Rifle (Barton AMR (Anti-Armor))	round 9	Shrapnel #1: A Time of War stats only; converted with the personal gear
+Sniper Rifle (Barton AMR (Standard))	round 9	Shrapnel #1: A Time of War stats only; converted with the personal gear
+Sniper Rifle (FNF-J12 (Dark Caste))	round 9	Shrapnel #1: A Time of War stats only; converted with the personal gear
+Sniper Rifle (FNF-J12 (SLDF))	round 9	Shrapnel #1: A Time of War stats only; converted with the personal gear
+Sniper Rifle (Hammel Marksman)	round 9	Shrapnel #1: A Time of War stats only; converted with the personal gear
+Sniper Rifle (LRS-53 Sniper Rifle)	round 9	Shrapnel #1: A Time of War stats only; converted with the personal gear
+Sniper Rifle (Lancelot Mk V)	round 9	Shrapnel #1: A Time of War stats only; converted with the personal gear
+Sniper Rifle (Praetorian S-3)	round 9	Shrapnel #1: A Time of War stats only; converted with the personal gear
+Sniper Rifle (Praetorian S-5)	round 9	Shrapnel #1: A Time of War stats only; converted with the personal gear
+Sniper Rifle (SR-17 Suns Killer)	round 9	Shrapnel #1: A Time of War stats only; converted with the personal gear
+Sniper Rifle (Sairentosutomu)	round 9	Shrapnel #1: A Time of War stats only; converted with the personal gear
+Sniper Rifle (Thorshammer)	round 9	Shrapnel #1: A Time of War stats only; converted with the personal gear
+Sniper Rifle (Wilimton RS-14)	round 9	Shrapnel #1: A Time of War stats only; converted with the personal gear
+Sniper Rifle (Wilimton RS-17 (Stripped))	round 9	Shrapnel #1: A Time of War stats only; converted with the personal gear
+Sniper Rifle (Yuan Ling)	round 9	Shrapnel #1: A Time of War stats only; converted with the personal gear
+Staff (Nunchaku/Pole Arm)	catalog	TM pp.349-352 prints Nunchaku and Staff (Pole Arm) as separate records
+Staff (Shock Staff)	round 9	AToW Companion p.195: RPG stats only; converted with the personal gear
+Staff (Unofficial)	not canon	MegaMek marks it unofficial; the TM rows Crossbow (Heavy) and Staff are catalog records
+Tree Club	not equipment	A club a 'Mech picks up in play (TW p.146), not built into a unit
+Variable-Pulse Laser Rifle	round 9	AToW Companion p.195: RPG stats only; converted with the personal gear
+Vibro Lock Pick Set	round 9	A Time of War personal gear
+Vibro-Shovel	no source	MegaMek item with no rules reference; no book in the library has it
+AR10 Peacemaker Ammo	capital	WMD, IO:AE pp.169-170: nuclear capital missiles go with the Alamo Missile row
+AR10 Santa Anna Ammo	capital	WMD, IO:AE pp.169-170: nuclear capital missiles go with the Alamo Missile row
+Alamo Ammo	capital	WMD, IO:AE pp.169-170: nuclear capital missiles go with the Alamo Missile row
+Peacemaker Ammo	capital	WMD, IO:AE pp.169-170: nuclear capital missiles go with the Alamo Missile row
+Santa Anna Ammo	capital	WMD, IO:AE pp.169-170: nuclear capital missiles go with the Alamo Missile row
+Std. Nuclear Weapon (Type II/Alamo)	capital	WMD, IO:AE pp.169-170: nuclear capital missiles go with the Alamo Missile row
+Enhanced LRM 5 Listen-Kill Ammo	not canon	Listen-Kill missiles fit standard LRM and SRM launchers only (IO:AE p.99)
+Enhanced LRM 5 Listen-Kill w/ Incendiary Ammo	not canon	Listen-Kill missiles fit standard LRM and SRM launchers only (IO:AE p.99), as do incendiary LRMs (TO:AUE p.181)
+Enhanced LRM 10 Listen-Kill Ammo	not canon	Listen-Kill missiles fit standard LRM and SRM launchers only (IO:AE p.99)
+Enhanced LRM 10 Listen-Kill w/ Incendiary Ammo	not canon	Listen-Kill missiles fit standard LRM and SRM launchers only (IO:AE p.99), as do incendiary LRMs (TO:AUE p.181)
+Enhanced LRM 15 Listen-Kill Ammo	not canon	Listen-Kill missiles fit standard LRM and SRM launchers only (IO:AE p.99)
+Enhanced LRM 15 Listen-Kill w/ Incendiary Ammo	not canon	Listen-Kill missiles fit standard LRM and SRM launchers only (IO:AE p.99), as do incendiary LRMs (TO:AUE p.181)
+Enhanced LRM 20 Listen-Kill Ammo	not canon	Listen-Kill missiles fit standard LRM and SRM launchers only (IO:AE p.99)
+Enhanced LRM 20 Listen-Kill w/ Incendiary Ammo	not canon	Listen-Kill missiles fit standard LRM and SRM launchers only (IO:AE p.99), as do incendiary LRMs (TO:AUE p.181)
+Chaff Grenades [VGL]	builder gap	VGL munition, chosen per launcher before play (TO:AUE p.175); fragmentation is the default load, and no builder offers a munition choice on a VGL
+Fragmentation Grenades [VGL]	builder gap	VGL munition, chosen per launcher before play (TO:AUE p.175); fragmentation is the default load, and no builder offers a munition choice on a VGL
+Incendiary Grenades [VGL]	builder gap	VGL munition, chosen per launcher before play (TO:AUE p.175); fragmentation is the default load, and no builder offers a munition choice on a VGL
+Smoke Grenades [VGL]	builder gap	VGL munition, chosen per launcher before play (TO:AUE p.175); fragmentation is the default load, and no builder offers a munition choice on a VGL
+BA Taser Ammo	catalog	battle-armor-equipment: is-taser, a one-shot weapon carrying its shot (TO:AUE p.157)
+Micro Bomb Ammo	catalog	battle-armor-equipment: clan-bomb-rack, a one-shot rack carrying its bomb (TM p.253)
+MPod Ammo	catalog	equipment-misc: m-pod, a one-shot weapon (TO:AUE p.142)
+Smoke BA Tube Artillery Ammo	catalog	battle armor tube artillery: Smoke (battleArmorMunitions; TO:AUE p.96, TO errata ordnance table)
+Torpedo/LRM 5 Ammo	no source	MegaMek item with no rules reference; torpedoes are their own launchers (TW p.230)
+RL 1 Ammo	catalog	battle-armor-equipment: is-rocket-launcher-1, a one-shot launcher (TM p.261)
+RL 2 Ammo	catalog	battle-armor-equipment: is-rocket-launcher-2, a one-shot launcher (TM p.261)
+RL 3 Ammo	catalog	battle-armor-equipment: is-rocket-launcher-3, a one-shot launcher (TM p.261)
+RL 4 Ammo	catalog	battle-armor-equipment: is-rocket-launcher-4, a one-shot launcher (TM p.261)
+RL 5 Ammo	catalog	battle-armor-equipment: is-rocket-launcher-5, a one-shot launcher (TM p.261)
+RL 10 Ammo	not a record	rocket launchers are one-shot: the launcher is its load and takes no ammunition (TM p.229)
+RL 15 Ammo	not a record	rocket launchers are one-shot: the launcher is its load and takes no ammunition (TM p.229)
+RL 20 Ammo	not a record	rocket launchers are one-shot: the launcher is its load and takes no ammunition (TM p.229)

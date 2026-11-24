@@ -1,13 +1,20 @@
-import { IASMULUnit } from "./classes/alpha-strike-unit";
+import { dialBandName, getUnitDialBand } from "./utils/dial-weapons";
+import { IASMULUnit, MULSource } from "./classes/alpha-strike-unit";
 import { BattleMech, IGATOR, ITargetToHit } from "./classes/battlemech";
 import { CONST_MUL_API_ENABLED } from "./configVars";
 import { IEquipmentItem } from "./data/data-interfaces";
 import { getEquipmentCatalogs, getEquipmentListByTech } from "./data/equipment-registry";
-import { DEFAULT_MUL_SOURCE_SELECTION, getMULRecordKey, getMULSourcesForSelection, loadMULListItems } from "./data/mul-list-items";
+import { isTargetingComputerWeapon } from "./data/variable-equipment";
+import { DEFAULT_MUL_SOURCE_SELECTION, getMULRecordKey, loadMULListItems } from "./data/mul-list-items";
 import { IAppGlobals } from "./ui/app-router";
 import { replaceAll } from "./utils/replaceAll";
+import { getQuirkToHit } from "./utils/quirk-effects";
+import { withAttackerEcm, buildEWarAttack, getEWarEcmEffects, getEWarOwnAttackToHit, getEWarSemiGuided, getEWarStreakLock, getEWarToHit } from "./utils/ewar-play";
+import { getFutureWarsPlayKind, getLRFlamerRangeModifier } from "./utils/future-wars-play";
+import { getLongRangeWarsBand, getLongRangeWarsFirerModifier, getLongRangeWarsTargetModifier } from "./utils/future-wars-ruleset-tools";
 import { unitHasAbility } from "./utils/mulAbilities";
-import { resolveMULEraFilter } from "./utils/mulUtilities";
+import { getMULAerospaceRoles, getMULGroundRoles, resolveMULEraFilter } from "./utils/mulUtilities";
+import { filterMULByRulesets, IMULSearchFilters } from "./utils/mulSearchFilters";
 
 export function getISEquipmentList(): IEquipmentItem[] {
     return getEquipmentListByTech("is");
@@ -39,7 +46,19 @@ interface IMULSearchTokens {
     minJump: number;
     minDefense: number;
     exactDamageProfile: { short: number; medium: number; long: number } | null;
+    // role: and tech: terms, each a name squashed to letters and digits ("fire-support" -> "firesupport").
+    roles: string[];
+    techs: string[];
+    // word:value terms the search does not know: left out of the search, and named by getMULSearchWarnings.
+    warnings: string[];
 }
+
+// The MUL's role and tech base names, squashed as the role: and tech: terms are, so "role:firesupport" finds
+// Fire Support. "is" stands for Inner Sphere.
+const squashMULName = (name: string): string => name.toLowerCase().replace(/[^a-z0-9]/g, "");
+const MUL_TECH_ALIASES: Record<string, string> = { is: "innersphere" };
+const MUL_TECH_NAMES = ["Inner Sphere", "Clan", "Mixed", "Primitive", "Unknown"].map(squashMULName);
+const mulRoleNames = (): string[] => [...getMULGroundRoles(), ...getMULAerospaceRoles(), "None"].map(squashMULName);
 
 // Maps the "Rules" dropdown value to the set of MUL Rules-level labels it should match.
 const MUL_RULES_LEVEL_MAP: Record<string, string[]> = {
@@ -71,6 +90,9 @@ function parseMULSearchTokens(searchTerm: string): IMULSearchTokens {
         minJump: -1,
         minDefense: -1,
         exactDamageProfile: null,
+        roles: [],
+        techs: [],
+        warnings: [],
     };
 
     const searchTerms = searchTerm.trim().split(" ").filter((term) => term.length > 0);
@@ -110,6 +132,41 @@ function parseMULSearchTokens(searchTerm: string): IMULSearchTokens {
                     tokens.minMove = min;
                     tokens.maxMove = max;
                     break;
+                case "short":
+                case "s":
+                    tokens.minDamage[0] = min;
+                    tokens.maxDamage[0] = max;
+                    break;
+                case "medium":
+                case "m":
+                    tokens.minDamage[1] = min;
+                    tokens.maxDamage[1] = max;
+                    break;
+                case "long":
+                case "l":
+                    tokens.minDamage[2] = min;
+                    tokens.maxDamage[2] = max;
+                    break;
+                default:
+                    tokens.warnings.push(`"${term}" is not a search term, so it was left out.`);
+            }
+            continue;
+        }
+
+        if ((match = term.match(/^(role|tech):(.+)$/i))) {
+            const [, field, valueStr] = match;
+            let name = squashMULName(valueStr);
+            if (field.toLowerCase() === "role") {
+                tokens.roles.push(name);
+                if (!mulRoleNames().includes(name)) {
+                    tokens.warnings.push(`"${term}" is not a MUL role, so no unit matches it.`);
+                }
+            } else {
+                name = MUL_TECH_ALIASES[name] ?? name;
+                tokens.techs.push(name);
+                if (!MUL_TECH_NAMES.includes(name)) {
+                    tokens.warnings.push(`"${term}" is not a MUL tech base, so no unit matches it.`);
+                }
             }
             continue;
         }
@@ -117,6 +174,10 @@ function parseMULSearchTokens(searchTerm: string): IMULSearchTokens {
         if ((match = term.match(/^(\w+)(>=|<=|!=|>|<|=)(.+)$/))) {
             const [, field, op, valueStr] = match;
             const val = parseInt(valueStr);
+            // "pv>x" has no number to compare with: a NaN bound would hide every unit, so the term is dropped.
+            if (Number.isNaN(val)) {
+                continue;
+            }
 
             switch (field) {
                 case "pv":
@@ -247,52 +308,18 @@ function parseMULSearchTokens(searchTerm: string): IMULSearchTokens {
             continue;
         }
 
-        switch (true) {
-            case term.startsWith("pv>"):
-                value = term.substring(3);
-                tokens.minPV = parseInt(value) + 1;
-                break;
-            case term.startsWith("pv<"):
-                value = term.substring(3);
-                tokens.maxPV = parseInt(value) - 1;
-                break;
-            case term.startsWith("pv="):
-                value = term.substring(3);
-                tokens.minPV = parseInt(value);
-                tokens.maxPV = parseInt(value);
-                break;
-            case term.startsWith("short>"):
-                value = term.includes("=") ? term.substring(7) : term.substring(6);
-                tokens.minDamage[0] = term.includes("=") ? parseInt(value) : parseInt(value) + 1;
-                break;
-            case term.startsWith("medium>"):
-                value = term.includes("=") ? term.substring(8) : term.substring(7);
-                tokens.minDamage[1] = term.includes("=") ? parseInt(value) : parseInt(value) + 1;
-                break;
-            case term.startsWith("long>"):
-                value = term.includes("=") ? term.substring(6) : term.substring(5);
-                tokens.minDamage[2] = term.includes("=") ? parseInt(value) : parseInt(value) + 1;
-                break;
-            case term.startsWith("armor>"):
-                value = term.includes("=") ? term.substring(7) : term.substring(6);
-                tokens.minArmorStructure[0] = term.includes("=") ? parseInt(value) : parseInt(value) + 1;
-                break;
-            case term.startsWith("structure>"):
-                value = term.includes("=") ? term.substring(11) : term.substring(10);
-                tokens.minArmorStructure[1] = term.includes("=") ? parseInt(value) : parseInt(value) + 1;
-                break;
-            case term.startsWith("intro>"):
-                value = term.includes("=") ? term.substring(7) : term.substring(6);
-                tokens.introDate[0] = term.includes("=") ? parseInt(value) : parseInt(value) + 1;
-                break;
-            case term.startsWith("intro<"):
-                value = term.includes("=") ? term.substring(7) : term.substring(6);
-                tokens.introDate[1] = term.includes("=") ? parseInt(value) : parseInt(value) - 1;
-                break;
-            default:
-                tokens.nameTerms.push(term);
-                break;
+        // An operator still being typed ("pv>", "short>=") has no value yet: it filters nothing, and is not a name.
+        if (/^\w+(>=|<=|!=|>|<|=)$/.test(term)) {
+            continue;
         }
+
+        // A word:value term the search does not know is left out, not searched as a name (#625).
+        if (/^[a-z]+:.+$/i.test(term)) {
+            tokens.warnings.push(`"${term}" is not a search term, so it was left out.`);
+            continue;
+        }
+
+        tokens.nameTerms.push(term);
     }
 
     return tokens;
@@ -362,6 +389,13 @@ function matchesMULSearchTokens(unit: IASMULUnit, tokens: IMULSearchTokens): boo
                 return false;
             }
         }
+    }
+
+    if (tokens.roles.some((role) => squashMULName(unit.Role?.Name ?? "") !== role)) {
+        return false;
+    }
+    if (tokens.techs.some((tech) => squashMULName(unit.Technology?.Name ?? "") !== tech)) {
+        return false;
     }
 
     const pv = +unit.BFPointValue;
@@ -448,6 +482,37 @@ function matchesMULSearchTokens(unit: IASMULUnit, tokens: IMULSearchTokens): boo
     return true;
 }
 
+function getMULSearchTokens(searchTerm: string, abilityFilters: string[]): IMULSearchTokens {
+    const tokens = parseMULSearchTokens(searchTerm);
+    for (const filter of abilityFilters) {
+        if (filter.startsWith("!")) {
+            tokens.abilityExclude.push(filter.substring(1));
+        } else {
+            tokens.abilitySearch.push(filter);
+        }
+    }
+    return tokens;
+}
+
+/** One line for each search term the MUL search left out or that no unit can match (#625). */
+export function getMULSearchWarnings(searchTerm: string): string[] {
+    return parseMULSearchTokens(searchTerm ?? "").warnings;
+}
+
+/** Searches the MUL copy bundled with the app; the Classic roster uses it, and the Alpha Strike offline path matches the same way. */
+/** The records that pass a MUL search's filters, whatever list they come from. */
+export function filterMULRecords(units: IASMULUnit[], filters: IMULSearchFilters): IASMULUnit[] {
+    const tokens = getMULSearchTokens(filters.term, filters.abilities);
+    const era = resolveMULEraFilter(filters.era);
+    return filterMULByRulesets(units.filter((unit) =>
+        matchesMULDropdownFilters(unit, filters.rules, filters.tech, filters.role, era, filters.type, filters.factions) &&
+        matchesMULSearchTokens(unit, tokens)), filters.rulesets);
+}
+
+export async function searchBundledMUL(filters: IMULSearchFilters): Promise<IASMULUnit[]> {
+    return filterMULRecords(await loadMULListItems(filters.sources), filters);
+}
+
 async function getCachedMULSearchResults(
     tokens: IMULSearchTokens,
     mechRules: string,
@@ -463,10 +528,10 @@ async function getCachedMULSearchResults(
         matchesMULSearchTokens(unit, tokens);
 
     const selection = appGlobals?.appSettings.alphaStrikeMULSources ?? DEFAULT_MUL_SOURCE_SELECTION;
-    const allowedSources = getMULSourcesForSelection(selection);
+    const allowedSources = selection;
     const bundledMatches = (await loadMULListItems(selection)).filter(matchesAllFilters);
     const sessionMatches = (appGlobals?.appSettings.alphasStrikeCachedSearchResults ?? [])
-        .filter((unit) => allowedSources.includes(unit.MulSource ?? "mul2"))
+        .filter((unit) => (allowedSources as MULSource[]).includes(unit.MulSource ?? "mul2"))
         .filter(matchesAllFilters);
     const seen = new Set(bundledMatches.map(getMULRecordKey));
 
@@ -522,7 +587,7 @@ export async function getMULASSearchResults(
 
     let returnUnits: IASMULUnit[] = [];
 
-    let rulesNumbersURI: string[] = [];
+    const rulesNumbersURI: string[] = [];
 
     if( mechRules.toLowerCase() === "introductory" ) {
         rulesNumbersURI.push( "&Rules=55" );
@@ -558,12 +623,12 @@ export async function getMULASSearchResults(
         rulesNumbersURI.push( "&Rules=78" );
     }
 
-    let roleFilterURI: string[] = [];
+    const roleFilterURI: string[] = [];
     if( roleFilter.trim() ) {
         roleFilterURI.push( "&Roles=" + replaceAll(roleFilter, " ", "%20", false, false, true) );
     }
 
-    let techFilterURI: string[] = [];
+    const techFilterURI: string[] = [];
     if( techFilter.toLowerCase() === "inner sphere" ) {
         techFilterURI.push( "&Technologies=1" );
     }
@@ -577,28 +642,20 @@ export async function getMULASSearchResults(
         techFilterURI.push( "&Technologies=57" );
     }
 
-    let typesFilterURI: string[] = [];
+    const typesFilterURI: string[] = [];
     if( typeFilter ) {
         typesFilterURI.push( "&Types=" + typeFilter.toString() );
     }
 
-    let factionFilterURI: string[] = [];
+    const factionFilterURI: string[] = [];
     if( factionFilter.length > 0 ) {
-        for( let faction of factionFilter ) {
+        for( const faction of factionFilter ) {
             factionFilterURI.push( "&Factions=" + faction );
         }
     }
 
-    const tokens = parseMULSearchTokens(searchTerm);
-    for (const filter of abilityFilters) {
-        if (filter.startsWith("!")) {
-            tokens.abilityExclude.push(filter.substring(1));
-        } else {
-            tokens.abilitySearch.push(filter);
-        }
-    }
+    const tokens = getMULSearchTokens(searchTerm, abilityFilters);
 
-    console.log('Searching...');
     if( offLine === false && CONST_MUL_API_ENABLED ) {
         try {
             let url = "https://masterunitlist.azurewebsites.net/Unit/QuickList?";
@@ -608,9 +665,9 @@ export async function getMULASSearchResults(
             }
 
             url += rulesNumbersURI.join("");
-            url += typesFilterURI.join();
-            url += techFilterURI.join();
-            url += roleFilterURI.join();
+            url += typesFilterURI.join("");
+            url += techFilterURI.join("");
+            url += roleFilterURI.join("");
             url += factionFilterURI.join("");
 
             if( tokens.abilitySearch.length > 0 ) {
@@ -760,8 +817,13 @@ export function getClusterHitsPerRoll(
     roll: number,
     numberCluster: number,
 ): number {
-    if( clusterHitsTable[ roll - 2 ] && clusterHitsTable[ roll - 2][ numberCluster - 2] ) {
-        return clusterHitsTable[ roll - 2][ numberCluster - 2];
+    // The table's columns are cluster sizes 2 to 30, then 40 (TW p.116): there is no column for 31 to 39.
+    if( numberCluster > 30 && numberCluster !== 40 ) {
+        return -1;
+    }
+    const column = numberCluster === 40 ? 29 : numberCluster - 2;
+    if( clusterHitsTable[ roll - 2 ] && clusterHitsTable[ roll - 2][ column ] ) {
+        return clusterHitsTable[ roll - 2][ column ];
     }
 
     return -1;
@@ -838,8 +900,9 @@ export function getTargetToHitFromWeapon(
     index: number,
     target: ITargetToHit | null = null,
     equipmentList: IEquipmentItem[] | null = null,
+    quirksInPlay: boolean = false,
 ): IGATOR {
-    let gator: IGATOR = JSON.parse(JSON.stringify(mech.getGATOR()));
+    const gator: IGATOR = JSON.parse(JSON.stringify(mech.getGATOR()));
 
     if( equipmentList === null ) {
         equipmentList = mech.equipmentList;
@@ -848,7 +911,12 @@ export function getTargetToHitFromWeapon(
     const ammo = weapon?.selectedAmmoBinUUID
         ? equipmentList.find(item => item.uuid === weapon.selectedAmmoBinUUID)
         : undefined;
-    const weaponRange = ammo?.ammoProfile?.range ?? weapon?.range;
+    const baseRange = ammo?.ammoProfile?.range ?? weapon?.range;
+    // A Power Booster on this turn adds its range to each band (The Best of Future Wars p.28; as getPowerBoostedWeapon).
+    const boostedRange = weapon?.uuid && mech.isPowerBoosterOn( weapon.uuid ) ? weapon.conversion?.booster?.addedRange ?? 0 : 0;
+    const weaponRange = boostedRange && baseRange
+        ? { ...baseRange, short: baseRange.short + boostedRange, medium: baseRange.medium + boostedRange, long: baseRange.long + boostedRange }
+        : baseRange;
     gator.finalToHit = -1;
     if(
         equipmentList.length > index
@@ -871,32 +939,26 @@ export function getTargetToHitFromWeapon(
 
             gator.finalToHit = gator.gunnerySkill;
 
-            if( mech.currentMovementMode === "w") {
-                gator.finalToHit += 1;
-                gator.attackerMovementModifier = 1;
-                gator.rangeExplanation = "Walked";
-            } else if( mech.currentMovementMode === "r") {
-                gator.finalToHit += 2;
-                gator.attackerMovementModifier = 2;
-                gator.rangeExplanation = "Ran";
-            } else if( mech.currentMovementMode === "j") {
-                gator.finalToHit += 3;
-                gator.attackerMovementModifier = 3;
-                gator.rangeExplanation = "Jumped";
-            } else {
-                gator.rangeExplanation = "Stationary";
-            }
+            // Walked +1, ran +2, jumped +3; an AirMech's Cruise +3 and Flank +4 (IO:AE p.106).
+            const attackerMovementModifier = mech.getAttackerMovementModifier();
+            gator.finalToHit += attackerMovementModifier;
+            gator.attackerMovementModifier = attackerMovementModifier;
+            gator.rangeExplanation = ( {
+                w: "Walked", r: "Ran", j: "Jumped", c: "AirMech Cruise", f: "AirMech Flank",
+            } as Record<string, string> )[mech.currentMovementMode] ?? "Stationary";
 
             gator.finalToHit += target.movement;
             gator.targetMovementModifier = target.movement;
 
-            let otherModifiersExplanation: string[] = [];
+            const otherModifiersExplanation: string[] = [];
             gator.finalToHit += target.otherMods;
             gator.otherModifiers = target.otherMods;
             if( target.otherMods ) {
                 otherModifiersExplanation.push( "Target Other Modifiers");
             }
             if(
+                !equipmentList[index].dial
+                &&
                 typeof( equipmentList[index].accuracyModifier ) !== "undefined"
                 &&
                 equipmentList[index].accuracyModifier !== 0
@@ -908,38 +970,92 @@ export function getTargetToHitFromWeapon(
 
                 otherModifiersExplanation.push( "Weapon Accuracy Modifier" );
             }
+            const systemModifier = ( modifier: number, label: string ) => {
+                if( !modifier ) return;
+                gator.finalToHit += modifier;
+                gator.otherModifiers += modifier;
+                otherModifiersExplanation.push( label + " (" + (modifier > 0 ? "+" : "") + modifier + ")" );
+            };
+            // A dial weapon's setting carries its own to-hit (the Bombast's printed +1 for every 2 damage above 7, #645).
+            const dialBand = getUnitDialBand( mech, equipmentList[index] );
+            if( dialBand ) systemModifier( dialBand.toHit, "Dial " + dialBand.heat + " (" + dialBandName( equipmentList[index].dial!.kind, dialBand.band ) + ")" );
             // IndustrialMech fire control (TM p.69; IO:AE p.114).
-            const fireControlModifier = mech.getFireControlToHitModifier();
-            if( fireControlModifier > 0 ) {
-                gator.finalToHit += fireControlModifier;
-                gator.otherModifiers += fireControlModifier;
-                otherModifiersExplanation.push( (mech.isPrimitive() ? "Primitive IndustrialMech cockpit" : "IndustrialMech fire control") + " (+" + fireControlModifier + ")" );
-            }
+            systemModifier( mech.getFireControlToHitModifier(), mech.isPrimitive() ? "Primitive IndustrialMech cockpit" : "IndustrialMech fire control" );
             // The Heat Scale's fire modifier (TW pp.158-160; BD p.13).
-            const heatModifier = mech.getHeatToHitModifier();
-            if( heatModifier > 0 ) {
-                gator.finalToHit += heatModifier;
-                gator.otherModifiers += heatModifier;
-                otherModifiersExplanation.push( "Heat (+" + heatModifier + ")" );
+            systemModifier( mech.getHeatToHitModifier(), "Heat" );
+            systemModifier( mech.getSensorToHitModifier(), "Sensor Hits" );
+            systemModifier( mech.getSatelliteUplinkToHitModifier(), "Satellite uplink (Maximum Tech p.59)" );
+            // The Best of Future Wars play rulesets: after an opportunity shot, a morale status, a malfunction.
+            for( const { modifier, label } of mech.getFutureWarsRulesetToHit( weapon?.uuid ) ) systemModifier( modifier, label );
+            // A Power Armor suit is +1 to hit "due to its small size" (The Best of Future Wars p.14; #172).
+            systemModifier( target.powerArmor ? 1 : 0, "Power Armor Target" );
+            // Woods, jungle or smoke: +1 a light hex, +2 a heavy hex (BD p.10; TW p.117). Enhanced Imaging: each hex 1
+            // less, at least +1, and no darkness modifier (IO:AE p.69); Maximum Tech: any light woods +1 in all, heavy or
+            // smoke +1 a hex, no night modifier (p.61).
+            const enhancedImaging = mech.isEnhancedImagingActive();
+            const lightHexes = target.lightWoodsHexes ?? 0;
+            const heavyHexes = target.heavyWoodsHexes ?? 0;
+            const woodsModifier = !enhancedImaging ? lightHexes + 2 * heavyHexes
+                : mech.usesEarlierRulesEdition() ? Math.min( lightHexes, 1 ) + heavyHexes : lightHexes + heavyHexes;
+            systemModifier( woodsModifier, enhancedImaging ? "Woods / Smoke, Enhanced Imaging" : "Woods / Smoke" );
+            systemModifier( enhancedImaging ? 0 : target.darkness ?? 0, "Darkness" );
+            // An immobile target -4; an aimed shot at it names a location, the head at +3 in place of the -4, with no
+            // missile launcher, LB-X cluster or Hyper-Assault Gauss (TW p.110; BMR(R) pp.24-26). A targeting computer
+            // -1 for its direct-fire weapons, lost by LB-X cluster; or, aimed at an active target, +3 in its place, never
+            // at the head nor with a pulse weapon (TW p.143; BMR(R) p.148). Enhanced Imaging aims as a computer does: TW
+            // +2 more, -1 in place of it with a computer (IO:AE p.69); Maximum Tech +6, +2 with a computer (p.61).
+            const immobileModifier = mech.getEditionPlayRules()?.immobileTargetModifier ?? -4;
+            const cluster = !!ammo?.tag.includes( "cluster" );
+            const computer = mech.hasTargetingComputer() && isTargetingComputerWeapon( weapon ) && !cluster;
+            const aimed = target.aimedLocation;
+            const canAim = weapon.category !== "Missile Weapons" && !cluster && !/hyper-assault|(^|-)hag(-|$)/.test( weapon.tag );
+            const immobileAim = !!aimed && !!target.immobile && !!immobileModifier && canAim;
+            const computerAim = !!aimed && !target.immobile && canAim && aimed !== "hd" && !weapon.tag.includes( "pulse" )
+                && ( computer || ( enhancedImaging && isTargetingComputerWeapon( weapon ) ) );
+            const aimedHead = immobileAim && aimed === "hd";
+            systemModifier( target.immobile ? ( aimedHead ? 3 : immobileModifier ) : 0, aimedHead ? "Immobile Target, Aimed At The Head" : "Immobile Target" );
+            systemModifier( computer && !computerAim ? -1 : 0, "Targeting Computer" );
+            if( computerAim ) {
+                systemModifier(
+                    computer ? ( enhancedImaging ? 2 : 3 ) : mech.usesEarlierRulesEdition() ? 6 : 5,
+                    "Aimed At " + getLocationName( aimed!, false ) + ( computer ? ", Targeting Computer" : "" ) + ( enhancedImaging ? ", Enhanced Imaging" : "" ),
+                );
+            } else if( immobileAim && !aimedHead ) {
+                otherModifiersExplanation.push( "Aimed At " + getLocationName( aimed!, false ) );
+            } else if( aimed ) {
+                otherModifiersExplanation.push( "Aimed Shot Not Allowed, Fired Unaimed" );
             }
+            // A targeting and tracking system: anti-aircraft, or Multi-Trac in place of the secondary-target modifier
+            // (Maximum Tech p.59).
+            const system = mech.getTargetingSystem();
+            if( system?.targetingSystem?.airborne ) {
+                systemModifier( system.targetingSystem.airborne[target.airborne ? 0 : 1], system.name );
+            }
+            const offFrontArc = system?.targetingSystem?.offFrontArc;
+            if( offFrontArc !== undefined ) {
+                if( target.inRearArc && offFrontArc ) systemModifier( offFrontArc, system!.name + ", Target Outside The Front Arc" );
             // Battledroids has no modifier for a second target (BD pp.8-11, 15).
-            if( !target.primary && mech.getEditionPlayRules()?.secondaryTargetModifiers !== false ) {
+            } else if( !target.primary && mech.getEditionPlayRules()?.secondaryTargetModifiers !== false ) {
                 if( target.inRearArc ) {
                     otherModifiersExplanation.push( "Secondary Target In Rear Arc (+2)");
                     gator.otherModifiers += 2;
                     gator.finalToHit += 2;
                 } else {
-                    otherModifiersExplanation.push( "Secondary Target In Rear Arc (+1)");
+                    otherModifiersExplanation.push( "Secondary Target In Front Arc (+1)");
                     gator.otherModifiers += 1;
                     gator.finalToHit += 1;
                 }
             }
             gator.otherModifiersExplanation = otherModifiersExplanation.join(", ");
 
+            const [shortModifier, mediumModifier, longModifier] = system?.targetingSystem?.ranges ?? [0, 2, 4];
+            let inRange = true;
             if(
                 target.range <= weaponRange.short
             ) {
                 gator.rangeExplanation = "Short";
+                gator.finalToHit += shortModifier;
+                gator.rangeModifier = shortModifier;
 
                 if(
                     weaponRange.min
@@ -951,25 +1067,134 @@ export function getTargetToHitFromWeapon(
 
                     // +1 at the minimum range and +1 for each hex closer: [minimum] - [target range] + 1 (TW p.118; BD p.9).
                     if( target.range <= minRange ) {
-                        let rangeModifier = minRange - target.range + 1;
+                        const rangeModifier = minRange - target.range + 1;
                         gator.finalToHit += rangeModifier;
-                        gator.rangeModifier = rangeModifier;
+                        gator.rangeModifier += rangeModifier;
                         gator.rangeExplanation = "Minimum Range";
                     }
                 }
             } else if(
                 target.range <= weaponRange.medium
             ) {
-                gator.finalToHit += 2;
-                gator.rangeModifier = 2;
+                gator.finalToHit += mediumModifier;
+                gator.rangeModifier = mediumModifier;
                 gator.rangeExplanation = "Medium";
             } else if( target.range <= weaponRange.long ) {
-                gator.finalToHit += 4;
-                gator.rangeModifier = 4;
+                gator.finalToHit += longModifier;
+                gator.rangeModifier = longModifier;
                 gator.rangeExplanation = "Long";
             } else {
+                // The Long Range Wars: extended and extreme range, with their own firer and target movement modifiers in
+                // place of the standard ones, and ranging (The Best of Future Wars pp.55-56).
+                const longRangeWars = mech.getFutureWarsPrinting( "longRangeWars" ) !== undefined ? getLongRangeWarsBand( target.range, weaponRange.long ) : undefined;
+                if( longRangeWars ) {
+                    const mode = mech.currentMovementMode;
+                    const standardFirer = mode === "w" ? 1 : mode === "r" ? 2 : mode === "j" ? 3 : 0;
+                    const firer = getLongRangeWarsFirerModifier( mode );
+                    const targetModifier = getLongRangeWarsTargetModifier( target.movement );
+                    gator.finalToHit += longRangeWars.modifier + ( firer - standardFirer ) + ( targetModifier - target.movement );
+                    gator.rangeModifier = longRangeWars.modifier;
+                    gator.attackerMovementModifier = firer;
+                    gator.targetMovementModifier = targetModifier;
+                    gator.rangeExplanation = longRangeWars.band === "extended" ? "Extended" : "Extreme";
+                    // Ranging only on a target that stayed still or moved 6 hexes or less (standard modifier +2 or less) in
+                    // the reprint; on any target in Future Wars #12 as first printed.
+                    const anyTarget = mech.getFutureWarsPrinting( "longRangeWars" ) === "original";
+                    const ranging = anyTarget || target.movement <= 2 ? mech.futureWarsPlay.ranging ?? 0 : 0;
+                    if( ranging > 0 ) {
+                        gator.finalToHit -= ranging;
+                        gator.otherModifiers -= ranging;
+                        otherModifiersExplanation.push( "Ranging (-" + ranging + ")" );
+                        gator.otherModifiersExplanation = otherModifiersExplanation.join(", ");
+                    }
+                } else {
+                    inRange = false;
+                    gator.finalToHit = -1;
+                    gator.explanation = "The target is out of this weapon's range.";
+                }
+            }
+
+            // Design quirks, with the game's "Use design quirks" switch on (CO pp.225-234).
+            const rangeBand = target.range <= weaponRange.short ? "short" : target.range <= weaponRange.medium ? "medium" : target.range <= weaponRange.long ? "long" : undefined;
+            // The Long Range Flamer's own penalty at range: +2 medium, +3 long (The Best of Future Wars p.28).
+            if( rangeBand && getFutureWarsPlayKind( weapon ) === "lr-flamer" ) {
+                const flamerModifier = getLRFlamerRangeModifier( rangeBand );
+                if( flamerModifier ) {
+                    gator.finalToHit += flamerModifier;
+                    gator.otherModifiers += flamerModifier;
+                    otherModifiersExplanation.push( "Long Range Flamer (+" + flamerModifier + ")" );
+                    gator.otherModifiersExplanation = otherModifiersExplanation.join(", ");
+                }
+            }
+            // E-War (#642): Artemis V and Narc pods in the to-hit, and the semi-guided LRM TAG bonus.
+            const targetMoved = target.targetMoved;
+            const ewarAttack = buildEWarAttack( weapon, ammo, withAttackerEcm( mech, {
+                ...target,
+                stealth: target.stealthSystems?.map( kind => ( { kind, moved: targetMoved } ) ),
+                c3Status: target.c3Status ?? mech.c3StatusProvider?.(),
+                // C3 range is a distance: this weapon bracket for the nearest networked unit comes from the hexes it is from the target.
+                c3NearestRange: target.c3NearestHexes === undefined ? undefined
+                    : target.c3NearestHexes <= weaponRange.short ? "short" : target.c3NearestHexes <= weaponRange.medium ? "medium" : target.c3NearestHexes <= weaponRange.long ? "long" : "extreme",
+                rangeBand: rangeBand ?? ( target.range > weaponRange.long ? "extreme" : undefined ),
+            } ), mech.getRulesEdition() );
+            const streakLock = getEWarStreakLock( mech, ewarAttack );
+            if( streakLock.blocked ) {
+                otherModifiersExplanation.push( streakLock.label );
+            }
+            for( const { label } of getEWarEcmEffects( mech, ewarAttack ) ) {
+                otherModifiersExplanation.push( label );
+            }
+            for( const { modifier, label } of [ ...getEWarToHit( mech, ewarAttack ), ...getEWarOwnAttackToHit( mech, ewarAttack ) ] ) {
+                if( modifier && inRange ) {
+                    gator.finalToHit += modifier;
+                    gator.otherModifiers += modifier;
+                }
+                otherModifiersExplanation.push( label );
+            }
+            const semiGuided = getEWarSemiGuided( mech, ewarAttack );
+            if( inRange && semiGuided.ignoreTargetMovement && gator.targetMovementModifier > 0 ) {
+                gator.finalToHit -= gator.targetMovementModifier;
+                gator.otherModifiers -= gator.targetMovementModifier;
+                otherModifiersExplanation.push( semiGuided.label + " (target movement ignored)" );
+            }
+            // The Core Rulebook TAG bonuses the number cannot work out here (terrain, partial cover, indirect-fire modifiers): shown to apply by hand.
+            if( semiGuided.terrainReduction > 0 ) {
+                // The woods or smoke modifier is the terrain modifier the number holds: the designation takes up to that much off it.
+                const cut = inRange ? Math.min( semiGuided.terrainReduction, woodsModifier ) : 0;
+                if( cut > 0 ) {
+                    gator.finalToHit -= cut;
+                    gator.otherModifiers -= cut;
+                    otherModifiersExplanation.push( semiGuided.label + " (woods or smoke modifier reduced by " + cut + ")" );
+                }
+                otherModifiersExplanation.push( semiGuided.label + ": any other target terrain modifier is reduced by " + semiGuided.terrainReduction + " in all, partial cover ignored (by hand)" );
+            }
+            if( semiGuided.ignoreIndirectModifiers ) {
+                otherModifiersExplanation.push( semiGuided.label + ": ignore the indirect-fire, spotter and terrain modifiers (by hand)" );
+            }
+            if( otherModifiersExplanation.length > 0 ) {
+                gator.otherModifiersExplanation = otherModifiersExplanation.join(", ");
+            }
+            if( quirksInPlay && rangeBand ) {
+                const quirkToHit = getQuirkToHit(mech.quirks, mech.getQuirkInstalledUuids(equipmentList), mech.getQuirkPlayYear(), {
+                    weaponUuid: weapon.uuid,
+                    rangeBand,
+                    vsAirborne: !!target.airborne,
+                    attackerRanOrFlanked: mech.currentMovementMode === "r" || mech.currentMovementMode === "f",
+                });
+                if( quirkToHit.labels.length > 0 ) {
+                    gator.finalToHit += quirkToHit.modifier;
+                    gator.otherModifiers += quirkToHit.modifier;
+                    otherModifiersExplanation.push( ...quirkToHit.labels );
+                    gator.otherModifiersExplanation = otherModifiersExplanation.join(", ");
+                }
+            }
+
+            // The Best of Future Wars play rulesets: a weapon that may not fire this turn (Strategic Movement, morale,
+            // an opportunity shot already taken, a malfunction). Last, so no modifier after it lifts the -1.
+            const noFire = inRange ? mech.getFutureWarsRulesetNoFire( weapon.uuid ) : undefined;
+            if( noFire ) {
                 gator.finalToHit = -1;
-                gator.explanation = "The target is out of this weapon's range.";
+                gator.explanation = noFire;
             }
         }
     }
@@ -991,7 +1216,7 @@ export function getTargetToHitFromWeapon(
         } else if( gator.finalToHit === 7 ) {
             percentageToHit = 58.33;
         } else if( gator.finalToHit === 8 ) {
-            percentageToHit = 31.66;
+            percentageToHit = 41.66;
         } else if( gator.finalToHit === 9 ) {
             percentageToHit = 27.77;
         } else if( gator.finalToHit === 10 ) {

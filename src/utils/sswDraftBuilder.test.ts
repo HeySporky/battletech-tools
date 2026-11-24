@@ -1,5 +1,7 @@
 import { describe, expect, it } from "vitest";
 import type { ISSWUnresolvedItem } from "../data/custom-content-types";
+import { ammoCustom } from "../data/ammo-custom";
+import { miscCustom } from "../data/misc-custom";
 import { blankTemplate, buildDrafts, estimateSlots, missingFields, targetCatalogFor } from "./sswDraftBuilder";
 
 const item = (overrides: Partial<ISSWUnresolvedItem> = {}): ISSWUnresolvedItem => ({
@@ -18,16 +20,16 @@ describe("SSW draft builder", () => {
     });
 
     it("picks the custom catalog by kind and SSW type", () => {
-        expect(targetCatalogFor("equipment", "energy")).toBe("mech-custom-equipment-weapons-energy");
-        expect(targetCatalogFor("equipment", "ballistic")).toBe("mech-custom-equipment-weapons-ballistic");
-        expect(targetCatalogFor("equipment", "missile")).toBe("mech-custom-equipment-weapons-missile");
-        expect(targetCatalogFor("equipment", "physical")).toBe("mech-custom-equipment-weapons-misc");
-        expect(targetCatalogFor("ammunition", "ammunition")).toBe("mech-custom-ammo");
+        expect(targetCatalogFor("equipment", "energy")).toBe("energy-custom");
+        expect(targetCatalogFor("equipment", "ballistic")).toBe("ballistic-custom");
+        expect(targetCatalogFor("equipment", "missile")).toBe("missile-custom");
+        expect(targetCatalogFor("equipment", "physical")).toBe("misc-custom");
+        expect(targetCatalogFor("ammunition", "ammunition")).toBe("ammo-custom");
         expect(targetCatalogFor("armor", "armor")).toBe("mech-custom-armor-types");
     });
 
     it("templates follow the target catalog's first entry with every value unknown", () => {
-        const template = blankTemplate("ammunition", "mech-custom-ammo");
+        const template = blankTemplate("ammunition", "ammo-custom");
         expect(Object.keys(template).slice(0, 3)).toEqual(["isAmmo", "isSpecialAmmo", "name"]);
         expect(template.battleValue).toBeNull();
         expect(template.name).toBe("");
@@ -35,7 +37,7 @@ describe("SSW draft builder", () => {
 
     it("builds a placeholder draft from the file's facts", () => {
         const [draft] = buildDrafts([{ item: item({ tons: 7 }), slots: 3, design: "Griffin GRF-1N", source: source("griffin.ssw") }], [], newId);
-        expect(draft).toMatchObject({ kind: "equipment", faction: "is", targetCatalogId: "mech-custom-equipment-weapons-energy", status: "draft", slotsEstimated: true });
+        expect(draft).toMatchObject({ kind: "equipment", faction: "is", targetCatalogId: "energy-custom", status: "draft", slotsEstimated: true });
         expect(draft.record).toMatchObject({ name: "Widget Cannon", tag: "local-is-widget-cannon", altNames: ["Widget Cannon"], weight: 7, book: "Custom", introduced: null });
         expect((draft.record.space as Record<string, unknown>).battlemech).toBe(3);
         expect((draft.record.space as Record<string, unknown>).protomech).toBeNull();
@@ -91,6 +93,24 @@ describe("SSW draft builder", () => {
     });
 
     it("never drafts a canon item that only lacks a catalog record", () => {
-        expect(buildDrafts([{ item: item({ name: "Coolant Pod", sswType: "equipment" }), slots: 1, design: "A", source: source("a.ssw") }], [], newId)).toEqual([]);
+        expect(buildDrafts([{ item: item({ kind: "gyro", name: "No Gyro", sswType: "gyro" }), slots: 1, design: "A", source: source("a.ssw") }], [], newId)).toEqual([]);
+    });
+});
+
+describe("estimated fields (#76)", () => {
+    it("count as missing while a draft, and stop counting once it is marked complete", () => {
+        const [draft] = buildDrafts([{ item: item(), slots: 2, design: "A", source: source("a.ssw") }], [], () => "e1");
+        draft.estimated = ["weight"];
+        expect(missingFields(draft)).toContain("estimated:weight");
+        draft.status = "complete";
+        expect(missingFields(draft).some((field) => field.startsWith("estimated:"))).toBe(false);
+    });
+});
+
+describe("draft templates after the custom files merged", () => {
+    // Final review finding: the misc and ammo templates became the Future Wars records that now open those files.
+    it("templates misc and ammunition drafts on the records they used before", () => {
+        expect(Object.keys(blankTemplate("equipment", "misc-custom"))).toEqual(Object.keys(miscCustom.find((item) => item.tag === "custom-null-signature-system")!));
+        expect(Object.keys(blankTemplate("ammunition", "ammo-custom"))).toEqual(Object.keys(ammoCustom.find((item) => item.tag === "ammo-ac-15-standard")!));
     });
 });

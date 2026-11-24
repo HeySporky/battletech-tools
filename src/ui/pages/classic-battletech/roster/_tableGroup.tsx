@@ -4,21 +4,24 @@ import { BattleMech } from '../../../../classes/battlemech';
 import { BattleMechGroup } from '../../../../classes/battlemech-group';
 import { IAppGlobals } from '../../../app-router';
 import InputField from '../../../components/form_elements/input_field';
-import SanitizedHTML from '../../../components/sanitized-html';
+import MechViewPanel from '../../../components/mech-view-panel';
 import StandardModal from '../../../components/standard-modal';
 import StatBar from '../../../components/stat-bar';
-import BattleMechSVG from '../../../components/svg/battlemech-svg';
 import BattleMechAddMechDialog from './_addMechDialog';
-import VehicleGroupTable from './_vehicleGroupTable';
+import VehicleGroupTable, { C3NetworkField } from './_vehicleGroupTable';
 import FighterGroupTable from './_fighterGroupTable';
 import SmallCraftGroupTable from './_smallCraftGroupTable';
 import CapitalShipGroupTable from './_capitalShipGroupTable';
 import InfantryGroupTable from './_infantryGroupTable';
 import BattleArmorGroupTable from './_battleArmorGroupTable';
 import ProtoMechGroupTable from './_protoMechGroupTable';
+import MicroMechGroupTable from './_microMechGroupTable';
+import WalkerGroupTable from './_walkerGroupTable';
 import BattledroidsGroupTable from './_battledroidsGroupTable';
 import BuildingGroupTable from './_buildingGroupTable';
 import type { JSX } from "react";
+import { formatBattleValue } from '../../../../data/battle-value';
+import { DEFAULT_RULES_EDITION } from '../../../../data/rules-editions';
 const Edit = FaEdit as any;
 const Trash = FaTrash as any;
 
@@ -66,8 +69,8 @@ export default class BattleMechTableGroup extends React.Component<IBattleMechTab
         }
         if( this.props.appGlobals.currentCBTForce && this.state.viewingUnit ) {
 
-            let bmGroup = this.props.appGlobals.currentCBTForce.groups[this.props.bmGroupIndex];
-            let newBM = new BattleMech( this.state.viewingUnit.exportJSON()  );
+            const bmGroup = this.props.appGlobals.currentCBTForce.groups[this.props.bmGroupIndex];
+            const newBM = new BattleMech( this.state.viewingUnit.exportJSON()  );
             newBM.newUUID();
             bmGroup.members.push (
                 newBM
@@ -95,7 +98,7 @@ export default class BattleMechTableGroup extends React.Component<IBattleMechTab
 
   onAddUnitsChange = ( nv: BattleMechGroup ): void => {
     if( this.props.appGlobals.currentCBTForce && this.props.appGlobals.currentCBTForce.groups[this.state.addingUnitsGroupIndex] ) {
-      let currentCBTForce = this.props.appGlobals.currentCBTForce;
+      const currentCBTForce = this.props.appGlobals.currentCBTForce;
       currentCBTForce.groups[this.state.addingUnitsGroupIndex] = nv;
       this.props.appGlobals.saveCurrentCBTForce( currentCBTForce );
 
@@ -106,9 +109,16 @@ export default class BattleMechTableGroup extends React.Component<IBattleMechTab
     openAddingUnits = (
         e: React.FormEvent<HTMLButtonElement>,
         addingUnitsGroupIndex: number,
+        mulTypeID?: number,
     ) => {
       if( e && e.preventDefault ) {
         e.preventDefault()
+      }
+      // The other unit tables open the same search filtered to their own MUL type.
+      if( mulTypeID !== undefined ) {
+        const appSettings = this.props.appGlobals.appSettings;
+        appSettings.cbtMULSearch = { ...appSettings.cbtMULSearch, type: mulTypeID };
+        this.props.appGlobals.saveAppSettings( appSettings );
       }
 
       this.setState({
@@ -127,8 +137,8 @@ export default class BattleMechTableGroup extends React.Component<IBattleMechTab
         }
 
         if( this.props.appGlobals.currentCBTForce ) {
-            let currentCBTForce = this.props.appGlobals.currentCBTForce;
-            let editUnit = new BattleMech(currentCBTForce.groups[this.props.bmGroupIndex].members[editUnitIndex].exportJSON() );
+            const currentCBTForce = this.props.appGlobals.currentCBTForce;
+            const editUnit = new BattleMech(currentCBTForce.groups[this.props.bmGroupIndex].members[editUnitIndex].exportJSON() );
             this.setState({
                 editingUnit: editUnit,
                 editingUnitIndex: editUnitIndex,
@@ -147,8 +157,8 @@ export default class BattleMechTableGroup extends React.Component<IBattleMechTab
         }
 
         if( this.props.appGlobals.currentCBTForce && this.state.editingUnit) {
-            let currentCBTForce = this.props.appGlobals.currentCBTForce;
-            let saveUnit = new BattleMech(this.state.editingUnit.exportJSON() );
+            const currentCBTForce = this.props.appGlobals.currentCBTForce;
+            const saveUnit = new BattleMech(this.state.editingUnit.exportJSON() );
             currentCBTForce.groups[this.props.bmGroupIndex].members[this.state.editingUnitIndex] = saveUnit;
             this.props.appGlobals.saveCurrentCBTForce( currentCBTForce );
             this.setState({
@@ -176,7 +186,7 @@ export default class BattleMechTableGroup extends React.Component<IBattleMechTab
           "No, thank you",
           () => {
             if( this.props.appGlobals.currentCBTForce ) {
-                let currentCBTForce = this.props.appGlobals.currentCBTForce;
+                const currentCBTForce = this.props.appGlobals.currentCBTForce;
                 currentCBTForce.groups[this.props.bmGroupIndex].members.splice(removeUnitIndex, 1);
                 this.props.appGlobals.saveCurrentCBTForce( currentCBTForce );
             }
@@ -200,7 +210,7 @@ export default class BattleMechTableGroup extends React.Component<IBattleMechTab
     }
 
     updateNickname = ( event: React.FormEvent<HTMLInputElement>): void => {
-        let mech = this.state.editingUnit;
+        const mech = this.state.editingUnit;
         if( mech ) {
             mech.nickname = event.currentTarget.value;
             this.setState({
@@ -210,7 +220,7 @@ export default class BattleMechTableGroup extends React.Component<IBattleMechTab
     }
 
     setPilotName = ( event: React.FormEvent<HTMLInputElement>): void => {
-        let mech = this.state.editingUnit;
+        const mech = this.state.editingUnit;
         if( mech ) {
             mech.setPilotName( event.currentTarget.value );
             this.setState({
@@ -221,7 +231,7 @@ export default class BattleMechTableGroup extends React.Component<IBattleMechTab
 
       setPilotPiloting = ( event: React.FormEvent<HTMLSelectElement>): void => {
 
-        let mech = this.state.editingUnit;
+        const mech = this.state.editingUnit;
         if( mech ) {
             mech.setPilotPiloting( +event.currentTarget.value );
             this.setState({
@@ -232,9 +242,19 @@ export default class BattleMechTableGroup extends React.Component<IBattleMechTab
 
       setPilotGunnery = ( event: React.FormEvent<HTMLSelectElement>): void => {
 
-        let mech = this.state.editingUnit;
+        const mech = this.state.editingUnit;
         if( mech ) {
             mech.setPilotGunnery( +event.currentTarget.value );
+            this.setState({
+                editingUnit: mech,
+            })
+        }
+      }
+
+      setPilotEIImplants = ( event: React.FormEvent<HTMLInputElement>): void => {
+        const mech = this.state.editingUnit;
+        if( mech ) {
+            mech.setPilotEIImplants( event.currentTarget.checked );
             this.setState({
                 editingUnit: mech,
             })
@@ -254,7 +274,7 @@ export default class BattleMechTableGroup extends React.Component<IBattleMechTab
         title={"Editing " + this.state.editingUnit.model}
         onSave={this.saveUnit}
     >
-        <div className="small-text">Here you may edit the Mech Nickname, Mechwarrior name, and skills. Skill changes Will display both base amd adjusted BV2.</div>
+        <div className="small-text">Here you may edit the Mech Nickname, Mechwarrior name, and skills. Skill changes will display both base and adjusted BV.</div>
         <InputField
             label="'Mech Nickname"
             value={this.state.editingUnit.nickname}
@@ -319,16 +339,26 @@ export default class BattleMechTableGroup extends React.Component<IBattleMechTab
                     </label>
                     </div>
                 </div>
+                {this.state.editingUnit.hasEnhancedImaging() || this.state.editingUnit.getPilot().eiImplants ? (
+                    <label className="d-block">
+                        <input
+                            type="checkbox"
+                            checked={this.state.editingUnit.getPilot().eiImplants}
+                            onChange={this.setPilotEIImplants}
+                        />{" "}
+                        EI neural implants (with the 'Mech's EI interface: Gunnery and Piloting 1 better for BV, IO:AE p.184)
+                    </label>
+                ) : null}
                 </fieldset>
             </div>
             <div className="col-md-6">
                 <fieldset className="fieldset">
-                    <legend>Pilot Adjusted BV2</legend>
+                    <legend>Pilot Adjusted BV</legend>
                     <div>
-                        <strong>Base BV2</strong>: {this.state.editingUnit.getBattleValue()}
+                        <strong>Base BV</strong>: {formatBattleValue((edition) => this.state.editingUnit?.getBattleValue(edition) ?? 0, "mech", this.props.appGlobals.currentCBTForce?.rulesEdition)}
                     </div>
                     <div>
-                        <strong>Adjusted BV2</strong>: {this.state.editingUnit.getPilotAdjustedBattleValue()}
+                        <strong>Adjusted BV</strong>: {formatBattleValue((edition) => this.state.editingUnit?.getPilotAdjustedBattleValue(edition) ?? 0, "mech", this.props.appGlobals.currentCBTForce?.rulesEdition)}
                     </div>
 
                 </fieldset>
@@ -359,22 +389,11 @@ export default class BattleMechTableGroup extends React.Component<IBattleMechTab
         onClose={this.closeViewUnit}
         onAdd={this.addViewedUnit}
         className="modal-xl"
+        printable={true}
     >
 
         <h3 className="text-center">Viewing {this.state.viewingUnit.model}</h3>
-        <div className="row">
-            <div className='col'>
-                <SanitizedHTML
-                    raw={true}
-                    html={this.state.viewingUnit.makeTROHTML()}
-                />
-            </div>
-            <div className='col'>
-                <BattleMechSVG
-                    mechData={this.state.viewingUnit}
-                />
-            </div>
-        </div>
+        <MechViewPanel mech={this.state.viewingUnit} />
     </StandardModal>
 ) : (
 <>
@@ -386,7 +405,7 @@ export default class BattleMechTableGroup extends React.Component<IBattleMechTab
         {this.props.showAdd ? (
           <button
             className="btn btn-primary btn-sm"
-            title="Click here to open the add 'mech dialog"
+            title="Add 'Mechs, or search the Master Unit List for any unit type"
             onClick={(e) => this.openAddingUnits( e, this.props.bmGroupIndex)}
             >
             Add
@@ -408,8 +427,8 @@ export default class BattleMechTableGroup extends React.Component<IBattleMechTab
     {this.props.appGlobals.currentCBTForce.groups[this.props.bmGroupIndex].members.length > 0 ? (
       <>
         {this.props.appGlobals.currentCBTForce.groups[this.props.bmGroupIndex].members.map( (mechObj, mechIndex) => {
-            let pilotBV2 = mechObj.getPilotAdjustedBattleValue();
-            let baseBV2 = mechObj.getBattleValue();
+            const pilotBV2 = formatBattleValue((edition) => mechObj.getPilotAdjustedBattleValue(edition), "mech", this.props.appGlobals.currentCBTForce?.rulesEdition);
+            const baseBV2 = formatBattleValue((edition) => mechObj.getBattleValue(edition), "mech", this.props.appGlobals.currentCBTForce?.rulesEdition);
 
             return (
                 <tbody key={mechIndex}>
@@ -439,7 +458,10 @@ export default class BattleMechTableGroup extends React.Component<IBattleMechTab
                                 <strong>Pilot:</strong> {mechObj.pilot.name}
                             </div>
                         ) : null}
-
+                        {this.props.appGlobals.currentCBTForce ? (
+                            <C3NetworkField force={this.props.appGlobals.currentCBTForce} unit={mechObj} edit={!!this.props.showEdit}
+                                onChange={() => this.props.appGlobals.currentCBTForce && this.props.appGlobals.saveCurrentCBTForce(this.props.appGlobals.currentCBTForce)} />
+                        ) : null}
                     </td>
                     <td className="min-width no-wrap text-center">{mechObj.getTonnage()}</td>
                     <td className="min-width no-wrap text-center small-text">{mechObj.getTech().name}</td>
@@ -518,48 +540,67 @@ export default class BattleMechTableGroup extends React.Component<IBattleMechTab
 <td colSpan={this.props.showEdit ? 4 : 3} className="text-center">
     {this.props.appGlobals.currentCBTForce.groups[this.props.bmGroupIndex].getTotalTons()} Tons - {this.props.appGlobals.currentCBTForce.groups[this.props.bmGroupIndex].getTech()}
 </td>
-<td colSpan={2} className="text-right">BV2: {this.props.appGlobals.currentCBTForce.groups[this.props.bmGroupIndex].getTotaBV2()}</td>
+<td colSpan={2} className="text-right">BV: {this.props.appGlobals.currentCBTForce.groups[this.props.bmGroupIndex].getBattleValueText(this.props.appGlobals.currentCBTForce?.rulesEdition ?? DEFAULT_RULES_EDITION, this.props.appGlobals.currentCBTForce.groups, this.props.appGlobals.currentCBTForce.c3Networks)}</td>
 </tr>
 </tfoot>
 
 </table>
 <VehicleGroupTable
     appGlobals={this.props.appGlobals}
+    onSearchMUL={(e) => this.openAddingUnits( e, this.props.bmGroupIndex, 19 )}
     bmGroupIndex={this.props.bmGroupIndex}
     showAdd={this.props.showAdd}
     showEdit={this.props.showEdit}
 />
 <FighterGroupTable
     appGlobals={this.props.appGlobals}
+    onSearchMUL={(e) => this.openAddingUnits( e, this.props.bmGroupIndex, 17 )}
     bmGroupIndex={this.props.bmGroupIndex}
     showAdd={this.props.showAdd}
     showEdit={this.props.showEdit}
 />
 <SmallCraftGroupTable
     appGlobals={this.props.appGlobals}
+    onSearchMUL={(e) => this.openAddingUnits( e, this.props.bmGroupIndex, 17 )}
     bmGroupIndex={this.props.bmGroupIndex}
     showAdd={this.props.showAdd}
     showEdit={this.props.showEdit}
 />
 <CapitalShipGroupTable
     appGlobals={this.props.appGlobals}
+    onSearchMUL={(e) => this.openAddingUnits( e, this.props.bmGroupIndex, 17 )}
     bmGroupIndex={this.props.bmGroupIndex}
     showAdd={this.props.showAdd}
     showEdit={this.props.showEdit}
 />
 <InfantryGroupTable
     appGlobals={this.props.appGlobals}
+    onSearchMUL={(e) => this.openAddingUnits( e, this.props.bmGroupIndex, 21 )}
     bmGroupIndex={this.props.bmGroupIndex}
     showAdd={this.props.showAdd}
     showEdit={this.props.showEdit}
 />
 <BattleArmorGroupTable
     appGlobals={this.props.appGlobals}
+    onSearchMUL={(e) => this.openAddingUnits( e, this.props.bmGroupIndex, 22 )}
     bmGroupIndex={this.props.bmGroupIndex}
     showAdd={this.props.showAdd}
     showEdit={this.props.showEdit}
 />
 <ProtoMechGroupTable
+    appGlobals={this.props.appGlobals}
+    onSearchMUL={(e) => this.openAddingUnits( e, this.props.bmGroupIndex, 23 )}
+    bmGroupIndex={this.props.bmGroupIndex}
+    showAdd={this.props.showAdd}
+    showEdit={this.props.showEdit}
+/>
+<MicroMechGroupTable
+    appGlobals={this.props.appGlobals}
+    bmGroupIndex={this.props.bmGroupIndex}
+    showAdd={this.props.showAdd}
+    showEdit={this.props.showEdit}
+/>
+<WalkerGroupTable
     appGlobals={this.props.appGlobals}
     bmGroupIndex={this.props.bmGroupIndex}
     showAdd={this.props.showAdd}
