@@ -24,3 +24,27 @@ describe("Bundled MUL 2.0 search and cards", () => {
         expect(card.move[0].move).toBeGreaterThan(0);
     }, 30_000);
 });
+
+// The Era filter matches the eras a unit is available in (its Availability list), not only the era it
+// was introduced in. Only four bundled units were introduced in the ilClan era (id 257).
+describe("Bundled MUL search: Era filter", () => {
+    const ILCLAN = 257;
+
+    it("finds units available in the ilClan era that were introduced earlier", async () => {
+        const results = await getMULASSearchResults("Atlas", "", "", "", ILCLAN, 0, [], true);
+        expect(results.length).toBeGreaterThan(1);
+        expect(results.some((unit) => unit.EraId !== ILCLAN)).toBe(true);
+        expect(results.every((unit) => unit.Availability?.some((entry) => entry.EraId === ILCLAN))).toBe(true);
+    }, 30_000);
+
+    it("returns more than the four units introduced in the ilClan era", async () => {
+        const results = await getMULASSearchResults("", "", "", "", ILCLAN, 0, [], true, true);
+        expect(results.length).toBeGreaterThan(1000);
+    }, 30_000);
+
+    it("leaves out units that are not available in the selected era", async () => {
+        // The Black Knight BL-6-KNT is available from the Early Succession War on, not in the Star League era (10).
+        const results = await getMULASSearchResults("Black Knight", "", "", "", 10, 0, [], true);
+        expect(results.some((unit) => unit.MulUnitKey === "000RM4HYJ9")).toBe(false);
+    }, 30_000);
+});

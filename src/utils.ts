@@ -331,8 +331,15 @@ function matchesMULDropdownFilters(
         }
     }
 
+    // The Era filter means "available in this era", as on masterunitlist.battletech.com, not the era
+    // the unit was introduced in. Records without availability data (most MUL 1.0 leftovers) fall
+    // back to their introduction era.
     if (eraFilter && eraFilter > 0) {
-        if (unit.EraId !== eraFilter) {
+        const availableEras = unit.Availability;
+        const matchesEra = availableEras && availableEras.length > 0
+            ? availableEras.some((entry) => entry.EraId === eraFilter)
+            : unit.EraId === eraFilter;
+        if (!matchesEra) {
             return false;
         }
     }
