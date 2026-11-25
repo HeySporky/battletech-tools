@@ -32,7 +32,7 @@
     "test:e2e": "playwright test",
     "check": "npm run typecheck && npm test && npm run build",
     "deploy-dev": "gh-pages -d build --dotfiles",
-    "deploy-prod": "gh-pages -d build --dotfiles -r https://github.com/heysporky/battletech-tools.git"
+    "deploy-prod": "gh-pages -d build --dotfiles -r https://github.com/jeffs-bt-tools/battletech-tools.git"
   },
   "browserslist": {
     "production": [
