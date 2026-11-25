@@ -1,31 +1,9 @@
+import { string } from "prop-types";
 import { IClusterHit } from "../classes/battlemech";
-import type { VariableEquipmentFormula } from "./variable-equipment";
-
-export interface IArmorUnitTypes {
-    battlemech: boolean;
-    protomech: boolean;
-    combatVehicle: boolean;
-    supportVehicle: boolean;
-    aerospaceFighter: boolean;
-    smallCraft: boolean;
-    dropShip: boolean;
-    battleArmor: boolean;
-    jumpShip: boolean;
-    warShip: boolean;
-}
-
-export type ArmorCriticalLocationsByChassis = Partial<Record<
-    "biped" | "quad",
-    Partial<Record<keyof ICriticalLocations, number>>
->>;
 
 export interface IArmorType {
 	tag: string;
 	name: string;
-    unitTypes: IArmorUnitTypes;
-    constructionStatus?: "implemented" | "deferred";
-    constructionMode?: "base" | "equipment";
-    alphaStrikeAbility?: string;
     crits: {
         [key: string]: number;
     },
@@ -34,40 +12,26 @@ export interface IArmorType {
 		is: number;
 	},
 	costMultiplier: number;
-    introduced: number | null;
-    extinct: number | null;
-    reintroduced: number | null;
-    /** Multiplier on the armor factor in the defensive BV (TM p.302, TO:AUE; e.g. Hardened 2, Reactive 1.5). */
-    bvMultiplier?: number;
-    /** IO prototype year; with `introduced: null` the armor exists only as a prototype. */
-    prototype?: number;
-    /** Clan availability window when it differs from the Inner Sphere dates above. */
-    clanDates?: ITechDates;
-    book?: string;
-    page?: number | null;
-    notes?: string;
-    critLocs?: ArmorCriticalLocationsByChassis;
+	introduced: number;
+	extinct: number;
+	reintroduced: number;
+	critLocs?: {
+		[key: string]: number;
+    };
     available?: boolean;
-    availableAsPrototype?: boolean;
 }
 
 export interface IEngineOption {
 	name: string;
 	rating: number;
 	weight: {
-        standard: number;
-        xl: number;
-        clan_xl: number;
-        light: number;
-        /** Absent above rating 400: compact engines cannot be large engines. */
-        compact?: number;
-        xxl: number;
-        clan_xxl: number;
-        ice: number;
+		ice: number;
 		cell: number;
 		fission: number;
-        /** Absent where the primitive-adjusted rating exceeds 500. */
-        primitive?: number;
+		comp: number;
+		standard: number;
+		light: number;
+		xl: number;
 	}
 }
 
@@ -80,9 +44,6 @@ export interface ICriticalLocations {
 	la?: number,
 	lt?: number,
 	ll?: number,
-    cl?: number,
-    fll?: number,
-    frl?: number,
 }
 
 export interface IEngineType {
@@ -90,18 +51,14 @@ export interface IEngineType {
 	name: string;
     alternateName?: string;
 	costMultiplier: number;
-    /** IO prototype year, when it precedes `introduced`; offered at the Experimental rules level. */
-    prototype?: number;
-    introduced: number | null;
-    extinct: number | null;
-    reintroduced: number | null;
+	introduced: number;
+	extinct: number;
+	reintroduced: number;
     criticals: {
         [key: string]: ICriticalLocations;
     },
     rating: number;
     available?: boolean;
-    /** Set when the engine is offered only as an Experimental prototype. */
-    availableAsPrototype?: boolean;
 }
 
 export interface IDamagePerRange {
@@ -125,7 +82,6 @@ export interface IRangeNumbers {
     medium: number;
     long: number;
     extreme?: number;
-    maxMapSheets?: number;
 }
 
 export interface ISplitLocation {
@@ -133,29 +89,11 @@ export interface ISplitLocation {
     index: number;
     size: number;
 }
-
-export interface IAmmoProfile {
-    damagePerMissile: number;
-    range: IRangeNumbers;
-    alphaStrikeDamage: {
-        short: number;
-        medium: number;
-        long: number;
-        extreme: number;
-    };
-}
-
 export interface IEquipmentItem {
-    catalog?: "is" | "clan" | "custom" | "universal";
-    metadata?: IEquipmentMetadata;
     split_location?: ISplitLocation[];
     isRotary?: boolean;
     isStreak?: boolean;
     isUltra?: boolean;
-    isSpecialAmmo?: boolean;
-    isModularArmor?: boolean;
-    additionalArmor?: number;
-    currentAdditionalArmor?: number;
     needsAmmo?: boolean;
     uuid?: string;
     resolved?: boolean;
@@ -169,9 +107,7 @@ export interface IEquipmentItem {
     isEquipment?: boolean;
     isAmmo?: boolean;
     alternateName?: string;
-    altNames?: string[];
     tag: string;
-    altTags?: string[];
     sort: string;
     category: string;
     currentAmmo?: number;
@@ -186,16 +122,13 @@ export interface IEquipmentItem {
     isOneShot?: boolean;
     damagePerCluster?: number;
     damageClusters?: number;
-    ammoPerShot?: number;
-    ammoTypes?: string[];
-    ammoProfile?: IAmmoProfile;
     accuracyModifier?: number | IAccuracyModifier;
     accuracyModifiier?: number;
     cbills: number;
     cbillsOneShot?: number;
-    introduced: number | null;
-    extinct: number | null;
-    reintroduced: number | null;
+    introduced: number;
+    extinct: number;
+    reintroduced: number;
     battleValue?: number;
     battleValueDefensive?: boolean;
     battleValueOneShot?: number;
@@ -204,27 +137,6 @@ export interface IEquipmentItem {
     weight: number;
     range: IRangeNumbers,
     space: ICriticalSpace,
-    /** IO prototype year when it precedes `introduced` (production); available only at Experimental rules. */
-    prototype?: number;
-    /** Set on listed equipment when it is available only as an Experimental prototype. */
-    availableAsPrototype?: boolean;
-    /** Ammunition: rounds (missiles, slugs, pods) in one ton. */
-    roundsPerTon?: number;
-    /** Weapons: published number of times the weapon fires from one ton of its ammunition. */
-    shotsPerTon?: number;
-    /** Weapons: published shots per ton keyed by ammo family/tag, for launchers whose count depends on the ammo (MML). */
-    shotsPerTonByAmmo?: Record<string, number>;
-    /** Weapons: BV per ton of this weapon's standard ammunition (TM/TO per-launcher ammo BV). */
-    ammoBattleValue?: number;
-    /** Special munitions: multiplier on the launcher's ammo BV (TO:AUE munition BV). */
-    battleValueMultiplier?: number;
-    /** Minefield munitions: BV per ton comes from the launcher's rack size and shots (TO:AUE pp.185, 197-198). */
-    minefieldBattleValue?: "thunder" | "thunder-augmented" | "thunder-inferno" | "thunder-vibrabomb" | "thunder-active" | "fascam";
-    /** Weapon arrays (MG Array): tags of the weapons it links in its own location; its BV derives from them. */
-    linkedWeaponTags?: string[];
-    /** Ammunition bins in a unit: tag of the weapon this bin is loaded for. */
-    feedsWeaponTag?: string;
-    /** @deprecated Legacy field; read only to import older records. Use roundsPerTon (ammo) or shotsPerTon (weapons). */
     ammoPerTon?: number;
     minAmmoTons?: number;
     explosive?: boolean;
@@ -233,11 +145,8 @@ export interface IEquipmentItem {
     techRating?: string;
     unique?: boolean;
     book: string;
-    /** Rulebook page; null when the page has not been verified in the book. */
-    page: number | null;
+    page: number;
     alphaStrike: {
-        specialAbility?: string[];
-        damageAoE?: number;
         heat: number;
         rangeShort: number;
         rangeMedium: number;
@@ -254,53 +163,12 @@ export interface IEquipmentItem {
     criticalsDivisor?: number;
 
     variableSize?: boolean;
-    /** Sizing rule for variable equipment (see variable-equipment.ts); implies variableSize. */
-    variableFormula?: VariableEquipmentFormula;
-    /** Each critical slot is placed on its own (spread across locations), e.g. Null Signature System. */
-    spreadSlots?: boolean;
-    /** Label for a user-chosen size on the installed item (e.g. "Jump MP"); its value is `size`. */
-    sizeLabel?: string;
-    /** Largest size the picker offers. */
-    sizeMax?: number;
-    /** Size chosen for this installed item (see sizeLabel). */
-    size?: number;
     isMelee?: boolean;
     costPerItemTon?: number;
     location?: string;
     rear?: boolean;
     criticals?: number;
     available?: boolean;
-    rulesLevel?: number;
-    /** OmniMech base-chassis (fixed) equipment; everything else on an OmniMech is pod-mounted. */
-    omniFixed?: boolean;
-    /** 'Mech chassis types (mech-type tags) this item may be mounted on, e.g. ["quad"]; unset = any. */
-    chassisTypes?: string[];
-    /** Most copies of this item one unit may mount. */
-    maxPerUnit?: number;
-}
-
-export interface IEquipmentMetadata {
-    domains?: EquipmentDomain[];
-    techBase?: "is" | "clan" | "mixed" | "custom";
-    rulesLevel?: number;
-    source?: IEquipmentSource;
-    ammunitionTags?: string[];
-}
-
-export type EquipmentDomain =
-    | "battlemech"
-    | "vehicle"
-    | "aerospace"
-    | "dropship"
-    | "warship"
-    | "infantry";
-
-export interface IEquipmentSource {
-    book: string;
-    page: number;
-    sourceFile?: string;
-    sourceFormat?: string;
-    warnings?: string[];
 }
 
 export interface ICriticalSpace {
@@ -320,22 +188,10 @@ export interface IGyro {
     weight_multiplier: number;
     criticals: number;
     costMultiplier: number;
-    /** Inner Sphere only (TM): not offered to pure Clan designs. */
-    innerSphereOnly?: boolean;
-    /** IO prototype year, when it precedes `introduced`; offered at the Experimental rules level. */
-    prototype?: number;
-    introduced: number | null;
-    extinct: number | null;
-    reintroduced: number | null;
+    introduced: number;
+    extinct: number;
+    reintroduced: number;
     available?: boolean;
-    availableAsPrototype?: boolean;
-}
-
-export interface ITechDates {
-    prototype?: number;
-    introduced: number | null;
-    extinct: number | null;
-    reintroduced: number | null;
 }
 
 export interface IHeatSync {
@@ -345,101 +201,34 @@ export interface IHeatSync {
     crits: {
         [key: string]: number;
     },
+
     cost: number;
-    /** Heat sinks that cost nothing (single-type sinks: the first 10); double-type sinks pay for all. */
-    freeSinks?: number;
-    /** Only this technology base builds it (Laser: Clan; prototypes: Inner Sphere). */
-    techBase?: "is" | "clan";
-    /** Tons per heat sink beyond the free ones (default 1; Compact 1.5). */
-    weightEach?: number;
-    /** Heat sinks that share one critical slot (default 1; Compact 2). */
-    perSlot?: number;
-    /** Multiplier on the engine's integral capacity, floor(rating / 25) (default 1; Compact 2). */
-    engineCapacityMultiplier?: number;
-    book?: string;
-    page?: number | null;
-    notes?: string;
-    /** IO prototype year, when it precedes `introduced`; offered at the Experimental rules level. */
-    prototype?: number;
-    introduced: number | null;
-    extinct: number | null;
-    reintroduced: number | null;
-    /** Clan availability window when it differs from the Inner Sphere one above. */
-    clanDates?: ITechDates;
-    available?: boolean;
-    availableAsPrototype?: boolean;
+    introduced: number;
+    extinct: number;
+    reintroduced: number;
 }
 
 export interface IInternalStructurePerTon {
     tonnage: number;
     head: number;
     centerTorso: number;
-	// Spliting the old 'rlTorso' into individual sides for clarity
-    leftTorso: number;
-	rightTorso:number;
-	// Making arms optional to fully support Quads (which lack arms entirely) as well as some Bipeds and Tripods
-	leftArm?: number;
-    rightArm?: number;
-	// Core biped legs or rear legs for Quads
-    leftLeg: number;
-	rightLeg: number;
-	// New conditional limbs to expand anatomy models dynamically
-  	centerLeg?: number;     // Used by Tripods (e.g., Hedgehog, Ares)
-  	frontLeftLeg?: number;  // Used by Quads instead of arms
-  	frontRightLeg?: number; // Used by Quads instead of arms
-}
-
-export interface IResolvedInternalStructure extends IInternalStructurePerTon {
-    leftArm: number;
-    rightArm: number;
-    centerLeg: number;
-    frontLeftLeg: number;
-    frontRightLeg: number;
-}
-
-export interface IRawMechStructure {
-    head: number;
-    ct: number;
-    torso: number;
-    arm: number;
-    leg: number;
-}
-
-export interface IMechTonnage {
-    tons: number;
-    type: string;
+    rlTorso: number;
+    rlArm: number;
+    rlLeg: number;
 }
 
 export interface IInternalStructure {
     name: string;
     tag: string;
     crits: {
-        clan: number;
-		is: number;
-    };
-	cost: number;
-	
-    // Replaces the old 'perTon: Record<number, IInternalStructurePerTon>' mapping
-  	// to separate structural logic neatly by the core Mech configurations
-  	perMechType: {
-    	biped: Record<number, IInternalStructurePerTon>;
-    	quad: Record<number, IInternalStructurePerTon>;
-  	};
-    /** Multiplier on internal structure points in the defensive BV (Industrial/Composite 0.5, Reinforced 2). */
-    bvMultiplier?: number;
-    /** No Clan version exists (Composite). */
-    innerSphereOnly?: boolean;
-    book?: string;
-    page?: number | null;
-    /** IO prototype year, when it precedes `introduced`; offered at the Experimental rules level. */
-    prototype?: number;
-    introduced: number | null;
-    extinct: number | null;
-    reintroduced: number | null;
-    /** Clan availability window when it differs from the Inner Sphere one above. */
-    clanDates?: ITechDates;
-    available?: boolean;
-    availableAsPrototype?: boolean;
+        [key: string]: number;
+    },
+    perTon: {[key: number]: IInternalStructurePerTon};
+
+    cost: number;
+    introduced: number;
+    extinct: number;
+    reintroduced: number;
 }
 
 export interface IJumpJet {
@@ -449,56 +238,18 @@ export interface IJumpJet {
         light: number;
         medium: number;
         heavy: number;
-        superheavy: number;
     },
     criticals: number;
     costMultiplier: number;
-    /** UMUs: underwater MP instead of jump MP (TO:AUE p.107). */
-    underwater?: boolean;
-    /** IO prototype year, when it precedes `introduced`; offered at the Experimental rules level. */
-    prototype?: number;
-    introduced: number | null;
-    extinct: number | null;
-    reintroduced: number | null;
-    /** Clan availability window when it differs from the Inner Sphere one above. */
-    clanDates?: ITechDates;
-    available?: boolean;
-    availableAsPrototype?: boolean;
-}
-
-export interface IMyomerType {
-    name: string;
-    tag: string;
-    /** Critical slots, spread anywhere except the head. */
-    criticals: number;
-    /** C-bills per 'Mech ton (musculature line of the cost table). */
-    costPerTon: number;
-    /** Offensive BV weight factor (TM p.303: TSM x 1.5; Industrial TSM x 1.15). */
-    bvWeightMultiplier: number;
-    /** Doubles physical weapon damage when hot (TSM and its prototype). */
-    tripleStrength: boolean;
-    techBase?: "is" | "clan";
-    book: string;
-    page: number | null;
-    notes?: string;
-    prototype?: number;
-    introduced: number | null;
-    extinct: number | null;
-    reintroduced: number | null;
-    clanDates?: ITechDates;
-    available?: boolean;
-    availableAsPrototype?: boolean;
+    introduced: number;
+    extinct: number;
+    reintroduced: number;
 }
 
 export interface IMechType {
     id: number;
     tag: string;
     name: string;
-    /** Lowest rules level (rules-level-options ids) at which this chassis is legal. */
-    rulesLevel: number;
-    book?: string;
-    page?: number;
-    notes?: string;
 }
 
 export interface ITechOptions {
@@ -512,39 +263,12 @@ export interface IEras {
     tag: string;
     name: string;
     yearStart: number;
-    yearEnd: number | null;
+    yearEnd: number;
 }
 
 export interface IRulesLevelOption {
     id: number;
-    sswid: number | null;
+    sswid: number;
     tag: string;
     name: string;
 }
-
-// Combat Vehicle domain (Phase 2) - shared with BattleMech via the same engine/armor/heat sink/equipment catalogs.
-export interface IVehicleMotiveType {
-    id: number;
-    tag: string;
-    name: string;
-    minTonnage: number;
-    standardMaxTonnage: number;
-    superheavyMaxTonnage: number;
-}
-
-export interface IVehicleArmorAllocation {
-    front: number;
-    left: number;
-    right: number;
-    rear: number;
-    turret: number;
-}
-
-export interface IVehicleStructureAllocation {
-    front: number;
-    left: number;
-    right: number;
-    rear: number;
-    turret: number;
-}
-
