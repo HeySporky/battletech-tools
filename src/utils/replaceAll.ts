@@ -14,7 +14,7 @@ export function replaceAll(
     if(!replace)
         return haystack;
     if( typeof(haystack) !== "string") {
-        // @ts-expect-error Legacy compatibility type mismatch
+        //@ts-ignore
         haystack = haystack.join("\n")
     }
     if( noRegex ) {

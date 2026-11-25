@@ -9,7 +9,7 @@ export class AppSettings {
     equipmentFilter: string = "";
     installEquipCategory: string = "";
 
-    mechRulesFilter: number = 2; // Defaults to "Standard"
+    mechRulesFilter: number = 0;
     mechNameFilter: string = "";
 
     storageLocation: ESaveDataMode = ESaveDataMode.localStorage;

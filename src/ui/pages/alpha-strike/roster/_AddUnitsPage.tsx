@@ -16,6 +16,8 @@ const Eye = FaEye as any;
 const Plus = FaPlus as any;
 const Trash = FaTrash as any;
 
+import type { JSX } from "react";
+
 //TODO: Clearfix Hack for overflowing results
 /*
 .clearfix::after {

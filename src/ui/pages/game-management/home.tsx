@@ -4,7 +4,6 @@ import { IAppGlobals } from '../../app-router';
 import TextSection from '../../components/text-section';
 import UIPage from '../../components/ui-page';
 import { MdTableView } from "react-icons/md";
-const TableViewIcon = MdTableView as any;
 
 export default class GameManagementHome extends React.Component<IGameManagementHomeProps, IGameManagementHomeState> {
     constructor(props: IGameManagementHomeProps) {
@@ -25,7 +24,7 @@ export default class GameManagementHome extends React.Component<IGameManagementH
           >
               <div className="icon-links">
                 <Link  to={`${process.env.PUBLIC_URL}/game-management/match-play`}>
-                  <TableViewIcon />
+                  <MdTableView />
                   Alpha Strike Match Play
                 </Link>
               </div>

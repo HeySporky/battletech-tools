@@ -14,11 +14,6 @@ import BattleMechSVG from '../../../components/svg/battlemech-svg';
 import TextSection from '../../../components/text-section';
 import UIPage from '../../../components/ui-page';
 import './home.scss';
-const ArrowCircleLeft = FaArrowCircleLeft as any;
-const CheckCircle = FaCheckCircle as any;
-const Eye = FaEye as any;
-const PlusCircle = FaPlusCircle as any;
-const TimesCircle = FaTimesCircle as any;
 
 export default class MechCreatorImports extends React.Component<IHomeProps, IHomeState> {
     constructor(props: IHomeProps) {
@@ -301,12 +296,12 @@ export default class MechCreatorImports extends React.Component<IHomeProps, IHom
                       >
                           <div className="alert alert-info">
 
-                            <p>This is now working perfectly in a limited fashion! Be sure to only semi-trust the units with a <CheckCircle title="This import looks good to add!" className="color-green" /> beside their name</p>
+                            <p>This is now working perfectly in a limited fashion! Be sure to only semi-trust the units with a <FaCheckCircle title="This import looks good to add!" className="color-green" /> beside their name</p>
 
                             <p>Since we're still short on base equipment for Clans, right now only the TRO3039 is loadable. Don't worry we'll get it taken care of as this app develops. TRO 3050/3055 is the next target!</p>
 
                             <div className="text-center">
-                              <a href="https://github.com/Solaris-Skunk-Werks/SSW-Master" target="_blank" rel="noopener noreferrer">Solaris Skunk Werks Master Data Repo</a>
+                              <a href="https://github.com/Solaris-Skunk-Werks/SSW-Master" target="_blank">Solaris Skunk Werks Master Data Repo</a>
                             </div>
 
                           </div>
@@ -398,9 +393,9 @@ return (
             <td>
                 {bmObj.getName()}&nbsp;
                 {perfectImport ? (
-                    <CheckCircle title="This import looks good to add!" className="color-green" />
+                    <FaCheckCircle title="This import looks good to add!" className="color-green" />
                 ) : (
-                    <TimesCircle title={"Not an accurate import, not recommended for adding to your force. " + problems.join("; ")} className="color-red" />
+                    <FaTimesCircle title={"Not an accurate import, not recommended for adding to your force. " + problems.join("; ")} className="color-red" />
                 )}
             </td>
             <td className="min-width no-wrap text-left">{bmObj.getTech().name}</td>
@@ -412,14 +407,14 @@ return (
                     className='btn btn-sm btn-primary'
                     onClick={e => this.viewUnit(e, bmObj )}
                 >
-                    <Eye />
+                    <FaEye />
                 </button>
 
                 <button
                     className='btn btn-sm btn-primary'
                     onClick={e => this.importUnit(e, bmObj )}
                 >
-                    <PlusCircle />
+                    <FaPlusCircle />
                 </button>
             </td>
         </tr>
@@ -439,7 +434,7 @@ return (
                             <hr />
 
                               <div className="text-left inline-block">
-                              <Link to={`${process.env.PUBLIC_URL}/classic-battletech/mech-creator/exports`} className="btn btn-primary btn-sm"><ArrowCircleLeft /> Exports</Link>
+                              <Link to={`${process.env.PUBLIC_URL}/classic-battletech/mech-creator/exports`} className="btn btn-primary btn-sm"><FaArrowCircleLeft /> Exports</Link>
                             </div>
                           </div>
                         </TextSection>

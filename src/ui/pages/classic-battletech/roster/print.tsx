@@ -6,9 +6,6 @@ import BattleTechLogo from '../../../components/battletech-logo';
 import './print.scss';
 import BattleMechSVG from "../../../components/svg/battlemech-svg";
 import { CONST_BATTLETECH_URL } from "../../../../configVars";
-import RulesLevelStamp, { getHighestRulesLevel, printWithRulesLevelGuard } from "../../../components/rules-level-print";
-const ArrowCircleLeft = FaArrowCircleLeft as any;
-const PrintIcon = FaPrint as any;
 
 export default class ClassicBattleTechRosterPrint extends React.Component<IPrintProps, IPrintState> {
     constructor(props: IPrintProps) {
@@ -21,15 +18,6 @@ export default class ClassicBattleTechRosterPrint extends React.Component<IPrint
         this.props.appGlobals.makeDocumentTitle("Printing CBT Force");
     }
 
-    // Units above the selected rules level ask for confirmation before printing.
-    print = (): void => {
-      const units = this.props.appGlobals.currentCBTForce?.groups.flatMap( (group) => group.members ) ?? [];
-      printWithRulesLevelGuard(
-        getHighestRulesLevel( units.map( (unit) => unit.getRequiredRulesLevel() ) ),
-        this.props.appGlobals.appSettings.mechRulesFilter,
-      );
-    }
-
     render = (): JSX.Element => {
       if(!this.props.appGlobals.currentCBTForce) {
         return <></>;
@@ -38,8 +26,8 @@ export default class ClassicBattleTechRosterPrint extends React.Component<IPrint
         <>
           <header className="topmenu">
             <ul className="main-menu">
-                <li><Link title="Click here to leave Play Mode (don't worry, you won't lose your current mech statuses)" className="current" to={`${process.env.PUBLIC_URL}/classic-battletech/roster`}><ArrowCircleLeft /></Link></li>
-                <li><span title="Click here open the Print Dialog" onClick={this.print} className="current" ><PrintIcon /></span></li>
+                <li><Link title="Click here to leave Play Mode (don't worry, you won't lose your current mech statuses)" className="current" to={`${process.env.PUBLIC_URL}/classic-battletech/roster`}><FaArrowCircleLeft /></Link></li>
+                <li><span title="Click here open the Print Dialog" onClick={() => window.print()} className="current" ><FaPrint /></span></li>
                 <li className="logo">
                     <a
                         href={CONST_BATTLETECH_URL}
@@ -176,9 +164,7 @@ export default class ClassicBattleTechRosterPrint extends React.Component<IPrint
 
                     <React.Fragment key={unitIndex}>
                       <div className={"page"}>
-                        <RulesLevelStamp
-                          requiredRulesLevel={unit.getRequiredRulesLevel()}
-                        />
+
                         <BattleMechSVG
                           mechData={unit}
                         />

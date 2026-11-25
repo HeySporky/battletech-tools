@@ -10,11 +10,8 @@ import SanitizedHTML from '../../../components/sanitized-html';
 import StandardModal from '../../../components/standard-modal';
 import BattleMechSVG from '../../../components/svg/battlemech-svg';
 import BattleMechTableGroup from './_tableGroup';
+
 import type { JSX } from "react";
-const CheckCircle = FaCheckCircle as any;
-const Eye = FaEye as any;
-const PlusCircle = FaPlusCircle as any;
-const TimesCircle = FaTimesCircle as any;
 
 export default class BattleMechAddMechDialog extends React.Component<IBattleMechAddMechDialogProps, IBattleMechAddMechDialogState> {
 
@@ -160,7 +157,7 @@ export default class BattleMechAddMechDialog extends React.Component<IBattleMech
         className="modal modal-xl"
     >
 
-        <h3 className="text-center">Viewing {this.state.viewingUnit.getName()}</h3>
+        <h3 className="text-center">Viewing {this.state.viewingUnit.model}</h3>
         <div className="row">
             <div className='col'>
                 <SanitizedHTML
@@ -197,15 +194,10 @@ export default class BattleMechAddMechDialog extends React.Component<IBattleMech
                         </tr>
                     </thead>
                     {this.props.appGlobals.battleMechSaves.map( (bmDef, bmIndex) => {
-                        let savedObj = new BattleMech( JSON.stringify(bmDef) )
-                        // An OmniMech with several configurations gets one row per configuration
-                        let configurations = savedObj.getOmniConfigurationNames().length > 1
-                            ? savedObj.getOmniConfigurationNames().map( (name) => savedObj.cloneOmniConfiguration( name ) as BattleMech )
-                            : [savedObj];
+                        let bmObj = new BattleMech( JSON.stringify(bmDef) )
                         return (
                             <tbody key={bmIndex}>
-                                {configurations.map( (bmObj, configIndex) => (
-                                <tr key={configIndex}>
+                                <tr>
                                     <td>{bmObj.getName()}</td>
                                     <td className="min-width no-wrap text-left">{bmObj.getTech().name}</td>
                                     <td className="min-width no-wrap text-center">{bmObj.getTonnage()}</td>
@@ -215,18 +207,17 @@ export default class BattleMechAddMechDialog extends React.Component<IBattleMech
                                             className='btn btn-xs btn-primary'
                                             onClick={e => this.viewUnit(e, bmObj )}
                                         >
-                                            <Eye />
+                                            <FaEye />
                                         </button>
 
                                         <button
                                             className='btn btn-xs btn-primary'
                                             onClick={e => this.importUnit(e, bmObj )}
                                         >
-                                            <PlusCircle />
+                                            <FaPlusCircle />
                                         </button>
                                     </td>
                                 </tr>
-                                ))}
                             </tbody>
                         )
                     })}
@@ -238,7 +229,7 @@ export default class BattleMechAddMechDialog extends React.Component<IBattleMech
 
         <fieldset className="fieldset">
             <legend>Solaris Skunk Werks Data Import</legend>
-            <p>Sorry, only Introductory Mechs can be trusted right now. Be sure to only semi-trust the units with a <CheckCircle title="This import looks good to add!" className="color-green" /> beside their name</p>
+            <p>Sorry, only Introductory Mechs can be trusted right now. Be sure to only semi-trust the units with a <FaCheckCircle title="This import looks good to add!" className="color-green" /> beside their name</p>
 
             <div className="row">
   <div className="col">
@@ -325,9 +316,9 @@ return (
             <td>
                 {bmObj.getName()}&nbsp;
                 {perfectImport ? (
-                    <CheckCircle title="This import looks good to add!" className="color-green" />
+                    <FaCheckCircle title="This import looks good to add!" className="color-green" />
                 ) : (
-                    <TimesCircle title={"Not an accurate import, not recommended for adding to your force. " + problems.join("; ")} className="color-red" />
+                    <FaTimesCircle title={"Not an accurate import, not recommended for adding to your force. " + problems.join("; ")} className="color-red" />
                 )}
             </td>
             <td className="min-width no-wrap text-left">{bmObj.getTech().name}</td>
@@ -339,14 +330,14 @@ return (
                     className='btn btn-sm btn-primary'
                     onClick={e => this.viewUnit(e, bmObj )}
                 >
-                    <Eye />
+                    <FaEye />
                 </button>
 
                 <button
                     className='btn btn-sm btn-primary'
                     onClick={e => this.importUnit(e, bmObj )}
                 >
-                    <PlusCircle />
+                    <FaPlusCircle />
                 </button>
             </td>
         </tr>

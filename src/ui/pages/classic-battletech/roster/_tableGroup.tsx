@@ -10,8 +10,8 @@ import StatBar from '../../../components/stat-bar';
 import BattleMechSVG from '../../../components/svg/battlemech-svg';
 import BattleMechAddMechDialog from './_addMechDialog';
 import type { JSX } from "react";
-const Edit = FaEdit as any;
-const Trash = FaTrash as any;
+// import InPlay from './in-play';
+// import PrintSheet from './print';
 
 export default class BattleMechTableGroup extends React.Component<IBattleMechTableGroupProps, IBattleMechTableGroupState> {
 
@@ -412,14 +412,14 @@ export default class BattleMechTableGroup extends React.Component<IBattleMechTab
                             title="Edit the name and pilot of this unit"
                             className="btn btn-primary btn-sm"
                         >
-                        <Edit />
+                        <FaEdit />
                         </button>
                       <button
                         onClick={(e) => this.removeUnit(e, mechObj, mechIndex)}
                         title="Click here to remove this unit."
                         className="btn btn-danger btn-sm"
                       >
-                        <Trash />
+                        <FaTrash />
                       </button>
                     </td>
                     : null}

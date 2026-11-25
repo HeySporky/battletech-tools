@@ -4,7 +4,6 @@ import { IAppGlobals } from '../../app-router';
 import TextSection from '../../components/text-section';
 import UIPage from '../../components/ui-page';
 import { MdTableView } from "react-icons/md";
-const TableViewIcon = MdTableView as any;
 
 export default class AlphaStrikeHome extends React.Component<IAlphaStrikeHomeProps, IAlphaStrikeHomeState> {
     constructor(props: IAlphaStrikeHomeProps) {
@@ -25,7 +24,7 @@ export default class AlphaStrikeHome extends React.Component<IAlphaStrikeHomePro
           >
               <div className="icon-links">
                 <Link  to={`${process.env.PUBLIC_URL}/alpha-strike/roster`}>
-                  <TableViewIcon />
+                  <MdTableView />
                   Alpha Strike Roster
                 </Link>
               </div>
