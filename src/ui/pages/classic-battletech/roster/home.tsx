@@ -11,7 +11,6 @@ import TextSection from '../../../components/text-section';
 import UIPage from '../../../components/ui-page';
 import './home.scss';
 import BattleMechTableGroup from './_tableGroup';
-import { vehicleName } from './_vehicleGroupTable';
 const Dice = FaDice as any;
 const Print = FaPrint as any;
 const Heart = FaHeart as any;
@@ -231,9 +230,9 @@ export default class BattleMechRosterHome extends React.Component<IHomeProps, IH
                     <div className="pull-right">
                       <button
                         onClick={() => this.props.appGlobals.saveCBTGroupFavorite( bmGroup )}
-                        title={bmGroup.getTotalUnits() === 0 ? "A group need to have members to save as a favorite" : "Click here to add this group to your favorites."}
+                        title={bmGroup.members.length === 0 ? "A group need to have members to save as a favorite" : "Click here to add this group to your favorites."}
                         className="btn btn-primary btn-sm"
-                        disabled={bmGroup.getTotalUnits() === 0}
+                        disabled={bmGroup.members.length === 0}
                       >
                         <Heart />
                       </button>
@@ -388,30 +387,15 @@ export default class BattleMechRosterHome extends React.Component<IHomeProps, IH
                 </tbody>
             )
         })}
-      {favGroup.vehicles.map( (vehicle) => (
-          <tbody key={vehicle.getUUID()}>
-          <tr>
-              <td>
-                  {vehicleName(vehicle)}
-                  <div className='small-text'>{vehicle.getMotiveType().name} Vehicle</div>
-              </td>
-              <td className="min-width no-wrap text-center">{vehicle.getTonnage()}</td>
-              <td className="min-width no-wrap text-center small-text">{vehicle.getTech().name}</td>
-              <td className="min-width no-wrap text-center">{vehicle.getPilot().piloting}</td>
-              <td className="min-width no-wrap text-center">{vehicle.getPilot().gunnery}</td>
-              <td className="min-width no-wrap text-center">{vehicle.getPilotAdjustedBattleValue()}</td>
-          </tr>
-          </tbody>
-      ))}
 
 <tfoot>
 <tr>
 
 <td colSpan={1}>
-{favGroup.getTotalUnits() > 0 ? (
+{favGroup.members.length > 0 ? (
     <>
-        {favGroup.getTotalUnits() > 0 ? (
-            <>{favGroup.getTotalUnits()} Units</>
+        {favGroup.members.length > 0 ? (
+            <>{favGroup.members.length} Units</>
         ) : (
             <>One Unit</>
         )}

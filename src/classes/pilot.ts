@@ -27,11 +27,14 @@ export default class Pilot {
             if( importObj.name ) {
                 this.name = importObj.name;
             }
-            if( typeof(importObj.piloting) === "number" ) {
+            if( importObj.piloting ) {
                 this.piloting = importObj.piloting;
             }
-            if( typeof(importObj.gunnery) === "number" ) {
+            if( importObj.gunnery ) {
                 this.gunnery = importObj.gunnery;
+            }
+            if( importObj.piloting ) {
+                this.piloting = importObj.piloting;
             }
             if( importObj.alphaStrikeAbilities ) {
                 this.alphaStrikeAbilities = importObj.alphaStrikeAbilities;

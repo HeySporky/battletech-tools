@@ -25,9 +25,6 @@ import TextSection from "../../../components/text-section";
 import ToHitTable from '../../../components/to-hit-table';
 import './play.scss';
 import InPlayCriticalHitTable from './_criticalHitTable';
-import Vehicle from '../../../../classes/vehicle';
-import { vehicleName } from './_vehicleGroupTable';
-import VehiclePlayPanel from './_vehiclePlay';
 const ArrowCircleDown = FaArrowCircleDown as any;
 const ArrowCircleLeft = FaArrowCircleLeft as any;
 const ArrowCircleRight = FaArrowCircleRight as any;
@@ -84,7 +81,6 @@ export default class ClassicBattleTechRosterPlay extends React.Component<IPlayPr
             takeDamageCritical: false,
 
             zoomSheet: false,
-            selectedVehicleUUID: "",
         };
 
         this.props.appGlobals.makeDocumentTitle("Playing CBT Force");
@@ -425,9 +421,6 @@ export default class ClassicBattleTechRosterPlay extends React.Component<IPlayPr
           for( let unit of group.members ) {
             unit.turnReset();
           }
-          for( let vehicle of group.vehicles ) {
-            vehicle.turnReset();
-          }
         }
 
         this.props.appGlobals.saveCurrentCBTForce( currentCBTForce );
@@ -708,35 +701,7 @@ export default class ClassicBattleTechRosterPlay extends React.Component<IPlayPr
 
         this.props.appGlobals.saveCurrentCBTForce( this.props.appGlobals.currentCBTForce );
       }
-      this.setState({
-        selectedVehicleUUID: "",
-      });
-    }
 
-    // Selecting a vehicle clears the selected 'mech (no 'mech has the vehicle's UUID).
-    selectVehicle = (
-      e: React.FormEvent<HTMLButtonElement>,
-      uuid: string
-    ) => {
-      if( e && e.preventDefault ) {
-        e.preventDefault();
-      }
-      if(this.props.appGlobals.currentCBTForce) {
-        this.props.appGlobals.currentCBTForce.setSelectedMech( uuid );
-        this.props.appGlobals.saveCurrentCBTForce( this.props.appGlobals.currentCBTForce );
-      }
-      this.setState({
-        selectedVehicleUUID: uuid,
-      });
-    }
-
-    onVehicleChange = ( _vehicle: Vehicle ): void => {
-      if(this.props.appGlobals.currentCBTForce) {
-        this.props.appGlobals.saveCurrentCBTForce( this.props.appGlobals.currentCBTForce );
-      }
-      this.setState({
-        updated: true,
-      });
     }
 
 
@@ -760,9 +725,6 @@ export default class ClassicBattleTechRosterPlay extends React.Component<IPlayPr
               unit.resetDamage();
             }
 
-          }
-          for( let vehicle of group.vehicles ) {
-            vehicle.resetInPlay();
           }
           if( this.props.appGlobals.currentCBTForce )
             this.props.appGlobals.saveCurrentCBTForce( this.props.appGlobals.currentCBTForce );
@@ -1174,14 +1136,6 @@ export default class ClassicBattleTechRosterPlay extends React.Component<IPlayPr
         return <></>;
       }
       let selectedMech: BattleMech | null = this.props.appGlobals.currentCBTForce.getSelectedMech();
-      let selectedVehicle: Vehicle | null = null;
-      for( let group of this.props.appGlobals.currentCBTForce.groups ) {
-        for( let vehicle of group.vehicles ) {
-          if( vehicle.getUUID() === this.state.selectedVehicleUUID ) {
-            selectedVehicle = vehicle;
-          }
-        }
-      }
       return (
         <>
 {this.state.zoomSheet && selectedMech ? (
@@ -2654,12 +2608,7 @@ export default class ClassicBattleTechRosterPlay extends React.Component<IPlayPr
 </TextSection>
 
 <div className="selected-mech">
-          {selectedVehicle ? (
-            <VehiclePlayPanel
-              vehicle={selectedVehicle}
-              onChange={this.onVehicleChange}
-            />
-          ) : selectedMech ? (
+          {selectedMech ? (
             <>
               <button
                 className="btn btn-primary btn-sm full-width"
@@ -2695,7 +2644,7 @@ export default class ClassicBattleTechRosterPlay extends React.Component<IPlayPr
 
   <div className={this.state.mechSelectorExpanded ? "mech-selector" : "mech-selector expanded"}>
           {this.props.appGlobals.currentCBTForce.groups.map( (group, groupIndex) => {
-            if( group.getTotalUnits() === 0) {
+            if( group.members.length === 0) {
               return (<React.Fragment key={groupIndex}></React.Fragment>);
             }
             return (
@@ -2835,44 +2784,6 @@ export default class ClassicBattleTechRosterPlay extends React.Component<IPlayPr
                         </li>
                     )
                   })}
-                  {group.vehicles.map( (vehicle) => (
-                    <li key={vehicle.getUUID()}>
-                      <button
-                        onClick={(e) => this.selectVehicle(e, vehicle.getUUID())}
-                        className={selectedVehicle && selectedVehicle.getUUID() === vehicle.getUUID() ? "btn btn-sm btn-primary full-width" : "btn btn-sm btn-secondary full-width"}
-                        title={"Select " + vehicleName(vehicle)}
-                      >
-                        {vehicleName(vehicle)}
-                        <div className="stats">
-{vehicle.isDestroyed() ? (
-<h3 className="color-red text-center">
-    DESTROYED
-</h3>
-) : (
-                          <div className="bars">
-                            <StatBar
-                              color="blue"
-                              background="#aaa"
-                              currentPercentage={vehicle.getArmorPercentage()}
-                              currentNumber={vehicle.getCurrentArmor()}
-                              height={8}
-                              title="Current Armor Status"
-                            />
-                            <StatBar
-                              color="white"
-                              background="#aaa"
-                              currentPercentage={vehicle.getStructurePercentage()}
-                              currentNumber={vehicle.getCurrentStructure()}
-                              height={8}
-                              title="Current Internal Structure Status"
-                            />
-                          </div>
-)}
-                        </div>
-                      </button>
-                      <hr />
-                    </li>
-                  ))}
                   </ul>
 
               </div>
@@ -2931,7 +2842,6 @@ interface IPlayState {
   damagePerClusterUnit: BattleMech | null;
 
   zoomSheet: boolean;
-  selectedVehicleUUID: string;
 }
 
 interface ICombinedTargetData {

@@ -204,7 +204,9 @@ export class BattleMechForce {
         let returnValue: number = 0;
 
         for( let group of this.groups ) {
-            returnValue += group.getTotaBV2();
+            for( let unit of group.members ) {
+                returnValue += unit.getPilotAdjustedBattleValue();
+            }
         }
 
         return returnValue;
@@ -230,7 +232,9 @@ export class BattleMechForce {
         let returnValue: number = 0;
 
         for( let group of this.groups ) {
-            returnValue += group.getTotalTons();
+            for( let unit of group.members ) {
+                returnValue += unit.getTonnage();
+            }
         }
 
         return returnValue;

@@ -10,6 +10,14 @@ import UIPage from '../../../components/ui-page';
 const ArrowCircleLeft = FaArrowCircleLeft as any;
 const ArrowCircleRight = FaArrowCircleRight as any;
 
+const ARMOR_LOCATIONS: { tag: keyof IVehicleArmorAllocation; name: string }[] = [
+    { tag: "front", name: "Front" },
+    { tag: "left", name: "Left" },
+    { tag: "right", name: "Right" },
+    { tag: "rear", name: "Rear" },
+    { tag: "turret", name: "Turret" },
+];
+
 export default class VehicleCreatorArmor extends React.Component<IArmorProps, IArmorState> {
     constructor(props: IArmorProps) {
         super(props);
@@ -70,7 +78,7 @@ export default class VehicleCreatorArmor extends React.Component<IArmorProps, IA
 
         const armor = vehicle.getArmorAllocation();
         const maxArmor = vehicle.getMaxArmorAllocation();
-        const locations = vehicle.getLocations();
+        const locations = vehicle.hasTurret() ? ARMOR_LOCATIONS : ARMOR_LOCATIONS.filter((loc) => loc.tag !== "turret");
 
         return (
             <UIPage current="classic-battletech-vehicle-creator" appGlobals={this.props.appGlobals}>
@@ -113,10 +121,6 @@ export default class VehicleCreatorArmor extends React.Component<IArmorProps, IA
                             &nbsp;
                             <button className="btn btn-secondary btn-sm" onClick={this.allocateClear}>Clear Armor</button>
 
-                            {vehicle.getMotiveType().hasRotor ? (
-                                <p className="smaller-text">A VTOL rotor holds at most 2 armor points.</p>
-                            ) : null}
-
                             <table className="table">
                                 <thead>
                                     <tr><th>Location</th><th>Structure</th><th>Armor</th><th>Max</th></tr>
@@ -125,16 +129,16 @@ export default class VehicleCreatorArmor extends React.Component<IArmorProps, IA
                                     {locations.map((loc) => (
                                         <tr key={loc.tag}>
                                             <td>{loc.name}</td>
-                                            <td>{vehicle.getStructureAllocation()[loc.tag] ?? 0}</td>
+                                            <td>{vehicle.getStructureAllocation()[loc.tag]}</td>
                                             <td>
                                                 <InputNumeric
-                                                    value={armor[loc.tag] ?? 0}
+                                                    value={armor[loc.tag]}
                                                     min={0}
-                                                    max={maxArmor[loc.tag] ?? 0}
+                                                    max={maxArmor[loc.tag]}
                                                     setValue={(newValue) => this.updateArmorPoints(loc.tag, newValue)}
                                                 />
                                             </td>
-                                            <td>{maxArmor[loc.tag] ?? 0}</td>
+                                            <td>{maxArmor[loc.tag]}</td>
                                         </tr>
                                     ))}
                                 </tbody>

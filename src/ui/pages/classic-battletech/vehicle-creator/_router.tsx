@@ -9,7 +9,6 @@ import VehicleCreatorEquipmentSelection from './equipment-selection';
 import VehicleCreatorEquipmentPlacement from './equipment-placement';
 import VehicleCreatorSummary from './summary';
 import VehicleCreatorRecordSheet from './record-sheet';
-import VehicleCreatorPrintAS from './print-as';
 
 import type { JSX } from "react";
 
@@ -44,10 +43,6 @@ export default class VehicleCreatorRouter extends React.Component<IVehicleCreato
 
                 <Route path={`record-sheet`} element={
                     <VehicleCreatorRecordSheet appGlobals={this.props.appGlobals} />
-                }/>
-
-                <Route path={`print-as`} element={
-                    <VehicleCreatorPrintAS appGlobals={this.props.appGlobals} />
                 }/>
 
                 <Route path="*" element={
