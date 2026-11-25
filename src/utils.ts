@@ -301,8 +301,7 @@ function parseMULSearchTokens(searchTerm: string): IMULSearchTokens {
     return tokens;
 }
 
-// Applies the dropdown filters (Rules/Technology/Role/Era/Type) the live API used to take as query params.
-// Faction filtering is intentionally excluded: per-faction availability isn't part of the bundled/cached unit data.
+// Applies the dropdown filters (Rules/Technology/Role/Era/Type/Factions) the live API used to take as query params.
 function matchesMULDropdownFilters(
     unit: IASMULUnit,
     mechRules: string,
@@ -310,6 +309,7 @@ function matchesMULDropdownFilters(
     roleFilter: string,
     eraFilter: number,
     typeFilter: number,
+    factionFilter: number[],
 ): boolean {
     // MUL 2.0 records carry no Rules level, so the Rules filter only narrows records that have one.
     if (mechRules && mechRules.trim() && unit.Rules) {
@@ -340,6 +340,19 @@ function matchesMULDropdownFilters(
             ? availableEras.some((entry) => entry.EraId === eraFilter)
             : unit.EraId === eraFilter;
         if (!matchesEra) {
+            return false;
+        }
+    }
+
+    // Factions: the unit must be available to at least one selected faction (OR, as on the MUL), in the
+    // selected era when one is set. Faction ids are the live MUL's (see src/data/mul-factions.ts).
+    // Records without availability data can't be matched to a faction, so they are left out.
+    if (factionFilter.length > 0) {
+        const matchesFaction = (unit.Availability ?? []).some((entry) =>
+            (!eraFilter || eraFilter <= 0 || entry.EraId === eraFilter)
+            && entry.FactionIds.some((factionId) => factionFilter.includes(factionId))
+        );
+        if (!matchesFaction) {
             return false;
         }
     }
@@ -467,11 +480,12 @@ async function getCachedMULSearchResults(
     roleFilter: string,
     eraFilter: number,
     typeFilter: number,
+    factionFilter: number[],
     appGlobals: IAppGlobals | null,
 ): Promise<IASMULUnit[]> {
     const tokens = parseMULSearchTokens(searchTerm);
     const matchesAllFilters = (unit: IASMULUnit) =>
-        matchesMULDropdownFilters(unit, mechRules, techFilter, roleFilter, eraFilter, typeFilter) &&
+        matchesMULDropdownFilters(unit, mechRules, techFilter, roleFilter, eraFilter, typeFilter, factionFilter) &&
         matchesMULSearchTokens(unit, tokens);
 
     const selection = appGlobals?.appSettings.alphaStrikeMULSources ?? DEFAULT_MUL_SOURCE_SELECTION;
@@ -494,7 +508,7 @@ async function getCachedMULSearchResults(
     }));
 }
 
-function addMULUnavailableAlert(appGlobals: IAppGlobals | null, factionFilterActive: boolean): void {
+function addMULUnavailableAlert(appGlobals: IAppGlobals | null): void {
     if (!appGlobals) {
         return;
     }
@@ -502,8 +516,7 @@ function addMULUnavailableAlert(appGlobals: IAppGlobals | null, factionFilterAct
     appGlobals.siteAlerts.addAlert(
         "warning",
         "",
-        "The Master Unit List live search is unavailable. Showing matching results from this device's saved data instead."
-            + (factionFilterActive ? " Faction filtering is not available in this offline mode." : ""),
+        "The Master Unit List live search is unavailable. Showing matching results from this device's saved data instead.",
         "warning",
         true,
         null,
@@ -590,6 +603,8 @@ export async function getMULASSearchResults(
         typesFilterURI.push( "&Types=" + typeFilter.toString() );
     }
 
+    // Note: factionFilter holds MUL 2.0 faction ids. The retired live API (masterunitlist.azurewebsites.net)
+    // used MUL 1.0 ids, which differ from 37 on, so they would need mapping if that API is ever re-enabled.
     let factionFilterURI: string[] = [];
     if( factionFilter.length > 0 ) {
         for( let faction of factionFilter ) {
@@ -650,8 +665,8 @@ export async function getMULASSearchResults(
             }
         } catch (err) {
             console.error('MUL Fetch Error: ', err);
-            addMULUnavailableAlert(appGlobals, factionFilter.length > 0);
-            return await getCachedMULSearchResults(searchTerm, mechRules, techFilter, roleFilter, eraFilter, typeFilter, appGlobals);
+            addMULUnavailableAlert(appGlobals);
+            return await getCachedMULSearchResults(searchTerm, mechRules, techFilter, roleFilter, eraFilter, typeFilter, factionFilter, appGlobals);
         }
     } else {
         if( offLine ) {
@@ -659,8 +674,8 @@ export async function getMULASSearchResults(
         } else {
             console.warn("MUL API is disabled, using bundled fallback data.");
         }
-        addMULUnavailableAlert(appGlobals, factionFilter.length > 0);
-        return await getCachedMULSearchResults(searchTerm, mechRules, techFilter, roleFilter, eraFilter, typeFilter, appGlobals);
+        addMULUnavailableAlert(appGlobals);
+        return await getCachedMULSearchResults(searchTerm, mechRules, techFilter, roleFilter, eraFilter, typeFilter, factionFilter, appGlobals);
     }
 
     return returnUnits;

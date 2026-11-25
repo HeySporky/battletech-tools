@@ -48,3 +48,43 @@ describe("Bundled MUL search: Era filter", () => {
         expect(results.some((unit) => unit.MulUnitKey === "000RM4HYJ9")).toBe(false);
     }, 30_000);
 });
+
+// Faction ids are MUL 2.0 ids (src/data/mul-factions.ts). Several selected factions combine with OR.
+describe("Bundled MUL search: Faction filter", () => {
+    const ILCLAN = 257;
+    const MERCENARY = 34;
+    const PIRATES = 37;
+    const REPUBLIC_OF_THE_SPHERE = 40;
+
+    const availableTo = (unit: { Availability?: { EraId: number; FactionIds: number[] }[] }, factions: number[], era = 0) =>
+        (unit.Availability ?? []).some((entry) =>
+            (!era || entry.EraId === era) && entry.FactionIds.some((factionId) => factions.includes(factionId)));
+
+    it("finds Mercenary units in the ilClan era (issue #119)", async () => {
+        const results = await getMULASSearchResults("", "", "", "", ILCLAN, 0, [MERCENARY], true, true);
+        expect(results.length).toBeGreaterThan(100);
+        expect(results.every((unit) => availableTo(unit, [MERCENARY], ILCLAN))).toBe(true);
+    }, 30_000);
+
+    it("narrows the results to the selected faction", async () => {
+        const all = await getMULASSearchResults("", "", "", "", ILCLAN, 0, [], true, true);
+        const pirates = await getMULASSearchResults("", "", "", "", ILCLAN, 0, [PIRATES], true, true);
+        expect(pirates.length).toBeGreaterThan(0);
+        expect(pirates.length).toBeLessThan(all.length);
+        expect(pirates.every((unit) => availableTo(unit, [PIRATES], ILCLAN))).toBe(true);
+    }, 30_000);
+
+    it("combines several factions with OR", async () => {
+        const pirates = await getMULASSearchResults("", "", "", "", ILCLAN, 0, [PIRATES], true, true);
+        const republic = await getMULASSearchResults("", "", "", "", ILCLAN, 0, [REPUBLIC_OF_THE_SPHERE], true, true);
+        const either = await getMULASSearchResults("", "", "", "", ILCLAN, 0, [PIRATES, REPUBLIC_OF_THE_SPHERE], true, true);
+        expect(either.length).toBeGreaterThanOrEqual(Math.max(pirates.length, republic.length));
+        expect(either.every((unit) => availableTo(unit, [PIRATES, REPUBLIC_OF_THE_SPHERE], ILCLAN))).toBe(true);
+    }, 30_000);
+
+    it("matches a faction in any era when no era is selected", async () => {
+        const results = await getMULASSearchResults("", "", "", "", 0, 0, [PIRATES], true, true);
+        expect(results.length).toBeGreaterThan(0);
+        expect(results.every((unit) => availableTo(unit, [PIRATES]))).toBe(true);
+    }, 30_000);
+});

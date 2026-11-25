@@ -91,7 +91,8 @@ export interface IASMULUnit {
     // Opaque public_uid from masterunitlist.battletech.com — the only stable join key the live site exposes.
     MulUnitKey?: string;
 
-    // Per-era faction availability from the live site (FactionIds use the same taxonomy as getMULFactionLabels()).
+    // Per-era faction availability from the live site. FactionIds are MUL 2.0 ids (src/data/mul-factions.ts),
+    // which differ from the old MUL 1.0 ids from 37 on.
     Availability?: { EraId: number; FactionIds: number[] }[];
 
     // Which bundled list served this record; set by the MUL chunk loader, not stored in the data files.

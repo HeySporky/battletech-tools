@@ -25,6 +25,8 @@ export class AppSettings {
     alphaStrikeFactionSearchTerm: string = "";
     alphaStrikeFactionSuggestions: Array<number> = [];
     alphaStrikeSearchFactions: Array<number> = [];
+    // Which faction id numbering alphaStrikeSearchFactions uses. Saves without it used MUL 1.0 ids.
+    alphaStrikeSearchFactionIds: "mul2" = "mul2";
     alphaStrikeMULSources: MULSourceSelection = DEFAULT_MUL_SOURCE_SELECTION;
     hideMPIntro: boolean = false;
 
@@ -87,7 +89,9 @@ export class AppSettings {
                 this.alphaStrikeSearchRole = io.alphaStrikeSearchRole;
             }
 
-            if ( typeof( io.alphaStrikeSearchFactions ) !== "undefined" ) {
+            // Faction selections saved before the picker moved to MUL 2.0 ids used MUL 1.0 ids, which mean
+            // different factions from 37 on. Drop them rather than filter by the wrong factions.
+            if ( typeof( io.alphaStrikeSearchFactions ) !== "undefined" && io.alphaStrikeSearchFactionIds === "mul2" ) {
                 this.alphaStrikeSearchFactions = io.alphaStrikeSearchFactions;
             }
 
@@ -127,6 +131,7 @@ export class AppSettings {
             alphaStrikeMeasurementsInHexes: this.alphaStrikeMeasurementsInHexes,
             asValues: this.asValues,
             alphaStrikeSearchFactions: this.alphaStrikeSearchFactions,
+            alphaStrikeSearchFactionIds: this.alphaStrikeSearchFactionIds,
             alphaStrikeMULSources: this.alphaStrikeMULSources,
             hideMPIntro: this.hideMPIntro,
         
@@ -152,6 +157,7 @@ export interface IAppSettingsExport {
     alphaStrikeInPlayColumns: number;
     alphaStrikeMeasurementsInHexes: boolean;
     alphaStrikeSearchFactions: Array<number>;
+    alphaStrikeSearchFactionIds?: "mul2";
     alphaStrikeMULSources?: MULSourceSelection;
     hideMPIntro: boolean;
    
