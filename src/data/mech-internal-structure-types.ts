@@ -69,7 +69,7 @@ const allTonnages = { ...baselineBipedData, ...superheavyBipedData };
 
 // Helper function to populate variants dynamically
 function generateStructuresForType(
-  type: 'biped' | 'quad' | 'tripod' | 'lam' | 'quadvee',
+  type: 'biped' | 'quad' | 'tripod' | 'quadvee',
   _rulesLevel: number = 2 // Defaults to Standard/Tournament Legal
 ): Record<number, IInternalStructurePerTon> {
   const result: Record<number, IInternalStructurePerTon> = {};
@@ -79,7 +79,7 @@ function generateStructuresForType(
     const raw = allTonnages[ton];
 
     // Standard Biped mapping
-    if (type === 'biped' || type === 'lam') {
+    if (type === 'biped') {
       result[ton] = {
         tonnage: ton,
         head: raw.head,
@@ -143,7 +143,6 @@ export const mechInternalStructureTypes: IInternalStructure[] = [
       biped: generateStructuresForType('biped'),
       quad: generateStructuresForType('quad'),
       tripod: generateStructuresForType('tripod'),
-      lam: generateStructuresForType('lam'),
       quadvee: generateStructuresForType('quadvee'),
     }
   },
@@ -161,7 +160,6 @@ export const mechInternalStructureTypes: IInternalStructure[] = [
       biped: generateStructuresForType('biped'),
       quad: generateStructuresForType('quad'),
       tripod: generateStructuresForType('tripod'),
-      lam: generateStructuresForType('lam'),
       quadvee: generateStructuresForType('quadvee'),
     }
   },
@@ -178,7 +176,6 @@ export const mechInternalStructureTypes: IInternalStructure[] = [
       biped: generateStructuresForType('biped'),
       quad: generateStructuresForType('quad'),
       tripod: generateStructuresForType('tripod'),
-      lam: generateStructuresForType('lam'),
       quadvee: generateStructuresForType('quadvee'),
     }
   },
@@ -196,7 +193,6 @@ export const mechInternalStructureTypes: IInternalStructure[] = [
       biped: generateStructuresForType('biped'),
       quad: generateStructuresForType('quad'),
       tripod: generateStructuresForType('tripod'),
-      lam: generateStructuresForType('lam'),
       quadvee: generateStructuresForType('quadvee'),
     }
   },
@@ -216,7 +212,6 @@ export const mechInternalStructureTypes: IInternalStructure[] = [
       biped: generateStructuresForType('biped'),
       quad: generateStructuresForType('quad'),
       tripod: generateStructuresForType('tripod'),
-      lam: generateStructuresForType('lam'),
       quadvee: generateStructuresForType('quadvee'),
     }
   },
@@ -234,7 +229,6 @@ export const mechInternalStructureTypes: IInternalStructure[] = [
       biped: generateStructuresForType('biped'),
       quad: generateStructuresForType('quad'),
       tripod: generateStructuresForType('tripod'),
-      lam: generateStructuresForType('lam'),
       quadvee: generateStructuresForType('quadvee'),
     }
   }
@@ -246,8 +240,8 @@ export function validateChassisCombination(
   tonnage: number, 
   rulesLevel: number = 2
 ): boolean {
-  // Industrial structure cannot be paired with LAM or QuadVee
-  if (structureTag === 'industrial' && (mechTypeTag === 'lam' || mechTypeTag === 'quadvee')) {
+  // Industrial structure cannot be paired with QuadVee
+  if (structureTag === 'industrial' && mechTypeTag === 'quadvee') {
     return false; // Invalid combination!
   }
   // Rules-enforcement: tonnage must fall within the chassis type's legal range for the rules level in play

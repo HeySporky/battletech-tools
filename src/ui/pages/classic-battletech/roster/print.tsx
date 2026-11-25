@@ -178,7 +178,6 @@ export default class ClassicBattleTechRosterPrint extends React.Component<IPrint
                       <div className={"page"}>
                         <RulesLevelStamp
                           requiredRulesLevel={unit.getRequiredRulesLevel()}
-                          provisionalNote={unit.isBattleValueProvisional() ? "provisional BV" : undefined}
                         />
                         <BattleMechSVG
                           mechData={unit}
