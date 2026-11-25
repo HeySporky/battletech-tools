@@ -26,7 +26,7 @@ export class AppSettings {
     alphaStrikeFactionSuggestions: Array<number> = [];
     alphaStrikeSearchFactions: Array<number> = [];
     // Which faction id numbering alphaStrikeSearchFactions uses. Saves without it used MUL 1.0 ids.
-    alphaStrikeSearchFactionIds: "mul2" = "mul2";
+    alphaStrikeSearchFactionIds = "mul2" as const;
     alphaStrikeMULSources: MULSourceSelection = DEFAULT_MUL_SOURCE_SELECTION;
     hideMPIntro: boolean = false;
 
