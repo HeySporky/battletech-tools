@@ -6,7 +6,6 @@ import { CONST_BATTLETECH_URL } from '../../configVars';
 import { IAppGlobals } from '../app-router';
 import BattleTechLogo from './battletech-logo';
 import RulesLevelStamp, { printWithRulesLevelGuard } from './rules-level-print';
-import ErrorBoundary from './error-boundary';
 const ArrowCircleLeft = FaArrowCircleLeft as any;
 const Print = FaPrint as any;
 
@@ -48,7 +47,7 @@ export default class PrintablePage extends React.Component<IPrintablePageProps, 
           </div>
           <div className="print-bg">
             <RulesLevelStamp requiredRulesLevel={this.props.requiredRulesLevel} provisionalNote={this.props.provisionalNote} />
-            <ErrorBoundary showSettingsLink={true}>{this.props.children}</ErrorBoundary>
+            {this.props.children}
           </div>
         </>
         )

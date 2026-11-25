@@ -21,8 +21,6 @@ export type ArmorCriticalLocationsByChassis = Partial<Record<
 
 export interface IArmorType {
 	tag: string;
-	/** Earlier tags for this record, so old saves still resolve (see tag-match.ts). */
-	altTags?: string[];
 	name: string;
     unitTypes: IArmorUnitTypes;
     constructionStatus?: "implemented" | "deferred";
@@ -89,8 +87,6 @@ export interface ICriticalLocations {
 
 export interface IEngineType {
 	tag: string;
-	/** Earlier tags for this record, so old saves still resolve (see tag-match.ts). */
-	altTags?: string[];
 	name: string;
     alternateName?: string;
 	costMultiplier: number;
@@ -323,8 +319,6 @@ export interface IGyro {
     name: string;
     alternateName?: string;
     tag: string;
-    /** Earlier tags for this record, so old saves still resolve (see tag-match.ts). */
-    altTags?: string[];
     weight_multiplier: number;
     criticals: number;
     costMultiplier: number;
@@ -349,8 +343,6 @@ export interface ITechDates {
 export interface IHeatSync {
     name: string;
     tag: string;
-    /** Earlier tags for this record, so old saves still resolve (see tag-match.ts). */
-    altTags?: string[];
     dissipation: number;
     crits: {
         [key: string]: number;
@@ -423,8 +415,6 @@ export interface IMechTonnage {
 export interface IInternalStructure {
     name: string;
     tag: string;
-    /** Earlier tags for this record, so old saves still resolve (see tag-match.ts). */
-    altTags?: string[];
     crits: {
         clan: number;
 		is: number;
@@ -461,8 +451,6 @@ export interface IInternalStructure {
 export interface IJumpJet {
     name: string;
     tag: string;
-    /** Earlier tags for this record, so old saves still resolve (see tag-match.ts). */
-    altTags?: string[];
     weight_multiplier: {
         light: number;
         medium: number;
@@ -487,8 +475,6 @@ export interface IJumpJet {
 export interface IMyomerType {
     name: string;
     tag: string;
-    /** Earlier tags for this record, so old saves still resolve (see tag-match.ts). */
-    altTags?: string[];
     /** Critical slots, spread anywhere except the head. */
     criticals: number;
     /** C-bills per 'Mech ton (musculature line of the cost table). */
@@ -513,8 +499,6 @@ export interface IMyomerType {
 export interface IMechType {
     id: number;
     tag: string;
-    /** Earlier tags for this record, so old saves still resolve (see tag-match.ts). */
-    altTags?: string[];
     name: string;
     /** Lowest rules level (rules-level-options ids) at which this chassis is legal. */
     rulesLevel: number;
@@ -526,16 +510,12 @@ export interface IMechType {
 export interface ITechOptions {
 	id: number;
 	tag: string;
-	/** Earlier tags for this record, so old saves still resolve (see tag-match.ts). */
-	altTags?: string[];
 	name: string;
 }
 
 export interface IEras {
     id: number;
     tag: string;
-    /** Earlier tags for this record, so old saves still resolve (see tag-match.ts). */
-    altTags?: string[];
     name: string;
     yearStart: number;
     yearEnd: number | null;
@@ -545,8 +525,6 @@ export interface IRulesLevelOption {
     id: number;
     sswid: number | null;
     tag: string;
-    /** Earlier tags for this record, so old saves still resolve (see tag-match.ts). */
-    altTags?: string[];
     name: string;
 }
 
@@ -554,8 +532,6 @@ export interface IRulesLevelOption {
 export interface IVehicleMotiveType {
     id: number;
     tag: string;
-    /** Earlier tags for this record, so old saves still resolve (see tag-match.ts). */
-    altTags?: string[];
     name: string;
     minTonnage: number;
     standardMaxTonnage: number;

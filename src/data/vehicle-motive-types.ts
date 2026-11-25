@@ -1,5 +1,4 @@
 import { IVehicleMotiveType } from "./data-interfaces";
-import { findByTag } from "./tag-match";
 
 /*
 * DISCLAIMER: This file processes gameplay data derived from the BattleTech universe. 
@@ -43,7 +42,7 @@ export const vehicleMotiveTypes: IVehicleMotiveType[] = [
 ];
 
 export function getVehicleMotiveType(motiveTag: string): IVehicleMotiveType {
-    return findByTag(vehicleMotiveTypes, motiveTag) ?? vehicleMotiveTypes[0];
+    return vehicleMotiveTypes.find((m) => m.tag === motiveTag) ?? vehicleMotiveTypes[0];
 }
 
 // Mirrors getTonnageBoundsForMechType()'s rules-level gating: Advanced+ (or Custom Homebrew) unlocks Superheavy tonnages.
