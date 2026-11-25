@@ -11,8 +11,6 @@ import AlphaStrikeUnitSVG from '../../../components/svg/alpha-strike-unit-svg';
 import BattleMechSVG from '../../../components/svg/battlemech-svg';
 import TextSection from '../../../components/text-section';
 import InputField from '../../../components/form_elements/input_field';
-const ArrowCircleLeft = FaArrowCircleLeft as any;
-const ArrowCircleRight = FaArrowCircleRight as any;
 
 export default class MechCreatorSummary extends React.Component<IHomeProps, IHomeState> {
     constructor(props: IHomeProps) {
@@ -35,14 +33,6 @@ export default class MechCreatorSummary extends React.Component<IHomeProps, IHom
       if( this.props.appGlobals.currentBattleMech ) {
         this.props.appGlobals.currentBattleMech.setASCustomName( event.currentTarget.value );
         this.props.appGlobals.saveCurrentBattleMech( this.props.appGlobals.currentBattleMech );
-      }
-    }
-
-    setASSpecialAmmo = (event: React.FormEvent<HTMLSelectElement>): void => {
-      if (this.props.appGlobals.currentBattleMech) {
-        this.props.appGlobals.currentBattleMech.setAlphaStrikeSpecialAmmoTag(event.currentTarget.value);
-        this.props.appGlobals.saveCurrentBattleMech(this.props.appGlobals.currentBattleMech);
-        this.setState({ updated: !this.state.updated });
       }
     }
 
@@ -164,21 +154,6 @@ export default class MechCreatorSummary extends React.Component<IHomeProps, IHom
                                       value={this.props.appGlobals.currentBattleMech.getASRole()}
                                       onChange={this.setASRole}
                                     />
-
-                                  {this.props.appGlobals.currentBattleMech.getAlphaStrikeSpecialAmmoOptions().length > 0 ? (
-                                    <label>
-                                      Special Ammunition:<br />
-                                      <select
-                                        value={this.props.appGlobals.currentBattleMech.getAlphaStrikeSpecialAmmoTag()}
-                                        onChange={this.setASSpecialAmmo}
-                                      >
-                                        <option value="">Standard ammunition</option>
-                                        {this.props.appGlobals.currentBattleMech.getAlphaStrikeSpecialAmmoOptions().map(ammo => (
-                                          <option key={ammo.tag} value={ammo.tag}>{ammo.name}</option>
-                                        ))}
-                                      </select>
-                                    </label>
-                                  ) : null}
                               </fieldset>
                             </div>
                           </div>
@@ -232,9 +207,9 @@ export default class MechCreatorSummary extends React.Component<IHomeProps, IHom
 
                           <div className="clear-both overflow-hidden">
                             <hr />
-                          <Link to={`${process.env.PUBLIC_URL}/classic-battletech/mech-creator/exports`} className="btn btn-sm btn-primary pull-right">Exports <ArrowCircleRight /></Link>
+                          <Link to={`${process.env.PUBLIC_URL}/classic-battletech/mech-creator/exports`} className="btn btn-sm btn-primary pull-right">Exports <FaArrowCircleRight /></Link>
                             <div className="inline-block text-left">
-                              <Link to={`${process.env.PUBLIC_URL}/classic-battletech/mech-creator/step6`} className="btn btn-sm btn-primary"><ArrowCircleLeft /> Previous Step</Link>
+                              <Link to={`${process.env.PUBLIC_URL}/classic-battletech/mech-creator/step6`} className="btn btn-sm btn-primary"><FaArrowCircleLeft /> Previous Step</Link>
                             </div>
                           </div>
                         </TextSection>

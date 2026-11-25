@@ -11,13 +11,6 @@ import TextSection from '../../../components/text-section';
 import UIPage from '../../../components/ui-page';
 import './home.scss';
 import BattleMechTableGroup from './_tableGroup';
-import { vehicleName } from './_vehicleGroupTable';
-const Dice = FaDice as any;
-const Print = FaPrint as any;
-const Heart = FaHeart as any;
-const Trash = FaTrash as any;
-const Download = FaDownload as any;
-const FileImport = FaFileImport as any;
 
 export default class BattleMechRosterHome extends React.Component<IHomeProps, IHomeState> {
 
@@ -139,7 +132,7 @@ export default class BattleMechRosterHome extends React.Component<IHomeProps, IH
       }
     }
 
-    handleFileRead = (_e: any) => {
+    handleFileRead = (e: any) => {
       if( this.fileReader ) {
         let content = this.fileReader.result;
 
@@ -189,7 +182,7 @@ export default class BattleMechRosterHome extends React.Component<IHomeProps, IH
                   className="btn btn-primary no-margin full-width"
                   title="Click here to go into 'Play Mode'"
                 >
-                    <Dice />&nbsp;Play Mode
+                    <FaDice />&nbsp;Play Mode
                 </Link><br />
                 <br />
               </div>
@@ -199,7 +192,7 @@ export default class BattleMechRosterHome extends React.Component<IHomeProps, IH
                   className="btn btn-primary no-margin full-width"
                   title="Click here to go to a printable version of this page"
                 >
-                    <Print />&nbsp;Print Force
+                    <FaPrint />&nbsp;Print Force
                 </Link><br />
                 <br />
               </div>
@@ -231,18 +224,18 @@ export default class BattleMechRosterHome extends React.Component<IHomeProps, IH
                     <div className="pull-right">
                       <button
                         onClick={() => this.props.appGlobals.saveCBTGroupFavorite( bmGroup )}
-                        title={bmGroup.getTotalUnits() === 0 ? "A group need to have members to save as a favorite" : "Click here to add this group to your favorites."}
+                        title={bmGroup.members.length === 0 ? "A group need to have members to save as a favorite" : "Click here to add this group to your favorites."}
                         className="btn btn-primary btn-sm"
-                        disabled={bmGroup.getTotalUnits() === 0}
+                        disabled={bmGroup.members.length === 0}
                       >
-                        <Heart />
+                        <FaHeart />
                       </button>
                       <button
                         onClick={() => this.removeGroup(bmGroupIndex)}
                         title="Click here to remove this group."
                         className="btn btn-danger btn-sm"
                       >
-                        <Trash />
+                        <FaTrash />
                       </button>
                     </div>
                     <div className="width-80">
@@ -323,14 +316,14 @@ export default class BattleMechRosterHome extends React.Component<IHomeProps, IH
           )}`}
           download={"cbt-group-favorite-export-" + makeURLSlug(favGroup.getName(0)) + ".json"}
         >
-          <Download />
+          <FaDownload />
         </a>
       <button
         onClick={() => this.loadBMFavorite(favGroup)}
         title="Load this favorite group to your current force"
         className="btn-sm btn-primary btn"
       >
-        <FileImport />
+        <FaFileImport />
       </button>
 
       <button
@@ -338,7 +331,7 @@ export default class BattleMechRosterHome extends React.Component<IHomeProps, IH
         title="Remove this favorite"
         className="btn-sm btn-danger btn"
       >
-        <Trash />
+        <FaTrash />
       </button>
     </div>
 
@@ -388,30 +381,15 @@ export default class BattleMechRosterHome extends React.Component<IHomeProps, IH
                 </tbody>
             )
         })}
-      {favGroup.vehicles.map( (vehicle) => (
-          <tbody key={vehicle.getUUID()}>
-          <tr>
-              <td>
-                  {vehicleName(vehicle)}
-                  <div className='small-text'>{vehicle.getMotiveType().name} Vehicle</div>
-              </td>
-              <td className="min-width no-wrap text-center">{vehicle.getTonnage()}</td>
-              <td className="min-width no-wrap text-center small-text">{vehicle.getTech().name}</td>
-              <td className="min-width no-wrap text-center">{vehicle.getPilot().piloting}</td>
-              <td className="min-width no-wrap text-center">{vehicle.getPilot().gunnery}</td>
-              <td className="min-width no-wrap text-center">{vehicle.getPilotAdjustedBattleValue()}</td>
-          </tr>
-          </tbody>
-      ))}
 
 <tfoot>
 <tr>
 
 <td colSpan={1}>
-{favGroup.getTotalUnits() > 0 ? (
+{favGroup.members.length > 0 ? (
     <>
-        {favGroup.getTotalUnits() > 0 ? (
-            <>{favGroup.getTotalUnits()} Units</>
+        {favGroup.members.length > 0 ? (
+            <>{favGroup.members.length} Units</>
         ) : (
             <>One Unit</>
         )}

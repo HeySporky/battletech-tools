@@ -1,9 +1,8 @@
 import AlphaStrikeForce, { IASForceExport } from "./classes/alpha-strike-force";
 import AlphaStrikeGroup, { IASGroupExport } from "./classes/alpha-strike-group";
 import { BattleMech, IBattleMechExport } from "./classes/battlemech";
-import { BattleMechForce, ICBTForceExport, MAX_FORCE_GROUPS } from "./classes/battlemech-force";
-import { BattleMechGroup, ICBTGroupExport, MAX_GROUP_VEHICLES } from "./classes/battlemech-group";
-import Vehicle, { IVehicleExport, normalizeVehicleExport } from "./classes/vehicle";
+import { BattleMechForce, ICBTForceExport } from "./classes/battlemech-force";
+import { BattleMechGroup, ICBTGroupExport } from "./classes/battlemech-group";
 import { IAppGlobals } from "./ui/app-router";
 import { AppSettings, IAppSettingsExport } from "./ui/classes/app_settings";
 // import {Storage} from 'session-storage-sync';
@@ -35,9 +34,6 @@ export interface IFullBackup {
     currentCBTForce: ICBTForceExport | null;
 
     currentVBattleMech: string | null;
-
-    vehicleSaves: IVehicleExport[];
-    currentVehicle: string | null;
 }
 
 export async function getFullBackup(
@@ -51,8 +47,6 @@ export async function getFullBackup(
         favoriteCBTGroups: await getFavoriteCBTGroups(appSettings),
         currentCBTForce: await getCurrentCBTForce(appSettings),
         currentVBattleMech: await getCurrentBattleMech(appSettings),
-        vehicleSaves: await getVehicleSaves(appSettings),
-        currentVehicle: await getCurrentVehicle(appSettings),
     }
 
     return JSON.stringify( rv );
@@ -61,41 +55,6 @@ export async function getFullBackup(
 export interface IRestoreMessage {
     severity: string;
     message: string;
-}
-
-/** Most saved vehicle designs read from storage or a backup: each is validated on load (a few ms apiece). */
-export const MAX_VEHICLE_SAVES = 500;
-/** Most groups read from one backup's favorites or force. */
-export const MAX_RESTORE_GROUPS = MAX_FORCE_GROUPS;
-
-const warning = (message: string): IRestoreMessage => ({ severity: "warning", message });
-
-/**
- * What restoring the vehicles in a list of saved groups (favorites, a force) will clean or drop: vehicles over
- * the per-group limit, and every field a vehicle's import fixes.
- */
-function groupVehicleWarnings(label: string, groups: unknown): IRestoreMessage[] {
-    const rv: IRestoreMessage[] = [];
-    if( !Array.isArray(groups) ) {
-        return rv;
-    }
-    if( groups.length > MAX_RESTORE_GROUPS ) {
-        rv.push(warning(label + ": only the first " + MAX_RESTORE_GROUPS + " of " + groups.length + " groups are read"));
-    }
-    for( const group of groups.slice(0, MAX_RESTORE_GROUPS) ) {
-        const record = group && typeof group === "object" ? group as { name?: unknown, vehicles?: unknown } : {};
-        const name = label + (typeof record.name === "string" && record.name ? " '" + record.name.slice(0, 60) + "'" : "");
-        const vehicles = Array.isArray(record.vehicles) ? record.vehicles : [];
-        if( vehicles.length > MAX_GROUP_VEHICLES ) {
-            rv.push(warning(name + ": only the first " + MAX_GROUP_VEHICLES + " of " + vehicles.length + " vehicles are kept"));
-        }
-        for( const vehicle of vehicles.slice(0, MAX_GROUP_VEHICLES) ) {
-            for( const issue of normalizeVehicleExport(vehicle).issues ) {
-                rv.push(warning(name + " vehicle: " + issue));
-            }
-        }
-    }
-    return rv;
 }
 
 export function checkFullRestoreData(
@@ -178,9 +137,8 @@ export function restoreFullBackup(
         }
     }
 
-    if( Array.isArray(io.favoriteCBTGroups) ) {
-        restoreMessages.push(...groupVehicleWarnings("Classic BattleTech Favorite Group", io.favoriteCBTGroups));
-        for( let item of io.favoriteCBTGroups.slice(0, MAX_RESTORE_GROUPS) ) {
+    if( io.favoriteCBTGroups ) {
+        for( let item of io.favoriteCBTGroups ) {
             let foundItem: ICBTGroupExport | null = null;
             let itemName = "(nameless)";
             if( item.name ) {
@@ -260,84 +218,11 @@ export function restoreFullBackup(
         }
     }
 
-    if( Array.isArray(io.vehicleSaves) ) {
-        // Saved vehicles in a backup may come from someone else: clean each one and report what changed.
-        if( io.vehicleSaves.length > MAX_VEHICLE_SAVES ) {
-            restoreMessages.push(warning("Only the first " + MAX_VEHICLE_SAVES + " of " + io.vehicleSaves.length + " saved vehicles are restored"));
-        }
-        for( let rawItem of io.vehicleSaves.slice(0, MAX_VEHICLE_SAVES) ) {
-            const normalized = normalizeVehicleExport( rawItem );
-            const item = normalized.vehicle;
-            for( const issue of normalized.issues ) {
-                restoreMessages.push({ severity: "warning", message: "Saved vehicle '" + (item?.name || "(nameless)") + "': " + issue });
-            }
-            if( !item ) {
-                continue;
-            }
-            let foundItem: IVehicleExport | null = null;
-            let itemName = "(nameless)";
-            if( item.name ) {
-                itemName = item.name;
-            }
-            for( let existingItemIndex in appGlobals.vehicleSaves ) {
-
-                if( appGlobals.vehicleSaves[existingItemIndex].uuid === item.uuid ) {
-                    foundItem = appGlobals.vehicleSaves[existingItemIndex];
-
-                    let existingName = "(nameless)";
-
-                    if( appGlobals.vehicleSaves[existingItemIndex].name ) {
-                        existingName = appGlobals.vehicleSaves[existingItemIndex].name;
-                    }
-
-                    restoreMessages.push({
-                        severity: "replace",
-                        message: "Replace Saved Vehicle '" + existingName + "' with '" + itemName + "'",
-                    });
-
-                    if( performActions ) {
-                        appGlobals.vehicleSaves[existingItemIndex] = item;
-                    }
-
-                }
-            }
-
-            if( !foundItem ) {
-                restoreMessages.push({
-                    severity: "add",
-                    message: "Add to your Saved Vehicles: '" + itemName + "'",
-                })
-                if( performActions ) {
-                    appGlobals.vehicleSaves.push( item )
-                }
-            }
-        }
-    }
-
-    // The current vehicle and force are only restored when their box is ticked: the preview (before any box
-    // is ticked) says what would be cleaned, and the restore itself reports only what it actually restores.
-    const conditional = ( overwrite: boolean, what: string ) => performActions ? ( overwrite ? "" : null ) : "If you overwrite your " + what + ": ";
-    const vehiclePrefix = conditional( overWriteCurrentBattlemech, "current vehicle" );
-    if( io.currentVehicle && vehiclePrefix !== null ) {
-        for( const issue of new Vehicle(io.currentVehicle).getImportIssues() ) {
-            restoreMessages.push(warning(vehiclePrefix + "Current vehicle: " + issue));
-        }
-    }
-    const forcePrefix = conditional( overWriteCurrentCBTGroup, "current Classic force" );
-    if( io.currentCBTForce && forcePrefix !== null ) {
-        for( const msg of groupVehicleWarnings("Classic force group", io.currentCBTForce.groups) ) {
-            restoreMessages.push(warning(forcePrefix + msg.message));
-        }
-    }
-
     if( overWriteCurrentBattlemech && performActions ) {
         if( io.currentVBattleMech ) {
             let bmObj = new BattleMech();
             bmObj.importJSON(io.currentVBattleMech);
             appGlobals.currentBattleMech = bmObj;
-        }
-        if( io.currentVehicle ) {
-            appGlobals.currentVehicle = new Vehicle(io.currentVehicle);
         }
     }
 
@@ -355,9 +240,6 @@ export function restoreFullBackup(
         if( appGlobals.currentCBTForce )
             appGlobals.saveCurrentCBTForce( appGlobals.currentCBTForce );
         appGlobals.saveBattleMechSaves( appGlobals.battleMechSaves );
-        appGlobals.saveVehicleSaves( appGlobals.vehicleSaves );
-        if( appGlobals.currentVehicle )
-            appGlobals.saveCurrentVehicle( appGlobals.currentVehicle );
         // let appSettingsObj = new AppSettings(io.appSettings);
         // appGlobals.saveAppSettings( appSettingsObj );
     }
@@ -429,37 +311,6 @@ export async function getBattleMechSaves(
         if(!rv ) {
             rv = [];
         }
-    }
-    catch {
-        rv = [];
-    }
-
-    return rv;
-}
-
-export function saveVehicleSaves(
-    appSettings: AppSettings,
-    newValue: IVehicleExport[]
-) {
-    for( let itemIndex in newValue ) {
-        newValue[itemIndex].lastUpdated = new Date();
-    }
-    saveData(appSettings, "vehicleSaves", JSON.stringify(newValue) );
-}
-
-export async function getVehicleSaves(
-    appSettings: AppSettings,
-): Promise<IVehicleExport[]> {
-    let rv: IVehicleExport[] = [];
-
-    let rawData = await getData(appSettings, "vehicleSaves" );
-    try {
-        if( rawData )
-            rv = JSON.parse( rawData );
-
-        // Clean stored designs before anything renders them (older saves and restored backups).
-        rv = Array.isArray( rv ) ? rv.slice( 0, MAX_VEHICLE_SAVES ).map( (item) => normalizeVehicleExport( item ).vehicle )
-            .filter( (item): item is IVehicleExport => item !== null ) : [];
     }
     catch {
         rv = [];
@@ -542,24 +393,6 @@ export async function getCurrentBattleMech(
     return await getData(
         appSettings,
         "currentBattleMech"
-    );
-
-}
-
-export function saveCurrentVehicle(
-    appSettings: AppSettings,
-    newValue: string,
-) {
-    saveData(appSettings, "currentVehicle", newValue );
-}
-
-export async function getCurrentVehicle(
-    appSettings: AppSettings,
-): Promise<string | null> {
-
-    return await getData(
-        appSettings,
-        "currentVehicle"
     );
 
 }

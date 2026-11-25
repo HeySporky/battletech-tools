@@ -1,14 +1,9 @@
 import { generateUUID } from "../utils/generateUUID";
 import { BattleMech, IBattleMechExport } from "./battlemech";
-import Vehicle, { IVehicleExport } from "./vehicle";
-
-/** Most vehicles read from one saved group; far above any real lance or company. */
-export const MAX_GROUP_VEHICLES = 100;
 
 export interface ICBTGroupExport {
 	name: string;
 	units: IBattleMechExport[];
-	vehicles?: IVehicleExport[];
 	uuid: string;
 	lastUpdated: Date;
 	location?: string;
@@ -23,7 +18,6 @@ export class BattleMechGroup {
 	public lastUpdated: Date = new Date();
 
     public members: BattleMech[] = [];
-    public vehicles: Vehicle[] = [];
 
 	public customName : string= "";
 
@@ -40,7 +34,7 @@ export class BattleMechGroup {
 				return true;
 			}
 		}
-		return this.vehicles.some( (vehicle) => vehicle.isDamaged() );
+		return false;
 	}
 	public getName(
 		indexNumber: number,
@@ -61,9 +55,6 @@ export class BattleMechGroup {
 		for( let mech of this.members ) {
 			mech.newUUID();
 		}
-		for( let vehicle of this.vehicles ) {
-			vehicle.newUUID();
-		}
 		this.lastUpdated = new Date();
 	}
 
@@ -72,9 +63,6 @@ export class BattleMechGroup {
 
         for( let unit of this.members ) {
             rv += unit.getPilotAdjustedBattleValue();
-        }
-        for( let vehicle of this.vehicles ) {
-            rv += vehicle.getPilotAdjustedBattleValue();
         }
 
         return rv;
@@ -86,9 +74,6 @@ export class BattleMechGroup {
         for( let unit of this.members ) {
             rv += unit.getTonnage();
         }
-        for( let vehicle of this.vehicles ) {
-            rv += vehicle.getTonnage();
-        }
 
         return rv;
     }
@@ -96,7 +81,7 @@ export class BattleMechGroup {
 	getTech(): string {
         let rv = "";
 
-        for( let group of [...this.members, ...this.vehicles] ) {
+        for( let group of this.members ) {
             let tech = group.getTech().name;
             if( rv !== tech && rv !== "" ) {
                 rv = "Mixed"
@@ -115,14 +100,6 @@ export class BattleMechGroup {
 		for( let unit of importObj.units) {
 			let theUnit = new BattleMech( JSON.stringify(unit) );
 			this.members.push( theUnit );
-		}
-		// Vehicles in a saved group may come from someone else's backup: a list only, capped.
-		const vehicles = Array.isArray(importObj.vehicles) ? importObj.vehicles.slice(0, MAX_GROUP_VEHICLES) : [];
-		for( let vehicle of vehicles ) {
-			// Skip entries that are not saved vehicles rather than adding blank default vehicles.
-			if( vehicle && typeof vehicle === "object" && !Array.isArray(vehicle) ) {
-				this.vehicles.push( new Vehicle( JSON.stringify(vehicle) ) );
-			}
 		}
         if( importObj.uuid ) {
             this.uuid = importObj.uuid;
@@ -147,7 +124,6 @@ export class BattleMechGroup {
             uuid: this.uuid,
 			lastUpdated: new Date(),
 			groupLabel: this.groupLabel,
-			vehicles: this.vehicles.map( (vehicle) => vehicle.export(noInPlayVariabless) ),
 		}
 
 		for( let unit of this.members ) {
@@ -161,7 +137,7 @@ export class BattleMechGroup {
     }
 
 	public getTotalUnits(): number {
-        return this.members.length + this.vehicles.length;
+        return this.members.length;
     }
 
 }

@@ -1,27 +1,30 @@
 import React, { type JSX } from 'react';
 import { GiMineExplosion } from "react-icons/gi";
 import { FaEdit, FaPlus, FaTrash } from "react-icons/fa";
-import { CONST_GITHUB_OWNER, CONST_GITHUB_REPO } from '../../configVars';
 import { IEquipmentItem } from "../../data/data-interfaces";
-import { getEquipmentCatalogById, getEquipmentCatalogDefinitions, getEquipmentCatalogExportName } from '../../data/equipment-registry';
+import { mechClanEquipmentEnergy } from '../../data/mech-clan-equipment-weapons-energy';
+import { mechISEquipmentBallistic } from '../../data/mech-is-equipment-weapons-ballistic';
+import { mechISEquipmentEnergy } from "../../data/mech-is-equipment-weapons-energy";
+import { mechISEquipmentMisc } from '../../data/mech-is-equipment-weapons-misc';
+import { mechISEquipmentMissiles } from '../../data/mech-is-equipment-weapons-missiles';
 import { getAeroRangeLabel, sortEquipment } from '../../utils';
 import { addCommas } from "../../utils/addCommas";
 import { exportCleanJSON } from "../../utils/exportCleanJSON";
-import { submitEquipmentCatalogContribution } from '../../utils/githubContribution';
 import { IAppGlobals } from '../app-router';
 import EquipmentEditForm from '../components/equipment-edit-form';
 import StandardModal from '../components/standard-modal';
 import UIPage from '../components/ui-page';
 import './equipment-editor.scss';
-const Edit = FaEdit as any;
-const Plus = FaPlus as any;
-const Trash = FaTrash as any;
-
-const GITHUB_TOKEN_SESSION_KEY = "equipmentEditorGithubToken";
 
 
 export default class EquipmentEditor extends React.Component<IEquipmentEditorProps, IEquipmentEditorState> {
-    fileDataList = getEquipmentCatalogDefinitions();
+    fileDataList: Record<string, IEquipmentItem[]> = {
+        "mech-is-equipment-weapons-ballistic": mechISEquipmentBallistic,
+        "mech-is-equipment-weapons-energy": mechISEquipmentEnergy,
+        "mech-is-equipment-weapons-missiles": mechISEquipmentMissiles,
+        "mech-is-equipment-weapons-misc": mechISEquipmentMisc,
+        "mech-clan-equipment-weapons-energy": mechClanEquipmentEnergy,
+    };
 
     constructor(props: IEquipmentEditorProps) {
         super(props);
@@ -30,14 +33,20 @@ export default class EquipmentEditor extends React.Component<IEquipmentEditorPro
 
         let currentListData: IEquipmentItem[] = [];
 
-        if( !currentList || !currentList.trim() ) {
+        if( !currentList || currentList.trim() ) {
             currentList = "mech-is-equipment-weapons-ballistic"
         }
-        currentListData = getEquipmentCatalogById(currentList)
-            ?? getEquipmentCatalogById("mech-is-equipment-weapons-ballistic")
-            ?? [];
+        if( !this.fileDataList[currentList] ) {
+            currentListData = JSON.parse(JSON.stringify(this.fileDataList["mech-is-equipment-weapons-ballistic"]))
+        } else {
+            currentListData = JSON.parse(JSON.stringify(this.fileDataList[currentList]))
+        }
 
-        currentListData = this._normalizeListData(currentListData);
+        for(let item of currentListData) {
+            if( typeof(item.heatAero) === "undefined") {
+                item.heatAero = item.heat;
+            }
+        }
 
         this.state = {
             isDirty: false,
@@ -47,23 +56,9 @@ export default class EquipmentEditor extends React.Component<IEquipmentEditorPro
             showJSON: false,
             editItem: null,
             editItemIndex: -1,
-            githubToken: sessionStorage.getItem(GITHUB_TOKEN_SESSION_KEY) ?? "",
-            rememberGithubToken: sessionStorage.getItem(GITHUB_TOKEN_SESSION_KEY) !== null,
-            isSubmittingContribution: false,
-            contributionError: "",
-            contributionPullRequestUrl: "",
         }
 
         this.props.appGlobals.makeDocumentTitle("Equipment Editor");
-    }
-
-    _normalizeListData = (data: IEquipmentItem[]): IEquipmentItem[] => {
-        for(let item of data) {
-            if( typeof(item.heatAero) === "undefined") {
-                item.heatAero = item.heat;
-            }
-        }
-        return [...data].sort(sortEquipment);
     }
 
     showJSON = (
@@ -94,7 +89,7 @@ export default class EquipmentEditor extends React.Component<IEquipmentEditorPro
         if( e && e.preventDefault ) {
             e.preventDefault();
         }
-        if( getEquipmentCatalogById(e.currentTarget.value) ) {
+        if( this.fileDataList[e.currentTarget.value ]) {
 
             if( this.state.isDirty ) {
                 this.props.appGlobals.openConfirmDialog(
@@ -103,14 +98,19 @@ export default class EquipmentEditor extends React.Component<IEquipmentEditorPro
                     "Proceed",
                     "Cancel",
                     () => {
-                        let currentListData: IEquipmentItem[] = getEquipmentCatalogById(e.currentTarget.value) ?? [];
+                        let currentListData: IEquipmentItem[] = [];
 
-                        currentListData = this._normalizeListData(currentListData);
+                        currentListData = JSON.parse(JSON.stringify(this.fileDataList[e.currentTarget.value]))
+
+                        for(let item of currentListData) {
+                            if( typeof(item.heatAero) === "undefined") {
+                                item.heatAero = item.heat;
+                            }
+                        }
 
                         this.setState({
                             currentList: e.currentTarget.value,
                             currentListData: currentListData,
-                            isDirty: false,
                         });
 
                         let appSettings = this.props.appGlobals.appSettings;
@@ -120,9 +120,15 @@ export default class EquipmentEditor extends React.Component<IEquipmentEditorPro
                     }
                 )
             } else {
-                let currentListData: IEquipmentItem[] = getEquipmentCatalogById(e.currentTarget.value) ?? [];
+                let currentListData: IEquipmentItem[] = [];
 
-                currentListData = this._normalizeListData(currentListData);
+                currentListData = JSON.parse(JSON.stringify(this.fileDataList[e.currentTarget.value]))
+
+                for(let item of currentListData) {
+                    if( typeof(item.heatAero) === "undefined") {
+                        item.heatAero = item.heat;
+                    }
+                }
 
                 this.setState({
                     currentList: e.currentTarget.value,
@@ -140,7 +146,27 @@ export default class EquipmentEditor extends React.Component<IEquipmentEditorPro
     }
 
     _getFileVariable = ( fileN: string): string  => {
-        return getEquipmentCatalogExportName(fileN) ?? "unknown";
+        if( fileN === "mech-is-equipment-weapons-ballistic" ) {
+            return "mechISEquipmentBallistic";
+        }
+        if( fileN === "mech-is-equipment-weapons-energy" ) {
+            return "mechISEquipmentEnergy";
+        }
+        if( fileN === "mech-is-equipment-weapons-missiles" ) {
+            return "mechISEquipmentMissiles";
+        }
+        if( fileN === "mech-clan-equipment-weapons-energy" ) {
+            return "mechClanEquipmentEnergy";
+        }
+        if( fileN === "mech-is-equipment-weapons-misc" ) {
+            return "mechISEquipmentMisc";
+        }
+
+        if( fileN === "mech-clan-equipment-weapons-misc" ) {
+            return "mechClanEquipmentMisc";
+        }
+
+        return "unknown;"
     }
 
     _makeJSONText = (): string => {
@@ -187,8 +213,6 @@ export default class EquipmentEditor extends React.Component<IEquipmentEditorPro
             return "Miscellaneous Equipment"
         } else if( this.state.currentList.toLocaleLowerCase().indexOf("-missiles") > -1) {
             return "Missile Weapons"
-        } else if( this.state.currentList.toLocaleLowerCase().indexOf("-artillery") > -1) {
-            return "Artillery Weapons"
         }
 
         return "????";
@@ -262,7 +286,7 @@ export default class EquipmentEditor extends React.Component<IEquipmentEditorPro
                 smallCraft: 0,
                 dropShip: 0,
             },
-            shotsPerTon: 0,
+            ammoPerTon: 0,
             minAmmoTons: 0,
             explosive: false,
             gauss: false,
@@ -303,7 +327,7 @@ export default class EquipmentEditor extends React.Component<IEquipmentEditorPro
     }
 
     saveItem = () => {
-        let currentListData = [...this.state.currentListData];
+        let currentListData = this.state.currentListData;
         if( this.state.editItem !== null ) {
             if( this.state.editItemIndex > - 1 ) {
                 if( this.state.editItemIndex < currentListData.length ) {
@@ -314,7 +338,7 @@ export default class EquipmentEditor extends React.Component<IEquipmentEditorPro
             }
 
             this.setState({
-                currentListData: currentListData.sort(sortEquipment),
+                currentListData: currentListData,
                 editItem: null,
                 isDirty: true,
                 editItemIndex: -1,
@@ -323,13 +347,13 @@ export default class EquipmentEditor extends React.Component<IEquipmentEditorPro
     }
 
     saveItemAsNew = () => {
-        let currentListData = [...this.state.currentListData];
+        let currentListData = this.state.currentListData;
         if( this.state.editItem !== null ) {
 
             currentListData.push( this.state.editItem );
 
             this.setState({
-                currentListData: currentListData.sort(sortEquipment),
+                currentListData: currentListData,
                 editItem: null,
                 isDirty: true,
                 editItemIndex: -1,
@@ -337,108 +361,18 @@ export default class EquipmentEditor extends React.Component<IEquipmentEditorPro
         }
     }
 
-    deleteItem = (
-        e: React.FormEvent<HTMLButtonElement>,
-        item: IEquipmentItem,
-        itemIndex: number,
-    ) => {
-        if( e && e.preventDefault ) {
-            e.preventDefault();
-        }
-        this.props.appGlobals.openConfirmDialog(
-            "Delete this equipment entry?",
-            `Are you sure you want to remove "${item.name || item.tag}" from this list? This only affects your local editing session until you export or submit your changes.`,
-            "Delete",
-            "Cancel",
-            () => {
-                this.setState({
-                    currentListData: this.state.currentListData.filter( (_, index) => index !== itemIndex ),
-                    isDirty: true,
-                })
-            }
-        )
-    }
-
-    downloadTSFile = (
-        e: React.FormEvent<HTMLButtonElement>,
-    ) => {
-        if( e && e.preventDefault ) {
-            e.preventDefault();
-        }
-        const blob = new Blob([this._makeJSONText()], { type: "text/typescript" });
-        const url = URL.createObjectURL(blob);
-        const link = document.createElement("a");
-        link.href = url;
-        link.download = `${this.state.currentList}.ts`;
-        document.body.appendChild(link);
-        link.click();
-        document.body.removeChild(link);
-        URL.revokeObjectURL(url);
-    }
-
-    updateGithubToken = (
-        e: React.FormEvent<HTMLInputElement>,
-    ) => {
-        if( e && e.preventDefault ) {
-            e.preventDefault();
-        }
-        const token = e.currentTarget.value;
-        this.setState({ githubToken: token });
-        if( this.state.rememberGithubToken ) {
-            sessionStorage.setItem(GITHUB_TOKEN_SESSION_KEY, token);
-        }
-    }
-
-    toggleRememberGithubToken = (
-        e: React.FormEvent<HTMLInputElement>,
-    ) => {
-        if( e && e.preventDefault ) {
-            e.preventDefault();
-        }
-        const remember = e.currentTarget.checked;
-        this.setState({ rememberGithubToken: remember });
-        if( remember ) {
-            sessionStorage.setItem(GITHUB_TOKEN_SESSION_KEY, this.state.githubToken);
+    _sortByTag = (
+        a: IEquipmentItem,
+        b: IEquipmentItem,
+    ): number => {
+        if( a.tag.toLocaleLowerCase().trim() >  b.tag.toLocaleLowerCase().trim() ) {
+            return 1;
+        } else if( a.tag.toLocaleLowerCase().trim() <  b.tag.toLocaleLowerCase().trim() ) {
+            return -1;
         } else {
-            sessionStorage.removeItem(GITHUB_TOKEN_SESSION_KEY);
+            return 0
         }
-    }
 
-    submitGithubContribution = async (
-        e: React.FormEvent<HTMLButtonElement>,
-    ) => {
-        if( e && e.preventDefault ) {
-            e.preventDefault();
-        }
-        this.setState({
-            isSubmittingContribution: true,
-            contributionError: "",
-            contributionPullRequestUrl: "",
-        })
-
-        try {
-            const filePath = `src/data/${this.state.currentList}.ts`;
-            const result = await submitEquipmentCatalogContribution({
-                token: this.state.githubToken,
-                upstreamOwner: CONST_GITHUB_OWNER,
-                upstreamRepo: CONST_GITHUB_REPO,
-                filePath,
-                fileContents: this._makeJSONText(),
-                commitMessage: `Update ${this.state.currentList}.ts via Equipment Editor`,
-                pullRequestTitle: `Equipment Editor contribution: ${this.state.currentList}`,
-                pullRequestBody: "Submitted from the in-app Equipment Editor. This data is user-supplied and unverified - please review stats, sourcing, and licensing before merging.",
-            });
-
-            this.setState({
-                isSubmittingContribution: false,
-                contributionPullRequestUrl: result.pullRequestUrl,
-            })
-        } catch (error) {
-            this.setState({
-                isSubmittingContribution: false,
-                contributionError: error instanceof Error ? error.message : "Unknown error submitting contribution.",
-            })
-        }
     }
 
     render = (): JSX.Element => {
@@ -491,64 +425,11 @@ export default class EquipmentEditor extends React.Component<IEquipmentEditorPro
 ) : null}
 
 <button
-    className='btn btn-secondary btn-sm pull-right'
-    onClick={this.downloadTSFile}
->
-    Download .ts File
-</button>
-<button
     className='btn btn-primary btn-sm pull-right'
     onClick={this.showJSON}
 >
     Show JSON Export
 </button>
-
-<div className="alert alert-secondary">
-    <p className="no-margins">
-        <strong>Contribute your changes</strong>: editing here only affects this browser session.
-        Download the file above and open a Pull Request yourself, or submit one directly below using
-        your own GitHub personal access token (needs the <code>public_repo</code> scope). The token
-        is used only to call GitHub's API directly from your browser - this app has no backend and
-        the token never leaves your machine. If you check <em>Remember token for this browser tab
-        only</em> below, the token is kept in <code>sessionStorage</code> until you close the tab;
-        otherwise it is only held in memory for this session and discarded on reload.
-    </p>
-    <label>
-        GitHub Personal Access Token:<br />
-        <input
-            type="password"
-            autoComplete="off"
-            value={this.state.githubToken}
-            onChange={this.updateGithubToken}
-            className="width-auto"
-        />
-    </label>
-    <br />
-    <label>
-        <input
-            type="checkbox"
-            checked={this.state.rememberGithubToken}
-            onChange={this.toggleRememberGithubToken}
-        />
-        &nbsp;Remember token for this browser tab only
-    </label>
-    <br />
-    <button
-        className="btn btn-sm btn-primary"
-        disabled={this.state.isSubmittingContribution || !this.state.githubToken.trim()}
-        onClick={this.submitGithubContribution}
-    >
-        {this.state.isSubmittingContribution ? "Submitting…" : "Submit as GitHub Pull Request"}
-    </button>
-    {this.state.contributionPullRequestUrl ? (
-        <div className="alert alert-success">
-            Pull request created: <a href={this.state.contributionPullRequestUrl} target="_blank" rel="noopener noreferrer">{this.state.contributionPullRequestUrl}</a>
-        </div>
-    ) : null}
-    {this.state.contributionError ? (
-        <div className="alert alert-danger">{this.state.contributionError}</div>
-    ) : null}
-</div>
 
 <label>
     Select List:&nbsp;
@@ -557,9 +438,9 @@ export default class EquipmentEditor extends React.Component<IEquipmentEditorPro
         onChange={this.selectList}
         className="inline-block width-auto"
     >
-        {this.fileDataList.map( (catalog, fileIndex) => {
+        {Object.keys(this.fileDataList).map( (fileName, fileIndex) => {
             return (
-                <option key={fileIndex} value={catalog.id}>{catalog.id}.ts</option>
+                <option key={fileIndex} value={fileName}>{fileName}.ts</option>
             )
         })}
     </select>
@@ -601,12 +482,12 @@ export default class EquipmentEditor extends React.Component<IEquipmentEditorPro
                     className="btn btn-sm btn-primary"
                     onClick={this.addItem}
                 >
-                    <Plus />&nbsp;Add
+                    <FaPlus />&nbsp;Add
                 </button>
             </th>
         </tr>
     </thead>
-{this.state.currentListData.map( (
+{this.state.currentListData.sort(sortEquipment).map( (
     item: IEquipmentItem,
     itemIndex: number,
 ) => {
@@ -620,7 +501,7 @@ export default class EquipmentEditor extends React.Component<IEquipmentEditorPro
                 <td className="text-center no-wrap">
                     {item.isAmmo ? (
                         <>
-                            {item.roundsPerTon ?? item.ammoPerTon} rounds / ton
+                            {item.ammoPerTon} shots / ton
                         </>
                     ) : (
                         <>
@@ -720,8 +601,8 @@ export default class EquipmentEditor extends React.Component<IEquipmentEditorPro
                     </div>
                 </td>
                 <td className="text-center no-wrap ">
-                    {item.introduced ?? "?"}-{item.extinct && item.extinct > 0 ? item.extinct : "current"}<br />
-                    {item.reintroduced && item.reintroduced > 0 ? (
+                    {item.introduced}-{item.extinct > 0 ? item.extinct : "current"}<br />
+                    {item.reintroduced > 0 ? (
                         <div className="small-text">Reintroduced: {item.reintroduced}</div>
                     ): null}
                 </td>
@@ -731,13 +612,12 @@ export default class EquipmentEditor extends React.Component<IEquipmentEditorPro
                         className="btn btn-sm btn-primary"
                         onClick={(e) => this.editItem( e, item, itemIndex)}
                     >
-                        <Edit />
+                        <FaEdit />
                     </button>
                     <button
                         className="btn btn-sm btn-danger"
-                        onClick={(e) => this.deleteItem( e, item, itemIndex)}
                     >
-                        <Trash />
+                        <FaTrash />
                     </button>
                 </td>
             </tr>
@@ -763,9 +643,5 @@ interface IEquipmentEditorState {
     showJSON: boolean;
     editItem: IEquipmentItem | null;
     editItemIndex: number;
-    githubToken: string;
-    rememberGithubToken: boolean;
-    isSubmittingContribution: boolean;
-    contributionError: string;
-    contributionPullRequestUrl: string;
 }
+

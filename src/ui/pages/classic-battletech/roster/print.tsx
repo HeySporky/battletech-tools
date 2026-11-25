@@ -6,11 +6,6 @@ import BattleTechLogo from '../../../components/battletech-logo';
 import './print.scss';
 import BattleMechSVG from "../../../components/svg/battlemech-svg";
 import { CONST_BATTLETECH_URL } from "../../../../configVars";
-import RulesLevelStamp, { getHighestRulesLevel, printWithRulesLevelGuard } from "../../../components/rules-level-print";
-import VehicleRecordSheet from "../../../components/vehicle-record-sheet";
-import { vehicleName } from "./_vehicleGroupTable";
-const ArrowCircleLeft = FaArrowCircleLeft as any;
-const PrintIcon = FaPrint as any;
 
 export default class ClassicBattleTechRosterPrint extends React.Component<IPrintProps, IPrintState> {
     constructor(props: IPrintProps) {
@@ -23,19 +18,6 @@ export default class ClassicBattleTechRosterPrint extends React.Component<IPrint
         this.props.appGlobals.makeDocumentTitle("Printing CBT Force");
     }
 
-    // Units above the selected rules level ask for confirmation before printing.
-    print = (): void => {
-      const groups = this.props.appGlobals.currentCBTForce?.groups ?? [];
-      const rulesLevels = [
-        ...groups.flatMap( (group) => group.members ).map( (unit) => unit.getRequiredRulesLevel() ),
-        ...groups.flatMap( (group) => group.vehicles ).map( (vehicle) => vehicle.getRequiredRulesLevel() ),
-      ];
-      printWithRulesLevelGuard(
-        getHighestRulesLevel( rulesLevels ),
-        this.props.appGlobals.appSettings.mechRulesFilter,
-      );
-    }
-
     render = (): JSX.Element => {
       if(!this.props.appGlobals.currentCBTForce) {
         return <></>;
@@ -44,8 +26,8 @@ export default class ClassicBattleTechRosterPrint extends React.Component<IPrint
         <>
           <header className="topmenu">
             <ul className="main-menu">
-                <li><Link title="Click here to leave Play Mode (don't worry, you won't lose your current mech statuses)" className="current" to={`${process.env.PUBLIC_URL}/classic-battletech/roster`}><ArrowCircleLeft /></Link></li>
-                <li><span title="Click here open the Print Dialog" onClick={this.print} className="current" ><PrintIcon /></span></li>
+                <li><Link title="Click here to leave Play Mode (don't worry, you won't lose your current mech statuses)" className="current" to={`${process.env.PUBLIC_URL}/classic-battletech/roster`}><FaArrowCircleLeft /></Link></li>
+                <li><span title="Click here open the Print Dialog" onClick={() => window.print()} className="current" ><FaPrint /></span></li>
                 <li className="logo">
                     <a
                         href={CONST_BATTLETECH_URL}
@@ -157,33 +139,6 @@ export default class ClassicBattleTechRosterPrint extends React.Component<IPrint
                     </tbody>
                     )
                     })}
-                    {group.vehicles.map( (vehicle) => (
-                    <tbody key={vehicle.getUUID()}>
-                      <tr>
-                        <td>
-                          {vehicleName(vehicle)} ({vehicle.getMotiveType().name})
-                        </td>
-                        <td>
-                          {vehicle.getTonnage()}
-                        </td>
-                        <td className="small-text">
-                          {vehicle.getTech().name}
-                        </td>
-                        <td className="min-width no-wrap text-center">
-                          {vehicle.getPilot().piloting}
-                        </td>
-                        <td className="min-width no-wrap text-center">
-                          {vehicle.getPilot().gunnery}
-                        </td>
-                        <td className="min-width no-wrap text-center">
-                          {vehicle.getBattleValue()}
-                        </td>
-                        <td className="min-width no-wrap text-right">
-                          {vehicle.getPilotAdjustedBattleValue()}
-                        </td>
-                      </tr>
-                    </tbody>
-                    ))}
                   </table>
                 </div>
               )
@@ -197,8 +152,8 @@ export default class ClassicBattleTechRosterPrint extends React.Component<IPrint
             </div>
           </div>
           {this.props.appGlobals.currentCBTForce.groups.map( (group, groupIndex) => {
-            if( group.getTotalUnits() === 0) {
-              return (<React.Fragment key={groupIndex}></React.Fragment>);
+            if( group.members.length === 0) {
+              return (<></>);
             }
             return (
               <React.Fragment key={groupIndex}>
@@ -209,10 +164,7 @@ export default class ClassicBattleTechRosterPrint extends React.Component<IPrint
 
                     <React.Fragment key={unitIndex}>
                       <div className={"page"}>
-                        <RulesLevelStamp
-                          requiredRulesLevel={unit.getRequiredRulesLevel()}
-                          provisionalNote={unit.isBattleValueProvisional() ? "provisional BV" : undefined}
-                        />
+
                         <BattleMechSVG
                           mechData={unit}
                         />
@@ -220,18 +172,6 @@ export default class ClassicBattleTechRosterPrint extends React.Component<IPrint
                     </React.Fragment>
                     )
                   })}
-                  {group.vehicles.map( (vehicle) => (
-                      <div className={"page"} key={vehicle.getUUID()}>
-                        <RulesLevelStamp
-                          requiredRulesLevel={vehicle.getRequiredRulesLevel()}
-                        />
-                        <VehicleRecordSheet
-                          vehicle={vehicle}
-                          showCrew={true}
-                          showDamage={true}
-                        />
-                      </div>
-                  ))}
 
               </div>
 

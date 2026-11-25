@@ -100,7 +100,7 @@ export default class CriticalAllocationSection extends React.Component<ICritical
                             <li
                                 className={"cursor-pointer critical-height-" + crit.size + selectedClass}
                                 // for some reason the linter's not checking that I'm looking for a non-null object above... :/
-                                // @ts-expect-error Legacy compatibility type mismatch
+                                // @ts-ignore
                                 onClick={() => this.props.selectItemClick(
                                     critIndex,
                                     this.props.sectionAbbr,

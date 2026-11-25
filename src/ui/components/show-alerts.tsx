@@ -6,7 +6,6 @@ import { IAlert } from '../classes/alerts';
 import SanitizedHTML from './sanitized-html';
 import { safeExternalURL } from '../../utils/safeImageURL';
 import type { JSX } from "react";
-const TimesCircleIcon = FaTimesCircle as any;
 
 export default class ShowAlerts extends React.Component<IShowAlertsProps, IShowAlertsState> {
 
@@ -57,7 +56,7 @@ export default class ShowAlerts extends React.Component<IShowAlertsProps, IShowA
                                     style={{fontSize: "1.5rem"}}
                                     title={"Click here to dismiss this alert, but it'll auto-dismiss in " + alert.autoDismissSeconds + " seconds"}
                                 >
-                                    <TimesCircleIcon className="icon-spin" />
+                                    <FaTimesCircle className="icon-spin" />
                                 </span>
                                 </>
                             )
@@ -72,7 +71,7 @@ export default class ShowAlerts extends React.Component<IShowAlertsProps, IShowA
                                                 style={{fontSize: "1.5rem"}}
                                                 title="Click here to dismiss this alert"
                                             >
-                                                <TimesCircleIcon />
+                                                <FaTimesCircle />
                                             </span>
                                         ):
                                         (

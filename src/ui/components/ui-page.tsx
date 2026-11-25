@@ -1,6 +1,5 @@
 import React, { type JSX } from 'react';
 import { IAppGlobals } from '../app-router';
-import ErrorBoundary from './error-boundary';
 import ShowAlerts from './show-alerts';
 import TopMenu from './top-menu';
 
@@ -12,7 +11,7 @@ export default class UIPage extends React.Component<IUIPageProps, IUIPageState> 
           <TopMenu current={this.props.current} sub={this.props.sub} appGlobals={this.props.appGlobals} />
           <div className="content">
             <ShowAlerts appGlobals={this.props.appGlobals} />
-            <ErrorBoundary>{this.props.children}</ErrorBoundary>
+            {this.props.children}
           </div>
         </div>
         )

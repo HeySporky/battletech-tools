@@ -1,36 +1,35 @@
 import React, { type JSX } from "react";
 import { Modal } from 'react-bootstrap';
 import { BrowserRouter as Router, Navigate, Route, Routes } from "react-router";
-import { RouteErrorBoundary } from "./components/error-boundary";
 import AlphaStrikeForce, { IASForceExport } from "../classes/alpha-strike-force";
 import AlphaStrikeGroup, { IASGroupExport } from "../classes/alpha-strike-group";
 import { BattleMech, IBattleMechExport } from "../classes/battlemech";
 import { BattleMechForce, ICBTForceExport } from "../classes/battlemech-force";
 import { BattleMechGroup, ICBTGroupExport } from "../classes/battlemech-group";
-import Vehicle, { IVehicleExport } from "../classes/vehicle";
 import { CONST_SITE_TITLE } from '../configVars';
 import { sswMechs } from "../data/ssw/sswMechs";
-import { getAppSettings, getBattleMechSaves, getCurrentASForce, getCurrentBattleMech, getCurrentCBTForce, getCurrentVehicle, getFavoriteASGroups, getFavoriteCBTGroups, getVehicleSaves, saveAppSettings, saveBattleMechSaves, saveCurrentASForce, saveCurrentBattleMech, saveCurrentCBTForce, saveCurrentVehicle, saveFavoriteASGroups, saveFavoriteASGroupsObjects, saveFavoriteCBTGroupsObjects, saveVehicleSaves } from "../dataSaves";
+import { getAppSettings, getBattleMechSaves, getCurrentASForce, getCurrentBattleMech, getCurrentCBTForce, getFavoriteASGroups, getFavoriteCBTGroups, saveAppSettings, saveBattleMechSaves, saveCurrentASForce, saveCurrentBattleMech, saveCurrentCBTForce, saveFavoriteASGroups, saveFavoriteASGroupsObjects, saveFavoriteCBTGroupsObjects } from "../dataSaves";
 import { callAnalytics } from "../jdgAnalytics";
 import { generateUUID } from "../utils/generateUUID";
 import { getSSWXMLBasicInfo } from "../utils/getSSWXMLBasicInfo";
 import Alerts from './classes/alerts';
 import { AppSettings } from "./classes/app_settings";
 import SanitizedHTML from './components/sanitized-html';
+import About from "./pages/about";
+import AlphaStrikeRouter from "./pages/alpha-strike/_router";
+import ClassicBattleTechRouter from "./pages/classic-battletech/_router";
+import GameManagementRouter from "./pages/game-management/_router";
+import DevelopmentStatus from "./pages/development-status";
+import EquipmentEditor from "./pages/equipment-editor";
 import Error404 from "./pages/error404";
-import { IAlphaStrikeMPDeployment } from "../data/alpha-strike-mp-deployments";
-import { IAlphaStrikeMPScenario } from "../data/alpha-strike-mp-scenarios";
+import Home from "./pages/home";
+import SettingsRouter from "./pages/settings/_router";
+import SSWSanityCheck from "./pages/ssw-sanity-check";
+import { IAlphaStrikeMPDeploymentSet, IAlphaStrikeMPDeployment, getDeploymentById, generateScenarioDeployments } from "../data/alpha-strike-mp-deployments";
+import { IAlphaStrikeMPScenario} from "../data/alpha-strike-mp-scenarios";
 import { IAlphaStrikeMPTerrain } from "../data/alpha-strike-mp-terrain";
 // import init, { AlphaStrikeUnit, add_testing, MULUnit } from "btlibs";
-const About = React.lazy(() => import("./pages/about"));
-const AlphaStrikeRouter = React.lazy(() => import("./pages/alpha-strike/_router"));
-const ClassicBattleTechRouter = React.lazy(() => import("./pages/classic-battletech/_router"));
-const DevelopmentStatus = React.lazy(() => import("./pages/development-status"));
-const EquipmentEditor = React.lazy(() => import("./pages/equipment-editor"));
-const GameManagementRouter = React.lazy(() => import("./pages/game-management/_router"));
-const Home = React.lazy(() => import("./pages/home"));
-const SettingsRouter = React.lazy(() => import("./pages/settings/_router"));
-const SSWSanityCheck = React.lazy(() => import("./pages/ssw-sanity-check"));
+
 
 export default class AppRouter extends React.Component<IAppRouterProps, IAppRouterState> {
 
@@ -82,11 +81,6 @@ export default class AppRouter extends React.Component<IAppRouterProps, IAppRout
             battleMechSaves: [],
             favoriteCBTGroups: [],
             currentCBTForce: null,
-            currentVehicle: null,
-            saveCurrentVehicle: this.saveCurrentVehicle,
-
-            vehicleSaves: [],
-            saveVehicleSaves: this.saveVehicleSaves,
 
             saveCurrentASForce: this.saveCurrentASForce,
             saveFavoriteASGroups: this.saveFavoriteASGroups,
@@ -111,12 +105,12 @@ export default class AppRouter extends React.Component<IAppRouterProps, IAppRout
             appGlobals: appGlobals,
         }
 
-        window.addEventListener('offline', () => {
+        window.addEventListener('offline', (event) => {
             this.setState({
                 updated: true,
             })
         });
-        window.addEventListener('online', () => {
+        window.addEventListener('online', (event) => {
             this.setState({
                 updated: true,
             })
@@ -172,11 +166,6 @@ export default class AppRouter extends React.Component<IAppRouterProps, IAppRout
         if( lsBMImport ) {
             currentBattleMech.importJSON( lsBMImport);
         }
-
-        let lsVehicleImport = await getCurrentVehicle(appSettings);
-        let currentVehicle = new Vehicle( lsVehicleImport || "" );
-
-        let vehicleSaves: IVehicleExport[] = await getVehicleSaves(appSettings);
 
         let battleMechSaves: IBattleMechExport[] = await getBattleMechSaves(appSettings);
         let asImportFavorites: IASGroupExport[] = await getFavoriteASGroups(appSettings);
@@ -241,8 +230,6 @@ export default class AppRouter extends React.Component<IAppRouterProps, IAppRout
 
         appGlobals.favoriteCBTGroups = bmImportedFavorites;
         appGlobals.currentCBTForce = currentCBTForce;
-        appGlobals.currentVehicle = currentVehicle;
-        appGlobals.vehicleSaves = vehicleSaves;
 
 
         // console.log("initial appGlobals loaded")
@@ -252,33 +239,27 @@ export default class AppRouter extends React.Component<IAppRouterProps, IAppRout
         })
 
 
-        // Import the bundled SSW mechs in ~12 ms slices, yielding to the browser between slices. Importing all of them
-        // in one go blocked the main thread for several seconds on desktop (far longer on phones), freezing the UI.
-        let nextSSWIndex = 0;
-        const importSSWSlice = () => {
-            const sliceEnd = performance.now() + 12;
-            while( nextSSWIndex < sswMechs.length && performance.now() < sliceEnd ) {
-                const sswXML = sswMechs[nextSSWIndex++];
-                const basicSSWInfo = getSSWXMLBasicInfo( sswXML );
+        setTimeout(
+            () => {
+                // console.log("starting SSW import");
+                for( let sswXML of sswMechs ) {
+                    let basicSSWInfo = getSSWXMLBasicInfo( sswXML );
 
-                if( basicSSWInfo && basicSSWInfo.rules_level_ssw < 3 ) {
-                    const bmObj = new BattleMech();
-                    bmObj.importSSWXML( sswXML );
-                    bmObj.basicSSWInfo = basicSSWInfo;
+                    if( basicSSWInfo && basicSSWInfo.rules_level_ssw < 3 ) {
+                        let bmObj = new BattleMech();
+                        bmObj.importSSWXML( sswXML );
+                        bmObj.basicSSWInfo = basicSSWInfo;
 
-                    appGlobals.sswMechObjects.push(bmObj);
+                        appGlobals.sswMechObjects.push(bmObj);
+                    }
                 }
-            }
-
-            if( nextSSWIndex < sswMechs.length ) {
-                setTimeout( importSSWSlice, 0 );
-            } else {
+                // console.log("SSW import complete")
                 this.setState({
                     appGlobals: appGlobals,
                 })
-            }
-        };
-        setTimeout( importSSWSlice, 500 );
+            },
+            500
+        );
 
 
 
@@ -290,18 +271,6 @@ export default class AppRouter extends React.Component<IAppRouterProps, IAppRout
         appGlobals.battleMechSaves = newValue;
 
         saveBattleMechSaves( appGlobals.appSettings, appGlobals.battleMechSaves )
-
-        this.setState({
-            appGlobals: appGlobals,
-        });
-    }
-
-    saveVehicleSaves = ( newValue: IVehicleExport[] ): void => {
-
-        let appGlobals = this.state.appGlobals;
-        appGlobals.vehicleSaves = newValue;
-
-        saveVehicleSaves( appGlobals.appSettings, appGlobals.vehicleSaves )
 
         this.setState({
             appGlobals: appGlobals,
@@ -336,18 +305,6 @@ export default class AppRouter extends React.Component<IAppRouterProps, IAppRout
         mech.lastUpdated = new Date();
 
         saveCurrentBattleMech( appGlobals.appSettings, mech.exportJSON() );
-    }
-
-    saveCurrentVehicle = ( vehicle: Vehicle ): void => {
-        let appGlobals = this.state.appGlobals;
-        appGlobals.currentVehicle = vehicle;
-        this.setState({
-            appGlobals: appGlobals,
-        });
-
-        vehicle.lastUpdated = new Date();
-
-        saveCurrentVehicle( appGlobals.appSettings, vehicle.exportJSON() );
     }
 
     saveCurrentASForce = ( asForce: AlphaStrikeForce ): void => {
@@ -570,8 +527,6 @@ export default class AppRouter extends React.Component<IAppRouterProps, IAppRout
             </Modal>
             <Router>
 
-            <React.Suspense fallback={<div className="p-3">Loading...</div>}>
-            <RouteErrorBoundary>
             <Routes>
                 <Route path={`${process.env.PUBLIC_URL}/`} element={
                     <Home
@@ -641,8 +596,6 @@ export default class AppRouter extends React.Component<IAppRouterProps, IAppRout
                 }/>
 
             </Routes>
-            </RouteErrorBoundary>
-            </React.Suspense>
             </Router>
             </>
         );
@@ -698,10 +651,6 @@ export interface IAppGlobals {
 
     currentBattleMech: BattleMech | null;
     saveCurrentBattleMech( mech: BattleMech | null ): void;
-    currentVehicle: Vehicle | null;
-    saveCurrentVehicle( vehicle: Vehicle | null ): void;
-    vehicleSaves: IVehicleExport[];
-    saveVehicleSaves( newValue: IVehicleExport[] ): void;
     saveAppSettings( appSettings: AppSettings ): void;
 
     battleMechSaves: IBattleMechExport[];

@@ -110,28 +110,14 @@ export default class EquipmentEditForm extends React.Component<IEquipmentEditFor
         this.props.onChange( item );
     }
 
-    updateRoundsPerTon = (
+    updateAmmoPerTon = (
         e: React.FormEvent<HTMLInputElement>,
     ) => {
         if( e && e.preventDefault ) {
             e.preventDefault();
         }
         let item = this.props.editingItem;
-        item.roundsPerTon = +e.currentTarget.value;
-        delete item.ammoPerTon;
-
-        this.props.onChange( item );
-    }
-
-    updateShotsPerTon = (
-        e: React.FormEvent<HTMLInputElement>,
-    ) => {
-        if( e && e.preventDefault ) {
-            e.preventDefault();
-        }
-        let item = this.props.editingItem;
-        item.shotsPerTon = +e.currentTarget.value;
-        delete item.ammoPerTon;
+        item.ammoPerTon = +e.currentTarget.value;
 
         this.props.onChange( item );
     }
@@ -502,7 +488,7 @@ export default class EquipmentEditForm extends React.Component<IEquipmentEditFor
                         <InputNumeric
                             step={1}
                             onChange={this.updatePage}
-                            value={this.props.editingItem.page ?? 0}
+                            value={this.props.editingItem.page}
                             label="Page #"
                         />
                     </div>
@@ -531,21 +517,21 @@ export default class EquipmentEditForm extends React.Component<IEquipmentEditFor
                 <InputNumeric
                     step={1}
                     onChange={this.updateIntroduced}
-                    value={this.props.editingItem.introduced ?? 0}
+                    value={this.props.editingItem.introduced}
                     label="Introduced"
                 />
 
                 <InputNumeric
                     step={1}
                     onChange={this.updateExtinct}
-                    value={this.props.editingItem.extinct ?? 0}
+                    value={this.props.editingItem.extinct}
                     label="Extinct"
                 />
 
                 <InputNumeric
                     step={1}
                     onChange={this.updateReintroduced}
-                    value={this.props.editingItem.reintroduced ?? 0}
+                    value={this.props.editingItem.reintroduced}
                     label="Reintroduced"
                 />
 
@@ -651,14 +637,6 @@ export default class EquipmentEditForm extends React.Component<IEquipmentEditFor
                                 onChange={this.props.onChange}
                             />
 
-                            <InputNumeric
-                                label="Shots Per Ton (0 = no ammo)"
-                                step={1}
-                                min={0}
-                                onChange={this.updateShotsPerTon}
-                                value={this.props.editingItem.shotsPerTon ?? this.props.editingItem.ammoPerTon ?? 0}
-                            />
-
                             <InputCheckbox
                                 label='Is Ultra AC'
                                 onChange={this.updateIsUltra}
@@ -682,11 +660,11 @@ export default class EquipmentEditForm extends React.Component<IEquipmentEditFor
                             <fieldset className="fieldset">
                                 <legend>Ammo Options</legend>
                                 <InputNumeric
-                                    label="Rounds Per Ton"
+                                    label="Ammo Per Ton"
                                     step={1}
                                     min={1}
-                                    onChange={this.updateRoundsPerTon}
-                                    value={this.props.editingItem.roundsPerTon ?? this.props.editingItem.ammoPerTon}
+                                    onChange={this.updateAmmoPerTon}
+                                    value={this.props.editingItem.ammoPerTon}
                                 />
                                 <InputNumeric
                                     label="Minimum Tonnage"
