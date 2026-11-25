@@ -1035,7 +1035,7 @@ export class BattleMech {
                 if( currentItem.battleValue)
                     ammoBV[currentItem.tag] += currentItem.battleValue * currentItem.weight;
 
-                this._calcLogBV += "+ Adding " + currentItem.name + " - "  + currentItem.location + " - " + ((currentItem.battleValue ? currentItem.battleValue : 0) * currentItem.weight) + "<br />";
+                this._calcLogBV += "+ Adding " + this._escapeLogText(currentItem.name) + " - "  + currentItem.location + " - " + ((currentItem.battleValue ? currentItem.battleValue : 0) * currentItem.weight) + "<br />";
 
             } else {
                 if( !weaponBV[currentItem.tag])
@@ -1168,25 +1168,25 @@ export class BattleMech {
                             if( this.getTotalBVFrontWeapons() < this.getTotalBVRearWeapons() || this.isNotOnTorsoHeadOrLegs(currentItem.location)  ) {
 
                                 if( currentItem.battleValue) {
-                                    this._calcLogBV += "+ Adding Heat Inefficient Rear Weapon " + currentItem.name + " (" + (currentItem.location ? currentItem.location : "no location") + ")  - " + currentItem.battleValue + " / 4 = " + (currentItem.battleValue / 4);
+                                    this._calcLogBV += "+ Adding Heat Inefficient Rear Weapon " + this._escapeLogText(currentItem.name) + " (" + (currentItem.location ? this._escapeLogText(currentItem.location) : "no location") + ")  - " + currentItem.battleValue + " / 4 = " + (currentItem.battleValue / 4);
                                     runningTotal += currentItem.battleValue / 2;
                                 }
                             } else {
                                 if( this.getTotalBVFrontWeapons() < this.getTotalBVRearWeapons() || this.isNotOnTorsoHeadOrLegs(currentItem.location)  ) {
                                     if( currentItem.battleValue) {
-                                        this._calcLogBV += "+ Adding Heat Inefficient Rear Weapon " + currentItem.name + " (" + (currentItem.location ? currentItem.location : "no location") + ")  - " + currentItem.battleValue + " / 4 = " + (currentItem.battleValue / 4);
+                                        this._calcLogBV += "+ Adding Heat Inefficient Rear Weapon " + this._escapeLogText(currentItem.name) + " (" + (currentItem.location ? this._escapeLogText(currentItem.location) : "no location") + ")  - " + currentItem.battleValue + " / 4 = " + (currentItem.battleValue / 4);
                                         runningTotal += currentItem.battleValue / 2;
                                     }
                                 } else {
                                     if( currentItem.battleValue) {
-                                        this._calcLogBV += "+ Adding Heat Inefficient Rear Weapon " + currentItem.name + " (" + (currentItem.location ? currentItem.location : "no location") + ")  - " + currentItem.battleValue + " / 4 = " + (currentItem.battleValue / 4);
+                                        this._calcLogBV += "+ Adding Heat Inefficient Rear Weapon " + this._escapeLogText(currentItem.name) + " (" + (currentItem.location ? this._escapeLogText(currentItem.location) : "no location") + ")  - " + currentItem.battleValue + " / 4 = " + (currentItem.battleValue / 4);
                                         runningTotal += currentItem.battleValue / 4;
                                     }
                                 }
                             }
                         } else {
                             if( currentItem.battleValue ) {
-                                this._calcLogBV += "+ Adding Heat Inefficient Weapon " + currentItem.name + " (" + (currentItem.location ? currentItem.location : "no location") + ")  - " + currentItem.battleValue + " / 2 = " + (currentItem.battleValue / 2);
+                                this._calcLogBV += "+ Adding Heat Inefficient Weapon " + this._escapeLogText(currentItem.name) + " (" + (currentItem.location ? this._escapeLogText(currentItem.location) : "no location") + ")  - " + currentItem.battleValue + " / 2 = " + (currentItem.battleValue / 2);
                                 runningTotal += currentItem.battleValue / 2;
                             }
                         }
@@ -1198,11 +1198,11 @@ export class BattleMech {
                         if( currentItem.rear ) {
                             if( currentItem.battleValue) {
                                 if( this.getTotalBVFrontWeapons() < this.getTotalBVRearWeapons() || this.isNotOnTorsoHeadOrLegs(currentItem.location)  ) {
-                                    this._calcLogBV += "+ Adding Rear Weapon " + currentItem.name + " (" + (currentItem.location ? currentItem.location : "no location") + ")  -  bv " + (currentItem.battleValue  ) + " (not halved due to less front weapons bv), heat " + currentItem.bvHeat + "<br />";
+                                    this._calcLogBV += "+ Adding Rear Weapon " + this._escapeLogText(currentItem.name) + " (" + (currentItem.location ? this._escapeLogText(currentItem.location) : "no location") + ")  -  bv " + (currentItem.battleValue  ) + " (not halved due to less front weapons bv), heat " + currentItem.bvHeat + "<br />";
                                     runningTotal += (currentItem.battleValue );
                                 } else {
 
-                                    this._calcLogBV += "+ Adding Rear Weapon " + currentItem.name + " (" + (currentItem.location ? currentItem.location : "no location") + ")  -  bv " + (currentItem.battleValue / 2 ) + " (half of " + currentItem.battleValue + "), heat " + currentItem.bvHeat + "<br />";
+                                    this._calcLogBV += "+ Adding Rear Weapon " + this._escapeLogText(currentItem.name) + " (" + (currentItem.location ? this._escapeLogText(currentItem.location) : "no location") + ")  -  bv " + (currentItem.battleValue / 2 ) + " (half of " + currentItem.battleValue + "), heat " + currentItem.bvHeat + "<br />";
                                     runningTotal += (currentItem.battleValue / 2);
 
                                 }
@@ -1213,11 +1213,11 @@ export class BattleMech {
                                 // this._calcLogBV += "+ Adding Weapon " + currentItem.name + " (" + (currentItem.location ? currentItem.location : "no location") + ") - bv " + currentItem.battleValue + ", heat " + currentItem.bvHeat;
                                 // runningTotal += currentItem.battleValue;
                                 if( this.getTotalBVFrontWeapons() >= this.getTotalBVRearWeapons() || this.isNotOnTorsoHeadOrLegs(currentItem.location)  ) {
-                                    this._calcLogBV += "+ Adding Weapon " + currentItem.name + " (" + (currentItem.location ? currentItem.location : "no location") + ")  -  bv " + (currentItem.battleValue  ) + ", heat " + currentItem.bvHeat + "<br />";
+                                    this._calcLogBV += "+ Adding Weapon " + this._escapeLogText(currentItem.name) + " (" + (currentItem.location ? this._escapeLogText(currentItem.location) : "no location") + ")  -  bv " + (currentItem.battleValue  ) + ", heat " + currentItem.bvHeat + "<br />";
                                     runningTotal += (currentItem.battleValue );
                                 } else {
 
-                                    this._calcLogBV += "+ Adding Weapon " + currentItem.name + " (" + (currentItem.location ? currentItem.location : "no location") + ")  -  bv " + (currentItem.battleValue / 2 ) + " (half of " + currentItem.battleValue + "), heat " + currentItem.bvHeat + "<br />";
+                                    this._calcLogBV += "+ Adding Weapon " + this._escapeLogText(currentItem.name) + " (" + (currentItem.location ? this._escapeLogText(currentItem.location) : "no location") + ")  -  bv " + (currentItem.battleValue / 2 ) + " (half of " + currentItem.battleValue + "), heat " + currentItem.bvHeat + "<br />";
                                     runningTotal += (currentItem.battleValue / 2);
 
                                 }
@@ -1252,10 +1252,10 @@ export class BattleMech {
                     if( currentItem.rear  ) {
                         if( currentItem.battleValue ) {
                             if( this.getTotalBVFrontWeapons() < this.getTotalBVRearWeapons() || this.isNotOnTorsoHeadOrLegs(currentItem.location) ) {
-                                this._calcLogBV += "+ Adding Rear Weapon " + currentItem.name + " (" + (currentItem.location ? currentItem.location : "no location") + ")  -  bv " + (currentItem.battleValue  ) + " (not halved due to less front weapons bv), heat " + currentItem.bvHeat + "<br />";
+                                this._calcLogBV += "+ Adding Rear Weapon " + this._escapeLogText(currentItem.name) + " (" + (currentItem.location ? this._escapeLogText(currentItem.location) : "no location") + ")  -  bv " + (currentItem.battleValue  ) + " (not halved due to less front weapons bv), heat " + currentItem.bvHeat + "<br />";
                                 runningTotal += (currentItem.battleValue );
                             } else {
-                                this._calcLogBV += "+ Adding Rear Weapon " + currentItem.name + " (" + (currentItem.location ? currentItem.location : "no location") + ")  - " + (currentItem.battleValue / 2 ) + " (half of " + currentItem.battleValue + ")<br />";
+                                this._calcLogBV += "+ Adding Rear Weapon " + this._escapeLogText(currentItem.name) + " (" + (currentItem.location ? this._escapeLogText(currentItem.location) : "no location") + ")  - " + (currentItem.battleValue / 2 ) + " (half of " + currentItem.battleValue + ")<br />";
 
                                 runningTotal += (currentItem.battleValue / 2);
                             }
@@ -1263,10 +1263,10 @@ export class BattleMech {
                     } else {
                         if( currentItem.battleValue ) {
                             if( this.getTotalBVFrontWeapons() >= this.getTotalBVRearWeapons() || this.isNotOnTorsoHeadOrLegs(currentItem.location)  ) {
-                                this._calcLogBV += "+ Adding Weapon " + currentItem.name + " (" + (currentItem.location ? currentItem.location : "no location") + ")  - " + currentItem.battleValue + "<br />";
+                                this._calcLogBV += "+ Adding Weapon " + this._escapeLogText(currentItem.name) + " (" + (currentItem.location ? this._escapeLogText(currentItem.location) : "no location") + ")  - " + currentItem.battleValue + "<br />";
                                 runningTotal += (currentItem.battleValue );
                             } else {
-                                this._calcLogBV += "+ Adding Weapon " + currentItem.name + " (" + (currentItem.location ? currentItem.location : "no location") + ")  - " + (currentItem.battleValue / 2 ) + " (half of " + currentItem.battleValue + ")<br />";
+                                this._calcLogBV += "+ Adding Weapon " + this._escapeLogText(currentItem.name) + " (" + (currentItem.location ? this._escapeLogText(currentItem.location) : "no location") + ")  - " + (currentItem.battleValue / 2 ) + " (half of " + currentItem.battleValue + ")<br />";
 
                                 runningTotal += currentItem.battleValue / 2;
 
@@ -1590,7 +1590,7 @@ export class BattleMech {
 
         // Internal Structure
         // console.log( this._selectedInternalStructure.name );
-        this._calcLogCBill += "<tr><td><strong>Internal Structure: " + this._selectedInternalStructure.name  + "</strong><br />" +  addCommas( this._selectedInternalStructure.cost ) + " x Unit Tonnage [" + this.getTonnage() + "]</td><td>" +  addCommas( this._selectedInternalStructure.cost * this.getTonnage() ) + "</td></tr>\n";
+        this._calcLogCBill += "<tr><td><strong>Internal Structure: " + this._escapeLogText(this._selectedInternalStructure.name) + "</strong><br />" +  addCommas( this._selectedInternalStructure.cost ) + " x Unit Tonnage [" + this.getTonnage() + "]</td><td>" +  addCommas( this._selectedInternalStructure.cost * this.getTonnage() ) + "</td></tr>\n";
         cbillDryTotal += this._selectedInternalStructure.cost * this.getTonnage() ;
 
         this._calcLogCBill += "<tr><td colspan=\"2\"><strong>Actuators</strong></td></tr>\n";
@@ -1765,10 +1765,10 @@ export class BattleMech {
         // Equipment
         for( let eqC = 0; eqC < this._equipmentList.length; eqC++) {
             if( this._equipmentList[eqC].tag.indexOf( "ammo-" ) === -1) {
-                this._calcLogCBill += "<tr><td><strong>" + this._equipmentList[eqC].name + "</strong></td><td>" + addCommas(this._equipmentList[eqC].cbills) + "</td></tr>\n";
+                this._calcLogCBill += "<tr><td><strong>" + this._escapeLogText(this._equipmentList[eqC].name) + "</strong></td><td>" + addCommas(this._equipmentList[eqC].cbills) + "</td></tr>\n";
                 cbillDryTotal += this._equipmentList[eqC].cbills;
             } else {
-                this._calcLogCBill += "<tr><td><strong>" + this._equipmentList[eqC].name + "</strong></td><td class=\"text-right\">" + addCommas(this._equipmentList[eqC].cbills * this._equipmentList[eqC].weight) + "<div class=\"smaller-text\">(not included in dry cost)</div></td></tr>\n";
+                this._calcLogCBill += "<tr><td><strong>" + this._escapeLogText(this._equipmentList[eqC].name) + "</strong></td><td class=\"text-right\">" + addCommas(this._equipmentList[eqC].cbills * this._equipmentList[eqC].weight) + "<div class=\"smaller-text\">(not included in dry cost)</div></td></tr>\n";
                 cbillAmmoTotal += this._equipmentList[eqC].cbills * this._equipmentList[eqC].weight;
             }
         }
@@ -3022,14 +3022,32 @@ export class BattleMech {
 
     }
 
+    // Escape strings that flow into HTML rendered via SanitizedHTML raw={true}
+    // (dangerouslySetInnerHTML): the TRO table and the BV / Alpha Strike / C-Bill calc logs.
+    private _escapeLogText(value: unknown): string {
+        if (value === null || typeof value === "undefined") return "";
+        return String(value)
+            .replace(/&/g, "&amp;")
+            .replace(/</g, "&lt;")
+            .replace(/>/g, "&gt;")
+            .replace(/"/g, "&quot;")
+            .replace(/'/g, "&#39;");
+    }
+
     public makeTROHTML() {
+        // TRO output is rendered through SanitizedHTML raw={true} (dangerouslySetInnerHTML), so
+        // every user-supplied string interpolated below must be HTML-escaped. Chassis name /
+        // model / nickname come from imported JSON; equipment names from custom catalogs can
+        // also be attacker-controlled.
+        const esc = (v: unknown) => this._escapeLogText(v);
+
 
         let html = "<table class=\"mech-tro\">";
 
         // Header Info
-        html += "<tr><td colspan=\"4\">Type: " + this.getName() + "</td></tr>";
-        html += "<tr><td colspan=\"4\">Technology Base: " + this.getTech().name + "</td></tr>";
-        html += "<tr><td colspan=\"4\">Era: " + this.getEra().name + "</td></tr>";
+        html += "<tr><td colspan=\"4\">Type: " + esc(this.getName()) + "</td></tr>";
+        html += "<tr><td colspan=\"4\">Technology Base: " + esc(this.getTech().name) + "</td></tr>";
+        html += "<tr><td colspan=\"4\">Era: " + esc(this.getEra().name) + "</td></tr>";
         html += "<tr><td colspan=\"4\">Tonnage: " + this.getTonnage() + "</td></tr>";
         html += "<tr><td colspan=\"4\">Battle Value: " + this.getBattleValue() + "</td></tr>";
         html += "<tr><td colspan=\"4\">Alpha Strike Value: " + this.getAlphaStrikeValue() + "</td></tr>";
@@ -3044,15 +3062,15 @@ export class BattleMech {
 
         // Equipment
         html += "<tr><th class=\"text-left\" colspan=\"3\">Equipment</th><th class=\"text-center\" colspan=\"1\">Mass</th></tr>";
-        html += "<tr><td colspan=\"3\">Internal Structure ( " + this._selectedInternalStructure.name + " )</td><td class=\"text-center\" colspan=\"1\">" + this.getInternalStructureWeight() + "</td></tr>";
-        html += "<tr><td colspan=\"1\">" + this.getEngineName() + "</td><td class=\"text-center\" colspan=\"2\">" + this.getEngineRating() + "</td><td class=\"text-center\" colspan=\"1\">" + this.getEngineWeight() + "</td></tr>";
+        html += "<tr><td colspan=\"3\">Internal Structure ( " + esc(this._selectedInternalStructure.name) + " )</td><td class=\"text-center\" colspan=\"1\">" + this.getInternalStructureWeight() + "</td></tr>";
+        html += "<tr><td colspan=\"1\">" + esc(this.getEngineName()) + "</td><td class=\"text-center\" colspan=\"2\">" + this.getEngineRating() + "</td><td class=\"text-center\" colspan=\"1\">" + this.getEngineWeight() + "</td></tr>";
 
         html += "<tr><td colspan=\"1\" class=\"text-right\">Walking</td><td class=\"text-center\" colspan=\"2\">" + this.getWalkSpeed() + "</td><td colspan=\"1\">&nbsp;</td></tr>";
         html += "<tr><td colspan=\"1\" class=\"text-right\">Running</td><td class=\"text-center\" colspan=\"2\">" + this.getRunSpeed() + "</td><td colspan=\"1\">&nbsp;</td></tr>";
         html += "<tr><td colspan=\"1\" class=\"text-right\">Jumping</td><td class=\"text-center\" colspan=\"2\">" + this.getJumpSpeed() + "</td><td colspan=\"1\">&nbsp;</td></tr>";
 
-        html += "<tr><td colspan=\"1\">" + this.getHeatSyncName() + "</td><td class=\"text-center\" colspan=\"2\">" + this.getHeatSinks() + "</td><td class=\"text-center\" colspan=\"1\">" + this.getHeatSinksWeight() + "</td></tr>";
-        html += "<tr><td colspan=\"3\">" + this.getGyroName() + "</td><td class=\"text-center\" colspan=\"1\">" + this.getGyroWeight() + "</td></tr>";
+        html += "<tr><td colspan=\"1\">" + esc(this.getHeatSyncName()) + "</td><td class=\"text-center\" colspan=\"2\">" + this.getHeatSinks() + "</td><td class=\"text-center\" colspan=\"1\">" + this.getHeatSinksWeight() + "</td></tr>";
+        html += "<tr><td colspan=\"3\">" + esc(this.getGyroName()) + "</td><td class=\"text-center\" colspan=\"1\">" + this.getGyroWeight() + "</td></tr>";
 
         if( this._smallCockpit) {
             html += "<tr><td colspan=\"3\">Small Cockpit</td><td class=\"text-center\" colspan=\"1\">" + this.getCockpitWeight() + "</td></tr>";
@@ -3086,7 +3104,7 @@ export class BattleMech {
             html += "</td></tr>";
         }
 
-        html += "<tr><th colspan=\"1\">Armor Value ( " + this._armorType.name + " )</th><th class=\"text-center\" colspan=\"2\">" + this.getTotalArmor() + "</th><th class=\"text-center\" colspan=\"1\">" + this.getArmorWeight() + "</th></tr>";
+        html += "<tr><th colspan=\"1\">Armor Value ( " + esc(this._armorType.name) + " )</th><th class=\"text-center\" colspan=\"2\">" + this.getTotalArmor() + "</th><th class=\"text-center\" colspan=\"1\">" + this.getArmorWeight() + "</th></tr>";
 
         // Armor Factor Table
         html += "<tr><td colspan=\"1\"></td><td class=\"text-center\" colspan=\"1\"><em style=\"font-size: 12px;\">Internal Structure</em></td><td class=\"text-center\" colspan=\"1\"><em style=\"font-size: 12px;\">Armor Value</em></td><td>&nbsp;</td></tr>";
@@ -3154,9 +3172,9 @@ export class BattleMech {
                 item_location += " (R)"
 
             if( currentItem.isAmmo && currentItem.ammoPerTon && currentItem.ammoPerTon > 0)
-                html += "<tr><td class=\"text-left\">" + currentItem.name + " " + currentItem.ammoPerTon + "</td><td class=\"text-center\">" + item_location.toUpperCase() + "</strong></td><td class=\"text-center\">" + currentItem.space.battlemech + "</td><td class=\"text-center\">" + currentItem.weight + "</td></tr>";
+                html += "<tr><td class=\"text-left\">" + esc(currentItem.name) + " " + currentItem.ammoPerTon + "</td><td class=\"text-center\">" + esc(item_location.toUpperCase()) + "</strong></td><td class=\"text-center\">" + currentItem.space.battlemech + "</td><td class=\"text-center\">" + currentItem.weight + "</td></tr>";
             else
-                html += "<tr><td class=\"text-left\">" + currentItem.name + "</td><td class=\"text-center\">" + item_location.toUpperCase() + "</strong></td><td class=\"text-center\">" + currentItem.space.battlemech + "</td><td class=\"text-center\">" + currentItem.weight + "</td></tr>";
+                html += "<tr><td class=\"text-left\">" + esc(currentItem.name) + "</td><td class=\"text-center\">" + esc(item_location.toUpperCase()) + "</strong></td><td class=\"text-center\">" + currentItem.space.battlemech + "</td><td class=\"text-center\">" + currentItem.weight + "</td></tr>";
         }
 
         // List Jump Jets Allocations...
@@ -3189,7 +3207,7 @@ export class BattleMech {
                 }
                 let jjObj = jjObjs[0];
                 if( jjObj ) {
-                    html += "<tr><td class=\"text-left\">" + jjObj.name + "</td><td class=\"text-center\">" + this._validJJLocations[locC].short.toUpperCase() + "</strong></td><td class=\"text-center\">" + jjObjs.length + "</td><td class=\"text-center\">" + areaWeight + "</td></tr>";
+                    html += "<tr><td class=\"text-left\">" + esc(jjObj.name) + "</td><td class=\"text-center\">" + this._validJJLocations[locC].short.toUpperCase() + "</strong></td><td class=\"text-center\">" + jjObjs.length + "</td><td class=\"text-center\">" + areaWeight + "</td></tr>";
                 }
 
             }
@@ -3219,7 +3237,7 @@ export class BattleMech {
                 // 90+ tons
                 areaWeight = jjObjs.length * this._jumpJetType.weight_multiplier.heavy;
             }
-            html += "<tr><td class=\"text-left\">" + jjObjs[0].name + "</td><td class=\"text-center\">n/a".toUpperCase() + "</strong></td><td class=\"text-center\">" + jjObjs.length + "</td><td class=\"text-center\">" + areaWeight + "</td></tr>";
+            html += "<tr><td class=\"text-left\">" + esc(jjObjs[0].name) + "</td><td class=\"text-center\">n/a".toUpperCase() + "</strong></td><td class=\"text-center\">" + jjObjs.length + "</td><td class=\"text-center\">" + areaWeight + "</td></tr>";
 
         }
 
@@ -9021,7 +9039,11 @@ export class BattleMech {
 
 
         const options = {
-            ignoreAttributes : false
+            ignoreAttributes : false,
+            // Security note: fast-xml-parser rejects external and parameter entities and
+            // caps internal-entity expansion, so XXE / billion-laughs are not exploitable.
+            // Do NOT disable processEntities - SSW files use standard XML entities in
+            // attribute values (see getSSWXMLBasicInfo for the same rationale).
         };
         const parser = new XMLParser(options);
         let jObj = parser.parse(ssw_xml);
