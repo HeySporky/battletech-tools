@@ -30,15 +30,6 @@ export const mechTypeOptions: IMechType[] = [
 		book: "TM",
 	},
 	{
-		id: 3,
-		tag: "tripod",
-		name:  "Tripod",
-		rulesLevel: 3,
-		book: "IO",
-		page: 50,
-		notes: "Advanced",
-	},
-	{
 		id: 5,
 		tag: "quadvee",
 		name:  "QuadVee",

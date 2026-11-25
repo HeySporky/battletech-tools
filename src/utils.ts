@@ -819,9 +819,6 @@ export function getLocationName(
         case "fll": {
             return "Left Front Leg";
         }
-        case "cl": {
-            return "Center Leg";
-        }
     }
 
     return "???";
