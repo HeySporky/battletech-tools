@@ -367,6 +367,31 @@ function matchesMULDropdownFilters(
 }
 
 // Applies the free-text search tokens (name words + pv:/s:/a:/etc. operators) to a single unit.
+function normalizeAbilityText(text: string): string {
+    return text.replace(/\s+/g, "").toUpperCase();
+}
+
+// Searches are skipped while the box holds only a name shorter than 3 characters and no other
+// criteria, as the live API search used to be. An empty box still lists everything the dropdown
+// filters match.
+function isTooShortNameOnlySearch(tokens: IMULSearchTokens): boolean {
+    const nameLength = tokens.nameTerms.join(" ").length;
+    if (nameLength === 0 || nameLength > 2) {
+        return false;
+    }
+
+    return tokens.abilitySearch.length === 0
+        && tokens.abilityExclude.length === 0
+        && tokens.minPV === 1 && tokens.maxPV === 999
+        && tokens.minDamage.every((v) => v === -1) && tokens.maxDamage.every((v) => v === 999)
+        && tokens.minArmorStructure.every((v) => v === -1) && tokens.maxArmorStructure.every((v) => v === 999)
+        && tokens.introDate[0] === -1 && tokens.introDate[1] === 10000
+        && tokens.minMove === -1 && tokens.maxMove === 999
+        && tokens.minJump === -1
+        && tokens.minDefense === -1
+        && tokens.exactDamageProfile === null;
+}
+
 function matchesMULSearchTokens(unit: IASMULUnit, tokens: IMULSearchTokens): boolean {
     if (tokens.nameTerms.length > 0) {
         const haystack = `${unit.Name ?? ""} ${unit.Variant ?? ""} ${unit.Class ?? ""}`.toLowerCase();
@@ -450,10 +475,12 @@ function matchesMULSearchTokens(unit: IASMULUnit, tokens: IMULSearchTokens): boo
         }
     }
 
+    // Abilities are compared with spaces removed: MUL 2.0 writes "IF 1" and "LRM 1/1/1" where
+    // MUL 1.0 (and most players) write "IF1" and "LRM1/1/1".
     if (tokens.abilitySearch.length > 0) {
-        const unitAbilities = (unit.BFAbilities ?? "").toUpperCase();
+        const unitAbilities = normalizeAbilityText(unit.BFAbilities ?? "");
         for (const ability of tokens.abilitySearch) {
-            if (!unitAbilities.includes(ability.toUpperCase())) {
+            if (!unitAbilities.includes(normalizeAbilityText(ability))) {
                 return false;
             }
         }
@@ -461,10 +488,10 @@ function matchesMULSearchTokens(unit: IASMULUnit, tokens: IMULSearchTokens): boo
 
     if (tokens.abilityExclude.length > 0) {
         const unitAbilities = unit.BFAbilities
-            ? unit.BFAbilities.toUpperCase().split(",").map((a) => a.trim())
+            ? unit.BFAbilities.split(",").map(normalizeAbilityText)
             : [];
         for (const excludeAbility of tokens.abilityExclude) {
-            if (unitAbilities.some((a) => a.startsWith(excludeAbility.toUpperCase()))) {
+            if (unitAbilities.some((a) => a.startsWith(normalizeAbilityText(excludeAbility)))) {
                 return false;
             }
         }
@@ -484,6 +511,9 @@ async function getCachedMULSearchResults(
     appGlobals: IAppGlobals | null,
 ): Promise<IASMULUnit[]> {
     const tokens = parseMULSearchTokens(searchTerm);
+    if (isTooShortNameOnlySearch(tokens)) {
+        return [];
+    }
     const matchesAllFilters = (unit: IASMULUnit) =>
         matchesMULDropdownFilters(unit, mechRules, techFilter, roleFilter, eraFilter, typeFilter, factionFilter) &&
         matchesMULSearchTokens(unit, tokens);

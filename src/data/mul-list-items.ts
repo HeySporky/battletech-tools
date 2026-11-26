@@ -114,6 +114,24 @@ function normalizeLiveEntry(item: IASMULUnit): IASMULUnit {
     };
 }
 
+// The bundled MUL 2.0 records end BFAbilities with the unit's role ("AC 2/2/-,IF 1,Juggernaut";
+// "None" when it has no role). The role is not a special ability, so it is removed here, but only
+// when the last entry is exactly the unit's role name.
+export function stripRoleFromAbilities(item: IASMULUnit): IASMULUnit {
+    const roleName = typeof item.Role === "string" ? item.Role : item.Role?.Name;
+    if (!item.BFAbilities || !roleName) {
+        return item;
+    }
+
+    const abilities = item.BFAbilities.split(",");
+    if (abilities[abilities.length - 1].trim() !== roleName.trim()) {
+        return item;
+    }
+
+    const remaining = abilities.slice(0, -1).join(",").trim();
+    return { ...item, BFAbilities: remaining.length > 0 ? remaining : null };
+}
+
 export function getMULRecordKey(unit: IASMULUnit): string {
     return unit.MulUnitKey ?? `${unit.MulSource ?? "mul2"}\u001f${unit.Id}\u001f${unit.Name}\u001f${unit.Variant ?? ""}\u001f${unit.Class}`;
 }
@@ -132,7 +150,7 @@ function loadMULSource(source: MULSource): Promise<IASMULUnit[]> {
                     const entries = Array.isArray(chunkData) ? chunkData : [];
                     return entries
                         .filter(isMULListEntry)
-                        .map((entry) => ({ ...normalizeLiveEntry(entry), MulSource: source }));
+                        .map((entry) => ({ ...stripRoleFromAbilities(normalizeLiveEntry(entry)), MulSource: source }));
                 } catch (error) {
                     console.warn(`Unable to read MUL chunk ${path}:`, error);
                     return [] as IASMULUnit[];

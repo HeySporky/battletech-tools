@@ -1,4 +1,5 @@
 import { describe, expect, it } from "vitest";
+import type { IASMULUnit } from "../classes/alpha-strike-unit";
 import { AlphaStrikeUnit } from "../classes/alpha-strike-unit";
 import { loadMULListItems } from "../data/mul-list-items";
 import { getMULASSearchResults } from "../utils";
@@ -86,5 +87,31 @@ describe("Bundled MUL search: Faction filter", () => {
         const results = await getMULASSearchResults("", "", "", "", 0, 0, [PIRATES], true, true);
         expect(results.length).toBeGreaterThan(0);
         expect(results.every((unit) => availableTo(unit, [PIRATES]))).toBe(true);
+    }, 30_000);
+});
+
+describe("Bundled MUL search: abilities and short names", () => {
+    const isAtlas = (unit: IASMULUnit) => unit.Name === "Atlas" && unit.Variant === "AS7-D";
+
+    it("matches abilities whether or not they are written with a space (IF1 / IF 1)", async () => {
+        // The Atlas AS7-D is stored as "AC 2/2/-,IF 1,LRM 1/1/1,REAR 1/1/-".
+        for (const query of ["atlas a:IF1", "atlas a:LRM1/1/1", "atlas a:AC2/2/-,IF1"]) {
+            const results = await getMULASSearchResults(query, "", "", "", 0, 0, [], true);
+            expect(results.some(isAtlas), query).toBe(true);
+        }
+        const excluded = await getMULASSearchResults("atlas a:!IF1", "", "", "", 0, 0, [], true);
+        expect(excluded.some(isAtlas)).toBe(false);
+    }, 30_000);
+
+    it("does not match a unit's role as an ability", async () => {
+        const results = await getMULASSearchResults("atlas a:Juggernaut", "", "", "", 0, 0, [], true);
+        expect(results.some(isAtlas)).toBe(false);
+    }, 30_000);
+
+    it("waits for 3 characters before searching by name alone", async () => {
+        expect(await getMULASSearchResults("at", "", "", "", 0, 0, [], true)).toEqual([]);
+        expect((await getMULASSearchResults("atl", "", "", "", 0, 0, [], true)).some(isAtlas)).toBe(true);
+        // A short name still searches when another criterion is given.
+        expect((await getMULASSearchResults("at pv=52", "", "", "", 0, 0, [], true)).some(isAtlas)).toBe(true);
     }, 30_000);
 });
